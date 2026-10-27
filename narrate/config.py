@@ -28,6 +28,9 @@ def resolve_provider(config, provider=None):
     cfg['models'] = {}
     for stage, value in source['models'].items():
         model = {'id': value} if isinstance(value, str) else dict(value)
+        override = os.environ.get('NARRATE_MODEL_' + stage.upper())  # e.g. NARRATE_MODEL_ORCHESTRATE
+        if override and name != 'mock':
+            model['id'] = override
         price_stage='fit_alt' if name=='nvidia-dev' and stage=='fit' else stage
         cfg['models'][stage] = {'thinking': source.get('thinking', False), **cfg['prices'][price_stage], **cfg.get('stages', {}).get(stage, {}), **model}
     return cfg
