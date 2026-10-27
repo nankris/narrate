@@ -1,0 +1,5 @@
+numpy>=2.2
+PyYAML>=6
+openai>=1.60
+pytest>=8
+Pillow>=11

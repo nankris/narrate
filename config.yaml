@@ -1,0 +1,16 @@
+base_url: https://api.tokenfactory.nebius.com/v1/
+models:
+  perceive: {id: nvidia/Nemotron-3.5-Super-VL, input_price: 0.30, output_price: 0.90}
+  fit: {id: nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B, input_price: 0.06, output_price: 0.24}
+  lightning: {id: nvidia/Nemotron-3_5-Lightning, input_price: 0.06, output_price: 0.24}
+  edit: {id: nvidia/Nemotron-3-Ultra-550b-a55b, input_price: 1.00, output_price: 3.00}
+perception_strategy: auto
+frame_interval: 3
+silence_db: -35
+silence_min: 1.0
+words_per_second: {en: 2.3, hi: 2.0}
+word_margin: 1
+max_duration: 120
+tts: {backend: espeak, voices: {en: en, hi: hi}, piper_models: {}}
+ducking_level: 0.18
+budget_usd: 0.25

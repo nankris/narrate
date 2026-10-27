@@ -1,0 +1,172 @@
+{
+  "status": "complete",
+  "mock": true,
+  "models": {
+    "perceive": "nvidia/Nemotron-3.5-Super-VL",
+    "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+    "edit": "nvidia/Nemotron-3-Ultra-550b-a55b"
+  },
+  "latency_s": {
+    "probe": 0.06939521300955676,
+    "perceive": 4.6236993512138724e-05,
+    "gaps": 0.15247205999912694,
+    "fit": 2.9287009965628386e-05,
+    "edit": 2.3822998628020287e-05,
+    "tts_en": 0.6371720830065897,
+    "mix_en": 0.6011829269991722,
+    "tts_hi": 0.6298991880030371,
+    "mix_hi": 0.6203042899869615
+  },
+  "cues_dropped": 1,
+  "overlaps_with_speech": 0,
+  "issues": [],
+  "tts": [
+    {
+      "lang": "en",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "en",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "en",
+      "cue": 2,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "en",
+      "cue": 3,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 2,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 3,
+      "speed": 1.0,
+      "trimmed": false
+    }
+  ],
+  "duration_s": 30.0,
+  "perception_strategy": "mock-timestamps",
+  "perception_fallback": false,
+  "gaps": [
+    {
+      "start": 0.0,
+      "end": 1.001587,
+      "duration": 1.001587
+    },
+    {
+      "start": 4.212154,
+      "end": 9.014286,
+      "duration": 4.802132
+    },
+    {
+      "start": 11.429206,
+      "end": 17.000091,
+      "duration": 5.5708850000000005
+    },
+    {
+      "start": 19.480907,
+      "end": 25.052336,
+      "duration": 5.571429000000002
+    },
+    {
+      "start": 27.006757,
+      "end": 30.0,
+      "duration": 2.9932429999999997
+    }
+  ],
+  "gap_coverage_percent": {
+    "en": 91.76706817238504,
+    "hi": 91.76706817238504
+  },
+  "cues": [
+    {
+      "id": 1,
+      "start": 4.292154,
+      "end": 8.934286,
+      "budget": 9,
+      "hi_budget": 8,
+      "en": "A shape moves across the coloured scene",
+      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+    },
+    {
+      "id": 2,
+      "start": 11.509206,
+      "end": 16.920091000000003,
+      "budget": 11,
+      "hi_budget": 9,
+      "en": "A shape moves across the coloured scene",
+      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+    },
+    {
+      "id": 3,
+      "start": 19.560906999999997,
+      "end": 24.972336000000002,
+      "budget": 11,
+      "hi_budget": 9,
+      "en": "A shape moves across the coloured scene",
+      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+    },
+    {
+      "id": 4,
+      "start": 27.086757,
+      "end": 29.92,
+      "budget": 5,
+      "hi_budget": 4,
+      "en": "A shape moves across the",
+      "hi": "एक आकृति रंगीन दृश्य"
+    }
+  ],
+  "usage": [
+    {
+      "stage": "perceive",
+      "model": "MOCK",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "latency_s": 0
+    },
+    {
+      "stage": "fit",
+      "model": "MOCK",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "latency_s": 0
+    },
+    {
+      "stage": "edit",
+      "model": "MOCK",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "latency_s": 0
+    }
+  ],
+  "estimated_cost_usd": 0.0
+}
