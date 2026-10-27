@@ -35,11 +35,11 @@ Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 1
 ---
 
 ## 1. 0:00–0:10: Eyes closed (original audio)
-- **Screen:** Samples tab, *Tears of Steel* selected, **Eyes closed** toggle ON (the video is hidden). Seek the **Original video** player to **0:46** and play about 8 s of music only. The scene is a cyborg leaning over a brain, then the film's title card.
+- **Screen:** Samples tab, *Tears of Steel* selected, **Eyes closed** toggle ON (the video is hidden). Seek the **Original video** player to **0:45** and play about 9 s. You hear one line ("This is pretty freaky."), then music only. The scene is a cyborg leaning over a brain, then the film's title card.
 - **Say:** "Close your eyes. Something just happened on screen. Can you tell what?"
 
 ## 2. 0:10–0:28: Same seconds with Narrate ← KEY MOMENT
-- **Click:** with language **English** selected, seek the **Narrated video** player to **0:46** and play. Under the ducked music you hear: *"A cyborg examines a brain under an arc lamp; title card displays 'Tears of Steel'."*
+- **Click:** with language **English** selected, seek the **Narrated video** player to **0:45** and play. The dialogue line stays untouched; right after it, under the ducked music, you hear: *"A cyborg examines a brain under an arc lamp; title card displays 'Tears of Steel'."*
 - Toggle **Eyes closed** OFF at about 0:22 so viewers see that the description matched.
 - **Say:** "That's Narrate. An AI agent built on NVIDIA Nemotron watched the video and wrote audio description that fits only into the gaps where nobody is talking."
 
