@@ -99,9 +99,9 @@ def test_orchestrator_authored_text_needs_verification(tmp_path):
 
 def test_prompt_and_tools_forbid_self_authored_text():
     from narrate.agent.schema import TOOLS
-    assert 'Never write cue text yourself' in SYSTEM and 'inspect up to 4 gaps per turn' in SYSTEM
+    assert 'instead of hand-editing' in SYSTEM and 'deleting words' not in SYSTEM and 'inspect up to 4 gaps per turn' in SYSTEM
     desc={t['function']['name']:t['function']['description'] for t in TOOLS}
-    assert 'never write cue text yourself' in desc['draft_description'].lower() and 'deleting words' in desc['propose_cue']
+    assert 'hand-editing' in desc['draft_description'] and 'deleting words' not in desc['propose_cue'] and 'auto-redrafts' in desc['propose_cue']
 
 
 # 4 ---- fallback drafts

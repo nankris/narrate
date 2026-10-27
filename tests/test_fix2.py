@@ -140,7 +140,7 @@ def test_orchestrator_500_retried_then_fallback(monkeypatch,tmp_path):
 
 # 3 ---- wrong-event drafts / timestamps
 def test_draft_context_limited_to_gap_window(tmp_path,monkeypatch):
-    a=make_agent(tmp_path,[{'id':0,'start':30.5,'end':31.6,'duration':1.1,'word_budget_en':4,'word_budget_hi':3,'narratable':True}])
+    a=make_agent(tmp_path,[{'id':0,'start':30.5,'end':33.5,'duration':3.,'word_budget_en':4,'word_budget_hi':3,'narratable':True}])
     rocket={'t_start':0,'t_end':9,'what':'rocket ignition','importance':5}
     near={'t_start':30.0,'t_end':31.0,'what':'man looks up','importance':3}
     before=[{'t_start':20,'t_end':22,'what':f'old {i}','importance':3} for i in range(3)]

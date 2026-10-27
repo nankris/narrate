@@ -128,6 +128,7 @@ class Agent:
         self.contradicted=0
         self.draft_history,self.authored,self.call_counts = {},{},Counter()
         self.repeat_refusals=0
+        self.propose_fails,self.inspect_tries,self.auto_redrafts,self.draft_overlimit=Counter(),Counter(),0,0
         self.client.retry_attempts = cfg['agent'].get('retry_attempts',3)
         self.client.on_retry = lambda note: self.trace('system',note=note,ok=False)
         self.steps = []; self.turn=0; self.rejections=0; self.done=False
@@ -206,6 +207,7 @@ class Agent:
                     **({'parent_gap':parent} if len(slots) > 1 else {}),
                     **({} if narratable else {'reason':'too short'}),
                     **{'word_budget_'+lang:word_budget(e-s,self.cfg['words_per_second'][lang],self.cfg['word_margin']) for lang in ('en','hi')}})
+                self.gaps[-1].update({'max_words_'+lang:self.max_words(self.gaps[-1],lang) for lang in ('en','hi')})
         slot_count = sum(g['narratable'] for g in self.gaps)
         self.cfg['agent']['max_inspections'] = max(self.cfg['agent']['max_inspections'],slot_count+2)
         self.report.update(detector=result['detector'],speech_ratio=result['speech_ratio'],detector_fallback_reason=result['fallback_reason'])
@@ -213,7 +215,17 @@ class Agent:
             self.report['issues'].append('Every speech-free gap is shorter than agent.min_gap_s; extended AD is needed.')
         if not self.gaps:
             self.report['issues'].append('Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.')
-        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi','narratable','reason','parent_gap') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
+        return {'gaps':[{k:g[k] for k in ('id','start','end','max_words_en','max_words_hi','narratable','reason','parent_gap') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
+
+    def cue_cap(self,g):
+        """Longest speech a single English cue may take in this gap (seconds)."""
+        return min(g['duration']*.9,self.cfg['agent'].get('max_cue_s',8.))
+
+    def max_words(self,g,lang='en'):
+        """The ONE effective word limit: word budget AND what fits the single-cue duration cap."""
+        budget=g['word_budget_'+lang]
+        fits=word_budget(self.cue_cap(g),self.cfg['words_per_second'][lang],self.cfg['word_margin'])
+        return max(1,min(budget,fits)) if budget>0 else 0
 
     def segment(self,start,end):
         if not all(math.isfinite(x) for x in (start,end)) or not 0 <= start < end <= self.duration:
@@ -239,20 +251,35 @@ class Agent:
         earlier=sorted([e for e in pool if float(e['t_end'])<=w0 and w0-float(e['t_end'])<=10],key=lambda e:float(e['t_end']))[-2:]
         return [{**e,'context':'earlier, context only'} for e in earlier]+inside
 
+    def owned_gaps(self,start,end):
+        """Narratable gaps at least half inside the range (a pre-roll only brushes the previous gap)."""
+        return [g for g in self.gaps if g.get('narratable',True) and min(end,g['end'])-max(start,g['start'])>=.5*g['duration']]
+
+    def refuse_inspection(self,start,end):
+        self.repeat_refusals+=1
+        ids=self.range_gaps(start,end)
+        todo=[i for i in ids if i not in self.cues and i not in self.dropped]
+        return {'ok':False,'error':'already inspected','evidence_gaps':ids,
+            'see':'evidence board gap '+','.join(map(str,ids)) if ids else 'evidence board',
+            'next':f'draft_description(gap_ids={todo})' if todo else 'gaps in this range are already committed; move on'}
+
     def inspect_video_segment(self,start,end,focus=''):
         self.segment(start,end)
         key=(start,end,focus)
         for (s,e,_),cached in self.cache.items():
-            if max(0,min(end,e)-max(start,s))/(end-start)>=.7:
-                self.repeat_refusals+=1
-                ids=self.range_gaps(start,end)
-                todo=[i for i in ids if i not in self.cues and i not in self.dropped]
-                return {'ok':False,'error':'already inspected','evidence_gaps':ids,
-                    'see':'evidence board gap '+','.join(map(str,ids)) if ids else 'evidence board',
-                    'next':f'draft_description(gap_ids={todo})' if todo else 'gaps in this range are already committed; move on'}
+            if not cached.get('events'): continue
+            inter=max(0,min(end,e)-max(start,s))
+            if inter/(end-start)>=.7 or inter/(e-s)>=.9:
+                return self.refuse_inspection(start,end)
+        # Gaps mostly inside this range: refuse when every one already has events (pre-roll variants, sub-ranges)
+        # or was already tried twice with zero events (one retry allowed).
+        owned=self.owned_gaps(start,end)
+        if owned and all(self.inspect_tries[g['id']]>=(1 if self.evidence_line(g) else 2) for g in owned):
+            return self.refuse_inspection(start,end)
         if self.counts['inspections'] >= self.cfg['agent']['max_inspections']:
             return {'ok':False,'error':'Inspection cap reached'}
         self.counts['inspections']+=1
+        for g in self.owned_gaps(start,end): self.inspect_tries[g['id']]+=1
         data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute video t_start/t_end (seconds), what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start),'focus':focus}
         media=None; modality='mock'
         if not self.mock:
@@ -307,21 +334,23 @@ class Agent:
     def next_action(self):
         todo=[g for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped]
         blind=[g['id'] for g in todo if not self.evidence_line(g)]
-        undrafted=[g['id'] for g in todo if g['id'] not in blind and g['id'] not in self.drafts]
+        empty=[i for i in blind if self.inspect_tries[i]>=2]; blind=[i for i in blind if i not in empty]
+        undrafted=[g['id'] for g in todo if g['id'] not in blind+empty and g['id'] not in self.drafts]
         if undrafted: return f'STOP inspecting; call draft_description(gap_ids={undrafted}) now (gaps already have evidence)'
-        if todo and len(blind)<len(todo): return 'propose_cue for gaps '+str([g['id'] for g in todo if g['id'] not in blind])+' using their drafts (delete words only to shorten)'
+        if todo and len(blind)+len(empty)<len(todo): return 'propose_cue for gaps '+str([g['id'] for g in todo if g['id'] not in blind+empty])+' using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)'
         if blind: return f'inspect_video_segment gaps {blind} (no evidence yet)'
+        if empty: return f'drop_gap for gaps {empty}: inspected twice, no events found'
         return 'translate_hindi once, then finalize'
 
     def board_text(self):
         rows=[]
         for g in self.gaps:
             if not g.get('narratable',True): continue
-            gid=g['id']; row=f"gap {gid} {g['start']:.1f}-{g['end']:.1f}s <={g['word_budget_en']}w: "
+            gid=g['id']; row=f"gap {gid} {g['start']:.1f}-{g['end']:.1f}s <={self.max_words(g)}w: "
             if gid in self.cues: row+='COMMITTED "'+self.cues[gid]['en']+'"'
             elif gid in self.dropped: row+='DROPPED ('+self.dropped[gid][:40]+')'
             else:
-                row+='evidence '+(self.evidence_line(g) or 'NONE (not inspected)')
+                row+='evidence '+(self.evidence_line(g) or ('no events found (inspected)' if self.inspect_tries[gid] else 'NONE (not inspected)'))
                 if gid in self.drafts: row+=' | draft "'+self.drafts[gid]+'"'
             rows.append(row)
         return ('[EVIDENCE BOARD - authoritative state; never re-inspect a gap that has evidence. Use draft_description(gap_ids=[...]) and propose its text]\n'
@@ -383,29 +412,82 @@ class Agent:
     def gap(self,gap_id):
         return next(g for g in self.gaps if g['id']==gap_id)
 
+    def onscreen(self,g,context_events=None):
+        """Distinct on-screen texts among the (non-context) events of one gap, most important first."""
+        out=[]
+        for e in sorted([e for e in self.gap_events(g,context_events) if 'context' not in e],key=lambda e:-float(e.get('importance') or 0)):
+            t=e.get('on_screen_text')
+            if isinstance(t,str) and t.strip() and t.strip() not in out: out.append(t.strip())
+        return out
+
+    @staticmethod
+    def trim_words(text,limit):
+        words=text.split()[:max(1,limit)]
+        out=' '.join(words).rstrip(' ,;:.!?-')
+        if out.count('"')%2: out+='"'
+        return out+'.'
+
+    def fallback_text(self,g,limit,context_events=None,draft=''):
+        """Deterministic last resort: on-screen text first, else the draft/first event cut at a word boundary."""
+        texts=self.onscreen(g,context_events)
+        if texts:
+            title=f'Title: "{texts[0]}"'
+            return self.trim_words(title if len(title.split())<=limit else f'"{texts[0]}"',limit)
+        if not draft:
+            evs=[e for e in self.gap_events(g,context_events) if 'context' not in e]
+            draft=str(evs[0].get('what','')) if evs else ''
+        return self.trim_words(draft,limit) if draft.strip() else ''
+
+    def draft_batch(self,gaps,limits,context_events=None,avoid=None):
+        """Draft one line per gap (cheap fit model), then enforce each gap's word limit server-side.
+
+        Over-limit drafts are re-asked ONCE (batched, failing gaps only, hard limit); anything still over is
+        replaced deterministically, so every returned draft fits."""
+        avoid=avoid or {}
+        def ask(todo,hard):
+            payload=[{'id':g['id'],'start':g['start'],'end':g['end'],'duration':round(g['duration'],2),'max_words':limits[g['id']],
+                      'on_screen_text':self.onscreen(g,context_events),'events':self.gap_events(g,context_events),
+                      **({'avoid_repeating':avoid[g['id']]} if avoid.get(g['id']) else {})} for g in todo]
+            single={'events':payload[0]['events'],'max_words':payload[0]['max_words'],'avoid_repeating':payload[0].get('avoid_repeating','')} if len(todo)==1 else {}
+            lead='HARD LIMIT: your previous draft was too long; every text MUST have at most max_words words. ' if hard else ''
+            def mock_text(g):
+                if self.mock and getattr(self,'inject_overbudget',False) and not hard: return 'word '*(limits[g['id']]+5)
+                return self.mock_line(self.mock_events(g['start'],g['end']),limits[g['id']])
+            result=self.submodel('fit',{'instruction':lead+'Draft one English audio-description cue per gap. Return {cues:[{id,text}]}. Quote on-screen text verbatim when present (it is the most important content); <= max_words words; describe only events in this gap. Events tagged "earlier, context only" must not be described.',
+                'gaps':payload,**single},mock_result={'cues':[{'id':g['id'],'text':mock_text(g)} for g in todo]})
+            if not hard: self.inject_overbudget=False
+            if len(todo)==1 and isinstance(result.get('text'),str): return {todo[0]['id']:result['text']}
+            return {c['id']:c['text'] for c in result.get('cues',[]) if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in limits}
+        texts=ask(gaps,False)
+        over=[g for g in gaps if len(texts.get(g['id'],'').split())>limits[g['id']] or g['id'] not in texts]
+        self.draft_overlimit+=sum(g['id'] in texts for g in over)
+        if over:
+            texts.update({i:t for i,t in ask(over,True).items() if t.strip()})
+        out={}
+        for g in gaps:
+            t=texts.get(g['id'],'')
+            if not t.strip() or len(t.split())>limits[g['id']]:
+                t=self.fallback_text(g,limits[g['id']],context_events,t)
+            if not t: continue
+            out[g['id']]=t
+            self.drafts[g['id']]=t; self.draft_history.setdefault(g['id'],[]).append(t)
+        return out
+
     def draft_description(self,gap_id=None,context_events=None,max_words=None,avoid_repeating='',gap_ids=None):
         if gap_ids is not None:
             gaps=[self.gap(i) for i in gap_ids]
             usable=[g for g in gaps if g.get('narratable',True)]
-            result=self.submodel('fit',{'instruction':'Draft one English cue per gap, obey word_budget_en. Return {cues:[{id,text}]}. Use only the events listed under each gap; events tagged "earlier, context only" must not be described.', 'gaps':[{**g,'events':self.gap_events(g,context_events)} for g in usable]},mock_result={'cues':[{'id':g['id'],'text':self.mock_line(self.mock_events(g['start'],g['end']),g['word_budget_en'])} for g in usable]})
-            for c in result.get('cues',[]):
-                if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in {g['id'] for g in usable}:
-                    self.drafts[c['id']]=c['text']; self.draft_history.setdefault(c['id'],[]).append(c['text'])
+            limits={g['id']:max(1,min(max_words or 99,self.max_words(g))) for g in usable}
+            out=self.draft_batch(usable,limits,context_events) if usable else {}
+            result={'cues':[{'id':i,'text':t,'max_words':limits[i]} for i,t in out.items()]}
             skipped=[g['id'] for g in gaps if not g.get('narratable',True)]
             return {**result,'skipped_too_short':skipped} if skipped else result
         g=self.gap(gap_id)
         if not g.get('narratable',True):
             return {'ok':False,'problems':['too short'],'reason':'too short'}
-        limit=max(1,min(max_words or g['word_budget_en'],g['word_budget_en']))
-        events=self.gap_events(g,context_events)
-        mock_text=self.mock_line(self.mock_events(g['start'],g['end']),limit)
-        if self.mock and getattr(self,'inject_overbudget',False):
-            mock_text='word '*(g['word_budget_en']+5)
-            self.inject_overbudget=False
-        result=self.submodel('fit',{'instruction':'Write ONE English line of audio description <= max_words. Return {text: string}. Use supplied facts only; events tagged "earlier, context only" must not be described.','gap':g,'events':events,'max_words':limit,'avoid_repeating':avoid_repeating},mock_result={'text':mock_text})
-        if isinstance(result.get('text'),str):
-            self.drafts[gap_id]=result['text']; self.draft_history.setdefault(gap_id,[]).append(result['text'])
-        return result
+        limit=max(1,min(max_words or self.max_words(g),self.max_words(g)))
+        out=self.draft_batch([g],{gap_id:limit},context_events,{gap_id:avoid_repeating})
+        return {'text':out[gap_id],'max_words':limit} if gap_id in out else {'ok':False,'problems':['no draft produced from the evidence']}
 
     def measure_tts_duration(self,text,lang):
         if lang not in ('en','hi') or not isinstance(text,str) or len(text)>4000:
@@ -421,12 +503,12 @@ class Agent:
         g=self.gap(gap_id); problems=[]
         if not g.get('narratable',True):
             return {'ok':False,'problems':['too short'],'reason':'too short','suggested_max_words':0,'seconds':0,'overlap_seconds':0}
-        budget=g['word_budget_'+lang]
+        limit=self.max_words(g,lang)
         count=len(text.split())
         if not text.strip() or '\n' in text or '-->' in text:
             problems.append('Text must be one nonempty line')
-        if count>budget and lang!='hi':
-            problems.append('Word budget exceeded')
+        if count>g['word_budget_'+lang] and lang!='hi':
+            problems.append(f"Word budget exceeded (max {limit} words)")
         if re.search(r'\b(we see|the camera)\b',text,re.I):
             problems.append('Banned phrase')
         if lang=='hi' and not re.search('[\u0900-\u097f]',text):
@@ -435,14 +517,17 @@ class Agent:
         allowed=g['duration']*self.cfg['agent']['max_atempo']
         if seconds > allowed:
             problems.append('TTS duration exceeds allowed speedup')
+        target=allowed
         if lang=='en':
-            allowed=min(g['duration']*.9,self.cfg['agent'].get('max_cue_s',8.))
-            if seconds > allowed:
-                problems.append(f'cue too long for a single description; keep it under {allowed:.1f} s')
+            cap=self.cue_cap(g); target=min(allowed,cap)
+            # A text inside the effective word limit is not rejected on the estimate-based cap alone.
+            if seconds > cap and (count>limit or seconds>allowed):
+                problems.append(f'cue too long for a single description; keep it under {cap:.1f} s')
         overlap=sum(max(0,min(g['end'],s['end'])-max(g['start'],s['start'])) for s in self.speech)
         if overlap>1e-6:
             problems.append('Overlaps detected speech')
-        suggested=min(budget,max(1,int(count*allowed/max(seconds,.001)) ))
+        suggested=min(limit,max(1,int(count*target/max(seconds,.001))))
+        if count>1 and seconds>target: suggested=min(suggested,count-1)
         result={'ok':not problems,'problems':problems,'suggested_max_words':suggested,'seconds':seconds,'overlap_seconds':overlap}
         if result['ok'] and lang=='en':
             # Best fitting candidate: the fallback finisher commits it if the agent never does.
@@ -450,7 +535,7 @@ class Agent:
             result['next']='call propose_cue/commit_cue to commit'
         return result
 
-    def commit_cue(self,gap_id,text):
+    def _commit(self,gap_id,text):
         result=self.check_fit(gap_id,text,'en')
         if not result['ok']:
             return result
@@ -471,8 +556,34 @@ class Agent:
         else: self.authored.pop(gap_id,None)
         reasons=self.verification_reasons(gap_id)
         extra={'verify_required':reasons,'next':'call verify_claim(gap_id, claim) before finalize'} if reasons and gap_id not in self.verified else {}
-        if own: extra['orchestrator_authored']='text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Next time propose the draft text, shortening only by deleting words.'
+        if own: extra['orchestrator_authored']='text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).'
         return {'ok':True,'cue':self.cues[gap_id],**extra}
+
+    def commit_cue(self,gap_id,text):
+        """Fit-check and commit. The 2nd failure for a gap auto-redrafts it (cheap fit call); the 4th try is refused."""
+        g=self.gap(gap_id)
+        if self.propose_fails[gap_id]>=3:
+            self.repeat_refusals+=1
+            return {'ok':False,'error':'3 proposals for this gap already failed','problems':['too many failed proposals'],'next':'drop_gap or move on'}
+        result=self._commit(gap_id,text)
+        if result['ok']: return result
+        self.propose_fails[gap_id]+=1
+        if self.propose_fails[gap_id]==2 and g.get('narratable',True) and 'suggested_max_words' in result:
+            try:
+                limit=max(1,min(result['suggested_max_words'],self.max_words(g)))
+                new=self.draft_batch([g],{gap_id:limit},avoid={gap_id:text}).get(gap_id)
+                again=self._commit(gap_id,new) if new else None
+            except BudgetExceeded:
+                raise
+            except Exception as exc:
+                new,again=None,None; result['auto_redraft']='unavailable: '+sanitize(exc)
+            if again and again['ok']:
+                self.auto_redrafts+=1
+                return {**again,'auto_redrafted':True}
+            if new: result['auto_redraft']=f'tried "{new}": '+'; '.join(again['problems'])
+        if self.propose_fails[gap_id]>=3: result['next']='drop_gap or move on'
+        elif self.propose_fails[gap_id]==1: result['next']=f"call draft_description(gap_ids=[{gap_id}], max_words={result.get('suggested_max_words')}) instead of hand-editing"
+        return result
 
     propose_cue = commit_cue
 
@@ -649,7 +760,7 @@ class Agent:
             skip=self.rejected.get(gid,[])
             candidate=self.candidates.get(gid)
             if candidate and not any(similarity(candidate,r)>=.8 for r in skip):
-                result=self.commit_cue(gid,candidate)
+                result=self._commit(gid,candidate)
                 if result['ok']:
                     note(f'Gap {gid}: committed best fitting candidate "{candidate}"','commit_cue',args={'gap_id':gid}); continue
                 note(f"Gap {gid}: candidate rejected ({'; '.join(result['problems'])})",'commit_cue',False)
@@ -660,7 +771,7 @@ class Agent:
                 if not fit['ok']:
                     words=draft.split()[:fit['suggested_max_words']]
                     text=' '.join(words).rstrip(' ,;:.!?-')+'.' if words else ''
-                result=self.commit_cue(gid,text) if text else {'ok':False,'problems':['empty after trimming']}
+                result=self._commit(gid,text) if text else {'ok':False,'problems':['empty after trimming']}
                 if result['ok']:
                     note(f'Gap {gid}: committed latest draft'+('' if text==draft else ' shortened to fit')+f': "{text}"','commit_cue',args={'gap_id':gid}); continue
                 note(f"Gap {gid}: shortened draft still unusable ({'; '.join(result['problems'])})",'commit_cue',False)
@@ -694,7 +805,7 @@ class Agent:
             'corrections':sum(s['correction'] for s in self.steps),
             'verifications':{'verified':sum(v=='supported' for v in self.verified.values()),'contradicted':self.contradicted,
                 'unverified':sum(self.verified.get(g)!='supported' for g in self.verified_required())},
-            'repeat_refusals':self.repeat_refusals,'orchestrator_authored_cues':sum(self.authored.get(g)==c['en'] for g,c in self.cues.items()),
+            'repeat_refusals':self.repeat_refusals,'auto_redrafts':self.auto_redrafts,'draft_overlimit':self.draft_overlimit,'orchestrator_authored_cues':sum(self.authored.get(g)==c['en'] for g,c in self.cues.items()),
             'orchestrator_turns':sum(s['role']=='orchestrator' for s in self.steps),'cost_by_model':{},'total_latency_s':time.monotonic()-self.started}
         for s in self.steps:
             if s['model']:

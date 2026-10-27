@@ -33,3 +33,7 @@ Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsort
 ## Fourth real-run fixes
 
 - [reinspection-loop](real-run-reinspection-loop.md): ultra re-inspected all 10 slots twice (31 inspections, 36 turns, 0 drafts, 2 cues / 13 % coverage), wrote ungrounded cue text, fallback dropped 7 slots - evidence board, repeat refusals, grounded-text check and batched fallback drafting added offline.
+
+## Fourth real-run fixes (after fix4)
+
+- [fix4-propose-loop](real-run-fix4-propose-loop.md): 38 `propose_cue` calls / 30 turns on a 30 s clip (two limits, dropped on-screen text, hand-trimming) - fixed offline.
