@@ -3,33 +3,78 @@
 - 1 ✓ orchestrator : I will check the available evidence and timing before committing narration.
 - 2 ✓ tool detect_speech_gaps: I will check the available evidence and timing before committing narration.
 - 3 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 4 ✓ submodel : {"events": [{"t_start": 0, "t_end": 79.17, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
+- 4 ✓ submodel : {"events": [{"t_start": 0, "t_end": 10, "who": "Mock scene", "action": "Aerial farmland stretches below", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Aerial farmland stretches below", "confid
 - 5 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 6 ✓ submodel : {"text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word 
+- 6 ✓ submodel : {"text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "}
 - 7 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
 - 8 ✗ tool check_fit: I will check the available evidence and timing before committing narration.
 - 9 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
-- 10 ✓ submodel : {"text": "A static scene is displayed"}
+- 10 ✓ submodel : {"text": "Aerial farmland stretches below"}
 - 11 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 8)
 - 12 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
 - 13 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
 - 14 ✗ tool verify_claim: I will check the available evidence and timing before committing narration.
 - 15 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
-- 16 ✓ submodel : {"text": "A static scene is displayed"}
+- 16 ✓ submodel : {"text": "Aerial farmland stretches below"}
 - 17 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 14)
 - 18 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
-- 19 ✓ submodel : {"events": [{"t_start": 82.12, "t_end": 109.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
+- 19 ✓ submodel : {"events": [{"t_start": 10, "t_end": 20, "who": "Mock scene", "action": "Tractor crosses a dry field", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Tractor crosses a dry field", "confidence": 
 - 20 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
 - 21 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 22 ✓ submodel : {"text": "A static scene is displayed"}
+- 22 ✓ submodel : {"text": "Tractor crosses a dry field"}
 - 23 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 24 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 25 ✓ submodel : {"cues": [{"id": 0, "hi": "दृश्य दिखाई देता है।"}]}
-- 26 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
+- 24 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 25 ✓ submodel : {"events": [{"t_start": 20, "t_end": 30, "who": "Mock scene", "action": "Harvester cuts golden crops", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Harvester cuts golden crops", "confidence": 
+- 26 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
 - 27 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 28 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
-- 29 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 30 ✓ submodel : {"verdict": "uncertain", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
-- 31 ✓ tool verify_claim: I will check the available evidence and timing before committing narration.
-- 32 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 33 ✓ tool finalize: I will check the available evidence and timing before committing narration.
+- 28 ✓ submodel : {"text": "Harvester cuts golden crops"}
+- 29 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 30 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 31 ✓ submodel : {"events": [{"t_start": 30, "t_end": 40, "who": "Mock scene", "action": "Workers load boxes onto trucks", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Workers load boxes onto trucks", "confide
+- 32 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 33 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 34 ✓ submodel : {"text": "Workers load boxes onto trucks"}
+- 35 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 36 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 37 ✓ submodel : {"events": [{"t_start": 40, "t_end": 50, "who": "Mock scene", "action": "Satellite map highlights the coast", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Satellite map highlights the coast", 
+- 38 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 39 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 40 ✓ submodel : {"text": "Green vineyards line a hillside"}
+- 41 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 42 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 43 ✓ submodel : {"events": [{"t_start": 60, "t_end": 70, "who": "Mock scene", "action": "Orchards glow in morning light", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Orchards glow in morning light", "confide
+- 44 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 45 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 46 ✓ submodel : {"text": "Orchards glow in morning light"}
+- 47 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 48 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 49 ✓ submodel : {"events": [{"t_start": 70, "t_end": 80, "who": "Mock scene", "action": "Irrigation canals cross brown plains", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Irrigation canals cross brown plain
+- 50 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 51 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 52 ✓ submodel : {"text": "Irrigation canals cross brown plains"}
+- 53 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 54 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 55 ✓ submodel : {"events": [{"t_start": 80, "t_end": 90, "who": "Mock scene", "action": "Cargo ship leaves a busy port", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Cargo ship leaves a busy port", "confidenc
+- 56 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 57 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 58 ✓ submodel : {"text": "Cargo ship leaves a busy port"}
+- 59 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 60 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 61 ✓ submodel : {"events": [{"t_start": 90, "t_end": 100, "who": "Mock scene", "action": "Mountains rise behind the valley", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Mountains rise behind the valley", "co
+- 62 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 63 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 64 ✓ submodel : {"text": "Mountains rise behind the valley"}
+- 65 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 66 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 67 ✓ submodel : {"events": [{"t_start": 100, "t_end": 110, "who": "Mock scene", "action": "Closing view shows quiet farmland", "on_screen_text": "", "importance": 3, "hi": "दृश्य बदलता है।", "what": "Closing view shows quiet farmland", 
+- 68 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 69 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 70 ✓ submodel : {"text": "Closing view shows quiet farmland"}
+- 71 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 72 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 73 ✓ submodel : {"cues": [{"id": 0, "hi": "दृश्य बदलता है।"}, {"id": 1, "hi": "दृश्य बदलता है।"}, {"id": 2, "hi": "दृश्य बदलता है।"}, {"id": 3, "hi": "दृश्य बदलता है।"}, {"id": 4, "hi": "दृश्य बदलता है।"}, {"id": 5, "hi": "दृश्य बदलता ह
+- 74 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
+- 75 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 76 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
+- 77 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 78 ✓ tool finalize: I will check the available evidence and timing before committing narration.

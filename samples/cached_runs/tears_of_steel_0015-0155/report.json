@@ -151,11 +151,52 @@
     {
       "id": 4,
       "start": 47.611999999999995,
-      "end": 99.92,
-      "duration": 52.30800000000001,
+      "end": 59.0,
+      "duration": 11.388000000000005,
       "narratable": true,
-      "word_budget_en": 119,
-      "word_budget_hi": 135
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27
+    },
+    {
+      "id": 6,
+      "start": 69.8,
+      "end": 80.4,
+      "duration": 10.600000000000009,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
+    },
+    {
+      "id": 7,
+      "start": 80.4,
+      "end": 89.4584,
+      "duration": 9.058399999999992,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 8,
+      "start": 89.4584,
+      "end": 99.92,
+      "duration": 10.461600000000004,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
     }
   ],
   "speech": [
@@ -189,10 +230,14 @@
     }
   ],
   "cues_committed": 2,
-  "cues_dropped": 2,
+  "cues_dropped": 6,
   "dropped_gaps": {
     "3": "Same on-screen title is already narrated in an earlier gap",
-    "4": "Same on-screen title is already narrated in an earlier gap"
+    "4": "Same on-screen title is already narrated in an earlier gap",
+    "5": "Same on-screen title is already narrated in an earlier gap",
+    "6": "Same on-screen title is already narrated in an earlier gap",
+    "7": "Same on-screen title is already narrated in an earlier gap",
+    "8": "Same on-screen title is already narrated in an earlier gap"
   },
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
@@ -220,12 +265,12 @@
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 4,
-      "draft_description": 6,
+      "inspect_video_segment": 8,
+      "draft_description": 10,
       "check_fit": 1,
       "propose_cue": 3,
       "verify_claim": 3,
-      "drop_gap": 2,
+      "drop_gap": 6,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
@@ -236,18 +281,18 @@
       "contradicted": 1,
       "unverified": 2
     },
-    "orchestrator_turns": 10,
+    "orchestrator_turns": 14,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 6.308251896000002
+    "total_latency_s": 7.143971175988554
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 6.308251896000002
+  "latency_s": 7.143971175988554
 }

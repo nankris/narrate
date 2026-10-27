@@ -262,11 +262,11 @@
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 3.4607736830075737
+    "total_latency_s": 3.091923903004499
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 3.4607736830075737
+  "latency_s": 3.091923903004499
 }

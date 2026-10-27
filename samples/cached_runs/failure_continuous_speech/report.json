@@ -66,11 +66,11 @@
     "cost_by_model": {
       "MOCK/orchestrate": 0
     },
-    "total_latency_s": 2.547173434999422
+    "total_latency_s": 2.6166772989963647
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 2.547173434999422
+  "latency_s": 2.6166772989963647
 }

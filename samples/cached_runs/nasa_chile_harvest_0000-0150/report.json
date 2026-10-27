@@ -4,9 +4,7 @@
   "dev_only": false,
   "duration_s": 110.0,
   "fallback_finalize": false,
-  "issues": [
-    "Cue 0: unverified"
-  ],
+  "issues": [],
   "detector": "silero-onnx",
   "speech_ratio": 0.04356363636363625,
   "detector_fallback_reason": null,
@@ -15,13 +13,158 @@
     {
       "id": 0,
       "start": 0.08,
-      "end": 79.17200000000001,
-      "duration": 79.09200000000001,
+      "end": 11.378857142857145,
+      "duration": 11.298857142857145,
       "narratable": true,
-      "word_budget_en": 180,
-      "word_budget_hi": 204,
-      "en": "A static scene",
-      "hi": "दृश्य दिखाई देता है।",
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Aerial farmland stretches",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.378857142857145,
+      "end": 22.677714285714288,
+      "duration": 11.298857142857143,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Tractor crosses a dry field",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 22.677714285714288,
+      "end": 33.97657142857143,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Harvester cuts golden crops",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 33.97657142857143,
+      "end": 45.27542857142858,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Workers load boxes onto trucks",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 45.27542857142858,
+      "end": 56.574285714285715,
+      "duration": 11.298857142857138,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Green vineyards line a hillside",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 5,
+      "start": 56.574285714285715,
+      "end": 67.87314285714287,
+      "duration": 11.298857142857152,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Orchards glow in morning light",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 6,
+      "start": 67.87314285714287,
+      "end": 79.17200000000001,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Irrigation canals cross brown plains",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 7,
+      "start": 84.124,
+      "end": 92.72266666666667,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21,
+      "en": "Cargo ship leaves a busy port",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 8,
+      "start": 92.72266666666667,
+      "end": 101.32133333333333,
+      "duration": 8.59866666666666,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21,
+      "en": "Mountains rise behind the valley",
+      "hi": "दृश्य बदलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 9,
+      "start": 101.32133333333333,
+      "end": 109.92,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21,
+      "en": "Closing view shows quiet farmland",
+      "hi": "दृश्य बदलता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -33,13 +176,158 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 1.465714,
-        "duration": 79.09200000000001,
+        "end": 2.029478,
+        "duration": 11.298857142857145,
         "narratable": true,
-        "word_budget_en": 180,
-        "word_budget_hi": 204,
-        "en": "A static scene",
-        "hi": "दृश्य दिखाई देता है।",
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Aerial farmland stretches",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.378857142857145,
+        "end": 13.509560142857145,
+        "duration": 11.298857142857143,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Tractor crosses a dry field",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 22.677714285714288,
+        "end": 25.01413128571429,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Harvester cuts golden crops",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 33.97657142857143,
+        "end": 36.37575542857143,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Workers load boxes onto trucks",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 45.27542857142858,
+        "end": 47.423410571428576,
+        "duration": 11.298857142857138,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Green vineyards line a hillside",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 56.574285714285715,
+        "end": 58.613333714285716,
+        "duration": 11.298857142857152,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Orchards glow in morning light",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 67.87314285714287,
+        "end": 70.62012685714286,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Irrigation canals cross brown plains",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 84.124,
+        "end": 86.443637,
+        "duration": 8.598666666666674,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Cargo ship leaves a busy port",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 8,
+        "start": 92.72266666666667,
+        "end": 95.02243966666667,
+        "duration": 8.59866666666666,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Mountains rise behind the valley",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 9,
+        "start": 101.32133333333333,
+        "end": 104.02047133333333,
+        "duration": 8.598666666666674,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Closing view shows quiet farmland",
+        "hi": "दृश्य बदलता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -50,13 +338,158 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 1.9330610000000001,
-        "duration": 79.09200000000001,
+        "end": 1.575102,
+        "duration": 11.298857142857145,
         "narratable": true,
-        "word_budget_en": 180,
-        "word_budget_hi": 204,
-        "en": "A static scene",
-        "hi": "दृश्य दिखाई देता है।",
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Aerial farmland stretches",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.378857142857145,
+        "end": 12.873959142857144,
+        "duration": 11.298857142857143,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Tractor crosses a dry field",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 22.677714285714288,
+        "end": 24.172816285714287,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Harvester cuts golden crops",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 33.97657142857143,
+        "end": 35.471673428571435,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Workers load boxes onto trucks",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 45.27542857142858,
+        "end": 46.77053057142858,
+        "duration": 11.298857142857138,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Green vineyards line a hillside",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 56.574285714285715,
+        "end": 58.06938771428572,
+        "duration": 11.298857142857152,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Orchards glow in morning light",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 67.87314285714287,
+        "end": 69.36824485714287,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Irrigation canals cross brown plains",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 84.124,
+        "end": 85.619102,
+        "duration": 8.598666666666674,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Cargo ship leaves a busy port",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 8,
+        "start": 92.72266666666667,
+        "end": 94.21776866666667,
+        "duration": 8.59866666666666,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Mountains rise behind the valley",
+        "hi": "दृश्य बदलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 9,
+        "start": 101.32133333333333,
+        "end": 102.81643533333333,
+        "duration": 8.598666666666674,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 18,
+        "word_budget_hi": 21,
+        "en": "Closing view shows quiet farmland",
+        "hi": "दृश्य बदलता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -68,20 +501,102 @@
     {
       "id": 0,
       "start": 0.08,
-      "end": 79.17200000000001,
-      "duration": 79.09200000000001,
+      "end": 11.378857142857145,
+      "duration": 11.298857142857145,
       "narratable": true,
-      "word_budget_en": 180,
-      "word_budget_hi": 204
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
     },
     {
       "id": 1,
-      "start": 84.124,
-      "end": 109.92,
-      "duration": 25.796000000000006,
+      "start": 11.378857142857145,
+      "end": 22.677714285714288,
+      "duration": 11.298857142857143,
       "narratable": true,
-      "word_budget_en": 58,
-      "word_budget_hi": 66
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 2,
+      "start": 22.677714285714288,
+      "end": 33.97657142857143,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 3,
+      "start": 33.97657142857143,
+      "end": 45.27542857142858,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 4,
+      "start": 45.27542857142858,
+      "end": 56.574285714285715,
+      "duration": 11.298857142857138,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 5,
+      "start": 56.574285714285715,
+      "end": 67.87314285714287,
+      "duration": 11.298857142857152,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 6,
+      "start": 67.87314285714287,
+      "end": 79.17200000000001,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 7,
+      "start": 84.124,
+      "end": 92.72266666666667,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
+    },
+    {
+      "id": 8,
+      "start": 92.72266666666667,
+      "end": 101.32133333333333,
+      "duration": 8.59866666666666,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
+    },
+    {
+      "id": 9,
+      "start": 101.32133333333333,
+      "end": 109.92,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
     }
   ],
   "speech": [
@@ -90,15 +605,13 @@
       "end": 84.044
     }
   ],
-  "cues_committed": 1,
-  "cues_dropped": 1,
-  "dropped_gaps": {
-    "1": "Same on-screen title is already narrated in an earlier gap"
-  },
+  "cues_committed": 10,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 1.3211368316680645,
-    "hi": 1.7667044847837692
+    "en": 21.993310960262374,
+    "hi": 14.254271222637493
   },
   "high_importance_covered_percent": 100,
   "events_in_speech_regions": {
@@ -121,12 +634,11 @@
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 2,
-      "draft_description": 4,
+      "inspect_video_segment": 10,
+      "draft_description": 12,
       "check_fit": 1,
-      "propose_cue": 2,
-      "verify_claim": 2,
-      "drop_gap": 1,
+      "propose_cue": 11,
+      "verify_claim": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
@@ -135,20 +647,20 @@
     "verifications": {
       "verified": 0,
       "contradicted": 1,
-      "unverified": 1
+      "unverified": 0
     },
-    "orchestrator_turns": 8,
+    "orchestrator_turns": 15,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 7.470028605006519
+    "total_latency_s": 11.694035309992614
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 7.470028605006519
+  "latency_s": 11.694035309992614
 }

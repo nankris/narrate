@@ -1,0 +1,101 @@
+[
+ {
+  "t_start": 0,
+  "t_end": 10,
+  "who": "Mock scene",
+  "action": "Aerial farmland stretches below",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 10,
+  "t_end": 20,
+  "who": "Mock scene",
+  "action": "Tractor crosses a dry field",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 20,
+  "t_end": 30,
+  "who": "Mock scene",
+  "action": "Harvester cuts golden crops",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 30,
+  "t_end": 40,
+  "who": "Mock scene",
+  "action": "Workers load boxes onto trucks",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 40,
+  "t_end": 50,
+  "who": "Mock scene",
+  "action": "Satellite map highlights the coast",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 50,
+  "t_end": 60,
+  "who": "Mock scene",
+  "action": "Green vineyards line a hillside",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 60,
+  "t_end": 70,
+  "who": "Mock scene",
+  "action": "Orchards glow in morning light",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 70,
+  "t_end": 80,
+  "who": "Mock scene",
+  "action": "Irrigation canals cross brown plains",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 80,
+  "t_end": 90,
+  "who": "Mock scene",
+  "action": "Cargo ship leaves a busy port",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 90,
+  "t_end": 100,
+  "who": "Mock scene",
+  "action": "Mountains rise behind the valley",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ },
+ {
+  "t_start": 100,
+  "t_end": 110,
+  "who": "Mock scene",
+  "action": "Closing view shows quiet farmland",
+  "on_screen_text": "",
+  "importance": 3,
+  "hi": "दृश्य बदलता है।"
+ }
+]

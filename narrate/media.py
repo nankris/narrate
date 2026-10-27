@@ -60,6 +60,37 @@ def detect_gaps(path, duration, has_audio, cfg, force_energy=False):
     return energy_gaps(np.frombuffer(pcm, dtype='<f4'), noise_db=cfg['silence_db'], minimum=cfg['silence_min'])
 
 
+def scene_cuts(path, threshold=.3, timeout=60):
+    """Scene-change times (seconds) from a cheap downscaled pass; [] on any failure or timeout."""
+    try:
+        done = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-threads', '2', '-i', str(path), '-an', '-vf',
+            f"fps=5,scale=320:-2,select='gt(scene,{threshold})',showinfo", '-f', 'null', '-'],
+            capture_output=True, timeout=timeout)
+        return sorted({round(float(t), 3) for t in re.findall(r'pts_time:([\d.]+)', done.stderr.decode(errors='replace'))})
+    except (subprocess.SubprocessError, OSError, ValueError):
+        return []
+
+
+def split_slots(start, end, max_slot=12., cuts=(), snap=2., floor=4.):
+    """Split [start,end] into consecutive slots of roughly equal length (6-12 s when end-start > max_slot).
+
+    Interior boundaries snap to the nearest scene cut within +-snap seconds when that keeps every slot
+    between `floor` and `max_slot`. Returns [(start, end), ...]."""
+    total = end - start
+    if total <= max_slot:
+        return [(start, end)]
+    n = math.ceil(total / max_slot)
+    bounds = [start]
+    for i in range(1, n):
+        ideal = start + total * i / n
+        left = n - i
+        options = [c for c in cuts if abs(c - ideal) <= snap and floor <= c - bounds[-1] <= max_slot
+                   and floor * left <= end - c <= max_slot * left]
+        bounds.append(min(options, key=lambda c: abs(c - ideal)) if options else ideal)
+    bounds.append(end)
+    return list(zip(bounds[:-1], bounds[1:]))
+
+
 def word_budget(duration, wps=2.3, margin=1):
     return max(0, math.floor(duration * wps - margin))
 

@@ -10,10 +10,10 @@ from urllib.parse import urlparse
 import jsonschema
 from ..config import load_config, resolve_provider
 from ..llm import Client, SpendGuard, BudgetExceeded, SYSTEM as SUBSYSTEM, sanitize, normalize_json
-from ..media import probe, ffmpeg, word_budget, write_texts
+from ..media import probe, ffmpeg, word_budget, write_texts, scene_cuts, split_slots
 from ..perception import data_url, separate_frames
 from ..tts import backend, mix
-from .models import SYSTEM, Orchestrator, MockOrchestrator
+from .models import SYSTEM, Orchestrator, MockOrchestrator, compact_history
 from .schema import TOOLS
 from .vad import detect
 
@@ -191,18 +191,27 @@ class Agent:
         result = detect(self.path,self.duration,self.has_audio,self.cfg)
         cfg_min_gap = self.cfg['agent'].get('min_gap_s',1.5)
         self.speech=result['speech']; self.gaps=[]
-        for i,g in enumerate(result['gaps']):
-            start,end = g['start']+.08,g['end']-.08
+        max_slot = self.cfg['agent'].get('max_slot_s',12)
+        raw = [(g['start']+.08,g['end']-.08) for g in result['gaps']]
+        cuts = []
+        if any(e-s >= cfg_min_gap and e-s > max_slot for s,e in raw):
+            cuts = scene_cuts(self.path)
+        for parent,(start,end) in enumerate(raw):
             narratable = end-start >= cfg_min_gap
-            self.gaps.append({'id':i,'start':start,'end':end,'duration':end-start,'narratable':narratable,
-                **({} if narratable else {'reason':'too short'}),
-                **{'word_budget_'+lang:word_budget(end-start,self.cfg['words_per_second'][lang],self.cfg['word_margin']) for lang in ('en','hi')}})
+            slots = split_slots(start,end,max_slot,cuts) if narratable else [(start,end)]
+            for s,e in slots:
+                self.gaps.append({'id':len(self.gaps),'start':s,'end':e,'duration':e-s,'narratable':narratable,
+                    **({'parent_gap':parent} if len(slots) > 1 else {}),
+                    **({} if narratable else {'reason':'too short'}),
+                    **{'word_budget_'+lang:word_budget(e-s,self.cfg['words_per_second'][lang],self.cfg['word_margin']) for lang in ('en','hi')}})
+        slot_count = sum(g['narratable'] for g in self.gaps)
+        self.cfg['agent']['max_inspections'] = max(self.cfg['agent']['max_inspections'],slot_count+2)
         self.report.update(detector=result['detector'],speech_ratio=result['speech_ratio'],detector_fallback_reason=result['fallback_reason'])
         if self.gaps and not any(g['narratable'] for g in self.gaps):
             self.report['issues'].append('Every speech-free gap is shorter than agent.min_gap_s; extended AD is needed.')
         if not self.gaps:
             self.report['issues'].append('Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.')
-        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi','narratable','reason') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
+        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi','narratable','reason','parent_gap') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
 
     def segment(self,start,end):
         if not all(math.isfinite(x) for x in (start,end)) or not 0 <= start < end <= self.duration:
@@ -376,12 +385,17 @@ class Agent:
         if lang=='hi' and not re.search('[\u0900-\u097f]',text):
             problems.append('Hindi must use Devanagari')
         seconds=self.measure_tts_duration(text,lang)['seconds']
-        if seconds > g['duration']*self.cfg['agent']['max_atempo']:
+        allowed=g['duration']*self.cfg['agent']['max_atempo']
+        if seconds > allowed:
             problems.append('TTS duration exceeds allowed speedup')
+        if lang=='en':
+            allowed=min(g['duration']*.9,self.cfg['agent'].get('max_cue_s',8.))
+            if seconds > allowed:
+                problems.append(f'cue too long for a single description; keep it under {allowed:.1f} s')
         overlap=sum(max(0,min(g['end'],s['end'])-max(g['start'],s['start'])) for s in self.speech)
         if overlap>1e-6:
             problems.append('Overlaps detected speech')
-        suggested=min(budget,max(1,int(count*g['duration']*self.cfg['agent']['max_atempo']/max(seconds,.001)) ))
+        suggested=min(budget,max(1,int(count*allowed/max(seconds,.001)) ))
         result={'ok':not problems,'problems':problems,'suggested_max_words':suggested,'seconds':seconds,'overlap_seconds':overlap}
         if result['ok'] and lang=='en':
             # Best fitting candidate: the fallback finisher commits it if the agent never does.
@@ -649,6 +663,7 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
         langs=langs.split(',')
     if not langs or any(l not in ('en','hi') for l in langs):
         raise ValueError('Supported languages: en,hi')
+    explicit_steps=max_steps is not None
     steps=cfg['agent']['max_steps'] if max_steps is None else max_steps
     if not isinstance(steps,int) or steps<0:
         raise ValueError('max_steps must be nonnegative integer')
@@ -657,10 +672,14 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
     a=Agent(path,out_dir,cfg,langs,guard,on_step,client)
     planner=orchestrator or (MockOrchestrator() if a.mock else Orchestrator(a.client))
     messages=[{'role':'system','content':SYSTEM},{'role':'user','content':f'Describe this {a.duration:.2f}s video. Languages: {langs}. Maximum tool turns: {steps}.'}]
+    scaled=False
     stop='orchestrator stopped early (max turns, timeout or no tool calls)'
     try:
-        for turn in range(steps):
+        turn=-1
+        while turn+1<steps:
+            turn+=1
             a.turn=turn
+            messages[:]=compact_history(messages,cfg['agent'].get('history_turns',6))
             if steps-turn==3:
                 messages.append({'role':'system','content':'3 turns left: commit what you have, translate, finalize'})
             if time.monotonic()-a.started>cfg['agent']['timeout_s']:
@@ -689,6 +708,10 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
                     break
             if a.done:
                 break
+            if not explicit_steps and a.gaps and not scaled:
+                scaled=True
+                slots=sum(g.get('narratable',True) for g in a.gaps)
+                steps=cfg['agent']['max_steps']=max(steps,min(60,max(30,6+3*slots)))
     except BudgetExceeded:
         a.report['issues'].append('Budget exceeded; finalized committed cues without more model calls')
         stop='budget exceeded'

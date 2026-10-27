@@ -13,7 +13,7 @@
     },
     "base_url_host": null,
     "budgets": {
-      "max_steps": 30,
+      "max_steps": 36,
       "budget_usd": 0.5,
       "max_inspections": 12,
       "max_verifications": 8,
@@ -21,6 +21,9 @@
       "max_atempo": 1.25,
       "min_gap": 1.2,
       "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
       "verify_below": 0.75,
       "retry_attempts": 3,
       "hangover_s": 0.3
@@ -30,14 +33,14 @@
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.00014878000365570188,
+      "t_wall": 0.0003196070028934628,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.5372995878569782e-05,
+      "latency_s": 4.282999725546688e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -47,7 +50,7 @@
     },
     {
       "step": 2,
-      "t_wall": 0.5755278910073685,
+      "t_wall": 1.207098696992034,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "detect_speech_gaps",
@@ -57,18 +60,47 @@
           {
             "id": 0,
             "start": 0.08,
-            "end": 79.17,
-            "word_budget_en": 180,
-            "word_budget_hi": 204,
-            "narratable": true
+            "end": 11.38,
+            "word_budget_en": 24,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 0
           },
           {
             "id": 1,
-            "start": 84.12,
-            "end": 109.92,
-            "word_budget_en": 58,
-            "word_budget_hi": 66,
-            "narratable": true
+            "start": 11.38,
+            "end": 22.68,
+            "word_budget_en": 24,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 2,
+            "start": 22.68,
+            "end": 33.98,
+            "word_budget_en": 24,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 3,
+            "start": 33.98,
+            "end": 45.28,
+            "word_budget_en": 24,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 4,
+            "start": 45.28,
+            "end": 56.57,
+            "word_budget_en": 24,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 0
           }
         ],
         "detector": "silero-onnx",
@@ -77,7 +109,15 @@
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
@@ -86,10 +126,11 @@
             "inspections": 12,
             "verifications": 8
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.5753656390006654,
+      "latency_s": 1.2067649490054464,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -99,14 +140,14 @@
     },
     {
       "step": 3,
-      "t_wall": 0.5756933439988643,
+      "t_wall": 1.2074545749928802,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 0.00013476000458467752,
+      "latency_s": 0.00015696500486228615,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -116,7 +157,7 @@
     },
     {
       "step": 4,
-      "t_wall": 0.5772025559999747,
+      "t_wall": 1.2090448559902143,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -125,19 +166,34 @@
         "events": [
           {
             "t_start": 0,
-            "t_end": 79.17,
-            "what": "A static scene is displayed",
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
             "mock": true
           }
         ]
       },
       "ok": true,
-      "latency_s": 3.0063994927331805e-05,
+      "latency_s": 4.5823006075806916e-05,
       "tokens_in": 72,
-      "tokens_out": 55,
+      "tokens_out": 201,
       "cost_usd": 0,
       "model": "MOCK/perceive",
       "correction": false,
@@ -146,23 +202,38 @@
     },
     {
       "step": 5,
-      "t_wall": 0.5772424850001698,
+      "t_wall": 1.2090900219918694,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 0,
-        "end": 79.17
+        "end": 11.38
       },
       "result": {
         "events": [
           {
             "t_start": 0,
-            "t_end": 79.17,
-            "what": "A static scene is displayed",
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
             "mock": true
           }
         ],
@@ -172,19 +243,27 @@
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 28,
+            "turns": 34,
             "inspections": 11,
             "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0015190760022960603,
+      "latency_s": 0.0016134850011439994,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -194,19 +273,18 @@
     },
     {
       "step": 6,
-      "t_wall": 0.5792273660044884,
+      "t_wall": 1.211082166992128,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo",
-        "truncated": true
+        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "
       },
       "ok": true,
-      "latency_s": 3.968300006818026e-05,
-      "tokens_in": 235,
-      "tokens_out": 312,
+      "latency_s": 2.984199090860784e-05,
+      "tokens_in": 335,
+      "tokens_out": 52,
       "cost_usd": 0,
       "model": "MOCK/fit",
       "correction": false,
@@ -215,7 +293,7 @@
     },
     {
       "step": 7,
-      "t_wall": 0.579278264005552,
+      "t_wall": 1.2111165569949662,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -223,37 +301,59 @@
         "gap_id": 0,
         "context_events": [
           {
-            "t_start": 0.08,
-            "t_end": 79.17,
-            "what": "A static scene is displayed",
+            "t_start": 0,
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
             "mock": true
           }
         ],
-        "max_words": 180
+        "max_words": 24
       },
       "result": {
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo",
+        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
         "state": {
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 28,
+            "turns": 34,
             "inspections": 11,
             "verifications": 8
           }
-        },
-        "truncated": true
+        }
       },
       "ok": true,
-      "latency_s": 0.0019990639993920922,
+      "latency_s": 0.0019607490103226155,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -263,41 +363,49 @@
     },
     {
       "step": 8,
-      "t_wall": 0.7061125400068704,
+      "t_wall": 1.2875331410032231,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "check_fit",
       "args": {
         "gap_id": 0,
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo",
-        "lang": "en",
-        "truncated": true
+        "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "lang": "en"
       },
       "result": {
         "ok": false,
         "problems": [
-          "Word budget exceeded"
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 8.0 s"
         ],
-        "suggested_max_words": 180,
-        "seconds": 57.44,
+        "suggested_max_words": 24,
+        "seconds": 9.4,
         "overlap_seconds": 0,
         "state": {
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 28,
+            "turns": 34,
             "inspections": 11,
             "verifications": 8
           }
         }
       },
       "ok": false,
-      "latency_s": 0.12678203999530524,
+      "latency_s": 0.07639520500379149,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -307,14 +415,14 @@
     },
     {
       "step": 9,
-      "t_wall": 0.7061894289945485,
+      "t_wall": 1.2876161659951322,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 4.75129927508533e-05,
+      "latency_s": 4.6999994083307683e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -324,18 +432,18 @@
     },
     {
       "step": 10,
-      "t_wall": 0.7083353220077697,
+      "t_wall": 1.2897372379957233,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "text": "Aerial farmland stretches below"
       },
       "ok": true,
-      "latency_s": 4.37400012742728e-05,
-      "tokens_in": 234,
-      "tokens_out": 13,
+      "latency_s": 5.848000000696629e-05,
+      "tokens_in": 334,
+      "tokens_out": 14,
       "cost_usd": 0,
       "model": "MOCK/fit",
       "correction": false,
@@ -344,7 +452,7 @@
     },
     {
       "step": 11,
-      "t_wall": 0.7083710590086412,
+      "t_wall": 1.2897845019906526,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -352,36 +460,59 @@
         "gap_id": 0,
         "context_events": [
           {
-            "t_start": 0.08,
-            "t_end": 79.17,
-            "what": "A static scene is displayed",
+            "t_start": 0,
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
             "mock": true
           }
         ],
         "max_words": 7
       },
       "result": {
-        "text": "A static scene is displayed",
+        "text": "Aerial farmland stretches below",
         "state": {
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 27,
+            "turns": 33,
             "inspections": 11,
             "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.002162807999411598,
+      "latency_s": 0.0021515550033655018,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -391,50 +522,53 @@
     },
     {
       "step": 12,
-      "t_wall": 0.7745352110068779,
+      "t_wall": 1.362323765992187,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 0,
-        "text": "A static scene is displayed"
+        "text": "Aerial farmland stretches below"
       },
       "result": {
         "ok": true,
         "cue": {
           "id": 0,
           "start": 0.08,
-          "end": 79.17,
-          "duration": 79.09,
+          "end": 11.38,
+          "duration": 11.3,
           "narratable": true,
-          "word_budget_en": 180,
-          "word_budget_hi": 204,
-          "en": "A static scene is displayed"
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Aerial farmland stretches below"
         },
-        "verify_required": [
-          "low-confidence events (<0.75)"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0
           ],
           "remaining": [
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 27,
+            "turns": 33,
             "inspections": 11,
             "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.06613997599924915,
+      "latency_s": 0.0725148539931979,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -444,7 +578,7 @@
     },
     {
       "step": 13,
-      "t_wall": 0.7762166430038633,
+      "t_wall": 1.363912253989838,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -454,7 +588,7 @@
         "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
       },
       "ok": true,
-      "latency_s": 3.208599810022861e-05,
+      "latency_s": 2.3461994715034962e-05,
       "tokens_in": 83,
       "tokens_out": 39,
       "cost_usd": 0,
@@ -465,7 +599,7 @@
     },
     {
       "step": 14,
-      "t_wall": 0.7762534670036985,
+      "t_wall": 1.3639461510028923,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "verify_claim",
@@ -488,19 +622,27 @@
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 27,
+            "turns": 33,
             "inspections": 11,
             "verifications": 7
           }
         }
       },
       "ok": false,
-      "latency_s": 0.0016677009989507496,
+      "latency_s": 0.0015866839967202395,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -510,14 +652,14 @@
     },
     {
       "step": 15,
-      "t_wall": 0.776308947999496,
+      "t_wall": 1.3640078509924933,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.1494011636823416e-05,
+      "latency_s": 3.3873002394102514e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -527,18 +669,18 @@
     },
     {
       "step": 16,
-      "t_wall": 0.7780937180068577,
+      "t_wall": 1.365909574989928,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "text": "Aerial farmland stretches below"
       },
       "ok": true,
-      "latency_s": 3.182799264322966e-05,
-      "tokens_in": 234,
-      "tokens_out": 13,
+      "latency_s": 3.2338008168153465e-05,
+      "tokens_in": 334,
+      "tokens_out": 14,
       "cost_usd": 0,
       "model": "MOCK/fit",
       "correction": false,
@@ -547,7 +689,7 @@
     },
     {
       "step": 17,
-      "t_wall": 0.7781316339969635,
+      "t_wall": 1.3659515789913712,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -555,36 +697,59 @@
         "gap_id": 0,
         "context_events": [
           {
-            "t_start": 0.08,
-            "t_end": 79.17,
-            "what": "A static scene is displayed",
+            "t_start": 0,
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
             "mock": true
           }
         ],
         "max_words": 6
       },
       "result": {
-        "text": "A static scene is displayed",
+        "text": "Aerial farmland stretches below",
         "state": {
           "committed": [],
           "remaining": [
             0,
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 26,
+            "turns": 32,
             "inspections": 11,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.001797927005100064,
+      "latency_s": 0.0019284330046502873,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -594,50 +759,53 @@
     },
     {
       "step": 18,
-      "t_wall": 0.8420843380008591,
+      "t_wall": 1.4374199869926088,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 0,
-        "text": "A static scene"
+        "text": "Aerial farmland stretches"
       },
       "result": {
         "ok": true,
         "cue": {
           "id": 0,
           "start": 0.08,
-          "end": 79.17,
-          "duration": 79.09,
+          "end": 11.38,
+          "duration": 11.3,
           "narratable": true,
-          "word_budget_en": 180,
-          "word_budget_hi": 204,
-          "en": "A static scene"
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Aerial farmland stretches"
         },
-        "verify_required": [
-          "low-confidence events (<0.75)"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0
           ],
           "remaining": [
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 26,
+            "turns": 32,
             "inspections": 11,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.06393029699393082,
+      "latency_s": 0.0714465399942128,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -647,7 +815,7 @@
     },
     {
       "step": 19,
-      "t_wall": 0.8438583179959096,
+      "t_wall": 1.4388514739985112,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -655,20 +823,47 @@
       "result": {
         "events": [
           {
-            "t_start": 82.12,
-            "t_end": 109.92,
-            "what": "A static scene is displayed",
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "Mock scene",
+            "action": "Aerial farmland stretches below",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Aerial farmland stretches below",
+            "confidence": 1.0,
             "mock": true
           }
         ]
       },
       "ok": true,
-      "latency_s": 3.9202001062221825e-05,
-      "tokens_in": 74,
-      "tokens_out": 53,
+      "latency_s": 4.64369950350374e-05,
+      "tokens_in": 78,
+      "tokens_out": 299,
       "cost_usd": 0,
       "model": "MOCK/perceive",
       "correction": false,
@@ -677,23 +872,38 @@
     },
     {
       "step": 20,
-      "t_wall": 0.8439214240061119,
+      "t_wall": 1.4389472789916908,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 82.12,
-        "end": 109.92
+        "start": 9.38,
+        "end": 22.68
       },
       "result": {
         "events": [
           {
-            "t_start": 82.12,
-            "t_end": 109.92,
-            "what": "A static scene is displayed",
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
             "mock": true
           }
         ],
@@ -704,21 +914,28 @@
             0
           ],
           "remaining": [
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 26,
+            "turns": 32,
             "inspections": 10,
             "verifications": 7
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.0017896060016937554,
+      "latency_s": 0.0014931580080883577,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -728,14 +945,14 @@
     },
     {
       "step": 21,
-      "t_wall": 0.843978071003221,
+      "t_wall": 1.4390446809993591,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.057799767702818e-05,
+      "latency_s": 3.191300493199378e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -745,17 +962,17 @@
     },
     {
       "step": 22,
-      "t_wall": 0.8459889579971787,
+      "t_wall": 1.4410952369944425,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "text": "Tractor crosses a dry field"
       },
       "ok": true,
-      "latency_s": 3.421599103603512e-05,
-      "tokens_in": 289,
+      "latency_s": 2.596199919935316e-05,
+      "tokens_in": 449,
       "tokens_out": 13,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -765,7 +982,7 @@
     },
     {
       "step": 23,
-      "t_wall": 0.8460297090059612,
+      "t_wall": 1.4411507960030576,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -773,39 +990,60 @@
         "gap_id": 1,
         "context_events": [
           {
-            "t_start": 84.12,
-            "t_end": 109.92,
-            "what": "A static scene is displayed",
+            "t_start": 10,
+            "t_end": 20,
+            "who": "Mock scene",
+            "action": "Tractor crosses a dry field",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Tractor crosses a dry field",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
             "mock": true
           }
         ],
         "max_words": 7
       },
       "result": {
-        "text": "A static scene is displayed",
+        "text": "Tractor crosses a dry field",
         "state": {
           "committed": [
             0
           ],
           "remaining": [
-            1
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 25,
+            "turns": 31,
             "inspections": 10,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.002037191006820649,
+      "latency_s": 0.0020914799970341846,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -815,35 +1053,53 @@
     },
     {
       "step": 24,
-      "t_wall": 0.8469594860071084,
+      "t_wall": 1.5177612389961723,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
+      "tool_name": "propose_cue",
       "args": {
         "gap_id": 1,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
+        "text": "Tractor crosses a dry field"
       },
       "result": {
         "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
+        "cue": {
+          "id": 1,
+          "start": 11.38,
+          "end": 22.68,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Tractor crosses a dry field"
+        },
         "state": {
           "committed": [
-            0
+            0,
+            1
           ],
-          "remaining": [],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 25,
+            "turns": 31,
             "inspections": 10,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.00091128698841203,
+      "latency_s": 0.0765875280048931,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -853,68 +1109,114 @@
     },
     {
       "step": 25,
-      "t_wall": 0.8481166220008163,
+      "t_wall": 1.5194433439901331,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "cues": [
+        "events": [
           {
-            "id": 0,
-            "hi": "दृश्य दिखाई देता है।"
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.4968001525849104e-05,
-      "tokens_in": 118,
-      "tokens_out": 45,
+      "latency_s": 4.321499727666378e-05,
+      "tokens_in": 78,
+      "tokens_out": 201,
       "cost_usd": 0,
-      "model": "MOCK/edit",
+      "model": "MOCK/perceive",
       "correction": false,
-      "cost_role": "translate",
+      "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
       "step": 26,
-      "t_wall": 0.9137847370002419,
+      "t_wall": 1.5195319619961083,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "translate_hindi",
-      "args": {},
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 20.68,
+        "end": 33.98
+      },
       "result": {
-        "ok": true,
-        "cues": [
+        "events": [
           {
-            "id": 0,
-            "text": "दृश्य दिखाई देता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 204,
-            "seconds": 1.85,
-            "overlap_seconds": 0,
-            "retried": false
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
           }
         ],
+        "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [
-            0
+            0,
+            1
           ],
-          "remaining": [],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
           "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 25,
-            "inspections": 10,
+            "turns": 31,
+            "inspections": 9,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0668055020069005,
+      "latency_s": 0.0017334889998892322,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -924,14 +1226,14 @@
     },
     {
       "step": 27,
-      "t_wall": 0.9138515289960196,
+      "t_wall": 1.5196140960033517,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.6684007025323808e-05,
+      "latency_s": 3.5667006159201264e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -941,7 +1243,2270 @@
     },
     {
       "step": 28,
-      "t_wall": 3.608913345000474,
+      "t_wall": 1.5220129959925544,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Harvester cuts golden crops"
+      },
+      "ok": true,
+      "latency_s": 5.867899744771421e-05,
+      "tokens_in": 448,
+      "tokens_out": 13,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 1.5221063219942153,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 2,
+        "context_events": [
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "Mock scene",
+            "action": "Harvester cuts golden crops",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Harvester cuts golden crops",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Harvester cuts golden crops",
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 30,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.002472601001500152,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 30,
+      "t_wall": 1.5927921690017683,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Harvester cuts golden crops"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 22.68,
+          "end": 33.98,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Harvester cuts golden crops"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 30,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07065739200334065,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 31,
+      "t_wall": 1.5944965230009984,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.260800000745803e-05,
+      "tokens_in": 78,
+      "tokens_out": 206,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 1.5946511899965117,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 31.98,
+        "end": 45.28
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 30,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0018185959925176576,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 33,
+      "t_wall": 1.594770987998345,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.850499681197107e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 1.5978603179974016,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Workers load boxes onto trucks"
+      },
+      "ok": true,
+      "latency_s": 7.055299647618085e-05,
+      "tokens_in": 452,
+      "tokens_out": 14,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 1.5979829669959145,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 3,
+        "context_events": [
+          {
+            "t_start": 30,
+            "t_end": 40,
+            "who": "Mock scene",
+            "action": "Workers load boxes onto trucks",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Workers load boxes onto trucks",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Workers load boxes onto trucks",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0031653180049033836,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 1.6735748350038193,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Workers load boxes onto trucks"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 33.98,
+          "end": 45.28,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Workers load boxes onto trucks"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07555743100238033,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 37,
+      "t_wall": 1.675030283004162,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.639700298663229e-05,
+      "tokens_in": 78,
+      "tokens_out": 206,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 1.6751186149922432,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 43.28,
+        "end": 56.57
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 7,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0015043669991428033,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 1.6752367189910728,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.364100120961666e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 1.6773390379967168,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Green vineyards line a hillside"
+      },
+      "ok": true,
+      "latency_s": 4.252100188750774e-05,
+      "tokens_in": 455,
+      "tokens_out": 14,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 1.6774325729929842,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 4,
+        "context_events": [
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 40,
+            "t_end": 50,
+            "who": "Mock scene",
+            "action": "Satellite map highlights the coast",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Satellite map highlights the coast",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Green vineyards line a hillside",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 7,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0021846449963049963,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 1.7505969490011921,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "Green vineyards line a hillside"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 45.28,
+          "end": 56.57,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Green vineyards line a hillside"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 7,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07313628900737967,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 43,
+      "t_wall": 1.7522913069988135,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.599599924404174e-05,
+      "tokens_in": 78,
+      "tokens_out": 204,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 1.7524202679924201,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 54.57,
+        "end": 67.87
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 6,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0017840600048657507,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 45,
+      "t_wall": 1.752659120989847,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.6011991798877716e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 1.7548266219964717,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Orchards glow in morning light"
+      },
+      "ok": true,
+      "latency_s": 3.244000254198909e-05,
+      "tokens_in": 455,
+      "tokens_out": 14,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 1.7549218319909414,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 5,
+        "context_events": [
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 50,
+            "t_end": 60,
+            "who": "Mock scene",
+            "action": "Green vineyards line a hillside",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Green vineyards line a hillside",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Orchards glow in morning light",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 6,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0022345230099745095,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 48,
+      "t_wall": 1.8268661179899937,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 5,
+        "text": "Orchards glow in morning light"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 5,
+          "start": 56.57,
+          "end": 67.87,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Orchards glow in morning light"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 6,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07191928100655787,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 1.828274550003698,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 70,
+            "t_end": 80,
+            "who": "Mock scene",
+            "action": "Irrigation canals cross brown plains",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Irrigation canals cross brown plains",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.759800165425986e-05,
+      "tokens_in": 78,
+      "tokens_out": 207,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 50,
+      "t_wall": 1.8284019569982775,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 65.87,
+        "end": 79.17
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 70,
+            "t_end": 80,
+            "who": "Mock scene",
+            "action": "Irrigation canals cross brown plains",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Irrigation canals cross brown plains",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 5,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0015015229873824865,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 51,
+      "t_wall": 1.8286222309980076,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.3464995794929564e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 52,
+      "t_wall": 1.830703667990747,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Irrigation canals cross brown plains"
+      },
+      "ok": true,
+      "latency_s": 3.5500997910276055e-05,
+      "tokens_in": 456,
+      "tokens_out": 16,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 53,
+      "t_wall": 1.8308228910027537,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 6,
+        "context_events": [
+          {
+            "t_start": 70,
+            "t_end": 80,
+            "who": "Mock scene",
+            "action": "Irrigation canals cross brown plains",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Irrigation canals cross brown plains",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "who": "Mock scene",
+            "action": "Orchards glow in morning light",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Orchards glow in morning light",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Irrigation canals cross brown plains",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 5,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0021896019898122177,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 54,
+      "t_wall": 1.9011109720013337,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 6,
+        "text": "Irrigation canals cross brown plains"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 6,
+          "start": 67.87,
+          "end": 79.17,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "en": "Irrigation canals cross brown plains"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 5,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07025910800439306,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 1.9027341280016117,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 80,
+            "t_end": 90,
+            "who": "Mock scene",
+            "action": "Cargo ship leaves a busy port",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Cargo ship leaves a busy port",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.053799784742296e-05,
+      "tokens_in": 74,
+      "tokens_out": 204,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 1.90287520000129,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 82.12,
+        "end": 92.72
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 80,
+            "t_end": 90,
+            "who": "Mock scene",
+            "action": "Cargo ship leaves a busy port",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Cargo ship leaves a busy port",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 4,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0017205170006491244,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 1.903106215002481,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.000799915753305e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 58,
+      "t_wall": 1.9050357359956251,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Cargo ship leaves a busy port"
+      },
+      "ok": true,
+      "latency_s": 4.694399831350893e-05,
+      "tokens_in": 453,
+      "tokens_out": 13,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 59,
+      "t_wall": 1.9051878119935282,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 7,
+        "context_events": [
+          {
+            "t_start": 80,
+            "t_end": 90,
+            "who": "Mock scene",
+            "action": "Cargo ship leaves a busy port",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Cargo ship leaves a busy port",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Cargo ship leaves a busy port",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 4,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0020714490092359483,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 60,
+      "t_wall": 1.9737171849992592,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "Cargo ship leaves a busy port"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 7,
+          "start": 84.12,
+          "end": 92.72,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "en": "Cargo ship leaves a busy port"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 4,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0684952629962936,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 61,
+      "t_wall": 1.9752557920000982,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.558800719678402e-05,
+      "tokens_in": 77,
+      "tokens_out": 207,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 62,
+      "t_wall": 1.9754144189937506,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 90.72,
+        "end": 101.32
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 3,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0016619759990135208,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 63,
+      "t_wall": 1.975658013994689,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.028199716936797e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 64,
+      "t_wall": 1.977994619999663,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Mountains rise behind the valley"
+      },
+      "ok": true,
+      "latency_s": 4.67469944851473e-05,
+      "tokens_in": 455,
+      "tokens_out": 14,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 65,
+      "t_wall": 1.9781530369946267,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 8,
+        "context_events": [
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Mountains rise behind the valley",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 3,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0024852079950505868,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 66,
+      "t_wall": 2.0481043030013097,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "Mountains rise behind the valley"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 8,
+          "start": 92.72,
+          "end": 101.32,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "en": "Mountains rise behind the valley"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "remaining": [
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 3,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06992295398958959,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 67,
+      "t_wall": 2.049688694998622,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.266700125299394e-05,
+      "tokens_in": 78,
+      "tokens_out": 207,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 68,
+      "t_wall": 2.0498894179909257,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 99.32,
+        "end": 109.92
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 90,
+            "t_end": 100,
+            "who": "Mock scene",
+            "action": "Mountains rise behind the valley",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Mountains rise behind the valley",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "remaining": [
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 2,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001746400012052618,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 69,
+      "t_wall": 2.050178962002974,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.913700882345438e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 70,
+      "t_wall": 2.052199543992174,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Closing view shows quiet farmland"
+      },
+      "ok": true,
+      "latency_s": 2.484800643287599e-05,
+      "tokens_in": 353,
+      "tokens_out": 15,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 71,
+      "t_wall": 2.052357820997713,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 9,
+        "context_events": [
+          {
+            "t_start": 100,
+            "t_end": 110,
+            "who": "Mock scene",
+            "action": "Closing view shows quiet farmland",
+            "on_screen_text": "",
+            "importance": 3,
+            "hi": "दृश्य बदलता है।",
+            "what": "Closing view shows quiet farmland",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "Closing view shows quiet farmland",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "remaining": [
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 2,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0021681709913536906,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 72,
+      "t_wall": 2.124979179992806,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 9,
+        "text": "Closing view shows quiet farmland"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 9,
+          "start": 101.32,
+          "end": 109.92,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "en": "Closing view shows quiet farmland"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 2,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07259067200357094,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 73,
+      "t_wall": 2.126549911001348,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 1,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 2,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 3,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 4,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 5,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 6,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 7,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 8,
+            "hi": "दृश्य बदलता है।"
+          },
+          {
+            "id": 9,
+            "hi": "दृश्य बदलता है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 8.975800301413983e-05,
+      "tokens_in": 803,
+      "tokens_out": 340,
+      "cost_usd": 0,
+      "model": "MOCK/edit",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 74,
+      "t_wall": 2.196235955998418,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "दृश्य बदलता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 28,
+            "seconds": 1.5,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 1,
+            "text": "दृश्य बदलता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 28,
+            "seconds": 1.5,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 2,
+            "text": "दृश्य बदलता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 28,
+            "seconds": 1.5,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 3,
+            "text": "दृश्य बदलता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 28,
+            "seconds": 1.5,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 2,
+            "verifications": 7
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 0.0712204279989237,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 75,
+      "t_wall": 2.196677368003293,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4673001714982092e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 76,
+      "t_wall": 5.788102199003333,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "render_preview",
@@ -955,153 +3520,89 @@
         "duration": 8.0,
         "state": {
           "committed": [
-            0
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 10,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 2.6950456380000105,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 29,
-      "t_wall": 3.6090001209959155,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 4.9201000365428627e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 30,
-      "t_wall": 3.611117752996506,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 4.082400118932128e-05,
-      "tokens_in": 74,
-      "tokens_out": 38,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 31,
-      "t_wall": 3.6111621400050353,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 0,
-        "claim": "A static scene"
-      },
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "gap_ids": [
-          0
-        ],
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 23,
-            "inspections": 10,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0021487519989022985,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 32,
-      "t_wall": 3.611199573002523,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.4218006981536746e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 33,
-      "t_wall": 7.469924744000309,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": true,
-        "warnings": [
-          "Cue 0: unverified"
-        ],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/nasa_chile_harvest_0000-0150",
-        "state": {
-          "committed": [
-            0
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
           ],
           "remaining": [],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
             "turns": 22,
-            "inspections": 10,
-            "verifications": 6
+            "inspections": 2,
+            "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 3.8587104420003016,
+      "latency_s": 3.5914162389963167,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 77,
+      "t_wall": 5.788574623991735,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0.00014441100938711315,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 78,
+      "t_wall": 11.69380471999466,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/nasa_chile_harvest_0000-0150",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 2,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 5.905214801998227,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1113,12 +3614,11 @@
   "summary": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 2,
-      "draft_description": 4,
+      "inspect_video_segment": 10,
+      "draft_description": 12,
       "check_fit": 1,
-      "propose_cue": 2,
-      "verify_claim": 2,
-      "drop_gap": 1,
+      "propose_cue": 11,
+      "verify_claim": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
@@ -1127,15 +3627,15 @@
     "verifications": {
       "verified": 0,
       "contradicted": 1,
-      "unverified": 1
+      "unverified": 0
     },
-    "orchestrator_turns": 8,
+    "orchestrator_turns": 15,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 7.470028605006519
+    "total_latency_s": 11.694035309992614
   }
 }

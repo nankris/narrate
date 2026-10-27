@@ -24,3 +24,8 @@ Individual `real-run-*.md` files record each observed failure and fixed/open sta
 - [verify-unused](real-run-verify-unused.md): verification never used - now enforced.
 
 Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsorted VTT, tiny-gap skipping, duplicate cues, dialogue events counted as uncovered, Lightning price.
+
+## Third real-run fixes
+
+- [long-gaps-one-cue](real-run-long-gaps-one-cue.md): long gaps got one cue (29% coverage); now split into 6-12 s slots, cues capped at 8 s - fixed offline.
+- [orchestrator-input-growth](real-run-orchestrator-input-growth.md): ultra input grew ~200 tokens/turn; old turns now summarised, turn budget scales with slots - mitigated offline.

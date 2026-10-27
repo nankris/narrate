@@ -21,6 +21,9 @@
       "max_atempo": 1.25,
       "min_gap": 1.2,
       "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
       "verify_below": 0.75,
       "retry_attempts": 3,
       "hangover_s": 0.3
@@ -30,14 +33,14 @@
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.0002319530030945316,
+      "t_wall": 0.0002310090058017522,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.766500983852893e-05,
+      "latency_s": 2.8542999643832445e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -47,7 +50,7 @@
     },
     {
       "step": 2,
-      "t_wall": 0.2453182460012613,
+      "t_wall": 0.24621023901272565,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "detect_speech_gaps",
@@ -107,7 +110,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.24507459899177775,
+      "latency_s": 0.24596741099958308,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -117,14 +120,14 @@
     },
     {
       "step": 3,
-      "t_wall": 0.24546266200195532,
+      "t_wall": 0.24635780800599605,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 9.985500946640968e-05,
+      "latency_s": 9.212701115757227e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -134,7 +137,7 @@
     },
     {
       "step": 4,
-      "t_wall": 0.2469404800067423,
+      "t_wall": 0.24781459500081837,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -156,7 +159,7 @@
         ]
       },
       "ok": true,
-      "latency_s": 3.628700505942106e-05,
+      "latency_s": 3.458799619693309e-05,
       "tokens_in": 73,
       "tokens_out": 153,
       "cost_usd": 0,
@@ -167,7 +170,7 @@
     },
     {
       "step": 5,
-      "t_wall": 0.24698152400378603,
+      "t_wall": 0.2478596460132394,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
@@ -210,7 +213,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.001496172000770457,
+      "latency_s": 0.0014776530006201938,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -220,7 +223,7 @@
     },
     {
       "step": 6,
-      "t_wall": 0.2488634239998646,
+      "t_wall": 0.2496938670083182,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -229,7 +232,7 @@
         "text": "word word word word word word word word word word word word word "
       },
       "ok": true,
-      "latency_s": 2.772899460978806e-05,
+      "latency_s": 2.596600097604096e-05,
       "tokens_in": 280,
       "tokens_out": 25,
       "cost_usd": 0,
@@ -240,7 +243,7 @@
     },
     {
       "step": 7,
-      "t_wall": 0.24889990499650594,
+      "t_wall": 0.24972510000225157,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -282,7 +285,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0018783810082823038,
+      "latency_s": 0.0018285599944647402,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -292,7 +295,7 @@
     },
     {
       "step": 8,
-      "t_wall": 0.3429400230088504,
+      "t_wall": 0.32563156000105664,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "check_fit",
@@ -304,7 +307,8 @@
       "result": {
         "ok": false,
         "problems": [
-          "Word budget exceeded"
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 3.6 s"
         ],
         "suggested_max_words": 8,
         "seconds": 4.49,
@@ -327,7 +331,7 @@
         }
       },
       "ok": false,
-      "latency_s": 0.0940115960111143,
+      "latency_s": 0.07588005899742711,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -337,14 +341,14 @@
     },
     {
       "step": 9,
-      "t_wall": 0.34300081500259694,
+      "t_wall": 0.3257093700085534,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.656999615486711e-05,
+      "latency_s": 3.999800537712872e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -354,7 +358,7 @@
     },
     {
       "step": 10,
-      "t_wall": 0.3450296899973182,
+      "t_wall": 0.32778647501254454,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -363,7 +367,7 @@
         "text": "A person enters a kitchen"
       },
       "ok": true,
-      "latency_s": 3.288401057943702e-05,
+      "latency_s": 3.313001070637256e-05,
       "tokens_in": 280,
       "tokens_out": 12,
       "cost_usd": 0,
@@ -374,7 +378,7 @@
     },
     {
       "step": 11,
-      "t_wall": 0.34506962200975977,
+      "t_wall": 0.32782636300544254,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -416,7 +420,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.002055117001873441,
+      "latency_s": 0.002102532991557382,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -426,7 +430,7 @@
     },
     {
       "step": 12,
-      "t_wall": 0.4643270500091603,
+      "t_wall": 0.3946792620117776,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
@@ -465,7 +469,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.1192273619963089,
+      "latency_s": 0.06683072401210666,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -475,7 +479,7 @@
     },
     {
       "step": 13,
-      "t_wall": 0.46593434900569264,
+      "t_wall": 0.3963694250123808,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -485,7 +489,7 @@
         "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
       },
       "ok": true,
-      "latency_s": 2.0298000890761614e-05,
+      "latency_s": 2.276300801895559e-05,
       "tokens_in": 83,
       "tokens_out": 39,
       "cost_usd": 0,
@@ -496,7 +500,7 @@
     },
     {
       "step": 14,
-      "t_wall": 0.46596947900252417,
+      "t_wall": 0.39641144100460224,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "verify_claim",
@@ -533,7 +537,7 @@
         }
       },
       "ok": false,
-      "latency_s": 0.0016017030138755217,
+      "latency_s": 0.001691433004452847,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -543,14 +547,14 @@
     },
     {
       "step": 15,
-      "t_wall": 0.46602971700485796,
+      "t_wall": 0.3964733890024945,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.8936996133998036e-05,
+      "latency_s": 3.0979004804976285e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -560,7 +564,7 @@
     },
     {
       "step": 16,
-      "t_wall": 0.4678955639974447,
+      "t_wall": 0.39828340501117054,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -569,7 +573,7 @@
         "text": "A person enters a kitchen"
       },
       "ok": true,
-      "latency_s": 2.524800947867334e-05,
+      "latency_s": 2.499700349289924e-05,
       "tokens_in": 280,
       "tokens_out": 12,
       "cost_usd": 0,
@@ -580,7 +584,7 @@
     },
     {
       "step": 17,
-      "t_wall": 0.4679417779989308,
+      "t_wall": 0.3983196970075369,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -622,7 +626,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0018983140034833923,
+      "latency_s": 0.0018316239875275642,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -632,7 +636,7 @@
     },
     {
       "step": 18,
-      "t_wall": 0.5447791870101355,
+      "t_wall": 0.4617872720118612,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
@@ -671,7 +675,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.07681052900443319,
+      "latency_s": 0.06344669300597161,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -681,7 +685,7 @@
     },
     {
       "step": 19,
-      "t_wall": 0.5463906970107928,
+      "t_wall": 0.4632993250124855,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -715,7 +719,7 @@
         ]
       },
       "ok": true,
-      "latency_s": 4.597500083036721e-05,
+      "latency_s": 4.1525010601617396e-05,
       "tokens_in": 74,
       "tokens_out": 319,
       "cost_usd": 0,
@@ -726,7 +730,7 @@
     },
     {
       "step": 20,
-      "t_wall": 0.5464834279991919,
+      "t_wall": 0.4633592940081144,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
@@ -782,7 +786,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0016606540011707693,
+      "latency_s": 0.001536836993182078,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -792,14 +796,14 @@
     },
     {
       "step": 21,
-      "t_wall": 0.5465709160052938,
+      "t_wall": 0.46343606800655834,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.0545998015441e-05,
+      "latency_s": 2.8196998755447567e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -809,7 +813,7 @@
     },
     {
       "step": 22,
-      "t_wall": 0.5484919529990293,
+      "t_wall": 0.4655527210125001,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -818,7 +822,7 @@
         "text": "STEP 1 - chop onions"
       },
       "ok": true,
-      "latency_s": 2.84690031548962e-05,
+      "latency_s": 2.997599949594587e-05,
       "tokens_in": 459,
       "tokens_out": 10,
       "cost_usd": 0,
@@ -829,7 +833,7 @@
     },
     {
       "step": 23,
-      "t_wall": 0.5485417550080456,
+      "t_wall": 0.4655994820059277,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -872,7 +876,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0019535309984348714,
+      "latency_s": 0.0021492279920494184,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -882,7 +886,7 @@
     },
     {
       "step": 24,
-      "t_wall": 0.6176340840029297,
+      "t_wall": 0.532242800007225,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
@@ -927,7 +931,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0690639919921523,
+      "latency_s": 0.0666219069971703,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -937,7 +941,7 @@
     },
     {
       "step": 25,
-      "t_wall": 0.619571798000834,
+      "t_wall": 0.5336262330092723,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -971,7 +975,7 @@
         ]
       },
       "ok": true,
-      "latency_s": 6.799100083298981e-05,
+      "latency_s": 3.7502002669498324e-05,
       "tokens_in": 74,
       "tokens_out": 333,
       "cost_usd": 0,
@@ -982,7 +986,7 @@
     },
     {
       "step": 26,
-      "t_wall": 0.6197465590084903,
+      "t_wall": 0.5337355650117388,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
@@ -1029,7 +1033,7 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 0.0020647880010074005,
+      "latency_s": 0.001457095000660047,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1039,14 +1043,14 @@
     },
     {
       "step": 27,
-      "t_wall": 0.6199025359965162,
+      "t_wall": 0.5338393800047925,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 4.761500167660415e-05,
+      "latency_s": 3.103000926785171e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1056,7 +1060,7 @@
     },
     {
       "step": 28,
-      "t_wall": 0.6220886689989129,
+      "t_wall": 0.5358868400071515,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1065,7 +1069,7 @@
         "text": "Stir and serve"
       },
       "ok": true,
-      "latency_s": 4.1247010813094676e-05,
+      "latency_s": 3.179899067617953e-05,
       "tokens_in": 622,
       "tokens_out": 8,
       "cost_usd": 0,
@@ -1076,7 +1080,7 @@
     },
     {
       "step": 29,
-      "t_wall": 0.6221606620092643,
+      "t_wall": 0.5359435230056988,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -1133,7 +1137,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0022237279918044806,
+      "latency_s": 0.0020847620035056025,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1143,7 +1147,7 @@
     },
     {
       "step": 30,
-      "t_wall": 0.687649618004798,
+      "t_wall": 0.6004731230059406,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "propose_cue",
@@ -1184,7 +1188,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.06546711700502783,
+      "latency_s": 0.06450897200556938,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1194,7 +1198,7 @@
     },
     {
       "step": 31,
-      "t_wall": 0.6891120200016303,
+      "t_wall": 0.6018910280108685,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1216,7 +1220,7 @@
         ]
       },
       "ok": true,
-      "latency_s": 2.9624992748722434e-05,
+      "latency_s": 2.9820002964697778e-05,
       "tokens_in": 78,
       "tokens_out": 167,
       "cost_usd": 0,
@@ -1227,7 +1231,7 @@
     },
     {
       "step": 32,
-      "t_wall": 0.6891881640040083,
+      "t_wall": 0.6019713100104127,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
@@ -1273,7 +1277,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.001505692009232007,
+      "latency_s": 0.0014607480115955696,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1283,14 +1287,14 @@
     },
     {
       "step": 33,
-      "t_wall": 0.689252647003741,
+      "t_wall": 0.6020402790018125,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.7870002668350935e-05,
+      "latency_s": 3.0206996598280966e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1300,7 +1304,7 @@
     },
     {
       "step": 34,
-      "t_wall": 0.691109569001128,
+      "t_wall": 0.6040375480079092,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1309,7 +1313,7 @@
         "text": "Stir and serve"
       },
       "ok": true,
-      "latency_s": 2.850999590009451e-05,
+      "latency_s": 3.3436997910030186e-05,
       "tokens_in": 472,
       "tokens_out": 8,
       "cost_usd": 0,
@@ -1320,7 +1324,7 @@
     },
     {
       "step": 35,
-      "t_wall": 0.6911673290014733,
+      "t_wall": 0.6041069480124861,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -1365,7 +1369,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0019000579923158512,
+      "latency_s": 0.0020522519916994497,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1375,7 +1379,7 @@
     },
     {
       "step": 36,
-      "t_wall": 0.6921521570038749,
+      "t_wall": 0.6051808160118526,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "drop_gap",
@@ -1405,7 +1409,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0009573459974490106,
+      "latency_s": 0.0010518029885133728,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1415,7 +1419,7 @@
     },
     {
       "step": 37,
-      "t_wall": 0.6932454390043858,
+      "t_wall": 0.6062621550081531,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1437,7 +1441,7 @@
         ]
       },
       "ok": true,
-      "latency_s": 3.811799979303032e-05,
+      "latency_s": 2.7632006094790995e-05,
       "tokens_in": 240,
       "tokens_out": 225,
       "cost_usd": 0,
@@ -1448,7 +1452,7 @@
     },
     {
       "step": 38,
-      "t_wall": 0.8983045970089734,
+      "t_wall": 0.8031158590019913,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "translate_hindi",
@@ -1506,7 +1510,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.2061335919861449,
+      "latency_s": 0.19791573999100365,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1516,14 +1520,14 @@
     },
     {
       "step": 39,
-      "t_wall": 0.8983696240029531,
+      "t_wall": 0.8032294790027663,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.7180995200760663e-05,
+      "latency_s": 1.3708995538763702e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1533,7 +1537,7 @@
     },
     {
       "step": 40,
-      "t_wall": 1.8397678110050038,
+      "t_wall": 1.6969387480057776,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "render_preview",
@@ -1564,7 +1568,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.941387876009685,
+      "latency_s": 0.8937014900002396,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1574,14 +1578,14 @@
     },
     {
       "step": 41,
-      "t_wall": 1.8398842660099035,
+      "t_wall": 1.6971372130064992,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 8.294200233649462e-05,
+      "latency_s": 4.740399890579283e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1591,7 +1595,7 @@
     },
     {
       "step": 42,
-      "t_wall": 1.8418758620100562,
+      "t_wall": 1.6987334190052934,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1601,7 +1605,7 @@
         "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
       },
       "ok": true,
-      "latency_s": 3.6254001315683126e-05,
+      "latency_s": 2.4497989215888083e-05,
       "tokens_in": 76,
       "tokens_out": 38,
       "cost_usd": 0,
@@ -1612,7 +1616,7 @@
     },
     {
       "step": 43,
-      "t_wall": 1.8419424780004192,
+      "t_wall": 1.6987852410093183,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "verify_claim",
@@ -1644,7 +1648,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0020456839993130416,
+      "latency_s": 0.0016407189978053793,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1654,14 +1658,14 @@
     },
     {
       "step": 44,
-      "t_wall": 1.8419924350018846,
+      "t_wall": 1.6989457590098027,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.8380003641359508e-05,
+      "latency_s": 3.034800465684384e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1671,7 +1675,7 @@
     },
     {
       "step": 45,
-      "t_wall": 3.4605995410092873,
+      "t_wall": 3.0917834540014155,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "finalize",
@@ -1697,7 +1701,7 @@
         }
       },
       "ok": true,
-      "latency_s": 1.6185957310080994,
+      "latency_s": 1.3928297359962016,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1732,6 +1736,6 @@
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 3.4607736830075737
+    "total_latency_s": 3.091923903004499
   }
 }

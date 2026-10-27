@@ -7,5 +7,5 @@
   "notes": "Clip 0:15–1:55. Soundtrack by Joram Letwory is distributed separately under CC-BY-ND 3.0. Narrate only lowers its volume under narration; licensing caveat to double-check before distribution. Re-encoded to 640 px, H.264 CRF 28, AAC 96k. Dialogue at 8-30 s, 35-38.5 s, 46-48 s; music throughout (ffmpeg silencedetect finds 0 gaps).",
   "provider": "mock",
   "dev_only": false,
-  "date": "2026-10-27"
+  "date": "2026-10-28"
 }
