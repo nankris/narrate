@@ -1,9 +1,11 @@
-# Agent trace — MOCK
+# Agent trace
 
-- 1 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 2 ✓ tool detect_speech_gaps: I will check the available evidence and timing before committing narration.
-- 3 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 4 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
-- 5 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
-- 6 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 7 ✓ tool finalize: I will check the available evidence and timing before committing narration.
+- 1 ✓ orchestrator : 
+
+- 2 ✓ tool detect_speech_gaps: Find speech-free gaps for audio description
+- 3 ✓ orchestrator : 
+
+- 4 ✓ tool detect_speech_gaps: Check for any narratable gaps with different sensitivity
+- 5 ✓ orchestrator : 
+
+- 6 ✓ tool finalize: No speech gaps found, video has continuous speech throughout

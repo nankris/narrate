@@ -1,7 +1,7 @@
 {
-  "mock": true,
-  "provider": "mock",
-  "dev_only": false,
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
   "duration_s": 30.0,
   "fallback_finalize": false,
   "issues": [
@@ -39,21 +39,50 @@
   },
   "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
-  "usage": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3159,
+      "output_tokens": 36,
+      "cost_usd": 0.003267,
+      "latency_s": 14.167115734002437,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3281,
+      "output_tokens": 38,
+      "cost_usd": 0.003395,
+      "latency_s": 8.852311219990952,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3411,
+      "output_tokens": 34,
+      "cost_usd": 0.003513,
+      "latency_s": 1.8606896699930076,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
   "cost_by_role": {
-    "orchestrator": 0,
+    "orchestrator": 0.010175,
     "perceive": 0,
     "verify": 0,
     "draft": 0,
     "translate": 0
   },
-  "billed_to": "mock (offline)",
-  "cost_per_minute_usd": 0.0,
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.02035,
   "agent_stats": {
     "tool_calls": {
-      "detect_speech_gaps": 1,
-      "translate_hindi": 1,
-      "render_preview": 1,
+      "detect_speech_gaps": 2,
       "finalize": 1
     },
     "corrections": 0,
@@ -62,15 +91,19 @@
       "contradicted": 0,
       "unverified": 0
     },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
     "orchestrator_turns": 3,
     "cost_by_model": {
-      "MOCK/orchestrate": 0
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.010175
     },
-    "total_latency_s": 2.6166772989963647
+    "total_latency_s": 26.700644801996532
   },
-  "estimated_cost_usd": 0,
-  "would_be_token_factory_cost_usd": 0,
-  "reserved_spend_usd": 0.0,
-  "cost_per_minute": 0.0,
-  "latency_s": 2.6166772989963647
+  "estimated_cost_usd": 0.010175,
+  "would_be_token_factory_cost_usd": 0.010175,
+  "reserved_spend_usd": 0.010175,
+  "cost_per_minute": 0.02035,
+  "latency_s": 26.700644801996532
 }

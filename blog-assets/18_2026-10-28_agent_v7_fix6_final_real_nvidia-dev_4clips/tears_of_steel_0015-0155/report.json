@@ -1,0 +1,1052 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 100.0,
+  "fallback_finalize": true,
+  "issues": [
+    "Agent stopped: RuntimeError"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "fallback_reason": "agent stopped: RuntimeError",
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+      "hi": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\"",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4,
+      "en": "MEMORY PLAYBACK GLOBAL",
+      "hi": "मेमोरी प्लेबैक ग्लोबल",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16,
+      "max_words_en": 12,
+      "max_words_hi": 14,
+      "en": "A person with dreadlocks examines a realistic brain model",
+      "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\".",
+      "hi": "एक सायबॉर्ग आर्क लैम्प तले दिमाग़ जाँच रहा है; शीर्षक कार्ड: \"TEARS OF STEEL\".",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Title fades; smoky cityscape with flying platform emerges.",
+      "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 6,
+      "start": 69.8,
+      "end": 80.4,
+      "duration": 10.600000000000009,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Silhouetted cathedral tower rises above rooftops.",
+      "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 7,
+      "start": 80.4,
+      "end": 89.4584,
+      "duration": 9.058399999999992,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.",
+      "hi": "स्कोप दृश्य: हवाई जहाज शहर पर मँडरा रहा है। छत: लेटा निशानेबाज और मोमबत्ती थामे आकृति। यांत्रिक मशीन अंडाकार से गुजरती है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 8,
+      "start": 89.4584,
+      "end": 99.92,
+      "duration": 10.461600000000004,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.",
+      "hi": "बड़ा यांत्रिक उड़न यंत्र अंडाकार खिड़की से शहर पर मँडरा रहा है। यह झुकता और फ्रेम पार करता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 6.622676,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+        "hi": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\"",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.32326499999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 3,
+        "max_words_hi": 4,
+        "en": "MEMORY PLAYBACK GLOBAL",
+        "hi": "मेमोरी प्लेबैक ग्लोबल",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 42.567555999999996,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "max_words_en": 12,
+        "max_words_hi": 14,
+        "en": "A person with dreadlocks examines a realistic brain model",
+        "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 53.350004999999996,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\".",
+        "hi": "एक सायबॉर्ग आर्क लैम्प तले दिमाग़ जाँच रहा है; शीर्षक कार्ड: \"TEARS OF STEEL\".",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 59.0,
+        "end": 63.596916,
+        "duration": 10.799999999999997,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 27,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Title fades; smoky cityscape with flying platform emerges.",
+        "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 69.8,
+        "end": 73.100635,
+        "duration": 10.600000000000009,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 26,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Silhouetted cathedral tower rises above rooftops.",
+        "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 80.4,
+        "end": 89.4584,
+        "duration": 9.058399999999992,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.",
+        "hi": "स्कोप दृश्य: हवाई जहाज शहर पर मँडरा रहा है। छत: लेटा निशानेबाज और मोमबत्ती थामे आकृति। यांत्रिक मशीन अंडाकार से गुजरती है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 8,
+        "start": 89.4584,
+        "end": 96.91908,
+        "duration": 10.461600000000004,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 26,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.",
+        "hi": "बड़ा यांत्रिक उड़न यंत्र अंडाकार खिड़की से शहर पर मँडरा रहा है। यह झुकता और फ्रेम पार करता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 6.6495690000000005,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+        "hi": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\"",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.49859399999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 3,
+        "max_words_hi": 4,
+        "en": "MEMORY PLAYBACK GLOBAL",
+        "hi": "मेमोरी प्लेबैक ग्लोबल",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 43.501704999999994,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "max_words_en": 12,
+        "max_words_hi": 14,
+        "en": "A person with dreadlocks examines a realistic brain model",
+        "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 53.560933999999996,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\".",
+        "hi": "एक सायबॉर्ग आर्क लैम्प तले दिमाग़ जाँच रहा है; शीर्षक कार्ड: \"TEARS OF STEEL\".",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 59.0,
+        "end": 63.594558,
+        "duration": 10.799999999999997,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 27,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Title fades; smoky cityscape with flying platform emerges.",
+        "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 69.8,
+        "end": 73.635374,
+        "duration": 10.600000000000009,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 26,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Silhouetted cathedral tower rises above rooftops.",
+        "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 80.4,
+        "end": 89.4584,
+        "duration": 9.058399999999992,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.",
+        "hi": "स्कोप दृश्य: हवाई जहाज शहर पर मँडरा रहा है। छत: लेटा निशानेबाज और मोमबत्ती थामे आकृति। यांत्रिक मशीन अंडाकार से गुजरती है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 8,
+        "start": 89.4584,
+        "end": 96.729738,
+        "duration": 10.461600000000004,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 26,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.",
+        "hi": "बड़ा यांत्रिक उड़न यंत्र अंडाकार खिड़की से शहर पर मँडरा रहा है। यह झुकता और फ्रेम पार करता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 1,
+      "start": 30.523999999999997,
+      "end": 31.651999999999997,
+      "duration": 1.1280000000000001,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 1,
+      "max_words_en": 1,
+      "max_words_hi": 1
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16,
+      "max_words_en": 12,
+      "max_words_hi": 14
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 6,
+      "start": 69.8,
+      "end": 80.4,
+      "duration": 10.600000000000009,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 7,
+      "start": 80.4,
+      "end": 89.4584,
+      "duration": 9.058399999999992,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 8,
+      "start": 89.4584,
+      "end": 99.92,
+      "duration": 10.461600000000004,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 21.324
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 8,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 59.82842253441015,
+    "hi": 62.231930383346565
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3160,
+      "output_tokens": 43,
+      "cost_usd": 0.003289,
+      "latency_s": 2.0478948569943896,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3805,
+      "output_tokens": 248,
+      "cost_usd": 0.004549,
+      "latency_s": 4.528608488995815,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2722,
+      "output_tokens": 204,
+      "cost_usd": 0.0010002000000000001,
+      "latency_s": 6.450040169002023,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2724,
+      "output_tokens": 234,
+      "cost_usd": 0.0010278,
+      "latency_s": 12.384285081003327,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2730,
+      "output_tokens": 229,
+      "cost_usd": 0.0010251,
+      "latency_s": 3.5324198929884005,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2730,
+      "output_tokens": 282,
+      "cost_usd": 0.0010728,
+      "latency_s": 4.618005857002572,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5330,
+      "output_tokens": 60,
+      "cost_usd": 0.00551,
+      "latency_s": 32.62948401799076,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2192,
+      "output_tokens": 174,
+      "cost_usd": 0.00017327999999999997,
+      "latency_s": 1.934347255009925,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1022,
+      "output_tokens": 36,
+      "cost_usd": 6.996000000000001e-05,
+      "latency_s": 0.5026028740103357,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5750,
+      "output_tokens": 397,
+      "cost_usd": 0.006941,
+      "latency_s": 15.560954950007726,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6856,
+      "output_tokens": 265,
+      "cost_usd": 0.007651,
+      "latency_s": 5.344107612996595,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1120,
+      "output_tokens": 34,
+      "cost_usd": 0.0003666,
+      "latency_s": 0.890599033999024,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1123,
+      "output_tokens": 79,
+      "cost_usd": 0.000408,
+      "latency_s": 2.2970250799990026,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1113,
+      "output_tokens": 31,
+      "cost_usd": 0.00036179999999999996,
+      "latency_s": 1.295112824998796,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1126,
+      "output_tokens": 48,
+      "cost_usd": 0.000381,
+      "latency_s": 0.9352399769995827,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7745,
+      "output_tokens": 47,
+      "cost_usd": 0.007886,
+      "latency_s": 3.18997508600296,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1137,
+      "output_tokens": 25,
+      "cost_usd": 7.422e-05,
+      "latency_s": 0.60325465000642,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7897,
+      "output_tokens": 67,
+      "cost_usd": 0.008098,
+      "latency_s": 2.855119473999366,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7823,
+      "output_tokens": 61,
+      "cost_usd": 0.008006,
+      "latency_s": 3.1225434270018013,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1137,
+      "output_tokens": 48,
+      "cost_usd": 7.973999999999999e-05,
+      "latency_s": 0.7719257529970491,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1200,
+      "output_tokens": 34,
+      "cost_usd": 8.015999999999999e-05,
+      "latency_s": 1.3733187519974308,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7044,
+      "output_tokens": 74,
+      "cost_usd": 0.007266,
+      "latency_s": 2.8289273669943213,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7041,
+      "output_tokens": 128,
+      "cost_usd": 0.007425,
+      "latency_s": 2.307509174992447,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2731,
+      "output_tokens": 251,
+      "cost_usd": 0.0010452,
+      "latency_s": 13.116156280986615,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2746,
+      "output_tokens": 79,
+      "cost_usd": 0.0008949,
+      "latency_s": 2.861030614003539,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6644,
+      "output_tokens": 68,
+      "cost_usd": 0.006848,
+      "latency_s": 3.3531306630029576,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1091,
+      "output_tokens": 108,
+      "cost_usd": 9.138e-05,
+      "latency_s": 1.3154967689915793,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1154,
+      "output_tokens": 108,
+      "cost_usd": 9.515999999999999e-05,
+      "latency_s": 1.7785748930036789,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6428,
+      "output_tokens": 175,
+      "cost_usd": 0.006953,
+      "latency_s": 2.3201893539953744,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6699,
+      "output_tokens": 1800,
+      "cost_usd": 0.012099,
+      "latency_s": 24.460313016999862,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6699,
+      "output_tokens": 137,
+      "cost_usd": 0.00711,
+      "latency_s": 2.740439389992389,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1117,
+      "output_tokens": 40,
+      "cost_usd": 0.00037109999999999997,
+      "latency_s": 1.3037800500023877,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1274,
+      "output_tokens": 402,
+      "cost_usd": 0.00248,
+      "latency_s": 25.577605720987776,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7162,
+      "output_tokens": 1800,
+      "cost_usd": 0.012562,
+      "latency_s": 25.228863637006725,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7162,
+      "output_tokens": 86,
+      "cost_usd": 0.00742,
+      "latency_s": 1.686941810999997,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1045,
+      "output_tokens": 217,
+      "cost_usd": 0.001696,
+      "latency_s": 4.006818449997809,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7436,
+      "output_tokens": 1800,
+      "cost_usd": 0.012836,
+      "latency_s": 49.21837476499786,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7436,
+      "output_tokens": 1800,
+      "cost_usd": 0.012836,
+      "latency_s": 50.8887445069995,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7436,
+      "output_tokens": 1800,
+      "cost_usd": 0.012836,
+      "latency_s": 39.1834106890019,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.158121,
+    "perceive": 0.006066,
+    "verify": 0.0018885,
+    "draft": 0.0006638999999999999,
+    "translate": 0.004176
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.10254923999999999,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 7,
+      "draft_description": 4,
+      "propose_cue": 9,
+      "verify_claim": 5,
+      "translate_hindi": 2
+    },
+    "corrections": 2,
+    "verifications": {
+      "verified": 4,
+      "contradicted": 1,
+      "unverified": 0
+    },
+    "repeat_refusals": 1,
+    "auto_redrafts": 0,
+    "draft_overlimit": 5,
+    "orchestrator_authored_cues": 1,
+    "orchestrator_turns": 14,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.12378900000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0079545,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0006638999999999999
+    },
+    "total_latency_s": 374.61806708801305
+  },
+  "estimated_cost_usd": 0.1709154,
+  "would_be_token_factory_cost_usd": 0.1709154,
+  "reserved_spend_usd": 0.19743539999999998,
+  "cost_per_minute": 0.10254923999999999,
+  "latency_s": 374.61806708801305
+}

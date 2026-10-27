@@ -1,10 +1,10 @@
-[00:00:00.080] Aerial farmland stretches
-[00:00:11.379] Tractor crosses a dry field
-[00:00:22.678] Harvester cuts golden crops
-[00:00:33.977] Workers load boxes onto trucks
-[00:00:45.275] Green vineyards line a hillside
-[00:00:56.574] Orchards glow in morning light
-[00:01:07.873] Irrigation canals cross brown plains
-[00:01:24.124] Cargo ship leaves a busy port
-[00:01:32.723] Mountains rise behind the valley
-[00:01:41.321] Closing view shows quiet farmland
+[00:00:00.080] Astronaut enters; tends and prunes green plants in a window unit.
+[00:00:11.379] Man tends plants in open panel; reaches deeper into machinery.
+[00:00:22.678] Man with glasses reaches into panel of plants and wires; works inside.
+[00:00:33.977] Man with glasses works on plant chambers in blue gloves.
+[00:00:45.275] Man continues reaching into illuminated chamber tending green plants.
+[00:00:56.574] Astronaut in green plants, closes chamber hatch.
+[00:01:07.873] "GOT A PIC AND I WANT IT" astronaut photographs a red chili pepper.
+[00:01:24.124] Astronauts form circle and lift joined hands upward in celebration.
+[00:01:32.723] People celebrate with clapping, handshakes, and joyful movement.
+[00:01:41.321] Crew members smile and stand together in a concluding group pose.

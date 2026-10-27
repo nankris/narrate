@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "attribution": "Narrate contributors",
   "notes": "Synthetic shapes, captions, espeak; no filmed kitchen",
-  "provider": "mock",
-  "dev_only": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
   "date": "2026-10-28"
 }

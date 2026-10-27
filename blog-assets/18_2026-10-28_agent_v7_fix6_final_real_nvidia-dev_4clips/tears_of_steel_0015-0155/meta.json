@@ -1,0 +1,11 @@
+{
+  "title": "Tears of steel 0015-0155",
+  "input_path": "samples/tears_of_steel_0015-0155.mp4",
+  "source": "https://download.blender.org/demo/movies/ToS/tears_of_steel_720p.mov",
+  "license": "CC-BY 3.0",
+  "attribution": "(c) Blender Foundation, mango.blender.org",
+  "notes": "Clip 0:15–1:55. Soundtrack by Joram Letwory is distributed separately under CC-BY-ND 3.0. Narrate only lowers its volume under narration; licensing caveat to double-check before distribution. Re-encoded to 640 px, H.264 CRF 28, AAC 96k. Dialogue at 8-30 s, 35-38.5 s, 46-48 s; music throughout (ffmpeg silencedetect finds 0 gaps).",
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "date": "2026-10-28"
+}

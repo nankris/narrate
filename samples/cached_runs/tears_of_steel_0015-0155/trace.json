@@ -1,17 +1,16 @@
 {
   "metadata": {
-    "provider": "mock",
-    "mock": true,
-    "dev_only": false,
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
     "models": {
-      "perceive": "nvidia/Nemotron-3.5-Super-VL",
-      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
-      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
     },
-    "base_url_host": null,
+    "base_url_host": "integrate.api.nvidia.com",
     "budgets": {
       "max_steps": 30,
       "budget_usd": 0.5,
@@ -28,31 +27,31 @@
       "retry_attempts": 3,
       "hangover_s": 0.3
     },
-    "mock_notice": "Scripted synthetic behavior; not visual understanding"
+    "mock_notice": null
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.0001745249901432544,
+      "t_wall": 2.4367842940118862,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.5244997232221067e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 2.4366413340030704,
+      "tokens_in": 3160,
+      "tokens_out": 43,
+      "cost_usd": 0.003289,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 2,
-      "t_wall": 1.1918193379970035,
+      "t_wall": 3.68377694200899,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Find narratable speech-free gaps in the 100s video",
       "tool_name": "detect_speech_gaps",
       "args": {},
       "result": {
@@ -61,16 +60,16 @@
             "id": 0,
             "start": 0.08,
             "end": 9.12,
-            "word_budget_en": 19,
-            "word_budget_hi": 22,
+            "max_words_en": 17,
+            "max_words_hi": 19,
             "narratable": true
           },
           {
             "id": 1,
             "start": 30.52,
             "end": 31.65,
-            "word_budget_en": 1,
-            "word_budget_hi": 1,
+            "max_words_en": 1,
+            "max_words_hi": 1,
             "narratable": false,
             "reason": "too short"
           },
@@ -78,24 +77,24 @@
             "id": 2,
             "start": 32.54,
             "end": 34.92,
-            "word_budget_en": 4,
-            "word_budget_hi": 5,
+            "max_words_en": 3,
+            "max_words_hi": 4,
             "narratable": true
           },
           {
             "id": 3,
             "start": 38.97,
             "end": 45.57,
-            "word_budget_en": 14,
-            "word_budget_hi": 16,
+            "max_words_en": 12,
+            "max_words_hi": 14,
             "narratable": true
           },
           {
             "id": 4,
             "start": 47.61,
             "end": 59.0,
-            "word_budget_en": 25,
-            "word_budget_hi": 28,
+            "max_words_en": 17,
+            "max_words_hi": 19,
             "narratable": true,
             "parent_gap": 4
           }
@@ -127,7 +126,7 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 1.1916335900023114,
+      "latency_s": 1.2469718590000411,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -137,24 +136,24 @@
     },
     {
       "step": 3,
-      "t_wall": 1.1920497050014092,
+      "t_wall": 8.21941014600452,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 7.429299876093864e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 4.535344318996067,
+      "tokens_in": 3805,
+      "tokens_out": 248,
+      "cost_usd": 0.004549,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 4,
-      "t_wall": 1.1936893699894426,
+      "t_wall": 15.449193998007104,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -162,31 +161,46 @@
       "result": {
         "events": [
           {
-            "t_start": 0,
-            "t_end": 9.12,
-            "what": "A static scene is displayed",
+            "t_start": 0.0,
+            "t_end": 3.5,
+            "what": "Close-up view looking up at rocket engine nozzles with bright exhaust plumes firing intensely downward.",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 3.5,
+            "t_end": 4.8,
+            "what": "Wide shot of an industrial launch facility with tall towers surrounding a central bright light source.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 4.8,
+            "t_end": 9.1,
+            "what": "The camera pans right across the launch facility as smoke and light fill the center area between the towers.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 3.042900061700493e-05,
-      "tokens_in": 72,
-      "tokens_out": 55,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
+      "latency_s": 6.45603506200132,
+      "tokens_in": 2722,
+      "tokens_out": 204,
+      "cost_usd": 0.0010002000000000001,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
       "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
       "step": 5,
-      "t_wall": 1.1937299970013555,
+      "t_wall": 15.449330225004815,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Inspect gap 0 opening seconds for visual content",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 0,
@@ -195,17 +209,27 @@
       "result": {
         "events": [
           {
-            "t_start": 0,
-            "t_end": 9.12,
-            "what": "A static scene is displayed",
+            "t_start": 0.0,
+            "t_end": 3.5,
+            "what": "Close-up view looking up at rocket engine nozzles with bright exhaust plumes firing intensely downward.",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 3.5,
+            "t_end": 4.8,
+            "what": "Wide shot of an industrial launch facility with tall towers surrounding a central bright light source.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.9
           }
         ],
-        "modality": "mock",
+        "modality": "video",
         "time_base": "absolute",
+        "evidence_gaps": [
+          0
+        ],
         "state": {
           "committed": [],
           "remaining": [
@@ -227,10 +251,11 @@
             "inspections": 11,
             "verifications": 8
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.0016591280000284314,
+      "latency_s": 7.229901669998071,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -240,47 +265,83 @@
     },
     {
       "step": 6,
-      "t_wall": 1.1957909909979207,
+      "t_wall": 28.29136969600222,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word "
+        "events": [
+          {
+            "t_start": 32.0,
+            "t_end": 33.8,
+            "what": "glowing orange and blue holographic humanoid figures stand amidst technological machinery with red particles drifting around them",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 33.8,
+            "t_end": 36.0,
+            "what": "the camera pans upward to reveal bright green holographic interfaces with fast-forward and play symbols hovering in front of dark machinery",
+            "on_screen_text": "MEMORY PLAYBACK GLOBAL",
+            "importance": 5,
+            "confidence": 0.85
+          },
+          {
+            "t_start": 36.0,
+            "t_end": 37.3,
+            "what": "the view shifts to a close-up of a hand pressing buttons on a retro-style control panel featuring pink circular displays and digital readouts",
+            "on_screen_text": "SYSTEM MEMORY CORE",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 2.4689987185411155e-05,
-      "tokens_in": 234,
-      "tokens_out": 44,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 12.393055304011796,
+      "tokens_in": 2724,
+      "tokens_out": 234,
+      "cost_usd": 0.0010278,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
       "step": 7,
-      "t_wall": 1.1958213439938845,
+      "t_wall": 28.29150084700086,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "draft_description",
+      "note": "Inspect gap 2 around 32.5-34.9s",
+      "tool_name": "inspect_video_segment",
       "args": {
-        "gap_id": 0,
-        "context_events": [
-          {
-            "t_start": 0.08,
-            "t_end": 9.12,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 19
+        "end": 35.5,
+        "start": 32
       },
       "result": {
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word ",
+        "events": [
+          {
+            "t_start": 32.0,
+            "t_end": 33.8,
+            "what": "glowing orange and blue holographic humanoid figures stand amidst technological machinery with red particles drifting around them",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 33.8,
+            "t_end": 36.0,
+            "what": "the camera pans upward to reveal bright green holographic interfaces with fast-forward and play symbols hovering in front of dark machinery",
+            "on_screen_text": "MEMORY PLAYBACK GLOBAL",
+            "importance": 5,
+            "confidence": 0.85
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          2
+        ],
         "state": {
           "committed": [],
           "remaining": [
@@ -299,13 +360,13 @@
           "needs_verification": [],
           "budget": {
             "turns": 28,
-            "inspections": 11,
+            "inspections": 10,
             "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0020536450028885156,
+      "latency_s": 12.842088653997052,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -315,23 +376,83 @@
     },
     {
       "step": 8,
-      "t_wall": 1.2733332609932404,
+      "t_wall": 32.52164691100188,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 38.5,
+            "t_end": 41.0,
+            "what": "A person with long dreadlocks wearing a white shirt stands behind a counter covered with bottles, while another person in a light purple jacket stands nearby.",
+            "on_screen_text": "SIMULATION READY...",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 41.0,
+            "t_end": 46.0,
+            "what": "The camera focuses on a realistic brain model sitting on a plate with pins inserted into it, surrounded by glowing pink magical rings.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 46.0,
+            "t_end": 49.0,
+            "what": "A man with a mechanical eye lens peers down at the brain model as pink energy swirls around him.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.537844649006729,
+      "tokens_in": 2730,
+      "tokens_out": 229,
+      "cost_usd": 0.0010251,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 32.52178492701205,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "check_fit",
+      "note": "Inspect gap 3 around 39-45.6s",
+      "tool_name": "inspect_video_segment",
       "args": {
-        "gap_id": 0,
-        "text": "word word word word word word word word word word word word word word word word word word word word word word word word ",
-        "lang": "en"
+        "start": 38.5,
+        "end": 46
       },
       "result": {
-        "ok": false,
-        "problems": [
-          "Word budget exceeded"
+        "events": [
+          {
+            "t_start": 38.5,
+            "t_end": 41.0,
+            "what": "A person with long dreadlocks wearing a white shirt stands behind a counter covered with bottles, while another person in a light purple jacket stands nearby.",
+            "on_screen_text": "SIMULATION READY...",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 41.0,
+            "t_end": 46.0,
+            "what": "The camera focuses on a realistic brain model sitting on a plate with pins inserted into it, surrounded by glowing pink magical rings.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
         ],
-        "suggested_max_words": 19,
-        "seconds": 7.87,
-        "overlap_seconds": 0,
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          3
+        ],
         "state": {
           "committed": [],
           "remaining": [
@@ -350,403 +471,24 @@
           "needs_verification": [],
           "budget": {
             "turns": 28,
-            "inspections": 11,
+            "inspections": 9,
             "verifications": 8
           }
-        }
+        },
+        "truncated": true
       },
-      "ok": false,
-      "latency_s": 0.0774888820014894,
+      "ok": true,
+      "latency_s": 4.2302200499980245,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
       "correction": false,
       "corrects_step": null
-    },
-    {
-      "step": 9,
-      "t_wall": 1.273412816997734,
-      "role": "orchestrator",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 3.800699778366834e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
     },
     {
       "step": 10,
-      "t_wall": 1.2755620190000627,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "text": "A static scene is displayed"
-      },
-      "ok": true,
-      "latency_s": 3.7174002500250936e-05,
-      "tokens_in": 233,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 11,
-      "t_wall": 1.275598842999898,
-      "role": "tool",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_id": 0,
-        "context_events": [
-          {
-            "t_start": 0.08,
-            "t_end": 9.12,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
-      },
-      "result": {
-        "text": "A static scene is displayed",
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.00216912200266961,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 8
-    },
-    {
-      "step": 12,
-      "t_wall": 1.3443448809994152,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 0,
-        "text": "A static scene is displayed"
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 0,
-          "start": 0.08,
-          "end": 9.12,
-          "duration": 9.04,
-          "narratable": true,
-          "word_budget_en": 19,
-          "word_budget_hi": 22,
-          "en": "A static scene is displayed"
-        },
-        "verify_required": [
-          "low-confidence events (<0.75)"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0687233320059022,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 13,
-      "t_wall": 1.3462801529967692,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 3.9089005440473557e-05,
-      "tokens_in": 83,
-      "tokens_out": 39,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 14,
-      "t_wall": 1.3463256329996511,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 0,
-        "claim": "A blue dot appears and the text fades out"
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "gap_ids": [
-          0
-        ],
-        "uncommitted": [
-          0
-        ],
-        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0019363190076546744,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 15,
-      "t_wall": 1.3463846949889557,
-      "role": "orchestrator",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.7375994250178337e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 16,
-      "t_wall": 1.3481055939919315,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "text": "A static scene is displayed"
-      },
-      "ok": true,
-      "latency_s": 2.1410000044852495e-05,
-      "tokens_in": 233,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 17,
-      "t_wall": 1.3481372329988517,
-      "role": "tool",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_id": 0,
-        "context_events": [
-          {
-            "t_start": 0.08,
-            "t_end": 9.12,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 6
-      },
-      "result": {
-        "text": "A static scene is displayed",
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 26,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.001736905993311666,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 14
-    },
-    {
-      "step": 18,
-      "t_wall": 1.41425507699023,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 0,
-        "text": "A static scene"
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 0,
-          "start": 0.08,
-          "end": 9.12,
-          "duration": 9.04,
-          "narratable": true,
-          "word_budget_en": 19,
-          "word_budget_hi": 22,
-          "en": "A static scene"
-        },
-        "verify_required": [
-          "low-confidence events (<0.75)"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 26,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.06609591998858377,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 19,
-      "t_wall": 1.4160881669959053,
+      "t_wall": 37.74858888699964,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -754,50 +496,358 @@
       "result": {
         "events": [
           {
-            "t_start": 30.54,
-            "t_end": 34.92,
-            "what": "A static scene is displayed",
+            "t_start": 47,
+            "t_end": 50,
+            "what": "A cyborg examines a brain under an arc lamp",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 5,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 50,
+            "t_end": 55,
+            "what": "Title card displays \"TEARS OF STEEL\"",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 55,
+            "t_end": 60,
+            "what": "Title fades and smoky cityscape with flying platform emerges",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "what": "Silhouetted cathedral tower rises above rooftops",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 70,
+            "t_end": 73,
+            "what": "View through window of tower interior",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.85
           }
         ]
       },
       "ok": true,
-      "latency_s": 3.779600956477225e-05,
-      "tokens_in": 78,
-      "tokens_out": 61,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
+      "latency_s": 4.623472135004704,
+      "tokens_in": 2730,
+      "tokens_out": 282,
+      "cost_usd": 0.0010728,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
       "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
-      "step": 20,
-      "t_wall": 1.4161576029873686,
+      "step": 11,
+      "t_wall": 37.74867193700629,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Inspect gap 4 around 47.6-59s",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 30.54,
-        "end": 34.92
+        "start": 47,
+        "end": 60
       },
       "result": {
         "events": [
           {
-            "t_start": 30.54,
-            "t_end": 34.92,
-            "what": "A static scene is displayed",
+            "t_start": 47,
+            "t_end": 50,
+            "what": "A cyborg examines a brain under an arc lamp",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 5,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 50,
+            "t_end": 55,
+            "what": "Title card displays \"TEARS OF STEEL\"",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 55,
+            "t_end": 60,
+            "what": "Title fades and smoky cityscape with flying platform emerges",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 60,
+            "t_end": 70,
+            "what": "Silhouetted cathedral tower rises above rooftops",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
           }
         ],
-        "modality": "mock",
-        "time_base": "absolute",
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 5.226819931005593,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 70.384474934006,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 32.6354486640048,
+      "tokens_in": 5330,
+      "tokens_out": 60,
+      "cost_usd": 0.00551,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 72.3269236710039,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\""
+          },
+          {
+            "id": 2,
+            "text": "Bright green holographic interfaces with fast-forward and play symbols appear."
+          },
+          {
+            "id": 3,
+            "text": "A person with long dreadlocks and a white shirt stands behind a counter covered with bottles."
+          },
+          {
+            "id": 4,
+            "text": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\"."
+          },
+          {
+            "id": 5,
+            "text": "Title fades; smoky cityscape with flying platform emerges."
+          },
+          {
+            "id": 6,
+            "text": "Silhouetted cathedral tower rises above rooftops."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.9401262699975632,
+      "tokens_in": 2192,
+      "tokens_out": 174,
+      "cost_usd": 0.00017327999999999997,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 72.8376171310083,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "MEMORY PLAYBACK GLOBAL"
+          },
+          {
+            "id": 3,
+            "text": "SIMULATION READY..."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.5105076320032822,
+      "tokens_in": 1022,
+      "tokens_out": 36,
+      "cost_usd": 6.996000000000001e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 72.83775154101022,
+      "role": "tool",
+      "note": "Draft cues for all inspected gaps with evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+            "max_words": 17
+          },
+          {
+            "id": 2,
+            "text": "MEMORY PLAYBACK GLOBAL",
+            "max_words": 3
+          },
+          {
+            "id": 3,
+            "text": "SIMULATION READY...",
+            "max_words": 12
+          },
+          {
+            "id": 4,
+            "text": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\".",
+            "max_words": 17
+          },
+          {
+            "id": 5,
+            "text": "Title fades; smoky cityscape with flying platform emerges.",
+            "max_words": 17
+          },
+          {
+            "id": 6,
+            "text": "Silhouetted cathedral tower rises above rooftops.",
+            "max_words": 17
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.453261795992148,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 16,
+      "t_wall": 88.40458509601012,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 15.5664489089977,
+      "tokens_in": 5750,
+      "tokens_out": 397,
+      "cost_usd": 0.006941,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 88.5141658490029,
+      "role": "tool",
+      "note": "Propose gap 0 cue with on-screen text",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 9.12,
+          "duration": 9.04,
+          "narratable": true,
+          "word_budget_en": 19,
+          "word_budget_hi": 22,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\""
+        },
+        "verify_required": [
+          "quoted text",
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0
@@ -819,13 +869,13 @@
           ],
           "budget": {
             "turns": 26,
-            "inspections": 10,
-            "verifications": 7
+            "inspections": 8,
+            "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0018441400025039911,
+      "latency_s": 0.10956493200501427,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -834,109 +884,14 @@
       "corrects_step": null
     },
     {
-      "step": 21,
-      "t_wall": 1.4162218829878839,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.688101085368544e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 22,
-      "t_wall": 1.4181822120008292,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "text": "A static scene is"
-      },
-      "ok": true,
-      "latency_s": 3.165399539284408e-05,
-      "tokens_in": 248,
-      "tokens_out": 9,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 23,
-      "t_wall": 1.4182341929990798,
+      "step": 18,
+      "t_wall": 88.59362116300326,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_id": 2,
-        "context_events": [
-          {
-            "t_start": 32.54,
-            "t_end": 34.92,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 4
-      },
-      "result": {
-        "text": "A static scene is",
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 10,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0019941859936807305,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 24,
-      "t_wall": 1.4903850599948782,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Propose gap 2 cue with on-screen text",
       "tool_name": "propose_cue",
       "args": {
-        "gap_id": 2,
-        "text": "A static scene is"
+        "text": "MEMORY PLAYBACK GLOBAL",
+        "gap_id": 2
       },
       "result": {
         "ok": true,
@@ -948,10 +903,12 @@
           "narratable": true,
           "word_budget_en": 4,
           "word_budget_hi": 5,
-          "en": "A static scene is"
+          "max_words_en": 3,
+          "max_words_hi": 4,
+          "en": "MEMORY PLAYBACK GLOBAL"
         },
         "verify_required": [
-          "low-confidence events (<0.75)"
+          "named entity"
         ],
         "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
@@ -975,14 +932,14 @@
             2
           ],
           "budget": {
-            "turns": 25,
-            "inspections": 10,
-            "verifications": 7
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.07212670499575324,
+      "latency_s": 0.07939659000840038,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -991,66 +948,40 @@
       "corrects_step": null
     },
     {
-      "step": 25,
-      "t_wall": 1.491760898992652,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 36.97,
-            "t_end": 45.57,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.7362999389879405e-05,
-      "tokens_in": 78,
-      "tokens_out": 57,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 26,
-      "t_wall": 1.4918177770014154,
+      "step": 19,
+      "t_wall": 88.66710967800464,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
+      "note": "Propose gap 3 cue with on-screen text",
+      "tool_name": "propose_cue",
       "args": {
-        "start": 36.97,
-        "end": 45.57
+        "text": "SIMULATION READY...",
+        "gap_id": 3
       },
       "result": {
-        "events": [
-          {
-            "t_start": 36.97,
-            "t_end": 45.57,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 38.97,
+          "end": 45.57,
+          "duration": 6.6,
+          "narratable": true,
+          "word_budget_en": 14,
+          "word_budget_hi": 16,
+          "max_words_en": 12,
+          "max_words_hi": 14,
+          "en": "SIMULATION READY..."
+        },
+        "verify_required": [
+          "named entity"
         ],
-        "modality": "mock",
-        "time_base": "absolute",
+        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0,
-            2
+            2,
+            3
           ],
           "remaining": [
-            3,
             4,
             5,
             6,
@@ -1062,17 +993,18 @@
           ],
           "needs_verification": [
             0,
-            2
+            2,
+            3
           ],
           "budget": {
-            "turns": 25,
-            "inspections": 9,
-            "verifications": 7
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0013925020030001178,
+      "latency_s": 0.07344876699789893,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1081,75 +1013,264 @@
       "corrects_step": null
     },
     {
-      "step": 27,
-      "t_wall": 1.4918766199989477,
+      "step": 20,
+      "t_wall": 88.74434388701047,
+      "role": "tool",
+      "note": "Propose gap 4 cue with title",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\".",
+        "gap_id": 4
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 47.61,
+          "end": 59.0,
+          "duration": 11.39,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 25,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\"."
+        },
+        "verify_required": [
+          "quoted text",
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07719161600107327,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 88.82280853801058,
+      "role": "tool",
+      "note": "Propose gap 5 cue with cityscape",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 5,
+        "text": "Title fades; smoky cityscape with flying platform emerges."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 5,
+          "start": 59.0,
+          "end": 69.8,
+          "duration": 10.8,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 23,
+          "word_budget_hi": 27,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Title fades; smoky cityscape with flying platform emerges."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07841271000506822,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 88.89398753701244,
+      "role": "tool",
+      "note": "Propose gap 6 cue with cathedral",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 6,
+        "text": "Silhouetted cathedral tower rises above rooftops."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 6,
+          "start": 69.8,
+          "end": 80.4,
+          "duration": 10.6,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 23,
+          "word_budget_hi": 26,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Silhouetted cathedral tower rises above rooftops."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07113800701336004,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 94.24613820000377,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.6370005798526108e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 5.351973811004427,
+      "tokens_in": 6856,
+      "tokens_out": 265,
+      "cost_usd": 0.007651,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 28,
-      "t_wall": 1.4938140369922621,
+      "step": 24,
+      "t_wall": 95.41310388001148,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "verdict": "supported",
+        "evidence": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund\"."
       },
       "ok": true,
-      "latency_s": 2.8340000426396728e-05,
-      "tokens_in": 307,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 0.8974052010016749,
+      "tokens_in": 1120,
+      "tokens_out": 34,
+      "cost_usd": 0.0003666,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 29,
-      "t_wall": 1.4938682749925647,
+      "step": 25,
+      "t_wall": 95.41329039000266,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "draft_description",
+      "note": "Verify gap 0 on-screen text claim",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 3,
-        "context_events": [
-          {
-            "t_start": 38.97,
-            "t_end": 45.57,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
+        "claim": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\"",
+        "gap_id": 0
       },
       "result": {
-        "text": "A static scene is displayed",
+        "verdict": "supported",
+        "evidence": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund\".",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
         "state": {
           "committed": [
             0,
-            2
-          ],
-          "remaining": [
+            2,
             3,
             4,
             5,
-            6,
+            6
+          ],
+          "remaining": [
             7,
             8
           ],
@@ -1157,18 +1278,170 @@
             1
           ],
           "needs_verification": [
-            0,
-            2
+            2,
+            3,
+            4
           ],
           "budget": {
-            "turns": 24,
-            "inspections": 9,
+            "turns": 25,
+            "inspections": 8,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.001979243999812752,
+      "latency_s": 1.1671322040056111,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 97.97451341200212,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frame at 33.7 seconds shows a green holographic interface with text reading 'REPLAY ATTACK - GLOBAL'. The frame at 34.8 seconds displays the text 'LOCK-ON - [RED] - SENON' above a control panel being operated by a hand."
+      },
+      "ok": true,
+      "latency_s": 2.303149608007516,
+      "tokens_in": 1123,
+      "tokens_out": 79,
+      "cost_usd": 0.000408,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 97.9747477780038,
+      "role": "tool",
+      "note": "Verify gap 2 on-screen text claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "MEMORY PLAYBACK GLOBAL",
+        "gap_id": 2
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frame at 33.7 seconds shows a green holographic interface with text reading 'REPLAY ATTACK - GLOBAL'. The frame at 34.8 seconds displays the text 'LOCK-ON - [RED] - SENON' above a control panel being operated by a hand.",
+        "modality": "frames",
+        "gap_ids": [
+          2
+        ],
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.5614275819971226,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 28,
+      "t_wall": 99.51739483801066,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No text reading SIMULATION READY appears in any provided frame."
+      },
+      "ok": true,
+      "latency_s": 1.300859713999671,
+      "tokens_in": 1113,
+      "tokens_out": 31,
+      "cost_usd": 0.00036179999999999996,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 99.51753730101336,
+      "role": "tool",
+      "note": "Verify gap 3 on-screen text claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 3,
+        "claim": "SIMULATION READY..."
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No text reading SIMULATION READY appears in any provided frame.",
+        "modality": "frames",
+        "gap_ids": [
+          3
+        ],
+        "uncommitted": [
+          3
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            2,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            3,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            4
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.5427528389991494,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1178,134 +1451,68 @@
     },
     {
       "step": 30,
-      "t_wall": 1.49489528099366,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
-      "args": {
-        "gap_id": 3,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
-      },
-      "result": {
-        "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 9,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.000996752001810819,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 31,
-      "t_wall": 1.4959627099888166,
+      "t_wall": 100.72192875300243,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 45.61,
-            "t_end": 59.0,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ]
+        "verdict": "supported",
+        "evidence": "A cyborg with mechanical eye implants and hoses is shown leaning over a brain model, followed by a black title card displaying 'TEARS OF STEEL'."
       },
       "ok": true,
-      "latency_s": 1.5819998225197196e-05,
-      "tokens_in": 78,
-      "tokens_out": 56,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
+      "latency_s": 0.9413810960104456,
+      "tokens_in": 1126,
+      "tokens_out": 48,
+      "cost_usd": 0.000381,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 32,
-      "t_wall": 1.4960112949920585,
+      "step": 31,
+      "t_wall": 100.72205685201334,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
+      "note": "Verify gap 4 on-screen text and cyborg claim",
+      "tool_name": "verify_claim",
       "args": {
-        "start": 45.61,
-        "end": 59.0
+        "gap_id": 4,
+        "claim": "A cyborg examines a brain under an arc lamp; title card displays \"TEARS OF STEEL\""
       },
       "result": {
-        "events": [
-          {
-            "t_start": 45.61,
-            "t_end": 59.0,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
+        "verdict": "supported",
+        "evidence": "A cyborg with mechanical eye implants and hoses is shown leaning over a brain model, followed by a black title card displaying 'TEARS OF STEEL'.",
+        "modality": "frames",
+        "gap_ids": [
+          4
         ],
-        "modality": "mock",
-        "time_base": "absolute",
         "state": {
           "committed": [
             0,
-            2
-          ],
-          "remaining": [
+            2,
             4,
             5,
-            6,
+            6
+          ],
+          "remaining": [
+            3,
             7,
             8
           ],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 24,
+            "turns": 25,
             "inspections": 8,
-            "verifications": 7
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0010941939981421456,
+      "latency_s": 1.2044900559994858,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1314,93 +1521,92 @@
       "corrects_step": null
     },
     {
-      "step": 33,
-      "t_wall": 1.4960550329997204,
+      "step": 32,
+      "t_wall": 103.91834754600131,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.9036000594496727e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 3.1960752370068803,
+      "tokens_in": 7745,
+      "tokens_out": 47,
+      "cost_usd": 0.007886,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 34,
-      "t_wall": 1.4978601740003796,
+      "step": 33,
+      "t_wall": 104.52973743100301,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "cues": [
+          {
+            "id": 3,
+            "text": "SIMULATION READY..."
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 2.0750012481585145e-05,
-      "tokens_in": 306,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 0.609348351994413,
+      "tokens_in": 1137,
+      "tokens_out": 25,
+      "cost_usd": 7.422e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
       "correction": false,
       "cost_role": "draft",
       "cached_tokens": 0
     },
     {
-      "step": 35,
-      "t_wall": 1.497912055987399,
+      "step": 34,
+      "t_wall": 104.52987666100671,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Redraft gap 3 based on actual visual evidence",
       "tool_name": "draft_description",
       "args": {
-        "gap_id": 4,
-        "context_events": [
-          {
-            "t_start": 47.61,
-            "t_end": 59.0,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
+        "gap_ids": [
+          3
+        ]
       },
       "result": {
-        "text": "A static scene is displayed",
+        "cues": [
+          {
+            "id": 3,
+            "text": "SIMULATION READY...",
+            "max_words": 12
+          }
+        ],
         "state": {
           "committed": [
             0,
-            2
-          ],
-          "remaining": [
+            2,
             4,
             5,
-            6,
+            6
+          ],
+          "remaining": [
+            3,
             7,
             8
           ],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 23,
+            "turns": 24,
             "inspections": 8,
-            "verifications": 7
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0018470440118107945,
+      "latency_s": 0.6115173659927677,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1409,45 +1615,66 @@
       "corrects_step": null
     },
     {
+      "step": 35,
+      "t_wall": 107.3910293370136,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.860975886011147,
+      "tokens_in": 7897,
+      "tokens_out": 67,
+      "cost_usd": 0.008098,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
       "step": 36,
-      "t_wall": 1.4989072289899923,
+      "t_wall": 107.39269117799995,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
+      "note": "Re-inspect gap 3 for correct visual details",
+      "tool_name": "inspect_video_segment",
       "args": {
-        "gap_id": 4,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
+        "start": 38.5,
+        "end": 46
       },
       "result": {
-        "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          3
+        ],
+        "see": "evidence board gap 3",
+        "next": "draft_description(gap_ids=[3])",
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6
           ],
           "remaining": [
-            5,
-            6,
+            3,
             7,
             8
           ],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
             "turns": 23,
             "inspections": 8,
-            "verifications": 7
+            "verifications": 4
           }
         }
       },
-      "ok": true,
-      "latency_s": 0.0009762289992067963,
+      "ok": false,
+      "latency_s": 0.0016468520043417811,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1457,206 +1684,180 @@
     },
     {
       "step": 37,
-      "t_wall": 1.5000258020008914,
-      "role": "submodel",
-      "note": "",
+      "t_wall": 110.52227601900813,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 57.0,
-            "t_end": 69.8,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ]
-      },
+      "result": null,
       "ok": true,
-      "latency_s": 1.4909004676155746e-05,
-      "tokens_in": 73,
-      "tokens_out": 51,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
+      "latency_s": 3.129308451010729,
+      "tokens_in": 7823,
+      "tokens_out": 61,
+      "cost_usd": 0.008006,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
-      "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
       "step": 38,
-      "t_wall": 1.5000760309922043,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 57.0,
-        "end": 69.8
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 57.0,
-            "t_end": 69.8,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "modality": "mock",
-        "time_base": "absolute",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 23,
-            "inspections": 7,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0011498270032461733,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 39,
-      "t_wall": 1.5001704349997453,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.060100086964667e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 40,
-      "t_wall": 1.5020173299999442,
+      "t_wall": 111.30209574601031,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "cues": [
+          {
+            "id": 3,
+            "text": "\"SIMULATION READY...\" on screen. A person with long dreadlocks wearing a white shirt stands behind a counter covered with bottles."
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 2.503799623809755e-05,
-      "tokens_in": 280,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 0.777770838001743,
+      "tokens_in": 1137,
+      "tokens_out": 48,
+      "cost_usd": 7.973999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
       "correction": false,
       "cost_role": "draft",
       "cached_tokens": 0
     },
     {
-      "step": 41,
-      "t_wall": 1.5020688090007752,
+      "step": 39,
+      "t_wall": 112.68122103001224,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "SIMULATION READY..."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.379018517996883,
+      "tokens_in": 1200,
+      "tokens_out": 34,
+      "cost_usd": 8.015999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 112.68135289600468,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Draft correct description for gap 3 from evidence board",
       "tool_name": "draft_description",
       "args": {
-        "gap_id": 5,
-        "context_events": [
-          {
-            "t_start": 59.0,
-            "t_end": 69.8,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
+        "max_words": 12,
+        "gap_ids": [
+          3
+        ]
       },
       "result": {
-        "text": "A static scene is displayed",
+        "cues": [
+          {
+            "id": 3,
+            "text": "SIMULATION READY...",
+            "max_words": 12
+          }
+        ],
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6
           ],
           "remaining": [
-            5,
-            6,
+            3,
             7,
             8
           ],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
             "turns": 22,
-            "inspections": 7,
-            "verifications": 7
+            "inspections": 8,
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0018900849972851574,
+      "latency_s": 2.1590592400025344,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
+      "correction": true,
+      "corrects_step": 36
+    },
+    {
+      "step": 41,
+      "t_wall": 115.516722313012,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.8350143160059815,
+      "tokens_in": 7044,
+      "tokens_out": 74,
+      "cost_usd": 0.007266,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
-      "corrects_step": null
+      "cached_tokens": 0
     },
     {
       "step": 42,
-      "t_wall": 1.503227112989407,
+      "t_wall": 115.59112174800248,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
+      "note": "Propose corrected gap 3 cue from evidence",
+      "tool_name": "propose_cue",
       "args": {
-        "gap_id": 5,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
+        "gap_id": 3,
+        "text": "A person with dreadlocks examines a realistic brain model"
       },
       "result": {
         "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
+        "cue": {
+          "id": 3,
+          "start": 38.97,
+          "end": 45.57,
+          "duration": 6.6,
+          "narratable": true,
+          "word_budget_en": 14,
+          "word_budget_hi": 16,
+          "max_words_en": 12,
+          "max_words_hi": 14,
+          "en": "A person with dreadlocks examines a realistic brain model"
+        },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3
           ],
           "remaining": [
-            6,
             7,
             8
           ],
@@ -1664,28 +1865,44 @@
             1
           ],
           "needs_verification": [
-            0,
-            2
+            3
           ],
           "budget": {
-            "turns": 22,
-            "inspections": 7,
-            "verifications": 7
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0011280089966021478,
+      "latency_s": 0.07438277400797233,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": true,
+      "corrects_step": 29
     },
     {
       "step": 43,
-      "t_wall": 1.504445834987564,
+      "t_wall": 117.90511978701397,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3136915270006284,
+      "tokens_in": 7041,
+      "tokens_out": 128,
+      "cost_usd": 0.007425,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 131.61435951301246,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1693,57 +1910,103 @@
       "result": {
         "events": [
           {
-            "t_start": 67.8,
-            "t_end": 80.4,
-            "what": "A static scene is displayed",
+            "t_start": 79.5,
+            "t_end": 80.3,
+            "what": "Close-up of a person aiming a futuristic rifle with glowing red sight.",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 80.3,
+            "t_end": 83.8,
+            "what": "View through scope showing an airship hovering above city rooftops.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 83.8,
+            "t_end": 88.8,
+            "what": "Rooftop scene with a shooter lying prone and another person lying nearby with candles.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 88.8,
+            "t_end": 90.0,
+            "what": "View through scope showing airship hovering over city with bright lights.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 1.9512997823767364e-05,
-      "tokens_in": 73,
-      "tokens_out": 51,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
+      "latency_s": 13.121888112000306,
+      "tokens_in": 2731,
+      "tokens_out": 251,
+      "cost_usd": 0.0010452,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
       "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
-      "step": 44,
-      "t_wall": 1.5045083559962222,
+      "step": 45,
+      "t_wall": 131.61459327299963,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Inspect gap 7 for visual events",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 67.8,
-        "end": 80.4
+        "end": 89.5,
+        "start": 79.5
       },
       "result": {
         "events": [
           {
-            "t_start": 67.8,
-            "t_end": 80.4,
-            "what": "A static scene is displayed",
+            "t_start": 79.5,
+            "t_end": 80.3,
+            "what": "Close-up of a person aiming a futuristic rifle with glowing red sight.",
             "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 80.3,
+            "t_end": 83.8,
+            "what": "View through scope showing an airship hovering above city rooftops.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 83.8,
+            "t_end": 88.8,
+            "what": "Rooftop scene with a shooter lying prone and another person lying nearby with candles.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
           }
         ],
-        "modality": "mock",
+        "modality": "video",
         "time_base": "absolute",
+        "evidence_gaps": [
+          6,
+          7,
+          8
+        ],
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3
           ],
           "remaining": [
-            6,
             7,
             8
           ],
@@ -1751,18 +2014,18 @@
             1
           ],
           "needs_verification": [
-            0,
-            2
+            3
           ],
           "budget": {
-            "turns": 22,
-            "inspections": 6,
-            "verifications": 7
+            "turns": 20,
+            "inspections": 7,
+            "verifications": 4
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.0012579739995999262,
+      "latency_s": 13.709459297009744,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1771,72 +2034,70 @@
       "corrects_step": null
     },
     {
-      "step": 45,
-      "t_wall": 1.504640995990485,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.1593994460999966e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
       "step": 46,
-      "t_wall": 1.506469374988228,
+      "t_wall": 135.20197431700944,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "events": [
+          {
+            "t_start": 89.5,
+            "t_end": 99.9,
+            "what": "A large mechanical flying machine hovers above a cityscape viewed through an oval window as it tilts and moves across the frame.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 2.7381000109016895e-05,
-      "tokens_in": 339,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 2.866578278990346,
+      "tokens_in": 2746,
+      "tokens_out": 79,
+      "cost_usd": 0.0008949,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
       "step": 47,
-      "t_wall": 1.5065279489936074,
+      "t_wall": 135.2021772670123,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "draft_description",
+      "note": "Inspect gap 8 for visual events",
+      "tool_name": "inspect_video_segment",
       "args": {
-        "gap_id": 6,
-        "context_events": [
-          {
-            "t_start": 69.8,
-            "t_end": 80.4,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
+        "start": 89.5,
+        "end": 99.9
       },
       "result": {
-        "text": "A static scene is displayed",
+        "events": [
+          {
+            "t_start": 89.5,
+            "t_end": 99.9,
+            "what": "A large mechanical flying machine hovers above a cityscape viewed through an oval window as it tilts and moves across the frame.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          8
+        ],
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3
           ],
           "remaining": [
-            6,
             7,
             8
           ],
@@ -1844,18 +2105,17 @@
             1
           ],
           "needs_verification": [
-            0,
-            2
+            3
           ],
           "budget": {
-            "turns": 21,
+            "turns": 20,
             "inspections": 6,
-            "verifications": 7
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0018798420060193166,
+      "latency_s": 3.5875124529993627,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1865,199 +2125,112 @@
     },
     {
       "step": 48,
-      "t_wall": 1.5075595309899654,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
-      "args": {
-        "gap_id": 6,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
-      },
-      "result": {
-        "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 21,
-            "inspections": 6,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0010070020070997998,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 49,
-      "t_wall": 1.5087892759911483,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 78.4,
-            "t_end": 89.46,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.951400190591812e-05,
-      "tokens_in": 73,
-      "tokens_out": 52,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 50,
-      "t_wall": 1.5088584479963174,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 78.4,
-        "end": 89.46
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 78.4,
-            "t_end": 89.46,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "modality": "mock",
-        "time_base": "absolute",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 21,
-            "inspections": 5,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0012789720058208331,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 51,
-      "t_wall": 1.5090295669942861,
+      "t_wall": 138.5616251790052,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.255200524814427e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 3.35906336500193,
+      "tokens_in": 6644,
+      "tokens_out": 68,
+      "cost_usd": 0.006848,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 52,
-      "t_wall": 1.5109169200004544,
+      "step": 49,
+      "t_wall": 139.88451019700733,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "cues": [
+          {
+            "id": 7,
+            "text": "Close-up of a person aiming a futuristic rifle with glowing red sight. View through scope shows an airship hovering above city rooftops. Rooftop scene with a shooter lying prone and another person lying nearby with candles."
+          },
+          {
+            "id": 8,
+            "text": "View through scope shows airship hovering over city with bright lights. A large mechanical flying machine hovers above a cityscape viewed through an oval window as it tilts and moves across the frame."
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 2.4295994080603123e-05,
-      "tokens_in": 337,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 1.3207724279927788,
+      "tokens_in": 1091,
+      "tokens_out": 108,
+      "cost_usd": 9.138e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
       "correction": false,
       "cost_role": "draft",
       "cached_tokens": 0
     },
     {
-      "step": 53,
-      "t_wall": 1.510968247996061,
+      "step": 50,
+      "t_wall": 141.6707435080025,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval window, tilting and moving across frame."
+          },
+          {
+            "id": 8,
+            "text": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame as bright city lights glow below."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.7860649369977182,
+      "tokens_in": 1154,
+      "tokens_out": 108,
+      "cost_usd": 9.515999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 51,
+      "t_wall": 141.67097521100368,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Draft cues for gaps 7 and 8",
       "tool_name": "draft_description",
       "args": {
-        "gap_id": 7,
-        "context_events": [
-          {
-            "t_start": 80.4,
-            "t_end": 89.46,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "max_words": 7
+        "gap_ids": [
+          7,
+          8
+        ]
       },
       "result": {
-        "text": "A static scene is displayed",
+        "cues": [
+          {
+            "id": 7,
+            "text": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.",
+            "max_words": 17
+          },
+          {
+            "id": 8,
+            "text": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.",
+            "max_words": 17
+          }
+        ],
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3
           ],
           "remaining": [
             7,
@@ -2067,18 +2240,94 @@
             1
           ],
           "needs_verification": [
-            0,
-            2
+            3
           ],
           "budget": {
-            "turns": 20,
-            "inspections": 5,
-            "verifications": 7
+            "turns": 19,
+            "inspections": 6,
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0019310850038891658,
+      "latency_s": 3.1093381440005032,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 52,
+      "t_wall": 143.9970357100101,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3256913569930475,
+      "tokens_in": 6428,
+      "tokens_out": 175,
+      "cost_usd": 0.006953,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 53,
+      "t_wall": 144.06966551300138,
+      "role": "tool",
+      "note": "Propose gap 7 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 7,
+          "start": 80.4,
+          "end": 89.46,
+          "duration": 9.06,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 19,
+          "word_budget_hi": 22,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            4,
+            5,
+            6,
+            3,
+            7
+          ],
+          "remaining": [
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            3
+          ],
+          "budget": {
+            "turns": 18,
+            "inspections": 6,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07261367898900062,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2088,41 +2337,56 @@
     },
     {
       "step": 54,
-      "t_wall": 1.5119487719930476,
+      "t_wall": 144.13795957200637,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
+      "note": "Propose gap 8 draft",
+      "tool_name": "propose_cue",
       "args": {
-        "gap_id": 7,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
+        "text": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.",
+        "gap_id": 8
       },
       "result": {
         "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
+        "cue": {
+          "id": 8,
+          "start": 89.46,
+          "end": 99.92,
+          "duration": 10.46,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 23,
+          "word_budget_hi": 26,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame."
+        },
         "state": {
           "committed": [
             0,
-            2
-          ],
-          "remaining": [
+            2,
+            4,
+            5,
+            6,
+            3,
+            7,
             8
           ],
+          "remaining": [],
           "skipped_too_short": [
             1
           ],
           "needs_verification": [
-            0,
-            2
+            3
           ],
           "budget": {
-            "turns": 20,
-            "inspections": 5,
-            "verifications": 7
+            "turns": 18,
+            "inspections": 6,
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0009618070034775883,
+      "latency_s": 0.06823037599679083,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2132,215 +2396,100 @@
     },
     {
       "step": 55,
-      "t_wall": 1.5132903509947937,
-      "role": "submodel",
-      "note": "",
+      "t_wall": 144.49312929400185,
+      "role": "system",
+      "note": "retry after HTTP 500 (attempt 2/3, backoff 1s)",
       "tool_name": null,
       "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 87.46,
-            "t_end": 99.92,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.229600795544684e-05,
-      "tokens_in": 74,
-      "tokens_out": 53,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 56,
-      "t_wall": 1.5133644469897263,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 87.46,
-        "end": 99.92
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 87.46,
-            "t_end": 99.92,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
-        ],
-        "modality": "mock",
-        "time_base": "absolute",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 20,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0013934320013504475,
+      "result": null,
+      "ok": false,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 57,
-      "t_wall": 1.5135712810006225,
+      "step": 56,
+      "t_wall": 171.34429766700487,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.1831991034559906e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 27.206063307006843,
+      "tokens_in": 13398,
+      "tokens_out": 1937,
+      "cost_usd": 0.019209,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 58,
-      "t_wall": 1.5155139540001983,
+      "step": 57,
+      "t_wall": 172.89096177001193,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "A static scene is displayed"
+        "verdict": "supported",
+        "evidence": "A person with dreadlocks is shown at a workbench alongside a realistic brain model on a white platter with glowing elements."
       },
       "ok": true,
-      "latency_s": 3.078700683545321e-05,
-      "tokens_in": 340,
-      "tokens_out": 13,
-      "cost_usd": 0,
-      "model": "MOCK/fit",
+      "latency_s": 1.3102157560060732,
+      "tokens_in": 1117,
+      "tokens_out": 40,
+      "cost_usd": 0.00037109999999999997,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 59,
-      "t_wall": 1.5155761310015805,
+      "step": 58,
+      "t_wall": 172.89118418600992,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "draft_description",
+      "note": "verify claim",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 8,
-        "context_events": [
-          {
-            "t_start": 89.46,
-            "t_end": 99.92,
-            "what": "A static scene is displayed",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0,
-            "mock": true
-          }
+        "claim": "A person with dreadlocks examines a realistic brain model",
+        "gap_id": 3
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person with dreadlocks is shown at a workbench alongside a realistic brain model on a white platter with glowing elements.",
+        "modality": "frames",
+        "gap_ids": [
+          3
         ],
-        "max_words": 7
-      },
-      "result": {
-        "text": "A static scene is displayed",
         "state": {
           "committed": [
             0,
-            2
-          ],
-          "remaining": [
+            2,
+            4,
+            5,
+            6,
+            3,
+            7,
             8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            2
-          ],
-          "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.001997184008359909,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 60,
-      "t_wall": 1.5166874589922372,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "drop_gap",
-      "args": {
-        "gap_id": 8,
-        "reason": "Same on-screen title is already narrated in an earlier gap"
-      },
-      "result": {
-        "ok": true,
-        "reason": "Same on-screen title is already narrated in an earlier gap",
-        "state": {
-          "committed": [
-            0,
-            2
           ],
           "remaining": [],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 7
+            "turns": 17,
+            "inspections": 6,
+            "verifications": 3
           }
         }
       },
       "ok": true,
-      "latency_s": 0.001087484008166939,
+      "latency_s": 1.5468745389953256,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2349,8 +2498,24 @@
       "corrects_step": null
     },
     {
-      "step": 61,
-      "t_wall": 1.5178708109888248,
+      "step": 59,
+      "t_wall": 173.44063427300716,
+      "role": "system",
+      "note": "retry after HTTP 503 (attempt 2/3, backoff 1s)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": false,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 60,
+      "t_wall": 198.47627527400618,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -2359,51 +2524,96 @@
         "cues": [
           {
             "id": 0,
-            "hi": "दृश्य दिखाई देता है।"
+            "hi": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\""
           },
           {
             "id": 2,
-            "hi": "दृश्य दिखाई देता है।"
+            "hi": "मेमोरी प्लेबैक ग्लोबल"
+          },
+          {
+            "id": 3,
+            "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।"
+          },
+          {
+            "id": 4,
+            "hi": "एक सायबॉर्ग आर्क लैम्प तले दिमाग़ जाँच रहा है; शीर्षक कार्ड: \"TEARS OF STEEL\"."
+          },
+          {
+            "id": 5,
+            "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।"
+          },
+          {
+            "id": 6,
+            "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।"
+          },
+          {
+            "id": 7,
+            "hi": "स्कोप दृश्य: हवाई जहाज शहर पर मँडरा रहा है। छत: लेटा निशानेबाज और मोमबत्ती थामे आकृति। यांत्रिक मशीन अंडाकार से गुजरती है।"
+          },
+          {
+            "id": 8,
+            "hi": "बड़ा यांत्रिक उड़न यंत्र अंडाकार खिड़की से शहर पर मँडरा रहा है। यह झुकता और फ्रेम पार करता है।"
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.6497000362724066e-05,
-      "tokens_in": 181,
-      "tokens_out": 87,
-      "cost_usd": 0,
-      "model": "MOCK/edit",
+      "latency_s": 25.583695050998358,
+      "tokens_in": 1274,
+      "tokens_out": 402,
+      "cost_usd": 0.00248,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cost_role": "translate",
       "cached_tokens": 0
     },
     {
-      "step": 62,
-      "t_wall": 1.592826371997944,
+      "step": 61,
+      "t_wall": 199.07086194200383,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "Translate all committed cues to Hindi",
       "tool_name": "translate_hindi",
-      "args": {},
+      "args": {
+        "cue_ids": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
       "result": {
         "ok": true,
         "cues": [
           {
             "id": 0,
-            "text": "दृश्य दिखाई देता है।",
+            "text": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\"",
             "ok": true,
             "problems": [],
-            "suggested_max_words": 22,
-            "seconds": 1.85,
+            "suggested_max_words": 19,
+            "seconds": 6.57,
             "overlap_seconds": 0,
             "retried": false
           },
           {
             "id": 2,
-            "text": "दृश्य दिखाई देता है।",
+            "text": "मेमोरी प्लेबैक ग्लोबल",
             "ok": true,
             "problems": [],
-            "suggested_max_words": 5,
-            "seconds": 1.85,
+            "suggested_max_words": 4,
+            "seconds": 1.96,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 4,
+            "text": "एक सायबॉर्ग आर्क लैम्प तले दिमाग़ जाँच रहा है; शीर्षक कार्ड: \"TEARS OF STEEL\".",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 19,
+            "seconds": 5.95,
             "overlap_seconds": 0,
             "retried": false
           }
@@ -2411,25 +2621,29 @@
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3,
+            7,
+            8
           ],
           "remaining": [],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 7
+            "turns": 17,
+            "inspections": 6,
+            "verifications": 3
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.07611723399895709,
+      "latency_s": 26.17964968200249,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2438,58 +2652,138 @@
       "corrects_step": null
     },
     {
-      "step": 63,
-      "t_wall": 1.5931091879901942,
+      "step": 62,
+      "t_wall": 225.99483565000992,
       "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.6537000192329288e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
+      "latency_s": 26.923384743000497,
+      "tokens_in": 14324,
+      "tokens_out": 1886,
+      "cost_usd": 0.019982,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
+      "step": 63,
+      "t_wall": 230.01007664001372,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।"
+          },
+          {
+            "id": 6,
+            "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।"
+          },
+          {
+            "id": 3,
+            "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।"
+          },
+          {
+            "id": 7,
+            "hi": "स्कोप दृश्य: हवाई जहाज शहर पर मँडरा रहा है। छत: लेटा निशानेबाज और मोमबत्ती थामे आकृति। यांत्रिक मशीन अंडाकार से गुजरती है।"
+          },
+          {
+            "id": 8,
+            "hi": "बड़ा यांत्रिक उड़न यंत्र अंडाकार खिड़की से शहर पर मँडरा रहा है। यह झुकता और फ्रेम पार करता है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.013347644999158,
+      "tokens_in": 1045,
+      "tokens_out": 217,
+      "cost_usd": 0.001696,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
       "step": 64,
-      "t_wall": 3.9985209989972645,
+      "t_wall": 230.01044520900177,
       "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "render_preview",
+      "note": "Translate remaining cues to Hindi",
+      "tool_name": "translate_hindi",
       "args": {
-        "start": 0,
-        "end": 8,
-        "lang": "en"
+        "cue_ids": [
+          3,
+          5,
+          6,
+          7,
+          8
+        ]
       },
       "result": {
-        "path": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155/preview_en.mp4",
-        "duration": 8.0,
+        "ok": true,
+        "cues": [
+          {
+            "id": 5,
+            "text": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 19,
+            "seconds": 4.59,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 6,
+            "text": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 19,
+            "seconds": 3.84,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 3,
+            "text": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल को देख रहा है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 14,
+            "seconds": 4.53,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
         "state": {
           "committed": [
             0,
-            2
+            2,
+            4,
+            5,
+            6,
+            3,
+            7,
+            8
           ],
           "remaining": [],
           "skipped_too_short": [
             1
           ],
-          "needs_verification": [
-            0,
-            2
-          ],
+          "needs_verification": [],
           "budget": {
-            "turns": 18,
-            "inspections": 4,
-            "verifications": 7
+            "turns": 16,
+            "inspections": 6,
+            "verifications": 3
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 2.4054033709981013,
+      "latency_s": 4.015593439995428,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2499,235 +2793,66 @@
     },
     {
       "step": 65,
-      "t_wall": 3.9987974609975936,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "t_wall": 369.3078980020073,
+      "role": "fallback",
+      "note": "Fallback finisher started: agent stopped: RuntimeError",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 5.118999979458749e-05,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
+      "model": null,
+      "correction": false
     },
     {
       "step": 66,
-      "t_wall": 4.0003362909919815,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 2.4007997126318514e-05,
-      "tokens_in": 74,
-      "tokens_out": 38,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 67,
-      "t_wall": 4.000388141997973,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 0,
-        "claim": "A static scene"
-      },
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "gap_ids": [
-          0
-        ],
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            2
-          ],
-          "budget": {
-            "turns": 17,
-            "inspections": 4,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0015837480023037642,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 68,
-      "t_wall": 4.001657588989474,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 1.0712989023886621e-05,
-      "tokens_in": 75,
-      "tokens_out": 38,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 69,
-      "t_wall": 4.001679863999016,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 2,
-        "claim": "A static scene is"
-      },
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "gap_ids": [
-          2
-        ],
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 17,
-            "inspections": 4,
-            "verifications": 5
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0012679599894909188,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 70,
-      "t_wall": 4.001887877995614,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 9.825002052821219e-06,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 71,
-      "t_wall": 7.143855909991544,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
+      "t_wall": 374.6174504010123,
+      "role": "fallback",
+      "note": "Forced finalize with committed cues",
       "tool_name": "finalize",
       "args": {},
       "result": {
         "ok": true,
-        "warnings": [
-          "Cue 0: unverified",
-          "Cue 2: unverified"
-        ],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155",
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 16,
-            "inspections": 4,
-            "verifications": 5
-          }
-        }
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155"
       },
       "ok": true,
-      "latency_s": 3.141961415996775,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     }
   ],
   "summary": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 8,
-      "draft_description": 10,
-      "check_fit": 1,
-      "propose_cue": 3,
-      "verify_claim": 3,
-      "drop_gap": 6,
-      "translate_hindi": 1,
-      "render_preview": 1,
-      "finalize": 1
+      "inspect_video_segment": 7,
+      "draft_description": 4,
+      "propose_cue": 9,
+      "verify_claim": 5,
+      "translate_hindi": 2
     },
     "corrections": 2,
     "verifications": {
-      "verified": 0,
+      "verified": 4,
       "contradicted": 1,
-      "unverified": 2
+      "unverified": 0
     },
+    "repeat_refusals": 1,
+    "auto_redrafts": 0,
+    "draft_overlimit": 5,
+    "orchestrator_authored_cues": 1,
     "orchestrator_turns": 14,
     "cost_by_model": {
-      "MOCK/orchestrate": 0,
-      "MOCK/perceive": 0,
-      "MOCK/fit": 0,
-      "MOCK/edit": 0
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.12378900000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0079545,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0006638999999999999
     },
-    "total_latency_s": 7.143971175988554
+    "total_latency_s": 374.61806708801305
   }
 }

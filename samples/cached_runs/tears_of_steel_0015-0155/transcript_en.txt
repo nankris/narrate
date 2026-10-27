@@ -1,2 +1,8 @@
-[00:00:00.080] A static scene
-[00:00:32.540] A static scene is
+[00:00:00.080] Large white text on dark background reads "This film is supported by the Netherlands Film Fund."
+[00:00:32.540] MEMORY PLAYBACK GLOBAL
+[00:00:38.972] A person with dreadlocks examines a realistic brain model
+[00:00:47.612] A cyborg examines a brain under an arc lamp; title card displays "TEARS OF STEEL".
+[00:00:59.000] Title fades; smoky cityscape with flying platform emerges.
+[00:01:09.800] Silhouetted cathedral tower rises above rooftops.
+[00:01:20.400] Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.
+[00:01:29.458] Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.

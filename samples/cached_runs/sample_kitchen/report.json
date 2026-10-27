@@ -1,7 +1,7 @@
 {
-  "mock": true,
-  "provider": "mock",
-  "dev_only": false,
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
   "duration_s": 30.0,
   "fallback_finalize": false,
   "issues": [],
@@ -18,8 +18,10 @@
       "narratable": true,
       "word_budget_en": 8,
       "word_budget_hi": 9,
-      "en": "A person enters",
-      "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "en": "Yellow vertical rectangle centered on teal background.",
+      "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -33,8 +35,10 @@
       "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11,
-      "en": "STEP 1 - chop onions",
-      "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "en": "'STEP 1 - chop onions' on mauve background.",
+      "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -48,8 +52,27 @@
       "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11,
-      "en": "Stir and serve",
-      "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "en": "Title: \"STEP 1 - chop onions\".",
+      "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4,
+      "en": "Title: \"Stir and serve\".",
+      "hi": "शीर्षक: \"स्टर एंड सर्व\"",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -61,13 +84,15 @@
       {
         "id": 0,
         "start": 4.668,
-        "end": 6.045596,
+        "end": 8.121878,
         "duration": 4.039999999999998,
         "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
-        "en": "A person enters",
-        "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "Yellow vertical rectangle centered on teal background.",
+        "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -76,13 +101,15 @@
       {
         "id": 1,
         "start": 11.868,
-        "end": 13.811719,
+        "end": 15.017932,
         "duration": 4.7440000000000015,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "STEP 1 - chop onions",
-        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "'STEP 1 - chop onions' on mauve background.",
+        "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -91,13 +118,32 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 21.254222,
+        "end": 22.8359,
         "duration": 4.776000000000003,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "Stir and serve",
-        "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "Title: \"STEP 1 - chop onions\".",
+        "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.854802999999997,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 4,
+        "max_words_hi": 4,
+        "en": "Title: \"Stir and serve\".",
+        "hi": "शीर्षक: \"स्टर एंड सर्व\"",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -108,13 +154,15 @@
       {
         "id": 0,
         "start": 4.668,
-        "end": 7.699973,
+        "end": 8.324235999999999,
         "duration": 4.039999999999998,
         "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
-        "en": "A person enters",
-        "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "Yellow vertical rectangle centered on teal background.",
+        "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -123,13 +171,15 @@
       {
         "id": 1,
         "start": 11.868,
-        "end": 14.909587,
+        "end": 15.208091,
         "duration": 4.7440000000000015,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "STEP 1 - chop onions",
-        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "'STEP 1 - chop onions' on mauve background.",
+        "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -138,13 +188,32 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 23.230729999999998,
+        "end": 22.833949999999998,
         "duration": 4.776000000000003,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "Stir and serve",
-        "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "Title: \"STEP 1 - chop onions\".",
+        "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.64546,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 4,
+        "max_words_hi": 4,
+        "en": "Title: \"Stir and serve\".",
+        "hi": "शीर्षक: \"स्टर एंड सर्व\"",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -160,7 +229,9 @@
       "duration": 4.039999999999998,
       "narratable": true,
       "word_budget_en": 8,
-      "word_budget_hi": 9
+      "word_budget_hi": 9,
+      "max_words_en": 7,
+      "max_words_hi": 8
     },
     {
       "id": 1,
@@ -169,7 +240,9 @@
       "duration": 4.7440000000000015,
       "narratable": true,
       "word_budget_en": 9,
-      "word_budget_hi": 11
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10
     },
     {
       "id": 2,
@@ -178,7 +251,9 @@
       "duration": 4.776000000000003,
       "narratable": true,
       "word_budget_en": 9,
-      "word_budget_hi": 11
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10
     },
     {
       "id": 3,
@@ -187,7 +262,9 @@
       "duration": 2.5320000000000036,
       "narratable": true,
       "word_budget_en": 4,
-      "word_budget_hi": 5
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4
     }
   ],
   "speech": [
@@ -208,65 +285,290 @@
       "end": 27.308
     }
   ],
-  "cues_committed": 3,
-  "cues_dropped": 1,
-  "dropped_gaps": {
-    "3": "Same on-screen title is already narrated in an earlier gap"
-  },
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 28.856183196619423,
-    "hi": 58.24192145165297
+    "en": 74.41283246333577,
+    "hi": 75.53900695998009
   },
   "high_importance_covered_percent": 100.0,
   "events_in_speech_regions": {
-    "count": 0,
-    "events": [],
+    "count": 3,
+    "events": [
+      {
+        "t_start": 2.67,
+        "t_end": 3.0,
+        "what": "A yellow vertical rectangle outlined shape remains centered on a teal background while white text fades out.",
+        "on_screen_text": "A person enters a kitchen",
+        "importance": 4,
+        "confidence": 0.9
+      },
+      {
+        "t_start": 25.39,
+        "t_end": 25.62,
+        "what": "A dark blue background with white text reading \"Stir and serve\" in the top-left corner and a yellow rectangle outline on the right side.",
+        "on_screen_text": "Stir and serve",
+        "importance": 5,
+        "confidence": 0.9
+      },
+      {
+        "t_start": 25.62,
+        "t_end": 26.12,
+        "what": "The text changes to just \"Stir\" while the yellow rectangle remains on the right side.",
+        "on_screen_text": "Stir",
+        "importance": 4,
+        "confidence": 0.9
+      }
+    ],
     "note": "informational: high-importance events outside every narratable gap; may need extended AD"
   },
   "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
-  "usage": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3159,
+      "output_tokens": 39,
+      "cost_usd": 0.003276,
+      "latency_s": 3.198338247995707,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3612,
+      "output_tokens": 279,
+      "cost_usd": 0.004449,
+      "latency_s": 8.683580191005603,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2748,
+      "output_tokens": 142,
+      "cost_usd": 0.0009521999999999999,
+      "latency_s": 2.738841491009225,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2735,
+      "output_tokens": 135,
+      "cost_usd": 0.000942,
+      "latency_s": 2.546554422006011,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2751,
+      "output_tokens": 155,
+      "cost_usd": 0.0009647999999999999,
+      "latency_s": 3.7023151100001996,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2751,
+      "output_tokens": 518,
+      "cost_usd": 0.0012915,
+      "latency_s": 6.505874743001186,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4927,
+      "output_tokens": 50,
+      "cost_usd": 0.005077,
+      "latency_s": 4.611713764999877,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1813,
+      "output_tokens": 130,
+      "cost_usd": 0.00013998,
+      "latency_s": 1.393842156001483,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1309,
+      "output_tokens": 49,
+      "cost_usd": 9.03e-05,
+      "latency_s": 0.685361190000549,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5215,
+      "output_tokens": 191,
+      "cost_usd": 0.005788,
+      "latency_s": 5.426305750996107,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1154,
+      "output_tokens": 49,
+      "cost_usd": 0.0003903,
+      "latency_s": 0.8473119860136649,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1144,
+      "output_tokens": 64,
+      "cost_usd": 0.0004008,
+      "latency_s": 1.1021913909935392,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1150,
+      "output_tokens": 40,
+      "cost_usd": 0.000381,
+      "latency_s": 1.4007064100005664,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5728,
+      "output_tokens": 65,
+      "cost_usd": 0.005923,
+      "latency_s": 1.8224434709991328,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1150,
+      "output_tokens": 36,
+      "cost_usd": 0.00037739999999999996,
+      "latency_s": 0.7563087180024013,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5906,
+      "output_tokens": 240,
+      "cost_usd": 0.006626,
+      "latency_s": 4.365869040004327,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6473,
+      "output_tokens": 52,
+      "cost_usd": 0.006629,
+      "latency_s": 6.349631963996217,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 692,
+      "output_tokens": 126,
+      "cost_usd": 0.00107,
+      "latency_s": 2.6050775589974364,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6653,
+      "output_tokens": 28,
+      "cost_usd": 0.006737,
+      "latency_s": 0.9659514459926868,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
   "cost_by_role": {
-    "orchestrator": 0,
-    "perceive": 0,
-    "verify": 0,
-    "draft": 0,
-    "translate": 0
+    "orchestrator": 0.044505,
+    "perceive": 0.0041505,
+    "verify": 0.0015494999999999999,
+    "draft": 0.00023028,
+    "translate": 0.00107
   },
-  "billed_to": "mock (offline)",
-  "cost_per_minute_usd": 0.0,
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.10301056,
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 4,
-      "draft_description": 6,
-      "check_fit": 1,
+      "draft_description": 1,
+      "verify_claim": 4,
       "propose_cue": 4,
-      "verify_claim": 2,
-      "drop_gap": 1,
       "translate_hindi": 1,
-      "render_preview": 1,
       "finalize": 1
     },
-    "corrections": 2,
+    "corrections": 1,
     "verifications": {
-      "verified": 1,
-      "contradicted": 1,
+      "verified": 3,
+      "contradicted": 0,
       "unverified": 0
     },
-    "orchestrator_turns": 10,
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 2,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 8,
     "cost_by_model": {
-      "MOCK/orchestrate": 0,
-      "MOCK/perceive": 0,
-      "MOCK/fit": 0,
-      "MOCK/edit": 0
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.045575000000000004,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.005699999999999999,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00023028
     },
-    "total_latency_s": 3.091923903004499
+    "total_latency_s": 64.64687114000844
   },
-  "estimated_cost_usd": 0,
-  "would_be_token_factory_cost_usd": 0,
-  "reserved_spend_usd": 0.0,
-  "cost_per_minute": 0.0,
-  "latency_s": 3.091923903004499
+  "estimated_cost_usd": 0.05150528,
+  "would_be_token_factory_cost_usd": 0.05150528,
+  "reserved_spend_usd": 0.05150528000000001,
+  "cost_per_minute": 0.10301056,
+  "latency_s": 64.64687114000844
 }

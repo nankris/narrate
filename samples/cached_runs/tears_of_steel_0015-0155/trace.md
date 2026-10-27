@@ -1,73 +1,680 @@
-# Agent trace — MOCK
+# Agent trace
 
-- 1 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 2 ✓ tool detect_speech_gaps: I will check the available evidence and timing before committing narration.
-- 3 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 4 ✓ submodel : {"events": [{"t_start": 0, "t_end": 9.12, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 5 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 6 ✓ submodel : {"text": "word word word word word word word word word word word word word word word word word word word word word word word word "}
-- 7 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 8 ✗ tool check_fit: I will check the available evidence and timing before committing narration.
-- 9 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
-- 10 ✓ submodel : {"text": "A static scene is displayed"}
-- 11 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 8)
-- 12 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
-- 13 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
-- 14 ✗ tool verify_claim: I will check the available evidence and timing before committing narration.
-- 15 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
-- 16 ✓ submodel : {"text": "A static scene is displayed"}
-- 17 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 14)
-- 18 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
-- 19 ✓ submodel : {"events": [{"t_start": 30.54, "t_end": 34.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 20 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 21 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 22 ✓ submodel : {"text": "A static scene is"}
-- 23 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 24 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
-- 25 ✓ submodel : {"events": [{"t_start": 36.97, "t_end": 45.57, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 26 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 27 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 28 ✓ submodel : {"text": "A static scene is displayed"}
-- 29 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 30 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 31 ✓ submodel : {"events": [{"t_start": 45.61, "t_end": 59.0, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 32 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 33 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 34 ✓ submodel : {"text": "A static scene is displayed"}
-- 35 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 36 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 37 ✓ submodel : {"events": [{"t_start": 57.0, "t_end": 69.8, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 38 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 39 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 40 ✓ submodel : {"text": "A static scene is displayed"}
-- 41 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 42 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 43 ✓ submodel : {"events": [{"t_start": 67.8, "t_end": 80.4, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 44 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 45 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 46 ✓ submodel : {"text": "A static scene is displayed"}
-- 47 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 48 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 49 ✓ submodel : {"events": [{"t_start": 78.4, "t_end": 89.46, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 50 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 51 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 52 ✓ submodel : {"text": "A static scene is displayed"}
-- 53 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 54 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 55 ✓ submodel : {"events": [{"t_start": 87.46, "t_end": 99.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 56 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 57 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 58 ✓ submodel : {"text": "A static scene is displayed"}
-- 59 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 60 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
-- 61 ✓ submodel : {"cues": [{"id": 0, "hi": "दृश्य दिखाई देता है।"}, {"id": 2, "hi": "दृश्य दिखाई देता है।"}]}
-- 62 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
-- 63 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 64 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
-- 65 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 66 ✓ submodel : {"verdict": "uncertain", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
-- 67 ✓ tool verify_claim: I will check the available evidence and timing before committing narration.
-- 68 ✓ submodel : {"verdict": "uncertain", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
-- 69 ✓ tool verify_claim: I will check the available evidence and timing before committing narration.
-- 70 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 71 ✓ tool finalize: I will check the available evidence and timing before committing narration.
+- 1 ✓ orchestrator : 
+
+- 2 ✓ tool detect_speech_gaps: Find narratable speech-free gaps in the 100s video
+- 3 ✓ orchestrator : 
+
+
+
+
+
+- 4 ✓ submodel : {"events": [{"t_start": 0.0, "t_end": 3.5, "what": "Close-up view looking up at rocket engine nozzles with bright exhaust plumes firing intensely downward.", "on_screen_text": "", "importance": 5, "confidence": 0.95}, {"
+- 5 ✓ tool inspect_video_segment: Inspect gap 0 opening seconds for visual content
+- 6 ✓ submodel : {"events": [{"t_start": 32.0, "t_end": 33.8, "what": "glowing orange and blue holographic humanoid figures stand amidst technological machinery with red particles drifting around them", "on_screen_text": "", "importance"
+- 7 ✓ tool inspect_video_segment: Inspect gap 2 around 32.5-34.9s
+- 8 ✓ submodel : {"events": [{"t_start": 38.5, "t_end": 41.0, "what": "A person with long dreadlocks wearing a white shirt stands behind a counter covered with bottles, while another person in a light purple jacket stands nearby.", "on_s
+- 9 ✓ tool inspect_video_segment: Inspect gap 3 around 39-45.6s
+- 10 ✓ submodel : {"events": [{"t_start": 47, "t_end": 50, "what": "A cyborg examines a brain under an arc lamp", "on_screen_text": "", "importance": 5, "confidence": 0.98}, {"t_start": 50, "t_end": 55, "what": "Title card displays \"TEAR
+- 11 ✓ tool inspect_video_segment: Inspect gap 4 around 47.6-59s
+- 12 ✓ orchestrator : 
+
+
+
+
+
+
+
+- 13 ✓ submodel : {"cues": [{"id": 0, "text": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund.\""}, {"id": 2, "text": "Bright green holographic interfaces with fast-forward and play symbols
+- 14 ✓ submodel : {"cues": [{"id": 2, "text": "MEMORY PLAYBACK GLOBAL"}, {"id": 3, "text": "SIMULATION READY..."}]}
+- 15 ✓ tool draft_description: Draft cues for all inspected gaps with evidence
+- 16 ✓ orchestrator : 
+
+
+
+
+
+
+
+- 17 ✓ tool propose_cue: Propose gap 0 cue with on-screen text
+- 18 ✓ tool propose_cue: Propose gap 2 cue with on-screen text
+- 19 ✓ tool propose_cue: Propose gap 3 cue with on-screen text
+- 20 ✓ tool propose_cue: Propose gap 4 cue with title
+- 21 ✓ tool propose_cue: Propose gap 5 cue with cityscape
+- 22 ✓ tool propose_cue: Propose gap 6 cue with cathedral
+- 23 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 24 ✓ submodel : {"verdict": "supported", "evidence": "Large white text on dark background reads \"This film is supported by the Netherlands Film Fund\"."}
+- 25 ✓ tool verify_claim: Verify gap 0 on-screen text claim
+- 26 ✓ submodel : {"verdict": "supported", "evidence": "The frame at 33.7 seconds shows a green holographic interface with text reading 'REPLAY ATTACK - GLOBAL'. The frame at 34.8 seconds displays the text 'LOCK-ON - [RED] - SENON' above 
+- 27 ✓ tool verify_claim: Verify gap 2 on-screen text claim
+- 28 ✓ submodel : {"verdict": "contradicted", "evidence": "No text reading SIMULATION READY appears in any provided frame."}
+- 29 ✗ tool verify_claim: Verify gap 3 on-screen text claim
+- 30 ✓ submodel : {"verdict": "supported", "evidence": "A cyborg with mechanical eye implants and hoses is shown leaning over a brain model, followed by a black title card displaying 'TEARS OF STEEL'."}
+- 31 ✓ tool verify_claim: Verify gap 4 on-screen text and cyborg claim
+- 32 ✓ orchestrator : 
+
+
+
+
+
+
+
+- 33 ✓ submodel : {"cues": [{"id": 3, "text": "SIMULATION READY..."}]}
+- 34 ✓ tool draft_description: Redraft gap 3 based on actual visual evidence
+- 35 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 36 ✗ tool inspect_video_segment: Re-inspect gap 3 for correct visual details
+- 37 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 38 ✓ submodel : {"cues": [{"id": 3, "text": "\"SIMULATION READY...\" on screen. A person with long dreadlocks wearing a white shirt stands behind a counter covered with bottles."}]}
+- 39 ✓ submodel : {"cues": [{"id": 3, "text": "SIMULATION READY..."}]}
+- 40 ↪ tool draft_description: Draft correct description for gap 3 from evidence board (corrects 36)
+- 41 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 42 ↪ tool propose_cue: Propose corrected gap 3 cue from evidence (corrects 29)
+- 43 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 44 ✓ submodel : {"events": [{"t_start": 79.5, "t_end": 80.3, "what": "Close-up of a person aiming a futuristic rifle with glowing red sight.", "on_screen_text": "", "importance": 3, "confidence": 0.95}, {"t_start": 80.3, "t_end": 83.8, 
+- 45 ✓ tool inspect_video_segment: Inspect gap 7 for visual events
+- 46 ✓ submodel : {"events": [{"t_start": 89.5, "t_end": 99.9, "what": "A large mechanical flying machine hovers above a cityscape viewed through an oval window as it tilts and moves across the frame.", "on_screen_text": "", "importance":
+- 47 ✓ tool inspect_video_segment: Inspect gap 8 for visual events
+- 48 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 49 ✓ submodel : {"cues": [{"id": 7, "text": "Close-up of a person aiming a futuristic rifle with glowing red sight. View through scope shows an airship hovering above city rooftops. Rooftop scene with a shooter lying prone and another p
+- 50 ✓ submodel : {"cues": [{"id": 7, "text": "Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval window, tilting and moving across frame."}, {"id": 8, "text": "L
+- 51 ✓ tool draft_description: Draft cues for gaps 7 and 8
+- 52 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 53 ✓ tool propose_cue: Propose gap 7 draft
+- 54 ✓ tool propose_cue: Propose gap 8 draft
+- 55 ✗ system : retry after HTTP 500 (attempt 2/3, backoff 1s)
+- 56 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 57 ✓ submodel : {"verdict": "supported", "evidence": "A person with dreadlocks is shown at a workbench alongside a realistic brain model on a white platter with glowing elements."}
+- 58 ✓ tool verify_claim: verify claim
+- 59 ✗ system : retry after HTTP 503 (attempt 2/3, backoff 1s)
+- 60 ✓ submodel : {"cues": [{"id": 0, "hi": "गहरे परदे पर बड़े सफेद अक्षर: \"यह फ़िल्म नीदरलैंड फ़िल्म फ़ंड द्वारा समर्थित है।\""}, {"id": 2, "hi": "मेमोरी प्लेबैक ग्लोबल"}, {"id": 3, "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉड
+- 61 ✓ tool translate_hindi: Translate all committed cues to Hindi
+- 62 ✓ orchestrator : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- 63 ✓ submodel : {"cues": [{"id": 5, "hi": "शीर्षक मिटता है; उड़ता मंच लिए धुंधला शहर सामने आता है।"}, {"id": 6, "hi": "छतों के ऊपर छायावत गिरजाघर का गुम्बद उभरता है।"}, {"id": 3, "hi": "ड्रेडलॉक्स वाला व्यक्ति असली जैसे दिमाग़ के मॉडल क
+- 64 ✓ tool translate_hindi: Translate remaining cues to Hindi
+- 65 ✓ fallback : Fallback finisher started: agent stopped: RuntimeError
+- 66 ✓ fallback finalize: Forced finalize with committed cues

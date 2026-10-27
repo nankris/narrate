@@ -140,3 +140,23 @@ The models sit in three different regions, so per-model base URLs matter.
 - **New failure on ToS and NASA: an opaque error locked up the tools.** Every tool requires a short `note`. Part-way through, Ultra stopped sending one. The schema error reached the model only as `"ValidationError"`, so ToS spent its last 16 calls and NASA its last 21 retrying blind until the turn cap. The fallback then dropped 4 ToS slots, and ToS coverage fell to 23%. → fix6: normalise `note` and return the real argument error. Test added. `issues-found/real-run-missing-note-validation.md`.
 - Verifier weakness seen: ToS "REPORT PLAYBACK GLOBAL" was marked *supported* although the verifier's own evidence read "SPYRO ATTACK - GLOBAL".
 - ToS vs subtitles: 0.39 s overlap (unchanged; VAD boundary), 15.9 s of 75 s dialogue-free time narrated (21.2%).
+
+**01:55 — fix6 (b0e7402)**: `note` normalised before schema validation, and argument errors returned verbatim ("invalid arguments: …"). 130 offline tests.
+
+**01:56–02:08 — agent v7 real runs (fix6). Final tuning round**, nvidia-dev, would-be TF list price. Asset `18_*`. These are the runs cached in the UI.
+
+| clip | turns | cues / gaps | gap cov EN/HI | verified / contradicted | cost | $/min | wall |
+|---|---|---|---|---|---|---|---|
+| kitchen 30 s | 8 | 4 / 4 | 74% / 76% | 3 / 0 | $0.052 | $0.10 | 65 s |
+| Tears of Steel 100 s | 14 | **8 / 8** | **60% / 62%** | 4 / 1 | $0.171 | $0.10 | 375 s* |
+| NASA 110 s | **16** | **10 / 10** | 43% / 53% | 1 / 1 | **$0.137** | $0.07 | 174 s |
+| continuous speech 30 s | 22 → **3** | 0 | – | – | $0.109 → **$0.010** | – | 87 s → 27 s |
+
+\* ToS wall time includes dev-endpoint HTTP 500/503 retries and a 139 s stall after the last Hindi call. The provider then raised `RuntimeError`, and the fallback finisher finalized the 8 committed and translated cues.
+
+- **NASA: 36 turns / $0.301 / 8 cues → 16 turns / $0.137 / 10 of 10 slots.** No turn cap, no fallback.
+- **ToS subtitle check: 41.7 s of 75 s dialogue-free time narrated (55.6%)**, up from 15.9 s (21.2%) in v6 and 23.7 s in v3. Overlap with subtitled dialogue is still **0.39 s**: one VAD boundary, the same in every version.
+- The verifier caught "SIMULATION READY..." again (a hallucinated VL title, now seen in 2 of 5 ToS runs). It also passed "MEMORY PLAYBACK GLOBAL" while its own evidence read "REPLAY ATTACK - GLOBAL". So text checking is still the weak spot.
+- Kitchen: 8 turns / $0.052. The first card's title ("A person enters a kitchen") was lost: the cue says "Yellow vertical rectangle centered on teal background". Cue 3 reads "STEP 1 - chop onions" where the frame shows "Add salt and pepper". It was verified *supported* anyway. That is a wrong cue that passed verification.
+- **Continuous-speech clip found one more opaque-error bug.** There were no narratable gaps, yet Ultra inspected the video and then called tools on a non-existent `gap_id 1`. The lookup raised a bare `StopIteration`, so 13 calls failed: 22 turns, $0.109, still the correct 0 cues. Fixed in 2fb4439 (unknown ids name the valid ids; inspection is refused when no gap is narratable). After the fix, a re-run of only this clip took 3 turns, $0.010, 27 s. The pre-fix trace is kept in the asset.
+- **Code frozen at 2fb4439** after two tuning rounds, as planned. The kitchen, ToS and NASA caches come from b0e7402. The only later change affects unknown gap ids and no-gap clips, and none of those three runs hit an unknown id.

@@ -1,0 +1,11 @@
+{
+  "title": "Failure continuous speech",
+  "input_path": "samples/failure_continuous_speech.mp4",
+  "source": "Self-generated with scripts/make_sample.py --kind lecture",
+  "license": "Apache-2.0",
+  "attribution": "Narrate contributors",
+  "notes": "Published failure case: continuous speech, changing slides, extended AD needed",
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "date": "2026-10-28"
+}
