@@ -12,3 +12,7 @@
 ## Real-provider behaviour not yet verified - see smoke scripts
 
 All provider tests use fake clients; no real network requests were made. Video schema support, JSON rejection handling, reasoning controls, Hindi quality, model availability, rates and token estimates need authorized smoke runs. Use `scripts/smoke_video_input.py`, `scripts/smoke_text.py`, and `scripts/list_models.py` with `--provider`. Final/demo measurements must use Nebius.
+
+## First real run follow-up
+
+Individual `real-run-*.md` files record each observed failure and fixed/open status. Static-text motion hallucinations remain open; provider cost improvements require a new authorized run.

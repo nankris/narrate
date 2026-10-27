@@ -131,3 +131,10 @@ def test_configured_default_and_mock(monkeypatch, tmp_path):
     assert report['provider'] == 'mock'
     assert all(u['mock'] and u['input_tokens'] > 0 for u in report['usage'])
     assert report['cues'][0]['assigned_event_indices'] == [0]
+
+
+def test_cached_prices_and_normalization():
+    from narrate.llm import usage_cost, extract_json
+    u=NS(prompt_tokens=1000,completion_tokens=100,prompt_tokens_details=NS(cached_tokens=800))
+    assert usage_cost(u,{'input_price':1,'cached_input_price':.12,'output_price':3})==pytest.approx(.000596)
+    assert extract_json('{" .Verdict":"Supported"," .Evidence":{" .TEXT":"शीर्षक"}}')['evidence']['text']=='शीर्षक'

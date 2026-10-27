@@ -27,11 +27,23 @@ export NEBIUS_API_KEY='YOUR_RUNTIME_KEY'
 .venv/bin/python -m narrate run your_video.mp4 --out runs/real --lang en,hi --budget-usd 0.25
 ```
 
-Use only a runtime environment variable for the key; no dotenv loading or saved credentials. Response text only is saved under `out/raw/`, truncated to 4 KB; headers and requests are never logged. Real mode sends media to Token Factory and incurs charges. No provider calls were made during this implementation; the lead supplied separate NVIDIA development probe results. Token Factory behavior remains **to verify**. Supplied NVIDIA development probe findings are recorded in the Agent section below.
+Use only a runtime environment variable for the key; no dotenv loading or saved credentials. Response text only is saved under `out/raw/`, truncated to 4,096 characters; headers and requests are never logged. Real mode sends media to Token Factory and incurs charges. No provider calls were made during this implementation; the lead supplied separate NVIDIA development probe results. Token Factory behavior remains **to verify**. Supplied NVIDIA development probe findings are recorded in the Agent section below.
 
 `config.yaml` controls models, prices, budget, silence detection, maximum duration (120 seconds), sample interval, perception strategy, speech rates, voices and ducking. `NARRATE_CONFIG` selects another YAML file. Each model may set `base_url` (for example `https://api.tokenfactory.us-central1.nebius.com/v1/`) and `json_mode: false` if JSON mode is unsupported. To select Lightning, replace `providers.<provider>.models.fit` with the `fit_alt` model ID or mapping. `auto` tries video, then frame grids on API errors or zero valid events; `video_frames` sends at most 16 timestamped separate images; explicit `video` surfaces video errors, and `frames` skips video. Budget errors always stop, without fallback spending.
 
-`espeak` is the default backend. `silent` makes silent test narration. Optional `piper` requires separately installed `piper-tts`, local voice models and `tts.piper_models: {en: /path/en_US.onnx, hi: /path/hi_IN.onnx}`; companion model config files must be present. Piper is not installed or verified here.
+`tts.backend: auto` selects Piper when both configured ONNX models and companion JSON files exist, otherwise espeak-ng. `silent` is for tests. Install and download:
+
+```bash
+.venv/bin/pip install piper-tts
+scripts/download_voices.sh
+```
+
+Models live in gitignored `voices/`. `en_US-ljspeech-medium` is public domain;
+`hi_IN-priyamvada-medium` is CC BY-NC-SA 4.0 and **non-commercial only**.
+Piper TTS is GPL-3.0, separately installed and invoked as a CLI subprocess;
+no Piper code or models are vendored. The CLI wrapper caps ONNX workers.
+Reports identify the backend per cue. Both voices passed local synthesis smoke tests;
+Hindi pronunciation still needs native-listener review.
 
 ## Pipeline
 
@@ -46,7 +58,7 @@ ffprobe duration check
     -> ffmpeg delay + original-audio ducking -> MP4 / VTT / text / report
 ```
 
-Cue timestamps come exclusively from detected gaps, with 80 ms inset at both ends. Models cannot move cues. Budgets are `max(0, floor(gap_seconds * words_per_second - margin))`. English defaults to 2.3 words/sec, Hindi 2.0. Overlong Nano text gets one shorter-budget retry, then truncation with a report entry. Invalid Ultra cues fall back individually to fitted English; invalid Hindi cues are marked unavailable while valid cues are retained. Continuous sound produces empty cue tracks, not narration over dialogue.
+Cue timestamps come exclusively from detected gaps, with 80 ms inset at both ends. Models cannot move cues. Budgets are `max(0, floor(gap_seconds * words_per_second - margin))`. English defaults to 2.3 words/sec, Hindi 2.6. Overlong Nano text gets one shorter-budget retry, then truncation with a report entry. Invalid Ultra cues fall back individually to fitted English; invalid Hindi cues are marked unavailable while valid cues are retained. Continuous sound produces empty cue tracks, not narration over dialogue.
 
 The callable API is `narrate.pipeline.run(path, out_dir, langs, client, budget, progress=callback, config=None, provider=None, strict=False)`. The callback receives `{stage, status}` events. It runs synchronously and can be placed in a UI worker later. Pass a reusable `SpendGuard` as `budget` for a session cap. Provider retries reserve cost separately; failed attempts retain their reservation because billing is uncertain. Reservations estimate text at chars/3, each image at 1,800 tokens, and video at 300 tokens/second; media encoding bytes are excluded. These values and stage output limits (3,000/2,000/4,000) are configurable. Provider billing/tokenization is not locally guaranteed; reported usage above the estimate stops the run. No automatic calls continue after budget exhaustion. `report.json` is saved on failure.
 
@@ -75,7 +87,7 @@ The integration is designed around one OpenAI-compatible endpoint for three Nemo
 | `nvidia-dev` | `NVIDIA_DEV_API_KEY` | Free development only, limited to 40 requests/minute |
 | `mock` | None | Offline synthetic descriptions |
 
-**Final/demo numbers must come from provider `nebius`.** NVIDIA development runs carry `"dev_only": true`; their estimated charged cost is zero, but `would_be_token_factory_cost_usd` reports comparable list-price cost. Mock usage is simulated and marked `mock`. Reports record actual used model IDs and endpoint hosts in usage entries.
+**Final/demo numbers must come from provider `nebius`.** NVIDIA development runs carry `"dev_only": true`; `estimated_cost_usd` and `would_be_token_factory_cost_usd` report comparable list-price costs, with `billed_to` identifying the free dev tier. Mock usage is simulated and marked `mock`. Reports record actual used model IDs and endpoint hosts in usage entries.
 
 Use `--provider nebius|nvidia-dev|mock` and `--strict` to prohibit missing-key fallback. `--mock` remains an alias. Configuration has `default_provider`, `providers`, stage-keyed `prices` and `stages`. A provider model value may be an ID string or `{id: ..., base_url: ..., json_mode: false}`. `NARRATE_BASE_URL_NEBIUS` and `NARRATE_BASE_URL_NVIDIA_DEV` override provider URLs; explicit per-model regional URLs take precedence. Per-provider/stage `thinking: false` defaults to `chat_template_kwargs.enable_thinking=false`. The supplied NVIDIA development probes showed that `/no_think` alone does not work. Empty content is retried; reasoning is never treated as the answer. A JSON-mode HTTP 400 retries without response_format and remembers the endpoint/model for that client session.
 
@@ -112,7 +124,7 @@ For a real results card replace these fields with measured values, model/region,
 - Continuous speech can leave no safe gaps: extended AD with paused video is needed and not implemented.
 - The baseline energy/silence detector is not speech recognition. The agent uses Silero VAD, which can still miss robotic or quiet speech. Quiet speech can be mistaken for silence; music can hide safe speech-free intervals. Zero scheduled violations cannot establish zero real dialogue overlap.
 - On-screen Hindi text and translations need native-reader review. Ultra failure leaves Hindi descriptions unavailable.
-- espeak voices sound robotic; Piper and its Hindi voices remain unverified.
+- espeak voices sound robotic; Piper voice quality still needs listener review.
 - VL hallucinations and stale event selection are possible. Human review is required before relying on descriptions.
 - The synthetic sample uses captions and shapes, not a filmed kitchen. Mock-mode numbers are not quality numbers.
 - Video_url schema, model JSON support, regional routing and cost estimates are not yet verified against Token Factory.
@@ -133,20 +145,20 @@ python scripts/eval_against_subs.py dialogue.srt runs/agent_mock/report.json --o
 
 The baseline runs a fixed perceive → fit → edit sequence. The agent gives Ultra
 OpenAI function schemas and lets it choose tools, inspect observations, revise
-failed descriptions and finalize. Every turn requests a short public note,
+failed descriptions and finalize. Every tool schema requires a string `note` (at most 25 words),
 not chain-of-thought. Mock uses a deterministic script and sidecar facts;
 its corrections demonstrate control flow, not reasoning quality.
 
 ```mermaid
 flowchart TD
-    U[Ultra orchestrator: short note + tool calls] --> T[Validated tool dispatch]
+    U[Ultra or Super: required note + batched tool calls] --> T[Validated tool dispatch]
     T --> V[Silero speech gaps]
     T --> P[Super VL: video inspection]
     T --> F[Super VL: independent frame verification]
     T --> N[Nano / Lightning: draft]
     T --> C[Measured TTS + deterministic fit + commit]
     T --> H[Ultra: Hindi JSON translation]
-    V --> O[Compact observations + trace callback]
+    V --> O[800-character observations + remaining state + append-only history]
     P --> O
     F --> O
     N --> O
@@ -160,13 +172,13 @@ flowchart TD
 | Tool | Behavior |
 |---|---|
 | detect_speech_gaps | Silero ONNX; 300 ms smoothing, minimum gap 1.2 s, language word budgets, speech ratio; reported silence/energy fallback |
-| inspect_video_segment | Cached segment video, frame fallback; default 12 inspections |
+| inspect_video_segment | One gap neighbourhood `[max(0,start-6),end]`; >=70% overlap returns cached events and reminder; default 12 inspections |
 | verify_claim | Independent sampled frames; supported/contradicted/uncertain with evidence; default 8 calls |
-| draft_description | One budgeted English line from Nano or Lightning |
+| draft_description | One budgeted line or a batch via optional `gap_ids` |
 | measure_tts_duration | Cached configured-backend synthesis |
 | check_fit | Words, measured duration, <=1.25x speed, no speech overlap, banned phrases |
-| commit_cue / drop_gap | Only fit English can commit; explicit reasons for dropped gaps |
-| translate_hindi | Ultra JSON completion; per-cue automatic Hindi fit checks; optional smaller max_words for revision |
+| propose_cue / commit_cue / drop_gap | Only fit English can commit; explicit reasons for dropped gaps |
+| translate_hindi | Ultra translation; measured duration is primary, one internal retry with max_words/max_seconds, per-cue status |
 | render_preview | Narration-mixed MP4 excerpt |
 | finalize | Validate, report uncovered important events, reject at most twice; then output safe tracks with warnings |
 
@@ -182,9 +194,9 @@ Provider/stage model mappings support regional base URLs. Token Factory has
 not been live-tested. Supplied NVIDIA probes establish Ultra tool calling,
 VL video/images and the thinking control; see [findings](issues-found/agent-probes.md).
 
-Defaults: 40 turns, $0.50 reserved spend cap including submodels/retries,
+Defaults: 30 orchestrator turns, $0.50 reserved spend cap including submodels/retries,
 600-second wall-clock deadline checked between operations, provider rate
-limiting, observations truncated near 1.5 KB, and collapsed older history.
+limiting, structured observations capped at 800 characters, rounded to two decimals, with state summaries and append-only history.
 Budget exhaustion, step exhaustion or a tool-less answer invokes a deterministic
 finisher using committed cues only. Rendering can extend beyond the model-loop
 deadline. Mock calls cost zero and need no provider SDK connection.
@@ -242,3 +254,49 @@ that narration requires extended AD (pause-the-video), which is not implemented.
 Sample provenance and the film soundtrack licensing caveat are recorded in
 [samples/SOURCES.md](samples/SOURCES.md). Media names are never hard-coded in
 the agent; optional `.scenes.json` sidecars only inform mock descriptions.
+
+
+## First real run and cost fixes
+
+**First real run, nvidia-dev, would-be Token Factory list price** (BLOG_NOTES,
+27 October 2026, 23:30; HEAD bf693ad): the 30-second synthetic kitchen clip took
+3 min 44 s, 101 trace steps and 40 orchestrator turns, then fallback finalization.
+Total cost was about **$0.144**, including **$0.130 (90%) orchestration**.
+Ultra orchestration used 121,496 input / 2,452 output tokens over 128 s;
+14 VL calls used 34,593 / 3,480 tokens over 78 s. Five Lightning calls took
+2.6 s and the Ultra Hindi pass took 7 s. Four corrections were recorded.
+English/Hindi gap coverage was 91%/11%, with only one of four Hindi cues surviving.
+
+| Same sample | Fixed pipeline | First real agent | Revised agent (offline target) |
+|---|---|---|---|
+| Would-be cost | ~$0.003 | ~$0.144 (~50x) | Not measured against a provider |
+| Wall time | 12.6 s | 224 s | Offline timing is not a provider benchmark |
+| Control | Fixed perceive/fit/edit | 40 turns, 13 inspections | <=20 scripted mock turns; default cap 30 |
+| Review | Editorial pass | Four corrections, independent frame checks | Verify uncertain claims; cache repeated inspections |
+| Hindi | Editorial translation | 1/4 cues survived | Duration-first fit; one shorter retry |
+
+The efficient plan is gaps → parallel gap-neighbourhood inspections → batched
+drafts → propose_cue → verify uncertain claims → translate once → finalize.
+Tool calls in a turn execute in order, without extra worker threads. Each result
+includes committed cue IDs, remaining gap IDs and remaining turn/inspection/
+verification budgets; repeated gap detection does not repeat the gap list.
+History stays append-only to preserve provider prompt-cache prefixes.
+Three turns before exhaustion, the loop nudges commit/translate/finalize.
+The fallback attempts missing translation subject to remaining spend/time limits.
+Missing Hindi after a retry produces warnings and coverage, rather than blocking output.
+
+Use `--orchestrator ultra|super`; Super selects
+`nvidia/nemotron-3-super-120b-a12b` on Nebius. Super is not available through
+this configuration's nvidia-dev endpoint. `parallel_tool_calls` defaults on;
+set it false on the model mapping for an endpoint that does not support it.
+Cached input rates per million tokens: Ultra $0.12, Super $0.06, Super VL $0.06,
+Nano $0.012, Lightning $0.03. Returned cached tokens are recorded and discounted.
+`estimated_cost_usd` sums actual per-call list-price estimates, including dev runs;
+reservations stay separate. `cost_per_minute_usd`, `cost_by_role` and `billed_to`
+make comparisons explicit. Failed transport calls without usage retain budget
+reservations but cannot provide measured list-price costs.
+
+`high_importance_covered_percent` considers only events overlapping a gap or
+ending within six seconds before one. Coverage remains a temporal proxy.
+Static-text motion hallucinations remain open: neither caching nor frame checks
+guarantee perceptual correctness. No real provider calls were made for these fixes.

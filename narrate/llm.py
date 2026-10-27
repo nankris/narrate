@@ -21,13 +21,30 @@ class SpendGuard:
         self.spent += amount
 
 
+def normalize_json(value):
+    if isinstance(value, dict):
+        return {k.lstrip('. \t\r\n').lower(): normalize_json(v) for k,v in value.items()}
+    if isinstance(value, list):
+        return [normalize_json(v) for v in value]
+    return value
+
+
+def cached_tokens(usage):
+    return getattr(getattr(usage, 'prompt_tokens_details', None), 'cached_tokens', 0) or 0
+
+
+def usage_cost(usage, model):
+    cached = min(usage.prompt_tokens, cached_tokens(usage))
+    return ((usage.prompt_tokens-cached)*model['input_price'] + cached*model.get('cached_input_price',model['input_price']) + usage.completion_tokens*model['output_price'])/1e6
+
+
 def extract_json(value):
     value = re.sub(r'<think>.*?</think>', '', value, flags=re.S)
     decoder = json.JSONDecoder()
     for i, char in enumerate(value):
         if char in '[{':
             try:
-                return decoder.raw_decode(value[i:])[0]
+                return normalize_json(decoder.raw_decode(value[i:])[0])
             except ValueError:
                 pass
     raise ValueError('No valid JSON response')
@@ -124,9 +141,9 @@ class Client:
                 time.sleep(.5 * 2 ** attempt)
                 continue
             usage = response.usage
-            actual = (usage.prompt_tokens * model['input_price'] + usage.completion_tokens * model['output_price']) / 1e6 if usage else reservation
+            actual = usage_cost(usage, model) if usage else reservation
             self.guard.spent += actual - reservation
-            self.usage.append({'stage':stage, 'model':model['id'], 'base_url_host':urlparse(url).hostname, 'input_tokens':usage.prompt_tokens if usage else estimate, 'output_tokens':usage.completion_tokens if usage else output_limit, 'cost_usd':actual, 'latency_s':time.monotonic()-started})
+            self.usage.append({'cached_tokens':cached_tokens(usage), 'stage':stage, 'model':model['id'], 'base_url_host':urlparse(url).hostname, 'input_tokens':usage.prompt_tokens if usage else estimate, 'output_tokens':usage.completion_tokens if usage else output_limit, 'cost_usd':actual, 'latency_s':time.monotonic()-started})
             message = response.choices[0].message
             raw = message.content or ''
             if not raw.strip():
@@ -138,7 +155,7 @@ class Client:
                 self.raw_count += 1
                 # Never persist a credential even if an upstream response echoes it.
                 safe = raw.replace(key, '[REDACTED]')
-                (self.raw_dir / f'{stage}_{self.raw_count}.txt').write_bytes(safe.encode()[:4096])
+                (self.raw_dir / f'{stage}_{self.raw_count}.txt').write_text(safe[:4096], encoding='utf-8')
             if self.guard.spent > self.guard.cap:
                 raise BudgetExceeded('Reported usage exceeded conservative estimate')
             return extract_json(raw)

@@ -1,0 +1,45 @@
+# Agent trace — MOCK
+
+- 1 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 2 ✓ tool detect_speech_gaps: I will check the available evidence and timing before committing narration.
+- 3 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 4 ✓ submodel : {"events": [{"t_start": 0, "t_end": 10, "who": "A yellow shape", "action": "A yellow shape moves beneath a kitchen title", "on_screen_text": "A person enters a kitchen", "importance": 3, "hi": "पीली आकृति शीर्षक के नीचे 
+- 5 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 6 ✓ submodel : {"text": "word word word word word word word word word word word word word "}
+- 7 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 8 ✗ tool check_fit: I will check the available evidence and timing before committing narration.
+- 9 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
+- 10 ✓ submodel : {"text": "A person enters a kitchen"}
+- 11 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 8)
+- 12 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
+- 13 ✗ tool verify_claim: I will check the available evidence and timing before committing narration.
+- 14 ↪ tool check_fit: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 13)
+- 15 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 16 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
+- 17 ✓ submodel : {"events": [{"t_start": 0, "t_end": 10, "who": "A yellow shape", "action": "A yellow shape moves beneath a kitchen title", "on_screen_text": "A person enters a kitchen", "importance": 3, "hi": "पीली आकृति शीर्षक के नीचे 
+- 18 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 19 ✓ submodel : {"text": "STEP 1 - chop onions"}
+- 20 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 21 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 22 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
+- 23 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
+- 24 ✓ submodel : {"events": [{"t_start": 10, "t_end": 20, "who": "A yellow shape", "action": "The red scene displays an onion chopping instruction", "on_screen_text": "STEP 1 - chop onions", "importance": 4, "hi": "लाल दृश्य में प्याज़ क
+- 25 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 26 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 27 ✓ submodel : {"text": "STEP 1 - chop onions"}
+- 28 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 29 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
+- 30 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
+- 31 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 32 ✓ submodel : {"events": [{"t_start": 20, "t_end": 30, "who": "A yellow shape", "action": "The teal scene displays the stir and serve title", "on_screen_text": "Stir and serve", "importance": 4, "hi": "शीर्षक में हिलाने और परोसने का न
+- 33 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 34 ✓ submodel : {"text": "Stir and serve"}
+- 35 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 36 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
+- 37 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 38 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
+- 39 ✓ submodel : {"cues": [{"id": 0, "hi": "पीली आकृति शीर्षक के नीचे चलती है।"}, {"id": 1, "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"}, {"id": 2, "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"}, {"id": 3, "hi": "शीर्षक।"}]}
+- 40 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
+- 41 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
+- 42 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 43 ✓ tool finalize: I will check the available evidence and timing before committing narration.

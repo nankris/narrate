@@ -25,7 +25,7 @@ def agent(tmp_path):
 
 
 def test_schemas():
-    assert len(TOOLS)==11
+    assert len(TOOLS)==12
     for tool in TOOLS:
         jsonschema.Draft202012Validator.check_schema(tool['function']['parameters'])
 
@@ -50,7 +50,7 @@ def test_tools_and_caps(agent):
     g=agent.gaps[0]
     args={'start':g['start'],'end':g['end']}
     result=agent.inspect_video_segment(**args)
-    assert result==agent.inspect_video_segment(**args)
+    assert agent.inspect_video_segment(**args)['cached']
     assert agent.counts['inspections']==1
     agent.cfg['agent']['max_inspections']=1
     assert not agent.inspect_video_segment(0,1)['ok']
@@ -68,7 +68,7 @@ def test_tools_and_caps(agent):
 
 
 def test_finalize_reject_then_accept(agent):
-    agent.events=[{'importance':5,'t_start':10,'t_end':12}]
+    agent.events=[{'importance':5,'t_start':5,'t_end':7}]
     assert not agent.finalize()['ok']
     assert not agent.finalize()['ok']
     assert agent.finalize()['ok'] and agent.report['issues']
@@ -95,6 +95,7 @@ def test_mock_e2e(tmp_path):
     assert report['overlaps_with_speech']==0
     assert report['agent_stats']['corrections']>=1
     assert not report['fallback_finalize']
+    assert sum(s['role']=='orchestrator' for s in stream)<=20
     for name in ('narrated_en.mp4','narrated_hi.mp4','ad_en.vtt','ad_hi.vtt','transcript_en.txt','transcript_hi.txt','report.json','trace.json','trace.md','preview_en.mp4'):
         assert (tmp_path/name).is_file()
     trace=json.loads((tmp_path/'trace.json').read_text())
@@ -179,3 +180,112 @@ def test_continuous_speech_failure(tmp_path):
     result=run_agent('samples/failure_continuous_speech.mp4',tmp_path,'mock',config=cfg)
     assert not result['cues']
     assert any('extended AD' in issue for issue in result['issues'])
+
+
+def test_required_notes_and_unicode(agent):
+    from narrate.agent.core import compact
+    for tool in TOOLS:
+        assert 'note' in tool['function']['parameters']['required']
+    result=agent.execute('propose_cue',{'gap_id':0,'text':'Title','note':'Commit the supported title because it fits.'})
+    assert result['ok'] and result['state']['committed']==[0]
+    assert agent.steps[-1]['note'].startswith('Commit')
+    assert 'note' not in agent.steps[-1]['args']
+    assert not agent.execute('finalize',{'note':'word '*26})['ok']
+    packed=compact({'events':[{'what':'पीला आयत चलता है। '*300}], 'cached':True,'state':{'remaining':[1]}})
+    raw=json.dumps(packed,ensure_ascii=False,separators=(',',':'))
+    assert len(raw)<=800 and '\ufffd' not in raw and 'पीला' in raw
+    assert packed['cached'] and packed['state']['remaining']==[1]
+
+
+def test_overlap_cache_and_normalized_verdict(agent,monkeypatch):
+    agent.inspect_video_segment(0,8)
+    assert agent.inspect_video_segment(1,9,'new focus')['cached']
+    assert agent.counts['inspections']==1
+    monkeypatch.setattr(agent,'submodel',lambda *a,**k:{' .Verdict':'SUPPORTED',' .Evidence':'Visible title'})
+    assert agent.verify_claim(0,2,'Title')['verdict']=='supported'
+
+
+def test_hindi_duration_retry_and_warning(agent,monkeypatch):
+    agent.commit_cue(0,'Title')
+    monkeypatch.setattr(agent,'measure_tts_duration',lambda text,lang:{'seconds':2 if text.startswith('छोटा') else 8})
+    calls=[]
+    def fake(stage,data,**kwargs):
+        calls.append(data)
+        return {'cues':[{'id':0,'hi':'बहुत लंबा विवरण'}]}
+    monkeypatch.setattr(agent,'submodel',fake)
+    result=agent.translate_hindi()
+    assert len(calls)==2 and not result['cues'][0]['ok'] and result['cues'][0]['retried']
+    assert calls[1]['cues'][0]['max_words'] and calls[1]['cues'][0]['max_seconds']==3.75
+    assert agent.check_fit(0,'छोटा '+ 'शब्द '*10,'hi')['ok']
+    monkeypatch.setattr(agent,'check_fit',lambda *a:{'ok':True,'overlap_seconds':0})
+    monkeypatch.setattr(agent,'render',lambda *a:[])
+    assert agent.finalize()['ok']
+    assert 'missing hi' in agent.report['issues'][0]
+    assert agent.report['gap_coverage_percent']['hi']==0
+
+
+def test_narratable_coverage(agent,monkeypatch):
+    agent.events=[{'importance':5,'t_start':20,'t_end':22}, {'importance':5,'t_start':0,'t_end':1}]
+    agent.cues={0:{**agent.gaps[0],'en':'Title','hi':'शीर्षक'}}
+    monkeypatch.setattr(agent,'check_fit',lambda *a:{'ok':True,'overlap_seconds':0})
+    monkeypatch.setattr(agent,'render',lambda *a:[])
+    assert agent.finalize()['ok']
+    assert agent.report['high_importance_covered_percent']==100
+
+
+def test_append_only_batch_turns_and_nudge(tmp_path,monkeypatch):
+    snapshots=[]
+    class Policy:
+        def next(self,messages,a):
+            if snapshots: assert messages[:len(snapshots[-1])]==snapshots[-1]
+            snapshots.append(json.loads(json.dumps(messages)))
+            names=['detect_speech_gaps','detect_speech_gaps'] if a.turn==0 else ['finalize']
+            return {'role':'assistant','content':'','tool_calls':[{'id':str(i),'type':'function','function':{'name':n,'arguments':json.dumps({'note':'Use known gaps to finish efficiently.'})}} for i,n in enumerate(names)]}
+    cfg=load_config();cfg['tts']['backend']='silent'
+    report=run_agent('samples/sample_kitchen.mp4',tmp_path,'mock',config=cfg,max_steps=3,orchestrator=Policy())
+    assert not report['fallback_finalize'] and report['agent_stats']['orchestrator_turns']==2
+    assert any(m['content'].startswith('3 turns left') for m in snapshots[0] if m['role']=='system')
+
+
+def test_cost_report_is_list_cost(agent):
+    agent.cfg['provider']='nvidia-dev'
+    agent.trace('orchestrator',cost_usd=.1)
+    agent.trace('submodel',cost_role='verify',cost_usd=.02)
+    agent.guard.spent=.9
+    agent.save()
+    assert agent.report['estimated_cost_usd']==pytest.approx(.12)
+    assert agent.report['cost_per_minute_usd']==pytest.approx(.24)
+    assert agent.report['cost_by_role']['verify']==.02
+    assert agent.report['billed_to']=='nvidia-dev free tier (dev only)'
+
+
+def test_batched_draft(agent):
+    result=agent.execute('draft_description',{'gap_ids':[0],'note':'Draft the known gap in one batch.'})
+    assert result['cues'][0]['id']==0
+    assert len(result['cues'][0]['text'].split())<=5
+
+
+def test_one_turn_executes_all_calls(tmp_path):
+    class Batch:
+        def next(self,messages,a):
+            return {'role':'assistant','content':'Kept content','tool_calls':[{'id':str(i),'type':'function','function':{'name':name,'arguments':json.dumps({'note':'Finish the available work.'})}} for i,name in enumerate(['detect_speech_gaps','translate_hindi','finalize'])]}
+    cfg=load_config();cfg['tts']['backend']='silent'
+    report=run_agent('samples/sample_kitchen.mp4',tmp_path,'mock',config=cfg,max_steps=1,orchestrator=Batch())
+    assert not report['fallback_finalize']
+    assert report['agent_stats']['orchestrator_turns']==1
+    trace=json.loads((tmp_path/'trace.json').read_text())
+    assert trace['steps'][0]['note']=='Kept content'
+
+
+def test_piper_auto_and_subprocess(tmp_path,monkeypatch):
+    from narrate.tts import backend, PiperBackend, EspeakBackend
+    cfg={'backend':'auto','voices':{'en':'en','hi':'hi'},'piper_models':{l:str(tmp_path/(l+'.onnx')) for l in ('en','hi')}}
+    assert isinstance(backend(cfg),EspeakBackend)
+    for model in cfg['piper_models'].values():
+        Path(model).touch(); Path(model+'.json').write_text('{}')
+    engine=backend(cfg); assert isinstance(engine,PiperBackend)
+    calls=[]
+    monkeypatch.setattr('narrate.tts.subprocess.run',lambda *a,**k:calls.append((a,k)))
+    engine.render('शीर्षक','hi',tmp_path/'hi.wav')
+    assert calls[0][1]['input'].decode()=='शीर्षक'
+    assert 'piper_cli.py' in calls[0][0][0][1]

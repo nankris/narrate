@@ -144,7 +144,9 @@ def run(path, out_dir, langs=('en', 'hi'), client=None, budget=None, progress=No
         report['usage'] = client.usage
         report['models'] = {u['stage']:u['model'] for u in client.usage}
         report['would_be_token_factory_cost_usd'] = sum(u.get('cost_usd', 0) for u in client.usage)
-        report['estimated_cost_usd'] = 0 if client.mock or requested_provider == 'nvidia-dev' else guard.spent
+        report['estimated_cost_usd'] = 0 if client.mock else report['would_be_token_factory_cost_usd']
+        report['billed_to'] = 'nvidia-dev free tier (dev only)' if requested_provider=='nvidia-dev' else 'mock (offline)' if client.mock else 'nebius token factory'
+        report['cost_per_minute_usd'] = report['estimated_cost_usd'] / max(.001,report.get('duration_s',0)/60)
         (out / 'report.json').write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding='utf-8')
     return report
 

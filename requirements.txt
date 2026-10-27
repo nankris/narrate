@@ -6,3 +6,4 @@ Pillow>=11
 onnxruntime>=1.20
 jsonschema>=4
 # Install separately: pip install silero-vad --no-deps (MIT ONNX model; no torch needed)
+# Optional separate GPL-3.0 CLI: pip install piper-tts

@@ -28,5 +28,6 @@ def resolve_provider(config, provider=None):
     cfg['models'] = {}
     for stage, value in source['models'].items():
         model = {'id': value} if isinstance(value, str) else dict(value)
-        cfg['models'][stage] = {'thinking': source.get('thinking', False), **cfg['prices'][stage], **cfg.get('stages', {}).get(stage, {}), **model}
+        price_stage='fit_alt' if name=='nvidia-dev' and stage=='fit' else stage
+        cfg['models'][stage] = {'thinking': source.get('thinking', False), **cfg['prices'][price_stage], **cfg.get('stages', {}).get(stage, {}), **model}
     return cfg

@@ -1,5 +1,6 @@
 from pathlib import Path
 import subprocess
+import sys
 from .media import command, ffmpeg, probe, atempo_decision
 
 
@@ -29,10 +30,13 @@ class PiperBackend(SpeechBackend):
         model = Path(self.models[lang])
         if not model.is_file():
             raise ValueError('Piper voice model missing')
-        subprocess.run(['piper', '--model', str(model), '--output_file', str(target)], input=text.encode(), check=True, capture_output=True)
+        subprocess.run([sys.executable, str(Path(__file__).resolve().parents[1]/'scripts/piper_cli.py'), '--model', str(model), '--output_file', str(target)], input=text.encode(), check=True, capture_output=True)
 
 
 def backend(cfg):
+    cfg=dict(cfg)
+    if cfg['backend']=='auto':
+        cfg['backend']='piper' if all(Path(cfg.get('piper_models',{}).get(l,'missing')).is_file() and Path(cfg['piper_models'][l]+'.json').is_file() for l in ('en','hi')) else 'espeak'
     return {'espeak': EspeakBackend, 'silent': lambda _: SilentBackend(), 'piper': PiperBackend}[cfg['backend']](cfg)
 
 
@@ -43,7 +47,7 @@ def render_cue(engine, cue, lang, work, index):
     available = cue['end'] - cue['start']
     speed, trimmed = atempo_decision(duration, available)
     ffmpeg('-i', raw, '-af', f'atempo={speed},atrim=duration={available},afade=t=out:st={max(0, available-.03)}:d=0.03', '-ar', 24000, '-ac', 1, fitted)
-    return fitted, {'lang': lang, 'cue': index, 'speed': speed, 'trimmed': trimmed}
+    return fitted, {'backend':type(engine).__name__, 'lang': lang, 'cue': index, 'speed': speed, 'trimmed': trimmed}
 
 
 def mix(path, target, duration, has_audio, cues, wavs, duck):

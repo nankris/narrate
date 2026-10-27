@@ -10,6 +10,7 @@ providers:
       fit_alt: nvidia/Nemotron-3_5-Lightning
       edit: nvidia/Nemotron-3-Ultra-550b-a55b
       orchestrate: nvidia/Nemotron-3-Ultra-550b-a55b
+      orchestrate_alt: nvidia/nemotron-3-super-120b-a12b
     thinking: false
   nvidia-dev:
     base_url: https://integrate.api.nvidia.com/v1
@@ -27,18 +28,27 @@ prices:
   perceive:
     input_price: 0.3
     output_price: 0.9
+    cached_input_price: 0.06
   fit:
     input_price: 0.06
     output_price: 0.24
+    cached_input_price: 0.012
   fit_alt:
-    input_price: 0.06
-    output_price: 0.24
+    input_price: 0.15
+    output_price: 0.6
+    cached_input_price: 0.03
   edit:
     input_price: 1.0
     output_price: 3.0
+    cached_input_price: 0.12
   orchestrate:
     input_price: 1.0
     output_price: 3.0
+    cached_input_price: 0.12
+  orchestrate_alt:
+    input_price: 0.3
+    output_price: 0.9
+    cached_input_price: 0.06
 stages:
   perceive:
     max_tokens: 3000
@@ -59,6 +69,9 @@ stages:
   orchestrate:
     max_tokens: 1800
     thinking: false
+  orchestrate_alt:
+    max_tokens: 1800
+    thinking: false
 extra_body_thinking: true
 image_tokens: 1800
 video_tokens_per_second: 600
@@ -68,19 +81,21 @@ silence_db: -35
 silence_min: 1.0
 words_per_second:
   en: 2.3
-  hi: 2.0
+  hi: 2.6
 word_margin: 1
 max_duration: 120
 tts:
-  backend: espeak
+  backend: auto
   voices:
     en: en
     hi: hi
-  piper_models: {}
+  piper_models:
+    en: voices/en_US-ljspeech-medium.onnx
+    hi: voices/hi_IN-priyamvada-medium.onnx
 ducking_level: 0.18
 budget_usd: 0.25
 agent:
-  max_steps: 40
+  max_steps: 30
   budget_usd: 0.5
   max_inspections: 12
   max_verifications: 8

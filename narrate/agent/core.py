@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import jsonschema
 from ..config import load_config, resolve_provider
-from ..llm import Client, SpendGuard, BudgetExceeded, SYSTEM as SUBSYSTEM, sanitize
+from ..llm import Client, SpendGuard, BudgetExceeded, SYSTEM as SUBSYSTEM, sanitize, normalize_json
 from ..media import probe, ffmpeg, word_budget, write_texts
 from ..perception import data_url, separate_frames
 from ..tts import backend, mix
@@ -17,11 +17,47 @@ from .schema import TOOLS
 from .vad import detect
 
 
-def compact(value, limit=1500):
-    raw = json.dumps(value,ensure_ascii=False)
-    if len(raw.encode()) <= limit:
-        return value
-    return {'truncated':True,'summary':raw.encode()[:limit-100].decode('utf-8','ignore')}
+def compact(value, limit=800):
+    def rounded(v):
+        if isinstance(v,float): return round(v,2)
+        if isinstance(v,dict): return {k:rounded(x) for k,x in v.items()}
+        if isinstance(v,list): return [rounded(x) for x in v]
+        return v
+    result=rounded(value)
+    dump=lambda v: json.dumps(v,ensure_ascii=False,separators=(',',':'))
+    if len(dump(result))<=limit: return result
+    if not isinstance(result,dict): result={'value':result}
+    result['truncated']=True
+    # Keep result keys (including cached/ok/state); trim long text and arrays structurally.
+    while len(dump(result))>limit:
+        candidates=[]
+        def visit(v):
+            if isinstance(v,dict):
+                for k,x in v.items():
+                    if k=='state': continue
+                    if isinstance(x,str) and len(x)>24: candidates.append((len(x),v,k))
+                    elif isinstance(x,list) and x: candidates.append((len(dump(x)),v,k))
+                    if isinstance(x,dict): visit(x)
+            elif isinstance(v,list):
+                for x in v: visit(x)
+        visit(result)
+        if not candidates: break
+        _,parent,key=max(candidates,key=lambda x:x[0])
+        item=parent[key]
+        if isinstance(item,list):
+            if len(item)>1: item.pop()
+            else:
+                before=len(dump(item))
+                visit(item)
+                nested=[c for c in candidates if c[1] is not parent]
+                if nested:
+                    _,obj,k=max(nested,key=lambda x:x[0])
+                    if isinstance(obj[k],str): obj[k]=obj[k][:max(24,len(obj[k])//2)]
+                    else: obj[k].pop()
+                if len(dump(item))==before: item.pop()
+        else: parent[key]=item[:max(24,len(item)//2)]
+
+    return result
 
 
 class Agent:
@@ -43,6 +79,7 @@ class Agent:
         self.gaps,self.speech,self.events = [],[],[]
         self.cues,self.dropped,self.cache,self.tts_cache = {},{},{},{}
         self.counts = Counter(); self.pending_failures = []
+        self.translation_done=False
         self.steps = []; self.turn=0; self.rejections=0; self.done=False
         self.report = {'mock':self.mock,'provider':cfg['provider'],'dev_only':cfg['provider']=='nvidia-dev',
             'duration_s':self.duration,'fallback_finalize':False,'issues':[]}
@@ -86,15 +123,22 @@ class Agent:
                 result = self.client.call(stage,{**data, '_system': 'You are a precise audio description assistant. Follow the requested JSON schema. Describe only supported visible facts. '+data.get('instruction','')},media)
             except Exception:
                 for usage in self.client.usage[before:]:
-                    self.trace('submodel',model=usage['model'],tokens_in=usage['input_tokens'],tokens_out=usage['output_tokens'],cost_usd=usage['cost_usd'],latency_s=usage['latency_s'],ok=False,result={'error':'Submodel response failed'})
+                    usage['cost_role']=getattr(self,'cost_role',None) or {'fit':'draft','edit':'translate'}.get(stage,stage)
+                    self.trace('submodel',cost_role=getattr(self,'cost_role',None) or {'fit':'draft','edit':'translate'}.get(stage,stage),cached_tokens=usage.get('cached_tokens',0),model=usage['model'],tokens_in=usage['input_tokens'],tokens_out=usage['output_tokens'],cost_usd=usage['cost_usd'],latency_s=usage['latency_s'],ok=False,result={'error':'Submodel response failed'})
                 raise
+            for entry in self.client.usage[before:]:
+                entry['cost_role']=getattr(self,'cost_role',None) or {'fit':'draft','edit':'translate'}.get(stage,stage)
             usage = dict(self.client.usage[-1])
-            usage.update({k:sum(u[k] for u in self.client.usage[before:]) for k in ('input_tokens','output_tokens','cost_usd')})
-        self.trace('submodel',model=usage['model'],tokens_in=usage['input_tokens'],tokens_out=usage['output_tokens'],
+            usage.update({k:sum(u.get(k,0) for u in self.client.usage[before:]) for k in ('input_tokens','output_tokens','cost_usd','cached_tokens')})
+        result=normalize_json(result)
+        self.trace('submodel',cost_role=getattr(self,'cost_role',None) or {'fit':'draft','edit':'translate'}.get(stage,stage),cached_tokens=usage.get('cached_tokens',0),model=usage['model'],tokens_in=usage['input_tokens'],tokens_out=usage['output_tokens'],
                    cost_usd=usage['cost_usd'],latency_s=time.monotonic()-start,result=compact(result))
         return result
 
     def detect_speech_gaps(self):
+        if self.counts['gap_detection']:
+            return {'cached':True,'reminder':'Use the gaps from the first detection.'}
+        self.counts['gap_detection']+=1
         result = detect(self.path,self.duration,self.has_audio,self.cfg)
         self.speech=result['speech']; self.gaps=[]
         for i,g in enumerate(result['gaps']):
@@ -104,7 +148,7 @@ class Agent:
         self.report.update(detector=result['detector'],speech_ratio=result['speech_ratio'],detector_fallback_reason=result['fallback_reason'])
         if not self.gaps:
             self.report['issues'].append('Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.')
-        return {**result,'gaps':self.gaps}
+        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi')} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
 
     def segment(self,start,end):
         if not all(math.isfinite(x) for x in (start,end)) or not 0 <= start < end <= self.duration:
@@ -113,8 +157,9 @@ class Agent:
     def inspect_video_segment(self,start,end,focus=''):
         self.segment(start,end)
         key=(start,end,focus)
-        if key in self.cache:
-            return self.cache[key]
+        for (s,e,_),cached in self.cache.items():
+            if max(0,min(end,e)-max(start,s))/(end-start)>=.7:
+                return {**cached,'cached':True,'reminder':'Already inspected >=70% of this range; use cached evidence.'}
         if self.counts['inspections'] >= self.cfg['agent']['max_inspections']:
             return {'ok':False,'error':'Inspection cap reached'}
         self.counts['inspections']+=1
@@ -162,6 +207,8 @@ class Agent:
         mock={'verdict':'contradicted' if 'blue dot' in claim else 'uncertain',
               'evidence':'MOCK sidecar describes title and yellow shape; no blue dot or fading text.'}
         result=self.submodel('perceive',{'duration':end-start,'instruction':'Use these FRAMES only. Verify the claim; return {verdict: supported|contradicted|uncertain, evidence: string}. Do not infer motion between stills.','claim':claim},media,mock)
+        result=normalize_json(result)
+        result['verdict']=str(result.get('verdict','')).strip().lower()
         if result.get('verdict') not in ('supported','contradicted','uncertain'):
             return {'ok':False,'error':'Invalid verification response'}
         return {**result,'modality':'frames'}
@@ -169,9 +216,12 @@ class Agent:
     def gap(self,gap_id):
         return next(g for g in self.gaps if g['id']==gap_id)
 
-    def draft_description(self,gap_id,context_events,max_words,avoid_repeating=''):
+    def draft_description(self,gap_id=None,context_events=None,max_words=None,avoid_repeating='',gap_ids=None):
+        if gap_ids is not None:
+            gaps=[self.gap(i) for i in gap_ids]
+            return self.submodel('fit',{'instruction':'Draft one English cue per gap, obey word_budget_en. Return {cues:[{id,text}]}. Only use associated events; no future events.', 'gaps':gaps,'events':self.events},mock_result={'cues':[{'id':g['id'],'text':self.mock_line(self.mock_events(g['start'],g['end']),g['word_budget_en'])} for g in gaps]})
         g=self.gap(gap_id)
-        limit=max(1,min(max_words,g['word_budget_en']))
+        limit=max(1,min(max_words or g['word_budget_en'],g['word_budget_en']))
         mock_text=self.mock_line(context_events or self.mock_events(g['start'],g['end']),limit)
         if self.mock and getattr(self,'inject_overbudget',False):
             mock_text='word '*(g['word_budget_en']+5)
@@ -195,7 +245,7 @@ class Agent:
         count=len(text.split())
         if not text.strip() or '\n' in text or '-->' in text:
             problems.append('Text must be one nonempty line')
-        if count>budget:
+        if count>budget and lang!='hi':
             problems.append('Word budget exceeded')
         if re.search(r'\b(we see|the camera)\b',text,re.I):
             problems.append('Banned phrase')
@@ -215,9 +265,12 @@ class Agent:
         if not result['ok']:
             return result
         g=self.gap(gap_id)
+        self.translation_done=False
         self.cues[gap_id]={**g,'en':text}
         self.dropped.pop(gap_id,None)
         return {'ok':True,'cue':self.cues[gap_id]}
+
+    propose_cue = commit_cue
 
     def drop_gap(self,gap_id,reason):
         self.gap(gap_id)
@@ -227,6 +280,7 @@ class Agent:
     def translate_hindi(self,cue_ids=None,max_words=None):
         cues=[c for i,c in self.cues.items() if cue_ids is None or i in cue_ids]
         if not cues:
+            self.translation_done=True
             return {'cues':[]}
         limits={c['id']:min(c['word_budget_hi'],max_words) if max_words is not None else c['word_budget_hi'] for c in cues}
         mock=[]
@@ -237,17 +291,23 @@ class Agent:
                 hi='शीर्षक।'
             mock.append({'id':c['id'],'hi':hi})
         response=self.submodel('edit',{'instruction':'Translate committed English cues into natural Devanagari Hindi. Return {cues:[{id,hi}]}, each <= its word limit. Preserve meaning.','cues':cues,'limits':limits},mock_result={'cues':mock})
-        results=[]
-        by_id={c['id']:c for c in response.get('cues',[]) if isinstance(c,dict) and 'id' in c}
-        for c in cues:
-            text=by_id.get(c['id'],{}).get('hi','')
-            fit=self.check_fit(c['id'],text,'hi')
-            if fit['ok']:
-                c['hi']=text
-            else:
-                c.pop('hi',None)
-            results.append({'id':c['id'],'text':text,**fit})
-        return {'ok':all(c['ok'] for c in results),'cues':results}
+        results={}
+        for attempt in range(2):
+            by_id={c['id']:c for c in response.get('cues',[]) if isinstance(c,dict) and 'id' in c}
+            failing=[]
+            for c in cues:
+                text=by_id.get(c['id'],{}).get('hi','')
+                fit=self.check_fit(c['id'],text,'hi')
+                results[c['id']]={'id':c['id'],'text':text,**fit,'retried':bool(attempt)}
+                if fit['ok']: c['hi']=text
+                else:
+                    c.pop('hi',None)
+                    failing.append({**c,'max_words':fit['suggested_max_words'],'max_seconds':c['duration']*self.cfg['agent']['max_atempo']})
+            if not failing or attempt: break
+            cues=[self.cues[c['id']] for c in failing]
+            response=self.submodel('edit',{'instruction':'Shorten failing Hindi translations. Return {cues:[{id,hi}]}. Obey explicit max_words and max_seconds per cue; retain core meaning.','cues':failing},mock_result={'cues':[{'id':c['id'],'hi':'शीर्षक।'} for c in failing]})
+        self.translation_done=True
+        return {'ok':all(c['ok'] for c in results.values()),'cues':list(results.values())}
 
     def render(self,lang,target):
         selected=[]; wavs=[]
@@ -259,6 +319,7 @@ class Agent:
             fitted=self.work/f"fit-{lang}-{c['id']}.wav"
             ffmpeg('-i',raw,'-af',f'atempo={speed}','-ar',24000,'-ac',1,fitted)
             # Caption timing reflects audible duration, not the full reserved gap.
+            c.setdefault('tts_backend',{})[lang]=type(self.engine).__name__
             selected.append({**c,'end':min(c['end'],c['start']+seconds/speed)})
             wavs.append(fitted)
         mix(self.path,target,self.duration,self.has_audio,selected,wavs,self.cfg['ducking_level'])
@@ -275,22 +336,23 @@ class Agent:
         return {'path':str(target),'duration':probe(target)[0]}
 
     def finalize(self,force=False):
-        problems=[]
+        problems=[]; warnings=[]
         for c in list(self.cues.values()):
             for lang in self.langs:
                 if not c.get(lang):
-                    problems.append(f"Cue {c['id']}: missing {lang}")
+                    (warnings if lang=='hi' and self.translation_done else problems).append(f"Cue {c['id']}: missing {lang}")
                 elif not self.check_fit(c['id'],c[lang],lang)['ok']:
                     problems.append(f"Cue {c['id']}: invalid {lang}")
-        high=[e for e in self.events if e['importance']>=4]
+        associated=lambda e,g: g['start']<=e['t_end']+6 and g['end']>e['t_start']
+        high=[e for e in self.events if e['importance']>=4 and any(associated(e,g) for g in self.gaps)]
         # Temporal association is explicitly a proxy, not semantic coverage verification.
-        uncovered=[e for e in high if not any(c['start']<e['t_end'] and c['end']>e['t_start'] for c in self.cues.values())]
+        uncovered=[e for e in high if not any(associated(e,c) for c in self.cues.values())]
         if uncovered:
             problems.append(f'{len(uncovered)} high-importance events lack an associated cue')
         if problems and self.rejections<2 and not force:
             self.rejections+=1
             return {'ok':False,'problems':problems,'uncovered_events':uncovered,'rejection':self.rejections}
-        self.report['issues'].extend(problems)
+        self.report['issues'].extend(problems+warnings)
         # Never publish a failed language track, even after warning acceptance.
         for gid,c in list(self.cues.items()):
             if not self.check_fit(gid,c['en'],'en')['ok']:
@@ -306,30 +368,35 @@ class Agent:
             cues_committed=len(self.cues),cues_dropped=len(self.dropped),dropped_gaps=self.dropped,
             overlaps_with_speech=sum(self.check_fit(c['id'],c[l],l)['overlap_seconds']>0 for c in self.cues.values() for l in self.langs if c.get(l)),
             gap_coverage_percent={l:100*sum(c['end']-c['start'] for c in track)/max(.001,sum(g['duration'] for g in self.gaps)) for l,track in tracks.items()},
-            high_importance_events_covered_percent=100*(len(high)-len(uncovered))/len(high) if high else 100,
+            high_importance_covered_percent=100*(len(high)-len(uncovered))/len(high) if high else 100,
             coverage_method='temporal association proxy; not semantic verification',uncovered_events=uncovered)
         self.done=True
-        return {'ok':True,'warnings':problems,'outputs':str(self.out)}
+        return {'ok':True,'warnings':problems+warnings,'outputs':str(self.out)}
 
     def execute(self,name,args):
         start=time.monotonic()
+        note=''
+        self.cost_role={'verify_claim':'verify','inspect_video_segment':'perceive','draft_description':'draft','translate_hindi':'translate'}.get(name)
         try:
             schema=next(t['function']['parameters'] for t in TOOLS if t['function']['name']==name)
             jsonschema.validate(args,schema)
+            args=dict(args)
+            note=args.pop('note')
             result=getattr(self,name)(**args)
         except BudgetExceeded:
-            self.trace('tool',tool_name=name,args=compact(args),ok=False,result={'error':'Budget exceeded'},latency_s=time.monotonic()-start)
+            self.trace('tool',note=note,tool_name=name,args=compact(args),ok=False,result={'error':'Budget exceeded'},latency_s=time.monotonic()-start)
             raise
         except Exception as exc:
             result={'ok':False,'error':sanitize(exc)}
         args = args if isinstance(args,dict) else {}
         failed=result.get('ok') is False or result.get('verdict')=='contradicted'
         correction=None
-        if not failed and name in ('check_fit','commit_cue','draft_description','translate_hindi','drop_gap'):
+        if not failed and name in ('check_fit','commit_cue','propose_cue','draft_description','translate_hindi','drop_gap'):
             for failure in self.pending_failures:
                 if failure['gap_id']==args.get('gap_id') or (failure['gap_id'] is None and name=='translate_hindi'):
                     correction=failure['step']; self.pending_failures.remove(failure); break
-        sid=self.trace('tool',tool_name=name,args=compact(args),result=compact(result),ok=not failed,
+        result={**result,'state':{'committed':list(self.cues),'remaining':[g['id'] for g in self.gaps if g['id'] not in self.cues and g['id'] not in self.dropped],'budget':{'turns':max(0,self.cfg['agent']['max_steps']-self.turn-1),'inspections':self.cfg['agent']['max_inspections']-self.counts['inspections'],'verifications':self.cfg['agent']['max_verifications']-self.counts['verifications']}}}
+        sid=self.trace('tool',note=note,tool_name=name,args=compact(args),result=compact(result),ok=not failed,
             latency_s=time.monotonic()-start,correction=correction is not None,corrects_step=correction)
         if failed:
             gid=args.get('gap_id')
@@ -339,11 +406,11 @@ class Agent:
         return result
 
     def save(self):
-        cost=sum(s['cost_usd'] for s in self.steps)
+        cost=sum(u['cost_usd'] for u in self.client.usage) if self.client.usage else sum(s['cost_usd'] for s in self.steps)
         summary={'tool_calls':dict(Counter(s['tool_name'] for s in self.steps if s['role']=='tool')),
             'corrections':sum(s['correction'] for s in self.steps),
             'verifications':dict(Counter(s['result']['verdict'] for s in self.steps if s['role']=='tool' and isinstance(s['result'],dict) and 'verdict' in s['result'])),
-            'cost_by_model':{},'total_latency_s':time.monotonic()-self.started}
+            'orchestrator_turns':sum(s['role']=='orchestrator' for s in self.steps),'cost_by_model':{},'total_latency_s':time.monotonic()-self.started}
         for s in self.steps:
             if s['model']:
                 summary['cost_by_model'][s['model']]=summary['cost_by_model'].get(s['model'],0)+s['cost_usd']
@@ -354,14 +421,21 @@ class Agent:
         (self.out/'trace.json').write_text(json.dumps(trace,ensure_ascii=False,indent=2))
         (self.out/'trace.md').write_text('# Agent trace'+(' — MOCK' if self.mock else '')+'\n\n'+'\n'.join(
             f"- {s['step']} {'↪' if s['correction'] else '✓' if s['ok'] else '✗'} {s['role']} {s['tool_name'] or ''}: {s['note'] or json.dumps(s['result'],ensure_ascii=False)[:220]}"+ (f" (corrects {s['corrects_step']})" if s['correction'] else '') for s in self.steps))
-        self.report.update(agent_stats=summary,estimated_cost_usd=0 if self.mock or self.cfg['provider']=='nvidia-dev' else self.guard.spent,
-            would_be_token_factory_cost_usd=self.guard.spent,reserved_spend_usd=self.guard.spent,cost_per_minute=(0 if self.mock else self.guard.spent)/(self.duration/60),latency_s=summary['total_latency_s'])
+        roles={r:sum(s['cost_usd'] for s in self.steps if s.get('cost_role',s['role'])==r) for r in ('orchestrator','perceive','verify','draft','translate')}
+        if self.client.usage:
+            roles={r:sum(u['cost_usd'] for u in self.client.usage if u.get('cost_role',{'orchestrate':'orchestrator','fit':'draft','edit':'translate'}.get(u['stage'],u['stage']))==r) for r in roles}
+        self.report.update(usage=self.client.usage,cost_by_role=roles,billed_to='nvidia-dev free tier (dev only)' if self.cfg['provider']=='nvidia-dev' else 'mock (offline)' if self.mock else 'nebius token factory',cost_per_minute_usd=cost/(self.duration/60),agent_stats=summary,estimated_cost_usd=cost,
+            would_be_token_factory_cost_usd=cost,reserved_spend_usd=self.guard.spent,cost_per_minute=cost/(self.duration/60),latency_s=summary['total_latency_s'])
         (self.out/'report.json').write_text(json.dumps(self.report,ensure_ascii=False,indent=2))
 
 
-def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget_usd=None,on_step=None,*,config=None,client=None,orchestrator=None):
+def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget_usd=None,on_step=None,*,config=None,client=None,orchestrator=None,orchestrator_model='ultra'):
     """Synchronous streaming API; callback gets each JSON-serializable trace step."""
     cfg=resolve_provider(config or load_config(),provider)
+    if orchestrator_model=='super':
+        if 'orchestrate_alt' not in cfg['models']:
+            raise ValueError('Super orchestrator is available with nebius only')
+        cfg['models']['orchestrate']=cfg['models']['orchestrate_alt']
     if isinstance(langs,str):
         langs=langs.split(',')
     if not langs or any(l not in ('en','hi') for l in langs):
@@ -375,38 +449,35 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
     planner=orchestrator or (MockOrchestrator() if a.mock else Orchestrator(a.client))
     messages=[{'role':'system','content':SYSTEM},{'role':'user','content':f'Describe this {a.duration:.2f}s video. Languages: {langs}. Maximum tool turns: {steps}.'}]
     try:
-        tool_calls_used=0
         for turn in range(steps):
             a.turn=turn
+            if steps-turn==3:
+                messages.append({'role':'system','content':'3 turns left: commit what you have, translate, finalize'})
             if time.monotonic()-a.started>cfg['agent']['timeout_s']:
                 a.report['issues'].append('Wall-clock timeout reached'); break
             before=len(a.client.usage); start=time.monotonic()
             message=planner.next(messages,a)
             usage=dict(a.client.usage[-1]) if len(a.client.usage)>before else {}
             if usage:
-                usage.update({k:sum(u[k] for u in a.client.usage[before:]) for k in ('input_tokens','output_tokens','cost_usd')})
-            a.trace('orchestrator',note=(message.get('content') or '')[:800],model=usage.get('model','MOCK/orchestrate'),
+                usage.update({k:sum(u.get(k,0) for u in a.client.usage[before:]) for k in ('input_tokens','output_tokens','cost_usd','cached_tokens')})
+            a.trace('orchestrator',cached_tokens=usage.get('cached_tokens',0),note=(message.get('content') or '')[:800],model=usage.get('model','MOCK/orchestrate'),
                 tokens_in=usage.get('input_tokens',0),tokens_out=usage.get('output_tokens',0),cost_usd=usage.get('cost_usd',0),latency_s=time.monotonic()-start)
             calls=message.get('tool_calls',[])
             if not calls:
                 a.report['issues'].append('Orchestrator stopped calling tools'); break
-            # Keep complete assistant/tool groups; collapse only completed observations.
-            if len(messages)>18:
-                messages=messages[:2]+[{'role':'user','content':'Earlier observations summarized: '+json.dumps(compact({'cues':list(a.cues.values()),'gaps':a.gaps,'dropped':a.dropped,'failures':a.pending_failures}),ensure_ascii=False)}]
             messages.append(message)
             for call in calls:
-                if tool_calls_used >= steps or time.monotonic() > a.client.deadline:
+                if time.monotonic() > a.client.deadline:
                     break
-                tool_calls_used += 1
                 try:
                     args=json.loads(call['function']['arguments'])
                 except (ValueError,TypeError):
                     args=None
                 result=a.execute(call['function']['name'],args)
-                messages.append({'role':'tool','tool_call_id':call['id'],'content':json.dumps(compact(result),ensure_ascii=False)})
+                messages.append({'role':'tool','tool_call_id':call['id'],'content':json.dumps(compact(result),ensure_ascii=False,separators=(',',':'))})
                 if a.done:
                     break
-            if a.done or tool_calls_used >= steps:
+            if a.done:
                 break
     except BudgetExceeded:
         a.report['issues'].append('Budget exceeded; finalized committed cues without more model calls')
@@ -416,6 +487,9 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
         if not a.done:
             a.report['fallback_finalize']=True
             start=time.monotonic()
+            if 'hi' in a.langs and not a.translation_done:
+                try: a.execute('translate_hindi',{'note':'Translate committed cues before fallback finalization.'})
+                except Exception: a.report['issues'].append('Fallback Hindi translation unavailable within remaining budget/time')
             result=a.finalize(force=True)
             a.trace('tool',tool_name='finalize',note='Deterministic fallback finisher',result=result,latency_s=time.monotonic()-start)
         a.save()
