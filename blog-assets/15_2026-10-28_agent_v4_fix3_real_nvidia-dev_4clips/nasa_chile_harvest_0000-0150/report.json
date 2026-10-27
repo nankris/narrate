@@ -1,0 +1,868 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 110.0,
+  "fallback_finalize": true,
+  "issues": [
+    "11 high-importance events lack an associated cue"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.04356363636363625,
+  "detector_fallback_reason": null,
+  "fallback_reason": "orchestrator stopped early (max turns, timeout or no tool calls)",
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 11.378857142857145,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "A person in a blue shirt works with equipment inside a spacecraft module filled with green plants.",
+      "hi": "एक अंतरिक्ष यान मॉड्यूल के अंदर एक व्यक्ति नीली शर्ट पहने हरे पौधों के बीच उपकरणों पर काम करता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.378857142857145,
+      "end": 22.677714285714288,
+      "duration": 11.298857142857143,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28,
+      "en": "Two astronauts float in a cramped spacecraft module, one typing on a laptop while the other handles equipment.",
+      "hi": "एक तंग अंतरिक्ष यान मॉड्यूल में दो अंतरिक्ष यात्री तैर रहे हैं, एक लैपटॉप पर टाइप कर रहा है जबकि दूसरा उपकरण संभाल रहा है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 6.133197,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "A person in a blue shirt works with equipment inside a spacecraft module filled with green plants.",
+        "hi": "एक अंतरिक्ष यान मॉड्यूल के अंदर एक व्यक्ति नीली शर्ट पहने हरे पौधों के बीच उपकरणों पर काम करता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.378857142857145,
+        "end": 18.611238142857147,
+        "duration": 11.298857142857143,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Two astronauts float in a cramped spacecraft module, one typing on a laptop while the other handles equipment.",
+        "hi": "एक तंग अंतरिक्ष यान मॉड्यूल में दो अंतरिक्ष यात्री तैर रहे हैं, एक लैपटॉप पर टाइप कर रहा है जबकि दूसरा उपकरण संभाल रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 7.586168,
+        "duration": 11.298857142857145,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "A person in a blue shirt works with equipment inside a spacecraft module filled with green plants.",
+        "hi": "एक अंतरिक्ष यान मॉड्यूल के अंदर एक व्यक्ति नीली शर्ट पहने हरे पौधों के बीच उपकरणों पर काम करता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.378857142857145,
+        "end": 20.583574142857145,
+        "duration": 11.298857142857143,
+        "narratable": true,
+        "parent_gap": 0,
+        "word_budget_en": 24,
+        "word_budget_hi": 28,
+        "en": "Two astronauts float in a cramped spacecraft module, one typing on a laptop while the other handles equipment.",
+        "hi": "एक तंग अंतरिक्ष यान मॉड्यूल में दो अंतरिक्ष यात्री तैर रहे हैं, एक लैपटॉप पर टाइप कर रहा है जबकि दूसरा उपकरण संभाल रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 11.378857142857145,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 1,
+      "start": 11.378857142857145,
+      "end": 22.677714285714288,
+      "duration": 11.298857142857143,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 2,
+      "start": 22.677714285714288,
+      "end": 33.97657142857143,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 3,
+      "start": 33.97657142857143,
+      "end": 45.27542857142858,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 4,
+      "start": 45.27542857142858,
+      "end": 56.574285714285715,
+      "duration": 11.298857142857138,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 5,
+      "start": 56.574285714285715,
+      "end": 67.87314285714287,
+      "duration": 11.298857142857152,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 6,
+      "start": 67.87314285714287,
+      "end": 79.17200000000001,
+      "duration": 11.298857142857145,
+      "narratable": true,
+      "parent_gap": 0,
+      "word_budget_en": 24,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 7,
+      "start": 84.124,
+      "end": 92.72266666666667,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
+    },
+    {
+      "id": 8,
+      "start": 92.72266666666667,
+      "end": 101.32133333333333,
+      "duration": 8.59866666666666,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
+    },
+    {
+      "id": 9,
+      "start": 101.32133333333333,
+      "end": 109.92,
+      "duration": 8.598666666666674,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 18,
+      "word_budget_hi": 21
+    }
+  ],
+  "speech": [
+    {
+      "start": 79.25200000000001,
+      "end": 84.044
+    }
+  ],
+  "cues_committed": 2,
+  "cues_dropped": 8,
+  "dropped_gaps": {
+    "3": "Fallback: no fitting candidate or draft",
+    "4": "Fallback: no fitting candidate or draft",
+    "5": "Fallback: no fitting candidate or draft",
+    "6": "Fallback: no fitting candidate or draft",
+    "7": "Fallback: no fitting candidate or draft",
+    "8": "Fallback: no fitting candidate or draft",
+    "9": "Fallback: no fitting candidate or draft",
+    "2": "Fallback: claim contradicted by verification"
+  },
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 12.666442300358476,
+    "hi": 15.93212283578674
+  },
+  "high_importance_covered_percent": 21.428571428571427,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [
+    {
+      "t_start": 33.98,
+      "t_end": 45.28,
+      "what": "A man wearing blue gloves tends to green plants inside a transparent enclosed growing chamber mounted on equipment racks.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 56.57,
+      "t_end": 60.64,
+      "what": "A person works inside a spacecraft module near a plant growth chamber with green plants inside.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 62.83,
+      "t_end": 67.86,
+      "what": "A camera mounted on a boom approaches a black panel holding a red chili pepper and a label secured with tape.",
+      "on_screen_text": "EXTRA GRANATE",
+      "importance": 4,
+      "confidence": 0.92
+    },
+    {
+      "t_start": 67.86,
+      "t_end": 73.83,
+      "what": "An astronaut wearing blue gloves adjusts the tape securing the chili pepper and label to the panel.",
+      "on_screen_text": "EXTRA GRANATE",
+      "importance": 5,
+      "confidence": 0.96
+    },
+    {
+      "t_start": 67.87,
+      "t_end": 76.77,
+      "what": "A person wearing blue gloves photographs a red chili pepper taped to a gray board inside a spacecraft module.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 76.77,
+      "t_end": 79.17,
+      "what": "Three astronauts gather inside the space station while one holds and examines a small object.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 79.17,
+      "t_end": 85.54,
+      "what": "Two astronauts stand inside a crowded spacecraft module while crew members approach and hand them items.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.92
+    },
+    {
+      "t_start": 85.54,
+      "t_end": 90.46,
+      "what": "Three astronauts stand side by side holding small objects, smiling and looking toward the camera crew.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 90.46,
+      "t_end": 93.0,
+      "what": "Five people are gathered inside a spacecraft module, passing a green potted plant among themselves while smiling and laughing.",
+      "on_screen_text": null,
+      "importance": 5,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 93.0,
+      "t_end": 96.0,
+      "what": "The man in the black shirt on the left hands the plant to the man in the blue shirt, then they continue passing it around.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 96.0,
+      "t_end": 99.0,
+      "what": "The plant reaches the woman in the green shirt in the center, who holds it briefly before passing it toward the camera operator.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.9
+    }
+  ],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2901,
+      "output_tokens": 36,
+      "cost_usd": 0.003009,
+      "latency_s": 2.237404637009604,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3298,
+      "output_tokens": 36,
+      "cost_usd": 0.003406,
+      "latency_s": 2.113792852003826,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3434,
+      "output_tokens": 65,
+      "cost_usd": 0.003629,
+      "latency_s": 1.275776307011256,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2727,
+      "output_tokens": 145,
+      "cost_usd": 0.0009486000000000001,
+      "latency_s": 3.3954323999932967,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3718,
+      "output_tokens": 70,
+      "cost_usd": 0.003928,
+      "latency_s": 2.8416883729951223,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 729,
+      "cost_usd": 0.0014817,
+      "latency_s": 10.234892791995662,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4050,
+      "output_tokens": 70,
+      "cost_usd": 0.00426,
+      "latency_s": 6.560073408007156,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 75,
+      "cost_usd": 0.0008931,
+      "latency_s": 3.532595865006442,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4277,
+      "output_tokens": 70,
+      "cost_usd": 0.004487,
+      "latency_s": 4.22938140000042,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 76,
+      "cost_usd": 0.000894,
+      "latency_s": 6.153676867004833,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4505,
+      "output_tokens": 70,
+      "cost_usd": 0.004715,
+      "latency_s": 4.253099969995674,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2739,
+      "output_tokens": 522,
+      "cost_usd": 0.0012915,
+      "latency_s": 6.9924459169997135,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4561,
+      "output_tokens": 70,
+      "cost_usd": 0.004771,
+      "latency_s": 4.721516898993286,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 366,
+      "cost_usd": 0.001155,
+      "latency_s": 14.391163367006811,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4758,
+      "output_tokens": 70,
+      "cost_usd": 0.004968,
+      "latency_s": 2.718126631996711,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 135,
+      "cost_usd": 0.0009471,
+      "latency_s": 3.5256368709960952,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4827,
+      "output_tokens": 70,
+      "cost_usd": 0.005037,
+      "latency_s": 8.033580179995624,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 207,
+      "cost_usd": 0.0010119,
+      "latency_s": 5.088078055006918,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4907,
+      "output_tokens": 72,
+      "cost_usd": 0.005123,
+      "latency_s": 6.400759213996935,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2752,
+      "output_tokens": 298,
+      "cost_usd": 0.0010938,
+      "latency_s": 4.202103853007429,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5052,
+      "output_tokens": 73,
+      "cost_usd": 0.005271,
+      "latency_s": 6.399189189993194,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2750,
+      "output_tokens": 69,
+      "cost_usd": 0.0008871,
+      "latency_s": 3.1374572279892163,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5063,
+      "output_tokens": 41,
+      "cost_usd": 0.005186,
+      "latency_s": 2.124183484003879,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4921,
+      "output_tokens": 64,
+      "cost_usd": 0.005113,
+      "latency_s": 2.8818590339942602,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5010,
+      "output_tokens": 72,
+      "cost_usd": 0.005226,
+      "latency_s": 1.4035526469961042,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5097,
+      "output_tokens": 72,
+      "cost_usd": 0.005313,
+      "latency_s": 11.118493412999669,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5076,
+      "output_tokens": 72,
+      "cost_usd": 0.005292,
+      "latency_s": 1.3425047000055201,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5097,
+      "output_tokens": 72,
+      "cost_usd": 0.005313,
+      "latency_s": 2.7587294630066026,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5312,
+      "output_tokens": 72,
+      "cost_usd": 0.005528,
+      "latency_s": 2.275098687998252,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5558,
+      "output_tokens": 72,
+      "cost_usd": 0.005774,
+      "latency_s": 1.35978960400098,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5631,
+      "output_tokens": 72,
+      "cost_usd": 0.005847,
+      "latency_s": 4.2047513330035144,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5711,
+      "output_tokens": 74,
+      "cost_usd": 0.005933,
+      "latency_s": 5.245169711008202,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5856,
+      "output_tokens": 70,
+      "cost_usd": 0.006066,
+      "latency_s": 1.4249818489915924,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5864,
+      "output_tokens": 66,
+      "cost_usd": 0.006062,
+      "latency_s": 1.640489712008275,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5925,
+      "output_tokens": 72,
+      "cost_usd": 0.006141,
+      "latency_s": 1.7111277490039356,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5990,
+      "output_tokens": 72,
+      "cost_usd": 0.006206,
+      "latency_s": 1.6651588550012093,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6000,
+      "output_tokens": 72,
+      "cost_usd": 0.006216,
+      "latency_s": 1.5231147610029439,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6007,
+      "output_tokens": 72,
+      "cost_usd": 0.006223,
+      "latency_s": 2.3282906650129007,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6066,
+      "output_tokens": 72,
+      "cost_usd": 0.006282,
+      "latency_s": 3.0130102199909743,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6253,
+      "output_tokens": 72,
+      "cost_usd": 0.006469,
+      "latency_s": 3.5218617580103455,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6323,
+      "output_tokens": 72,
+      "cost_usd": 0.006539,
+      "latency_s": 1.3912411640048958,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6402,
+      "output_tokens": 74,
+      "cost_usd": 0.006624,
+      "latency_s": 1.9356492789956974,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6546,
+      "output_tokens": 70,
+      "cost_usd": 0.006756,
+      "latency_s": 3.1441155610082205,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6572,
+      "output_tokens": 76,
+      "cost_usd": 0.0068,
+      "latency_s": 2.667676388999098,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6568,
+      "output_tokens": 79,
+      "cost_usd": 0.006805,
+      "latency_s": 1.6480870000086725,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6578,
+      "output_tokens": 78,
+      "cost_usd": 0.006812,
+      "latency_s": 9.10037847199419,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1181,
+      "output_tokens": 47,
+      "cost_usd": 0.00039660000000000004,
+      "latency_s": 1.0310722800059011,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 452,
+      "output_tokens": 106,
+      "cost_usd": 0.00077,
+      "latency_s": 2.212105424987385,
+      "cost_role": "translate"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.19713,
+    "perceive": 0.0110004,
+    "verify": 0,
+    "draft": 0,
+    "translate": 0.00077
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.11394567272727273,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 2,
+      "inspect_video_segment": 31,
+      "propose_cue": 3
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 1,
+      "unverified": 0
+    },
+    "orchestrator_turns": 36,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.19790000000000002,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.011000400000000002
+    },
+    "total_latency_s": 202.79907562899461
+  },
+  "estimated_cost_usd": 0.20890039999999999,
+  "would_be_token_factory_cost_usd": 0.20890039999999999,
+  "reserved_spend_usd": 0.20890039999999999,
+  "cost_per_minute": 0.11394567272727273,
+  "latency_s": 202.79907562899461
+}

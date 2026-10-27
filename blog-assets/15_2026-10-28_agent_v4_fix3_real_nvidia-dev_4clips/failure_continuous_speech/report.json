@@ -1,0 +1,127 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [
+    "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 1.00000625,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [],
+  "tracks": {
+    "en": [],
+    "hi": []
+  },
+  "gaps": [],
+  "speech": [
+    {
+      "start": 0,
+      "end": 30.0001875
+    }
+  ],
+  "cues_committed": 0,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 0.0,
+    "hi": 0.0
+  },
+  "high_importance_covered_percent": 100,
+  "events_in_speech_regions": {
+    "count": 1,
+    "events": [
+      {
+        "t_start": 0.0,
+        "t_end": 16.0,
+        "what": "A teal background displays the white text 'CONTINUOUS SPEECH - SLIDE 1'.",
+        "on_screen_text": "CONTINUOUS SPEECH - SLIDE 1",
+        "importance": 4,
+        "confidence": 1.0
+      }
+    ],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2900,
+      "output_tokens": 36,
+      "cost_usd": 0.003008,
+      "latency_s": 1.633475761002046,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3022,
+      "output_tokens": 75,
+      "cost_usd": 0.003247,
+      "latency_s": 1.9466322700027376,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2750,
+      "output_tokens": 171,
+      "cost_usd": 0.0009789,
+      "latency_s": 3.478723321997677,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3250,
+      "output_tokens": 34,
+      "cost_usd": 0.003352,
+      "latency_s": 1.5037335700035328,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.009607,
+    "perceive": 0.0009789,
+    "verify": 0,
+    "draft": 0,
+    "translate": 0
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.021171799999999998,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 3,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.009607000000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0009789
+    },
+    "total_latency_s": 10.858915031989454
+  },
+  "estimated_cost_usd": 0.010585899999999999,
+  "would_be_token_factory_cost_usd": 0.010585899999999999,
+  "reserved_spend_usd": 0.010585900000000002,
+  "cost_per_minute": 0.021171799999999998,
+  "latency_s": 10.858915031989454
+}

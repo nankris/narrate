@@ -1,0 +1,606 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 100.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "en": "Rocket engines ignite with bright plumes. Industrial skyline appears with tall towers. Smoke billows as light dims.",
+      "hi": "रॉकेट इंजन चमकीले धुएँ के साथ प्रज्वलित। औद्योगिक क्षितिज ऊँचे टावरों संग। धुआँ उमड़ता, रोशनी मद्धिम।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "en": "Wireframe figures appear.",
+      "hi": "वायरफ़्रेम आकृतियाँ उभरती हैं।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16,
+      "en": "Glasses person amid neon. Counter person. Brain model with purple rings.",
+      "hi": "चश्माधारी व्यक्ति नियॉन में। काउंटर व्यक्ति। बैंगनी छल्लों संग मस्तिष्क मॉडल।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28,
+      "en": "Man with mechanical eye examines brain. \"TEARS OF STEEL\" title. Smoke-filled city with flying vehicles.",
+      "hi": "यांत्रिक आँख वाला आदमी मस्तिष्क जाँचता है। \"TEARS OF STEEL\" शीर्षक। उड़ते वाहनों संग धुएँ भरा शहर।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 8.008934,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket engines ignite with bright plumes. Industrial skyline appears with tall towers. Smoke billows as light dims.",
+        "hi": "रॉकेट इंजन चमकीले धुएँ के साथ प्रज्वलित। औद्योगिक क्षितिज ऊँचे टावरों संग। धुआँ उमड़ता, रोशनी मद्धिम।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.31442199999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures appear.",
+        "hi": "वायरफ़्रेम आकृतियाँ उभरती हैं।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 44.278484999999996,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Glasses person amid neon. Counter person. Brain model with purple rings.",
+        "hi": "चश्माधारी व्यक्ति नियॉन में। काउंटर व्यक्ति। बैंगनी छल्लों संग मस्तिष्क मॉडल।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 54.986875,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "en": "Man with mechanical eye examines brain. \"TEARS OF STEEL\" title. Smoke-filled city with flying vehicles.",
+        "hi": "यांत्रिक आँख वाला आदमी मस्तिष्क जाँचता है। \"TEARS OF STEEL\" शीर्षक। उड़ते वाहनों संग धुएँ भरा शहर।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 8.329206,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket engines ignite with bright plumes. Industrial skyline appears with tall towers. Smoke billows as light dims.",
+        "hi": "रॉकेट इंजन चमकीले धुएँ के साथ प्रज्वलित। औद्योगिक क्षितिज ऊँचे टावरों संग। धुआँ उमड़ता, रोशनी मद्धिम।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.79283399999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures appear.",
+        "hi": "वायरफ़्रेम आकृतियाँ उभरती हैं।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 45.11485699999999,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Glasses person amid neon. Counter person. Brain model with purple rings.",
+        "hi": "चश्माधारी व्यक्ति नियॉन में। काउंटर व्यक्ति। बैंगनी छल्लों संग मस्तिष्क मॉडल।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 55.503882,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "en": "Man with mechanical eye examines brain. \"TEARS OF STEEL\" title. Smoke-filled city with flying vehicles.",
+        "hi": "यांत्रिक आँख वाला आदमी मस्तिष्क जाँचता है। \"TEARS OF STEEL\" शीर्षक। उड़ते वाहनों संग धुएँ भरा शहर।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 1,
+      "start": 30.523999999999997,
+      "end": 31.651999999999997,
+      "duration": 1.1280000000000001,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 1
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27
+    },
+    {
+      "id": 6,
+      "start": 69.8,
+      "end": 80.4,
+      "duration": 10.600000000000009,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
+    },
+    {
+      "id": 7,
+      "start": 80.4,
+      "end": 89.4584,
+      "duration": 9.058399999999992,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 8,
+      "start": 89.4584,
+      "end": 99.92,
+      "duration": 10.461600000000004,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 21.324
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 31.829024001820034,
+    "hi": 34.889061255829816
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2901,
+      "output_tokens": 41,
+      "cost_usd": 0.003024,
+      "latency_s": 3.6482069920020876,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3275,
+      "output_tokens": 355,
+      "cost_usd": 0.00434,
+      "latency_s": 9.694120858999668,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2732,
+      "output_tokens": 196,
+      "cost_usd": 0.000996,
+      "latency_s": 3.4661422179924557,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2758,
+      "output_tokens": 246,
+      "cost_usd": 0.0010488,
+      "latency_s": 4.6695293670054525,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2758,
+      "output_tokens": 210,
+      "cost_usd": 0.0010164,
+      "latency_s": 56.59204451899859,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2754,
+      "output_tokens": 206,
+      "cost_usd": 0.0010115999999999999,
+      "latency_s": 3.523989964000066,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4618,
+      "output_tokens": 53,
+      "cost_usd": 0.004777,
+      "latency_s": 1.2119592260132777,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1760,
+      "output_tokens": 242,
+      "cost_usd": 0.00016368,
+      "latency_s": 3.2467649900063407,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4857,
+      "output_tokens": 399,
+      "cost_usd": 0.006054,
+      "latency_s": 13.971142245994997,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5783,
+      "output_tokens": 84,
+      "cost_usd": 0.006035,
+      "latency_s": 4.804167638998479,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6030,
+      "output_tokens": 70,
+      "cost_usd": 0.00624,
+      "latency_s": 1.4153556259989273,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6238,
+      "output_tokens": 62,
+      "cost_usd": 0.006424,
+      "latency_s": 2.7483695999981137,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6176,
+      "output_tokens": 77,
+      "cost_usd": 0.006407,
+      "latency_s": 4.4467492010007845,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5271,
+      "output_tokens": 73,
+      "cost_usd": 0.00549,
+      "latency_s": 1.6814595680043567,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5318,
+      "output_tokens": 82,
+      "cost_usd": 0.005564,
+      "latency_s": 6.2732761910010595,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5067,
+      "output_tokens": 66,
+      "cost_usd": 0.005265,
+      "latency_s": 3.0537491439899895,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1116,
+      "output_tokens": 40,
+      "cost_usd": 0.0003708,
+      "latency_s": 8.520102410009713,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5066,
+      "output_tokens": 60,
+      "cost_usd": 0.005246,
+      "latency_s": 1.7465534350048983,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1114,
+      "output_tokens": 37,
+      "cost_usd": 0.0003675,
+      "latency_s": 0.8345857309905114,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5134,
+      "output_tokens": 31,
+      "cost_usd": 0.005227,
+      "latency_s": 2.0726061319874134,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 671,
+      "output_tokens": 220,
+      "cost_usd": 0.001331,
+      "latency_s": 6.82898049299547,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5353,
+      "output_tokens": 31,
+      "cost_usd": 0.005446,
+      "latency_s": 1.7156270490086172,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.075539,
+    "perceive": 0.0040728,
+    "verify": 0.0007383,
+    "draft": 0.00016368,
+    "translate": 0.001331
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.049106868,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 1,
+      "propose_cue": 10,
+      "verify_claim": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 4,
+    "verifications": {
+      "verified": 1,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 14,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.07687000000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0048111,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00016368
+    },
+    "total_latency_s": 156.2567296030029
+  },
+  "estimated_cost_usd": 0.08184478,
+  "would_be_token_factory_cost_usd": 0.08184478,
+  "reserved_spend_usd": 0.08184477999999999,
+  "cost_per_minute": 0.049106868,
+  "latency_s": 156.2567296030029
+}

@@ -1,0 +1,1772 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 4.013613022005302,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.013473982995492,
+      "tokens_in": 2901,
+      "tokens_out": 41,
+      "cost_usd": 0.003024,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 5.397538206001627,
+      "role": "tool",
+      "note": "Find all speech-free gaps in 100s video",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 9.12,
+            "word_budget_en": 19,
+            "word_budget_hi": 22,
+            "narratable": true
+          },
+          {
+            "id": 1,
+            "start": 30.52,
+            "end": 31.65,
+            "word_budget_en": 1,
+            "word_budget_hi": 1,
+            "narratable": false,
+            "reason": "too short"
+          },
+          {
+            "id": 2,
+            "start": 32.54,
+            "end": 34.92,
+            "word_budget_en": 4,
+            "word_budget_hi": 5,
+            "narratable": true
+          },
+          {
+            "id": 3,
+            "start": 38.97,
+            "end": 45.57,
+            "word_budget_en": 14,
+            "word_budget_hi": 16,
+            "narratable": true
+          },
+          {
+            "id": 4,
+            "start": 47.61,
+            "end": 59.0,
+            "word_budget_en": 25,
+            "word_budget_hi": 28,
+            "narratable": true,
+            "parent_gap": 4
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.27,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.3839041260071099,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 15.098037664007279,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 9.700288152002031,
+      "tokens_in": 3275,
+      "tokens_out": 355,
+      "cost_usd": 0.00434,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 19.3370333470084,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Multiple rocket engines ignite with intense bright exhaust plumes filling the screen.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 5.2,
+            "what": "Wide industrial skyline view with tall towers, bright light source center, buildings foreground.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 5.2,
+            "t_end": 9.12,
+            "what": "Smoke billows outward around the industrial structures as the light dims.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.4721334380010376,
+      "tokens_in": 2732,
+      "tokens_out": 196,
+      "cost_usd": 0.000996,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 19.337114745998406,
+      "role": "tool",
+      "note": "Inspect gap 0: 0-9.12s visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 9.12,
+        "start": 0,
+        "focus": "Visual content and on-screen text in first gap"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Multiple rocket engines ignite with intense bright exhaust plumes filling the screen.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 5.2,
+            "what": "Wide industrial skyline view with tall towers, bright light source center, buildings foreground.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 5.2,
+            "t_end": 9.12,
+            "what": "Smoke billows outward around the industrial structures as the light dims.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.239062908003689,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 24.58297740200942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 30.54,
+            "t_end": 33.18,
+            "what": "Two glowing wireframe figures, one orange and one blue, appear side by side with text in the center.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 33.18,
+            "t_end": 36.18,
+            "what": "The wireframe figures distort and shift as pink rings expand outward and a green digital playback interface rises into view.",
+            "on_screen_text": "MEMORY PLAYBACK - GLOBAL",
+            "importance": 4,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 36.18,
+            "t_end": 39.48,
+            "what": "The interface expands over an elaborate control panel filled with blinking lights, switches, and digital meters while green scan lines overlay the scene.",
+            "on_screen_text": "MEMORY PLAYBACK - GLOBAL",
+            "importance": 4,
+            "confidence": 0.8
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.675792348993127,
+      "tokens_in": 2758,
+      "tokens_out": 246,
+      "cost_usd": 0.0010488,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 24.583056043004035,
+      "role": "tool",
+      "note": "Inspect gap 2: 32.54-34.92s visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 34.92,
+        "focus": "Visual content and on-screen text in gap 2",
+        "start": 30.54
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 30.54,
+            "t_end": 33.18,
+            "what": "Two glowing wireframe figures, one orange and one blue, appear side by side with text in the center.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 33.18,
+            "t_end": 36.18,
+            "what": "The wireframe figures distort and shift as pink rings expand outward and a green digital playback interface rises into view.",
+            "on_screen_text": "MEMORY PLAYBACK - GLOBAL",
+            "importance": 4,
+            "confidence": 0.8
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 5.245893760002218,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 81.93131721499958,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 36.97,
+            "t_end": 40.11,
+            "what": "A person with curly hair and glasses looks forward amid colorful neon digital overlays.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 40.11,
+            "t_end": 42.25,
+            "what": "A person with long hair wearing a white top stands at a counter while another person works behind it.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 42.25,
+            "t_end": 46.2,
+            "what": "A close-up shows a brain model on a stand surrounded by purple energy rings as a person leans forward.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 56.59786753699882,
+      "tokens_in": 2758,
+      "tokens_out": 210,
+      "cost_usd": 0.0010164,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 81.93145247201028,
+      "role": "tool",
+      "note": "Inspect gap 3: 38.97-45.57s visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "Visual content and on-screen text in gap 3",
+        "start": 36.97,
+        "end": 45.57
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 36.97,
+            "t_end": 40.11,
+            "what": "A person with curly hair and glasses looks forward amid colorful neon digital overlays.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 40.11,
+            "t_end": 42.25,
+            "what": "A person with long hair wearing a white top stands at a counter while another person works behind it.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 42.25,
+            "t_end": 46.2,
+            "what": "A close-up shows a brain model on a stand surrounded by purple energy rings as a person leans forward.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 9,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 57.348349057007,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 10,
+      "t_wall": 86.11208540500957,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 45.61,
+            "t_end": 48.71,
+            "what": "Close-up of a man with a mechanical eye implant intently examining a large brain under surgical lights.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 48.71,
+            "t_end": 52.91,
+            "what": "Black screen displaying the title text in metallic lettering.",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 52.91,
+            "t_end": 59.0,
+            "what": "Wide shot of a smoke-filled city skyline with flying vehicles moving between spires.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.5305955429939786,
+      "tokens_in": 2754,
+      "tokens_out": 206,
+      "cost_usd": 0.0010115999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 86.11222977899888,
+      "role": "tool",
+      "note": "Inspect gap 4: 47.61-59s visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 59,
+        "start": 45.61,
+        "focus": "Visual content and on-screen text in gap 4"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 45.61,
+            "t_end": 48.71,
+            "what": "Close-up of a man with a mechanical eye implant intently examining a large brain under surgical lights.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 48.71,
+            "t_end": 52.91,
+            "what": "Black screen displaying the title text in metallic lettering.",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 52.91,
+            "t_end": 59.0,
+            "what": "Wide shot of a smoke-filled city skyline with flying vehicles moving between spires.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.180720685006236,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 87.33399322901096,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2216625900036888,
+      "tokens_in": 4618,
+      "tokens_out": 53,
+      "cost_usd": 0.004777,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 90.5892879239982,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Rocket engines ignite with bright exhaust plumes; a wide industrial skyline appears with a bright light source and tall towers. Smoke billows outward around industrial structures as the light dims."
+          },
+          {
+            "id": 2,
+            "text": "Two glowing wireframe figures, orange and blue, appear with \"40 YEARS LATER\" text. The figures distort as pink rings expand and a green digital playback interface rises into view."
+          },
+          {
+            "id": 3,
+            "text": "A person with curly hair and glasses looks forward amid colorful neon digital overlays. A person with long hair in a white top stands at a counter while another person works behind it. A close-up shows a brain model on a stand surrounded by purple energy rings as a person leans forward."
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2527894530066987,
+      "tokens_in": 1760,
+      "tokens_out": 242,
+      "cost_usd": 0.00016368,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 90.58938621501147,
+      "role": "tool",
+      "note": "Draft cues for all four narratable gaps",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0,
+          2,
+          3,
+          4
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Rocket engines ignite with bright exhaust plumes; a wide industrial skyline appears with a bright light source and tall towers. Smoke billows outward around industrial structures as the light dims."
+          },
+          {
+            "id": 2,
+            "text": "Two glowing wireframe figures, orange and blue, appear with \"40 YEARS LATER\" text. The figures distort as pink rings expand and a green digital playback interface rises into view."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 8,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2553804509952897,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 15,
+      "t_wall": 104.56652760101133,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 13.977075528993737,
+      "tokens_in": 4857,
+      "tokens_out": 399,
+      "cost_usd": 0.006054,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 104.65028843800246,
+      "role": "tool",
+      "note": "Commit cue for gap 0: rocket ignition and industrial skyline",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Rocket engines ignite with bright exhaust plumes; a wide industrial skyline appears with a bright light source and tall towers. Smoke billows outward around industrial structures as the light dims.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 8.0 s"
+        ],
+        "suggested_max_words": 19,
+        "seconds": 12.46,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08374572500179056,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 104.73228785500396,
+      "role": "tool",
+      "note": "Commit cue for gap 2: wireframe figures and memory playback text",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Two glowing wireframe figures, orange and blue, appear with \"40 YEARS LATER\" text. The figures distort as pink rings expand and a green digital playback interface rises."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.1 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 11.43,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08195755799533799,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 18,
+      "t_wall": 104.81234155700076,
+      "role": "tool",
+      "note": "Commit cue for gap 3: person with glasses, cafe scene, brain model",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "A person with curly hair and glasses looks forward amid neon overlays. Another person with long hair stands at a counter. Close-up of a brain model on a stand surrounded by purple energy rings."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 5.9 s"
+        ],
+        "suggested_max_words": 14,
+        "seconds": 12.03,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08001728598901536,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 104.8961598300084,
+      "role": "tool",
+      "note": "Commit cue for gap 4: mechanical eye, title card, city skyline",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "Close-up of a man with a mechanical eye implant examining a large brain under surgical lights. Black screen displays \"TEARS OF STEEL\" in metallic lettering. Wide shot of a smoke-filled city skyline with flying vehicles between spires."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 8.0 s"
+        ],
+        "suggested_max_words": 20,
+        "seconds": 14.51,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08378148599877022,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 20,
+      "t_wall": 109.70684175500355,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.810633739005425,
+      "tokens_in": 5783,
+      "tokens_out": 84,
+      "cost_usd": 0.006035,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 109.7988650949992,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 0 within 19-word budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "Rocket engines ignite with bright plumes. Industrial skyline appears with tall towers. Smoke billows as light dims."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 9.12,
+          "duration": 9.04,
+          "narratable": true,
+          "word_budget_en": 19,
+          "word_budget_hi": 22,
+          "en": "Rocket engines ignite with bright plumes. Industrial skyline appears with tall towers. Smoke billows as light dims."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.09201098799530882,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 16
+    },
+    {
+      "step": 22,
+      "t_wall": 111.22047257900704,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4215664259972982,
+      "tokens_in": 6030,
+      "tokens_out": 70,
+      "cost_usd": 0.00624,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 111.29719553700124,
+      "role": "tool",
+      "note": "Commit ultra-short cue for gap 2 within 4-word budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Wireframe figures appear: 40 years later."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.1 s"
+        ],
+        "suggested_max_words": 3,
+        "seconds": 3.24,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07671149400994182,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 24,
+      "t_wall": 114.05181204300607,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.754574745995342,
+      "tokens_in": 6238,
+      "tokens_out": 62,
+      "cost_usd": 0.006424,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 114.1230308390077,
+      "role": "tool",
+      "note": "Commit 3-word cue for gap 2 within strict budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Wireframe figures appear."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 32.54,
+          "end": 34.92,
+          "duration": 2.38,
+          "narratable": true,
+          "word_budget_en": 4,
+          "word_budget_hi": 5,
+          "en": "Wireframe figures appear."
+        },
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07120630799909122,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 17
+    },
+    {
+      "step": 26,
+      "t_wall": 118.57570858500549,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.452574149996508,
+      "tokens_in": 6176,
+      "tokens_out": 77,
+      "cost_usd": 0.006407,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 118.65254130400717,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 3 within 14-word budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Person with glasses amid neon overlays. Another at counter. Brain model with purple energy rings.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 5.9 s"
+        ],
+        "suggested_max_words": 13,
+        "seconds": 6.56,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0768207560031442,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 28,
+      "t_wall": 120.34009558999969,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6873837590101175,
+      "tokens_in": 5271,
+      "tokens_out": 73,
+      "cost_usd": 0.00549,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 120.41508617901127,
+      "role": "tool",
+      "note": "Commit shorter cue for gap 3 within 13-word budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Glasses person amid neon. Counter person. Brain model with purple rings."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 38.97,
+          "end": 45.57,
+          "duration": 6.6,
+          "narratable": true,
+          "word_budget_en": 14,
+          "word_budget_hi": 16,
+          "en": "Glasses person amid neon. Counter person. Brain model with purple rings."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07497912600229029,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 18
+    },
+    {
+      "step": 30,
+      "t_wall": 126.69497960800072,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.27974833198823,
+      "tokens_in": 5318,
+      "tokens_out": 82,
+      "cost_usd": 0.005564,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 126.78338626000914,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 4 within 20-word budget",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "Man with mechanical eye examines brain. \"TEARS OF STEEL\" title. Smoke-filled city with flying vehicles."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 47.61,
+          "end": 59.0,
+          "duration": 11.39,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 25,
+          "word_budget_hi": 28,
+          "en": "Man with mechanical eye examines brain. \"TEARS OF STEEL\" title. Smoke-filled city with flying vehicles."
+        },
+        "verify_required": [
+          "quoted text",
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            4
+          ],
+          "budget": {
+            "turns": 20,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0883910789998481,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 19
+    },
+    {
+      "step": 32,
+      "t_wall": 129.8435773759993,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.0599688939983025,
+      "tokens_in": 5067,
+      "tokens_out": 66,
+      "cost_usd": 0.005265,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 138.63614726399828,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        ", ": "supported",
+        "evidence": "The frame at 53 seconds shows a black background with the text \"TEARS OF STEEL\" centered in white."
+      },
+      "ok": true,
+      "latency_s": 8.526324452992412,
+      "tokens_in": 1116,
+      "tokens_out": 40,
+      "cost_usd": 0.0003708,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 138.63632958600647,
+      "role": "tool",
+      "note": "Verify on-screen title text in gap 4",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Black screen displays \"TEARS OF STEEL\" title",
+        "gap_id": 4
+      },
+      "result": {
+        "ok": false,
+        "error": "Invalid verification response",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [
+            4
+          ],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 8.792736392002553,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 35,
+      "t_wall": 140.3897015350085,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.753158090999932,
+      "tokens_in": 5066,
+      "tokens_out": 60,
+      "cost_usd": 0.005246,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 36,
+      "t_wall": 141.5250110880006,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "At 53 seconds, the text 'TEARS OF STEEL' appears clearly on a black screen."
+      },
+      "ok": true,
+      "latency_s": 0.8411212779901689,
+      "tokens_in": 1114,
+      "tokens_out": 37,
+      "cost_usd": 0.0003675,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 37,
+      "t_wall": 141.52515481101,
+      "role": "tool",
+      "note": "Verify exact on-screen title text",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Title reads \"TEARS OF STEEL\"",
+        "gap_id": 4
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "At 53 seconds, the text 'TEARS OF STEEL' appears clearly on a black screen.",
+        "modality": "frames",
+        "gap_ids": [
+          4
+        ],
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.135440573998494,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 143.60466490100953,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.079281323007308,
+      "tokens_in": 5134,
+      "tokens_out": 31,
+      "cost_usd": 0.005227,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 39,
+      "t_wall": 150.4418746070005,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "रॉकेट इंजन चमकीले धुएँ के साथ प्रज्वलित। औद्योगिक क्षितिज ऊँचे टावरों संग। धुआँ उमड़ता, रोशनी मद्धिम।"
+          },
+          {
+            "id": 2,
+            "hi": "वायरफ़्रेम आकृतियाँ उभरती हैं।"
+          },
+          {
+            "id": 3,
+            "hi": "चश्माधारी व्यक्ति नियॉन में। काउंटर व्यक्ति। बैंगनी छल्लों संग मस्तिष्क मॉडल।"
+          },
+          {
+            "id": 4,
+            "hi": "यांत्रिक आँख वाला आदमी मस्तिष्क जाँचता है। \"TEARS OF STEEL\" शीर्षक। उड़ते वाहनों संग धुएँ भरा शहर।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.8357236640003975,
+      "tokens_in": 671,
+      "tokens_out": 220,
+      "cost_usd": 0.001331,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 150.74094763900212,
+      "role": "tool",
+      "note": "Translate all committed cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "रॉकेट इंजन चमकीले धुएँ के साथ प्रज्वलित। औद्योगिक क्षितिज ऊँचे टावरों संग। धुआँ उमड़ता, रोशनी मद्धिम।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 21,
+            "seconds": 8.25,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 2,
+            "text": "वायरफ़्रेम आकृतियाँ उभरती हैं।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 5,
+            "seconds": 2.25,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 3,
+            "text": "चश्माधारी व्यक्ति नियॉन में। काउंटर व्यक्ति। बैंगनी छल्लों संग मस्तिष्क मॉडल।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 14,
+            "seconds": 6.14,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 8,
+            "verifications": 6
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.136271766998107,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 41,
+      "t_wall": 152.46292927900504,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7216928489942802,
+      "tokens_in": 5353,
+      "tokens_out": 31,
+      "cost_usd": 0.005446,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 42,
+      "t_wall": 156.25637434000964,
+      "role": "tool",
+      "note": "Complete with verified cues and Hindi translations",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.7934285149967764,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 1,
+      "propose_cue": 10,
+      "verify_claim": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 4,
+    "verifications": {
+      "verified": 1,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 14,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.07687000000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0048111,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00016368
+    },
+    "total_latency_s": 156.2567296030029
+  }
+}

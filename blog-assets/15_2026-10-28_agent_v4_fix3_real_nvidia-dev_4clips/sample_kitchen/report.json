@@ -1,0 +1,586 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "en": "Yellow rectangle on dark teal background.",
+      "hi": "गहरे नीले-हरे बैकग्राउंड पर पीला आयत।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "Maroon screen shows yellow rectangle, text says chop onions.",
+      "hi": "बैंगनी स्क्रीन पर पीला आयत, टेक्स्ट: प्याज़ काटें।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "Background shifts to teal, text now stir and serve.",
+      "hi": "बैकग्राउंड नीला-हरा हुआ, टेक्स्ट: हिलाएं और परोसें।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "en": "Stir serve text visible.",
+      "hi": "हिलाएं-परोसें टेक्स्ट दिख रहा है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 7.425007000000001,
+        "duration": 4.039999999999998,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "en": "Yellow rectangle on dark teal background.",
+        "hi": "गहरे नीले-हरे बैकग्राउंड पर पीला आयत।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 16.060698000000002,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Maroon screen shows yellow rectangle, text says chop onions.",
+        "hi": "बैंगनी स्क्रीन पर पीला आयत, टेक्स्ट: प्याज़ काटें।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 23.850322,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Background shifts to teal, text now stir and serve.",
+        "hi": "बैकग्राउंड नीला-हरा हुआ, टेक्स्ट: हिलाएं और परोसें।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.374167999999997,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Stir serve text visible.",
+        "hi": "हिलाएं-परोसें टेक्स्ट दिख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 7.894757,
+        "duration": 4.039999999999998,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "en": "Yellow rectangle on dark teal background.",
+        "hi": "गहरे नीले-हरे बैकग्राउंड पर पीला आयत।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 16.112853,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Maroon screen shows yellow rectangle, text says chop onions.",
+        "hi": "बैंगनी स्क्रीन पर पीला आयत, टेक्स्ट: प्याज़ काटें।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 24.168779999999998,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Background shifts to teal, text now stir and serve.",
+        "hi": "बैकग्राउंड नीला-हरा हुआ, टेक्स्ट: हिलाएं और परोसें।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.813305999999997,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Stir serve text visible.",
+        "hi": "हिलाएं-परोसें टेक्स्ट दिख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 79.87941213025103,
+    "hi": 87.8305741983594
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2900,
+      "output_tokens": 41,
+      "cost_usd": 0.003023,
+      "latency_s": 5.535590460989624,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3203,
+      "output_tokens": 311,
+      "cost_usd": 0.004136,
+      "latency_s": 7.296103603002848,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2753,
+      "output_tokens": 135,
+      "cost_usd": 0.0009473999999999999,
+      "latency_s": 2.501322075986536,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2740,
+      "output_tokens": 130,
+      "cost_usd": 0.000939,
+      "latency_s": 2.4438872219907353,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2756,
+      "output_tokens": 180,
+      "cost_usd": 0.0009888,
+      "latency_s": 3.372959216008894,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2756,
+      "output_tokens": 239,
+      "cost_usd": 0.0010419,
+      "latency_s": 8.538461995005491,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4259,
+      "output_tokens": 775,
+      "cost_usd": 0.006584,
+      "latency_s": 16.026306894011213,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 416,
+      "output_tokens": 19,
+      "cost_usd": 2.952e-05,
+      "latency_s": 0.5030861629929859,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 564,
+      "output_tokens": 27,
+      "cost_usd": 4.0319999999999993e-05,
+      "latency_s": 1.670212470999104,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 608,
+      "output_tokens": 21,
+      "cost_usd": 4.1519999999999995e-05,
+      "latency_s": 1.237979944999097,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 566,
+      "output_tokens": 24,
+      "cost_usd": 3.972e-05,
+      "latency_s": 1.6227056299976539,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5358,
+      "output_tokens": 275,
+      "cost_usd": 0.006183,
+      "latency_s": 9.76255353000306,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6093,
+      "output_tokens": 273,
+      "cost_usd": 0.006912,
+      "latency_s": 8.129086714994628,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6847,
+      "output_tokens": 127,
+      "cost_usd": 0.007228,
+      "latency_s": 7.7712017860030755,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7224,
+      "output_tokens": 65,
+      "cost_usd": 0.007419,
+      "latency_s": 2.783513596004923,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7202,
+      "output_tokens": 61,
+      "cost_usd": 0.007385,
+      "latency_s": 2.806074110994814,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6577,
+      "output_tokens": 242,
+      "cost_usd": 0.007303,
+      "latency_s": 42.06333115899179,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1157,
+      "output_tokens": 79,
+      "cost_usd": 0.0004182,
+      "latency_s": 0.9492473360005533,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1151,
+      "output_tokens": 38,
+      "cost_usd": 0.0003795,
+      "latency_s": 0.9950999200082151,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1136,
+      "output_tokens": 9,
+      "cost_usd": 0.0003489,
+      "latency_s": 1.0312771479948424,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1147,
+      "output_tokens": 42,
+      "cost_usd": 0.00038189999999999996,
+      "latency_s": 1.3822875159967225,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6325,
+      "output_tokens": 62,
+      "cost_usd": 0.006511,
+      "latency_s": 4.351628905002144,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1136,
+      "output_tokens": 49,
+      "cost_usd": 0.00038490000000000003,
+      "latency_s": 0.7761948379920796,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6129,
+      "output_tokens": 54,
+      "cost_usd": 0.006291,
+      "latency_s": 5.13168214399775,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 618,
+      "output_tokens": 162,
+      "cost_usd": 0.001104,
+      "latency_s": 2.2719367659883574,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6014,
+      "output_tokens": 33,
+      "cost_usd": 0.006113,
+      "latency_s": 1.840699432999827,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.075088,
+    "perceive": 0.0039171,
+    "verify": 0.0019134,
+    "draft": 0.00015108,
+    "translate": 0.001104
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.16434716,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 4,
+      "propose_cue": 12,
+      "verify_claim": 5,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 4,
+    "verifications": {
+      "verified": 4,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 12,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.07619200000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.005830499999999999,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00015108
+    },
+    "total_latency_s": 149.36454689899983
+  },
+  "estimated_cost_usd": 0.08217358,
+  "would_be_token_factory_cost_usd": 0.08217358,
+  "reserved_spend_usd": 0.09514758000000001,
+  "cost_per_minute": 0.16434716,
+  "latency_s": 149.36454689899983
+}

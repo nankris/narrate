@@ -1,0 +1,17 @@
+=== sample_kitchen 00:29:59
+Cached sample_kitchen.mp4: NVIDIA-DEV
+Cached runs: 12.15 MB
+wall 151s
+=== tears_of_steel_0015-0155 00:32:30
+Cached tears_of_steel_0015-0155.mp4: NVIDIA-DEV
+Cached runs: 12.14 MB
+wall 169s
+=== nasa_chile_harvest_0000-0150 00:35:19
+Cached nasa_chile_harvest_0000-0150.mp4: NVIDIA-DEV
+Cached runs: 12.15 MB
+wall 213s
+=== failure_continuous_speech 00:38:52
+Cached failure_continuous_speech.mp4: NVIDIA-DEV
+Cached runs: 12.15 MB
+wall 12s
+ALLDONE

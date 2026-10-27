@@ -91,3 +91,18 @@ The models sit in three different regions, so per-model base URLs matter.
 - **Subtitle ground truth (ToS, 100 s)**: dialogue-free time 75 s; narrated 23.7 s of it (31.7%); **0.39 s overlap with subtitled dialogue** (VAD boundary vs SRT timing) — not zero. v2 had narrated 0 s. Asset `12_*`.
 - **Cost driver**: Ultra orchestrator = 96% of the ToS run ($0.190 of $0.198). Input grows ~200 tokens/turn (2,857 → 9,002 over 30 turns), 0 cached tokens reported on the dev endpoint. VL perception for 5 segments cost $0.004.
 - **NASA failure**: the clip has only ambient audio, VAD returns two huge gaps (79 s, 26 s) and the agent wrote one long 47-word cue per gap → 65 s of visuals undescribed. → fix3: split long gaps into 6–12 s slots at scene cuts, cap cue length, trim orchestrator history.
+
+**00:13–00:28 — fix3 (Claude, f39226e)**: long gaps split into 6–12 s slots (snapped to ffmpeg scene cuts), cue length cap 8 s, orchestrator history compaction (last 6 turns verbatim, older tool results summarised), turn budget scales with slot count. 104 offline tests.
+
+**00:30–00:39 — agent v4 real runs (fix3)**, nvidia-dev, would-be TF list price; built straight into the UI cache (`build_cached_runs.py --provider nvidia-dev`). Asset `15_*`.
+
+| clip | turns | cues / slots | gap cov EN/HI | verified / contradicted | cost | wall |
+|---|---|---|---|---|---|---|
+| kitchen 30 s | 12 | 4 / 4 | 80% / 88% | 4 / 0 | $0.082 | 151 s |
+| Tears of Steel 100 s | 14 | 4 / 9 | 32% / 35% | 1 / 0 | $0.082 | 169 s |
+| NASA 110 s | 36 (cap) | **2 / 10** | 13% / 16% | 0 / 1 | **$0.209** | 213 s |
+| continuous speech | 3 | 0 | – | – | $0.011 | 12 s |
+
+- ToS got cheaper (30 → 14 turns, $0.198 → $0.082) and stayed at 0 detected overlaps.
+- **NASA got worse — a new failure caused by my own fix.** History compaction threw away old inspection results, so Ultra forgot it had looked: it inspected all 10 slots *three times* (31 inspect calls; the cache made the repeats free on the VL side, but each turn re-sent the growing context — orchestration was $0.197 of $0.209). It never called the drafting model; at the turn cap it wrote cue text itself and invented "typing on a laptop" and "a window showing Earth's blue curve" (the frame verifier contradicted the second). The fallback then dropped 7 slots because none had a draft.
+- Lesson: compress *conversation*, never *evidence*. → fix4: persistent evidence board in the state message, refuse re-inspection with a pointer to the board, treat orchestrator-written text as unverified, fallback drafts in one batched Nano call.
