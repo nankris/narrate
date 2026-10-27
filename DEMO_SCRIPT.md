@@ -30,7 +30,7 @@ You record this yourself: a screen recording with your own voice-over. Each step
 ---
 
 ## 1. 0:00–0:10: Eyes closed (original audio)
-- **Screen:** Samples tab, *Tears of Steel* selected, **Eyes closed** toggle ON (the video is hidden). Play the **original** for about 8 s, starting at 0:00 (music and city ambience, then dialogue).
+- **Screen:** Samples tab, *Tears of Steel* selected, **Eyes closed** toggle ON (the video is hidden). Play the **Original video** player for about 8 s, starting at 0:00 (music and city ambience, then dialogue).
 - **Say:** "Close your eyes. Something just happened on screen. Can you tell what?"
 
 ## 2. 0:10–0:28: Same seconds with Narrate ← KEY MOMENT
