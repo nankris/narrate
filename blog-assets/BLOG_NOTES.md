@@ -123,3 +123,20 @@ The models sit in three different regions, so per-model base URLs matter.
 - ToS: subtitle check 0.39 s overlap, 25.7 s of 75 s dialogue-free time narrated (34.3%); 26 inspect calls for 8 gaps — the frames-fallback path returns empty events, which the coverage refusal does not count.
 - Orchestration share: kitchen 97%, ToS 97%, NASA 96%.
 - Lesson: every limit the checker enforces must be the same number the drafter is given, and the tool should redraft itself instead of making a 550B model count words. → fix5.
+
+**01:24–01:38 — fix5 (Claude, 90c9eb2)**: one word limit per gap shared by drafter and checker (`max_words` = min(word budget, words that fit the single-cue cap)); drafts over the limit are re-asked once and then cut deterministically, with on-screen text kept first; a second failed `propose_cue` redrafts inside the tool; inspection refusal is per gap, and empty (frames-fallback) inspections count as tries. 126 offline tests.
+
+**01:40–01:51 — agent v6 real runs (fix5)**, nvidia-dev, would-be TF list price. Asset `17_*`.
+
+| clip | turns | cues / gaps | gap cov EN/HI | verified / contradicted | cost | wall |
+|---|---|---|---|---|---|---|
+| kitchen 30 s | **7** | **4 / 4** | 58% / 69% | 3 / 0 | **$0.045** | **72 s** |
+| Tears of Steel 100 s | 25 | 4 / 8 | 23% / 23% | 2 / 1 | $0.169 | 194 s |
+| NASA 110 s | 36 (cap) | **8 / 10** | 45% / 55% | 2 / 2 | $0.301 | 328 s |
+| continuous speech | 3 | 0 | – | – | $0.010 | 10 s |
+
+- Kitchen is the best run so far: 7 turns (was 30), $0.045 (was $0.237), all four on-screen titles spoken verbatim ("Title reads: A person enters a kitchen", "STEP 1 - chop onions", …). One cue merges two titles ("STEP 1 - chop onions, Stir and serve"); the third card's own text was not read.
+- NASA: 8 cues, the best coverage so far. The drafter went over its limit 13 times, and the enforcement cut those drafts down before they reached the checker. Verification rejected "HATCH PEPPER CROP ONE" as a title twice. That was the right call for this slot, so the cue stayed out.
+- **New failure on ToS and NASA: an opaque error locked up the tools.** Every tool requires a short `note`. Part-way through, Ultra stopped sending one. The schema error reached the model only as `"ValidationError"`, so ToS spent its last 16 calls and NASA its last 21 retrying blind until the turn cap. The fallback then dropped 4 ToS slots, and ToS coverage fell to 23%. → fix6: normalise `note` and return the real argument error. Test added. `issues-found/real-run-missing-note-validation.md`.
+- Verifier weakness seen: ToS "REPORT PLAYBACK GLOBAL" was marked *supported* although the verifier's own evidence read "SPYRO ATTACK - GLOBAL".
+- ToS vs subtitles: 0.39 s overlap (unchanged; VAD boundary), 15.9 s of 75 s dialogue-free time narrated (21.2%).

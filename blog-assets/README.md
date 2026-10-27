@@ -18,6 +18,7 @@ Raw evidence for the build write-up. All real-model numbers come from the **NVID
 | 13–14 | Web UI screenshots (MOCK cached runs) |
 | 15 | agent v4 (fix3: long gaps split into slots), real runs on 4 clips — NASA re-inspection loop |
 | 16 | agent v5 (fix4: evidence board), real runs on 4 clips — NASA fixed, kitchen propose loop |
+| 17 | agent v6 (fix5: one word limit, self-redrafting tools), real runs on 4 clips — kitchen 7 turns, missing-note lockup |
 | BLOG_NOTES.md | running decision log with real numbers |
 
 Media licences: Tears of Steel © Blender Foundation, CC BY 3.0 (mango.blender.org); NASA footage per NASA media guidelines (no endorsement); synthetic clips are ours (Apache-2.0). See `samples/SOURCES.md`.

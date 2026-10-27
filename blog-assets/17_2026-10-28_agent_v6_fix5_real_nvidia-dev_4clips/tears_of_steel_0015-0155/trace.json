@@ -1,0 +1,2614 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 3.5169381760060787,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.516803484992124,
+      "tokens_in": 3160,
+      "tokens_out": 36,
+      "cost_usd": 0.003268,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 4.867046248007682,
+      "role": "tool",
+      "note": "Find narratable speech gaps in video",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 9.12,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true
+          },
+          {
+            "id": 1,
+            "start": 30.52,
+            "end": 31.65,
+            "max_words_en": 1,
+            "max_words_hi": 1,
+            "narratable": false,
+            "reason": "too short"
+          },
+          {
+            "id": 2,
+            "start": 32.54,
+            "end": 34.92,
+            "max_words_en": 3,
+            "max_words_hi": 4,
+            "narratable": true
+          },
+          {
+            "id": 3,
+            "start": 38.97,
+            "end": 45.57,
+            "max_words_en": 12,
+            "max_words_hi": 14,
+            "narratable": true
+          },
+          {
+            "id": 4,
+            "start": 47.61,
+            "end": 59.0,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 4
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.27,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.350088973005768,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 10.647573563008336,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.7802701920008985,
+      "tokens_in": 3798,
+      "tokens_out": 214,
+      "cost_usd": 0.00444,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 17.65808268400724,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Close-up of rocket engines igniting with bright exhaust flames and smoke.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 5.0,
+            "what": "Wide shot of industrial structures with rocket exhaust visible in distance.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 5.0,
+            "t_end": 6.2,
+            "what": "Black screen.",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 6.2,
+            "t_end": 10.1,
+            "what": "Rocket exhaust plume rises above industrial skyline as structures partially obstruct view.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.173817652001162,
+      "tokens_in": 2723,
+      "tokens_out": 299,
+      "cost_usd": 0.001086,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 17.65828515200701,
+      "role": "tool",
+      "note": "Inspect gap 0 start for events",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 11
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Close-up of rocket engines igniting with bright exhaust flames and smoke.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 5.0,
+            "what": "Wide shot of industrial structures with rocket exhaust visible in distance.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 5.0,
+            "t_end": 6.2,
+            "what": "Black screen.",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          0
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.01068202200986,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 23.21142055701057,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 31.0,
+            "t_end": 31.8,
+            "what": "Orange and blue glowing wireframe humanoid figures float side by side against a dark industrial background.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 31.8,
+            "t_end": 33.7,
+            "what": "The wireframe figures rise upward as pink and green digital interface panels with media playback icons fade in behind them.",
+            "on_screen_text": "REPORT PLAYBACK GLOBAL",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 33.7,
+            "t_end": 35.9,
+            "what": "A hand presses buttons on a complex green circuit board control panel surrounded by holographic overlays.",
+            "on_screen_text": "VOICE RECORD REPLAY",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.93367513200792,
+      "tokens_in": 2722,
+      "tokens_out": 288,
+      "cost_usd": 0.0010758,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 23.211590076010907,
+      "role": "tool",
+      "note": "Inspect gap 2 range",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 37,
+        "start": 31
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 31.0,
+            "t_end": 31.8,
+            "what": "Orange and blue glowing wireframe humanoid figures float side by side against a dark industrial background.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 31.8,
+            "t_end": 33.7,
+            "what": "The wireframe figures rise upward as pink and green digital interface panels with media playback icons fade in behind them.",
+            "on_screen_text": "REPORT PLAYBACK GLOBAL",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          2
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.553174556000158,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 52.262144674008596,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 2.0,
+            "what": "A person with glasses looks at screens in a neon-lit room.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 2.0,
+            "t_end": 5.0,
+            "what": "A person with long hair looks down at a table labeled SIMULATION READY.",
+            "on_screen_text": "SIMULATION READY",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 5.0,
+            "t_end": 10.0,
+            "what": "A brain model glows as a mechanical eye device watches it.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 10.0,
+            "t_end": 12.0,
+            "what": "A close-up shows a mechanical eyepiece over a human eye.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 28.24084508200758,
+      "tokens_in": 2726,
+      "tokens_out": 253,
+      "cost_usd": 0.0010455,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 52.26227123600256,
+      "role": "tool",
+      "note": "Inspect gap 3 range",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 37,
+        "end": 48
+      },
+      "result": {
+        "events": [],
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          3,
+          4
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 9,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 29.050586977013154,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 10,
+      "t_wall": 56.951145840008394,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 46.0,
+            "t_end": 51.0,
+            "what": "A man with cybernetic implants examines a floating brain between glowing rings.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 51.0,
+            "t_end": 63.0,
+            "what": "The text TEARS OF STEEL fades in and out against a black background.",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 63.0,
+            "t_end": 83.0,
+            "what": "A smoky cityscape with industrial towers and a flying platform is shown with the title overlaid.",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 83.0,
+            "t_end": 96.0,
+            "what": "A dark interior shot looks through heavy machinery toward the city below.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.8
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.010198149000644,
+      "tokens_in": 2734,
+      "tokens_out": 271,
+      "cost_usd": 0.0010641,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 56.95123036700534,
+      "role": "tool",
+      "note": "Inspect gaps 4 and 5 range",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 46,
+        "end": 61
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 46.0,
+            "t_end": 51.0,
+            "what": "A man with cybernetic implants examines a floating brain between glowing rings.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 51.0,
+            "t_end": 63.0,
+            "what": "The text TEARS OF STEEL fades in and out against a black background.",
+            "on_screen_text": "TEARS OF STEEL",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.688914989004843,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 58.834580117007135,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8830207319988403,
+      "tokens_in": 5007,
+      "tokens_out": 54,
+      "cost_usd": 0.005169,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 60.51166060499963,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A close-up of rocket engines igniting with bright exhaust flames and smoke."
+          },
+          {
+            "id": 2,
+            "text": "\"REPORT PLAYBACK GLOBAL\" and \"VOICE RECORD REPLAY\" on-screen text."
+          },
+          {
+            "id": 3,
+            "text": "A man with glasses and curly hair looks forward while surrounded by glowing green and pink holographic displays."
+          },
+          {
+            "id": 4,
+            "text": "\"TEARS OF STEEL\" text fades in and out against a black background."
+          },
+          {
+            "id": 5,
+            "text": "The text \"TEARS OF STEEL\" fades in and out against a black background."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.67476887301018,
+      "tokens_in": 1648,
+      "tokens_out": 158,
+      "cost_usd": 0.00013680000000000002,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 61.196930019999854,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Wireframe figures float; pink-green interface panels fade in with text REPORT PLAYBACK GLOBAL."
+          },
+          {
+            "id": 3,
+            "text": "Man with glasses looks forward amid glowing green-pink holographic displays."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.6851298640103778,
+      "tokens_in": 921,
+      "tokens_out": 58,
+      "cost_usd": 6.918e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 61.19706807199691,
+      "role": "tool",
+      "note": "Draft descriptions for covered gaps",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A close-up of rocket engines igniting with bright exhaust flames and smoke.",
+            "max_words": 17
+          },
+          {
+            "id": 2,
+            "text": "\"REPORT PLAYBACK GLOBAL\".",
+            "max_words": 3
+          },
+          {
+            "id": 3,
+            "text": "Man with glasses looks forward amid glowing green-pink holographic displays.",
+            "max_words": 12
+          },
+          {
+            "id": 4,
+            "text": "\"TEARS OF STEEL\" text fades in and out against a black background.",
+            "max_words": 17
+          },
+          {
+            "id": 5,
+            "text": "The text \"TEARS OF STEEL\" fades in and out against a black background.",
+            "max_words": 17
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.362476454989519,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 16,
+      "t_wall": 65.51814543599903,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.320769370999187,
+      "tokens_in": 5396,
+      "tokens_out": 67,
+      "cost_usd": 0.005597,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 65.61393350501021,
+      "role": "tool",
+      "note": "Propose cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "A close-up of rocket engines igniting with bright exhaust flames and smoke.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 9.12,
+          "duration": 9.04,
+          "narratable": true,
+          "word_budget_en": 19,
+          "word_budget_hi": 22,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "A close-up of rocket engines igniting with bright exhaust flames and smoke."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.09577460800937843,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 18,
+      "t_wall": 67.22832133799966,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.614113808987895,
+      "tokens_in": 5567,
+      "tokens_out": 119,
+      "cost_usd": 0.005924,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 68.43937391700456,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "A green playback control bar clearly reads \"SPYRO ATTACK - GLOBAL\" with play/pause/stop icons."
+      },
+      "ok": true,
+      "latency_s": 0.9541061759955483,
+      "tokens_in": 1123,
+      "tokens_out": 41,
+      "cost_usd": 0.0003738,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 68.43948081501003,
+      "role": "tool",
+      "note": "Verify on-screen text for gap 2",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "REPORT PLAYBACK GLOBAL",
+        "gap_id": 2
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A green playback control bar clearly reads \"SPYRO ATTACK - GLOBAL\" with play/pause/stop icons.",
+        "modality": "frames",
+        "gap_ids": [
+          2
+        ],
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.2111471190000884,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 68.52032572000462,
+      "role": "tool",
+      "note": "Propose cue for gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "\"REPORT PLAYBACK GLOBAL\""
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 32.54,
+          "end": 34.92,
+          "duration": 2.38,
+          "narratable": true,
+          "word_budget_en": 4,
+          "word_budget_hi": 5,
+          "max_words_en": 3,
+          "max_words_hi": 4,
+          "en": "\"REPORT PLAYBACK GLOBAL\""
+        },
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.08081260100880172,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 70.32405482701142,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8034522629895946,
+      "tokens_in": 5889,
+      "tokens_out": 67,
+      "cost_usd": 0.00609,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 70.40487142199709,
+      "role": "tool",
+      "note": "Propose cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Man with glasses looks forward amid glowing green-pink holographic displays."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 38.97,
+          "end": 45.57,
+          "duration": 6.6,
+          "narratable": true,
+          "word_budget_en": 14,
+          "word_budget_hi": 16,
+          "max_words_en": 12,
+          "max_words_hi": 14,
+          "en": "Man with glasses looks forward amid glowing green-pink holographic displays."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.08080296899424866,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 24,
+      "t_wall": 71.84969958099828,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4446200899983523,
+      "tokens_in": 6094,
+      "tokens_out": 68,
+      "cost_usd": 0.006298,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 73.17373096400115,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "At the 52-second mark, white text reading 'TEARS OF STEEL' appears centered on a black background."
+      },
+      "ok": true,
+      "latency_s": 1.0698589109961176,
+      "tokens_in": 1119,
+      "tokens_out": 40,
+      "cost_usd": 0.0003717,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 73.17385100699903,
+      "role": "tool",
+      "note": "Verify title text for gap 4",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "TEARS OF STEEL text fades in and out against black background",
+        "gap_id": 4
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "At the 52-second mark, white text reading 'TEARS OF STEEL' appears centered on a black background.",
+        "modality": "frames",
+        "gap_ids": [
+          4
+        ],
+        "state": {
+          "committed": [
+            0,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.3241390089970082,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 27,
+      "t_wall": 77.92595477100986,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.751826538005844,
+      "tokens_in": 6036,
+      "tokens_out": 71,
+      "cost_usd": 0.006249,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 77.99751157300489,
+      "role": "tool",
+      "note": "Propose cue for gap 4",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "\"TEARS OF STEEL\" text fades in and out against a black background."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 47.61,
+          "end": 59.0,
+          "duration": 11.39,
+          "narratable": true,
+          "parent_gap": 4,
+          "word_budget_en": 25,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "\"TEARS OF STEEL\" text fades in and out against a black background."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07154376999824308,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 29,
+      "t_wall": 80.00952266000968,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0116688540001633,
+      "tokens_in": 5492,
+      "tokens_out": 68,
+      "cost_usd": 0.005696,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 81.22738432401093,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No black background or TEARS OF STEEL text appears in any of the frames; the frames show a cityscape, a newspaper headline about robots, and a person aiming a rifle."
+      },
+      "ok": true,
+      "latency_s": 0.9748361200036015,
+      "tokens_in": 1103,
+      "tokens_out": 56,
+      "cost_usd": 0.00038129999999999994,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 81.22751274101029,
+      "role": "tool",
+      "note": "Verify title text for gap 5",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "TEARS OF STEEL text fades in and out against black background",
+        "gap_id": 5
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No black background or TEARS OF STEEL text appears in any of the frames; the frames show a cityscape, a newspaper headline about robots, and a person aiming a rifle.",
+        "modality": "frames",
+        "gap_ids": [
+          5
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.2179786439955933,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 32,
+      "t_wall": 84.0436191940098,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.8158310529979644,
+      "tokens_in": 5505,
+      "tokens_out": 29,
+      "cost_usd": 0.005592,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 84.04570686799707,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          5
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0020763970096595585,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 34,
+      "t_wall": 92.15394442999968,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 8.107969989010599,
+      "tokens_in": 5467,
+      "tokens_out": 115,
+      "cost_usd": 0.005812,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 92.15620957200008,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 68,
+        "end": 82
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002246632007881999,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 92.15749970800243,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 91,
+        "start": 79
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012614939914783463,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 37,
+      "t_wall": 92.15867935901042,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 101,
+        "start": 88
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0011538399994606152,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 95.62867666900274,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.469568429994979,
+      "tokens_in": 5564,
+      "tokens_out": 75,
+      "cost_usd": 0.005789,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 39,
+      "t_wall": 95.73866380700201,
+      "role": "tool",
+      "note": "Propose cue for gap 5 using draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "The text \"TEARS OF STEEL\" fades in and out against a black background.",
+        "gap_id": 5
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "duplicate of gap 4"
+        ],
+        "suggested_max_words": 17,
+        "seconds": 4.68,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[5], max_words=17) instead of hand-editing",
+        "problem": "duplicate of gap 4",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.10996869699738454,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 97.90864444200997,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.169606784998905,
+      "tokens_in": 5631,
+      "tokens_out": 42,
+      "cost_usd": 0.005757,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 97.91057295100472,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 68,
+        "end": 75
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001913714993861504,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 98.95739158900687,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.0464717940049013,
+      "tokens_in": 5652,
+      "tokens_out": 31,
+      "cost_usd": 0.005745,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 43,
+      "t_wall": 98.95970015000785,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          5
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0022975350002525374,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 44,
+      "t_wall": 102.27169849000347,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.3116305360017577,
+      "tokens_in": 5604,
+      "tokens_out": 74,
+      "cost_usd": 0.005826,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 45,
+      "t_wall": 103.01426628899935,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "\"TEARS OF STEEL\" fades in and out against a black background."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.7407066709856736,
+      "tokens_in": 672,
+      "tokens_out": 35,
+      "cost_usd": 4.872e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 103.10702098000911,
+      "role": "tool",
+      "note": "Propose cue for gap 5 using draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "The text \"TEARS OF STEEL\" fades in and out against a black background.",
+        "gap_id": 5
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "duplicate of gap 4"
+        ],
+        "suggested_max_words": 17,
+        "seconds": 4.68,
+        "overlap_seconds": 0,
+        "next": "call propose_cue/commit_cue to commit",
+        "problem": "duplicate of gap 4",
+        "auto_redraft": "tried \"\"TEARS OF STEEL\" fades in and out against a black background.\": duplicate of gap 4",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.8353048780118115,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 47,
+      "t_wall": 105.46895393800514,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.361495802993886,
+      "tokens_in": 5695,
+      "tokens_out": 41,
+      "cost_usd": 0.005818,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 48,
+      "t_wall": 105.47127241300768,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.00230607099365443,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 107.72468147501058,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.25304982799571,
+      "tokens_in": 5764,
+      "tokens_out": 45,
+      "cost_usd": 0.005899,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 50,
+      "t_wall": 107.7262045719981,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 69,
+        "end": 81
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015099839947652072,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 51,
+      "t_wall": 134.7040603589994,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 26.977495326005737,
+      "tokens_in": 11440,
+      "tokens_out": 1851,
+      "cost_usd": 0.016993,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 52,
+      "t_wall": 134.70579043700127,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 69.5,
+        "end": 81
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0017150709900306538,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 53,
+      "t_wall": 135.82554152200464,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.119341434998205,
+      "tokens_in": 5729,
+      "tokens_out": 56,
+      "cost_usd": 0.005897,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 54,
+      "t_wall": 135.82770905400685,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 69.5,
+        "end": 81
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 11,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0021384179999586195,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 143.41544255400368,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe evidence board shows gap 5 has identical content to gap 4 (both show \"TEARS OF STEEL\" text fading). This creates a duplicate wording issue. Gaps 6-8 have no evidence yet. Let me inspect gaps 6-8 first, then address gap 5 with a distinguishing description.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI need to inspect gaps 6-8 since they have no evidence, and gap 5 needs a different description than gap 4. Let me inspect the remaining gaps.\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 7.587318803998642,
+      "tokens_in": 5814,
+      "tokens_out": 176,
+      "cost_usd": 0.006342,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 143.41736456600484,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 58,
+        "end": 72
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0019028230017283931,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 146.16359456699865,
+      "role": "orchestrator",
+      "note": "The evidence board shows gap 5 has identical evidence to gap 4 (both \"TEARS OF STEEL\" text fading). I need to inspect gaps 6-8 and find a distinguishing description for gap 5.\n\nInspecting gaps 6-8 now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.745784291997552,
+      "tokens_in": 6018,
+      "tokens_out": 118,
+      "cost_usd": 0.006372,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 58,
+      "t_wall": 146.16517998500785,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 69.8,
+        "end": 80.5
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 9,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015615730080753565,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 59,
+      "t_wall": 148.21450680900307,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0488420780020533,
+      "tokens_in": 6072,
+      "tokens_out": 43,
+      "cost_usd": 0.006201,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 60,
+      "t_wall": 148.21624754200457,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 80.5,
+        "start": 69.8
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 8,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0017285039939451963,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 61,
+      "t_wall": 152.16684042700217,
+      "role": "orchestrator",
+      "note": "I can see gap 5 has identical evidence to gap 4, which will cause a duplicate wording rejection. I need to inspect gaps 6-8 and find a way to distinguish gap 5's description. Let me inspect the remaining gaps first.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInspecting gaps 6-8 to gather evidence.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInspecting gaps 6, 7, 8 (no evidence yet).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.9501910059916554,
+      "tokens_in": 6142,
+      "tokens_out": 198,
+      "cost_usd": 0.006736,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 62,
+      "t_wall": 152.16870475800533,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 69,
+        "end": 81
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018129149975720793,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 63,
+      "t_wall": 154.99677244899794,
+      "role": "orchestrator",
+      "note": "I see the issue - gap 5 has the exact same evidence as gap 4 (both \"TEARS OF STEEL\" text fading), which will cause a duplicate wording rejection. I need to inspect gaps 6-8 and find a way to distinguish gap 5. Let me inspect gaps 6-8 first.\n\nInspecting gaps 6, 7, 8 (no evidence yet).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.8276300619909307,
+      "tokens_in": 6369,
+      "tokens_out": 154,
+      "cost_usd": 0.006831,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 64,
+      "t_wall": 154.99850007900386,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 81,
+        "start": 69.8
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 6,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0017128100007539615,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 65,
+      "t_wall": 187.21208744200703,
+      "role": "orchestrator",
+      "note": "Perfect! Now I can see the evidence board. Gap 5 has the same evidence as gap 4 (\"TEARS OF STEEL\" text fading), which will cause a duplicate wording rejection. Gaps 6, 7, 8 have no evidence yet. Let me inspect gaps 6-8 first, then handle gap 5 with a distinguishing description.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nI need to inspect gaps 6, 7, 8 (no evidence), then handle gap 5 which has identical evidence to gap 4. Let me inspect the remaining gaps.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInspecting gaps 6, 7, 8 (no evidence yet).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 32.21315494700684,
+      "tokens_in": 6551,
+      "tokens_out": 1800,
+      "cost_usd": 0.011951,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 66,
+      "t_wall": 187.21210266000708,
+      "role": "fallback",
+      "note": "Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 67,
+      "t_wall": 187.21225594900898,
+      "role": "fallback",
+      "note": "Gap 5: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 5
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 68,
+      "t_wall": 187.21226173899777,
+      "role": "fallback",
+      "note": "Gap 6: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 6
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 69,
+      "t_wall": 187.2122646630014,
+      "role": "fallback",
+      "note": "Gap 7: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 7
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 70,
+      "t_wall": 187.21226726900204,
+      "role": "fallback",
+      "note": "Gap 8: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 8
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 71,
+      "t_wall": 189.7186406700057,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "रॉकेट इंजनों का क्लोज-अप: चमकीली निकास लपटें और धुआं।"
+          },
+          {
+            "id": 2,
+            "hi": "\"रिपोर्ट प्लेबैक ग्लोबल\""
+          },
+          {
+            "id": 3,
+            "hi": "चश्मे वाला आदमी चमकते हरे-गुलाबी होलोग्राफिक डिस्प्ले के बीच आगे देखता है।"
+          },
+          {
+            "id": 4,
+            "hi": "काली पृष्ठभूमि पर \"टियर्स ऑफ स्टील\" टेक्स्ट आता-जाता है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.5062313430098584,
+      "tokens_in": 732,
+      "tokens_out": 139,
+      "cost_usd": 0.001149,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 72,
+      "t_wall": 190.05586591400788,
+      "role": "fallback",
+      "note": "Translated committed cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 73,
+      "t_wall": 193.8930489810009,
+      "role": "fallback",
+      "note": "Forced finalize with committed cues",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155"
+      },
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 16,
+      "draft_description": 4,
+      "propose_cue": 6,
+      "verify_claim": 3
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 2,
+      "contradicted": 1,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 2,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 25,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.163441,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0053982,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0002547
+    },
+    "total_latency_s": 193.89352388400584
+  }
+}

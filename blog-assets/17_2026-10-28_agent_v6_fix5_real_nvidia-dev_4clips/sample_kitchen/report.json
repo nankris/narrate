@@ -1,0 +1,528 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "en": "Title reads: A person enters a kitchen",
+      "hi": "शीर्षक: एक व्यक्ति रसोई में प्रवेश करता है",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "en": "STEP 1 - chop onions",
+      "hi": "चरण १ - प्याज काटें",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "en": "STEP 1 - chop onions, Stir and serve",
+      "hi": "चरण १ - प्याज काटें, हिलाएं और परोसें",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4,
+      "en": "Stir and serve",
+      "hi": "हिलाएं और परोसें",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 7.640971,
+        "duration": 4.039999999999998,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "Title reads: A person enters a kitchen",
+        "hi": "शीर्षक: एक व्यक्ति रसोई में प्रवेश करता है",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 13.811719,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "STEP 1 - chop onions",
+        "hi": "चरण १ - प्याज काटें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 23.012544,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "STEP 1 - chop onions, Stir and serve",
+        "hi": "चरण १ - प्याज काटें, हिलाएं और परोसें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 28.710221999999998,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 4,
+        "max_words_hi": 4,
+        "en": "Stir and serve",
+        "hi": "हिलाएं और परोसें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 8.439519,
+        "duration": 4.039999999999998,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "Title reads: A person enters a kitchen",
+        "hi": "शीर्षक: एक व्यक्ति रसोई में प्रवेश करता है",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 13.923329,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "STEP 1 - chop onions",
+        "hi": "चरण १ - प्याज काटें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 23.533133999999997,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "en": "STEP 1 - chop onions, Stir and serve",
+        "hi": "चरण १ - प्याज काटें, हिलाएं और परोसें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.122649,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 4,
+        "max_words_hi": 4,
+        "en": "Stir and serve",
+        "hi": "हिलाएं और परोसें",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "max_words_en": 7,
+      "max_words_hi": 8
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 57.91359681829478,
+    "hi": 69.36758016405666
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3159,
+      "output_tokens": 38,
+      "cost_usd": 0.003273,
+      "latency_s": 1.0388534020021325,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3611,
+      "output_tokens": 227,
+      "cost_usd": 0.004292,
+      "latency_s": 4.766675828999723,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2741,
+      "output_tokens": 143,
+      "cost_usd": 0.000951,
+      "latency_s": 2.5533065710042138,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2741,
+      "output_tokens": 144,
+      "cost_usd": 0.0009519,
+      "latency_s": 2.5741046280018054,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2744,
+      "output_tokens": 212,
+      "cost_usd": 0.001014,
+      "latency_s": 3.6760271020029904,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2730,
+      "output_tokens": 489,
+      "cost_usd": 0.0012591,
+      "latency_s": 4.4856599000049755,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4927,
+      "output_tokens": 52,
+      "cost_usd": 0.005083,
+      "latency_s": 1.1610629360075109,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1736,
+      "output_tokens": 65,
+      "cost_usd": 0.00011975999999999999,
+      "latency_s": 1.1270331609994173,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5187,
+      "output_tokens": 222,
+      "cost_usd": 0.005853,
+      "latency_s": 9.183643864002079,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1152,
+      "output_tokens": 47,
+      "cost_usd": 0.0003879,
+      "latency_s": 0.7826136210060213,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1146,
+      "output_tokens": 49,
+      "cost_usd": 0.00038790000000000005,
+      "latency_s": 7.981369346001884,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1136,
+      "output_tokens": 39,
+      "cost_usd": 0.00037590000000000003,
+      "latency_s": 0.7723711119906511,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1142,
+      "output_tokens": 31,
+      "cost_usd": 0.00037049999999999995,
+      "latency_s": 1.1457575670065125,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5848,
+      "output_tokens": 238,
+      "cost_usd": 0.006562,
+      "latency_s": 6.146094973999425,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6369,
+      "output_tokens": 55,
+      "cost_usd": 0.006534,
+      "latency_s": 1.1104219219996594,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 679,
+      "output_tokens": 88,
+      "cost_usd": 0.000943,
+      "latency_s": 3.3430935380019946,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6727,
+      "output_tokens": 32,
+      "cost_usd": 0.006823,
+      "latency_s": 15.113216277997708,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.038419999999999996,
+    "perceive": 0.004176,
+    "verify": 0.0015222,
+    "draft": 0.00011975999999999999,
+    "translate": 0.000943
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.09036192,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 1,
+      "verify_claim": 4,
+      "propose_cue": 4,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 3,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 7,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.039363,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0056982000000000005,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00011975999999999999
+    },
+    "total_latency_s": 71.72812697499467
+  },
+  "estimated_cost_usd": 0.04518096,
+  "would_be_token_factory_cost_usd": 0.04518096,
+  "reserved_spend_usd": 0.04518096,
+  "cost_per_minute": 0.09036192,
+  "latency_s": 71.72812697499467
+}

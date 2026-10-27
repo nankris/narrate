@@ -1,0 +1,4471 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 36,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 1.7112541660026181,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7111782800056972,
+      "tokens_in": 3160,
+      "tokens_out": 44,
+      "cost_usd": 0.003292,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 3.022805928005255,
+      "role": "tool",
+      "note": "Find all speech-free gaps in 110s video for audio description",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 11.38,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 1,
+            "start": 11.38,
+            "end": 22.68,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 2,
+            "start": 22.68,
+            "end": 33.98,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 3,
+            "start": 33.98,
+            "end": 45.28,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 0
+          },
+          {
+            "id": 4,
+            "start": 45.28,
+            "end": 56.57,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 0
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.04,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.3115310650027823,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 11.653379174997099,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 8.63024486899667,
+      "tokens_in": 3897,
+      "tokens_out": 271,
+      "cost_usd": 0.00471,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 15.279324383998755,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 0.0,
+        "t_end": 1.75,
+        "what": "An astronaut in blue gloves handles wires and equipment next to a plant growth unit.",
+        "on_screen_text": "",
+        "importance": 3,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 3.0193632559967227,
+      "tokens_in": 2727,
+      "tokens_out": 63,
+      "cost_usd": 0.0008748000000000001,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 19.94208801300556,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.67,
+            "what": "A view of plant growth chamber interior with green leafy plants visible through a window, surrounded by equipment and cabling.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 1.67,
+            "t_end": 2.98,
+            "what": "A person wearing black shirt and safety glasses enters from right side and stands facing the plant chamber.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 2.98,
+            "t_end": 4.62,
+            "what": "Person puts on blue gloves while standing in front of the plant growth chamber.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 4.62,
+            "t_end": 6.29,
+            "what": "Person reaches both gloved hands toward the green plants inside the chamber window.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.92
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.391053822007962,
+      "tokens_in": 1122,
+      "tokens_out": 449,
+      "cost_usd": 0.0007407000000000001,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 19.94237353700737,
+      "role": "tool",
+      "note": "Inspect gap 0 visual content 0-11.4s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 11.38
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.67,
+            "what": "A view of plant growth chamber interior with green leafy plants visible through a window, surrounded by equipment and cabling.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 1.67,
+            "t_end": 2.98,
+            "what": "A person wearing black shirt and safety glasses enters from right side and stands facing the plant chamber.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.98
+          }
+        ],
+        "modality": "frames-fallback",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          0,
+          1
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 8.28897856399999,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 7,
+      "t_wall": 24.114945310007897,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 11.38,
+            "t_end": 22.68,
+            "what": "An astronaut in a black shirt and white gloves works inside a plant growth chamber filled with green leafy plants, manipulating equipment near the vegetation.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.510202199991909,
+      "tokens_in": 2752,
+      "tokens_out": 83,
+      "cost_usd": 0.0009003,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 24.11503668500518,
+      "role": "tool",
+      "note": "Inspect gap 1 visual content 11.4-22.7s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 11.38,
+        "end": 22.68
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 11.38,
+            "t_end": 22.68,
+            "what": "An astronaut in a black shirt and white gloves works inside a plant growth chamber filled with green leafy plants, manipulating equipment near the vegetation.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          1,
+          2
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.17247991100885,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 28.497370634999243,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 22.68,
+            "t_end": 23.68,
+            "what": "A man in a black shirt reaches his arm into a white machine panel containing green plants.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 23.68,
+            "t_end": 25.68,
+            "what": "The man wears blue gloves and works inside the plant-growing unit.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 25.68,
+            "t_end": 27.68,
+            "what": "The camera zooms in closer on the man's gloved hand and face as he tends to the plants.",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 27.68,
+            "t_end": 29.68,
+            "what": "Close-up shot of the man continuing to inspect or adjust the green plants within the panel.",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.630149873002665,
+      "tokens_in": 2752,
+      "tokens_out": 269,
+      "cost_usd": 0.0010677,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 28.497495458999765,
+      "role": "tool",
+      "note": "Inspect gap 2 visual content 22.7-34s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 33.98,
+        "start": 22.68
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 22.68,
+            "t_end": 23.68,
+            "what": "A man in a black shirt reaches his arm into a white machine panel containing green plants.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 23.68,
+            "t_end": 25.68,
+            "what": "The man wears blue gloves and works inside the plant-growing unit.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 25.68,
+            "t_end": 27.68,
+            "what": "The camera zooms in closer on the man's gloved hand and face as he tends to the plants.",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          2,
+          3
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 9,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.382386772005702,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 11,
+      "t_wall": 33.00783317000605,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 33.98,
+            "t_end": 45.28,
+            "what": "A man in a black shirt and blue gloves works with green plants inside a controlled growth chamber with visible wiring and panels.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.9512998430000152,
+      "tokens_in": 2752,
+      "tokens_out": 78,
+      "cost_usd": 0.0008958000000000001,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 33.00790202400822,
+      "role": "tool",
+      "note": "Inspect gap 3 visual content 34-45.3s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 33.98,
+        "end": 45.28
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 33.98,
+            "t_end": 45.28,
+            "what": "A man in a black shirt and blue gloves works with green plants inside a controlled growth chamber with visible wiring and panels.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          3,
+          4
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.510339763000957,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 13,
+      "t_wall": 34.02738875099749,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.0191213509970112,
+      "tokens_in": 5224,
+      "tokens_out": 57,
+      "cost_usd": 0.005395,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 37.16994988200895,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "View of plant growth chamber with green leafy plants. Person enters, wears black shirt and safety glasses. Puts on blue gloves and touches plants inside chamber."
+          },
+          {
+            "id": 1,
+            "text": "Astronaut in black shirt and white gloves works inside plant growth chamber. Manipulates equipment near green leafy vegetation."
+          },
+          {
+            "id": 2,
+            "text": "Man in black shirt reaches arm into white machine panel with green plants. Wears blue gloves and works inside plant-growing unit."
+          },
+          {
+            "id": 3,
+            "text": "Man in black shirt and blue gloves works with green plants inside controlled growth chamber with visible wiring and panels."
+          },
+          {
+            "id": 4,
+            "text": "Man in black shirt and blue gloves continues working with green plants inside controlled growth chamber with visible wiring and panels."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.139391732009244,
+      "tokens_in": 2220,
+      "tokens_out": 216,
+      "cost_usd": 0.00018504,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 39.16639200299687,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "View of green plants inside growth chamber; person in black shirt enters, puts on blue gloves, and handles foliage."
+          },
+          {
+            "id": 1,
+            "text": "Astronaut in black shirt and white gloves manipulates equipment among green plants inside the chamber."
+          },
+          {
+            "id": 2,
+            "text": "Man in black shirt reaches arm into white machine panel with green plants; then wears blue gloves and works inside the unit."
+          },
+          {
+            "id": 3,
+            "text": "Camera zooms in on man's gloved hand and face tending to plants; close-up of him adjusting green foliage."
+          },
+          {
+            "id": 4,
+            "text": "Man in black shirt and blue gloves works with green plants inside controlled chamber with visible wiring and panels."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.9962161950097652,
+      "tokens_in": 2283,
+      "tokens_out": 159,
+      "cost_usd": 0.00017513999999999998,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 39.166633624001406,
+      "role": "tool",
+      "note": "Draft descriptions for first 5 gaps from evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "View of green plants inside growth chamber; person in black shirt enters, puts on blue gloves, and.",
+            "max_words": 17
+          },
+          {
+            "id": 1,
+            "text": "Astronaut in black shirt and white gloves manipulates equipment among green plants inside the chamber.",
+            "max_words": 17
+          },
+          {
+            "id": 2,
+            "text": "Man in black shirt reaches arm into white machine panel with green plants; then wears blue gloves.",
+            "max_words": 17
+          },
+          {
+            "id": 3,
+            "text": "Camera zooms in on man's gloved hand and face tending to plants; close-up of him adjusting green.",
+            "max_words": 17
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 33,
+            "inspections": 8,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.139229943000828,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 46.90310336300172,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 7.736002836012631,
+      "tokens_in": 5639,
+      "tokens_out": 300,
+      "cost_usd": 0.006539,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 46.9812179569999,
+      "role": "tool",
+      "note": "Propose gap 0 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "View of green plants inside growth chamber; person in black shirt enters, puts on blue gloves, and inspects leaves.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 11.38,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "View of green plants inside growth chamber; person in black shirt enters, puts on blue gloves, and inspects leaves."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 32,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07808939699316397,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 47.052615350999986,
+      "role": "tool",
+      "note": "Propose gap 1 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Astronaut in black shirt and white gloves manipulates equipment among green plants inside chamber."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 11.38,
+          "end": 22.68,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Astronaut in black shirt and white gloves manipulates equipment among green plants inside chamber."
+        },
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 32,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07135086000198498,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 20,
+      "t_wall": 47.12188575700566,
+      "role": "tool",
+      "note": "Propose gap 2 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Man in black shirt reaches arm into white panel with green plants; wears blue gloves to tend.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 22.68,
+          "end": 33.98,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Man in black shirt reaches arm into white panel with green plants; wears blue gloves to tend."
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 32,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06923135700344574,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 47.1935678620066,
+      "role": "tool",
+      "note": "Propose gap 3 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Camera zooms in on gloved hand and face tending plants; close-up of adjusting green leaves.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 33.98,
+          "end": 45.28,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Camera zooms in on gloved hand and face tending plants; close-up of adjusting green leaves."
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 32,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07164453499717638,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 51.50578893200145,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.311967749003088,
+      "tokens_in": 6398,
+      "tokens_out": 283,
+      "cost_usd": 0.007247,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 56.32200626800477,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 45.28,
+            "t_end": 50.35,
+            "what": "A man in a black shirt reaches into a plant-growing chamber and tends to green leafy plants inside.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 50.35,
+            "t_end": 56.57,
+            "what": "The man continues to reach into the chamber with both hands, adjusting or harvesting plants among wires and equipment.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.9823400439927354,
+      "tokens_in": 2739,
+      "tokens_out": 145,
+      "cost_usd": 0.0009521999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 56.32226509800239,
+      "role": "tool",
+      "note": "Inspect gap 4 visual content 45.3-56.6s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 56.57,
+        "start": 45.28
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 45.28,
+            "t_end": 50.35,
+            "what": "A man in a black shirt reaches into a plant-growing chamber and tends to green leafy plants inside.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 50.35,
+            "t_end": 56.57,
+            "what": "The man continues to reach into the chamber with both hands, adjusting or harvesting plants among wires and equipment.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          4
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 31,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.816463000999647,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 61.64998865300731,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 56.57,
+            "t_end": 60.07,
+            "what": "A person works inside a panel filled with green plants and equipment, then moves away leaving the panel visible.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 60.07,
+            "t_end": 64.07,
+            "what": "A close-up shows a black surface with a dried red chili pepper taped next to a small white label reading 'Super Chili'.",
+            "on_screen_text": "Super Chili",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 64.07,
+            "t_end": 68.57,
+            "what": "A person wearing blue gloves adjusts the chili pepper and label, pressing them onto the tape.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.671988568006782,
+      "tokens_in": 2752,
+      "tokens_out": 292,
+      "cost_usd": 0.0010884,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 61.650361474996316,
+      "role": "tool",
+      "note": "Inspect gap 5 visual content 56.6-67.9s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 56.57,
+        "end": 67.87
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 56.57,
+            "t_end": 60.07,
+            "what": "A person works inside a panel filled with green plants and equipment, then moves away leaving the panel visible.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 60.07,
+            "t_end": 64.07,
+            "what": "A close-up shows a black surface with a dried red chili pepper taped next to a small white label reading 'Super Chili'.",
+            "on_screen_text": "Super Chili",
+            "importance": 3,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 31,
+            "inspections": 6,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.3280571889918065,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 27,
+      "t_wall": 66.57594061300915,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 67.87,
+            "t_end": 92.16,
+            "what": "An astronaut wearing blue gloves photographs a red chili pepper attached to a black board with tape and a small card.",
+            "on_screen_text": "HATCH PEPPER CROP ONE",
+            "importance": 4,
+            "confidence": 0.92
+          },
+          {
+            "t_start": 92.16,
+            "t_end": 104.0,
+            "what": "Several crew members gather inside the station module, looking at food items held in their hands.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.85
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.253432293000515,
+      "tokens_in": 2752,
+      "tokens_out": 154,
+      "cost_usd": 0.0009642,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 66.57630033799796,
+      "role": "tool",
+      "note": "Inspect gap 6 visual content 67.9-79.2s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 67.87,
+        "end": 79.17
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 67.87,
+            "t_end": 92.16,
+            "what": "An astronaut wearing blue gloves photographs a red chili pepper attached to a black board with tape and a small card.",
+            "on_screen_text": "HATCH PEPPER CROP ONE",
+            "importance": 4,
+            "confidence": 0.92
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "evidence_gaps": [
+          5,
+          6
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 31,
+            "inspections": 5,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.925835519999964,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 29,
+      "t_wall": 72.44358333799755,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 79.17,
+            "t_end": 84.86,
+            "what": "A man in a blue shirt and a man in a dark blue shirt stand inside a space station module passing a green item between them.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 84.86,
+            "t_end": 88.51,
+            "what": "More crew members gather around as several people hold and examine the small green plant together.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 88.51,
+            "t_end": 92.7,
+            "what": "Six astronauts are clustered together passing the plant around while one man films the group with a camera.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 5.1063401629944565,
+      "tokens_in": 2756,
+      "tokens_out": 214,
+      "cost_usd": 0.0010194,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 72.44394478600589,
+      "role": "tool",
+      "note": "Inspect gaps 7-8 visual content 79.2-92.7s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 92.7,
+        "start": 79.17
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 79.17,
+            "t_end": 84.86,
+            "what": "A man in a blue shirt and a man in a dark blue shirt stand inside a space station module passing a green item between them.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 84.86,
+            "t_end": 88.51,
+            "what": "More crew members gather around as several people hold and examine the small green plant together.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          6,
+          7
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 31,
+            "inspections": 4,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.867588467008318,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 31,
+      "t_wall": 80.77312446100404,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 8.328667908994248,
+      "tokens_in": 7805,
+      "tokens_out": 59,
+      "cost_usd": 0.007982,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 82.61015710300126,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "A man in a black shirt and blue gloves tends to green leafy plants inside a plant-growing chamber with visible wiring and panels."
+          },
+          {
+            "id": 5,
+            "text": "A dried red chili pepper labeled Super Chili is taped to a black surface."
+          },
+          {
+            "id": 6,
+            "text": "A person wearing blue gloves adjusts a chili pepper and label onto tape on a black board."
+          },
+          {
+            "id": 7,
+            "text": "An astronaut wearing blue gloves photographs a red chili pepper attached to a black board with tape and a small card."
+          },
+          {
+            "id": 8,
+            "text": "Six astronauts cluster together passing a small green plant around while one man films the group with a camera."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.8341427700070199,
+      "tokens_in": 2397,
+      "tokens_out": 153,
+      "cost_usd": 0.00018054,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 84.08370920400193,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "Man reaches into chamber and adjusts green plants and equipment."
+          },
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE astronaut photographs red chili pepper on black board."
+          },
+          {
+            "id": 8,
+            "text": "More crew members gather and examine small green plant together."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4733277750056004,
+      "tokens_in": 1439,
+      "tokens_out": 100,
+      "cost_usd": 0.00011034,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 84.083986069003,
+      "role": "tool",
+      "note": "Draft descriptions for gaps 4-8 from existing evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "Man reaches into chamber and adjusts green plants and equipment.",
+            "max_words": 17
+          },
+          {
+            "id": 5,
+            "text": "A dried red chili pepper labeled Super Chili is taped to a black surface.",
+            "max_words": 17
+          },
+          {
+            "id": 6,
+            "text": "A person wearing blue gloves adjusts a chili pepper and label onto tape on a black board.",
+            "max_words": 17
+          },
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE astronaut photographs red chili pepper on black board.",
+            "max_words": 16
+          },
+          {
+            "id": 8,
+            "text": "More crew members gather and examine small green plant together.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 30,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.3108492030005436,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 35,
+      "t_wall": 94.00039914500667,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 9.915922006999608,
+      "tokens_in": 8183,
+      "tokens_out": 285,
+      "cost_usd": 0.009038,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 36,
+      "t_wall": 94.07891382600064,
+      "role": "tool",
+      "note": "Propose gap 4 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "Man reaches into chamber and adjusts green plants and equipment."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 45.28,
+          "end": 56.57,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Man reaches into chamber and adjusts green plants and equipment."
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07849933399120346,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 37,
+      "t_wall": 94.15400551499624,
+      "role": "tool",
+      "note": "Propose gap 5 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 5,
+        "text": "A dried red chili pepper labeled Super Chili is taped to a black surface."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 5,
+          "start": 56.57,
+          "end": 67.87,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "A dried red chili pepper labeled Super Chili is taped to a black surface."
+        },
+        "verify_required": [
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            5
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07504416900337674,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 94.22789466800168,
+      "role": "tool",
+      "note": "Propose gap 6 description within 17 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 6,
+        "text": "A person wearing blue gloves adjusts a chili pepper and label onto tape on a black board."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 6,
+          "start": 67.87,
+          "end": 79.17,
+          "duration": 11.3,
+          "narratable": true,
+          "parent_gap": 0,
+          "word_budget_en": 24,
+          "word_budget_hi": 28,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "A person wearing blue gloves adjusts a chili pepper and label onto tape on a black board."
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            5
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07383684799424373,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 94.29935411999759,
+      "role": "tool",
+      "note": "Propose gap 7 description within 16 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "HATCH PEPPER CROP ONE astronaut photographs red chili pepper on black board.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 7,
+          "start": 84.12,
+          "end": 92.72,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "max_words_en": 16,
+          "max_words_hi": 19,
+          "en": "HATCH PEPPER CROP ONE astronaut photographs red chili pepper on black board."
+        },
+        "verify_required": [
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            5,
+            7
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07141784399573226,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 98.02567095600534,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.725976763991639,
+      "tokens_in": 8627,
+      "tokens_out": 140,
+      "cost_usd": 0.009047,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 99.58562937899842,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "Frame at 01:03 shows a dried red chili pepper taped to a black surface with a handwritten label that reads 'Super Chili' and 'January 2016'."
+      },
+      "ok": true,
+      "latency_s": 1.2906313109997427,
+      "tokens_in": 1178,
+      "tokens_out": 56,
+      "cost_usd": 0.00040379999999999995,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 42,
+      "t_wall": 99.58591222700488,
+      "role": "tool",
+      "note": "Verify on-screen text Super Chili label",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 5,
+        "claim": "A dried red chili pepper labeled Super Chili is taped to a black surface"
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "Frame at 01:03 shows a dried red chili pepper taped to a black surface with a handwritten label that reads 'Super Chili' and 'January 2016'.",
+        "modality": "frames",
+        "gap_ids": [
+          5
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 4,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.5602285749919247,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 43,
+      "t_wall": 101.63915551800164,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "Visible frames show ISS astronauts and crew in microgravity eating; there is no Hatch pepper crop, no astronaut photographing a red chili pepper on a black board."
+      },
+      "ok": true,
+      "latency_s": 1.7812676320027094,
+      "tokens_in": 1165,
+      "tokens_out": 53,
+      "cost_usd": 0.0003972,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 101.63943797899992,
+      "role": "tool",
+      "note": "Verify on-screen text HATCH PEPPER CROP ONE",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "HATCH PEPPER CROP ONE astronaut photographs red chili pepper on black board"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "Visible frames show ISS astronauts and crew in microgravity eating; there is no Hatch pepper crop, no astronaut photographing a red chili pepper on a black board.",
+        "modality": "frames",
+        "gap_ids": [
+          7
+        ],
+        "uncommitted": [
+          7
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 4,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.053492234990699,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 45,
+      "t_wall": 103.53683008199732,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8970098019926809,
+      "tokens_in": 8326,
+      "tokens_out": 51,
+      "cost_usd": 0.008479,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 104.56545742999879,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "NASA text appears. An astronaut photographs a red chili pepper on a black board. Crew members gather and pass a small green plant around while one films the group."
+          },
+          {
+            "id": 8,
+            "text": "NASA text appears. An astronaut photographs a red chili pepper on a black board. Six astronauts cluster together passing a plant around while one films."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.0264934619917767,
+      "tokens_in": 1017,
+      "tokens_out": 93,
+      "cost_usd": 8.334e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 105.77518656699976,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE. Astronaut photographs red chili pepper on board. Crew examines green plant, passes it around while one films."
+          },
+          {
+            "id": 8,
+            "text": "HATCH PEPPER CROP ONE. Crew examines green plant, passes it around while one films."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2095212650019675,
+      "tokens_in": 1080,
+      "tokens_out": 74,
+      "cost_usd": 8.256e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 48,
+      "t_wall": 105.77553603900014,
+      "role": "tool",
+      "note": "Redraft gap 7 and 8 with corrected evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7,
+          8
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "Title: \"HATCH PEPPER CROP ONE\".",
+            "max_words": 16
+          },
+          {
+            "id": 8,
+            "text": "HATCH PEPPER CROP ONE. Crew examines green plant, passes it around while one films.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 4,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.238689367004554,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 113.00606309300929,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 7.230099692009389,
+      "tokens_in": 8304,
+      "tokens_out": 134,
+      "cost_usd": 0.008706,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 50,
+      "t_wall": 113.08567950200813,
+      "role": "tool",
+      "note": "Propose corrected gap 7 description",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Title: \"HATCH PEPPER CROP ONE\".",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 7,
+          "start": 84.12,
+          "end": 92.72,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "max_words_en": 16,
+          "max_words_hi": 19,
+          "en": "Title: \"HATCH PEPPER CROP ONE\"."
+        },
+        "verify_required": [
+          "quoted text",
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 4,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07960097599425353,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 44
+    },
+    {
+      "step": 51,
+      "t_wall": 113.1578763610014,
+      "role": "tool",
+      "note": "Propose gap 8 description",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "HATCH PEPPER CROP ONE. Crew examines green plant, passes it around while one films."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 8,
+          "start": 92.72,
+          "end": 101.32,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "max_words_en": 16,
+          "max_words_hi": 19,
+          "en": "HATCH PEPPER CROP ONE. Crew examines green plant, passes it around while one films."
+        },
+        "verify_required": [
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "remaining": [
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            7,
+            8
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 4,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07214690299588256,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 52,
+      "t_wall": 117.24847876900458,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.090273876994615,
+      "tokens_in": 7993,
+      "tokens_out": 135,
+      "cost_usd": 0.008398,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 53,
+      "t_wall": 118.75136492500314,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No title text reading \"HATCH PEPPER CROP ONE\" appears on screen in the provided frames; the frames show only astronauts inside a module."
+      },
+      "ok": true,
+      "latency_s": 1.2217055059882114,
+      "tokens_in": 1163,
+      "tokens_out": 49,
+      "cost_usd": 0.000393,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 54,
+      "t_wall": 118.75168255700555,
+      "role": "tool",
+      "note": "Verify quoted title text",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "Title: \"HATCH PEPPER CROP ONE\" appears on screen"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "No title text reading \"HATCH PEPPER CROP ONE\" appears on screen in the provided frames; the frames show only astronauts inside a module.",
+        "modality": "frames",
+        "gap_ids": [
+          7
+        ],
+        "uncommitted": [
+          7
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 4,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.5031903689960018,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 120.48635434500466,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frames show crew members inside a module examining a green plant-like object, passing it around among several people while another person holds a camera filming them."
+      },
+      "ok": true,
+      "latency_s": 1.3864795200061053,
+      "tokens_in": 1179,
+      "tokens_out": 44,
+      "cost_usd": 0.0003933,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 120.48667926400958,
+      "role": "tool",
+      "note": "Verify gap 8 named entity and action",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "HATCH PEPPER CROP ONE. Crew examines green plant, passes it around while one films",
+        "gap_id": 8
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frames show crew members inside a module examining a green plant-like object, passing it around among several people while another person holds a camera filming them.",
+        "modality": "frames",
+        "gap_ids": [
+          8
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7349631100078113,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 122.06255285000952,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5753378939989489,
+      "tokens_in": 7664,
+      "tokens_out": 45,
+      "cost_usd": 0.007799,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 58,
+      "t_wall": 122.77233807599987,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "\"HATCH PEPPER CROP ONE\"; astronaut photographs red chili pepper on black board, crew members pass green plant around while one films."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.7075376190041425,
+      "tokens_in": 931,
+      "tokens_out": 57,
+      "cost_usd": 6.953999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 59,
+      "t_wall": 124.12174820600194,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE. Astronaut photographs red pepper on black board."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.3492725089890882,
+      "tokens_in": 994,
+      "tokens_out": 32,
+      "cost_usd": 6.732e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 60,
+      "t_wall": 124.12202289199922,
+      "role": "tool",
+      "note": "Redraft gap 7 without false title text",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE. Astronaut photographs red pepper on black board.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.0594575769937364,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 61,
+      "t_wall": 126.29173207300482,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.169323752008495,
+      "tokens_in": 7602,
+      "tokens_out": 72,
+      "cost_usd": 0.007818,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 62,
+      "t_wall": 126.37927730500815,
+      "role": "tool",
+      "note": "Propose redrafted gap 7",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "HATCH PEPPER CROP ONE. Astronaut photographs red pepper on black board."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "text was contradicted by verification"
+        ],
+        "suggested_max_words": 16,
+        "seconds": 5.0,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[7], max_words=16) instead of hand-editing",
+        "problem": "text was contradicted by verification; redraft",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08753094599524047,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 63,
+      "t_wall": 128.2218616510072,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8421260540053481,
+      "tokens_in": 7089,
+      "tokens_out": 57,
+      "cost_usd": 0.00726,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 64,
+      "t_wall": 129.2755832450057,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "On screen: HATCH PEPPER CROP ONE. Astronaut photographs red chili pepper on black board. Crew members gather and pass a green plant around."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.051422314994852,
+      "tokens_in": 931,
+      "tokens_out": 51,
+      "cost_usd": 6.809999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 65,
+      "t_wall": 130.20819786000357,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9324538140062941,
+      "tokens_in": 994,
+      "tokens_out": 36,
+      "cost_usd": 6.828e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 66,
+      "t_wall": 130.20848671899876,
+      "role": "tool",
+      "note": "Redraft gap 7 with corrected evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "max_words": 16,
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.9865917120041559,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 67,
+      "t_wall": 157.53344094700878,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 27.324526850003167,
+      "tokens_in": 6956,
+      "tokens_out": 65,
+      "cost_usd": 0.007151,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 68,
+      "t_wall": 158.8982201290055,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.289921461007907,
+      "tokens_in": 957,
+      "tokens_out": 23,
+      "cost_usd": 6.294e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 69,
+      "t_wall": 158.8986070270039,
+      "role": "tool",
+      "note": "Propose gap 7 with drafted text",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "HATCH PEPPER CROP ONE"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "text was contradicted by verification"
+        ],
+        "suggested_max_words": 16,
+        "seconds": 1.73,
+        "overlap_seconds": 0,
+        "next": "call propose_cue/commit_cue to commit",
+        "problem": "text was contradicted by verification; redraft",
+        "auto_redraft": "tried \"HATCH PEPPER CROP ONE\": text was contradicted by verification",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.3651520080020418,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 70,
+      "t_wall": 160.13052973800222,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2315248850063654,
+      "tokens_in": 7044,
+      "tokens_out": 50,
+      "cost_usd": 0.007194,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 71,
+      "t_wall": 160.13290500499716,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 92.7,
+        "start": 79
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002348294001421891,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 72,
+      "t_wall": 171.96109558500757,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 11.827492511001765,
+      "tokens_in": 6795,
+      "tokens_out": 49,
+      "cost_usd": 0.006942,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 73,
+      "t_wall": 172.9260894050094,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "\"HATCH PEPPER CROP ONE\". An astronaut photographs a red chili pepper on a board. Crew members gather and pass a green plant around while one films."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9626478040008806,
+      "tokens_in": 931,
+      "tokens_out": 50,
+      "cost_usd": 6.786e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 74,
+      "t_wall": 174.0416081660078,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "HATCH PEPPER CROP ONE. Astronaut photographs red chili pepper on black board. Crew gathers, examines small green plant, passes it around. One films the group."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.1153841030027252,
+      "tokens_in": 994,
+      "tokens_out": 52,
+      "cost_usd": 7.212000000000001e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 75,
+      "t_wall": 174.04193323099753,
+      "role": "tool",
+      "note": "Redraft gap 7 from evidence without false title",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "Title: \"HATCH PEPPER CROP ONE\".",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.080826763994992,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 71
+    },
+    {
+      "step": 76,
+      "t_wall": 179.05349517600553,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.011071597997216,
+      "tokens_in": 6694,
+      "tokens_out": 41,
+      "cost_usd": 0.006817,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 77,
+      "t_wall": 179.055035701007,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 79,
+        "end": 84
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015285779954865575,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 78,
+      "t_wall": 218.3341084040003,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 39.278627541993046,
+      "tokens_in": 13426,
+      "tokens_out": 1849,
+      "cost_usd": 0.018973,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 79,
+      "t_wall": 218.33598919700307,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Title: \"HATCH PEPPER CROP ONE\".",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018678659980650991,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 80,
+      "t_wall": 220.6647983570001,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3282873290008865,
+      "tokens_in": 6718,
+      "tokens_out": 58,
+      "cost_usd": 0.006892,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 81,
+      "t_wall": 220.66663003299618,
+      "role": "tool",
+      "note": "",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "Title: \"HATCH PEPPER CROP ONE\" appears on screen"
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018203869985882193,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 82,
+      "t_wall": 223.26585230200726,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.5986999189917697,
+      "tokens_in": 6753,
+      "tokens_out": 42,
+      "cost_usd": 0.006879,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 83,
+      "t_wall": 223.26888638200762,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "max_words": 16,
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.003020592004759237,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 84,
+      "t_wall": 224.84437826400972,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5746589939953992,
+      "tokens_in": 6737,
+      "tokens_out": 57,
+      "cost_usd": 0.006908,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 85,
+      "t_wall": 224.8461943380098,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "Astronaut in blue gloves photographs red pepper; title shows HATCH PEPPER CROP ONE."
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001796411001123488,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 86,
+      "t_wall": 226.45350160599628,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6066999640024733,
+      "tokens_in": 6823,
+      "tokens_out": 52,
+      "cost_usd": 0.006979,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 87,
+      "t_wall": 226.4550825280021,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; crew observes.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015693000023020431,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 88,
+      "t_wall": 228.99651621600788,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.5409136160014896,
+      "tokens_in": 6857,
+      "tokens_out": 49,
+      "cost_usd": 0.007004,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 89,
+      "t_wall": 228.99810912400426,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; crew watches.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015811019984539598,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 90,
+      "t_wall": 230.13218201699783,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.1331870739959413,
+      "tokens_in": 6935,
+      "tokens_out": 49,
+      "cost_usd": 0.007082,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 91,
+      "t_wall": 230.13367865599866,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; crew watches.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 11,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001484735999838449,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 92,
+      "t_wall": 231.542066547001,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4078913749981439,
+      "tokens_in": 7016,
+      "tokens_out": 49,
+      "cost_usd": 0.007163,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 93,
+      "t_wall": 231.54366847900383,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "Astronaut in blue gloves photographs red pepper; crew observes."
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015894990065135062,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 94,
+      "t_wall": 233.46432123500563,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9201156479975907,
+      "tokens_in": 7097,
+      "tokens_out": 44,
+      "cost_usd": 0.007229,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 95,
+      "t_wall": 233.4660195960023,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 84.1,
+        "end": 92.7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 9,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016851810069056228,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 96,
+      "t_wall": 267.86219877599797,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 34.39562862600724,
+      "tokens_in": 14312,
+      "tokens_out": 1850,
+      "cost_usd": 0.019861999999999998,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 97,
+      "t_wall": 267.8638137829985,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; crew watches nearby.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 8,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016018830065149814,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 98,
+      "t_wall": 268.9999153499957,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.1355727759946603,
+      "tokens_in": 7237,
+      "tokens_out": 57,
+      "cost_usd": 0.007408,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 99,
+      "t_wall": 269.0014406380069,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; title shows HATCH PEPPER CROP ONE.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015123859921004623,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 100,
+      "t_wall": 270.4674524440052,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4654879579902627,
+      "tokens_in": 7325,
+      "tokens_out": 27,
+      "cost_usd": 0.007406,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 101,
+      "t_wall": 270.4696327490092,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 6,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0021687429980374873,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 102,
+      "t_wall": 272.44531927700154,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9750793199928012,
+      "tokens_in": 7383,
+      "tokens_out": 45,
+      "cost_usd": 0.007518,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 103,
+      "t_wall": 272.44748889400216,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 84.1,
+        "end": 92.7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 5,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002153455003281124,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 104,
+      "t_wall": 303.6101714510005,
+      "role": "orchestrator",
+      "note": "\n\nThe evidence board confirms gap 7 (84.1-92.7s) has events: an astronaut in blue gloves photographs a red pepper (conf 0.9), and text \"S\" appears. Gap 9 (101.3-109.9s) has no evidence yet but is marked narratable. I'll use the draft for gap 7 and propose it, then inspect gap 9.\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 31.161951201997,
+      "tokens_in": 7459,
+      "tokens_out": 118,
+      "cost_usd": 0.007813,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 105,
+      "t_wall": 303.6130593170092,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 4,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002873492005164735,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 106,
+      "t_wall": 305.8451658450067,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.231422920987825,
+      "tokens_in": 7608,
+      "tokens_out": 50,
+      "cost_usd": 0.007758,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 107,
+      "t_wall": 305.8465208400012,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut in blue gloves photographs red pepper; crew observes nearby.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 3,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013434919965220615,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 108,
+      "t_wall": 309.12269757500326,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\nProposing the existing draft for gap 7: \"Title: \"HATCH PEPPER CROP ONE\".\"\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.275603365007555,
+      "tokens_in": 7705,
+      "tokens_out": 74,
+      "cost_usd": 0.007927,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 109,
+      "t_wall": 309.12413338200713,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Title: \"HATCH PEPPER CROP ONE\".",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 2,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014232299872674048,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 110,
+      "t_wall": 311.21404990399606,
+      "role": "orchestrator",
+      "note": "\n\n\n\nThe draft for gap 7 is \"Title: \"HATCH PEPPER CROP ONE\".\" but the evidence shows only \"S\" text. I'll redraft to match the evidence.\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0893754590069875,
+      "tokens_in": 7811,
+      "tokens_out": 79,
+      "cost_usd": 0.008048,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 111,
+      "t_wall": 311.21635937099927,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "max_words": 16,
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 1,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002295407000929117,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 112,
+      "t_wall": 315.1437096870068,
+      "role": "orchestrator",
+      "note": "\n\nI see the evidence for gap 7 now: an astronaut photographs a red pepper, crew in blue shirts, and text \"S\". I'll propose a concise cue matching this evidence.\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.926753630003077,
+      "tokens_in": 7922,
+      "tokens_out": 90,
+      "cost_usd": 0.008192,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 113,
+      "t_wall": 315.14505488700524,
+      "role": "tool",
+      "note": "",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Astronaut photographs red pepper; crew in blue shirts watches; text S appears.",
+        "gap_id": 7
+      },
+      "result": {
+        "ok": false,
+        "error": "ValidationError",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 0,
+            "inspections": 4,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013352880050661042,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 114,
+      "t_wall": 315.14509038900724,
+      "role": "fallback",
+      "note": "Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 115,
+      "t_wall": 315.1451848959987,
+      "role": "fallback",
+      "note": "Gap 7: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 7
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 116,
+      "t_wall": 315.1451911010081,
+      "role": "fallback",
+      "note": "Gap 9: dropped, no fitting candidate or draft",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 9
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 117,
+      "t_wall": 322.16485694699804,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "विकास कक्ष में हरे पौधे; काली शर्ट में व्यक्ति प्रवेश करता है, नीले दस्ताने पहनता है और पत्तियों की जांच करता है।"
+          },
+          {
+            "id": 1,
+            "hi": "काली शर्ट और सफेद दस्तानों में अंतरिक्ष यात्री हरे पौधों के बीच कक्ष में उपकरण संचालित करता है।"
+          },
+          {
+            "id": 2,
+            "hi": "काली शर्ट में आदमी सफेद पैनल में बांह डालता है जहां हरे पौधे हैं; देखभाल के लिए नीले दस्ताने पहनता है।"
+          },
+          {
+            "id": 3,
+            "hi": "कैमरा दस्ताने वाले हाथ और चेहरे पर ज़ूम करता है जो पौधों की देखभाल कर रहे हैं; हरी पत्तियों को एडजस्ट करने का क्लोज़-अप।"
+          },
+          {
+            "id": 4,
+            "hi": "आदमी कक्ष में पहुंचकर हरे पौधों और उपकरण को एडजस्ट करता है।"
+          },
+          {
+            "id": 5,
+            "hi": "एक सूखी लाल मिर्च जिस पर 'सुपर चिली' लेबल है, काली सतह पर टेप से लगी है।"
+          },
+          {
+            "id": 6,
+            "hi": "नीले दस्ताने पहना व्यक्ति मिर्च और लेबल को काले बोर्ड पर टेप से एडजस्ट करता है।"
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.01937902100326,
+      "tokens_in": 1444,
+      "tokens_out": 441,
+      "cost_usd": 0.002767,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 118,
+      "t_wall": 322.6659039530059,
+      "role": "fallback",
+      "note": "Translated committed cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 119,
+      "t_wall": 328.04137629400066,
+      "role": "fallback",
+      "note": "Forced finalize with committed cues",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/nasa_chile_harvest_0000-0150"
+      },
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 12,
+      "draft_description": 10,
+      "propose_cue": 23,
+      "verify_claim": 5
+    },
+    "corrections": 2,
+    "verifications": {
+      "verified": 2,
+      "contradicted": 2,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 13,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 36,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.28962200000000005,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.010090799999999999,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00129312
+    },
+    "total_latency_s": 328.04201521399955
+  }
+}
