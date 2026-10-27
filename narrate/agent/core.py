@@ -709,7 +709,14 @@ class Agent:
         self.cost_role={'verify_claim':'verify','inspect_video_segment':'perceive','draft_description':'draft','translate_hindi':'translate'}.get(name)
         try:
             schema=next(t['function']['parameters'] for t in TOOLS if t['function']['name']==name)
-            jsonschema.validate(args,schema)
+            args=dict(args or {})
+            # Real-run finding (fix5 ToS/NASA): after ~15 turns Ultra sometimes omits or overfills `note`;
+            # a missing note must not turn every later tool call into a bare "ValidationError".
+            args['note']=' '.join(str(args.get('note') or name.replace('_',' ')).split()[:25])
+            try:
+                jsonschema.validate(args,schema)
+            except jsonschema.ValidationError as exc:
+                raise ValueError('invalid arguments: '+exc.message[:200]) from None
             args=dict(args)
             note=args.pop('note')
             key=(name,json.dumps(args,sort_keys=True,default=str)); self.call_counts[key]+=1
@@ -722,7 +729,8 @@ class Agent:
             self.trace('tool',note=note,tool_name=name,args=compact(args),ok=False,result={'error':'Budget exceeded'},latency_s=time.monotonic()-start)
             raise
         except Exception as exc:
-            result={'ok':False,'error':sanitize(exc)}
+            msg=str(exc)
+            result={'ok':False,'error':msg if isinstance(exc,ValueError) and msg.startswith('invalid arguments: ') else sanitize(exc)}
         args = args if isinstance(args,dict) else {}
         failed=result.get('ok') is False or result.get('verdict')=='contradicted'
         correction=None

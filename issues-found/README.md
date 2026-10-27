@@ -37,3 +37,4 @@ Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsort
 ## Fourth real-run fixes (after fix4)
 
 - [fix4-propose-loop](real-run-fix4-propose-loop.md): 38 `propose_cue` calls / 30 turns on a 30 s clip (two limits, dropped on-screen text, hand-trimming) - fixed offline.
+- [missing-note-validation](real-run-missing-note-validation.md): a missing `note` arg + an opaque "ValidationError" disabled every tool for the last 16–21 calls of two real runs - fixed (fix6).
