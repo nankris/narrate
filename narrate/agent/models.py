@@ -14,7 +14,10 @@ short) -> one inspection per narratable gap/slot covering [max(0,gap.start-2),ga
 -> propose_cue (fit and commit in ONE call). Prefer propose_cue; measure_tts_duration and check_fit are for
 exploration only and NEVER commit anything: a cue exists only after propose_cue/commit_cue succeeds.
 Describe only events inside or immediately before the gap; never narrate events from other parts of the video.
-Never re-inspect overlapping ranges already inspected. Committed cues with low-confidence events, on-screen text,
+Never re-inspect a range already inspected: its events are kept on the EVIDENCE BOARD message (refreshed every
+turn); a repeat is refused. Batching: inspect up to 4 gaps per turn (parallel tool calls), then draft ALL with ONE
+draft_description(gap_ids=[...]) call, then propose_cue for each in one turn. Never write cue text yourself: propose
+the text draft_description produced, shortening only by deleting words (text you author needs extra verify_claim). Committed cues with low-confidence events, on-screen text,
 numbers, quotes or named entities MUST be checked with verify_claim(gap_id, claim) before finalize; finalize
 refuses until they are. If a claim is contradicted the cue is uncommitted: redraft it. Duplicate wording across
 gaps is rejected. Then translate_hindi once and finalize. Batch independent tool calls; they execute in order.
@@ -46,6 +49,8 @@ def summarize_result(name, args, content):
         parts.append('problems=' + _short('; '.join(map(str, r['problems'])), 80))
     elif r.get('error'):
         parts.append('error=' + _short(r['error'], 80))
+    if name == 'inspect_video_segment' and r.get('evidence_gaps'):
+        parts.append('events stored on evidence board for gap ' + ','.join(map(str, r['evidence_gaps'])))
     if name == 'detect_speech_gaps' and isinstance(r.get('gaps'), list):
         # The gap table is the plan's backbone and is never re-derivable from state; keep it compact.
         parts.append('gaps=' + ','.join(f"{g['id']}:{g['start']:.1f}-{g['end']:.1f}{'' if g.get('narratable', True) else 'x'}" for g in r['gaps']))
@@ -136,24 +141,31 @@ class MockOrchestrator:
         if not self.queue and not self.planned:
             self.planned = True
             used = set()
-            for i,g in enumerate([g for g in a.gaps if g.get('narratable',True)]):
+            slots = [g for g in a.gaps if g.get('narratable',True)]
+            self.queue += [('inspect_video_segment',{'start':max(0,g['start']-2),'end':g['end']}) for g in slots]
+            texts = {}
+            for i,g in enumerate(slots):
                 gid = g['id']
                 events = a.mock_events(g['start'],g['end'])
-                text = a.mock_line(events,g['word_budget_en'])
-                self.queue += [('inspect_video_segment',{'start':max(0,g['start']-2),'end':g['end']})]
+                text = texts[gid] = a.mock_line(events,g['word_budget_en'])
                 if i == 0:
                     # Scripted mistakes: over-budget fit failure -> shorter redraft; contradicted claim -> redraft.
-                    self.queue += [('draft_description',{'gap_id':gid,'context_events':events,'max_words':g['word_budget_en']}),('check_fit',{'gap_id':gid,'text':'word '*(g['word_budget_en']+5),'lang':'en'})]
-                self.queue += [('draft_description',{'gap_id':gid,'context_events':events,'max_words':min(7,g['word_budget_en'])})]
-                if i == 0:
+                    self.queue += [('draft_description',{'gap_id':gid,'context_events':events,'max_words':g['word_budget_en']}),('check_fit',{'gap_id':gid,'text':'word '*(g['word_budget_en']+5),'lang':'en'}),
+                        ('draft_description',{'gap_id':gid,'context_events':events,'max_words':min(7,g['word_budget_en'])})]
                     words = text.split()
                     redraft = ' '.join(words[:max(1,len(words)//2+1)]) if len(words) > 1 else text + ' onscreen'
                     self.queue += [('propose_cue',{'gap_id':gid,'text':text}),('verify_claim',{'gap_id':gid,'claim':'A blue dot appears and the text fades out'}),
                         ('draft_description',{'gap_id':gid,'context_events':events,'max_words':min(6,g['word_budget_en'])}),('propose_cue',{'gap_id':gid,'text':redraft})]
-                elif text in used:
-                    self.queue += [('drop_gap',{'gap_id':gid,'reason':'Same on-screen title is already narrated in an earlier gap'})]
+                    used.add(text)
+            rest = slots[1:]
+            if rest:
+                self.queue += [('draft_description',{'gap_ids':[g['id'] for g in rest]})]
+            for g in rest:
+                text = texts[g['id']]
+                if text in used:
+                    self.queue += [('drop_gap',{'gap_id':g['id'],'reason':'Same on-screen title is already narrated in an earlier gap'})]
                 else:
-                    self.queue += [('propose_cue',{'gap_id':gid,'text':text})]
+                    self.queue += [('propose_cue',{'gap_id':g['id'],'text':text})]
                 used.add(text)
             self.queue += [('translate_hindi',{}),('render_preview',{'start':0,'end':min(8,a.duration),'lang':'en'}),('finalize',{})]
         if not self.queue:
@@ -176,7 +188,7 @@ class MockOrchestrator:
         first = self.single(messages, a)
         if first['tool_calls'][0]['function']['name'] == 'detect_speech_gaps':
             return first
-        for _ in range(2):
+        for _ in range(3):
             if not self.queue or self.queue[0][0] == 'finalize' or first['tool_calls'][-1]['function']['name'] == 'finalize':
                 break
             first['tool_calls'].extend(self.single(messages,a)['tool_calls'])

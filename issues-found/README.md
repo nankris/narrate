@@ -29,3 +29,7 @@ Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsort
 
 - [long-gaps-one-cue](real-run-long-gaps-one-cue.md): long gaps got one cue (29% coverage); now split into 6-12 s slots, cues capped at 8 s - fixed offline.
 - [orchestrator-input-growth](real-run-orchestrator-input-growth.md): ultra input grew ~200 tokens/turn; old turns now summarised, turn budget scales with slots - mitigated offline.
+
+## Fourth real-run fixes
+
+- [reinspection-loop](real-run-reinspection-loop.md): ultra re-inspected all 10 slots twice (31 inspections, 36 turns, 0 drafts, 2 cues / 13 % coverage), wrote ungrounded cue text, fallback dropped 7 slots - evidence board, repeat refusals, grounded-text check and batched fallback drafting added offline.

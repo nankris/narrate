@@ -230,6 +230,7 @@ def test_finalize_requires_verification_for_text_and_numbers(agent,monkeypatch):
 
 def test_low_confidence_triggers_and_plain_text_does_not(agent):
     agent.events=[{'t_start':5,'t_end':7,'what':'x','importance':3,'confidence':.5}]
+    agent.draft_history[0]=['the figure walks left']
     agent.propose_cue(0,'the figure walks left')
     assert 'low-confidence' in agent.needs_verification()[0][0]
     agent.events[0]['confidence']=.9
@@ -284,6 +285,7 @@ def test_duplicate_cue_rejected(tmp_path):
 def test_coverage_ignores_speech_region_events(tmp_path,monkeypatch):
     a=make_agent(tmp_path); a.langs=['en']
     a.events=[{'importance':5,'t_start':1,'t_end':3,'what':'dialogue scene'},{'importance':5,'t_start':5.5,'t_end':7,'what':'in gap'}]
+    a.draft_history[0]=['Title appears']
     a.propose_cue(0,'Title appears')
     monkeypatch.setattr(a,'render',lambda *x:[])
     assert a.finalize()['ok']

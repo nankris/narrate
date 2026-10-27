@@ -50,7 +50,8 @@ def test_tools_and_caps(agent):
     g=agent.gaps[0]
     args={'start':g['start'],'end':g['end']}
     result=agent.inspect_video_segment(**args)
-    assert agent.inspect_video_segment(**args)['cached']
+    again=agent.inspect_video_segment(**args)
+    assert again['ok'] is False and again['error']=='already inspected' and 'events' not in again
     assert agent.counts['inspections']==1
     agent.cfg['agent']['max_inspections']=1
     assert not agent.inspect_video_segment(0,1)['ok']
@@ -199,13 +200,14 @@ def test_required_notes_and_unicode(agent):
 
 def test_overlap_cache_and_normalized_verdict(agent,monkeypatch):
     agent.inspect_video_segment(0,8)
-    assert agent.inspect_video_segment(1,9,'new focus')['cached']
+    assert agent.inspect_video_segment(1,9,'new focus')['error']=='already inspected'
     assert agent.counts['inspections']==1
     monkeypatch.setattr(agent,'submodel',lambda *a,**k:{' .Verdict':'SUPPORTED',' .Evidence':'Visible title'})
     assert agent.verify_claim(0,2,'Title')['verdict']=='supported'
 
 
 def test_hindi_duration_retry_and_warning(agent,monkeypatch):
+    agent.draft_history[0]=['Title']
     agent.commit_cue(0,'Title')
     monkeypatch.setattr(agent,'measure_tts_duration',lambda text,lang:{'seconds':2 if text.startswith('छोटा') else 8})
     calls=[]

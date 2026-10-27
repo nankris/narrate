@@ -126,6 +126,8 @@ class Agent:
         self.translation_done=False
         self.candidates,self.drafts,self.verified,self.rejected = {},{},{},{}
         self.contradicted=0
+        self.draft_history,self.authored,self.call_counts = {},{},Counter()
+        self.repeat_refusals=0
         self.client.retry_attempts = cfg['agent'].get('retry_attempts',3)
         self.client.on_retry = lambda note: self.trace('system',note=note,ok=False)
         self.steps = []; self.turn=0; self.rejections=0; self.done=False
@@ -242,7 +244,12 @@ class Agent:
         key=(start,end,focus)
         for (s,e,_),cached in self.cache.items():
             if max(0,min(end,e)-max(start,s))/(end-start)>=.7:
-                return {**cached,'cached':True,'reminder':'Already inspected >=70% of this range; use cached evidence.'}
+                self.repeat_refusals+=1
+                ids=self.range_gaps(start,end)
+                todo=[i for i in ids if i not in self.cues and i not in self.dropped]
+                return {'ok':False,'error':'already inspected','evidence_gaps':ids,
+                    'see':'evidence board gap '+','.join(map(str,ids)) if ids else 'evidence board',
+                    'next':f'draft_description(gap_ids={todo})' if todo else 'gaps in this range are already committed; move on'}
         if self.counts['inspections'] >= self.cfg['agent']['max_inspections']:
             return {'ok':False,'error':'Inspection cap reached'}
         self.counts['inspections']+=1
@@ -281,13 +288,53 @@ class Agent:
                 valid.append(event)
             except (KeyError,ValueError,TypeError):
                 continue
-        result={'events':valid,'modality':modality,'time_base':base}
+        result={'events':valid,'modality':modality,'time_base':base,'evidence_gaps':self.range_gaps(start,end)}
         self.cache[key]=result
         return result
+
+    def range_gaps(self,start,end):
+        return [g['id'] for g in self.gaps if g.get('narratable',True) and g['start']<end and g['end']>start]
+
+    def evidence_line(self,g):
+        """Compact stored evidence for one gap (<=3 events, <=160 chars); survives history compaction."""
+        def num(v,d=1.):
+            try: return float(v)
+            except (TypeError,ValueError): return d
+        evs=[e for e in self.gap_events(g) if 'context' not in e]
+        evs=sorted(sorted(evs,key=lambda e:-num(e.get('importance'))*num(e.get('confidence')))[:3],key=lambda e:num(e['t_start'],0))
+        return '; '.join(f"{num(e['t_start']):.1f}-{num(e['t_end']):.1f}: {str(e.get('what','')).strip()[:50]} [conf {num(e.get('confidence')):.1f}]" for e in evs)[:160]
+
+    def next_action(self):
+        todo=[g for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped]
+        blind=[g['id'] for g in todo if not self.evidence_line(g)]
+        undrafted=[g['id'] for g in todo if g['id'] not in blind and g['id'] not in self.drafts]
+        if undrafted: return f'STOP inspecting; call draft_description(gap_ids={undrafted}) now (gaps already have evidence)'
+        if todo and len(blind)<len(todo): return 'propose_cue for gaps '+str([g['id'] for g in todo if g['id'] not in blind])+' using their drafts (delete words only to shorten)'
+        if blind: return f'inspect_video_segment gaps {blind} (no evidence yet)'
+        return 'translate_hindi once, then finalize'
+
+    def board_text(self):
+        rows=[]
+        for g in self.gaps:
+            if not g.get('narratable',True): continue
+            gid=g['id']; row=f"gap {gid} {g['start']:.1f}-{g['end']:.1f}s <={g['word_budget_en']}w: "
+            if gid in self.cues: row+='COMMITTED "'+self.cues[gid]['en']+'"'
+            elif gid in self.dropped: row+='DROPPED ('+self.dropped[gid][:40]+')'
+            else:
+                row+='evidence '+(self.evidence_line(g) or 'NONE (not inspected)')
+                if gid in self.drafts: row+=' | draft "'+self.drafts[gid]+'"'
+            rows.append(row)
+        return ('[EVIDENCE BOARD - authoritative state; never re-inspect a gap that has evidence. Use draft_description(gap_ids=[...]) and propose its text]\n'
+            +'\n'.join(rows)+'\nnext: '+self.next_action()) if rows else ''
+
+    def grounded(self,gap_id,text):
+        t=tokens(text)
+        return any(similarity(text,d)>=.6 or (t and t<=tokens(d)) for d in self.draft_history.get(gap_id,[]))
 
     def verification_reasons(self,gap_id):
         """Why a committed English cue must be verified before finalize (empty = not required)."""
         c=self.cues[gap_id]; reasons=risky_text(c['en'])
+        if self.authored.get(gap_id)==c['en']: reasons.append('orchestrator-authored text')
         floor=self.cfg['agent'].get('verify_below',.75)
         low=[e for e in self.gap_events(c) if 'context' not in e and float(e.get('confidence',1))<floor]
         if low: reasons.append(f'low-confidence events (<{floor})')
@@ -343,7 +390,7 @@ class Agent:
             result=self.submodel('fit',{'instruction':'Draft one English cue per gap, obey word_budget_en. Return {cues:[{id,text}]}. Use only the events listed under each gap; events tagged "earlier, context only" must not be described.', 'gaps':[{**g,'events':self.gap_events(g,context_events)} for g in usable]},mock_result={'cues':[{'id':g['id'],'text':self.mock_line(self.mock_events(g['start'],g['end']),g['word_budget_en'])} for g in usable]})
             for c in result.get('cues',[]):
                 if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in {g['id'] for g in usable}:
-                    self.drafts[c['id']]=c['text']
+                    self.drafts[c['id']]=c['text']; self.draft_history.setdefault(c['id'],[]).append(c['text'])
             skipped=[g['id'] for g in gaps if not g.get('narratable',True)]
             return {**result,'skipped_too_short':skipped} if skipped else result
         g=self.gap(gap_id)
@@ -357,7 +404,7 @@ class Agent:
             self.inject_overbudget=False
         result=self.submodel('fit',{'instruction':'Write ONE English line of audio description <= max_words. Return {text: string}. Use supplied facts only; events tagged "earlier, context only" must not be described.','gap':g,'events':events,'max_words':limit,'avoid_repeating':avoid_repeating},mock_result={'text':mock_text})
         if isinstance(result.get('text'),str):
-            self.drafts[gap_id]=result['text']
+            self.drafts[gap_id]=result['text']; self.draft_history.setdefault(gap_id,[]).append(result['text'])
         return result
 
     def measure_tts_duration(self,text,lang):
@@ -419,8 +466,12 @@ class Agent:
         self.translation_done=False
         self.cues[gap_id]={**g,'en':text}
         self.dropped.pop(gap_id,None)
+        own=not self.grounded(gap_id,text)
+        if own: self.authored[gap_id]=text
+        else: self.authored.pop(gap_id,None)
         reasons=self.verification_reasons(gap_id)
         extra={'verify_required':reasons,'next':'call verify_claim(gap_id, claim) before finalize'} if reasons and gap_id not in self.verified else {}
+        if own: extra['orchestrator_authored']='text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Next time propose the draft text, shortening only by deleting words.'
         return {'ok':True,'cue':self.cues[gap_id],**extra}
 
     propose_cue = commit_cue
@@ -550,7 +601,12 @@ class Agent:
             jsonschema.validate(args,schema)
             args=dict(args)
             note=args.pop('note')
-            result=getattr(self,name)(**args)
+            key=(name,json.dumps(args,sort_keys=True,default=str)); self.call_counts[key]+=1
+            if name not in ('finalize','detect_speech_gaps') and self.call_counts[key]>=3:
+                self.repeat_refusals+=1
+                result={'ok':False,'error':'identical call repeated 3+ times; refused','next':self.next_action()}
+            else:
+                result=getattr(self,name)(**args)
         except BudgetExceeded:
             self.trace('tool',note=note,tool_name=name,args=compact(args),ok=False,result={'error':'Budget exceeded'},latency_s=time.monotonic()-start)
             raise
@@ -563,7 +619,7 @@ class Agent:
             for failure in self.pending_failures:
                 if failure['gap_id']==args.get('gap_id') or (failure['gap_id'] is None and name=='translate_hindi'):
                     correction=failure['step']; self.pending_failures.remove(failure); break
-        result={**result,'state':{'committed':list(self.cues),'remaining':[g['id'] for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped],'skipped_too_short':[g['id'] for g in self.gaps if not g.get('narratable',True)],'needs_verification':list(self.needs_verification()),'budget':{'turns':max(0,self.cfg['agent']['max_steps']-self.turn-1),'inspections':self.cfg['agent']['max_inspections']-self.counts['inspections'],'verifications':self.cfg['agent']['max_verifications']-self.counts['verifications']}}}
+        result={**result,'state':{'committed':list(self.cues),'remaining':[g['id'] for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped],'skipped_too_short':[g['id'] for g in self.gaps if not g.get('narratable',True)],'needs_verification':list(self.needs_verification()),'budget':{'turns':max(0,self.cfg['agent']['max_steps']-self.turn-1),'inspections':self.cfg['agent']['max_inspections']-self.counts['inspections'],'verifications':self.cfg['agent']['max_verifications']-self.counts['verifications']},**({'next_action':self.next_action()} if self.repeat_refusals>=2 else {})}}
         sid=self.trace('tool',note=note,tool_name=name,args=compact(args),result=compact(result),ok=not failed,
             latency_s=time.monotonic()-start,correction=correction is not None,corrects_step=correction)
         if failed:
@@ -579,6 +635,13 @@ class Agent:
             self.trace('fallback',note=text,tool_name=tool,ok=ok,**kw)
         self.report['fallback_finalize']=True; self.report['fallback_reason']=reason
         note(f'Fallback finisher started: {reason}')
+        need=[g['id'] for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped
+              and g['id'] not in self.candidates and g['id'] not in self.drafts and self.evidence_line(g)]
+        if need and 'budget' not in reason and time.monotonic()<self.client.deadline:
+            try:
+                self.draft_description(gap_ids=need); note(f'Drafted gaps {need} in one batched call from stored evidence','draft_description',args={'gap_ids':need})
+            except Exception as exc:
+                note(f'Batched drafting unavailable ({sanitize(exc)})','draft_description',False)
         for g in self.gaps:
             gid=g['id']
             if gid in self.cues or gid in self.dropped or not g.get('narratable',True):
@@ -631,6 +694,7 @@ class Agent:
             'corrections':sum(s['correction'] for s in self.steps),
             'verifications':{'verified':sum(v=='supported' for v in self.verified.values()),'contradicted':self.contradicted,
                 'unverified':sum(self.verified.get(g)!='supported' for g in self.verified_required())},
+            'repeat_refusals':self.repeat_refusals,'orchestrator_authored_cues':sum(self.authored.get(g)==c['en'] for g,c in self.cues.items()),
             'orchestrator_turns':sum(s['role']=='orchestrator' for s in self.steps),'cost_by_model':{},'total_latency_s':time.monotonic()-self.started}
         for s in self.steps:
             if s['model']:
@@ -679,11 +743,14 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
         while turn+1<steps:
             turn+=1
             a.turn=turn
+            messages[:]=[m for m in messages if not str(m.get('content') or '').startswith('[EVIDENCE BOARD') or m.get('role')!='user']
             messages[:]=compact_history(messages,cfg['agent'].get('history_turns',6))
             if steps-turn==3:
                 messages.append({'role':'system','content':'3 turns left: commit what you have, translate, finalize'})
             if time.monotonic()-a.started>cfg['agent']['timeout_s']:
                 a.report['issues'].append('Wall-clock timeout reached'); break
+            board=a.board_text()
+            if board: messages.append({'role':'user','content':board})
             before=len(a.client.usage); start=time.monotonic()
             message=planner.next(messages,a)
             usage=dict(a.client.usage[-1]) if len(a.client.usage)>before else {}
