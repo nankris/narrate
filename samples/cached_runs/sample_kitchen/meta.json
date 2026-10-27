@@ -1,0 +1,11 @@
+{
+  "title": "Sample kitchen",
+  "input_path": "samples/sample_kitchen.mp4",
+  "source": "Self-generated with scripts/make_sample.py",
+  "license": "Apache-2.0",
+  "attribution": "Narrate contributors",
+  "notes": "Synthetic shapes, captions, espeak; no filmed kitchen",
+  "provider": "mock",
+  "dev_only": false,
+  "date": "2026-10-27"
+}

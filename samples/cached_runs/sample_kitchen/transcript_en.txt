@@ -1,0 +1,4 @@
+[00:00:04.668] A person enters a kitchen
+[00:00:11.868] STEP 1 - chop onions
+[00:00:19.932] STEP 1 - chop onions
+[00:00:27.388] Stir and serve

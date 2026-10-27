@@ -103,3 +103,7 @@ agent:
   max_atempo: 1.25
   min_gap: 1.2
   hangover_s: 0.3
+ui:
+  session_cap_usd: 0.25
+  daily_cap_usd: 3.0
+  per_run_cap_usd: 0.25

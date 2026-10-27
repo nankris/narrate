@@ -1,6 +1,6 @@
 # Narrate
 
-Audio description for blind and low-vision viewers: upload a short video through the CLI and receive English and Hindi narration, WebVTT captions, transcripts, and narrated MP4s with original sound ducked during descriptions. This core pipeline supports the accessibility goal of WCAG 1.2.5 (prerecorded audio description); it is not a compliance certification. No web UI is included.
+Audio description for blind and low-vision viewers: upload a short video through the CLI and receive English and Hindi narration, WebVTT captions, transcripts, and narrated MP4s with original sound ducked during descriptions. This core pipeline supports the accessibility goal of WCAG 1.2.5 (prerecorded audio description); it is not a compliance certification. An offline-first Gradio Web UI presents cached samples and streaming agent traces.
 
 Built during the submission period for the Nebius x NVIDIA Global AI Hackathon, Best Apps & Agents track, 27 October 2026. Copyright 2026 Nandigam Hari Krishna. Apache-2.0.
 
@@ -12,6 +12,8 @@ Requires Python 3.13, ffmpeg/ffprobe and espeak-ng with `en` and `hi` voices. Py
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 .venv/bin/pip install silero-vad --no-deps
+.venv/bin/python -m app.app  # Web UI on localhost:7860
+# Or run the CLI:
 .venv/bin/python -m narrate run samples/sample_kitchen.mp4 --out runs/demo --mock
 .venv/bin/python -m pytest -q
 ```
@@ -203,7 +205,7 @@ deadline. Mock calls cost zero and need no provider SDK connection.
 
 The streaming entry point is
 `narrate.agent.run_agent(path, out_dir, provider, langs, max_steps, budget_usd, on_step=callback)`.
-The synchronous callback receives each trace step. No UI is built yet.
+The synchronous callback receives each trace step; the Web UI streams these steps.
 Outputs include bilingual MP4/VTT/transcripts, `report.json`, `trace.json`,
 `trace.md` and a requested preview. Trace metadata includes provider, role
 models, endpoint host, development-only status and budgets. Steps include
@@ -300,3 +302,75 @@ reservations but cannot provide measured list-price costs.
 ending within six seconds before one. Coverage remains a temporal proxy.
 Static-text motion hallucinations remain open: neither caching nor frame checks
 guarantee perceptual correctness. No real provider calls were made for these fixes.
+
+## How it works
+
+The [agent workflow](#agent-vs-fixed-pipeline) chooses perception, drafting,
+verification and deterministic timing tools. Its public action notes and correction
+links are shown in the Web UI; they are not private chain-of-thought.
+
+## Web UI
+
+```bash
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m app.app
+# Optional local binding overrides:
+.venv/bin/python -m app.app --host 127.0.0.1 --port 7860
+```
+
+Open http://127.0.0.1:7860. The default **Samples** tab plays checked-in mock
+caches without inference or provider cost. Select English/Hindi, use **Eyes closed**
+to black out both pictures while retaining playback controls and audio, and inspect
+the agent trace, captions, results and downloads. Mock descriptions are scripted;
+their zero costs are not estimates of real model quality or pricing. NVIDIA
+ development caches are separately marked; only Nebius runs are Token Factory runs.
+
+The **Run** tab accepts MP4/MOV/WebM, at most 120 seconds and 50 MiB. It streams
+agent steps from one worker through a queue. The global run queue permits one
+run at a time; each browser session has a single pending run action. Ultra and
+Super orchestration are selectable (Super is not configured for nvidia-dev).
+Upload decoding and narration remain local in mock mode.
+
+Keys never come from browser inputs: provider credentials are read only from
+server runtime environment variables. `mock` is always available; `nebius` appears
+only with `NEBIUS_API_KEY`; `nvidia-dev` requires both `NARRATE_ENABLE_DEV=1` and
+`NVIDIA_DEV_API_KEY`. `NARRATE_UI_MOCK_ONLY=1` forces the offline provider selector.
+The app binds to loopback and does not share by default. `--share` explicitly opts
+into a public Gradio tunnel; it is unnecessary for the local demo.
+
+Spending defaults are $0.25 per browser session, $3.00 per IST calendar day and
+$0.25 per run. Configure `ui.session_cap_usd`, `ui.daily_cap_usd`, and
+`ui.per_run_cap_usd` in `config.yaml`, or override with
+`NARRATE_UI_SESSION_CAP`, `NARRATE_UI_DAILY_CAP`, `NARRATE_UI_RUN_CAP`.
+The per-session balance uses `gr.State`; a new session starts a new balance.
+The server-wide daily ledger persists in `runs/ui_spend.json` and uses file locking.
+Before running, the UI reserves the minimum of the three remaining caps and
+passes it to the agent's SpendGuard. It refuses a run below $0.02/minute of video.
+It settles against reserved/reported usage, conservatively retains unknown costs
+on errors, and keeps a crash reservation. Settlement uses the reservation's IST
+date even across midnight. Mock costs settle to zero. These are application
+usage limits, not a guarantee about provider billing or underestimated token usage.
+
+Regenerate the compact caches (640px, CRF 30; currently four samples, under 12 MiB):
+
+```bash
+.venv/bin/python scripts/build_cached_runs.py --provider mock
+# Optional subset: --samples sample_kitchen failure_continuous_speech
+```
+
+The builder also accepts explicit `--provider nebius|nvidia-dev`; those choices
+make real calls. They were not exercised for this UI. Each cache includes
+`meta.json` with source, license, date, provider and original MP4 path. See
+[sample licenses and soundtrack caveat](samples/SOURCES.md).
+
+Screenshots are in [`blog-assets/`](blog-assets/). Regenerate numbered, dated
+Samples and trace screenshots using system Chrome with external requests blocked:
+
+```bash
+.venv/bin/pip install playwright
+.venv/bin/python scripts/screenshot_ui.py
+.venv/bin/python -m pytest tests/test_ui.py -q
+```
+
+The screenshot script also checks the eyes-closed control, a 1280×720 viewport,
+an offline uploaded run and the locally served README/source links.

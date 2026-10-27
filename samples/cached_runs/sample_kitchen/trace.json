@@ -1,0 +1,1657 @@
+{
+  "metadata": {
+    "provider": "mock",
+    "mock": true,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": null,
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "hangover_s": 0.3
+    },
+    "mock_notice": "Scripted synthetic behavior; not visual understanding"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 0.0002657589939190075,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.06670117424801e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 0.32243490999098867,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 4.67,
+            "end": 8.71,
+            "word_budget_en": 8,
+            "word_budget_hi": 9
+          },
+          {
+            "id": 1,
+            "start": 11.87,
+            "end": 16.61,
+            "word_budget_en": 9,
+            "word_budget_hi": 11
+          },
+          {
+            "id": 2,
+            "start": 19.93,
+            "end": 24.71,
+            "word_budget_en": 9,
+            "word_budget_hi": 11
+          },
+          {
+            "id": 3,
+            "start": 27.39,
+            "end": 29.92,
+            "word_budget_en": 4,
+            "word_budget_hi": 5
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.42,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.3221546830027364,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 0.3226484530023299,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0.000138980001793243,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 0.3253484399901936,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.674000178463757e-05,
+      "tokens_in": 67,
+      "tokens_out": 153,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 0.32544455300376285,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 8.71
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.002708026993786916,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 0.3290520930022467,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "word word word word word word word word word word word word word "
+      },
+      "ok": true,
+      "latency_s": 4.962400998920202e-05,
+      "tokens_in": 252,
+      "tokens_out": 25,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 0.32909686099446844,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 0,
+        "context_events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 8
+      },
+      "result": {
+        "text": "word word word word word word word word word word word word word ",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0035401409986661747,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 0.4174494129983941,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 0,
+        "text": "word word word word word word word word word word word word word ",
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 8,
+        "seconds": 4.49,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08831843599909917,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 0.4175403099943651,
+      "role": "orchestrator",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.3034996856004e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 0.4198649390018545,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "A person enters a kitchen"
+      },
+      "ok": true,
+      "latency_s": 3.214299795217812e-05,
+      "tokens_in": 252,
+      "tokens_out": 12,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 0.41990096899098717,
+      "role": "tool",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 0,
+        "context_events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "A person enters a kitchen",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0023447850107913837,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 8
+    },
+    {
+      "step": 12,
+      "t_wall": 0.42109933200117666,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
+      },
+      "ok": true,
+      "latency_s": 1.3554003089666367e-05,
+      "tokens_in": 83,
+      "tokens_out": 39,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 0.4211410540010547,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "verify_claim",
+      "args": {
+        "start": 4.67,
+        "end": 8.71,
+        "claim": "A blue dot appears and the text fades out"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
+        "modality": "frames",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012120390019845217,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 14,
+      "t_wall": 0.5013628360029543,
+      "role": "tool",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 0,
+        "text": "A person enters a kitchen",
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 8,
+        "seconds": 1.84,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.08019445999525487,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 13
+    },
+    {
+      "step": 15,
+      "t_wall": 0.5014311440027086,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.554299812298268e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 0.5028527959948406,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "A person enters a kitchen"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 4.67,
+          "end": 8.71,
+          "duration": 4.04,
+          "word_budget_en": 8,
+          "word_budget_hi": 9,
+          "en": "A person enters a kitchen"
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0014119900006335229,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 0.5041944519907702,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 5.139299901202321e-05,
+      "tokens_in": 68,
+      "tokens_out": 319,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 0.5042558639979688,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 5.87,
+        "end": 16.61
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0013702909927815199,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 0.5071834679984022,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "STEP 1 - chop onions"
+      },
+      "ok": true,
+      "latency_s": 5.067099118605256e-05,
+      "tokens_in": 270,
+      "tokens_out": 10,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 0.5072284219932044,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 1,
+        "context_events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "STEP 1 - chop onions",
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.002911818999564275,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 0.5072702949983068,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3122993297874928e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 0.5844226289918879,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 1,
+        "text": "STEP 1 - chop onions",
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 9,
+        "seconds": 1.94,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0771293669968145,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 0.5858043689950136,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "STEP 1 - chop onions"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 11.87,
+          "end": 16.61,
+          "duration": 4.74,
+          "word_budget_en": 9,
+          "word_budget_hi": 11,
+          "en": "STEP 1 - chop onions"
+        },
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001349317011772655,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 24,
+      "t_wall": 0.5870459430007031,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.798000398091972e-05,
+      "tokens_in": 73,
+      "tokens_out": 333,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 0.5870859519927762,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 13.93,
+        "end": 24.71
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0012505749909905717,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 0.5871465039963368,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.967100590467453e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 0.589098083000863,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "STEP 1 - chop onions"
+      },
+      "ok": true,
+      "latency_s": 3.1072995625436306e-05,
+      "tokens_in": 433,
+      "tokens_out": 10,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 0.5891402199922595,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 2,
+        "context_events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 7
+      },
+      "result": {
+        "text": "STEP 1 - chop onions",
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001977494001039304,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 29,
+      "t_wall": 0.5904709699971136,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 2,
+        "text": "STEP 1 - chop onions",
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 9,
+        "seconds": 1.94,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0013110709987813607,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 30,
+      "t_wall": 0.5916082059993641,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "STEP 1 - chop onions"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 19.93,
+          "end": 24.71,
+          "duration": 4.78,
+          "word_budget_en": 9,
+          "word_budget_hi": 11,
+          "en": "STEP 1 - chop onions"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 9,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0011149580095661804,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 31,
+      "t_wall": 0.5916558469907613,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.565199974924326e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 0.5929266899911454,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.2218999220058322e-05,
+      "tokens_in": 72,
+      "tokens_out": 167,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 0.592960244990536,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 21.39,
+        "end": 29.92
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0012911179946968332,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 34,
+      "t_wall": 0.5949680530029582,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Stir and serve"
+      },
+      "ok": true,
+      "latency_s": 2.2904991055838764e-05,
+      "tokens_in": 266,
+      "tokens_out": 8,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 0.5949978499993449,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 3,
+        "context_events": [
+          {
+            "t_start": 20,
+            "t_end": 30,
+            "who": "A yellow shape",
+            "action": "The teal scene displays the stir and serve title",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
+            "what": "The teal scene displays the stir and serve title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "max_words": 4
+      },
+      "result": {
+        "text": "Stir and serve",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0020023200049763545,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 0.6699031610041857,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 3,
+        "text": "Stir and serve",
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 4,
+        "seconds": 1.32,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [
+            3
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07488422399910633,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 37,
+      "t_wall": 0.6699554450024152,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.797500928863883e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 0.6713103319925722,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Stir and serve"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 27.39,
+          "end": 29.92,
+          "duration": 2.53,
+          "word_budget_en": 4,
+          "word_budget_hi": 5,
+          "en": "Stir and serve"
+        },
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0013463009963743389,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 0.6726504899997963,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।"
+          },
+          {
+            "id": 1,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"
+          },
+          {
+            "id": 2,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"
+          },
+          {
+            "id": 3,
+            "hi": "शीर्षक।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 5.64239890081808e-05,
+      "tokens_in": 279,
+      "tokens_out": 244,
+      "cost_usd": 0,
+      "model": "MOCK/edit",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 0.9079710779915331,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 9,
+            "seconds": 3.03,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 1,
+            "text": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 11,
+            "seconds": 3.04,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 2,
+            "text": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 11,
+            "seconds": 3.04,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 3,
+            "text": "शीर्षक।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 3,
+            "seconds": 0.96,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.23663103199214675,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 41,
+      "t_wall": 2.1004560869914712,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "render_preview",
+      "args": {
+        "start": 0,
+        "end": 8,
+        "lang": "en"
+      },
+      "result": {
+        "path": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/sample_kitchen/preview_en.mp4",
+        "duration": 8.0,
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.1924343900027452,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 2.1005133479920914,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0767009118571877e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 43,
+      "t_wall": 4.002603956992971,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/sample_kitchen",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.9020767210022314,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 5,
+      "check_fit": 5,
+      "verify_claim": 1,
+      "commit_cue": 4,
+      "translate_hindi": 1,
+      "render_preview": 1,
+      "finalize": 1
+    },
+    "corrections": 2,
+    "verifications": {
+      "contradicted": 1
+    },
+    "orchestrator_turns": 9,
+    "cost_by_model": {
+      "MOCK/orchestrate": 0,
+      "MOCK/perceive": 0,
+      "MOCK/fit": 0,
+      "MOCK/edit": 0
+    },
+    "total_latency_s": 4.002769152997644
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "mock": true,
+  "provider": "mock",
+  "dev_only": false,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "en": "A person enters a kitchen",
+      "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "STEP 1 - chop onions",
+      "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "STEP 1 - chop onions",
+      "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "en": "Stir and serve",
+      "hi": "शीर्षक।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 6.511673,
+        "duration": 4.039999999999998,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "en": "A person enters a kitchen",
+        "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 13.811719,
+        "duration": 4.7440000000000015,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "STEP 1 - chop onions",
+        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 21.875719,
+        "duration": 4.776000000000003,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "STEP 1 - chop onions",
+        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 28.710221999999998,
+        "duration": 2.5320000000000036,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Stir and serve",
+        "hi": "शीर्षक।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 7.699973,
+        "duration": 4.039999999999998,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "en": "A person enters a kitchen",
+        "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 14.909587,
+        "duration": 4.7440000000000015,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "STEP 1 - chop onions",
+        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 22.973587,
+        "duration": 4.776000000000003,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "STEP 1 - chop onions",
+        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 28.352625999999997,
+        "duration": 2.5320000000000036,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Stir and serve",
+        "hi": "शीर्षक।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "word_budget_en": 8,
+      "word_budget_hi": 9
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 43.83130126771066,
+    "hi": 62.638410390256
+  },
+  "high_importance_covered_percent": 100.0,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [],
+  "usage": [],
+  "cost_by_role": {
+    "orchestrator": 0,
+    "perceive": 0,
+    "verify": 0,
+    "draft": 0,
+    "translate": 0
+  },
+  "billed_to": "mock (offline)",
+  "cost_per_minute_usd": 0.0,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 4,
+      "draft_description": 5,
+      "check_fit": 5,
+      "verify_claim": 1,
+      "commit_cue": 4,
+      "translate_hindi": 1,
+      "render_preview": 1,
+      "finalize": 1
+    },
+    "corrections": 2,
+    "verifications": {
+      "contradicted": 1
+    },
+    "orchestrator_turns": 9,
+    "cost_by_model": {
+      "MOCK/orchestrate": 0,
+      "MOCK/perceive": 0,
+      "MOCK/fit": 0,
+      "MOCK/edit": 0
+    },
+    "total_latency_s": 4.002769152997644
+  },
+  "estimated_cost_usd": 0,
+  "would_be_token_factory_cost_usd": 0,
+  "reserved_spend_usd": 0.0,
+  "cost_per_minute": 0.0,
+  "latency_s": 4.002769152997644
+}

@@ -1,0 +1,5 @@
+[00:00:00.080] A static scene is displayed
+[00:00:30.524] A
+[00:00:32.540] A static scene is
+[00:00:38.972] A static scene is displayed
+[00:00:47.612] A static scene is displayed
