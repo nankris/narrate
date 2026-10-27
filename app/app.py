@@ -117,6 +117,16 @@ def caps():
     return values
 
 
+def live_limits():
+    """Hard limits for a live UI run: orchestrator turns and wall-clock seconds."""
+    cfg = load_config().get('ui', {})
+    turns = int(os.environ.get('NARRATE_UI_MAX_TURNS', cfg.get('max_turns', 24)))
+    timeout = float(os.environ.get('NARRATE_UI_TIMEOUT_S', cfg.get('timeout_s', 300)))
+    if turns < 1 or not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError('UI turn/time limits must be positive.')
+    return turns, timeout
+
+
 def providers():
     result = ['mock']
     if os.environ.get('NARRATE_UI_MOCK_ONLY') == '1':
@@ -250,7 +260,11 @@ def build_app():
             result = {}
             def work():
                 try:
-                    result['report'] = run_agent(path, out, provider=provider, langs=langs, budget_usd=budget, orchestrator_model=orchestrator.lower(), on_step=lambda step:q.put(step))
+                    turns, timeout = live_limits()
+                    cfg = load_config()
+                    cfg['agent']['timeout_s'] = min(cfg['agent']['timeout_s'], timeout)
+                    # Hard caps: explicit max_steps disables turn-budget scaling; cost capped by `budget`.
+                    result['report'] = run_agent(path, out, provider=provider, langs=langs, budget_usd=budget, max_steps=turns, config=cfg, orchestrator_model=orchestrator.lower(), on_step=lambda step:q.put(step))
                 except Exception:
                     result['error'] = True
                 finally:
@@ -309,7 +323,7 @@ def build_app():
             eyes.change(lambda enabled: gr.update(elem_classes=['eyes-closed'] if enabled else []),eyes,media,queue=False)
         with gr.Tab('Run · live', id='run'):
             spent = gr.State({'spent': 0.0})
-            gr.Markdown('Upload a short video. Mock is offline and synthetic. Real providers use server credentials and incur usage under the configured caps.')
+            gr.Markdown(f'Upload a short video (≤2 min). Mock is offline and synthetic. Real providers use server credentials and stop hard at ${run_cap:.2f} per run, {live_limits()[0]} orchestrator turns or {live_limits()[1]:.0f} s, then finish with what is verified.')
             with gr.Row():
                 upload = gr.File(label='Video · MP4 / MOV / WebM · ≤120 seconds · ≤50 MB', file_types=['.mp4','.mov','.webm'], type='filepath')
                 with gr.Column():
