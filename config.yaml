@@ -33,9 +33,11 @@ prices:
     input_price: 0.06
     output_price: 0.24
     cached_input_price: 0.012
+  # Token Factory catalog: nvidia/Nemotron-3_5-Lightning 0.06/0.24 (cached 0.03) per 1M tokens.
+  # The catalog also lists a second tier 0.15/0.6/0.1, likely the "fast" flavor; not used here.
   fit_alt:
-    input_price: 0.15
-    output_price: 0.6
+    input_price: 0.06
+    output_price: 0.24
     cached_input_price: 0.03
   edit:
     input_price: 1.0
@@ -102,6 +104,9 @@ agent:
   timeout_s: 600
   max_atempo: 1.25
   min_gap: 1.2
+  min_gap_s: 1.5
+  verify_below: 0.75
+  retry_attempts: 3
   hangover_s: 0.3
 ui:
   session_cap_usd: 0.25

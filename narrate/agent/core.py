@@ -60,6 +60,49 @@ def compact(value, limit=800):
     return result
 
 
+def absolute_times(events,start,end,tol=.5):
+    """Return (events, base) with t_start/t_end in absolute video seconds.
+
+    The VL model sees a clip cut at `start`, so it may answer with clip-relative times (0..duration) even
+    though absolute times were requested. Heuristic: if every event fits [start-tol, end+tol] the times are
+    absolute (kept, also when both readings fit); else if every event fits [0, duration+tol] they are
+    relative and `start` is added; otherwise ('mixed') they are kept and the caller drops any event that
+    lies outside the segment."""
+    spans=[]
+    for e in events:
+        try: spans.append((float(e['t_start']),float(e['t_end'])))
+        except (KeyError,ValueError,TypeError): pass
+    if not spans or start<=tol or all(s>=start-tol and t<=end+tol for s,t in spans):
+        return events,'absolute'
+    if all(s>=0 and t<=end-start+tol for s,t in spans):
+        shifted=[]
+        for e in events:
+            try: shifted.append({**e,'t_start':round(float(e['t_start'])+start,3),'t_end':round(float(e['t_end'])+start,3)})
+            except (KeyError,ValueError,TypeError): shifted.append(e)
+        return shifted,'relative->absolute'
+    return events,'mixed'
+
+
+def tokens(text):
+    return set(re.findall(r'\w+',text.lower()))
+
+
+def similarity(a,b):
+    x,y=tokens(a),tokens(b)
+    return len(x&y)/len(x|y) if x|y else 0.
+
+
+def risky_text(text):
+    """Cheap heuristic: quotes, digits or capitalized words that do not start a sentence."""
+    reasons=[]
+    if re.search('["\u201c\u201d]',text): reasons.append('quoted text')
+    if re.search(r'\d',text): reasons.append('number')
+    words=text.split()
+    if any(i and not re.search(r'[.!?]$',words[i-1]) and len(w)>1 and w[0].isupper() for i,w in enumerate(words)):
+        reasons.append('named entity')
+    return reasons
+
+
 class Agent:
     def __init__(self,path,out,cfg,langs,guard,on_step=None,client=None):
         self.path,self.out,self.cfg = Path(path),Path(out),cfg
@@ -80,6 +123,10 @@ class Agent:
         self.cues,self.dropped,self.cache,self.tts_cache = {},{},{},{}
         self.counts = Counter(); self.pending_failures = []
         self.translation_done=False
+        self.candidates,self.drafts,self.verified,self.rejected = {},{},{},{}
+        self.contradicted=0
+        self.client.retry_attempts = cfg['agent'].get('retry_attempts',3)
+        self.client.on_retry = lambda note: self.trace('system',note=note,ok=False)
         self.steps = []; self.turn=0; self.rejections=0; self.done=False
         self.report = {'mock':self.mock,'provider':cfg['provider'],'dev_only':cfg['provider']=='nvidia-dev',
             'duration_s':self.duration,'fallback_finalize':False,'issues':[]}
@@ -98,8 +145,9 @@ class Agent:
         return row['step']
 
     def mock_events(self,start,end):
-        return [{**s,'what':s.get('action',''),'confidence':1.0,'mock':True} for s in self.scenes
-                if s['t_start'] < end and s['t_end'] > start] or [
+        overlap=lambda s: min(end,s['t_end'])-max(start,s['t_start'])
+        return [{**s,'what':s.get('action',''),'confidence':1.0,'mock':True} for s in sorted(self.scenes,key=lambda s:-overlap(s))
+                if overlap(s) > 0] or [
                     {'t_start':start,'t_end':end,'what':'A static scene is displayed','on_screen_text':'',
                      'importance':2,'confidence':0,'mock':True}]
 
@@ -140,19 +188,44 @@ class Agent:
             return {'cached':True,'reminder':'Use the gaps from the first detection.'}
         self.counts['gap_detection']+=1
         result = detect(self.path,self.duration,self.has_audio,self.cfg)
+        cfg_min_gap = self.cfg['agent'].get('min_gap_s',1.5)
         self.speech=result['speech']; self.gaps=[]
         for i,g in enumerate(result['gaps']):
             start,end = g['start']+.08,g['end']-.08
-            self.gaps.append({'id':i,'start':start,'end':end,'duration':end-start,
+            narratable = end-start >= cfg_min_gap
+            self.gaps.append({'id':i,'start':start,'end':end,'duration':end-start,'narratable':narratable,
+                **({} if narratable else {'reason':'too short'}),
                 **{'word_budget_'+lang:word_budget(end-start,self.cfg['words_per_second'][lang],self.cfg['word_margin']) for lang in ('en','hi')}})
         self.report.update(detector=result['detector'],speech_ratio=result['speech_ratio'],detector_fallback_reason=result['fallback_reason'])
+        if self.gaps and not any(g['narratable'] for g in self.gaps):
+            self.report['issues'].append('Every speech-free gap is shorter than agent.min_gap_s; extended AD is needed.')
         if not self.gaps:
             self.report['issues'].append('Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.')
-        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi')} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
+        return {'gaps':[{k:g[k] for k in ('id','start','end','word_budget_en','word_budget_hi','narratable','reason') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
 
     def segment(self,start,end):
         if not all(math.isfinite(x) for x in (start,end)) or not 0 <= start < end <= self.duration:
             raise ValueError('Invalid segment bounds')
+
+    @staticmethod
+    def window(g):
+        return g['start']-1.0,g['end']+.5
+
+    def overlaps(self,e,g):
+        w0,w1=self.window(g)
+        return float(e['t_start'])<w1 and float(e['t_end'])>w0
+
+    def gap_events(self,g,passed=None):
+        """Evidence for one gap: events overlapping its window, plus at most 2 recent earlier ones (context only)."""
+        w0,_=self.window(g)
+        pool=[]
+        for e in list(self.events)+list(passed or []):
+            if isinstance(e,dict) and 't_start' in e and 't_end' in e and not any(e['t_start']==x['t_start'] and e['t_end']==x['t_end'] and e.get('what')==x.get('what') for x in pool):
+                pool.append(e)
+        inside=[e for e in pool if self.overlaps(e,g)]
+        # Only recent predecessors (<=10s) are useful context; anything else risks narrating the wrong moment.
+        earlier=sorted([e for e in pool if float(e['t_end'])<=w0 and w0-float(e['t_end'])<=10],key=lambda e:float(e['t_end']))[-2:]
+        return [{**e,'context':'earlier, context only'} for e in earlier]+inside
 
     def inspect_video_segment(self,start,end,focus=''):
         self.segment(start,end)
@@ -163,7 +236,7 @@ class Agent:
         if self.counts['inspections'] >= self.cfg['agent']['max_inspections']:
             return {'ok':False,'error':'Inspection cap reached'}
         self.counts['inspections']+=1
-        data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute t_start/t_end, what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start),'focus':focus}
+        data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute video t_start/t_end (seconds), what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start),'focus':focus}
         media=None; modality='mock'
         if not self.mock:
             clip=self.work/'inspection.mp4'
@@ -180,10 +253,14 @@ class Agent:
                 raise
             modality='frames-fallback'
             result=self.submodel('perceive',data,separate_frames(self.path,[start,start+(end-start)/2,max(start,end-.1)]))
-        valid=[]
-        for event in result.get('events',[]):
+        valid=[]; raw=result.get('events',[])
+        if not self.mock:
+            raw,base=absolute_times(raw,start,end)
+        else: base='absolute'
+        for event in raw:
             try:
                 s,e=float(event['t_start']),float(event['t_end'])
+                if base=='mixed' and (e<=start-.5 or s>=end+.5): continue
                 if not 0<=s<e<=self.duration or not 1<=float(event['importance'])<=5:
                     continue
                 event={**event,'what':event.get('what',event.get('action',''))}
@@ -194,24 +271,57 @@ class Agent:
                 valid.append(event)
             except (KeyError,ValueError,TypeError):
                 continue
-        result={'events':valid,'modality':modality}
+        result={'events':valid,'modality':modality,'time_base':base}
         self.cache[key]=result
         return result
 
-    def verify_claim(self,start,end,claim):
+    def verification_reasons(self,gap_id):
+        """Why a committed English cue must be verified before finalize (empty = not required)."""
+        c=self.cues[gap_id]; reasons=risky_text(c['en'])
+        floor=self.cfg['agent'].get('verify_below',.75)
+        low=[e for e in self.gap_events(c) if 'context' not in e and float(e.get('confidence',1))<floor]
+        if low: reasons.append(f'low-confidence events (<{floor})')
+        return reasons
+
+    def needs_verification(self):
+        return {gid:r for gid in self.cues if gid not in self.verified and (r:=self.verification_reasons(gid))}
+
+    def verify_claim(self,start=None,end=None,claim=None,gap_id=None):
+        if not isinstance(claim,str) or not claim.strip():
+            raise ValueError('verify_claim needs a claim')
+        if gap_id is not None:
+            g=self.gap(gap_id); start,end=g['start'],g['end']; ids=[gap_id]
+        elif start is None or end is None:
+            raise ValueError('verify_claim needs gap_id or start and end')
+        else:
+            ids=[g['id'] for g in self.gaps if g['start']<end and g['end']>start]
         self.segment(start,end)
         if self.counts['verifications'] >= self.cfg['agent']['max_verifications']:
             return {'ok':False,'error':'Verification cap reached'}
         self.counts['verifications']+=1
         media=None if self.mock else separate_frames(self.path,[start,start+(end-start)/2,max(start,end-.1)])
-        mock={'verdict':'contradicted' if 'blue dot' in claim else 'uncertain',
+        known=[t for s in self.scenes for t in (s.get('on_screen_text',''),s.get('action','')) if t]
+        mock={'verdict':'contradicted' if 'blue dot' in claim else 'supported' if self.mock and any(similarity(claim,t)>=.8 for t in known) else 'uncertain',
               'evidence':'MOCK sidecar describes title and yellow shape; no blue dot or fading text.'}
         result=self.submodel('perceive',{'duration':end-start,'instruction':'Use these FRAMES only. Verify the claim; return {verdict: supported|contradicted|uncertain, evidence: string}. Do not infer motion between stills.','claim':claim},media,mock)
         result=normalize_json(result)
         result['verdict']=str(result.get('verdict','')).strip().lower()
         if result.get('verdict') not in ('supported','contradicted','uncertain'):
             return {'ok':False,'error':'Invalid verification response'}
-        return {**result,'modality':'frames'}
+        verdict=result['verdict']; out={**result,'modality':'frames','gap_ids':ids}
+        for gid in ids:
+            self.verified[gid]=verdict
+            if verdict=='contradicted':
+                self.rejected.setdefault(gid,[]).append(claim)
+                if gid in self.cues:
+                    self.rejected[gid].append(self.cues.pop(gid)['en'])
+                    self.translation_done=False
+                    out.setdefault('uncommitted',[]).append(gid)
+        if verdict=='contradicted':
+            self.contradicted+=1
+            for gid in ids: self.verified.pop(gid,None)
+            out['next']='claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description'
+        return out
 
     def gap(self,gap_id):
         return next(g for g in self.gaps if g['id']==gap_id)
@@ -219,14 +329,25 @@ class Agent:
     def draft_description(self,gap_id=None,context_events=None,max_words=None,avoid_repeating='',gap_ids=None):
         if gap_ids is not None:
             gaps=[self.gap(i) for i in gap_ids]
-            return self.submodel('fit',{'instruction':'Draft one English cue per gap, obey word_budget_en. Return {cues:[{id,text}]}. Only use associated events; no future events.', 'gaps':gaps,'events':self.events},mock_result={'cues':[{'id':g['id'],'text':self.mock_line(self.mock_events(g['start'],g['end']),g['word_budget_en'])} for g in gaps]})
+            usable=[g for g in gaps if g.get('narratable',True)]
+            result=self.submodel('fit',{'instruction':'Draft one English cue per gap, obey word_budget_en. Return {cues:[{id,text}]}. Use only the events listed under each gap; events tagged "earlier, context only" must not be described.', 'gaps':[{**g,'events':self.gap_events(g,context_events)} for g in usable]},mock_result={'cues':[{'id':g['id'],'text':self.mock_line(self.mock_events(g['start'],g['end']),g['word_budget_en'])} for g in usable]})
+            for c in result.get('cues',[]):
+                if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in {g['id'] for g in usable}:
+                    self.drafts[c['id']]=c['text']
+            skipped=[g['id'] for g in gaps if not g.get('narratable',True)]
+            return {**result,'skipped_too_short':skipped} if skipped else result
         g=self.gap(gap_id)
+        if not g.get('narratable',True):
+            return {'ok':False,'problems':['too short'],'reason':'too short'}
         limit=max(1,min(max_words or g['word_budget_en'],g['word_budget_en']))
-        mock_text=self.mock_line(context_events or self.mock_events(g['start'],g['end']),limit)
+        events=self.gap_events(g,context_events)
+        mock_text=self.mock_line(self.mock_events(g['start'],g['end']),limit)
         if self.mock and getattr(self,'inject_overbudget',False):
             mock_text='word '*(g['word_budget_en']+5)
             self.inject_overbudget=False
-        result=self.submodel('fit',{'instruction':'Write ONE English line of audio description <= max_words. Return {text: string}. Use supplied facts only.','gap':g,'events':context_events,'max_words':limit,'avoid_repeating':avoid_repeating},mock_result={'text':mock_text})
+        result=self.submodel('fit',{'instruction':'Write ONE English line of audio description <= max_words. Return {text: string}. Use supplied facts only; events tagged "earlier, context only" must not be described.','gap':g,'events':events,'max_words':limit,'avoid_repeating':avoid_repeating},mock_result={'text':mock_text})
+        if isinstance(result.get('text'),str):
+            self.drafts[gap_id]=result['text']
         return result
 
     def measure_tts_duration(self,text,lang):
@@ -241,6 +362,8 @@ class Agent:
 
     def check_fit(self,gap_id,text,lang):
         g=self.gap(gap_id); problems=[]
+        if not g.get('narratable',True):
+            return {'ok':False,'problems':['too short'],'reason':'too short','suggested_max_words':0,'seconds':0,'overlap_seconds':0}
         budget=g['word_budget_'+lang]
         count=len(text.split())
         if not text.strip() or '\n' in text or '-->' in text:
@@ -258,17 +381,32 @@ class Agent:
         if overlap>1e-6:
             problems.append('Overlaps detected speech')
         suggested=min(budget,max(1,int(count*g['duration']*self.cfg['agent']['max_atempo']/max(seconds,.001)) ))
-        return {'ok':not problems,'problems':problems,'suggested_max_words':suggested,'seconds':seconds,'overlap_seconds':overlap}
+        result={'ok':not problems,'problems':problems,'suggested_max_words':suggested,'seconds':seconds,'overlap_seconds':overlap}
+        if result['ok'] and lang=='en':
+            # Best fitting candidate: the fallback finisher commits it if the agent never does.
+            self.candidates[gap_id]=text
+            result['next']='call propose_cue/commit_cue to commit'
+        return result
 
     def commit_cue(self,gap_id,text):
         result=self.check_fit(gap_id,text,'en')
         if not result['ok']:
             return result
+        for other,c in self.cues.items():
+            if other!=gap_id and similarity(text,c['en'])>=.8:
+                return {**result,'ok':False,'problems':[f'duplicate of gap {other}'],'problem':f'duplicate of gap {other}'}
+        if any(similarity(text,r)>=.8 for r in self.rejected.get(gap_id,[])):
+            return {**result,'ok':False,'problems':['text was contradicted by verification'],'problem':'text was contradicted by verification; redraft'}
         g=self.gap(gap_id)
+        previous=self.cues.get(gap_id)
+        if previous and previous['en']!=text:
+            self.verified.pop(gap_id,None)
         self.translation_done=False
         self.cues[gap_id]={**g,'en':text}
         self.dropped.pop(gap_id,None)
-        return {'ok':True,'cue':self.cues[gap_id]}
+        reasons=self.verification_reasons(gap_id)
+        extra={'verify_required':reasons,'next':'call verify_claim(gap_id, claim) before finalize'} if reasons and gap_id not in self.verified else {}
+        return {'ok':True,'cue':self.cues[gap_id],**extra}
 
     propose_cue = commit_cue
 
@@ -322,6 +460,8 @@ class Agent:
             c.setdefault('tts_backend',{})[lang]=type(self.engine).__name__
             selected.append({**c,'end':min(c['end'],c['start']+seconds/speed)})
             wavs.append(fitted)
+        order=sorted(range(len(selected)),key=lambda i:selected[i]['start'])
+        selected,wavs=[selected[i] for i in order],[wavs[i] for i in order]
         mix(self.path,target,self.duration,self.has_audio,selected,wavs,self.cfg['ducking_level'])
         return selected
 
@@ -337,21 +477,29 @@ class Agent:
 
     def finalize(self,force=False):
         problems=[]; warnings=[]
+        capped=self.counts['verifications'] >= self.cfg['agent']['max_verifications']
+        pending=self.needs_verification()
+        if pending and not force and not capped:
+            return {'ok':False,'problems':[f'Cue {gid} needs verification: '+', '.join(r) for gid,r in pending.items()],
+                'needs_verification':list(pending),'next':'call verify_claim(gap_id, claim) for each listed gap, then finalize'}
         for c in list(self.cues.values()):
             for lang in self.langs:
                 if not c.get(lang):
                     (warnings if lang=='hi' and self.translation_done else problems).append(f"Cue {c['id']}: missing {lang}")
                 elif not self.check_fit(c['id'],c[lang],lang)['ok']:
                     problems.append(f"Cue {c['id']}: invalid {lang}")
-        associated=lambda e,g: g['start']<=e['t_end']+6 and g['end']>e['t_start']
-        high=[e for e in self.events if e['importance']>=4 and any(associated(e,g) for g in self.gaps)]
+        narratable=[g for g in self.gaps if g.get('narratable',True)]
+        high=[e for e in self.events if e['importance']>=4 and any(self.overlaps(e,g) for g in narratable)]
+        in_speech=[e for e in self.events if e['importance']>=4 and not any(self.overlaps(e,g) for g in narratable)]
         # Temporal association is explicitly a proxy, not semantic coverage verification.
-        uncovered=[e for e in high if not any(associated(e,c) for c in self.cues.values())]
+        uncovered=[e for e in high if not any(self.overlaps(e,c) for c in self.cues.values())]
         if uncovered:
             problems.append(f'{len(uncovered)} high-importance events lack an associated cue')
         if problems and self.rejections<2 and not force:
             self.rejections+=1
             return {'ok':False,'problems':problems,'uncovered_events':uncovered,'rejection':self.rejections}
+        unverified=[gid for gid in self.verified_required() if self.verified.get(gid)!='supported']
+        warnings+= [f'Cue {gid}: unverified' for gid in unverified]
         self.report['issues'].extend(problems+warnings)
         # Never publish a failed language track, even after warning acceptance.
         for gid,c in list(self.cues.items()):
@@ -364,14 +512,19 @@ class Agent:
         for lang in self.langs:
             tracks[lang]=self.render(lang,self.out/f'narrated_{lang}.mp4')
             write_texts(self.out,lang,tracks[lang])
-        self.report.update(status='complete',cues=list(self.cues.values()),tracks=tracks,gaps=self.gaps,speech=self.speech,
+        total=max(.001,sum(g['duration'] for g in narratable))
+        self.report.update(status='complete',cues=sorted(self.cues.values(),key=lambda c:c['start']),tracks=tracks,gaps=self.gaps,speech=self.speech,
             cues_committed=len(self.cues),cues_dropped=len(self.dropped),dropped_gaps=self.dropped,
             overlaps_with_speech=sum(self.check_fit(c['id'],c[l],l)['overlap_seconds']>0 for c in self.cues.values() for l in self.langs if c.get(l)),
-            gap_coverage_percent={l:100*sum(c['end']-c['start'] for c in track)/max(.001,sum(g['duration'] for g in self.gaps)) for l,track in tracks.items()},
+            gap_coverage_percent={l:100*sum(c['end']-c['start'] for c in track)/total for l,track in tracks.items()},
             high_importance_covered_percent=100*(len(high)-len(uncovered))/len(high) if high else 100,
-            coverage_method='temporal association proxy; not semantic verification',uncovered_events=uncovered)
+            events_in_speech_regions={'count':len(in_speech),'events':in_speech,'note':'informational: high-importance events outside every narratable gap; may need extended AD'},
+            coverage_method='temporal association proxy (events overlapping narratable gap windows); not semantic verification',uncovered_events=uncovered)
         self.done=True
         return {'ok':True,'warnings':problems+warnings,'outputs':str(self.out)}
+
+    def verified_required(self):
+        return [gid for gid in self.cues if self.verification_reasons(gid)]
 
     def execute(self,name,args):
         start=time.monotonic()
@@ -395,21 +548,74 @@ class Agent:
             for failure in self.pending_failures:
                 if failure['gap_id']==args.get('gap_id') or (failure['gap_id'] is None and name=='translate_hindi'):
                     correction=failure['step']; self.pending_failures.remove(failure); break
-        result={**result,'state':{'committed':list(self.cues),'remaining':[g['id'] for g in self.gaps if g['id'] not in self.cues and g['id'] not in self.dropped],'budget':{'turns':max(0,self.cfg['agent']['max_steps']-self.turn-1),'inspections':self.cfg['agent']['max_inspections']-self.counts['inspections'],'verifications':self.cfg['agent']['max_verifications']-self.counts['verifications']}}}
+        result={**result,'state':{'committed':list(self.cues),'remaining':[g['id'] for g in self.gaps if g.get('narratable',True) and g['id'] not in self.cues and g['id'] not in self.dropped],'skipped_too_short':[g['id'] for g in self.gaps if not g.get('narratable',True)],'needs_verification':list(self.needs_verification()),'budget':{'turns':max(0,self.cfg['agent']['max_steps']-self.turn-1),'inspections':self.cfg['agent']['max_inspections']-self.counts['inspections'],'verifications':self.cfg['agent']['max_verifications']-self.counts['verifications']}}}
         sid=self.trace('tool',note=note,tool_name=name,args=compact(args),result=compact(result),ok=not failed,
             latency_s=time.monotonic()-start,correction=correction is not None,corrects_step=correction)
         if failed:
             gid=args.get('gap_id')
-            if name=='verify_claim':
+            if name=='verify_claim' and gid is None:
                 gid=next((g['id'] for g in self.gaps if g['start']==args.get('start')),None)
             self.pending_failures.append({'step':sid,'gap_id':gid})
         return result
+
+    def fallback_finish(self,reason):
+        """Deterministic finisher for any early stop: commit what fits, verify if possible, translate, finalize."""
+        def note(text,tool=None,ok=True,**kw):
+            self.trace('fallback',note=text,tool_name=tool,ok=ok,**kw)
+        self.report['fallback_finalize']=True; self.report['fallback_reason']=reason
+        note(f'Fallback finisher started: {reason}')
+        for g in self.gaps:
+            gid=g['id']
+            if gid in self.cues or gid in self.dropped or not g.get('narratable',True):
+                continue
+            skip=self.rejected.get(gid,[])
+            candidate=self.candidates.get(gid)
+            if candidate and not any(similarity(candidate,r)>=.8 for r in skip):
+                result=self.commit_cue(gid,candidate)
+                if result['ok']:
+                    note(f'Gap {gid}: committed best fitting candidate "{candidate}"','commit_cue',args={'gap_id':gid}); continue
+                note(f"Gap {gid}: candidate rejected ({'; '.join(result['problems'])})",'commit_cue',False)
+            draft=self.drafts.get(gid)
+            if draft and not any(similarity(draft,r)>=.8 for r in skip):
+                fit=self.check_fit(gid,draft,'en')
+                text=draft
+                if not fit['ok']:
+                    words=draft.split()[:fit['suggested_max_words']]
+                    text=' '.join(words).rstrip(' ,;:.!?-')+'.' if words else ''
+                result=self.commit_cue(gid,text) if text else {'ok':False,'problems':['empty after trimming']}
+                if result['ok']:
+                    note(f'Gap {gid}: committed latest draft'+('' if text==draft else ' shortened to fit')+f': "{text}"','commit_cue',args={'gap_id':gid}); continue
+                note(f"Gap {gid}: shortened draft still unusable ({'; '.join(result['problems'])})",'commit_cue',False)
+            self.drop_gap(gid,'Fallback: no fitting candidate or draft')
+            note(f'Gap {gid}: dropped, no fitting candidate or draft','drop_gap',args={'gap_id':gid})
+        for gid in sorted(self.needs_verification()):
+            if gid not in self.cues: continue
+            try:
+                result=self.verify_claim(gap_id=gid,claim=self.cues[gid]['en'])
+            except Exception as exc:
+                note(f'Gap {gid}: unverified, verification unavailable ({sanitize(exc)})','verify_claim',False); break
+            if result.get('ok') is False:
+                note(f"Gap {gid}: unverified, {result['error']}",'verify_claim',False); break
+            if result['verdict']=='contradicted':
+                self.drop_gap(gid,'Fallback: claim contradicted by verification')
+                note(f'Gap {gid}: contradicted by verification; dropped','verify_claim',False,result=compact(result))
+            else:
+                note(f"Gap {gid}: verification {result['verdict']}",'verify_claim',result=compact(result))
+        if 'hi' in self.langs and not self.translation_done:
+            try:
+                self.translate_hindi(); note('Translated committed cues to Hindi','translate_hindi')
+            except Exception as exc:
+                self.report['issues'].append('Fallback Hindi translation unavailable within remaining budget/time')
+                note(f'Hindi translation unavailable ({sanitize(exc)})','translate_hindi',False)
+        result=self.finalize(force=True)
+        note('Forced finalize with committed cues','finalize',result=compact(result))
 
     def save(self):
         cost=sum(u['cost_usd'] for u in self.client.usage) if self.client.usage else sum(s['cost_usd'] for s in self.steps)
         summary={'tool_calls':dict(Counter(s['tool_name'] for s in self.steps if s['role']=='tool')),
             'corrections':sum(s['correction'] for s in self.steps),
-            'verifications':dict(Counter(s['result']['verdict'] for s in self.steps if s['role']=='tool' and isinstance(s['result'],dict) and 'verdict' in s['result'])),
+            'verifications':{'verified':sum(v=='supported' for v in self.verified.values()),'contradicted':self.contradicted,
+                'unverified':sum(self.verified.get(g)!='supported' for g in self.verified_required())},
             'orchestrator_turns':sum(s['role']=='orchestrator' for s in self.steps),'cost_by_model':{},'total_latency_s':time.monotonic()-self.started}
         for s in self.steps:
             if s['model']:
@@ -448,6 +654,7 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
     a=Agent(path,out_dir,cfg,langs,guard,on_step,client)
     planner=orchestrator or (MockOrchestrator() if a.mock else Orchestrator(a.client))
     messages=[{'role':'system','content':SYSTEM},{'role':'user','content':f'Describe this {a.duration:.2f}s video. Languages: {langs}. Maximum tool turns: {steps}.'}]
+    stop='orchestrator stopped early (max turns, timeout or no tool calls)'
     try:
         for turn in range(steps):
             a.turn=turn
@@ -481,16 +688,12 @@ def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget
                 break
     except BudgetExceeded:
         a.report['issues'].append('Budget exceeded; finalized committed cues without more model calls')
+        stop='budget exceeded'
     except Exception as exc:
         a.report['issues'].append('Agent stopped: '+sanitize(exc))
+        stop='agent stopped: '+sanitize(exc)
     finally:
         if not a.done:
-            a.report['fallback_finalize']=True
-            start=time.monotonic()
-            if 'hi' in a.langs and not a.translation_done:
-                try: a.execute('translate_hindi',{'note':'Translate committed cues before fallback finalization.'})
-                except Exception: a.report['issues'].append('Fallback Hindi translation unavailable within remaining budget/time')
-            result=a.finalize(force=True)
-            a.trace('tool',tool_name='finalize',note='Deterministic fallback finisher',result=result,latency_s=time.monotonic()-start)
+            a.fallback_finish(stop)
         a.save()
     return a.report

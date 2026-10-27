@@ -57,6 +57,39 @@ SYSTEM = {
 }
 
 
+def is_transient(exc):
+    """5xx, 429, timeouts and connection failures are retryable; other 4xx are not."""
+    status = getattr(exc, 'status_code', None)
+    if isinstance(status, int):
+        return status == 429 or status >= 500
+    names = {c.__name__ for c in type(exc).__mro__}
+    return bool(names & {'TimeoutError', 'ConnectionError', 'APITimeoutError', 'APIConnectionError', 'Timeout', 'ConnectTimeout', 'ReadTimeout'})
+
+
+def call_with_retry(client, fn, attempts=None):
+    """Run fn(), retrying transient provider errors with exponential backoff (1s, 2s, 4s by default).
+
+    client.sleep is injectable for tests; client.on_retry(note) lets the agent trace each retry."""
+    attempts = attempts or getattr(client, 'retry_attempts', 3)
+    base = getattr(client, 'backoff_s', 1.0)
+    sleep = getattr(client, 'sleep', None) or time.sleep
+    for attempt in range(attempts):
+        try:
+            return fn()
+        except Exception as exc:
+            if attempt + 1 >= attempts or not is_transient(exc):
+                raise
+            status = getattr(exc, 'status_code', None)
+            delay = base * 2 ** attempt
+            note = f"retry after HTTP {status}" if status else f"retry after {type(exc).__name__}"
+            callback = getattr(client, 'on_retry', None)
+            if callback:
+                callback(f"{note} (attempt {attempt + 2}/{attempts}, backoff {delay:g}s)")
+            if time.monotonic() + delay > getattr(client, 'deadline', float('inf')):
+                raise
+            sleep(delay)
+
+
 def sanitize(value):
     # Exception bodies can echo media, credentials or headers: retain only safe diagnostics.
     status = getattr(value, 'status_code', None)
@@ -98,6 +131,7 @@ class Client:
         self.sdk_factory = sdk_factory
         self.limiter = RateLimiter(config.get('rpm'))
         self.no_json = set()
+        self.sleep, self.on_retry, self.retry_attempts, self.backoff_s = time.sleep, None, 3, 1.0
         self.raw_dir = None
         self.raw_count = 0
 
@@ -127,19 +161,19 @@ class Client:
                 kwargs['response_format'] = {'type':'json_object'}
             if self.config.get('extra_body_thinking', True):
                 kwargs['extra_body'] = {'chat_template_kwargs': {'enable_thinking': model.get('thinking', False)}}
-            self.guard.reserve(reservation)
-            self.limiter.wait()
             started = time.monotonic()
+
+            def request():
+                self.guard.reserve(reservation)
+                self.limiter.wait()
+                return sdk.chat.completions.create(model=model['id'], messages=[{'role':'system','content':system}, {'role':'user','content':content}], max_tokens=output_limit, **kwargs)
             try:
-                response = sdk.chat.completions.create(model=model['id'], messages=[{'role':'system','content':system}, {'role':'user','content':content}], max_tokens=output_limit, **kwargs)
+                response = call_with_retry(self, request)
             except Exception as exc:
                 if getattr(exc, 'status_code', None) == 400 and using_json:
                     self.no_json.add(identity)
                     continue
-                if attempt >= 2:
-                    raise
-                time.sleep(.5 * 2 ** attempt)
-                continue
+                raise
             usage = response.usage
             actual = usage_cost(usage, model) if usage else reservation
             self.guard.spent += actual - reservation

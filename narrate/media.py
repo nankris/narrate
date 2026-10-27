@@ -75,6 +75,7 @@ def timestamp(seconds):
 
 
 def write_texts(out, lang, cues):
+    cues = sorted(cues, key=lambda c: c['start'])
     blocks = [f"{i+1}\n{timestamp(c['start'])} --> {timestamp(c['end'])}\n{c[lang]}\n" for i, c in enumerate(cues)]
     (out / f'ad_{lang}.vtt').write_text('WEBVTT\n\n' + '\n'.join(blocks), encoding='utf-8')
     (out / f'transcript_{lang}.txt').write_text('\n'.join(f"[{timestamp(c['start'])}] {c[lang]}" for c in cues), encoding='utf-8')

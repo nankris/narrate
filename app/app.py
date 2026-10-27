@@ -150,7 +150,7 @@ def trace_html(trace, notes_only=False):
         lower = name.lower()
         color = 'purple' if any(w in lower for w in ('ultra','orchestrate','edit')) else 'blue' if any(w in lower for w in ('super','perceive')) else 'green' if any(w in lower for w in ('nano','lightning','fit')) else 'grey'
         cls = 'correction' if s.get('correction') else 'failed' if s.get('ok') is False else ''
-        icon = {'orchestrator':'🧠','tool':'🔧','submodel':'🤖'}.get(role, '🔧')
+        icon = {'orchestrator':'🧠','tool':'🔧','submodel':'🤖','fallback':'🛟','system':'⚠️'}.get(role, '🔧')
         out.append(f'<article id="step-{sid}" class="trace-row {cls}"><div><span class="step">{sid:02}</span> {icon} <span class="chip {color}">{E(name)}</span> <small>{float(s.get("latency_s",0)):.2f}s · ${float(s.get("cost_usd",0)):.4f}</small></div><strong>{E(s.get("note") or "Submodel response")}</strong>')
         if s.get('correction') and s.get('corrects_step') is not None:
             target = int(s['corrects_step'])

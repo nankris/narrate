@@ -16,3 +16,11 @@ All provider tests use fake clients; no real network requests were made. Video s
 ## First real run follow-up
 
 Individual `real-run-*.md` files record each observed failure and fixed/open status. Static-text motion hallucinations remain open; provider cost improvements require a new authorized run.
+
+## Second real-run fixes
+
+- [never-commit](real-run-never-commit.md): exploration tools never committed; fallback emitted zero cues - fixed.
+- [wrong-event-drafts](real-run-wrong-event-drafts.md): drafts described other parts of the video - fixed.
+- [verify-unused](real-run-verify-unused.md): verification never used - now enforced.
+
+Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsorted VTT, tiny-gap skipping, duplicate cues, dialogue events counted as uncovered, Lightning price.

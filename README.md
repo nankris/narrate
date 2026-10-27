@@ -122,12 +122,13 @@ For a real results card replace these fields with measured values, model/region,
 ## Limitations & published failure cases
 
 - Fast cuts and sparse frame sampling miss actions; timestamp mock events do not detect visual scenes.
-- Sub-second gaps may be skipped; aggressive word truncation and speech trimming can hurt comprehension.
+- Gaps shorter than 1.5 s are skipped as not narratable; aggressive word truncation and speech trimming can hurt comprehension.
 - Continuous speech can leave no safe gaps: extended AD with paused video is needed and not implemented.
 - The baseline energy/silence detector is not speech recognition. The agent uses Silero VAD, which can still miss robotic or quiet speech. Quiet speech can be mistaken for silence; music can hide safe speech-free intervals. Zero scheduled violations cannot establish zero real dialogue overlap.
 - On-screen Hindi text and translations need native-reader review. Ultra failure leaves Hindi descriptions unavailable.
 - espeak voices sound robotic; Piper voice quality still needs listener review.
-- VL hallucinations and stale event selection are possible. Human review is required before relying on descriptions.
+- VL hallucinations and stale event selection are possible; verification samples stills, so it cannot confirm motion, and its text/number heuristic is a simple regex. The fallback finisher can commit a cue as `unverified` when budget runs out; duplicate rejection is lexical only.
+- Events during dialogue are not covered (needs extended AD). Human review is required before relying on descriptions.
 - The synthetic sample uses captions and shapes, not a filmed kitchen. Mock-mode numbers are not quality numbers.
 - Video_url schema, model JSON support, regional routing and cost estimates are not yet verified against Token Factory.
 
@@ -173,16 +174,16 @@ flowchart TD
 
 | Tool | Behavior |
 |---|---|
-| detect_speech_gaps | Silero ONNX; 300 ms smoothing, minimum gap 1.2 s, language word budgets, speech ratio; reported silence/energy fallback |
-| inspect_video_segment | One gap neighbourhood `[max(0,start-6),end]`; >=70% overlap returns cached events and reminder; default 12 inspections |
-| verify_claim | Independent sampled frames; supported/contradicted/uncertain with evidence; default 8 calls |
-| draft_description | One budgeted line or a batch via optional `gap_ids` |
-| measure_tts_duration | Cached configured-backend synthesis |
-| check_fit | Words, measured duration, <=1.25x speed, no speech overlap, banned phrases |
-| propose_cue / commit_cue / drop_gap | Only fit English can commit; explicit reasons for dropped gaps |
+| detect_speech_gaps | Silero ONNX; 300 ms smoothing, minimum gap 1.2 s; gaps under `agent.min_gap_s` (1.5 s) are marked `narratable:false, reason:"too short"` and skipped, language word budgets, speech ratio; reported silence/energy fallback |
+| inspect_video_segment | One gap neighbourhood `[max(0,start-2),end]`; VL times are normalised to absolute video time (clip-relative answers get the segment start added); >=70% overlap returns cached events and reminder; default 12 inspections |
+| verify_claim | `gap_id` (or start/end) + claim; independent sampled frames; supported/contradicted/uncertain. A contradicted claim uncommits the cue. Default cap 8 |
+| draft_description | One budgeted line or a batch via optional `gap_ids`; evidence is limited to events overlapping the gap window (start-1 s..end+0.5 s) plus at most 2 earlier events tagged context-only |
+| measure_tts_duration | Exploration only: cached configured-backend synthesis |
+| check_fit | Exploration only: words, measured duration, <=1.25x speed, no speech overlap, banned phrases. Commits nothing; a passing English text is remembered as the gap's best candidate |
+| propose_cue / commit_cue / drop_gap | Preferred: propose_cue fits and commits in one call. Only fit English can commit; near-duplicate text (token Jaccard >= 0.8) of another cue is rejected; explicit reasons for dropped gaps |
 | translate_hindi | Ultra translation; measured duration is primary, one internal retry with max_words/max_seconds, per-cue status |
 | render_preview | Narration-mixed MP4 excerpt |
-| finalize | Validate, report uncovered important events, reject at most twice; then output safe tracks with warnings |
+| finalize | Refuses (`needs_verification`) until risky cues are verified; validates, reports uncovered important events, rejects at most twice; then outputs safe tracks with warnings |
 
 | Role | Nebius model | NVIDIA development model |
 |---|---|---|
@@ -195,6 +196,18 @@ Nebius orchestrator alternative: `nvidia/nemotron-3-super-120b-a12b`.
 Provider/stage model mappings support regional base URLs. Token Factory has
 not been live-tested. Supplied NVIDIA probes establish Ultra tool calling,
 VL video/images and the thinking control; see [findings](issues-found/agent-probes.md).
+
+Robustness: orchestrator and submodel calls retry HTTP 5xx/429, timeouts and connection errors
+up to 3 attempts with 1 s/2 s/4 s exponential backoff (other 4xx are not retried); each retry is a
+`system` trace step. Any stop (exception after retries, max turns, budget, timeout) runs a deterministic
+**fallback finisher** (`fallback` trace steps): per uncommitted gap it commits the best fitting
+`check_fit` candidate, else the latest draft trimmed to `suggested_max_words`, else drops the gap with a
+reason; then verifies pending cues if budget allows (otherwise commits with an `unverified` warning),
+translates and finalizes. Verification is enforced: cues with events below `agent.verify_below` (0.75)
+confidence, or containing quotes, digits or mid-sentence capitalised words, must pass `verify_claim`
+before `finalize` succeeds. `agent_stats.verifications` reports `{verified, contradicted, unverified}`.
+Coverage counts only high-importance events overlapping narratable gaps; events inside dialogue are
+listed separately as `events_in_speech_regions` (may need extended AD).
 
 Defaults: 30 orchestrator turns, $0.50 reserved spend cap including submodels/retries,
 600-second wall-clock deadline checked between operations, provider rate
