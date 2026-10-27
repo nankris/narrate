@@ -106,3 +106,20 @@ The models sit in three different regions, so per-model base URLs matter.
 - ToS got cheaper (30 → 14 turns, $0.198 → $0.082) and stayed at 0 detected overlaps.
 - **NASA got worse — a new failure caused by my own fix.** History compaction threw away old inspection results, so Ultra forgot it had looked: it inspected all 10 slots *three times* (31 inspect calls; the cache made the repeats free on the VL side, but each turn re-sent the growing context — orchestration was $0.197 of $0.209). It never called the drafting model; at the turn cap it wrote cue text itself and invented "typing on a laptop" and "a window showing Earth's blue curve" (the frame verifier contradicted the second). The fallback then dropped 7 slots because none had a draft.
 - Lesson: compress *conversation*, never *evidence*. → fix4: persistent evidence board in the state message, refuse re-inspection with a pointer to the board, treat orchestrator-written text as unverified, fallback drafts in one batched Nano call.
+
+**00:45–01:07 — fix4 (Claude, af593b1)**: persistent evidence board kept in the state message, re-inspection of an already-covered range refused (`repeat_refusals`), cue text not produced by the drafter flagged as orchestrator-authored and sent to verification, fallback finisher drafts all evidence-only gaps in one batched call. 114 offline tests.
+
+**01:08–01:21 — agent v5 real runs (fix4)**, nvidia-dev, would-be TF list price. Asset `16_*`.
+
+| clip | turns | cues / gaps | gap cov EN/HI | verified / contradicted | cost | wall |
+|---|---|---|---|---|---|---|
+| kitchen 30 s | 30 | **2 / 4** | 45% / 55% | 0 / 0 | **$0.237** | 196 s |
+| Tears of Steel 100 s | 30 | 5 / 8 | 37% / 36% | 1 / 0 | $0.198 | 223 s |
+| NASA 110 s | 36 | **7 / 10** | **41% / 51%** | 0 / 2 | $0.322 | 328 s |
+| continuous speech | 2 | 0 | – | – | $0.006 | 24 s |
+
+- **NASA fixed what it was meant to fix**: 2 → 7 cues, coverage 13% → 41%, 0 orchestrator-authored cues, only 1 repeat inspection. The verifier contradicted 2 cues and the fallback dropped them instead of shipping them.
+- **Kitchen regressed badly — another self-inflicted failure.** 38 `propose_cue` calls for 4 gaps. The batched drafter (Lightning) returned 13–14-word lines for 8–9-word budgets and left out the on-screen text ("STEP 1 - chop onions"), which is the whole point of those shots. Two limits disagreed: the word budget allowed 8 words but the fix3 single-cue cap said "under 3.6 s" and an 8-word line measured 3.74 s. My fix4 prompt told Ultra to "shorten only by deleting words", so it hand-trimmed the same sentence for ~20 turns. Result: 2 cues, 3× the cost of v4.
+- ToS: subtitle check 0.39 s overlap, 25.7 s of 75 s dialogue-free time narrated (34.3%); 26 inspect calls for 8 gaps — the frames-fallback path returns empty events, which the coverage refusal does not count.
+- Orchestration share: kitchen 97%, ToS 97%, NASA 96%.
+- Lesson: every limit the checker enforces must be the same number the drafter is given, and the tool should redraft itself instead of making a 550B model count words. → fix5.

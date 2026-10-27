@@ -1,0 +1,11 @@
+{
+  "title": "Nasa chile harvest 0000-0150",
+  "input_path": "samples/nasa_chile_harvest_0000-0150.mp4",
+  "source": "https://images.nasa.gov/details/Plant_Habitat-04_Harvest",
+  "license": "NASA media generally not copyrighted; see https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "attribution": "NASA Image and Video Library; “Astronauts harvest, eat first chile pepper crop on space station”, nasa_id Plant_Habitat-04_Harvest",
+  "notes": "Clip 0:00–1:50 of the ~mobile.mp4 rendition, re-encoded to 640 px. Audio is ambient only (NASA caption file: \"[Ambient sounds]\"). No endorsement implied.",
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "date": "2026-10-28"
+}

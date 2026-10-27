@@ -1,0 +1,837 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 100.0,
+  "fallback_finalize": true,
+  "issues": [
+    "Cue 3: unverified"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "fallback_reason": "orchestrator stopped early (max turns, timeout or no tool calls)",
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "en": "Rocket engine ignites with bright white thrust, city skyline with metal structures appears as rocket launches.",
+      "hi": "रॉकेट इंजन सफेद जोर से प्रज्वलित, धातु संरचनाओं वाला शहर क्षितिज दिखता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "en": "Wireframe figures, neon",
+      "hi": "वायरफ्रेम आकृतियाँ, नियॉन",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16,
+      "en": "Man with curly hair and glasses speaks, cut to dreadlocked person at table.",
+      "hi": "घुंघराले बालों और चश्मे वाला आदमी बोलता है, मेज पर ड्रेडलॉक व्यक्ति पर कट।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28,
+      "en": "The screen fades to black, TEARS OF STEEL appears, then fades followed by foggy city with industrial towers.",
+      "hi": "स्क्रीन काली होती है, TEARS OF STEEL आता है, फिर धुंधला शहर औद्योगिक टावरों के साथ।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27,
+      "en": "A view from inside a dark bell tower looks out over the foggy city through open arches.",
+      "hi": "अंधेरे घंटाघर के अंदर से खुली मेहराबों द्वारा धुंधला शहर दिखता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 6.811927,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket engine ignites with bright white thrust, city skyline with metal structures appears as rocket launches.",
+        "hi": "रॉकेट इंजन सफेद जोर से प्रज्वलित, धातु संरचनाओं वाला शहर क्षितिज दिखता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.56689299999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures, neon",
+        "hi": "वायरफ्रेम आकृतियाँ, नियॉन",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 44.12165999999999,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Man with curly hair and glasses speaks, cut to dreadlocked person at table.",
+        "hi": "घुंघराले बालों और चश्मे वाला आदमी बोलता है, मेज पर ड्रेडलॉक व्यक्ति पर कट।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 54.66859899999999,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "en": "The screen fades to black, TEARS OF STEEL appears, then fades followed by foggy city with industrial towers.",
+        "hi": "स्क्रीन काली होती है, TEARS OF STEEL आता है, फिर धुंधला शहर औद्योगिक टावरों के साथ।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 59.0,
+        "end": 64.125034,
+        "duration": 10.799999999999997,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 27,
+        "en": "A view from inside a dark bell tower looks out over the foggy city through open arches.",
+        "hi": "अंधेरे घंटाघर के अंदर से खुली मेहराबों द्वारा धुंधला शहर दिखता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 5.980272,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket engine ignites with bright white thrust, city skyline with metal structures appears as rocket launches.",
+        "hi": "रॉकेट इंजन सफेद जोर से प्रज्वलित, धातु संरचनाओं वाला शहर क्षितिज दिखता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.77097499999999,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures, neon",
+        "hi": "वायरफ्रेम आकृतियाँ, नियॉन",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 44.81304299999999,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Man with curly hair and glasses speaks, cut to dreadlocked person at table.",
+        "hi": "घुंघराले बालों और चश्मे वाला आदमी बोलता है, मेज पर ड्रेडलॉक व्यक्ति पर कट।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 53.898892999999994,
+        "duration": 11.388000000000005,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 25,
+        "word_budget_hi": 28,
+        "en": "The screen fades to black, TEARS OF STEEL appears, then fades followed by foggy city with industrial towers.",
+        "hi": "स्क्रीन काली होती है, TEARS OF STEEL आता है, फिर धुंधला शहर औद्योगिक टावरों के साथ।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 59.0,
+        "end": 64.167166,
+        "duration": 10.799999999999997,
+        "narratable": true,
+        "parent_gap": 4,
+        "word_budget_en": 23,
+        "word_budget_hi": 27,
+        "en": "A view from inside a dark bell tower looks out over the foggy city through open arches.",
+        "hi": "अंधेरे घंटाघर के अंदर से खुली मेहराबों द्वारा धुंधला शहर दिखता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 1,
+      "start": 30.523999999999997,
+      "end": 31.651999999999997,
+      "duration": 1.1280000000000001,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 1
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 59.0,
+      "duration": 11.388000000000005,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 25,
+      "word_budget_hi": 28
+    },
+    {
+      "id": 5,
+      "start": 59.0,
+      "end": 69.8,
+      "duration": 10.799999999999997,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 27
+    },
+    {
+      "id": 6,
+      "start": 69.8,
+      "end": 80.4,
+      "duration": 10.600000000000009,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
+    },
+    {
+      "id": 7,
+      "start": 80.4,
+      "end": 89.4584,
+      "duration": 9.058399999999992,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 8,
+      "start": 89.4584,
+      "end": 99.92,
+      "duration": 10.461600000000004,
+      "narratable": true,
+      "parent_gap": 4,
+      "word_budget_en": 23,
+      "word_budget_hi": 26
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 21.324
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 5,
+  "cues_dropped": 3,
+  "dropped_gaps": {
+    "6": "Fallback: no fitting candidate or draft",
+    "7": "Fallback: no fitting candidate or draft",
+    "8": "Fallback: no fitting candidate or draft"
+  },
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 37.09776049368671,
+    "hi": 36.153948640655194
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 2,
+    "events": [
+      {
+        "t_start": 10.1,
+        "t_end": 11.0,
+        "what": "Two young people stand on a stone bridge beside a canal; the male wears a dark jacket over a patterned shirt and the female wears a dark coat with blue accents and pink-striped leggings.",
+        "on_screen_text": "",
+        "importance": 5,
+        "confidence": 0.9
+      },
+      {
+        "t_start": 30.0,
+        "t_end": 30.5,
+        "what": "Dark industrial landscape with title card.",
+        "on_screen_text": "40 YEARS LATER",
+        "importance": 4,
+        "confidence": 1.0
+      }
+    ],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3066,
+      "output_tokens": 42,
+      "cost_usd": 0.003192,
+      "latency_s": 25.581362797005568,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3720,
+      "output_tokens": 215,
+      "cost_usd": 0.004365,
+      "latency_s": 4.989316229999531,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2723,
+      "output_tokens": 307,
+      "cost_usd": 0.0010932000000000001,
+      "latency_s": 4.4579893670015736,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2722,
+      "output_tokens": 247,
+      "cost_usd": 0.0010389000000000002,
+      "latency_s": 4.28861907600367,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2723,
+      "output_tokens": 275,
+      "cost_usd": 0.0010644,
+      "latency_s": 5.230411477998132,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2735,
+      "output_tokens": 327,
+      "cost_usd": 0.0011148,
+      "latency_s": 5.385526404003031,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5193,
+      "output_tokens": 54,
+      "cost_usd": 0.005355,
+      "latency_s": 2.3257618969946634,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2171,
+      "output_tokens": 268,
+      "cost_usd": 0.00019458,
+      "latency_s": 2.6169649079965893,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5612,
+      "output_tokens": 89,
+      "cost_usd": 0.005879,
+      "latency_s": 1.5036570560041582,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5833,
+      "output_tokens": 83,
+      "cost_usd": 0.006082,
+      "latency_s": 2.5490059930016287,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6048,
+      "output_tokens": 79,
+      "cost_usd": 0.006285,
+      "latency_s": 3.329852729992126,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6243,
+      "output_tokens": 74,
+      "cost_usd": 0.006465,
+      "latency_s": 1.9136003210005583,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6119,
+      "output_tokens": 84,
+      "cost_usd": 0.006371,
+      "latency_s": 6.020619681003154,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5398,
+      "output_tokens": 73,
+      "cost_usd": 0.005617,
+      "latency_s": 30.884453577004024,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5438,
+      "output_tokens": 66,
+      "cost_usd": 0.005636,
+      "latency_s": 19.71241411799565,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5522,
+      "output_tokens": 81,
+      "cost_usd": 0.005765,
+      "latency_s": 1.7378923790092813,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5630,
+      "output_tokens": 68,
+      "cost_usd": 0.005834,
+      "latency_s": 7.018056239001453,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5729,
+      "output_tokens": 69,
+      "cost_usd": 0.005936,
+      "latency_s": 5.358902396998019,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5777,
+      "output_tokens": 68,
+      "cost_usd": 0.005981,
+      "latency_s": 4.396752090993687,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5862,
+      "output_tokens": 77,
+      "cost_usd": 0.006093,
+      "latency_s": 2.4980080050008837,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5958,
+      "output_tokens": 71,
+      "cost_usd": 0.006171,
+      "latency_s": 6.175803467995138,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6062,
+      "output_tokens": 66,
+      "cost_usd": 0.00626,
+      "latency_s": 1.5469720260007307,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6077,
+      "output_tokens": 79,
+      "cost_usd": 0.006314,
+      "latency_s": 1.7534246849972988,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6188,
+      "output_tokens": 78,
+      "cost_usd": 0.006422,
+      "latency_s": 1.481211679012631,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6300,
+      "output_tokens": 97,
+      "cost_usd": 0.006591,
+      "latency_s": 3.9192713930096943,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6427,
+      "output_tokens": 91,
+      "cost_usd": 0.0067,
+      "latency_s": 2.035503029008396,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6527,
+      "output_tokens": 85,
+      "cost_usd": 0.006782,
+      "latency_s": 2.2649843859981047,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6648,
+      "output_tokens": 59,
+      "cost_usd": 0.006825,
+      "latency_s": 2.126919286994962,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6665,
+      "output_tokens": 134,
+      "cost_usd": 0.007067,
+      "latency_s": 3.823771029987256,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6948,
+      "output_tokens": 138,
+      "cost_usd": 0.007362,
+      "latency_s": 4.088023217002046,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7116,
+      "output_tokens": 142,
+      "cost_usd": 0.007542,
+      "latency_s": 2.411651187998359,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7405,
+      "output_tokens": 144,
+      "cost_usd": 0.007837,
+      "latency_s": 8.45624123098969,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7627,
+      "output_tokens": 146,
+      "cost_usd": 0.008065,
+      "latency_s": 1.6683276140101952,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7867,
+      "output_tokens": 150,
+      "cost_usd": 0.008317,
+      "latency_s": 5.389005769000505,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8197,
+      "output_tokens": 114,
+      "cost_usd": 0.008539,
+      "latency_s": 2.1144192409992684,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1121,
+      "output_tokens": 53,
+      "cost_usd": 0.000384,
+      "latency_s": 1.4390882669977145,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1130,
+      "output_tokens": 53,
+      "cost_usd": 0.00038669999999999997,
+      "latency_s": 0.9512541299918666,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 784,
+      "output_tokens": 186,
+      "cost_usd": 0.001342,
+      "latency_s": 6.625998867006274,
+      "cost_role": "perceive"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.19165,
+    "perceive": 0.006424,
+    "verify": 0,
+    "draft": 0.00019458,
+    "translate": 0
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.11896114799999999,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 26,
+      "draft_description": 1,
+      "propose_cue": 19
+    },
+    "corrections": 4,
+    "verifications": {
+      "verified": 1,
+      "contradicted": 0,
+      "unverified": 1
+    },
+    "repeat_refusals": 0,
+    "orchestrator_authored_cues": 1,
+    "orchestrator_turns": 30,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.19299199999999997,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.005082000000000001,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00019458
+    },
+    "total_latency_s": 211.29595785100537
+  },
+  "estimated_cost_usd": 0.19826858,
+  "would_be_token_factory_cost_usd": 0.19826858,
+  "reserved_spend_usd": 0.19826858000000003,
+  "cost_per_minute": 0.11896114799999999,
+  "latency_s": 211.29595785100537
+}

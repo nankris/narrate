@@ -1,0 +1,3316 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 2.115396459994372,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.115286048006965,
+      "tokens_in": 3065,
+      "tokens_out": 37,
+      "cost_usd": 0.003176,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 2.371166639990406,
+      "role": "tool",
+      "note": "Detect speech-free gaps for audio description",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 4.67,
+            "end": 8.71,
+            "word_budget_en": 8,
+            "word_budget_hi": 9,
+            "narratable": true
+          },
+          {
+            "id": 1,
+            "start": 11.87,
+            "end": 16.61,
+            "word_budget_en": 9,
+            "word_budget_hi": 11,
+            "narratable": true
+          },
+          {
+            "id": 2,
+            "start": 19.93,
+            "end": 24.71,
+            "word_budget_en": 9,
+            "word_budget_hi": 11,
+            "narratable": true
+          },
+          {
+            "id": 3,
+            "start": 27.39,
+            "end": 29.92,
+            "word_budget_en": 4,
+            "word_budget_hi": 5,
+            "narratable": true
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.42,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.2557483379932819,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 8.75665958499303,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.385328080999898,
+      "tokens_in": 3524,
+      "tokens_out": 347,
+      "cost_usd": 0.004565,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 32.71949442398909,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 5.9,
+            "what": "A teal screen with white text \"A person enters a kitchen\" in the top left corner and a yellow rectangular outline moving across the center of the screen.",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 23.808604721009033,
+      "tokens_in": 2757,
+      "tokens_out": 88,
+      "cost_usd": 0.0009063000000000001,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 32.71959798398893,
+      "role": "tool",
+      "note": "Inspect gap 0 with 2s pre-roll for context",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 2.67,
+        "end": 8.71,
+        "focus": "Describe all visual events and on-screen text for audio description"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 2.67,
+            "t_end": 8.57,
+            "what": "A teal screen with white text \"A person enters a kitchen\" in the top left corner and a yellow rectangular outline moving across the center of the screen.",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "relative->absolute",
+        "evidence_gaps": [
+          0
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 23.962923458995647,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 35.191112319997046,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 9.87,
+            "t_end": 12.0,
+            "what": "A maroon screen displays the text 'STEP 1 - chop onions' in white at the upper left corner, accompanied by a small yellow rectangular outline centered in the frame.",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.3030561310006306,
+      "tokens_in": 2744,
+      "tokens_out": 97,
+      "cost_usd": 0.0009104999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 35.19118097500177,
+      "role": "tool",
+      "note": "Inspect gap 1 with 2s pre-roll for context",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 9.87,
+        "end": 16.61,
+        "focus": "Describe all visual events and on-screen text for audio description"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 9.87,
+            "t_end": 12.0,
+            "what": "A maroon screen displays the text 'STEP 1 - chop onions' in white at the upper left corner, accompanied by a small yellow rectangular outline centered in the frame.",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          1
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.4715044780023163,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 56.18383599400113,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "error": "Submodel response failed"
+      },
+      "ok": false,
+      "latency_s": 20.809173354005907,
+      "tokens_in": 2760,
+      "tokens_out": 3000,
+      "cost_usd": 0.003528,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 57.60079592499824,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 17.93,
+        "t_end": 20.1,
+        "what": "A dark maroon title card displays white text 'STEP 1 - chop onions' in the upper left with a yellow vertical rectangle in the lower right",
+        "on_screen_text": "STEP 1 - chop onions",
+        "importance": 5,
+        "confidence": 0.98
+      },
+      "ok": true,
+      "latency_s": 1.1207275449996814,
+      "tokens_in": 1151,
+      "tokens_out": 90,
+      "cost_usd": 0.0004263,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 57.60086915199645,
+      "role": "tool",
+      "note": "Inspect gap 2 with 2s pre-roll for context",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 17.93,
+        "end": 24.71,
+        "focus": "Describe all visual events and on-screen text for audio description"
+      },
+      "result": {
+        "events": [],
+        "modality": "frames-fallback",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          2
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 9,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 22.40965536099975,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 11,
+      "t_wall": 60.48960080899997,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "t_start": {
+                  "type": "number"
+                },
+                "t_end": {
+                  "type": "number"
+                },
+                "what": {
+                  "type": "string"
+                },
+                "on_screen_text": {
+                  "type": "string"
+                },
+                "importance": {
+                  "type": "integer"
+                },
+                "confidence": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "t_start",
+                "t_end",
+                "what",
+                "on_screen_text",
+                "importance",
+                "confidence"
+              ]
+            }
+          },
+          "required": [
+            "events"
+          ]
+        }
+      },
+      "ok": true,
+      "latency_s": 2.7277596550120506,
+      "tokens_in": 2760,
+      "tokens_out": 127,
+      "cost_usd": 0.0009423,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 62.21239088899165,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 25.39,
+            "t_end": 27.65,
+            "what": "A dark teal screen displays the text \"Stir and serve\" in white at the upper left, with a yellow rectangular outline positioned on the right side.",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 27.65,
+            "t_end": 29.82,
+            "what": "The yellow rectangular outline moves from the right side of the screen to the left side while the text \"Stir and serve\" remains visible.",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4951234489999479,
+      "tokens_in": 1152,
+      "tokens_out": 172,
+      "cost_usd": 0.0005004,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 62.212471450999146,
+      "role": "tool",
+      "note": "Inspect gap 3 with 2s pre-roll for context",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 25.39,
+        "focus": "Describe all visual events and on-screen text for audio description",
+        "end": 29.92
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 25.39,
+            "t_end": 27.65,
+            "what": "A dark teal screen displays the text \"Stir and serve\" in white at the upper left, with a yellow rectangular outline positioned on the right side.",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 27.65,
+            "t_end": 29.82,
+            "what": "The yellow rectangular outline moves from the right side of the screen to the left side while the text \"Stir and serve\" remains visible.",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "frames-fallback",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          3
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.611575742994319,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 14,
+      "t_wall": 63.88726610298909,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.674650754997856,
+      "tokens_in": 4624,
+      "tokens_out": 89,
+      "cost_usd": 0.004891,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 63.889093182995566,
+      "role": "tool",
+      "note": "Inspect gap 2 with 2s pre-roll for context",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 17.93,
+        "focus": "Describe all visual events and on-screen text for audio description",
+        "end": 24.71
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          2
+        ],
+        "see": "evidence board gap 2",
+        "next": "draft_description(gap_ids=[2])",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018109240045305341,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 16,
+      "t_wall": 65.55557197899907,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.666333280998515,
+      "tokens_in": 4822,
+      "tokens_out": 49,
+      "cost_usd": 0.004969,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 66.46391229999426,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "White text appears in the top left corner with a yellow outline moving across the center."
+          },
+          {
+            "id": 1,
+            "text": "Maroon screen shows upper left text with a centered yellow rectangular outline."
+          },
+          {
+            "id": 3,
+            "text": "Dark teal screen shows upper left text with right side outline, then outline moves to left."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.906232411012752,
+      "tokens_in": 927,
+      "tokens_out": 91,
+      "cost_usd": 7.746e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 66.46397783698922,
+      "role": "tool",
+      "note": "Draft English cues for gaps with evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0,
+          1,
+          3
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "White text appears in the top left corner with a yellow outline moving across the center."
+          },
+          {
+            "id": 1,
+            "text": "Maroon screen shows upper left text with a centered yellow rectangular outline."
+          },
+          {
+            "id": 3,
+            "text": "Dark teal screen shows upper left text with right side outline, then outline moves to left."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.9083919780096039,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 15
+    },
+    {
+      "step": 19,
+      "t_wall": 73.01785087799362,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.553730044994154,
+      "tokens_in": 5079,
+      "tokens_out": 220,
+      "cost_usd": 0.005739,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 73.0974723919935,
+      "role": "tool",
+      "note": "Commit cue for gap 0 with on-screen text",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text \"A person enters a kitchen\" appears top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 8,
+        "seconds": 5.87,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07960675399226602,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 73.16453660199477,
+      "role": "tool",
+      "note": "Commit cue for gap 1 with on-screen text",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Maroon screen shows \"STEP 1 - chop onions\" upper left; centered yellow outline."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 4.3 s"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.59,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06702745899383444,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 73.22983230400132,
+      "role": "tool",
+      "note": "Commit cue for gap 3 with on-screen text",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal screen: \"Stir and serve\" upper left; outline right then moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 5.74,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06525471800705418,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 75.99216148599226,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.762172331000329,
+      "tokens_in": 5658,
+      "tokens_out": 209,
+      "cost_usd": 0.006285,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 76.06138484099938,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text \"A person enters a kitchen\" top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 8,
+        "seconds": 5.43,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06920630300010089,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 76.1250794469961,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 1",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Maroon screen: \"STEP 1 - chop onions\" upper left; centered yellow outline."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 4.3 s"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.56,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06365869600267615,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 76.18875351299357,
+      "role": "tool",
+      "note": "Commit shortened cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal: \"Stir and serve\" upper left; outline right then moves left."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 5.32,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06363336500362493,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 27,
+      "t_wall": 77.88491267499921,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6960130850056885,
+      "tokens_in": 6226,
+      "tokens_out": 190,
+      "cost_usd": 0.006796,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 77.97488905199862,
+      "role": "tool",
+      "note": "Commit shortened draft cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 7,
+        "seconds": 3.74,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.08996327398926951,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 29,
+      "t_wall": 78.04182104799838,
+      "role": "tool",
+      "note": "Commit shortened draft cue for gap 1",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Maroon screen upper left text; centered yellow outline."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 11.87,
+          "end": 16.61,
+          "duration": 4.74,
+          "narratable": true,
+          "word_budget_en": 9,
+          "word_budget_hi": 11,
+          "en": "Maroon screen upper left text; centered yellow outline."
+        },
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06690220600285102,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 21
+    },
+    {
+      "step": 30,
+      "t_wall": 78.1095328329975,
+      "role": "tool",
+      "note": "Commit shortened draft cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right then moves left."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 4.02,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0676722280040849,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 31,
+      "t_wall": 80.28845868099597,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1787344879994635,
+      "tokens_in": 6539,
+      "tokens_out": 128,
+      "cost_usd": 0.006923,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 80.38098921299388,
+      "role": "tool",
+      "note": "Commit draft cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text appears top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 7,
+        "seconds": 4.16,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.09251896799833048,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 33,
+      "t_wall": 80.45172665799328,
+      "role": "tool",
+      "note": "Commit shortened draft cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal shows upper left text; outline right then moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 4.39,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07070251999539323,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 34,
+      "t_wall": 81.92774764099158,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4757498599938117,
+      "tokens_in": 6185,
+      "tokens_out": 125,
+      "cost_usd": 0.00656,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 81.92897978599649,
+      "role": "tool",
+      "note": "Commit draft cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 7,
+        "seconds": 3.74,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012180180056020617,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 81.99808817199664,
+      "role": "tool",
+      "note": "Commit draft cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal shows upper left text; outline right moves left."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 4.13,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06908312400628347,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 37,
+      "t_wall": 85.63488323499041,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.6365868340071756,
+      "tokens_in": 6429,
+      "tokens_out": 124,
+      "cost_usd": 0.006801,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 85.63614983198931,
+      "role": "tool",
+      "note": "Commit gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text appears top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 3.6 s"
+        ],
+        "suggested_max_words": 7,
+        "seconds": 4.16,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012557419977383688,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 85.6371378319891,
+      "role": "tool",
+      "note": "Commit gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right then moves left."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 4.02,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0009639240015530959,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 88.49148027299088,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.854148983999039,
+      "tokens_in": 6648,
+      "tokens_out": 124,
+      "cost_usd": 0.00702,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 88.4930212009931,
+      "role": "tool",
+      "note": "Commit shortened draft for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015285319968825206,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 88.56795137099107,
+      "role": "tool",
+      "note": "Commit shortened draft for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right moves left."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 3.75,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07489899500797037,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 43,
+      "t_wall": 91.25236047198996,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.6841281469969545,
+      "tokens_in": 6761,
+      "tokens_out": 121,
+      "cost_usd": 0.007124,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 91.25369873299496,
+      "role": "tool",
+      "note": "Commit gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013257740065455437,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 45,
+      "t_wall": 91.25472859399451,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal upper left text; outline right moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup",
+          "cue too long for a single description; keep it under 2.3 s"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 3.75,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001003826007945463,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 46,
+      "t_wall": 93.15102465999371,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8960511750046862,
+      "tokens_in": 6880,
+      "tokens_out": 124,
+      "cost_usd": 0.007252,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 93.15240657899994,
+      "role": "tool",
+      "note": "Commit shortened draft for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013677120005013421,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 48,
+      "t_wall": 93.15343308799493,
+      "role": "tool",
+      "note": "Commit shortened draft for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right moves left."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0009973779961001128,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 94.75195487299061,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5982591500069248,
+      "tokens_in": 6954,
+      "tokens_out": 122,
+      "cost_usd": 0.00732,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 50,
+      "t_wall": 94.75383166898973,
+      "role": "tool",
+      "note": "Commit shortened gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018538570002419874,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 51,
+      "t_wall": 94.75513686599152,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal upper left text; outline right moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012663870002143085,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 52,
+      "t_wall": 96.6175364239898,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.86208809800155,
+      "tokens_in": 7158,
+      "tokens_out": 122,
+      "cost_usd": 0.007524,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 53,
+      "t_wall": 96.61891047999961,
+      "role": "tool",
+      "note": "Commit shortened gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013619399978779256,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 54,
+      "t_wall": 96.62004545499803,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal upper left text; outline right moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001107955991756171,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 100.32352655599243,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.7031518610019702,
+      "tokens_in": 7363,
+      "tokens_out": 123,
+      "cost_usd": 0.007732,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 100.32479292700009,
+      "role": "tool",
+      "note": "Commit shortened gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012556370056699961,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 100.32576671699644,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal upper left text; outline right moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0009485330083407462,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 58,
+      "t_wall": 102.1206344730017,
+      "role": "orchestrator",
+      "note": "\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.794565689007868,
+      "tokens_in": 7573,
+      "tokens_out": 122,
+      "cost_usd": 0.007939,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 59,
+      "t_wall": 102.12205270498816,
+      "role": "tool",
+      "note": "Commit shortened gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014077500090934336,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 60,
+      "t_wall": 102.12309984798776,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right moves left."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0010154549963772297,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 61,
+      "t_wall": 104.10639639999135,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.982976053011953,
+      "tokens_in": 7722,
+      "tokens_out": 123,
+      "cost_usd": 0.008091,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 62,
+      "t_wall": 104.10775078699226,
+      "role": "tool",
+      "note": "Commit shortened gap 0 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001341465991572477,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 63,
+      "t_wall": 104.1087718429917,
+      "role": "tool",
+      "note": "Commit shortened gap 3 draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Dark teal upper left text; outline right moves left."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0009919049916788936,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 64,
+      "t_wall": 105.3910732499935,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2819710860057967,
+      "tokens_in": 7875,
+      "tokens_out": 60,
+      "cost_usd": 0.008055,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 65,
+      "t_wall": 105.39269621099811,
+      "role": "tool",
+      "note": "Inspect gap 2",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 24.71,
+        "start": 17.93
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          2
+        ],
+        "see": "evidence board gap 2",
+        "next": "draft_description(gap_ids=[2])",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 11,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.001610833001905121,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 66,
+      "t_wall": 114.94564418299706,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 9.552592503998312,
+      "tokens_in": 7838,
+      "tokens_out": 123,
+      "cost_usd": 0.008207,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 67,
+      "t_wall": 114.94698667198827,
+      "role": "tool",
+      "note": "Final try gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "White text top left; yellow outline moves center.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013307389890542254,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 68,
+      "t_wall": 114.94808792299591,
+      "role": "tool",
+      "note": "Final try gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Dark teal upper left text; outline right moves left.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0010736370022641495,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 69,
+      "t_wall": 120.61164493099204,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.663170771003934,
+      "tokens_in": 7999,
+      "tokens_out": 67,
+      "cost_usd": 0.0082,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 70,
+      "t_wall": 120.61305332099437,
+      "role": "tool",
+      "note": "Final try gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 9,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0013787999923806638,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 71,
+      "t_wall": 121.99975067199557,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3862949689937523,
+      "tokens_in": 7975,
+      "tokens_out": 68,
+      "cost_usd": 0.008179,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 72,
+      "t_wall": 122.00104282300163,
+      "role": "tool",
+      "note": "Final shortened draft gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "White text top left; yellow outline moves center."
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            0,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 8,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [0, 3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012795420043403283,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 73,
+      "t_wall": 133.08814251500007,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 11.08671707099711,
+      "tokens_in": 7952,
+      "tokens_out": 134,
+      "cost_usd": 0.008354,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 74,
+      "t_wall": 133.08942731299612,
+      "role": "tool",
+      "note": "Drop unhelpful gap 0",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 0,
+        "reason": "Word budget exceeded despite maximal shortening; description cannot fit gap duration"
+      },
+      "result": {
+        "ok": true,
+        "reason": "Word budget exceeded despite maximal shortening; description cannot fit gap duration",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "propose_cue for gaps [3] using their drafts (delete words only to shorten)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001273173009394668,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 20
+    },
+    {
+      "step": 75,
+      "t_wall": 133.09045935499307,
+      "role": "tool",
+      "note": "Drop unhelpful gap 3",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 3,
+        "reason": "Word budget exceeded despite maximal shortening; description cannot fit gap duration"
+      },
+      "result": {
+        "ok": true,
+        "reason": "Word budget exceeded despite maximal shortening; description cannot fit gap duration",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0010108169954037294,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 22
+    },
+    {
+      "step": 76,
+      "t_wall": 135.2992627069907,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.208401109004626,
+      "tokens_in": 7939,
+      "tokens_out": 68,
+      "cost_usd": 0.008143,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 77,
+      "t_wall": 135.3014318869973,
+      "role": "tool",
+      "note": "Inspect gap 2",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 24.71,
+        "start": 17.93
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          2
+        ],
+        "see": "evidence board gap 2",
+        "next": "draft_description(gap_ids=[2])",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 6,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002145152000593953,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 78,
+      "t_wall": 138.76249324499804,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.4605337340035476,
+      "tokens_in": 7897,
+      "tokens_out": 69,
+      "cost_usd": 0.008104,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 79,
+      "t_wall": 138.76430611599062,
+      "role": "tool",
+      "note": "Inspect gap 2 evidence",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 17.93,
+        "end": 24.71
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "inspect_video_segment gaps [2] (no evidence yet)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 5,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018009819905273616,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 80,
+      "t_wall": 140.61627778799448,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.851521980992402,
+      "tokens_in": 7970,
+      "tokens_out": 51,
+      "cost_usd": 0.008123,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 81,
+      "t_wall": 141.54920874600066,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "A maroon screen shows white text reading 'STEP 1 - chop onions' in the upper left corner, accompanied by a yellow rectangular outline centered in the frame."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9310020330012776,
+      "tokens_in": 408,
+      "tokens_out": 52,
+      "cost_usd": 3.696e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 82,
+      "t_wall": 141.54932161098986,
+      "role": "tool",
+      "note": "Draft for gap 2",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          2
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "A maroon screen shows white text reading 'STEP 1 - chop onions' in the upper left corner, accompanied by a yellow rectangular outline centered in the frame."
+          }
+        ],
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 4,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.9330329350050306,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 65
+    },
+    {
+      "step": 83,
+      "t_wall": 143.39631705499778,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8465732670010766,
+      "tokens_in": 7959,
+      "tokens_out": 85,
+      "cost_usd": 0.008214,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 84,
+      "t_wall": 143.39755764699657,
+      "role": "tool",
+      "note": "Propose shortened gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Maroon screen shows \"STEP 1 - chop onions\" upper left; centered yellow outline."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 4.3 s"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.59,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 3,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0012254600005690008,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 85,
+      "t_wall": 145.6924698340008,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.2945210940088145,
+      "tokens_in": 8082,
+      "tokens_out": 71,
+      "cost_usd": 0.008295,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 86,
+      "t_wall": 145.7680666219967,
+      "role": "tool",
+      "note": "Propose shortened gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Maroon screen \"STEP 1 - chop onions\" upper left; yellow outline center.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 4.3 s"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.15,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 2,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0755841399950441,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 87,
+      "t_wall": 147.99140572299075,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.222827342993696,
+      "tokens_in": 8172,
+      "tokens_out": 70,
+      "cost_usd": 0.008382,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 88,
+      "t_wall": 148.06058651200146,
+      "role": "tool",
+      "note": "Propose minimal gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Maroon screen \"STEP 1 chop onions\" upper left; yellow outline center."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "cue too long for a single description; keep it under 4.3 s"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 4.99,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 1,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06916863399965223,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 89,
+      "t_wall": 184.35878287699597,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 36.2975217429921,
+      "tokens_in": 16376,
+      "tokens_out": 1864,
+      "cost_usd": 0.021968,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 90,
+      "t_wall": 184.36071163498855,
+      "role": "tool",
+      "note": "Inspect gap 2 for evidence",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 24.71,
+        "start": 17.93
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "inspect_video_segment gaps [2] (no evidence yet)",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 0,
+            "inspections": 8,
+            "verifications": 8
+          },
+          "next_action": "inspect_video_segment gaps [2] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0019032559939660132,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 91,
+      "t_wall": 184.36074018198997,
+      "role": "fallback",
+      "note": "Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 92,
+      "t_wall": 184.51454969900078,
+      "role": "fallback",
+      "note": "Gap 2: committed latest draft shortened to fit: \"A maroon screen shows white text reading 'STEP 1.\"",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 2
+      },
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 93,
+      "t_wall": 185.59896075900178,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        ", ": "supported",
+        "evidence": "The maroon screen shows white text reading 'STEP 1 - chop onions'."
+      },
+      "ok": true,
+      "latency_s": 0.8091146200022195,
+      "tokens_in": 1138,
+      "tokens_out": 32,
+      "cost_usd": 0.0003702,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 94,
+      "t_wall": 185.5989804349956,
+      "role": "fallback",
+      "note": "Gap 2: unverified, Invalid verification response",
+      "tool_name": "verify_claim",
+      "args": {},
+      "result": null,
+      "ok": false,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 95,
+      "t_wall": 193.87967505300185,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "hi": "ऊपर बाईं ओर मैरून स्क्रीन पर टेक्स्ट; केंद्र में पीला आउटलाइन।"
+          },
+          {
+            "id": 2,
+            "hi": "मैरून स्क्रीन पर सफेद टेक्स्ट 'STEP 1' दिख रहा है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 8.280608474990004,
+      "tokens_in": 409,
+      "tokens_out": 80,
+      "cost_usd": 0.000649,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 96,
+      "t_wall": 194.03423691198986,
+      "role": "fallback",
+      "note": "Translated committed cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 97,
+      "t_wall": 195.34974912699545,
+      "role": "fallback",
+      "note": "Forced finalize with committed cues",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [
+          "2 high-importance events lack an associated cue",
+          "Cue 2: unverified"
+        ],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/sample_kitchen"
+      },
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 9,
+      "draft_description": 2,
+      "propose_cue": 38,
+      "drop_gap": 2
+    },
+    "corrections": 5,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 1
+    },
+    "repeat_refusals": 23,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 30,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.22958,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0075840000000000005,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00011441999999999999
+    },
+    "total_latency_s": 195.35047085699625
+  }
+}

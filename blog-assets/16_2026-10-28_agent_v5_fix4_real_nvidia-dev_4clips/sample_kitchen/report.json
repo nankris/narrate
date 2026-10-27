@@ -1,0 +1,666 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": true,
+  "issues": [
+    "2 high-importance events lack an associated cue",
+    "Cue 2: unverified"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "fallback_reason": "orchestrator stopped early (max turns, timeout or no tool calls)",
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "Maroon screen upper left text; centered yellow outline.",
+      "hi": "ऊपर बाईं ओर मैरून स्क्रीन पर टेक्स्ट; केंद्र में पीला आउटलाइन।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "en": "A maroon screen shows white text reading 'STEP 1.",
+      "hi": "मैरून स्क्रीन पर सफेद टेक्स्ट 'STEP 1' दिख रहा है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 15.573986,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Maroon screen upper left text; centered yellow outline.",
+        "hi": "ऊपर बाईं ओर मैरून स्क्रीन पर टेक्स्ट; केंद्र में पीला आउटलाइन।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 23.495400999999998,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "A maroon screen shows white text reading 'STEP 1.",
+        "hi": "मैरून स्क्रीन पर सफेद टेक्स्ट 'STEP 1' दिख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 16.612000000000002,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "Maroon screen upper left text; centered yellow outline.",
+        "hi": "ऊपर बाईं ओर मैरून स्क्रीन पर टेक्स्ट; केंद्र में पीला आउटलाइन।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 24.015583,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "en": "A maroon screen shows white text reading 'STEP 1.",
+        "hi": "मैरून स्क्रीन पर सफेद टेक्स्ट 'STEP 1' दिख रहा है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 2,
+  "cues_dropped": 2,
+  "dropped_gaps": {
+    "0": "Word budget exceeded despite maximal shortening; description cannot fit gap duration",
+    "3": "Word budget exceeded despite maximal shortening; description cannot fit gap duration"
+  },
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 45.17391871737507,
+    "hi": 54.856966194382295
+  },
+  "high_importance_covered_percent": 33.333333333333336,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [
+    {
+      "t_start": 2.67,
+      "t_end": 8.57,
+      "what": "A teal screen with white text \"A person enters a kitchen\" in the top left corner and a yellow rectangular outline moving across the center of the screen.",
+      "on_screen_text": "A person enters a kitchen",
+      "importance": 5,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 25.39,
+      "t_end": 27.65,
+      "what": "A dark teal screen displays the text \"Stir and serve\" in white at the upper left, with a yellow rectangular outline positioned on the right side.",
+      "on_screen_text": "Stir and serve",
+      "importance": 4,
+      "confidence": 1.0
+    }
+  ],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3065,
+      "output_tokens": 37,
+      "cost_usd": 0.003176,
+      "latency_s": 1.7536757400084753,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3524,
+      "output_tokens": 347,
+      "cost_usd": 0.004565,
+      "latency_s": 6.379715750008472,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2757,
+      "output_tokens": 88,
+      "cost_usd": 0.0009063000000000001,
+      "latency_s": 23.802928272998543,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2744,
+      "output_tokens": 97,
+      "cost_usd": 0.0009104999999999999,
+      "latency_s": 2.2964460020011757,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2760,
+      "output_tokens": 3000,
+      "cost_usd": 0.003528,
+      "latency_s": 20.809173354005907,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1151,
+      "output_tokens": 90,
+      "cost_usd": 0.0004263,
+      "latency_s": 1.1153355989954434,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2760,
+      "output_tokens": 127,
+      "cost_usd": 0.0009423,
+      "latency_s": 2.722309561999282,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1152,
+      "output_tokens": 172,
+      "cost_usd": 0.0005004,
+      "latency_s": 1.4891986979928333,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4624,
+      "output_tokens": 89,
+      "cost_usd": 0.004891,
+      "latency_s": 1.6656739769969136,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4822,
+      "output_tokens": 49,
+      "cost_usd": 0.004969,
+      "latency_s": 1.6607536919909762,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 927,
+      "output_tokens": 91,
+      "cost_usd": 7.746e-05,
+      "latency_s": 0.9006923109991476,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5079,
+      "output_tokens": 220,
+      "cost_usd": 0.005739,
+      "latency_s": 6.548352347002947,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5658,
+      "output_tokens": 209,
+      "cost_usd": 0.006285,
+      "latency_s": 2.7556005920050666,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6226,
+      "output_tokens": 190,
+      "cost_usd": 0.006796,
+      "latency_s": 1.6895529449975584,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6539,
+      "output_tokens": 128,
+      "cost_usd": 0.006923,
+      "latency_s": 2.172345194994705,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6185,
+      "output_tokens": 125,
+      "cost_usd": 0.00656,
+      "latency_s": 1.4703996859898325,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6429,
+      "output_tokens": 124,
+      "cost_usd": 0.006801,
+      "latency_s": 3.631042940003681,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6648,
+      "output_tokens": 124,
+      "cost_usd": 0.00702,
+      "latency_s": 2.8480686519906158,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6761,
+      "output_tokens": 121,
+      "cost_usd": 0.007124,
+      "latency_s": 2.6785051119950367,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6880,
+      "output_tokens": 124,
+      "cost_usd": 0.007252,
+      "latency_s": 1.890788495002198,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6954,
+      "output_tokens": 122,
+      "cost_usd": 0.00732,
+      "latency_s": 1.5928951579990098,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7158,
+      "output_tokens": 122,
+      "cost_usd": 0.007524,
+      "latency_s": 1.8565435159980552,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7363,
+      "output_tokens": 123,
+      "cost_usd": 0.007732,
+      "latency_s": 3.697564614994917,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7573,
+      "output_tokens": 122,
+      "cost_usd": 0.007939,
+      "latency_s": 1.7891750910057453,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7722,
+      "output_tokens": 123,
+      "cost_usd": 0.008091,
+      "latency_s": 1.9771068819973152,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7875,
+      "output_tokens": 60,
+      "cost_usd": 0.008055,
+      "latency_s": 1.2760494840040337,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7838,
+      "output_tokens": 123,
+      "cost_usd": 0.008207,
+      "latency_s": 9.547131590996287,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7999,
+      "output_tokens": 67,
+      "cost_usd": 0.0082,
+      "latency_s": 5.657493666003575,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7975,
+      "output_tokens": 68,
+      "cost_usd": 0.008179,
+      "latency_s": 1.3801678719901247,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7952,
+      "output_tokens": 134,
+      "cost_usd": 0.008354,
+      "latency_s": 11.081304155988619,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7939,
+      "output_tokens": 68,
+      "cost_usd": 0.008143,
+      "latency_s": 2.202732891004416,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7897,
+      "output_tokens": 69,
+      "cost_usd": 0.008104,
+      "latency_s": 3.4546544839977287,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7970,
+      "output_tokens": 51,
+      "cost_usd": 0.008123,
+      "latency_s": 1.8459461539896438,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 408,
+      "output_tokens": 52,
+      "cost_usd": 3.696e-05,
+      "latency_s": 0.9254001260123914,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7959,
+      "output_tokens": 85,
+      "cost_usd": 0.008214,
+      "latency_s": 1.840349406003952,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8082,
+      "output_tokens": 71,
+      "cost_usd": 0.008295,
+      "latency_s": 2.2887170939939097,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8172,
+      "output_tokens": 70,
+      "cost_usd": 0.008382,
+      "latency_s": 2.21709918299166,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8188,
+      "output_tokens": 1800,
+      "cost_usd": 0.013588,
+      "latency_s": 32.490642047006986,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8188,
+      "output_tokens": 64,
+      "cost_usd": 0.00838,
+      "latency_s": 3.798161810002057,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1138,
+      "output_tokens": 32,
+      "cost_usd": 0.0003702,
+      "latency_s": 0.7991366000060225,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 409,
+      "output_tokens": 80,
+      "cost_usd": 0.000649,
+      "latency_s": 8.27214566199109,
+      "cost_role": "perceive"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.228931,
+    "perceive": 0.008232999999999999,
+    "verify": 0,
+    "draft": 0.00011441999999999999,
+    "translate": 0
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.47455684,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 9,
+      "draft_description": 2,
+      "propose_cue": 38,
+      "drop_gap": 2
+    },
+    "corrections": 5,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 1
+    },
+    "repeat_refusals": 23,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 30,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.22958,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0075840000000000005,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00011441999999999999
+    },
+    "total_latency_s": 195.35047085699625
+  },
+  "estimated_cost_usd": 0.23727842,
+  "would_be_token_factory_cost_usd": 0.23727842,
+  "reserved_spend_usd": 0.23727842000000007,
+  "cost_per_minute": 0.47455684,
+  "latency_s": 195.35047085699625
+}
