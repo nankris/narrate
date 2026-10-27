@@ -1,0 +1,59 @@
+# Agent trace — MOCK
+
+- 1 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 2 ✓ tool detect_speech_gaps: {"gaps": [{"id": 0, "start": 4.668, "end": 8.707999999999998, "duration": 4.039999999999998, "word_budget_en": 8, "word_budget_hi": 7}, {"id": 1, "start": 11.868, "end": 16.612000000000002, "duration": 4.7440000000000015
+- 3 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 4 ✓ submodel : {"events": [{"t_start": 0, "t_end": 10, "who": "A yellow shape", "action": "A yellow shape moves beneath a kitchen title", "on_screen_text": "A person enters a kitchen", "importance": 3, "hi": "पीली आकृति शीर्षक के नीचे 
+- 5 ✓ tool inspect_video_segment: {"events": [{"t_start": 0, "t_end": 10, "who": "A yellow shape", "action": "A yellow shape moves beneath a kitchen title", "on_screen_text": "A person enters a kitchen", "importance": 3, "hi": "पीली आकृति शीर्षक के नीचे 
+- 6 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 7 ✓ submodel : {"text": "word word word word word word word word word word word word word "}
+- 8 ✓ tool draft_description: {"text": "word word word word word word word word word word word word word "}
+- 9 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 10 ✗ tool check_fit: {"ok": false, "problems": ["Word budget exceeded"], "suggested_max_words": 8, "seconds": 4.489116, "overlap_seconds": 0}
+- 11 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
+- 12 ✓ submodel : {"text": "A person enters a kitchen"}
+- 13 ↪ tool draft_description: {"text": "A person enters a kitchen"} (corrects 10)
+- 14 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 15 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
+- 16 ✗ tool verify_claim: {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.", "modality": "frames"}
+- 17 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
+- 18 ↪ tool check_fit: {"ok": true, "problems": [], "suggested_max_words": 8, "seconds": 1.843673, "overlap_seconds": 0} (corrects 16)
+- 19 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 20 ✓ tool commit_cue: {"ok": true, "cue": {"id": 0, "start": 4.668, "end": 8.707999999999998, "duration": 4.039999999999998, "word_budget_en": 8, "word_budget_hi": 7, "en": "A person enters a kitchen", "hi": "पीली आकृति शीर्षक के नीचे चलती है
+- 21 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 22 ✓ submodel : {"events": [{"t_start": 10, "t_end": 20, "who": "A yellow shape", "action": "The red scene displays an onion chopping instruction", "on_screen_text": "STEP 1 - chop onions", "importance": 4, "hi": "लाल दृश्य में प्याज़ क
+- 23 ✓ tool inspect_video_segment: {"events": [{"t_start": 10, "t_end": 20, "who": "A yellow shape", "action": "The red scene displays an onion chopping instruction", "on_screen_text": "STEP 1 - chop onions", "importance": 4, "hi": "लाल दृश्य में प्याज़ क
+- 24 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 25 ✓ submodel : {"text": "STEP 1 - chop onions"}
+- 26 ✓ tool draft_description: {"text": "STEP 1 - chop onions"}
+- 27 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 28 ✓ tool check_fit: {"ok": true, "problems": [], "suggested_max_words": 9, "seconds": 1.943719, "overlap_seconds": 0}
+- 29 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 30 ✓ tool commit_cue: {"ok": true, "cue": {"id": 1, "start": 11.868, "end": 16.612000000000002, "duration": 4.7440000000000015, "word_budget_en": 9, "word_budget_hi": 8, "en": "STEP 1 - chop onions", "hi": "लाल दृश्य में प्याज़ काटने का निर्द
+- 31 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 32 ✓ submodel : {"events": [{"t_start": 10, "t_end": 20, "who": "A yellow shape", "action": "The red scene displays an onion chopping instruction", "on_screen_text": "STEP 1 - chop onions", "importance": 4, "hi": "लाल दृश्य में प्याज़ क
+- 33 ✓ tool inspect_video_segment: {"events": [{"t_start": 10, "t_end": 20, "who": "A yellow shape", "action": "The red scene displays an onion chopping instruction", "on_screen_text": "STEP 1 - chop onions", "importance": 4, "hi": "लाल दृश्य में प्याज़ क
+- 34 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 35 ✓ submodel : {"text": "STEP 1 - chop onions"}
+- 36 ✓ tool draft_description: {"text": "STEP 1 - chop onions"}
+- 37 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 38 ✓ tool check_fit: {"ok": true, "problems": [], "suggested_max_words": 9, "seconds": 1.943719, "overlap_seconds": 0}
+- 39 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 40 ✓ tool commit_cue: {"ok": true, "cue": {"id": 2, "start": 19.932, "end": 24.708000000000002, "duration": 4.776000000000003, "word_budget_en": 9, "word_budget_hi": 8, "en": "STEP 1 - chop onions", "hi": "लाल दृश्य में प्याज़ काटने का निर्दे
+- 41 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 42 ✓ submodel : {"events": [{"t_start": 20, "t_end": 30, "who": "A yellow shape", "action": "The teal scene displays the stir and serve title", "on_screen_text": "Stir and serve", "importance": 4, "hi": "शीर्षक में हिलाने और परोसने का न
+- 43 ✓ tool inspect_video_segment: {"events": [{"t_start": 20, "t_end": 30, "who": "A yellow shape", "action": "The teal scene displays the stir and serve title", "on_screen_text": "Stir and serve", "importance": 4, "hi": "शीर्षक में हिलाने और परोसने का न
+- 44 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 45 ✓ submodel : {"text": "Stir and serve"}
+- 46 ✓ tool draft_description: {"text": "Stir and serve"}
+- 47 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 48 ✓ tool check_fit: {"ok": true, "problems": [], "suggested_max_words": 4, "seconds": 1.322222, "overlap_seconds": 0}
+- 49 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 50 ✓ tool commit_cue: {"ok": true, "cue": {"id": 3, "start": 27.387999999999998, "end": 29.92, "duration": 2.5320000000000036, "word_budget_en": 4, "word_budget_hi": 4, "en": "Stir and serve", "hi": "शीर्षक।"}}
+- 51 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 52 ✓ submodel : {"cues": [{"id": 0, "hi": "पीली आकृति शीर्षक के नीचे चलती है।"}, {"id": 1, "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"}, {"id": 2, "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"}, {"id": 3, "hi": "शीर्षक।"}]}
+- 53 ✓ tool translate_hindi: {"ok": true, "cues": [{"id": 0, "text": "पीली आकृति शीर्षक के नीचे चलती है।", "ok": true, "problems": [], "suggested_max_words": 7, "seconds": 3.031973, "overlap_seconds": 0}, {"id": 1, "text": "लाल दृश्य में प्याज़ काटन
+- 54 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 55 ✓ tool render_preview: {"path": "runs/agent_mock/preview_en.mp4", "duration": 8.0}
+- 56 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 57 ✓ tool finalize: {"ok": true, "warnings": [], "outputs": "runs/agent_mock"}

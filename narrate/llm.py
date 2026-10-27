@@ -91,7 +91,7 @@ class Client:
         key = os.environ.get(self.config['key_env'])
         if not key:
             raise RuntimeError(self.config['key_env'] + ' is missing')
-        system = SYSTEM.get(stage, SYSTEM['fit'])
+        system = data.get('_system') or SYSTEM.get(stage, SYSTEM['fit'])
         if model.get('reasoning', 'off') in ('off', False):
             system += '\n/no_think'
         content = [{'type': 'text', 'text': json.dumps(data, ensure_ascii=False)}] + (media or [])
@@ -102,12 +102,14 @@ class Client:
         identity = (url, model['id'])
         sdk = (self.sdk_factory or OpenAI)(api_key=key, base_url=url, timeout=60, max_retries=0)
         for attempt in range(4):
+            if time.monotonic() > getattr(self, 'deadline', float('inf')):
+                raise TimeoutError('Agent deadline reached')
             kwargs = {}
             using_json = model.get('json_mode', True) and identity not in self.no_json
             if using_json:
                 kwargs['response_format'] = {'type':'json_object'}
-            if self.config.get('extra_body_thinking', False):
-                kwargs['extra_body'] = {'chat_template_kwargs': {'enable_thinking': model.get('reasoning') in ('on', True)}}
+            if self.config.get('extra_body_thinking', True):
+                kwargs['extra_body'] = {'chat_template_kwargs': {'enable_thinking': model.get('thinking', False)}}
             self.guard.reserve(reservation)
             self.limiter.wait()
             started = time.monotonic()
@@ -126,7 +128,11 @@ class Client:
             self.guard.spent += actual - reservation
             self.usage.append({'stage':stage, 'model':model['id'], 'base_url_host':urlparse(url).hostname, 'input_tokens':usage.prompt_tokens if usage else estimate, 'output_tokens':usage.completion_tokens if usage else output_limit, 'cost_usd':actual, 'latency_s':time.monotonic()-started})
             message = response.choices[0].message
-            raw = message.content or getattr(message, 'reasoning_content', '') or ''
+            raw = message.content or ''
+            if not raw.strip():
+                if attempt < 2:
+                    continue
+                raise RuntimeError('Empty content: raise max_tokens or disable thinking')
             if self.raw_dir:
                 self.raw_dir.mkdir(parents=True, exist_ok=True)
                 self.raw_count += 1

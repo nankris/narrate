@@ -9,6 +9,8 @@ providers:
       fit: nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B
       fit_alt: nvidia/Nemotron-3_5-Lightning
       edit: nvidia/Nemotron-3-Ultra-550b-a55b
+      orchestrate: nvidia/Nemotron-3-Ultra-550b-a55b
+    thinking: false
   nvidia-dev:
     base_url: https://integrate.api.nvidia.com/v1
     key_env: NVIDIA_DEV_API_KEY
@@ -16,29 +18,73 @@ providers:
     rpm: 40
     models:
       perceive: nvidia/nemotron-3.5-super-vl-120b-a12b
-      fit: nvidia/nemotron-nano-3-30b-a3b
+      fit: nvidia/nemotron-3.5-lightning-30b-a3b
       fit_alt: nvidia/nemotron-3.5-lightning-30b-a3b
       edit: nvidia/nemotron-3-ultra-550b-a55b
+      orchestrate: nvidia/nemotron-3-ultra-550b-a55b
+    thinking: false
 prices:
-  perceive: {input_price: 0.30, output_price: 0.90}
-  fit: {input_price: 0.06, output_price: 0.24}
-  fit_alt: {input_price: 0.06, output_price: 0.24}
-  edit: {input_price: 1.00, output_price: 3.00}
+  perceive:
+    input_price: 0.3
+    output_price: 0.9
+  fit:
+    input_price: 0.06
+    output_price: 0.24
+  fit_alt:
+    input_price: 0.06
+    output_price: 0.24
+  edit:
+    input_price: 1.0
+    output_price: 3.0
+  orchestrate:
+    input_price: 1.0
+    output_price: 3.0
 stages:
-  perceive: {max_tokens: 3000, reasoning: 'off'}
-  fit: {max_tokens: 2000, reasoning: 'off'}
-  fit_alt: {max_tokens: 2000, reasoning: 'off'}
-  edit: {max_tokens: 4000, reasoning: 'off'}
-extra_body_thinking: false
+  perceive:
+    max_tokens: 3000
+    reasoning: 'off'
+    thinking: false
+  fit:
+    max_tokens: 2000
+    reasoning: 'off'
+    thinking: false
+  fit_alt:
+    max_tokens: 2000
+    reasoning: 'off'
+    thinking: false
+  edit:
+    max_tokens: 4000
+    reasoning: 'off'
+    thinking: false
+  orchestrate:
+    max_tokens: 1800
+    thinking: false
+extra_body_thinking: true
 image_tokens: 1800
-video_tokens_per_second: 300
+video_tokens_per_second: 600
 perception_strategy: auto
 frame_interval: 3
 silence_db: -35
 silence_min: 1.0
-words_per_second: {en: 2.3, hi: 2.0}
+words_per_second:
+  en: 2.3
+  hi: 2.0
 word_margin: 1
 max_duration: 120
-tts: {backend: espeak, voices: {en: en, hi: hi}, piper_models: {}}
+tts:
+  backend: espeak
+  voices:
+    en: en
+    hi: hi
+  piper_models: {}
 ducking_level: 0.18
 budget_usd: 0.25
+agent:
+  max_steps: 40
+  budget_usd: 0.5
+  max_inspections: 12
+  max_verifications: 8
+  timeout_s: 600
+  max_atempo: 1.25
+  min_gap: 1.2
+  hangover_s: 0.3

@@ -12,7 +12,7 @@ def test_resolution(monkeypatch):
     cfg = resolve_provider(load_config(), 'nvidia-dev')
     assert cfg['base_url'] == 'https://example.invalid/v1'
     assert cfg['rpm'] == 40
-    assert cfg['models']['fit']['id'] == 'nvidia/nemotron-nano-3-30b-a3b'
+    assert cfg['models']['fit']['id'] == 'nvidia/nemotron-3.5-lightning-30b-a3b'
     cfg['providers']['nebius']['models']['fit'] = {'id':'alternate','json_mode':False,'base_url':'https://region.invalid/v1'}
     assert resolve_provider(cfg, 'nebius')['models']['fit']['json_mode'] is False
 

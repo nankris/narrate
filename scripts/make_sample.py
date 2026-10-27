@@ -7,7 +7,24 @@ import tempfile
 from narrate.media import ffmpeg, command
 
 
+def lecture():
+    out=Path('samples/failure_continuous_speech.mp4')
+    out.parent.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=out.parent) as td:
+        wav=Path(td)/'lecture.wav'
+        text=('this lecture explains how information moves through a system and how each stage changes the result while the next slide shows another example ')*15
+        command(['espeak-ng','-s','175','-g','0','-w',str(wav),'--',text])
+        vf="drawtext=text='CONTINUOUS SPEECH - SLIDE 1':x=25:y=80:fontsize=25:fontcolor=white:enable='lt(t,15)',drawtext=text='SLIDE 2 - NO ROOM FOR AD':x=25:y=80:fontsize=25:fontcolor=white:enable='gte(t,15)'"
+        ffmpeg('-f','lavfi','-i','color=c=0x204b57:s=640x360:r=10:d=30','-i',wav,'-vf',vf,'-c:v','libx264','-c:a','aac','-t',30,out)
+    print(out)
+
+
 def main():
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--kind',choices=['kitchen','lecture'],default='kitchen')
+    if parser.parse_args().kind=='lecture':
+        return lecture()
     out = Path('samples/sample_kitchen.mp4')
     out.parent.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(dir=out.parent) as td:

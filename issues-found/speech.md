@@ -1,3 +1,6 @@
+> Updated Task 3 evidence and fixes: [live probe findings](agent-probes.md).
+> Historical baseline notes below describe the earlier build.
+
 # Silence, speech duration, and Hindi voice quality
 
 Symptom: one synthetic sample gap is too short to fit useful description after the 80 ms edge insets and word margin. Silence is not identical to absence of dialogue. Hindi espeak is a robotic synthetic voice.

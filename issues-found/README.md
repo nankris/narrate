@@ -1,3 +1,6 @@
+> Updated Task 3 evidence and fixes: [live probe findings](agent-probes.md).
+> Historical baseline notes below describe the earlier build.
+
 # Issues found
 
 | Group | Evidence / status |

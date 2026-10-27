@@ -1,0 +1,55 @@
+{
+  "mock": true,
+  "provider": "mock",
+  "dev_only": false,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [
+    "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 1.00000625,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [],
+  "tracks": {
+    "en": [],
+    "hi": []
+  },
+  "gaps": [],
+  "speech": [
+    {
+      "start": 0,
+      "end": 30.0001875
+    }
+  ],
+  "cues_committed": 0,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 0.0,
+    "hi": 0.0
+  },
+  "high_importance_events_covered_percent": 100,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [],
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "translate_hindi": 1,
+      "render_preview": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {},
+    "cost_by_model": {
+      "MOCK/orchestrate": 0
+    },
+    "total_latency_s": 2.8190228739986196
+  },
+  "estimated_cost_usd": 0,
+  "would_be_token_factory_cost_usd": 0.0,
+  "cost_per_minute": 0.0,
+  "latency_s": 2.8190228739986196
+}

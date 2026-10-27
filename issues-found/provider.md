@@ -1,3 +1,6 @@
+> Updated Task 3 evidence and fixes: [live probe findings](agent-probes.md).
+> Historical baseline notes below describe the earlier build.
+
 # Provider compatibility and budget estimates
 
 Symptom: video_url, JSON response format, and regional model support cannot be established offline.
