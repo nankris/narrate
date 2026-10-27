@@ -17,6 +17,13 @@ def main():
     p.add_argument('--mock', action='store_true')
     p.add_argument('--budget-usd', type=float, default=None)
     args = parser.parse_args()
+    if not args.mock and args.provider != 'mock':
+        import os
+        from .config import load_config, resolve_provider
+        cfg = resolve_provider(load_config(), args.provider)
+        if not os.environ.get(cfg['key_env']):
+            hint = ' (Nebius Token Factory key; base URL ' + cfg['base_url'] + ')' if cfg['provider'] == 'nebius' else ''
+            parser.exit(2, f"Provider '{cfg['provider']}' needs env {cfg['key_env']}{hint}. Use --provider mock to run offline.\n")
     if args.mock:
         print('MOCK: synthetic descriptions; no visual analysis or provider calls.')
     try:

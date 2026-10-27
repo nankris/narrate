@@ -1,3 +1,4 @@
+import os
 import hashlib
 import json
 import math
@@ -638,6 +639,8 @@ class Agent:
 def run_agent(path,out_dir,provider=None,langs=('en','hi'),max_steps=None,budget_usd=None,on_step=None,*,config=None,client=None,orchestrator=None,orchestrator_model='ultra'):
     """Synchronous streaming API; callback gets each JSON-serializable trace step."""
     cfg=resolve_provider(config or load_config(),provider)
+    if client is None and orchestrator is None and cfg['provider']!='mock' and not os.environ.get(cfg['key_env']):
+        raise RuntimeError(f"Provider '{cfg['provider']}' needs env {cfg['key_env']}; use provider='mock' offline")
     if orchestrator_model=='super':
         if 'orchestrate_alt' not in cfg['models']:
             raise ValueError('Super orchestrator is available with nebius only')
