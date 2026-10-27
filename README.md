@@ -17,7 +17,7 @@ python3 -m venv .venv
 
 Open `runs/demo/narrated_en.mp4` or `narrated_hi.mp4`. The same directory contains `ad_en.vtt`, `ad_hi.vtt`, `transcript_en.txt`, `transcript_hi.txt`, and `report.json`. Checked-in mock artifacts are in `samples/outputs_mock/`. Regenerate the synthetic sample using `.venv/bin/python scripts/make_sample.py`.
 
-**Mock means synthetic descriptions, not visual understanding.** Events come from sampling timestamps, with a fixed shape description and built-in Hindi phrase. Missing `NEBIUS_API_KEY` automatically selects mock with a warning. Zero mock cost and latency do not predict real quality, provider cost, or provider latency.
+**Mock means synthetic descriptions, not visual understanding.** Events use the synthetic sample scene sidecar when available, otherwise varied timestamp phrases; Hindi uses natural Devanagari phrases. Usage and would-be Token Factory costs are simulated. A missing selected-provider key selects mock with a warning, unless `--strict` is set. Zero mock cost and latency do not predict real quality, provider cost, or provider latency.
 
 ## Real mode (not exercised in this build)
 
@@ -26,9 +26,9 @@ export NEBIUS_API_KEY='YOUR_RUNTIME_KEY'
 .venv/bin/python -m narrate run your_video.mp4 --out runs/real --lang en,hi --budget-usd 0.25
 ```
 
-Use only a runtime environment variable for the key; no dotenv loading, saved credentials, or request logging. Real mode sends media to Token Factory and incurs charges. No provider calls were made during development. Catalog/model availability and all provider behavior below are **to verify** with an authorized real key.
+Use only a runtime environment variable for the key; no dotenv loading or saved credentials. Response text only is saved under `out/raw/`, truncated to 4 KB; headers and requests are never logged. Real mode sends media to Token Factory and incurs charges. No provider calls were made during development. Catalog/model availability and all provider behavior below are **to verify** with an authorized real key.
 
-`config.yaml` controls models, prices, budget, silence detection, maximum duration (120 seconds), sample interval, perception strategy, speech rates, voices and ducking. `NARRATE_CONFIG` selects another YAML file. Each model may set `base_url` (for example `https://api.tokenfactory.us-central1.nebius.com/v1/`) and `json_mode: false` if JSON mode is unsupported. To select Lightning, replace `models.fit` with the configured `models.lightning` mapping. `auto` tries video, then frame grids on API errors; explicit `video` surfaces video errors, and `frames` skips video. Budget errors always stop, without fallback spending.
+`config.yaml` controls models, prices, budget, silence detection, maximum duration (120 seconds), sample interval, perception strategy, speech rates, voices and ducking. `NARRATE_CONFIG` selects another YAML file. Each model may set `base_url` (for example `https://api.tokenfactory.us-central1.nebius.com/v1/`) and `json_mode: false` if JSON mode is unsupported. To select Lightning, replace `providers.<provider>.models.fit` with the `fit_alt` model ID or mapping. `auto` tries video, then frame grids on API errors or zero valid events; `video_frames` sends at most 16 timestamped separate images; explicit `video` surfaces video errors, and `frames` skips video. Budget errors always stop, without fallback spending.
 
 `espeak` is the default backend. `silent` makes silent test narration. Optional `piper` requires separately installed `piper-tts`, local voice models and `tts.piper_models: {en: /path/en_US.onnx, hi: /path/hi_IN.onnx}`; companion model config files must be present. Piper is not installed or verified here.
 
@@ -45,13 +45,13 @@ ffprobe duration check
     -> ffmpeg delay + original-audio ducking -> MP4 / VTT / text / report
 ```
 
-Cue timestamps come exclusively from detected gaps, with 80 ms inset at both ends. Models cannot move cues. Budgets are `max(0, floor(gap_seconds * words_per_second - margin))`. English defaults to 2.3 words/sec, Hindi 2.0. Overlong Nano text gets one shorter-budget retry, then truncation with a report entry. Invalid Ultra output falls back to fitted English; Hindi files are still produced but contain no Hindi descriptions, explicitly reported as unavailable. Continuous sound produces empty cue tracks, not narration over dialogue.
+Cue timestamps come exclusively from detected gaps, with 80 ms inset at both ends. Models cannot move cues. Budgets are `max(0, floor(gap_seconds * words_per_second - margin))`. English defaults to 2.3 words/sec, Hindi 2.0. Overlong Nano text gets one shorter-budget retry, then truncation with a report entry. Invalid Ultra cues fall back individually to fitted English; invalid Hindi cues are marked unavailable while valid cues are retained. Continuous sound produces empty cue tracks, not narration over dialogue.
 
-The callable API is `narrate.pipeline.run(path, out_dir, langs, client, budget, progress=callback, config=None)`. The callback receives `{stage, status}` events. It runs synchronously and can be placed in a UI worker later. Pass a reusable `SpendGuard` as `budget` for a session cap. Provider retries reserve cost separately; failed attempts retain their reservation because billing is uncertain. A conservative UTF-8 byte bound (including media payload) estimates input tokens before requests; actual usage reconciles successful calls. This may reject affordable media requests. Provider billing/tokenization is not locally guaranteed; reported usage above the estimate stops the run. No automatic calls continue after budget exhaustion. `report.json` is saved on failure.
+The callable API is `narrate.pipeline.run(path, out_dir, langs, client, budget, progress=callback, config=None, provider=None, strict=False)`. The callback receives `{stage, status}` events. It runs synchronously and can be placed in a UI worker later. Pass a reusable `SpendGuard` as `budget` for a session cap. Provider retries reserve cost separately; failed attempts retain their reservation because billing is uncertain. Reservations estimate text at chars/3, each image at 1,800 tokens, and video at 300 tokens/second; media encoding bytes are excluded. These values and stage output limits (3,000/2,000/4,000) are configurable. Provider billing/tokenization is not locally guaranteed; reported usage above the estimate stops the run. No automatic calls continue after budget exhaustion. `report.json` is saved on failure.
 
 ## Nemotron model-by-model
 
-Illustrative token/cost estimates below are planning assumptions, **not measured usage**. Rates are configured USD per million input/output tokens. Batched fitting minimizes requests.
+Illustrative token/cost estimates below are planning assumptions, **not measured usage**. Rates are configured USD per million input/output tokens. Batched fitting assigns event indices across gaps and instructs the model to track earlier cues; shorter retries receive previous cues.
 
 | Stage | Model id | Why this model | Calls/video | Illustrative input/output tokens; cost |
 |---|---|---|---|---|
@@ -66,7 +66,28 @@ Each logical SDK call permits two transport retries with backoff; Ultra has one 
 
 The integration is designed around one OpenAI-compatible endpoint for three Nemotron sizes: expensive visual perception and global editing surround cheap Nano fitting. Per-stage model selection allocates cost according to the task; Nano's configured rate also supports future per-gap calls. JSON mode and regional per-model endpoints are configurable. These integration advantages are **to verify** in real mode: video_url acceptance, image-grid interpretation, JSON mode across each model, Hindi quality, regional availability, actual tokenization and pricing. Offline tests verify our request construction paths and deterministic pipeline, not these service claims.
 
-`scripts/list_models.py` prints configured public-catalog IDs when no key exists and lists live Nemotron IDs when a key is present. Catalog provenance supplied for this task: public catalog, fetched 27 Oct 2026. `scripts/smoke_video_input.py --allow-paid` is an explicitly opted-in real smoke test for a tiny video and frame grid; results save to `runs/smoke/`. It was not run with a key.
+## Providers and smoke diagnostics
+
+| Provider | Runtime key variable | Use |
+|---|---|---|
+| `nebius` (default) | `NEBIUS_API_KEY` | Final/demo measurements, Token Factory |
+| `nvidia-dev` | `NVIDIA_DEV_API_KEY` | Free development only, limited to 40 requests/minute |
+| `mock` | None | Offline synthetic descriptions |
+
+**Final/demo numbers must come from provider `nebius`.** NVIDIA development runs carry `"dev_only": true`; their estimated charged cost is zero, but `would_be_token_factory_cost_usd` reports comparable list-price cost. Mock usage is simulated and marked `mock`. Reports record actual used model IDs and endpoint hosts in usage entries.
+
+Use `--provider nebius|nvidia-dev|mock` and `--strict` to prohibit missing-key fallback. `--mock` remains an alias. Configuration has `default_provider`, `providers`, stage-keyed `prices` and `stages`. A provider model value may be an ID string or `{id: ..., base_url: ..., json_mode: false}`. `NARRATE_BASE_URL_NEBIUS` and `NARRATE_BASE_URL_NVIDIA_DEV` override provider URLs; explicit per-model regional URLs take precedence. Per-stage `reasoning: 'off'` adds `/no_think`; `extra_body_thinking: true` additionally sends `chat_template_kwargs.enable_thinking`. It is disabled by default for compatibility. A JSON-mode HTTP 400 retries without response_format and remembers the endpoint/model for that client session.
+
+Run these manually with authorized runtime keys; **they make real requests and Nebius calls incur charges**. They were not run against a provider during this task.
+
+```bash
+.venv/bin/python scripts/list_models.py --provider nebius
+.venv/bin/python scripts/smoke_video_input.py --provider nvidia-dev
+.venv/bin/python scripts/smoke_text.py --provider nebius
+.venv/bin/python -m narrate run your_video.mp4 --out runs/real --provider nebius --strict
+```
+
+Video smoke compares video data URLs, a contact sheet, and separate frames for a generated four-second RED SQUARE / BLUE CIRCLE clip. Text smoke probes fit, fit_alt and edit for JSON and Devanagari. Both print latency, usage and diagnostic outcomes and save timestamped JSON under `runs/smoke/`. Errors retain only exception class and HTTP status to avoid echoing credentials or media. Rate limiting applies to every inference attempt, including retries.
 
 ## Results card — MOCK
 

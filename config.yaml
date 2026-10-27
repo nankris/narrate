@@ -1,9 +1,37 @@
-base_url: https://api.tokenfactory.nebius.com/v1/
-models:
-  perceive: {id: nvidia/Nemotron-3.5-Super-VL, input_price: 0.30, output_price: 0.90}
-  fit: {id: nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B, input_price: 0.06, output_price: 0.24}
-  lightning: {id: nvidia/Nemotron-3_5-Lightning, input_price: 0.06, output_price: 0.24}
-  edit: {id: nvidia/Nemotron-3-Ultra-550b-a55b, input_price: 1.00, output_price: 3.00}
+default_provider: nebius
+providers:
+  nebius:
+    base_url: https://api.tokenfactory.nebius.com/v1/
+    key_env: NEBIUS_API_KEY
+    final: true
+    models:
+      perceive: nvidia/Nemotron-3.5-Super-VL
+      fit: nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B
+      fit_alt: nvidia/Nemotron-3_5-Lightning
+      edit: nvidia/Nemotron-3-Ultra-550b-a55b
+  nvidia-dev:
+    base_url: https://integrate.api.nvidia.com/v1
+    key_env: NVIDIA_DEV_API_KEY
+    final: false
+    rpm: 40
+    models:
+      perceive: nvidia/nemotron-3.5-super-vl-120b-a12b
+      fit: nvidia/nemotron-nano-3-30b-a3b
+      fit_alt: nvidia/nemotron-3.5-lightning-30b-a3b
+      edit: nvidia/nemotron-3-ultra-550b-a55b
+prices:
+  perceive: {input_price: 0.30, output_price: 0.90}
+  fit: {input_price: 0.06, output_price: 0.24}
+  fit_alt: {input_price: 0.06, output_price: 0.24}
+  edit: {input_price: 1.00, output_price: 3.00}
+stages:
+  perceive: {max_tokens: 3000, reasoning: 'off'}
+  fit: {max_tokens: 2000, reasoning: 'off'}
+  fit_alt: {max_tokens: 2000, reasoning: 'off'}
+  edit: {max_tokens: 4000, reasoning: 'off'}
+extra_body_thinking: false
+image_tokens: 1800
+video_tokens_per_second: 300
 perception_strategy: auto
 frame_interval: 3
 silence_db: -35

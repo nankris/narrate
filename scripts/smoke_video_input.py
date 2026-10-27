@@ -1,34 +1,29 @@
-"""Explicit opt-in paid provider smoke test; never imported by tests."""
-import json
-import os
+"""Run explicitly with --provider; uses real APIs and may incur charges."""
 import sys
+import tempfile
+import json
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from narrate.config import load_config
-from narrate.llm import Client
+from smoke_common import setup, trial, save, Client
 from narrate.media import ffmpeg
-from narrate.perception import data_url, frame_grids
+from narrate.perception import data_url, frame_grids, separate_frames
 
 
 def main():
-    if not os.environ.get('NEBIUS_API_KEY'):
-        print('No key; smoke test skipped.')
-        return
-    if '--allow-paid' not in sys.argv:
-        print('Real calls incur charges. Explicitly pass --allow-paid to run.')
-        return
-    out = Path('runs/smoke')
-    out.mkdir(parents=True, exist_ok=True)
-    clip = out / 'tiny.mp4'
-    ffmpeg('-f', 'lavfi', '-i', 'color=blue:s=160x90:r=2:d=3', '-an', '-c:v', 'libx264', '-threads', 2, clip)
-    client = Client(load_config())
-    for strategy, media in [('video', [{'type': 'video_url', 'video_url': {'url': data_url(clip.read_bytes(), 'video/mp4')}}]), ('frames', frame_grids(clip, [0, 1, 2]))]:
-        try:
-            result = client.call('perceive', {'instruction': 'Describe visible content. Return JSON object.', 'duration': 3}, media)
-        except Exception as exc:
-            result = {'error_type': type(exc).__name__}
-        (out / f'{strategy}.json').write_text(json.dumps(result, indent=2))
-        print(strategy, result)
+    cfg, target = setup()
+    client = Client(cfg)
+    with tempfile.TemporaryDirectory() as td:
+        clip = Path(td) / 'tiny.mp4'
+        vf = "drawbox=x=40:y=110:w=90:h=90:color=red:t=fill:enable='lt(t,2)',drawtext=text='RED SQUARE':x=30:y=30:fontsize=32:fontcolor=white:enable='lt(t,2)',drawbox=x=0:y=0:w=640:h=360:color=navy:t=fill:enable='gte(t,2)',drawtext=text='●':x=40:y=100:fontsize=100:fontcolor=blue:enable='gte(t,2)',drawtext=text='BLUE CIRCLE':x=30:y=30:fontsize=32:fontcolor=white:enable='gte(t,2)'"
+        ffmpeg('-f','lavfi','-i','color=teal:s=640x360:r=4:d=4','-vf',vf,'-an','-c:v','libx264',clip)
+        inputs = {'video_url':[{'type':'video_url','video_url':{'url':data_url(clip.read_bytes(), 'video/mp4')}}], 'frame_grid':frame_grids(clip,[0,2.5]), 'separate_frames':separate_frames(clip,[0,2.5])}
+        results = {}
+        for name, media in inputs.items():
+            result = trial(client,'perceive',{'duration':4, 'instruction':'Describe the shapes and transcribe all text verbatim. Return events JSON.'},media)
+            answer = json.dumps(result.get('answer', {})).upper()
+            result['mentions_shown_text'] = {text:text in answer for text in ('RED SQUARE','BLUE CIRCLE')}
+            results[name] = result
+        save(target,cfg,results)
 
 
 if __name__ == '__main__':

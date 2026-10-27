@@ -1,0 +1,29 @@
+[
+  {
+    "t_start": 0,
+    "t_end": 10,
+    "who": "A yellow shape",
+    "action": "A yellow shape moves beneath a kitchen title",
+    "on_screen_text": "A person enters a kitchen",
+    "importance": 3,
+    "hi": "पीली आकृति शीर्षक के नीचे चलती है।"
+  },
+  {
+    "t_start": 10,
+    "t_end": 20,
+    "who": "A yellow shape",
+    "action": "The red scene displays an onion chopping instruction",
+    "on_screen_text": "STEP 1 - chop onions",
+    "importance": 4,
+    "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"
+  },
+  {
+    "t_start": 20,
+    "t_end": 30,
+    "who": "A yellow shape",
+    "action": "The teal scene displays the stir and serve title",
+    "on_screen_text": "Stir and serve",
+    "importance": 4,
+    "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।"
+  }
+]

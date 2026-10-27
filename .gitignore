@@ -9,3 +9,6 @@ runs/
 *.log
 .pytest_cache/
 uploads/
+
+.nvidia_dev_key
+*key*.txt

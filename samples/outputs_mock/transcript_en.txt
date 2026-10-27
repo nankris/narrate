@@ -1,4 +1,4 @@
-[00:00:04.292] A shape moves across the coloured scene
-[00:00:11.509] A shape moves across the coloured scene
-[00:00:19.561] A shape moves across the coloured scene
-[00:00:27.087] A shape moves across the
+[00:00:04.292] A yellow shape moves beneath a kitchen title
+[00:00:11.509] The red scene displays an onion chopping instruction
+[00:00:19.561] The teal scene displays the stir and serve title
+[00:00:27.087] The yellow shape continues moving

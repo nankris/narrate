@@ -1,21 +1,25 @@
 {
   "status": "complete",
   "mock": true,
+  "provider": "mock",
+  "requested_provider": "mock",
+  "dev_only": false,
+  "base_url_host": null,
   "models": {
-    "perceive": "nvidia/Nemotron-3.5-Super-VL",
-    "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-    "edit": "nvidia/Nemotron-3-Ultra-550b-a55b"
+    "perceive": "MOCK",
+    "fit": "MOCK",
+    "edit": "MOCK"
   },
   "latency_s": {
-    "probe": 0.06939521300955676,
-    "perceive": 4.6236993512138724e-05,
-    "gaps": 0.15247205999912694,
-    "fit": 2.9287009965628386e-05,
-    "edit": 2.3822998628020287e-05,
-    "tts_en": 0.6371720830065897,
-    "mix_en": 0.6011829269991722,
-    "tts_hi": 0.6298991880030371,
-    "mix_hi": 0.6203042899869615
+    "probe": 0.06933848399785347,
+    "perceive": 0.00023387299734167755,
+    "gaps": 0.16140074099530466,
+    "fit": 0.00015095999697223306,
+    "edit": 0.00022946200624573976,
+    "tts_en": 0.623397407005541,
+    "mix_en": 0.7483881659863982,
+    "tts_hi": 0.5786827789997915,
+    "mix_hi": 0.6619442899973365
   },
   "cues_dropped": 1,
   "overlaps_with_speech": 0,
@@ -73,6 +77,8 @@
   "duration_s": 30.0,
   "perception_strategy": "mock-timestamps",
   "perception_fallback": false,
+  "perception_error": null,
+  "perception_events_dropped": 0,
   "gaps": [
     {
       "start": 0.0,
@@ -100,6 +106,11 @@
       "duration": 2.9932429999999997
     }
   ],
+  "described_event_indices": [
+    0,
+    1,
+    2
+  ],
   "gap_coverage_percent": {
     "en": 91.76706817238504,
     "hi": 91.76706817238504
@@ -111,8 +122,11 @@
       "end": 8.934286,
       "budget": 9,
       "hi_budget": 8,
-      "en": "A shape moves across the coloured scene",
-      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+      "assigned_event_indices": [
+        0
+      ],
+      "en": "A yellow shape moves beneath a kitchen title",
+      "hi": "पीली आकृति शीर्षक के नीचे चलती है।"
     },
     {
       "id": 2,
@@ -120,8 +134,11 @@
       "end": 16.920091000000003,
       "budget": 11,
       "hi_budget": 9,
-      "en": "A shape moves across the coloured scene",
-      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+      "assigned_event_indices": [
+        1
+      ],
+      "en": "The red scene displays an onion chopping instruction",
+      "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"
     },
     {
       "id": 3,
@@ -129,8 +146,11 @@
       "end": 24.972336000000002,
       "budget": 11,
       "hi_budget": 9,
-      "en": "A shape moves across the coloured scene",
-      "hi": "एक आकृति रंगीन दृश्य में चलती है"
+      "assigned_event_indices": [
+        2
+      ],
+      "en": "The teal scene displays the stir and serve title",
+      "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।"
     },
     {
       "id": 4,
@@ -138,35 +158,40 @@
       "end": 29.92,
       "budget": 5,
       "hi_budget": 4,
-      "en": "A shape moves across the",
-      "hi": "एक आकृति रंगीन दृश्य"
+      "assigned_event_indices": [],
+      "en": "The yellow shape continues moving",
+      "hi": "दृश्य बदला।"
     }
   ],
   "usage": [
     {
       "stage": "perceive",
       "model": "MOCK",
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "cost_usd": 0,
+      "mock": true,
+      "input_tokens": 347,
+      "output_tokens": 228,
+      "cost_usd": 0.00030930000000000004,
       "latency_s": 0
     },
     {
       "stage": "fit",
       "model": "MOCK",
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "cost_usd": 0,
+      "mock": true,
+      "input_tokens": 1397,
+      "output_tokens": 90,
+      "cost_usd": 0.00010541999999999999,
       "latency_s": 0
     },
     {
       "stage": "edit",
       "model": "MOCK",
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "cost_usd": 0,
+      "mock": true,
+      "input_tokens": 1649,
+      "output_tokens": 146,
+      "cost_usd": 0.002087,
       "latency_s": 0
     }
   ],
-  "estimated_cost_usd": 0.0
+  "would_be_token_factory_cost_usd": 0.00250172,
+  "estimated_cost_usd": 0
 }
