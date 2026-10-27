@@ -1,0 +1,1006 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.6,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 2.198201294988394,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.198128075004206,
+      "tokens_in": 2857,
+      "tokens_out": 36,
+      "cost_usd": 0.002965,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 2.7919305999967037,
+      "role": "tool",
+      "note": "Find narratable speech gaps in video",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 79.17,
+            "word_budget_en": 180,
+            "word_budget_hi": 204,
+            "narratable": true
+          },
+          {
+            "id": 1,
+            "start": 84.12,
+            "end": 109.92,
+            "word_budget_en": 58,
+            "word_budget_hi": 66,
+            "narratable": true
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.04,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.5936965040018549,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 5.927598052992835,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.1356130770000163,
+      "tokens_in": 3073,
+      "tokens_out": 152,
+      "cost_usd": 0.003529,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 19.52962572099932,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 30,
+            "what": "A person in a black shirt and blue gloves works on plants growing inside a white panel enclosure on a spacecraft wall.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 30,
+            "t_end": 63,
+            "what": "The same person continues to tend to the green plants inside the enclosure, reaching in with gloved hands.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 63,
+            "t_end": 79,
+            "what": "A close-up shows hands placing a red chili pepper on a dark panel next to a yellow card labeled \"VEGGIE KEEP SAMPLE\", then two other astronauts watch and clap.",
+            "on_screen_text": "VEGGIE KEEP SAMPLE",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 9.620586831995752,
+      "tokens_in": 2759,
+      "tokens_out": 229,
+      "cost_usd": 0.0010337999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 19.52981553399877,
+      "role": "tool",
+      "note": "Inspect first long gap for key visuals",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 79.17,
+        "focus": "all visual events and on-screen text",
+        "start": 0
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 30,
+            "what": "A person in a black shirt and blue gloves works on plants growing inside a white panel enclosure on a spacecraft wall.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 30,
+            "t_end": 63,
+            "what": "The same person continues to tend to the green plants inside the enclosure, reaching in with gloved hands.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 13.602190242003417,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 25.51876889799314,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 82.12,
+        "t_end": 83.0,
+        "what": "Several astronauts inside a space station module gather around small objects, passing them hand-to-hand while smiling.",
+        "on_screen_text": "None",
+        "importance": 4,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 4.093568875992787,
+      "tokens_in": 2776,
+      "tokens_out": 73,
+      "cost_usd": 0.0008985,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 28.84927056299057,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 82.12,
+            "t_end": 91.22,
+            "what": "Two men stand inside a spacecraft module; the man on the left wears a blue polo shirt, the man on the right wears a black shirt and holds a transparent bag.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 91.22,
+            "t_end": 103.78,
+            "what": "Three additional people enter the frame from the left and right; one wears a green shirt, another a black shirt, and one operates a laptop on the right side.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 103.78,
+            "t_end": 109.92,
+            "what": "The group stands together in the module; the man in blue holds a yellow object while others gesture around equipment panels.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.96695567300776,
+      "tokens_in": 1172,
+      "tokens_out": 243,
+      "cost_usd": 0.0005702999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 28.849430307993316,
+      "role": "tool",
+      "note": "Inspect second gap for ending visuals",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 82.12,
+        "end": 109.92,
+        "focus": "all visual events and on-screen text"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 82.12,
+            "t_end": 91.22,
+            "what": "Two men stand inside a spacecraft module; the man on the left wears a blue polo shirt, the man on the right wears a black shirt and holds a transparent bag.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 91.22,
+            "t_end": 103.78,
+            "what": "Three additional people enter the frame from the left and right; one wears a green shirt, another a black shirt, and one operates a laptop on the right side.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "frames-fallback",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 9.319525322003756,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 50.75930665299529,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 21.90980555099668,
+      "tokens_in": 3650,
+      "tokens_out": 400,
+      "cost_usd": 0.00485,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 51.92130690898921,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.159464765994926,
+      "tokens_in": 531,
+      "tokens_out": 76,
+      "cost_usd": 5.009999999999999e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 51.921390352988965,
+      "role": "tool",
+      "note": "Draft cue for first gap: plant care",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0
+        ],
+        "context_events": [
+          {
+            "t_start": 0,
+            "t_end": 30,
+            "what": "A person in a black shirt and blue gloves works on plants growing inside a white panel enclosure on a spacecraft wall.",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 30,
+            "t_end": 63,
+            "what": "The same person continues to tend to the green plants inside the enclosure, reaching in with gloved hands.",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "max_words": 180
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.1620562760072062,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 53.13350911298767,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enters from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2097398369951406,
+      "tokens_in": 637,
+      "tokens_out": 68,
+      "cost_usd": 5.4539999999999996e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 53.13358655299817,
+      "role": "tool",
+      "note": "Draft cue for second gap: crew gathering",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          1
+        ],
+        "context_events": [
+          {
+            "t_start": 82.12,
+            "t_end": 91.22,
+            "what": "Two men stand inside a spacecraft module; the man on the left wears a blue polo shirt, the man on the right wears a black shirt and holds a transparent bag.",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 91.22,
+            "t_end": 103.78,
+            "what": "Three additional people enter the frame from the left and right; one wears a green shirt, another a black shirt, and one operates a laptop on the right side.",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "max_words": 58
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enters from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.2121609080058988,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 14,
+      "t_wall": 56.65572303299268,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.522112480000942,
+      "tokens_in": 4308,
+      "tokens_out": 81,
+      "cost_usd": 0.004551,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 57.96941610200156,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\" at around 00:26-00:27 in the video."
+      },
+      "ok": true,
+      "latency_s": 1.0356389779917663,
+      "tokens_in": 1174,
+      "tokens_out": 59,
+      "cost_usd": 0.0004053,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 57.96947973698843,
+      "role": "tool",
+      "note": "Verify chili pepper and VEGGIE text",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "A person places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\"",
+        "gap_id": 0
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\" at around 00:26-00:27 in the video.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.3137335939973127,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 63.834019903995795,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.864513326989254,
+      "tokens_in": 4522,
+      "tokens_out": 110,
+      "cost_usd": 0.004852,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 66.01159567499417,
+      "role": "tool",
+      "note": "Commit verified cue for plant care gap",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 79.17,
+          "duration": 79.09,
+          "narratable": true,
+          "word_budget_en": 180,
+          "word_budget_hi": 204,
+          "en": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.17755185799615,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 67.40958374699403,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3979503919981653,
+      "tokens_in": 4819,
+      "tokens_out": 82,
+      "cost_usd": 0.005065,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 69.29497537198768,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "Two additional people appear: one in a green shirt near the right-center of the module, and another in a black shirt on the left side behind the person in blue; a laptop is open on the right-hand equipment rack."
+      },
+      "ok": true,
+      "latency_s": 1.5574039759958396,
+      "tokens_in": 1182,
+      "tokens_out": 59,
+      "cost_usd": 0.0004077,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 69.2950383899879,
+      "role": "tool",
+      "note": "Verify three people entering scene",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "Three additional people enter the frame from the left and right; one wears a green shirt, another a black shirt, and one operates a laptop on the right side"
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "Two additional people appear: one in a green shirt near the right-center of the module, and another in a black shirt on the left side behind the person in blue; a laptop is open on the right-hand equipment rack.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 10,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8854344290011795,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 71.83392301699496,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.538855858001625,
+      "tokens_in": 5033,
+      "tokens_out": 101,
+      "cost_usd": 0.005336,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 74.03498766399571,
+      "role": "tool",
+      "note": "Commit verified cue for crew gathering",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enter from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 84.12,
+          "end": 109.92,
+          "duration": 25.8,
+          "narratable": true,
+          "word_budget_en": 58,
+          "word_budget_hi": 66,
+          "en": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enter from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels."
+        },
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 10,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.2010424379986944,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 24,
+      "t_wall": 76.14905661399825,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1140231840108754,
+      "tokens_in": 5313,
+      "tokens_out": 45,
+      "cost_usd": 0.005448,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 82.96753898099996,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "एक व्यक्ति काली शर्ट और नीले दस्ताने पहने अंतरिक्ष यान की दीवार पर लगे सफेद पैनल में पौधों की देखभाल करता है। फिर वह एक लाल मिर्च को \"VEGGIE KEEP SAMPLE\" लिखे पीले कार्ड के बगल में गहरे पैनल पर रखता है, जबकि दो अन्य अंतरिक्ष यात्री देखते और ताली बजाते हैं।"
+          },
+          {
+            "id": 1,
+            "hi": "दो पुरुष अंतरिक्ष यान मॉड्यूल के अंदर खड़े हैं। हरी शर्ट वाला व्यक्ति और पारदर्शी बैग लिए काली शर्ट वाला व्यक्ति विपरीत दिशाओं से प्रवेश करते हैं। समूह उपकरणों के चारों ओर इकट्ठा होता है, नीली शर्ट वाला आदमी पीली वस्तु पकड़े हुए है जबकि अन्य पैनलों की ओर इशारा करते हैं।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.817085111004417,
+      "tokens_in": 481,
+      "tokens_out": 238,
+      "cost_usd": 0.001195,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 88.08084466199216,
+      "role": "tool",
+      "note": "Translate both cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {
+        "cue_ids": [
+          0,
+          1
+        ]
+      },
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "एक व्यक्ति काली शर्ट और नीले दस्ताने पहने अंतरिक्ष यान की दीवार पर लगे सफेद पैनल में पौधों की देखभाल करता है। फिर वह एक लाल मिर्च को \"VEGGIE KEEP SAMPLE\" लिखे पीले कार्ड के बगल में गहरे पैनल पर रखता है, जबकि दो अन्य अंतरिक्ष यात्री देखते और ताली बजाते हैं।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 204,
+            "seconds": 21.42,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 10,
+            "verifications": 6
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 11.931769316986902,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 27,
+      "t_wall": 148.2233427399915,
+      "role": "system",
+      "note": "retry after APITimeoutError (attempt 2/3, backoff 1s)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": false,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 28,
+      "t_wall": 151.52612529500038,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 63.44520196299709,
+      "tokens_in": 5584,
+      "tokens_out": 29,
+      "cost_usd": 0.005671,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 155.59604297199985,
+      "role": "tool",
+      "note": "All cues verified and translated",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "runs/real_nasa_chile_harvest_0000-0150",
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 10,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.069893750987831,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 2,
+      "draft_description": 2,
+      "verify_claim": 2,
+      "propose_cue": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 2,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 9,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.04346200000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0033155999999999997,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00010463999999999999
+    },
+    "total_latency_s": 155.596483360001
+  }
+}

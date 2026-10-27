@@ -1,0 +1,4 @@
+en_espeak.wav 4.105578
+en_piper_ljspeech.wav 5.038730
+hi_espeak.wav 3.677551
+hi_piper_priyamvada.wav 4.365351

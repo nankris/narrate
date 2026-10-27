@@ -1,0 +1,21 @@
+=== sample_kitchen 23:27:07
+Complete: runs/real_sample_kitchen; estimated cost $0.050313
+real	2m50.375s
+user	0m26.606s
+sys	0m2.788s
+=== tears_of_steel_0015-0155 23:29:57
+Complete: runs/real_tears_of_steel_0015-0155; estimated cost $0.079802
+real	2m47.903s
+user	0m35.316s
+sys	0m3.266s
+=== nasa_chile_harvest_0000-0150 23:32:45
+Complete: runs/real_nasa_chile_harvest_0000-0150; estimated cost $0.041952
+real	1m28.085s
+user	0m29.377s
+sys	0m2.077s
+=== failure_continuous_speech 23:34:13
+Complete: runs/real_failure_continuous_speech; estimated cost $0.009338
+real	0m12.775s
+user	0m3.146s
+sys	0m0.389s
+ALLDONE

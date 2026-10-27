@@ -1,0 +1,240 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.6,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 1.614443440004834,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6143841420125682,
+      "tokens_in": 2509,
+      "tokens_out": 37,
+      "cost_usd": 0.00262,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 1.9064124660071684,
+      "role": "tool",
+      "note": "Detect speech gaps for audio description planning",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [],
+        "detector": "silero-onnx",
+        "speech_ratio": 1.0,
+        "state": {
+          "committed": [],
+          "remaining": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.29193882599065546,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 4.159120502008591,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.2526633119996404,
+      "tokens_in": 2617,
+      "tokens_out": 54,
+      "cost_usd": 0.002779,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 8.85336741199717,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 15,
+            "what": "A dark teal title card displays white text reading 'CONTINUOUS SPEECH - SLIDE 1'.",
+            "on_screen_text": "CONTINUOUS SPEECH - SLIDE 1",
+            "importance": 3,
+            "confidence": 1
+          },
+          {
+            "t_start": 15,
+            "t_end": 30,
+            "what": "A dark teal title card displays white text reading 'SLIDE 2 - NO ROOM FOR AD'.",
+            "on_screen_text": "SLIDE 2 - NO ROOM FOR AD",
+            "importance": 3,
+            "confidence": 1
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.332007917997544,
+      "tokens_in": 2732,
+      "tokens_out": 161,
+      "cost_usd": 0.0009645,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 8.853442341001937,
+      "role": "tool",
+      "note": "Full video inspection for visual content description",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 30,
+        "start": 0
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 15,
+            "what": "A dark teal title card displays white text reading 'CONTINUOUS SPEECH - SLIDE 1'.",
+            "on_screen_text": "CONTINUOUS SPEECH - SLIDE 1",
+            "importance": 3,
+            "confidence": 1
+          },
+          {
+            "t_start": 15,
+            "t_end": 30,
+            "what": "A dark teal title card displays white text reading 'SLIDE 2 - NO ROOM FOR AD'.",
+            "on_screen_text": "SLIDE 2 - NO ROOM FOR AD",
+            "importance": 3,
+            "confidence": 1
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.694296552013839,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 10.9743338170083,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.12085778999608,
+      "tokens_in": 2863,
+      "tokens_out": 37,
+      "cost_usd": 0.002974,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 12.393132476005121,
+      "role": "tool",
+      "note": "No speech gaps detected; continuous speech leaves no room for audio description",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "runs/real_failure_continuous_speech",
+        "state": {
+          "committed": [],
+          "remaining": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.4187760490021901,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {},
+    "orchestrator_turns": 3,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.008372999999999998,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0009645
+    },
+    "total_latency_s": 12.393321074996493
+  }
+}

@@ -1,0 +1,4 @@
+[00:00:19.932] Frame moves right and down on teal.
+[00:00:11.868] Yellow rectangle jitters. Text: STEP 1 - chop onions.
+[00:00:04.668] Frame moves right and down on teal.
+[00:00:27.388] Stir and serve appears.

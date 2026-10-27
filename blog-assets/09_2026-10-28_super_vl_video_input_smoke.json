@@ -1,0 +1,153 @@
+{
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "results": {
+    "video_url": {
+      "http": "ok",
+      "json_parsed": true,
+      "answer": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 2.0,
+            "who": "",
+            "action": "A red square remains stationary beneath the text RED SQUARE on a teal background, while white letters disappear one by one from left to right.",
+            "on_screen_text": "RED SQUARE",
+            "importance": 5
+          },
+          {
+            "t_start": 2.0,
+            "t_end": 4.0,
+            "who": "",
+            "action": "A blue rectangular outline remains stationary beneath the text BLUE CIRCLE on a dark blue background, while white letters disappear one by one from left to right.",
+            "on_screen_text": "BLUE CIRCLE",
+            "importance": 5
+          }
+        ]
+      },
+      "latency_s": 2.126098095002817,
+      "usage": [
+        {
+          "cached_tokens": 0,
+          "stage": "perceive",
+          "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "base_url_host": "integrate.api.nvidia.com",
+          "input_tokens": 1392,
+          "output_tokens": 157,
+          "cost_usd": 0.0005589,
+          "latency_s": 1.7688249359925976
+        }
+      ],
+      "mentions_shown_text": {
+        "RED SQUARE": true,
+        "BLUE CIRCLE": true
+      }
+    },
+    "frame_grid": {
+      "http": "ok",
+      "json_parsed": true,
+      "answer": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 2.5,
+            "who": "screen",
+            "action": "A teal panel displays the text RED SQUARE above a solid red square on its left side",
+            "on_screen_text": "RED SQUARE",
+            "importance": 3
+          },
+          {
+            "t_start": 0.0,
+            "t_end": 2.5,
+            "who": "screen",
+            "action": "A blue panel displays the text BLUE CIRCLE above a blue square outline",
+            "on_screen_text": "BLUE CIRCLE",
+            "importance": 3
+          },
+          {
+            "t_start": 0.0,
+            "t_end": 2.5,
+            "who": "screen",
+            "action": "The bottom left corner shows the timestamp 0.00 seconds",
+            "on_screen_text": "0.00 seconds",
+            "importance": 2
+          },
+          {
+            "t_start": 2.5,
+            "t_end": 4.0,
+            "who": "screen",
+            "action": "The bottom center shows the timestamp 2.50 seconds",
+            "on_screen_text": "2.50 seconds",
+            "importance": 2
+          }
+        ]
+      },
+      "latency_s": 1.7187096429988742,
+      "usage": [
+        {
+          "cached_tokens": 0,
+          "stage": "perceive",
+          "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "base_url_host": "integrate.api.nvidia.com",
+          "input_tokens": 420,
+          "output_tokens": 258,
+          "cost_usd": 0.00035820000000000003,
+          "latency_s": 1.7127846630028216
+        }
+      ],
+      "mentions_shown_text": {
+        "RED SQUARE": true,
+        "BLUE CIRCLE": true
+      }
+    },
+    "separate_frames": {
+      "http": "ok",
+      "json_parsed": true,
+      "answer": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 1,
+            "who": "red square",
+            "action": "appears on teal background",
+            "on_screen_text": "RED SQUARE",
+            "importance": 3
+          },
+          {
+            "t_start": 1,
+            "t_end": 2,
+            "who": "blue circle",
+            "action": "appears on dark blue background",
+            "on_screen_text": "BLUE CIRCLE",
+            "importance": 3
+          },
+          {
+            "t_start": 2,
+            "t_end": 3,
+            "who": "white rectangle",
+            "action": "appears on purple background",
+            "on_screen_text": "WHITE RECTANGLE",
+            "importance": 3
+          }
+        ]
+      },
+      "latency_s": 1.3703319289925275,
+      "usage": [
+        {
+          "cached_tokens": 0,
+          "stage": "perceive",
+          "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "base_url_host": "integrate.api.nvidia.com",
+          "input_tokens": 738,
+          "output_tokens": 158,
+          "cost_usd": 0.0003636,
+          "latency_s": 1.3641569079918554
+        }
+      ],
+      "mentions_shown_text": {
+        "RED SQUARE": true,
+        "BLUE CIRCLE": true
+      }
+    }
+  }
+}

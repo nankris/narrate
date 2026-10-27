@@ -1,0 +1,910 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.6,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 2.7876320170034887,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.78756145000807,
+      "tokens_in": 2510,
+      "tokens_out": 36,
+      "cost_usd": 0.002618,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 3.372840231008013,
+      "role": "tool",
+      "note": "Detect speech gaps for AD planning",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 79.17,
+            "word_budget_en": 180,
+            "word_budget_hi": 204
+          },
+          {
+            "id": 1,
+            "start": 84.12,
+            "end": 109.92,
+            "word_budget_en": 58,
+            "word_budget_hi": 66
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.04,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.5851700430066558,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 9.914511137001682,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.541618143004598,
+      "tokens_in": 2699,
+      "tokens_out": 105,
+      "cost_usd": 0.003014,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 23.361257007010863,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 23.0,
+            "what": "An astronaut wearing blue gloves works inside a plant growth chamber filled with green leafy plants.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 23.0,
+            "t_end": 58.0,
+            "what": "The astronaut reaches into the plant chamber to harvest green leafy plants by hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 58.0,
+            "t_end": 79.0,
+            "what": "An astronaut uses scissors to cut the stem of a red pepper resting on a dark panel.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 79.0,
+            "t_end": 85.0,
+            "what": "Two male astronauts stand inside a spacecraft module conversing while holding objects.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 8.971739966000314,
+      "tokens_in": 2739,
+      "tokens_out": 257,
+      "cost_usd": 0.001053,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 23.361391773010837,
+      "role": "tool",
+      "note": "Inspect first long gap content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 85
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 23.0,
+            "what": "An astronaut wearing blue gloves works inside a plant growth chamber filled with green leafy plants.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 23.0,
+            "t_end": 58.0,
+            "what": "The astronaut reaches into the plant chamber to harvest green leafy plants by hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 58.0,
+            "t_end": 79.0,
+            "what": "An astronaut uses scissors to cut the stem of a red pepper resting on a dark panel.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 13.446848220002721,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 31.290081578001264,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 78.0,
+            "t_end": 85.0,
+            "what": "Astronauts in blue shirts float inside a cluttered module and perform a synchronized handshake chain.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 85.0,
+            "t_end": 92.0,
+            "what": "Two crew members clasp hands while others watch and float in the confined cabin.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 92.0,
+            "t_end": 99.0,
+            "what": "A woman in a green shirt joins the group and holds hands in a circle with the crew.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 99.0,
+            "t_end": 106.0,
+            "what": "The astronauts laugh and break formation while floating weightlessly.",
+            "on_screen_text": null,
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.046910195000237,
+      "tokens_in": 2736,
+      "tokens_out": 325,
+      "cost_usd": 0.0011133,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 31.290219136004453,
+      "role": "tool",
+      "note": "Inspect second gap content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 78,
+        "end": 110
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 78.0,
+            "t_end": 85.0,
+            "what": "Astronauts in blue shirts float inside a cluttered module and perform a synchronized handshake chain.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 85.0,
+            "t_end": 92.0,
+            "what": "Two crew members clasp hands while others watch and float in the confined cabin.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 92.0,
+            "t_end": 99.0,
+            "what": "A woman in a green shirt joins the group and holds hands in a circle with the crew.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.928738490998512,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 32.65119238400075,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3608768459962448,
+      "tokens_in": 3261,
+      "tokens_out": 42,
+      "cost_usd": 0.003387,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 33.88185544300359,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel; a crew of male astronauts in a module converse and form synchronized handshake chains, add a woman in a green shirt to a hand circle, laugh while floating weightlessly, then disperse close together."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.228434707998531,
+      "tokens_in": 829,
+      "tokens_out": 83,
+      "cost_usd": 0.00017414999999999998,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 33.881900678010425,
+      "role": "tool",
+      "note": "Draft AD for plant harvesting segment",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel; a crew of male astronauts in a module converse and form synchronized handshake chains, add a woman in a green shirt to a hand circle, laugh while floating weightlessly, then disperse close together."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.230687860006583,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 11,
+      "t_wall": 35.84025278199988,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9583279650105396,
+      "tokens_in": 3438,
+      "tokens_out": 42,
+      "cost_usd": 0.003564,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 37.085535648002406,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Astronaut cuts red pepper stem in plant chamber, then harvests green leafy plants by hand. Two astronauts converse, clasp hands, and form a circle in the spacecraft module, laughing and floating weightlessly."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2430200180097017,
+      "tokens_in": 819,
+      "tokens_out": 72,
+      "cost_usd": 0.00016604999999999997,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 37.085584510001354,
+      "role": "tool",
+      "note": "Draft AD for crew interaction segment",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          1
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Astronaut cuts red pepper stem in plant chamber, then harvests green leafy plants by hand. Two astronauts converse, clasp hands, and form a circle in the spacecraft module, laughing and floating weightlessly."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.2453135319956345,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 14,
+      "t_wall": 38.756679078011075,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6710669919993961,
+      "tokens_in": 3591,
+      "tokens_out": 89,
+      "cost_usd": 0.003858,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 40.6385017260036,
+      "role": "tool",
+      "note": "Check fit for gap 0 draft",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "gap_id": 0,
+        "text": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel."
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 180,
+        "seconds": 8.68,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8817963160108775,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 16,
+      "t_wall": 59.11024930200074,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 18.471708297001896,
+      "tokens_in": 3765,
+      "tokens_out": 101,
+      "cost_usd": 0.004068,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 61.6485277590109,
+      "role": "tool",
+      "note": "Check fit for gap 1 draft",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "gap_id": 1,
+        "text": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse."
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 58,
+        "seconds": 12.49,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.5382058099930873,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 18,
+      "t_wall": 63.19904607901117,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5504728060041089,
+      "tokens_in": 3951,
+      "tokens_out": 77,
+      "cost_usd": 0.004182,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 63.201638508006,
+      "role": "tool",
+      "note": "Commit plant harvesting description",
+      "tool_name": "commit_cue",
+      "args": {
+        "text": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 79.17,
+          "duration": 79.09,
+          "word_budget_en": 180,
+          "word_budget_hi": 204,
+          "en": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.002518292996683158,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 20,
+      "t_wall": 69.30668835900724,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 6.105011763997027,
+      "tokens_in": 4165,
+      "tokens_out": 89,
+      "cost_usd": 0.004432,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 69.30832067001029,
+      "role": "tool",
+      "note": "Commit crew interaction description",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 84.12,
+          "end": 109.92,
+          "duration": 25.8,
+          "word_budget_en": 58,
+          "word_budget_hi": 66,
+          "en": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse."
+        },
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0016028660029405728,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 70.40459882700816,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.0962405259924708,
+      "tokens_in": 4403,
+      "tokens_out": 45,
+      "cost_usd": 0.004538,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 75.11260885999945,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "एक अंतरिक्ष यात्री नीले दस्ताने पहनकर एक कक्ष से हरे पत्तेदार पौधे तोड़ता है, फिर एक गहरे पैनल पर लाल शिमला मिर्च को कैंची से काटता है।"
+          },
+          {
+            "id": 1,
+            "hi": "नीली शर्ट पहने अंतरिक्ष यात्री एक भरे हुए मॉड्यूल में तैरते हैं, तालमेल से हाथ मिलाते हैं, दूसरे देखते हैं, हरी पोशाक वाली महिला हाथों का घेरा बनाती है, वे हँसते हैं और बिखर जाते हैं।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.706513660014025,
+      "tokens_in": 429,
+      "tokens_out": 176,
+      "cost_usd": 0.000957,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 79.65225408400875,
+      "role": "tool",
+      "note": "Translate both cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {
+        "cue_ids": [
+          0,
+          1
+        ]
+      },
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "एक अंतरिक्ष यात्री नीले दस्ताने पहनकर एक कक्ष से हरे पत्तेदार पौधे तोड़ता है, फिर एक गहरे पैनल पर लाल शिमला मिर्च को कैंची से काटता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 204,
+            "seconds": 11.16,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 1,
+            "text": "नीली शर्ट पहने अंतरिक्ष यात्री एक भरे हुए मॉड्यूल में तैरते हैं, तालमेल से हाथ मिलाते हैं, दूसरे देखते हैं, हरी पोशाक वाली महिला हाथों का घेरा बनाती है, वे हँसते हैं और बिखर जाते हैं।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 66,
+            "seconds": 14.57,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 9.247630099998787,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 83.33695575600723,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.6846469070005696,
+      "tokens_in": 4732,
+      "tokens_out": 32,
+      "cost_usd": 0.004828,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 87.69729883300897,
+      "role": "tool",
+      "note": "Finalize AD with English and Hindi cues",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "runs/real_nasa_chile_harvest_0000-0150",
+        "state": {
+          "committed": [
+            0,
+            1
+          ],
+          "remaining": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.3603023670002585,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 2,
+      "draft_description": 2,
+      "check_fit": 2,
+      "commit_cue": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {},
+    "orchestrator_turns": 10,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.039445999999999995,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0021663,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0003401999999999999
+    },
+    "total_latency_s": 87.69779527500214
+  }
+}

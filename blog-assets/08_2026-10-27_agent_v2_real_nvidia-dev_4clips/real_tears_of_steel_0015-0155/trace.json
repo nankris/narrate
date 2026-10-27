@@ -1,0 +1,1984 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.6,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 2.478122672997415,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.4780725360033102,
+      "tokens_in": 2510,
+      "tokens_out": 36,
+      "cost_usd": 0.002618,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 3.1373114909947617,
+      "role": "tool",
+      "note": "Detect speech gaps for AD placement",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 9.12,
+            "word_budget_en": 19,
+            "word_budget_hi": 22
+          },
+          {
+            "id": 1,
+            "start": 30.52,
+            "end": 31.65,
+            "word_budget_en": 1,
+            "word_budget_hi": 1
+          },
+          {
+            "id": 2,
+            "start": 32.54,
+            "end": 34.92,
+            "word_budget_en": 4,
+            "word_budget_hi": 5
+          },
+          {
+            "id": 3,
+            "start": 38.97,
+            "end": 45.57,
+            "word_budget_en": 14,
+            "word_budget_hi": 16
+          },
+          {
+            "id": 4,
+            "start": 47.61,
+            "end": 99.92,
+            "word_budget_en": 119,
+            "word_budget_hi": 135
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.27,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.6591616440127837,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 16.04540117799479,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 12.908023957003024,
+      "tokens_in": 2813,
+      "tokens_out": 372,
+      "cost_usd": 0.003929,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 22.01200701399648,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.22,
+            "what": "Close-up shot of multiple rocket engines with bright flames and smoke erupting from their nozzles.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 0.22,
+            "t_end": 3.11,
+            "what": "Blinding white light floods the screen as the rocket engines ignite at full thrust, obscuring the view.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.11,
+            "t_end": 4.02,
+            "what": "A wide shot of an industrial cityscape with tall towers and smokestacks as smoke and flames fill the center background.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.246056517004035,
+      "tokens_in": 2721,
+      "tokens_out": 363,
+      "cost_usd": 0.001143,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 22.012213171998155,
+      "role": "tool",
+      "note": "Inspect gap 0 visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 9.12,
+        "focus": "visual content for gap 0 description"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.22,
+            "what": "Close-up shot of multiple rocket engines with bright flames and smoke erupting from their nozzles.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 0.22,
+            "t_end": 3.11,
+            "what": "Blinding white light floods the screen as the rocket engines ignite at full thrust, obscuring the view.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.11,
+            "t_end": 4.02,
+            "what": "A wide shot of an industrial cityscape with tall towers and smokestacks as smoke and flames fill the center background.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.966787703000591,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 30.69520175899379,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 24.52,
+            "t_end": 26.04,
+            "what": "Two people stand on a bridge talking, one in a dark jacket and jeans, the other in a blue top and vest leaning on the railing.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 26.04,
+            "t_end": 26.94,
+            "what": "Glowing wireframe holograms appear, one orange on the left and one blue on the right, overlapping where the people were.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 26.94,
+            "t_end": 31.54,
+            "what": "A dark futuristic interior scene with green wires and structures, displaying the text \"40 YEARS LATER\" in white capital letters.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.985083537001628,
+      "tokens_in": 2746,
+      "tokens_out": 312,
+      "cost_usd": 0.0011045999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 30.69538587499119,
+      "role": "tool",
+      "note": "Inspect gap 1 visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 31.65,
+        "start": 24.52,
+        "focus": "visual content for gap 1 description"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 24.52,
+            "t_end": 26.04,
+            "what": "Two people stand on a bridge talking, one in a dark jacket and jeans, the other in a blue top and vest leaning on the railing.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 26.04,
+            "t_end": 26.94,
+            "what": "Glowing wireframe holograms appear, one orange on the left and one blue on the right, overlapping where the people were.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 10,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 8.68301569999312,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 8,
+      "t_wall": 39.713566541002365,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 26.54,
+            "t_end": 27.78,
+            "what": "Two glowing wireframe humanoid figures, one orange and one blue, stand side by side in a dark industrial environment.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 27.78,
+            "t_end": 29.78,
+            "what": "A wide shot of a dark courtyard with glowing pink and blue lights; the text \"40 YEARS LATER\" appears in white capital letters at center screen.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 29.78,
+            "t_end": 33.02,
+            "what": "The camera pushes into bright pink light before fading back to the dark courtyard scene.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 8.165596923994599,
+      "tokens_in": 2746,
+      "tokens_out": 456,
+      "cost_usd": 0.0012342,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 39.713773458002834,
+      "role": "tool",
+      "note": "Inspect gap 2 visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "visual content for gap 2 description",
+        "end": 34.92,
+        "start": 26.54
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 26.54,
+            "t_end": 27.78,
+            "what": "Two glowing wireframe humanoid figures, one orange and one blue, stand side by side in a dark industrial environment.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 27.78,
+            "t_end": 29.78,
+            "what": "A wide shot of a dark courtyard with glowing pink and blue lights; the text \"40 YEARS LATER\" appears in white capital letters at center screen.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.98
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 9,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 9.018277992014191,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 10,
+      "t_wall": 45.85156693299359,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 32.97,
+            "t_end": 35.27,
+            "what": "Abstract neon digital interface elements float in pink and green hues.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 35.27,
+            "t_end": 37.87,
+            "what": "A gloved hand adjusts dials and wires on a complex control panel.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 37.87,
+            "t_end": 41.27,
+            "what": "A man with curly hair and glasses looks forward while two people in white coats stand beside him.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 41.27,
+            "t_end": 44.27,
+            "what": "The man with glasses speaks directly toward the camera.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.925074379993021,
+      "tokens_in": 2754,
+      "tokens_out": 429,
+      "cost_usd": 0.0012123,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 45.85175233299378,
+      "role": "tool",
+      "note": "Inspect gap 3 visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 32.97,
+        "focus": "visual content for gap 3 description",
+        "end": 45.57
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 32.97,
+            "t_end": 35.27,
+            "what": "Abstract neon digital interface elements float in pink and green hues.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 35.27,
+            "t_end": 37.87,
+            "what": "A gloved hand adjusts dials and wires on a complex control panel.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 37.87,
+            "t_end": 41.27,
+            "what": "A man with curly hair and glasses looks forward while two people in white coats stand beside him.",
+            "on_screen_text": "none",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 8,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.1378309480060125,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 57.093254065999645,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 41.61,
+            "t_end": 46.35,
+            "what": "The sniper continues firing, then lowers his rifle as explosions continue outside. A candle burns near where an older person lies motionless wrapped in material.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.89
+          },
+          {
+            "t_start": 46.35,
+            "t_end": 58.31,
+            "what": "Through the scope view, a large flying war platform is struck repeatedly by explosions and crashes down through fog onto the rooftops below.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.88
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 7.51229021299514,
+      "tokens_in": 2760,
+      "tokens_out": 163,
+      "cost_usd": 0.0009747,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 57.093333850993076,
+      "role": "tool",
+      "note": "Inspect gap 4 visual content",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 99.92,
+        "start": 41.61,
+        "focus": "visual content for gap 4 description"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 41.61,
+            "t_end": 46.35,
+            "what": "The sniper continues firing, then lowers his rifle as explosions continue outside. A candle burns near where an older person lies motionless wrapped in material.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.89
+          },
+          {
+            "t_start": 46.35,
+            "t_end": 58.31,
+            "what": "Through the scope view, a large flying war platform is struck repeatedly by explosions and crashes down through fog onto the rooftops below.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.88
+          }
+        ],
+        "modality": "video",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 28,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 11.241456759002176,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 14,
+      "t_wall": 88.37086955900304,
+      "role": "orchestrator",
+      "note": "\n\n\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 31.27747751600691,
+      "tokens_in": 4267,
+      "tokens_out": 1112,
+      "cost_usd": 0.007603,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 89.06564164999872,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Bright flames and smoke erupt from rocket engines in a close-up shot, followed by a blinding white light as the engines ignite at full thrust, obscuring the view."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.6925291279912926,
+      "tokens_in": 1948,
+      "tokens_out": 49,
+      "cost_usd": 0.00032159999999999996,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 89.0657224739989,
+      "role": "tool",
+      "note": "Draft gap 0 description from rocket launch",
+      "tool_name": "draft_description",
+      "args": {
+        "context_events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.22,
+            "what": "Close-up shot of multiple rocket engines with bright flames and smoke erupting from their nozzles.",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 0.22,
+            "t_end": 3.11,
+            "what": "Blinding white light floods the screen as the rocket engines ignite at full thrust, obscuring the view.",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.11,
+            "t_end": 4.02,
+            "what": "A wide shot of an industrial cityscape with tall towers and smokestacks as smoke and flames fill the center background.",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "max_words": 19,
+        "gap_ids": [
+          0
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "Bright flames and smoke erupt from rocket engines in a close-up shot, followed by a blinding white light as the engines ignite at full thrust, obscuring the view."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.6948262220103061,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 91.35795361798955,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Rocket ignition creates blinding white light."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.2900050850003026,
+      "tokens_in": 1962,
+      "tokens_out": 36,
+      "cost_usd": 0.00031590000000000003,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 91.35802653699648,
+      "role": "tool",
+      "note": "Draft gap 1 description",
+      "tool_name": "draft_description",
+      "args": {
+        "max_words": 1,
+        "gap_ids": [
+          1
+        ],
+        "context_events": [
+          {
+            "t_start": 24.52,
+            "t_end": 26.04,
+            "what": "Two people stand on a bridge talking, one in a dark jacket and jeans, the other in a blue top and vest leaning on the railing.",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 26.04,
+            "t_end": 26.94,
+            "what": "Glowing wireframe holograms appear, one orange on the left and one blue on the right, overlapping where the people were.",
+            "importance": 5,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Rocket ignition creates blinding white light."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.292270377991372,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 91.86999944399577,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Two glowing wireframe figures stand amidst shifting holographic patterns against a dark background."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.5097573560051387,
+      "tokens_in": 1960,
+      "tokens_out": 31,
+      "cost_usd": 0.0003126,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 91.87009846000001,
+      "role": "tool",
+      "note": "Draft gap 2 description",
+      "tool_name": "draft_description",
+      "args": {
+        "context_events": [
+          {
+            "t_start": 26.54,
+            "t_end": 27.78,
+            "what": "Two glowing wireframe humanoid figures, one orange and one blue, stand side by side in a dark industrial environment.",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 27.78,
+            "t_end": 29.78,
+            "what": "A wide shot of a dark courtyard with glowing pink and blue lights; the text \"40 YEARS LATER\" appears in white capital letters at center screen.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.98
+          }
+        ],
+        "gap_ids": [
+          2
+        ],
+        "max_words": 4
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Two glowing wireframe figures stand amidst shifting holographic patterns against a dark background."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.5120395090052625,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 93.81374785400112,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "Rocket launch illuminates white light, then cuts to an industrial cityscape with smoke and text supporting the Netherlands Film Fund."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.9405747349956073,
+      "tokens_in": 1952,
+      "tokens_out": 53,
+      "cost_usd": 0.00032460000000000003,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 93.81385663199762,
+      "role": "tool",
+      "note": "Draft gap 3 description",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ],
+        "max_words": 14,
+        "context_events": [
+          {
+            "t_start": 32.97,
+            "t_end": 35.27,
+            "what": "Abstract neon digital interface elements float in pink and green hues.",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 35.27,
+            "t_end": 37.87,
+            "what": "A gloved hand adjusts dials and wires on a complex control panel.",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 37.87,
+            "t_end": 41.27,
+            "what": "A man with curly hair and glasses looks forward while two people in white coats stand beside him.",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "Rocket launch illuminates white light, then cuts to an industrial cityscape with smoke and text supporting the Netherlands Film Fund."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.9437120030052029,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 95.85436115199991,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "White text over an industrial skyline announces Netherlands Film Fund support as smoke billows against an overcast sky; then cut to a bridge where two people talk before glowing orange and blue wireframe holograms appear overhead, fading into a dark courtyard scene with pink and blue lighting and \"40 YEARS LATER\" text."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.0382014509959845,
+      "tokens_in": 1952,
+      "tokens_out": 94,
+      "cost_usd": 0.0003492,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 95.85444006399484,
+      "role": "tool",
+      "note": "Draft gap 4 description",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          4
+        ],
+        "context_events": [
+          {
+            "t_start": 41.61,
+            "t_end": 46.35,
+            "what": "The sniper continues firing, then lowers his rifle as explosions continue outside. A candle burns near where an older person lies motionless wrapped in material.",
+            "importance": 4,
+            "confidence": 0.89
+          },
+          {
+            "t_start": 46.35,
+            "t_end": 58.31,
+            "what": "Through the scope view, a large flying war platform is struck repeatedly by explosions and crashes down through fog onto the rooftops below.",
+            "importance": 5,
+            "confidence": 0.88
+          }
+        ],
+        "max_words": 119
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "White text over an industrial skyline announces Netherlands Film Fund support as smoke billows against an overcast sky; then cut to a bridge where two people talk before glowing orange and blue wireframe holograms appear overhead, fading into a dark courtyard scene with pink and blue lighting and \"40 YEARS LATER\" text."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.040537941007642,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 99.6991088539944,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.8446407739975257,
+      "tokens_in": 5840,
+      "tokens_out": 181,
+      "cost_usd": 0.006383,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 101.75410498099518,
+      "role": "tool",
+      "note": "Measure TTS for gap 0 English",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "lang": "en",
+        "text": "Bright flames and smoke erupt from rocket engines in a close-up shot, followed by a blinding white light as the engines ignite at full thrust, obscuring the view."
+      },
+      "result": {
+        "seconds": 9.22,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.054958915003226,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 27,
+      "t_wall": 101.75642664098996,
+      "role": "tool",
+      "note": "Check fit for gap 0 English",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "gap_id": 0,
+        "text": "Bright flames and smoke erupt from rocket engines in a close-up shot, followed by a blinding white light as the engines ignite at full thrust, obscuring the view."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 19,
+        "seconds": 9.22,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 26,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002235381005448289,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 28,
+      "t_wall": 104.3698175939935,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.6133620659966255,
+      "tokens_in": 6171,
+      "tokens_out": 153,
+      "cost_usd": 0.00663,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 106.16317529499065,
+      "role": "tool",
+      "note": "Measure TTS for gap 0 English revised",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Rocket engines ignite with bright flames and smoke, then blinding white light fills the screen.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 5.65,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7933333260007203,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 30,
+      "t_wall": 106.16544387399335,
+      "role": "tool",
+      "note": "Check fit for gap 0 English revised",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 0,
+        "lang": "en",
+        "text": "Rocket engines ignite with bright flames and smoke, then blinding white light fills the screen."
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 19,
+        "seconds": 5.65,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.00221127099939622,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 27
+    },
+    {
+      "step": 31,
+      "t_wall": 118.04695680500299,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 11.88148012199963,
+      "tokens_in": 6470,
+      "tokens_out": 127,
+      "cost_usd": 0.006851,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 119.80011600599391,
+      "role": "tool",
+      "note": "Measure TTS gap 1 English",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "lang": "en",
+        "text": "Rocket ignition creates blinding white light."
+      },
+      "result": {
+        "seconds": 2.8,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7531381099979626,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 33,
+      "t_wall": 119.80173538299277,
+      "role": "tool",
+      "note": "Check fit gap 1 English",
+      "tool_name": "check_fit",
+      "args": {
+        "text": "Rocket ignition creates blinding white light.",
+        "gap_id": 1,
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 1,
+        "seconds": 2.8,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0015796420047990978,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 34,
+      "t_wall": 122.17619059399294,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3744270390016027,
+      "tokens_in": 6752,
+      "tokens_out": 115,
+      "cost_usd": 0.007097,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 123.7935972080013,
+      "role": "tool",
+      "note": "Measure TTS gap 1 English revised",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "lang": "en",
+        "text": "Light."
+      },
+      "result": {
+        "seconds": 0.56,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.6173857630055863,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 123.7955665490008,
+      "role": "tool",
+      "note": "Check fit gap 1 English revised",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 1,
+        "lang": "en",
+        "text": "Light."
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 1,
+        "seconds": 0.56,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0019212510087527335,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 33
+    },
+    {
+      "step": 37,
+      "t_wall": 126.8209981849941,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.025400261001778,
+      "tokens_in": 7012,
+      "tokens_out": 143,
+      "cost_usd": 0.007441,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 129.21129982199636,
+      "role": "tool",
+      "note": "Measure TTS gap 2 English",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Two glowing wireframe figures stand amidst shifting holographic patterns against a dark background.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 5.8,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 22,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.390282615990145,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 129.21288656299294,
+      "role": "tool",
+      "note": "Check fit gap 2 English",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "text": "Two glowing wireframe figures stand amidst shifting holographic patterns against a dark background.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 5.8,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 22,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.00154964899411425,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 134.31714893899334,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.104228680997039,
+      "tokens_in": 7310,
+      "tokens_out": 125,
+      "cost_usd": 0.007685,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 136.2000126179919,
+      "role": "tool",
+      "note": "Measure TTS gap 2 English revised",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "lang": "en",
+        "text": "Two glowing wireframe figures appear."
+      },
+      "result": {
+        "seconds": 2.32,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8828398820041912,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 136.2017240409914,
+      "role": "tool",
+      "note": "Check fit gap 2 English revised",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 2,
+        "text": "Two glowing wireframe figures appear.",
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 2.32,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016712100041331723,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 43,
+      "t_wall": 157.85454015700088,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 21.652785186000983,
+      "tokens_in": 7584,
+      "tokens_out": 119,
+      "cost_usd": 0.007941,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 159.54453079699306,
+      "role": "tool",
+      "note": "Measure TTS gap 2 shorter",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Wireframe figures appear.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 1.65,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 20,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.689943820994813,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 45,
+      "t_wall": 159.54616587499913,
+      "role": "tool",
+      "note": "Check fit gap 2 shorter",
+      "tool_name": "check_fit",
+      "args": {
+        "text": "Wireframe figures appear.",
+        "gap_id": 2,
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 4,
+        "seconds": 1.65,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 20,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0015976509894244373,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 39
+    },
+    {
+      "step": 46,
+      "t_wall": 162.50496623798972,
+      "role": "orchestrator",
+      "note": "\n\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.9587603580002906,
+      "tokens_in": 7848,
+      "tokens_out": 161,
+      "cost_usd": 0.008331,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 164.37278540099214,
+      "role": "tool",
+      "note": "Measure TTS gap 3 English",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Rocket launch illuminates white light, then cuts to an industrial cityscape with smoke and text supporting the Netherlands Film Fund.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 8.05,
+        "cached": true,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 19,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8677981939981692,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 48,
+      "t_wall": 164.37426440799027,
+      "role": "tool",
+      "note": "Check fit gap 3 English",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 3,
+        "text": "Rocket launch illuminates white light, then cuts to an industrial cityscape with smoke and text supporting the Netherlands Film Fund.",
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 14,
+        "seconds": 8.05,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 19,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014413729950319976,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 164.7225276199897,
+      "role": "tool",
+      "note": "Translate committed cues before fallback finalization.",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": {
+        "cues": [],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "budget": {
+            "turns": 18,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0014196199917932972,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 50,
+      "t_wall": 167.5588559369935,
+      "role": "tool",
+      "note": "Deterministic fallback finisher",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [
+          "21 high-importance events lack an associated cue"
+        ],
+        "outputs": "runs/real_tears_of_steel_0015-0155"
+      },
+      "ok": true,
+      "latency_s": 2.8377511979924748,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 5,
+      "draft_description": 5,
+      "measure_tts_duration": 8,
+      "check_fit": 8,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 3,
+    "verifications": {},
+    "orchestrator_turns": 11,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.072509,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0056688,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0016239000000000002
+    },
+    "total_latency_s": 167.55912564499886
+  }
+}

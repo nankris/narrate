@@ -1,0 +1,2881 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 40,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 4.862103225008468,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.861980816000141,
+      "tokens_in": 1563,
+      "tokens_out": 20,
+      "cost_usd": 0.001623,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 5.152398209000239,
+      "role": "tool",
+      "note": "",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 4.668,
+            "end": 8.707999999999998,
+            "duration": 4.039999999999998,
+            "word_budget_en": 8,
+            "word_budget_hi": 7
+          },
+          {
+            "id": 1,
+            "start": 11.868,
+            "end": 16.612000000000002,
+            "duration": 4.7440000000000015,
+            "word_budget_en": 9,
+            "word_budget_hi": 8
+          },
+          {
+            "id": 2,
+            "start": 19.932,
+            "end": 24.708000000000002,
+            "duration": 4.776000000000003,
+            "word_budget_en": 9,
+            "word_budget_hi": 8
+          },
+          {
+            "id": 3,
+            "start": 27.387999999999998,
+            "end": 29.92,
+            "duration": 2.5320000000000036,
+            "word_budget_en": 4,
+            "word_budget_hi": 4
+          }
+        ],
+        "speech": [
+          {
+            "start": 0.692,
+            "end": 4.588
+          },
+          {
+            "start": 8.787999999999998,
+            "end": 11.788
+          },
+          {
+            "start": 16.692,
+            "end": 19.852
+          },
+          {
+            "start": 24.788,
+            "end": 27.308
+          }
+        ],
+        "detector": "silero-onnx",
+        "fallback_reason": null,
+        "speech_ratio": 0.4192
+      },
+      "ok": true,
+      "latency_s": 0.2902685759909218,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 6.427434132012422,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2749791859969264,
+      "tokens_in": 2062,
+      "tokens_out": 58,
+      "cost_usd": 0.002236,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 4,
+      "t_wall": 11.320844069006853,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.0,
+            "what": "title card text A person enters a kitchen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.0,
+            "t_end": 10.0,
+            "what": "yellow outlined square slides left then center then right",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 10.0,
+            "t_end": 14.0,
+            "what": "step card STEP 1 chop onions",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 20.0,
+            "t_end": 25.0,
+            "what": "step card Stir and serve",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.433461934007937,
+      "tokens_in": 2744,
+      "tokens_out": 240,
+      "cost_usd": 0.0010391999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 11.320953906004434,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 30,
+        "focus": "overall visual content, actions, text, scene changes",
+        "start": 0
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.0,
+            "what": "title card text A person enters a kitchen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.0,
+            "t_end": 10.0,
+            "what": "yellow outlined square slides left then center then right",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 10.0,
+            "t_end": 14.0,
+            "what": "step card STEP 1 chop onions",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 20.0,
+            "t_end": 25.0,
+            "what": "step card Stir and serve",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 4.893501341997762,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 13.191297085009865,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.870297916000709,
+      "tokens_in": 2382,
+      "tokens_out": 56,
+      "cost_usd": 0.00255,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 7,
+      "t_wall": 17.87660088900884,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.33,
+            "what": "Title card text appears on screen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.33,
+            "t_end": 2.33,
+            "what": "Yellow vertical rectangular box moves leftward on teal background",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 2.33,
+            "t_end": 3.33,
+            "what": "Yellow box ascends vertically on screen",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 3.33,
+            "t_end": 5.33,
+            "what": "Yellow box moves upward and slightly right",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 5.33,
+            "t_end": 6.33,
+            "what": "Yellow box continues moving upward",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 6.33,
+            "t_end": 7.33,
+            "what": "Yellow box moves upward and slightly left",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 7.33,
+            "t_end": 8.33,
+            "what": "Yellow box moves upward toward center",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 8.33,
+            "t_end": 9.0,
+            "what": "Yellow box continues upward movement",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.50549458200112,
+      "tokens_in": 2721,
+      "tokens_out": 447,
+      "cost_usd": 0.0012185999999999998,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 8,
+      "t_wall": 17.876667748001637,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 9,
+        "start": 0,
+        "focus": "person entering kitchen, chopping onions, kitchen details"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.33,
+            "what": "Title card text appears on screen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.33,
+            "t_end": 2.33,
+            "what": "Yellow vertical rectangular box moves leftward on teal background",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 2.33,
+            "t_end": 3.33,
+            "what": "Yellow box ascends vertically on screen",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 3.33,
+            "t_end": 5.33,
+            "what": "Yellow box moves upward and slightly right",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 5.33,
+            "t_end": 6.33,
+            "what": "Yellow box continues moving upward",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 6.33,
+            "t_end": 7.33,
+            "what": "Yellow box moves upward and slightly left",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 7.33,
+            "t_end": 8.33,
+            "what": "Yellow box moves upward toward center",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 8.33,
+            "t_end": 9.0,
+            "what": "Yellow box continues upward movement",
+            "on_screen_text": null,
+            "importance": 1,
+            "confidence": 0.8
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 4.68534800800262,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 32.994960013005766,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 15.118247399004758,
+      "tokens_in": 2907,
+      "tokens_out": 60,
+      "cost_usd": 0.003087,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 10,
+      "t_wall": 36.99573001501267,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 9.0,
+            "t_end": 10.0,
+            "what": "title card reads A person enters a kitchen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 10.0,
+            "t_end": 11.0,
+            "what": "text on screen changes",
+            "on_screen_text": "A pen a ken",
+            "importance": 2,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 11.0,
+            "t_end": 13.0,
+            "what": "title card reads STEP 1 - chop onions",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 13.0,
+            "t_end": 15.0,
+            "what": "yellow loading rectangle centered on maroon background",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.8036202160001267,
+      "tokens_in": 2724,
+      "tokens_out": 242,
+      "cost_usd": 0.001035,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 11,
+      "t_wall": 36.99579144699965,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 15,
+        "start": 9,
+        "focus": "STEP 1 chop onions, person chopping, kitchen scene"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 9.0,
+            "t_end": 10.0,
+            "what": "title card reads A person enters a kitchen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 10.0,
+            "t_end": 11.0,
+            "what": "text on screen changes",
+            "on_screen_text": "A pen a ken",
+            "importance": 2,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 11.0,
+            "t_end": 13.0,
+            "what": "title card reads STEP 1 - chop onions",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 13.0,
+            "t_end": 15.0,
+            "what": "yellow loading rectangle centered on maroon background",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 4.000814464001451,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 39.38636049701017,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3905399560026126,
+      "tokens_in": 3231,
+      "tokens_out": 59,
+      "cost_usd": 0.003408,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 13,
+      "t_wall": 53.88830433000112,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 15.0,
+            "t_end": 20.0,
+            "what": "Text card displays \"STEP 1 - chop onions\" with a yellow animated rectangle on a maroon background.",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 0.99
+          },
+          {
+            "t_start": 20.0,
+            "t_end": 25.0,
+            "what": "Text card displays \"Stir and serve\" with a yellow animated rectangle on a teal background.",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 0.99
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 14.298377088998677,
+      "tokens_in": 2726,
+      "tokens_out": 156,
+      "cost_usd": 0.0009582,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 14,
+      "t_wall": 53.888362021010835,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 15,
+        "focus": "actual cooking actions, person, onions, pan, stirring",
+        "end": 25
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 15.0,
+            "t_end": 20.0,
+            "what": "Text card displays \"STEP 1 - chop onions\" with a yellow animated rectangle on a maroon background.",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 0.99
+          },
+          {
+            "t_start": 20.0,
+            "t_end": 25.0,
+            "what": "Text card displays \"Stir and serve\" with a yellow animated rectangle on a teal background.",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 0.99
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 14.501984544011066,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 15,
+      "t_wall": 54.94585543400899,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.0574637980025727,
+      "tokens_in": 3468,
+      "tokens_out": 54,
+      "cost_usd": 0.00363,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 16,
+      "t_wall": 61.09507899500022,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "truncated": true,
+        "summary": "{\"events\": [{\"t_start\": 25.0, \"t_end\": 25.3, \"what\": \"Title card with text 'Stir and serve' and a yellow outline rectangle on the right side.\", \"on_screen_text\": \"Stir and serve\", \"importance\": 5, \"confidence\": 0.95}, {\"t_start\": 25.3, \"t_end\": 25.9, \"what\": \"Text disappears character by character from left to right while yellow rectangle remains on right.\", \"on_screen_text\": \"tir and serve\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 25.9, \"t_end\": 26.6, \"what\": \"Text disappears character by character until only 'Stir' remains on left; yellow rectangle remains on right.\", \"on_screen_text\": \"Stir\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 26.6, \"t_end\": 27.2, \"what\": \"Yellow rectangle moves from right side toward center; text is gone.\", \"on_screen_text\": \"\", \"importance\": 4, \"confidence\": 0.9}, {\"t_start\": 27.2, \"t_end\": 27.9, \"what\": \"Yellow rectangle moves from center toward left edge; text remains gone.\", \"on_screen_text\": \"\", \"importance\": 4, \"confidence\": 0.9}, {\"t_start\": 27.9, \"t_end\": 28.5, \"what\": \"Text 'Stir' reappears briefly on left while yellow rectangle sits at left edge.\", \"on_screen_text\": \"Stir\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 28.5, \"t_end\": 29.1, \"what\": \"Text disappears completely; yellow rectangle remains at left edge.\", \"on_screen_text\": \"\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 29.1, \"t_end\": 29.7, \"what\": \"Yellow"
+      },
+      "ok": true,
+      "latency_s": 5.959979249004391,
+      "tokens_in": 2720,
+      "tokens_out": 571,
+      "cost_usd": 0.0013299000000000002,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 17,
+      "t_wall": 61.095176438000635,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 25,
+        "end": 30,
+        "focus": "final steps, text, animations"
+      },
+      "result": {
+        "truncated": true,
+        "summary": "{\"events\": [{\"t_start\": 25.0, \"t_end\": 25.3, \"what\": \"Title card with text 'Stir and serve' and a yellow outline rectangle on the right side.\", \"on_screen_text\": \"Stir and serve\", \"importance\": 5, \"confidence\": 0.95}, {\"t_start\": 25.3, \"t_end\": 25.9, \"what\": \"Text disappears character by character from left to right while yellow rectangle remains on right.\", \"on_screen_text\": \"tir and serve\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 25.9, \"t_end\": 26.6, \"what\": \"Text disappears character by character until only 'Stir' remains on left; yellow rectangle remains on right.\", \"on_screen_text\": \"Stir\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 26.6, \"t_end\": 27.2, \"what\": \"Yellow rectangle moves from right side toward center; text is gone.\", \"on_screen_text\": \"\", \"importance\": 4, \"confidence\": 0.9}, {\"t_start\": 27.2, \"t_end\": 27.9, \"what\": \"Yellow rectangle moves from center toward left edge; text remains gone.\", \"on_screen_text\": \"\", \"importance\": 4, \"confidence\": 0.9}, {\"t_start\": 27.9, \"t_end\": 28.5, \"what\": \"Text 'Stir' reappears briefly on left while yellow rectangle sits at left edge.\", \"on_screen_text\": \"Stir\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 28.5, \"t_end\": 29.1, \"what\": \"Text disappears completely; yellow rectangle remains at left edge.\", \"on_screen_text\": \"\", \"importance\": 3, \"confidence\": 0.9}, {\"t_start\": 29.1, \"t_end\": 29.7, \"what\": \"Yellow"
+      },
+      "ok": true,
+      "latency_s": 6.149304977996508,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 18,
+      "t_wall": 65.18860517100256,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.093387739994796,
+      "tokens_in": 4047,
+      "tokens_out": 59,
+      "cost_usd": 0.004224,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 19,
+      "t_wall": 68.64475720800692,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.5,
+            "what": "Text title card reads 'A person enters a kitchen'",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.5,
+            "t_end": 11.0,
+            "what": "Yellow rectangular outline animates vertically across dark teal background; no person enters",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.2526049290027004,
+      "tokens_in": 2724,
+      "tokens_out": 128,
+      "cost_usd": 0.0009324,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 20,
+      "t_wall": 68.64483905601082,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "identify if actual person enters kitchen or just text title card",
+        "start": 0,
+        "end": 10
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.5,
+            "what": "Text title card reads 'A person enters a kitchen'",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 0.5,
+            "t_end": 11.0,
+            "what": "Yellow rectangular outline animates vertically across dark teal background; no person enters",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 3.456201669992879,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 73.33341931601171,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.6885531559964875,
+      "tokens_in": 4256,
+      "tokens_out": 131,
+      "cost_usd": 0.004649,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 22,
+      "t_wall": 73.68582546000835,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Yellow rectangle animates across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.35044445999665186,
+      "tokens_in": 309,
+      "tokens_out": 16,
+      "cost_usd": 2.238e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false
+    },
+    {
+      "step": 23,
+      "t_wall": 73.68586059400695,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 0,
+        "context_events": [
+          {
+            "t_start": 0.0,
+            "t_end": 0.5,
+            "what": "Text title card reads 'A person enters a kitchen'"
+          },
+          {
+            "t_start": 0.5,
+            "t_end": 8.7,
+            "what": "Yellow rectangular outline animates vertically across dark teal background"
+          }
+        ],
+        "avoid_repeating": "title card",
+        "max_words": 8
+      },
+      "result": {
+        "text": "Yellow rectangle animates across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.3524168800067855,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 24,
+      "t_wall": 76.06346163900162,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3775867890071822,
+      "tokens_in": 4418,
+      "tokens_out": 46,
+      "cost_usd": 0.004556,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 25,
+      "t_wall": 76.16421423900465,
+      "role": "tool",
+      "note": "",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Yellow rectangle animates across dark teal background.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 3.449342,
+        "cached": true
+      },
+      "ok": true,
+      "latency_s": 0.10073445999296382,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 78.82963466001092,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.665388561988948,
+      "tokens_in": 4498,
+      "tokens_out": 54,
+      "cost_usd": 0.00466,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 27,
+      "t_wall": 78.83132713500527,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 0,
+        "text": "Yellow rectangle animates across dark teal background.",
+        "lang": "en"
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 8,
+        "seconds": 3.449342,
+        "overlap_seconds": 0
+      },
+      "ok": true,
+      "latency_s": 0.0015702009986853227,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 28,
+      "t_wall": 80.1090399829991,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2776954639994074,
+      "tokens_in": 2029,
+      "tokens_out": 45,
+      "cost_usd": 0.002164,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 29,
+      "t_wall": 80.11011201501242,
+      "role": "tool",
+      "note": "",
+      "tool_name": "commit_cue",
+      "args": {
+        "text": "Yellow rectangle animates across dark teal background.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 4.668,
+          "end": 8.707999999999998,
+          "duration": 4.039999999999998,
+          "word_budget_en": 8,
+          "word_budget_hi": 7,
+          "en": "Yellow rectangle animates across dark teal background."
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001045425990014337,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 30,
+      "t_wall": 81.95839771001192,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8482667149946792,
+      "tokens_in": 2192,
+      "tokens_out": 62,
+      "cost_usd": 0.002378,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 31,
+      "t_wall": 84.4964133570029,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 11.868,
+            "t_end": 16.612,
+            "what": "A yellow rectangular outline glitches vertically centered on a solid brown background while white text at upper left cycles through corrupted fragments of \"STEP 1 - chop onions\".",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.3640991400025086,
+      "tokens_in": 2748,
+      "tokens_out": 100,
+      "cost_usd": 0.0009144,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 32,
+      "t_wall": 84.49646239601134,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 16.612,
+        "focus": "visual changes, text, motion",
+        "start": 11.868
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 11.868,
+            "t_end": 16.612,
+            "what": "A yellow rectangular outline glitches vertically centered on a solid brown background while white text at upper left cycles through corrupted fragments of \"STEP 1 - chop onions\".",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 2.53803553499165,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 33,
+      "t_wall": 87.97430758400878,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.4778227630013134,
+      "tokens_in": 2376,
+      "tokens_out": 141,
+      "cost_usd": 0.002799,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 34,
+      "t_wall": 88.80371992300206,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "A yellow outline glitches on brown background while white text cycles 'STEP 1 - chop onions'."
+      },
+      "ok": true,
+      "latency_s": 0.8268050649930956,
+      "tokens_in": 335,
+      "tokens_out": 29,
+      "cost_usd": 2.706e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false
+    },
+    {
+      "step": 35,
+      "t_wall": 88.80376396499923,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 1,
+        "max_words": 9,
+        "context_events": [
+          {
+            "t_start": 11.868,
+            "t_end": 16.612,
+            "what": "A yellow rectangular outline glitches vertically centered on a solid brown background while white text at upper left cycles through corrupted fragments of \"STEP 1 - chop onions\".",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "result": {
+        "text": "A yellow outline glitches on brown background while white text cycles 'STEP 1 - chop onions'."
+      },
+      "ok": true,
+      "latency_s": 0.8294141680089524,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 92.43026177601132,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.626478299003793,
+      "tokens_in": 2561,
+      "tokens_out": 64,
+      "cost_usd": 0.002753,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 37,
+      "t_wall": 92.51428691401088,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "gap_id": 1,
+        "text": "Yellow outline glitches on brown background. Text cycles \"STEP 1 - chop onions\".",
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.857687,
+        "overlap_seconds": 0
+      },
+      "ok": false,
+      "latency_s": 0.08399736000865232,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 95.38239067001268,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.868076080994797,
+      "tokens_in": 2686,
+      "tokens_out": 63,
+      "cost_usd": 0.002875,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 39,
+      "t_wall": 95.4679289550113,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "gap_id": 1,
+        "text": "Yellow outline glitches on brown. Text cycles \"STEP 1 - chop onions\"."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 5.291156,
+        "overlap_seconds": 0
+      },
+      "ok": false,
+      "latency_s": 0.08551833900855854,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 96.91032615800214,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4423640629975125,
+      "tokens_in": 2810,
+      "tokens_out": 61,
+      "cost_usd": 0.002993,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 41,
+      "t_wall": 96.99633941300272,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "text": "Yellow outline glitches. Text cycles \"STEP 1 - chop onions\".",
+        "lang": "en",
+        "gap_id": 1
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 4.752472,
+        "overlap_seconds": 0
+      },
+      "ok": false,
+      "latency_s": 0.08599082801083568,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 100.82753690901154,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.831168696997338,
+      "tokens_in": 2932,
+      "tokens_out": 60,
+      "cost_usd": 0.003112,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 43,
+      "t_wall": 100.90697577100946,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "text": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\".",
+        "gap_id": 1
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 9,
+        "seconds": 4.598912,
+        "overlap_seconds": 0
+      },
+      "ok": true,
+      "latency_s": 0.07941765800933354,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 37
+    },
+    {
+      "step": 44,
+      "t_wall": 102.61281377500563,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7058126010088017,
+      "tokens_in": 3049,
+      "tokens_out": 51,
+      "cost_usd": 0.003202,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 45,
+      "t_wall": 102.61441395900329,
+      "role": "tool",
+      "note": "",
+      "tool_name": "commit_cue",
+      "args": {
+        "text": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\".",
+        "gap_id": 1
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 11.868,
+          "end": 16.612000000000002,
+          "duration": 4.7440000000000015,
+          "word_budget_en": 9,
+          "word_budget_hi": 8,
+          "en": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0014757220051251352,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 39
+    },
+    {
+      "step": 46,
+      "t_wall": 106.24336243601283,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.6289188990049297,
+      "tokens_in": 2220,
+      "tokens_out": 105,
+      "cost_usd": 0.002535,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 47,
+      "t_wall": 106.69063298401306,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Yellow rectangle moves across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.4453531970066251,
+      "tokens_in": 298,
+      "tokens_out": 15,
+      "cost_usd": 2.1479999999999998e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false
+    },
+    {
+      "step": 48,
+      "t_wall": 106.6906644970004,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "context_events": [
+          {
+            "time": 4.668,
+            "text": "Yellow rectangle animates across dark teal background."
+          },
+          {
+            "time": 11.868,
+            "text": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+          }
+        ],
+        "gap_id": 2,
+        "max_words": 9
+      },
+      "result": {
+        "text": "Yellow rectangle moves across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.44727000599959865,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 49,
+      "t_wall": 108.93113996600732,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.240461009001592,
+      "tokens_in": 2355,
+      "tokens_out": 61,
+      "cost_usd": 0.002538,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 50,
+      "t_wall": 111.98672640501172,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 19.932,
+            "t_end": 20.432,
+            "what": "Text 'Stir and serve' appears top-left with yellow rectangle mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 20.432,
+            "t_end": 24.708,
+            "what": "Text fragments animate out leaving only yellow rectangle on dark background",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.8698921260074712,
+      "tokens_in": 2735,
+      "tokens_out": 141,
+      "cost_usd": 0.0009473999999999999,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 51,
+      "t_wall": 111.98677482300263,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "visual changes and text display",
+        "start": 19.932,
+        "end": 24.708
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 19.932,
+            "t_end": 20.432,
+            "what": "Text 'Stir and serve' appears top-left with yellow rectangle mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 20.432,
+            "t_end": 24.708,
+            "what": "Text fragments animate out leaving only yellow rectangle on dark background",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 3.055616363999434,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 52,
+      "t_wall": 113.3097174380091,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.322921300001326,
+      "tokens_in": 2579,
+      "tokens_out": 105,
+      "cost_usd": 0.002894,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 53,
+      "t_wall": 113.90326641101274,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Yellow rectangle animates across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.5919720860110829,
+      "tokens_in": 298,
+      "tokens_out": 16,
+      "cost_usd": 2.172e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false
+    },
+    {
+      "step": 54,
+      "t_wall": 113.90332931300509,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "max_words": 9,
+        "context_events": [
+          {
+            "time": 4.668,
+            "text": "Yellow rectangle animates across dark teal background."
+          },
+          {
+            "time": 11.868,
+            "text": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+          }
+        ],
+        "gap_id": 2
+      },
+      "result": {
+        "text": "Yellow rectangle animates across dark teal background."
+      },
+      "ok": true,
+      "latency_s": 0.5935918420000235,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 116.21695464100048,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.3135975140030496,
+      "tokens_in": 2715,
+      "tokens_out": 55,
+      "cost_usd": 0.00288,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 56,
+      "t_wall": 116.297056039999,
+      "role": "tool",
+      "note": "",
+      "tool_name": "commit_cue",
+      "args": {
+        "text": "Text \"Stir and serve\" appears top-left. Rectangle mid-right. Fragments animate out.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 9,
+        "seconds": 6.526349,
+        "overlap_seconds": 0
+      },
+      "ok": false,
+      "latency_s": 0.08007531501061749,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 117.63308890900225,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3359985889983363,
+      "tokens_in": 2840,
+      "tokens_out": 54,
+      "cost_usd": 0.003002,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 58,
+      "t_wall": 117.71363882200967,
+      "role": "tool",
+      "note": "",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Text \"Stir and serve\" appears. Rectangle mid-right. Fragments animate out.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 6.031383,
+        "cached": true
+      },
+      "ok": true,
+      "latency_s": 0.08053186100733001,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 59,
+      "t_wall": 120.12366470300185,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.4099975759891095,
+      "tokens_in": 2928,
+      "tokens_out": 50,
+      "cost_usd": 0.003078,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 60,
+      "t_wall": 120.20254612700955,
+      "role": "tool",
+      "note": "",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Text \"Stir and serve\". Rectangle mid-right. Fragments out."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 19.932,
+          "end": 24.708000000000002,
+          "duration": 4.776000000000003,
+          "word_budget_en": 9,
+          "word_budget_hi": 8,
+          "en": "Text \"Stir and serve\". Rectangle mid-right. Fragments out."
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0788565090042539,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 56
+    },
+    {
+      "step": 61,
+      "t_wall": 121.76516581801116,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5625839690037537,
+      "tokens_in": 3104,
+      "tokens_out": 60,
+      "cost_usd": 0.003284,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 62,
+      "t_wall": 124.99173452499963,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 27.388,
+            "t_end": 28.0,
+            "what": "Text 'Stir and serve' appears at top-left alongside a yellow rectangle outline at mid-right against a dark teal background",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 28.0,
+            "t_end": 29.0,
+            "what": "The text loses characters from the left while remaining at top-left and the yellow rectangle stays at mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 29.0,
+            "t_end": 29.532,
+            "what": "The text disappears completely while a yellow rectangle outline shifts to mid-left",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.1104246780014364,
+      "tokens_in": 2248,
+      "tokens_out": 227,
+      "cost_usd": 0.0008787,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 63,
+      "t_wall": 124.99187348000123,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 29.92,
+        "start": 27.388,
+        "focus": "visual changes and text display"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 27.388,
+            "t_end": 28.0,
+            "what": "Text 'Stir and serve' appears at top-left alongside a yellow rectangle outline at mid-right against a dark teal background",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 28.0,
+            "t_end": 29.0,
+            "what": "The text loses characters from the left while remaining at top-left and the yellow rectangle stays at mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 29.0,
+            "t_end": 29.532,
+            "what": "The text disappears completely while a yellow rectangle outline shifts to mid-left",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 3.2266902279952774,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 64,
+      "t_wall": 128.9880177580053,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.996104557008948,
+      "tokens_in": 3405,
+      "tokens_out": 137,
+      "cost_usd": 0.003816,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 65,
+      "t_wall": 129.3493595809996,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "Yellow rectangle moves on dark teal."
+      },
+      "ok": true,
+      "latency_s": 0.35841061199607793,
+      "tokens_in": 330,
+      "tokens_out": 15,
+      "cost_usd": 2.34e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false
+    },
+    {
+      "step": 66,
+      "t_wall": 129.34940037000342,
+      "role": "tool",
+      "note": "",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 3,
+        "max_words": 4,
+        "context_events": [
+          {
+            "time": 4.668,
+            "text": "Yellow rectangle animates across dark teal background."
+          },
+          {
+            "time": 11.868,
+            "text": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+          },
+          {
+            "time": 19.932,
+            "text": "Text \"Stir and serve\". Rectangle mid-right. Fragments out."
+          }
+        ]
+      },
+      "result": {
+        "text": "Yellow rectangle moves on dark teal."
+      },
+      "ok": true,
+      "latency_s": 0.36120899200614076,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 67,
+      "t_wall": 131.8708322750026,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.5214123359910445,
+      "tokens_in": 2399,
+      "tokens_out": 44,
+      "cost_usd": 0.002531,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 68,
+      "t_wall": 131.9575075340108,
+      "role": "tool",
+      "note": "",
+      "tool_name": "measure_tts_duration",
+      "args": {
+        "text": "Yellow rectangle moves on dark teal.",
+        "lang": "en"
+      },
+      "result": {
+        "seconds": 2.585533,
+        "cached": true
+      },
+      "ok": true,
+      "latency_s": 0.08664812899951357,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 69,
+      "t_wall": 136.95673087199975,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.999195337994024,
+      "tokens_in": 2477,
+      "tokens_out": 52,
+      "cost_usd": 0.002633,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 70,
+      "t_wall": 136.95825429000251,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "text": "Yellow rectangle moves on dark teal.",
+        "gap_id": 3,
+        "lang": "en"
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 2.585533,
+        "overlap_seconds": 0
+      },
+      "ok": false,
+      "latency_s": 0.0014485439896816388,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 71,
+      "t_wall": 145.94636884800275,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 8.988091482009622,
+      "tokens_in": 2590,
+      "tokens_out": 48,
+      "cost_usd": 0.002734,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 72,
+      "t_wall": 146.04056984600902,
+      "role": "tool",
+      "note": "",
+      "tool_name": "check_fit",
+      "args": {
+        "lang": "en",
+        "text": "Yellow rectangle moves.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": true,
+        "problems": [],
+        "suggested_max_words": 4,
+        "seconds": 1.804943,
+        "overlap_seconds": 0
+      },
+      "ok": true,
+      "latency_s": 0.09417805400153156,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 70
+    },
+    {
+      "step": 73,
+      "t_wall": 151.6870456480101,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.646448808998684,
+      "tokens_in": 2695,
+      "tokens_out": 39,
+      "cost_usd": 0.002812,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 74,
+      "t_wall": 151.6881487940118,
+      "role": "tool",
+      "note": "",
+      "tool_name": "commit_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Yellow rectangle moves."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 27.387999999999998,
+          "end": 29.92,
+          "duration": 2.5320000000000036,
+          "word_budget_en": 4,
+          "word_budget_hi": 4,
+          "en": "Yellow rectangle moves.",
+          "hi": "पीला आयत चलता है।"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001083722003386356,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 75,
+      "t_wall": 152.59921521600336,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0.9110474650078686,
+      "tokens_in": 2848,
+      "tokens_out": 27,
+      "cost_usd": 0.002929,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 76,
+      "t_wall": 159.56438544600678,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "पीला आयत गहरे टील पृष्ठभूमि पर चलता है।"
+          },
+          {
+            "id": 1,
+            "hi": "पीली रूपरेखा गड़बड़ाती है। टेक्स्ट \"STEP 1 chop onions\" चलता है।"
+          },
+          {
+            "id": 2,
+            "hi": "टेक्स्ट \"Stir and serve\"। आयत मध्य-दाएं। टुकड़े निकलते हैं।"
+          },
+          {
+            "id": 3,
+            "hi": "पीला आयत चलता है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.9637038390064845,
+      "tokens_in": 594,
+      "tokens_out": 160,
+      "cost_usd": 0.001074,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 77,
+      "t_wall": 159.90617930200824,
+      "role": "tool",
+      "note": "",
+      "tool_name": "translate_hindi",
+      "args": {
+        "max_words": 8
+      },
+      "result": {
+        "ok": false,
+        "cues": [
+          {
+            "id": 0,
+            "text": "पीला आयत गहरे टील पृष्ठभूमि पर चलता है।",
+            "ok": false,
+            "problems": [
+              "Word budget exceeded"
+            ],
+            "suggested_max_words": 7,
+            "seconds": 3.600454,
+            "overlap_seconds": 0
+          },
+          {
+            "id": 1,
+            "text": "पीली रूपरेखा गड़बड़ाती है। टेक्स्ट \"STEP 1 chop onions\" चलता है।",
+            "ok": false,
+            "problems": [
+              "Word budget exceeded"
+            ],
+            "suggested_max_words": 8,
+            "seconds": 5.392154,
+            "overlap_seconds": 0
+          },
+          {
+            "id": 2,
+            "text": "टेक्स्ट \"Stir and serve\"। आयत मध्य-दाएं। टुकड़े निकलते हैं।",
+            "ok": false,
+            "problems": [
+              "Word budget exceeded"
+            ],
+            "suggested_max_words": 8,
+            "seconds": 4.970431,
+            "overlap_seconds": 0
+          },
+          {
+            "id": 3,
+            "text": "पीला आयत चलता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 4,
+            "seconds": 1.766848,
+            "overlap_seconds": 0
+          }
+        ]
+      },
+      "ok": false,
+      "latency_s": 7.306943914998556,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 78,
+      "t_wall": 161.58887024900469,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6826200880022952,
+      "tokens_in": 3203,
+      "tokens_out": 47,
+      "cost_usd": 0.003344,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 79,
+      "t_wall": 162.92417049000505,
+      "role": "tool",
+      "note": "",
+      "tool_name": "render_preview",
+      "args": {
+        "end": 30,
+        "start": 0,
+        "lang": "hi"
+      },
+      "result": {
+        "path": "runs/real_agent_kitchen/preview_hi.mp4",
+        "duration": 30.0
+      },
+      "ok": true,
+      "latency_s": 1.33526934600377,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 80,
+      "t_wall": 164.54251713900885,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6183160539949313,
+      "tokens_in": 3293,
+      "tokens_out": 15,
+      "cost_usd": 0.003338,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 81,
+      "t_wall": 164.54357357800473,
+      "role": "tool",
+      "note": "",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": false,
+        "problems": [
+          "Cue 0: missing hi",
+          "Cue 1: missing hi",
+          "Cue 2: missing hi",
+          "3 high-importance events lack an associated cue"
+        ],
+        "uncovered_events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.0,
+            "what": "title card text A person enters a kitchen",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 25.0,
+            "t_end": 25.3,
+            "what": "Title card with text 'Stir and serve' and a yellow outline rectangle on the right side.",
+            "on_screen_text": "Stir and serve",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 26.6,
+            "t_end": 27.2,
+            "what": "Yellow rectangle moves from right side toward center; text is gone.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "rejection": 1
+      },
+      "ok": false,
+      "latency_s": 0.0010342629975639284,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 82,
+      "t_wall": 165.9026491560071,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3590408460004255,
+      "tokens_in": 3575,
+      "tokens_out": 20,
+      "cost_usd": 0.003635,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 83,
+      "t_wall": 166.17872861200885,
+      "role": "tool",
+      "note": "",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 4.668,
+            "end": 8.707999999999998,
+            "duration": 4.039999999999998,
+            "word_budget_en": 8,
+            "word_budget_hi": 7
+          },
+          {
+            "id": 1,
+            "start": 11.868,
+            "end": 16.612000000000002,
+            "duration": 4.7440000000000015,
+            "word_budget_en": 9,
+            "word_budget_hi": 8
+          },
+          {
+            "id": 2,
+            "start": 19.932,
+            "end": 24.708000000000002,
+            "duration": 4.776000000000003,
+            "word_budget_en": 9,
+            "word_budget_hi": 8
+          },
+          {
+            "id": 3,
+            "start": 27.387999999999998,
+            "end": 29.92,
+            "duration": 2.5320000000000036,
+            "word_budget_en": 4,
+            "word_budget_hi": 4
+          }
+        ],
+        "speech": [
+          {
+            "start": 0.692,
+            "end": 4.588
+          },
+          {
+            "start": 8.787999999999998,
+            "end": 11.788
+          },
+          {
+            "start": 16.692,
+            "end": 19.852
+          },
+          {
+            "start": 24.788,
+            "end": 27.308
+          }
+        ],
+        "detector": "silero-onnx",
+        "fallback_reason": null,
+        "speech_ratio": 0.4192
+      },
+      "ok": true,
+      "latency_s": 0.2759130259946687,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 84,
+      "t_wall": 169.53298216500843,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.3541924309975,
+      "tokens_in": 2860,
+      "tokens_out": 65,
+      "cost_usd": 0.003055,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 85,
+      "t_wall": 173.99152527299884,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 4.668,
+            "t_end": 5.668,
+            "what": "Text reading 'A person enters a kitchen' scrolls right to left across the upper portion while a yellow rectangular outline remains centered",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 5.668,
+            "t_end": 6.668,
+            "what": "The text continues scrolling off-screen to the left as the yellow rectangular outline stays centered",
+            "on_screen_text": "A person ent",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 6.668,
+            "t_end": 7.668,
+            "what": "Only the yellow rectangular outline remains on screen after the text exits",
+            "on_screen_text": "A person a",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 7.668,
+            "t_end": 8.668,
+            "what": "Text scrolls completely off screen leaving only the yellow rectangular outline",
+            "on_screen_text": "kitch",
+            "importance": 2,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 8.668,
+            "t_end": 8.708,
+            "what": "The dark teal screen contains only the centered yellow rectangular outline",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.262938760992256,
+      "tokens_in": 2737,
+      "tokens_out": 345,
+      "cost_usd": 0.0011316,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 86,
+      "t_wall": 173.99159288300143,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 8.708,
+        "focus": "visual details of yellow rectangle animation on dark teal background",
+        "start": 4.668
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 4.668,
+            "t_end": 5.668,
+            "what": "Text reading 'A person enters a kitchen' scrolls right to left across the upper portion while a yellow rectangular outline remains centered",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 5,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 5.668,
+            "t_end": 6.668,
+            "what": "The text continues scrolling off-screen to the left as the yellow rectangular outline stays centered",
+            "on_screen_text": "A person ent",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 6.668,
+            "t_end": 7.668,
+            "what": "Only the yellow rectangular outline remains on screen after the text exits",
+            "on_screen_text": "A person a",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 7.668,
+            "t_end": 8.668,
+            "what": "Text scrolls completely off screen leaving only the yellow rectangular outline",
+            "on_screen_text": "kitch",
+            "importance": 2,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 8.668,
+            "t_end": 8.708,
+            "what": "The dark teal screen contains only the centered yellow rectangular outline",
+            "on_screen_text": "",
+            "importance": 1,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 4.458582735998789,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 87,
+      "t_wall": 175.4208017290075,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4291726670053322,
+      "tokens_in": 3292,
+      "tokens_out": 70,
+      "cost_usd": 0.003502,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 88,
+      "t_wall": 183.33666881200043,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "truncated": true,
+        "summary": "{\"events\": [{\"t_start\": 11.868, \"t_end\": 13.668, \"what\": \"maroon background with white text 'STEP 1 - chop onions' and centered yellow rectangular outline\", \"on_screen_text\": \"STEP 1 - chop onions\", \"importance\": 4, \"confidence\": 1.0}, {\"t_start\": 13.668, \"t_end\": 15.468, \"what\": \"yellow outline glitches and text cycles through partial states\", \"on_screen_text\": \"STEP\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 15.468, \"t_end\": 16.612, \"what\": \"yellow outline remains centered while text reverts to full instruction\", \"on_screen_text\": \"STEP 1 chop onions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 16.612, \"t_end\": 18.468, \"what\": \"outline glitches as text breaks into 'STEP' then 'STEPions'\", \"on_screen_text\": \"STEPions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 18.468, \"t_end\": 20.32, \"what\": \"text settles back to full 'STEP 1 - chop onions' while outline stabilizes\", \"on_screen_text\": \"STEP 1 - chop onions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 20.32, \"t_end\": 22.168, \"what\": \"all text disappears leaving only centered yellow outline\", \"on_screen_text\": null, \"importance\": 2, \"confidence\": 1.0}, {\"t_start\": 22.168, \"t_end\": 23.968, \"what\": \"outline glitches while remaining centered on maroon background\", \"on_screen_text\": null, \"importance\": 2, \"confidence\": 1.0}, {\"t_start\": 23.968, \"t_end\": 25.768, \"what\": \"outline continues slight vertical ji"
+      },
+      "ok": true,
+      "latency_s": 7.751120843007811,
+      "tokens_in": 2756,
+      "tokens_out": 613,
+      "cost_usd": 0.0013785,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 89,
+      "t_wall": 183.33676015400852,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 16.612,
+        "focus": "yellow outline glitching and text cycling STEP 1 chop onions",
+        "start": 11.868
+      },
+      "result": {
+        "truncated": true,
+        "summary": "{\"events\": [{\"t_start\": 11.868, \"t_end\": 13.668, \"what\": \"maroon background with white text 'STEP 1 - chop onions' and centered yellow rectangular outline\", \"on_screen_text\": \"STEP 1 - chop onions\", \"importance\": 4, \"confidence\": 1.0}, {\"t_start\": 13.668, \"t_end\": 15.468, \"what\": \"yellow outline glitches and text cycles through partial states\", \"on_screen_text\": \"STEP\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 15.468, \"t_end\": 16.612, \"what\": \"yellow outline remains centered while text reverts to full instruction\", \"on_screen_text\": \"STEP 1 chop onions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 16.612, \"t_end\": 18.468, \"what\": \"outline glitches as text breaks into 'STEP' then 'STEPions'\", \"on_screen_text\": \"STEPions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 18.468, \"t_end\": 20.32, \"what\": \"text settles back to full 'STEP 1 - chop onions' while outline stabilizes\", \"on_screen_text\": \"STEP 1 - chop onions\", \"importance\": 3, \"confidence\": 1.0}, {\"t_start\": 20.32, \"t_end\": 22.168, \"what\": \"all text disappears leaving only centered yellow outline\", \"on_screen_text\": null, \"importance\": 2, \"confidence\": 1.0}, {\"t_start\": 22.168, \"t_end\": 23.968, \"what\": \"outline glitches while remaining centered on maroon background\", \"on_screen_text\": null, \"importance\": 2, \"confidence\": 1.0}, {\"t_start\": 23.968, \"t_end\": 25.768, \"what\": \"outline continues slight vertical ji"
+      },
+      "ok": true,
+      "latency_s": 7.915929832990514,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 90,
+      "t_wall": 186.79547970200656,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.4586694769968744,
+      "tokens_in": 3919,
+      "tokens_out": 67,
+      "cost_usd": 0.00412,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 91,
+      "t_wall": 205.5896117860102,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 19.932,
+            "t_end": 22.932,
+            "what": "Text 'Stir and serve' appears at top-left with a yellow rectangle outline mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 22.932,
+            "t_end": 24.708,
+            "what": "Text fragments out until only a yellow rectangle outline remains mid-right",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 18.620028435005224,
+      "tokens_in": 2741,
+      "tokens_out": 143,
+      "cost_usd": 0.000951,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 92,
+      "t_wall": 205.5896660950093,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 24.708,
+        "start": 19.932,
+        "focus": "text Stir and serve, rectangle mid-right, fragments out"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 19.932,
+            "t_end": 22.932,
+            "what": "Text 'Stir and serve' appears at top-left with a yellow rectangle outline mid-right",
+            "on_screen_text": "Stir and serve",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 22.932,
+            "t_end": 24.708,
+            "what": "Text fragments out until only a yellow rectangle outline remains mid-right",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video"
+      },
+      "ok": true,
+      "latency_s": 18.79416705100448,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 93,
+      "t_wall": 213.1592292070127,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 7.569536048002192,
+      "tokens_in": 4151,
+      "tokens_out": 60,
+      "cost_usd": 0.004331,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 94,
+      "t_wall": 213.16129260401067,
+      "role": "tool",
+      "note": "",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "yellow rectangle movement at end",
+        "start": 27.388,
+        "end": 29.92
+      },
+      "result": {
+        "ok": false,
+        "error": "Inspection cap reached"
+      },
+      "ok": false,
+      "latency_s": 0.0020046599966008216,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 95,
+      "t_wall": 214.96212273000856,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8008075260004262,
+      "tokens_in": 4241,
+      "tokens_out": 70,
+      "cost_usd": 0.004451,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 96,
+      "t_wall": 217.0648474000045,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        ".verdict": "supported",
+        ".evidence": "The yellow rectangle appears on the right side at 27.388 seconds and 28.654 seconds, then on the left side at 29.82 seconds against the dark teal background with 'Stir and serve' text."
+      },
+      "ok": true,
+      "latency_s": 1.8466199160029646,
+      "tokens_in": 1141,
+      "tokens_out": 70,
+      "cost_usd": 0.0004053,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 97,
+      "t_wall": 217.064879277008,
+      "role": "tool",
+      "note": "",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Yellow rectangle moves horizontally from left to right across dark teal background in final segment",
+        "end": 29.92,
+        "start": 27.388
+      },
+      "result": {
+        "ok": false,
+        "error": "Invalid verification response"
+      },
+      "ok": false,
+      "latency_s": 2.1027372759999707,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 98,
+      "t_wall": 220.6410700520064,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.5761560469982214,
+      "tokens_in": 4340,
+      "tokens_out": 57,
+      "cost_usd": 0.004511,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false
+    },
+    {
+      "step": 99,
+      "t_wall": 221.91698844901111,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "The yellow rectangle appears at different positions across the still frames (right side then left side), but the prompt forbids inferring motion between stills, so movement cannot be confirmed from these static images alone."
+      },
+      "ok": true,
+      "latency_s": 0.9878170779993525,
+      "tokens_in": 1128,
+      "tokens_out": 57,
+      "cost_usd": 0.0003897,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false
+    },
+    {
+      "step": 100,
+      "t_wall": 221.91702372400323,
+      "role": "tool",
+      "note": "",
+      "tool_name": "verify_claim",
+      "args": {
+        "end": 29.92,
+        "claim": "Yellow rectangle moves",
+        "start": 27.388
+      },
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "The yellow rectangle appears at different positions across the still frames (right side then left side), but the prompt forbids inferring motion between stills, so movement cannot be confirmed from these static images alone.",
+        "modality": "frames"
+      },
+      "ok": true,
+      "latency_s": 1.2759203349996824,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 101,
+      "t_wall": 223.7053182910022,
+      "role": "tool",
+      "note": "Deterministic fallback finisher",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [
+          "Cue 0: missing hi",
+          "Cue 1: missing hi",
+          "Cue 2: missing hi",
+          "3 high-importance events lack an associated cue"
+        ],
+        "outputs": "runs/real_agent_kitchen"
+      },
+      "ok": true,
+      "latency_s": 1.7882577639975352,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 2,
+      "inspect_video_segment": 13,
+      "draft_description": 5,
+      "measure_tts_duration": 3,
+      "check_fit": 7,
+      "commit_cue": 5,
+      "translate_hindi": 1,
+      "render_preview": 1,
+      "finalize": 2,
+      "verify_claim": 2
+    },
+    "corrections": 4,
+    "verifications": {
+      "uncertain": 1
+    },
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.12992599999999999,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0135099,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00011604000000000001
+    },
+    "total_latency_s": 223.70578190599917
+  }
+}

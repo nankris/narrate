@@ -1,0 +1,109 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [
+    "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 1.00000625,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [],
+  "tracks": {
+    "en": [],
+    "hi": []
+  },
+  "gaps": [],
+  "speech": [
+    {
+      "start": 0,
+      "end": 30.0001875
+    }
+  ],
+  "cues_committed": 0,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 0.0,
+    "hi": 0.0
+  },
+  "high_importance_covered_percent": 100,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2509,
+      "output_tokens": 37,
+      "cost_usd": 0.00262,
+      "latency_s": 1.2107597810099833,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2617,
+      "output_tokens": 54,
+      "cost_usd": 0.002779,
+      "latency_s": 2.2465692839905387,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2732,
+      "output_tokens": 161,
+      "cost_usd": 0.0009645,
+      "latency_s": 4.324849948010524,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2863,
+      "output_tokens": 37,
+      "cost_usd": 0.002974,
+      "latency_s": 2.114915504993405,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.008373,
+    "perceive": 0.0009645,
+    "verify": 0,
+    "draft": 0,
+    "translate": 0
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.018675,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {},
+    "orchestrator_turns": 3,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.008372999999999998,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0009645
+    },
+    "total_latency_s": 12.393321074996493
+  },
+  "estimated_cost_usd": 0.0093375,
+  "would_be_token_factory_cost_usd": 0.0093375,
+  "reserved_spend_usd": 0.009337499999999999,
+  "cost_per_minute": 0.018675,
+  "latency_s": 12.393321074996493
+}

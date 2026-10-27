@@ -1,0 +1,150 @@
+{
+  "status": "complete",
+  "mock": false,
+  "provider": "nvidia-dev",
+  "requested_provider": "nvidia-dev",
+  "dev_only": true,
+  "base_url_host": "integrate.api.nvidia.com",
+  "models": {
+    "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "edit": "nvidia/nemotron-3-ultra-550b-a55b"
+  },
+  "latency_s": {
+    "probe": 0.07395258398901206,
+    "perceive": 5.652884882001672,
+    "gaps": 0.15479016600875184,
+    "fit": 0.5924806810071459,
+    "edit": 4.24531101899629,
+    "tts_en": 0.3064815620018635,
+    "mix_en": 0.48901453100552317,
+    "tts_hi": 0.29325237599550746,
+    "mix_hi": 0.56984527700115
+  },
+  "cues_dropped": 3,
+  "overlaps_with_speech": 0,
+  "issues": [],
+  "tts": [
+    {
+      "lang": "en",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "en",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    }
+  ],
+  "duration_s": 30.0,
+  "perception_strategy": "video",
+  "perception_fallback": false,
+  "perception_error": null,
+  "perception_events_dropped": 0,
+  "gaps": [
+    {
+      "start": 0.0,
+      "end": 1.001587,
+      "duration": 1.001587
+    },
+    {
+      "start": 4.212154,
+      "end": 9.014286,
+      "duration": 4.802132
+    },
+    {
+      "start": 11.429206,
+      "end": 17.000091,
+      "duration": 5.5708850000000005
+    },
+    {
+      "start": 19.480907,
+      "end": 25.052336,
+      "duration": 5.571429000000002
+    },
+    {
+      "start": 27.006757,
+      "end": 30.0,
+      "duration": 2.9932429999999997
+    }
+  ],
+  "described_event_indices": [
+    0,
+    2
+  ],
+  "gap_coverage_percent": {
+    "en": 50.418164631454026,
+    "hi": 50.418164631454026
+  },
+  "cues": [
+    {
+      "id": 1,
+      "start": 4.292154,
+      "end": 8.934286,
+      "budget": 9,
+      "hi_budget": 8,
+      "assigned_event_indices": [
+        0
+      ],
+      "en": "A yellow rectangle appears on dark teal",
+      "hi": "पीला आयत गहरे नीले पर प्रकट होता"
+    },
+    {
+      "id": 2,
+      "start": 11.509206,
+      "end": 16.920091000000003,
+      "budget": 11,
+      "hi_budget": 9,
+      "assigned_event_indices": [
+        2
+      ],
+      "en": "Text reads STEP 1 chop onions on brown",
+      "hi": "पाठ STEP 1 काटें प्याज भूरे पर दिखता"
+    }
+  ],
+  "usage": [
+    {
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2766,
+      "output_tokens": 331,
+      "cost_usd": 0.0011277000000000001,
+      "latency_s": 4.48351288199774
+    },
+    {
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1705,
+      "output_tokens": 33,
+      "cost_usd": 0.00011022,
+      "latency_s": 0.5850883630046155
+    },
+    {
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1256,
+      "output_tokens": 87,
+      "cost_usd": 0.001517,
+      "latency_s": 3.3302784230036195
+    }
+  ],
+  "would_be_token_factory_cost_usd": 0.00275492,
+  "estimated_cost_usd": 0
+}

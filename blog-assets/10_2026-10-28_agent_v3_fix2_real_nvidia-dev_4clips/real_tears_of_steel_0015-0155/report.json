@@ -1,0 +1,853 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 100.0,
+  "fallback_finalize": true,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "fallback_reason": "orchestrator stopped early (max turns, timeout or no tool calls)",
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22,
+      "en": "Rocket nozzles fire intensely. A bright rocket ascends into cloudy sky above industrial cityscape with tall towers.",
+      "hi": "रॉकेट नोजल तीव्रता से दहकते हैं। चमकीला रॉकेट बादल भरे आसमान में औद्योगिक नगर के ऊंचे टावरों के ऊपर उठता है।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "en": "Wireframe figures with particles.",
+      "hi": "पार्टिकल्स के साथ वायरफ्रेम आकृतियाँ।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16,
+      "en": "Person with glasses reacts in neon lab. Two people at counter with glowing equipment.",
+      "hi": "चश्मा पहना व्यक्ति नीयन लैब में प्रतिक्रिया देता है। चमकते उपकरणों वाले काउंटर पर दो लोग।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 99.92,
+      "duration": 52.30800000000001,
+      "narratable": true,
+      "word_budget_en": 119,
+      "word_budget_hi": 135,
+      "en": "Airships fly through a city skyline. Later, a person with a mechanical eye examines a brain model while two figures work at a holographic counter.",
+      "hi": "हवाई जहाज शहर के क्षितिज से गुजरते हैं। बाद में, यांत्रिक आंख वाला व्यक्ति मस्तिष्क मॉडल की जांच करता है जबकि दो आकृतियाँ होलोग्राफिक काउंटर पर काम करती हैं।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 7.812245,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket nozzles fire intensely. A bright rocket ascends into cloudy sky above industrial cityscape with tall towers.",
+        "hi": "रॉकेट नोजल तीव्रता से दहकते हैं। चमकीला रॉकेट बादल भरे आसमान में औद्योगिक नगर के ऊंचे टावरों के ऊपर उठता है।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.653015999999994,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures with particles.",
+        "hi": "पार्टिकल्स के साथ वायरफ्रेम आकृतियाँ।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 44.31258999999999,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Person with glasses reacts in neon lab. Two people at counter with glowing equipment.",
+        "hi": "चश्मा पहना व्यक्ति नीयन लैब में प्रतिक्रिया देता है। चमकते उपकरणों वाले काउंटर पर दो लोग।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 56.551683,
+        "duration": 52.30800000000001,
+        "narratable": true,
+        "word_budget_en": 119,
+        "word_budget_hi": 135,
+        "en": "Airships fly through a city skyline. Later, a person with a mechanical eye examines a brain model while two figures work at a holographic counter.",
+        "hi": "हवाई जहाज शहर के क्षितिज से गुजरते हैं। बाद में, यांत्रिक आंख वाला व्यक्ति मस्तिष्क मॉडल की जांच करता है जबकि दो आकृतियाँ होलोग्राफिक काउंटर पर काम करती हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 9.123999999999999,
+        "duration": 9.043999999999999,
+        "narratable": true,
+        "word_budget_en": 19,
+        "word_budget_hi": 22,
+        "en": "Rocket nozzles fire intensely. A bright rocket ascends into cloudy sky above industrial cityscape with tall towers.",
+        "hi": "रॉकेट नोजल तीव्रता से दहकते हैं। चमकीला रॉकेट बादल भरे आसमान में औद्योगिक नगर के ऊंचे टावरों के ऊपर उठता है।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 32.53999999999999,
+        "end": 34.916000000000004,
+        "duration": 2.376000000000012,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "en": "Wireframe figures with particles.",
+        "hi": "पार्टिकल्स के साथ वायरफ्रेम आकृतियाँ।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 38.971999999999994,
+        "end": 45.572,
+        "duration": 6.6000000000000085,
+        "narratable": true,
+        "word_budget_en": 14,
+        "word_budget_hi": 16,
+        "en": "Person with glasses reacts in neon lab. Two people at counter with glowing equipment.",
+        "hi": "चश्मा पहना व्यक्ति नीयन लैब में प्रतिक्रिया देता है। चमकते उपकरणों वाले काउंटर पर दो लोग।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 47.611999999999995,
+        "end": 59.686375999999996,
+        "duration": 52.30800000000001,
+        "narratable": true,
+        "word_budget_en": 119,
+        "word_budget_hi": 135,
+        "en": "Airships fly through a city skyline. Later, a person with a mechanical eye examines a brain model while two figures work at a holographic counter.",
+        "hi": "हवाई जहाज शहर के क्षितिज से गुजरते हैं। बाद में, यांत्रिक आंख वाला व्यक्ति मस्तिष्क मॉडल की जांच करता है जबकि दो आकृतियाँ होलोग्राफिक काउंटर पर काम करती हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "narratable": true,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 1,
+      "start": 30.523999999999997,
+      "end": 31.651999999999997,
+      "duration": 1.1280000000000001,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 1
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "narratable": true,
+      "word_budget_en": 14,
+      "word_budget_hi": 16
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 99.92,
+      "duration": 52.30800000000001,
+      "narratable": true,
+      "word_budget_en": 119,
+      "word_budget_hi": 135
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 21.324
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 34.304308383574096,
+    "hi": 42.79145717210785
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2857,
+      "output_tokens": 36,
+      "cost_usd": 0.002965,
+      "latency_s": 2.085026087006554,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3209,
+      "output_tokens": 77,
+      "cost_usd": 0.00344,
+      "latency_s": 1.2056865180056775,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2728,
+      "output_tokens": 217,
+      "cost_usd": 0.0010137,
+      "latency_s": 4.0998163910117,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3507,
+      "output_tokens": 88,
+      "cost_usd": 0.003771,
+      "latency_s": 1.5366129459871445,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2754,
+      "output_tokens": 335,
+      "cost_usd": 0.0011277,
+      "latency_s": 8.150514306005789,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3827,
+      "output_tokens": 88,
+      "cost_usd": 0.004091,
+      "latency_s": 1.929456255005789,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2754,
+      "output_tokens": 208,
+      "cost_usd": 0.0010134,
+      "latency_s": 4.306115603001672,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4114,
+      "output_tokens": 84,
+      "cost_usd": 0.004366,
+      "latency_s": 1.7636626640014583,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2769,
+      "output_tokens": 61,
+      "cost_usd": 0.0008856,
+      "latency_s": 5.2719565050065285,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4329,
+      "output_tokens": 77,
+      "cost_usd": 0.00456,
+      "latency_s": 1.3321834280068288,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4559,
+      "output_tokens": 45,
+      "cost_usd": 0.004694,
+      "latency_s": 1.5630482269916683,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 517,
+      "output_tokens": 84,
+      "cost_usd": 5.118e-05,
+      "latency_s": 1.7703416869917419,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4746,
+      "output_tokens": 45,
+      "cost_usd": 0.004881,
+      "latency_s": 1.48678433499299,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 570,
+      "output_tokens": 62,
+      "cost_usd": 4.908e-05,
+      "latency_s": 2.4095498789974954,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4911,
+      "output_tokens": 44,
+      "cost_usd": 0.005043,
+      "latency_s": 1.2010116160090547,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 57,
+      "cost_usd": 5.448e-05,
+      "latency_s": 1.1749627459939802,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5079,
+      "output_tokens": 45,
+      "cost_usd": 0.005214,
+      "latency_s": 4.0501863220124505,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 506,
+      "output_tokens": 58,
+      "cost_usd": 4.428e-05,
+      "latency_s": 1.1703666859975783,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5240,
+      "output_tokens": 78,
+      "cost_usd": 0.005474,
+      "latency_s": 1.8049796470004367,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1126,
+      "output_tokens": 47,
+      "cost_usd": 0.0003801,
+      "latency_s": 1.060833431998617,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5443,
+      "output_tokens": 66,
+      "cost_usd": 0.005641,
+      "latency_s": 1.930799894995289,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1129,
+      "output_tokens": 69,
+      "cost_usd": 0.0004008,
+      "latency_s": 32.59048419499595,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5681,
+      "output_tokens": 65,
+      "cost_usd": 0.005876,
+      "latency_s": 5.027286277996609,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1118,
+      "output_tokens": 71,
+      "cost_usd": 0.00039929999999999995,
+      "latency_s": 1.7340840389952064,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5921,
+      "output_tokens": 45,
+      "cost_usd": 0.006056,
+      "latency_s": 2.6073799489968223,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 570,
+      "output_tokens": 48,
+      "cost_usd": 4.5719999999999996e-05,
+      "latency_s": 0.7778866570006358,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6081,
+      "output_tokens": 45,
+      "cost_usd": 0.006216,
+      "latency_s": 1.6820442710013594,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 64,
+      "cost_usd": 5.616e-05,
+      "latency_s": 1.3603092539997306,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6248,
+      "output_tokens": 71,
+      "cost_usd": 0.006461,
+      "latency_s": 1.9829280910053058,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1123,
+      "output_tokens": 61,
+      "cost_usd": 0.00039179999999999993,
+      "latency_s": 3.801282837986946,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6484,
+      "output_tokens": 49,
+      "cost_usd": 0.006631,
+      "latency_s": 3.1526784779998707,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 58,
+      "cost_usd": 5.472e-05,
+      "latency_s": 0.8664564700011397,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6658,
+      "output_tokens": 61,
+      "cost_usd": 0.006841,
+      "latency_s": 5.272184151006513,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 57,
+      "cost_usd": 5.448e-05,
+      "latency_s": 0.9527999840065604,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6843,
+      "output_tokens": 91,
+      "cost_usd": 0.007116,
+      "latency_s": 4.387401539002894,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7050,
+      "output_tokens": 77,
+      "cost_usd": 0.007281,
+      "latency_s": 2.8615073949913494,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7280,
+      "output_tokens": 80,
+      "cost_usd": 0.00752,
+      "latency_s": 3.2495972750039073,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7471,
+      "output_tokens": 67,
+      "cost_usd": 0.007672,
+      "latency_s": 3.5795154630031902,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7650,
+      "output_tokens": 60,
+      "cost_usd": 0.00783,
+      "latency_s": 3.2245132140087662,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7813,
+      "output_tokens": 61,
+      "cost_usd": 0.007996,
+      "latency_s": 2.0288842580048367,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8008,
+      "output_tokens": 67,
+      "cost_usd": 0.008209,
+      "latency_s": 2.600482170993928,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1117,
+      "output_tokens": 67,
+      "cost_usd": 0.00039539999999999996,
+      "latency_s": 1.831303671002388,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8244,
+      "output_tokens": 45,
+      "cost_usd": 0.008379,
+      "latency_s": 2.230142959000659,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 58,
+      "cost_usd": 5.472e-05,
+      "latency_s": 0.9292668190028053,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8412,
+      "output_tokens": 55,
+      "cost_usd": 0.008577,
+      "latency_s": 1.923193533992162,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 680,
+      "output_tokens": 57,
+      "cost_usd": 5.448e-05,
+      "latency_s": 1.0761484740069136,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8607,
+      "output_tokens": 76,
+      "cost_usd": 0.008835,
+      "latency_s": 1.778819544997532,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 8788,
+      "output_tokens": 69,
+      "cost_usd": 0.008995,
+      "latency_s": 8.970280502995593,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 9002,
+      "output_tokens": 85,
+      "cost_usd": 0.009257,
+      "latency_s": 5.156550708008581,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 674,
+      "output_tokens": 242,
+      "cost_usd": 0.0014,
+      "latency_s": 14.333089060004568,
+      "cost_role": "translate"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.189888,
+    "perceive": 0.0040403999999999995,
+    "verify": 0.0019674,
+    "draft": 0.0005193,
+    "translate": 0.0014
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.11868905999999999,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 5,
+      "draft_description": 10,
+      "verify_claim": 5,
+      "propose_cue": 9
+    },
+    "corrections": 3,
+    "verifications": {
+      "verified": 1,
+      "contradicted": 4,
+      "unverified": 0
+    },
+    "orchestrator_turns": 30,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.19128799999999999,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.006007800000000001,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0005193
+    },
+    "total_latency_s": 212.10278291600116
+  },
+  "estimated_cost_usd": 0.1978151,
+  "would_be_token_factory_cost_usd": 0.1978151,
+  "reserved_spend_usd": 0.1978150999999999,
+  "cost_per_minute": 0.11868905999999999,
+  "latency_s": 212.10278291600116
+}

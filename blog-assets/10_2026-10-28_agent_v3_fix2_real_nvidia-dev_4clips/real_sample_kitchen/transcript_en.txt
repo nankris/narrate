@@ -1,0 +1,4 @@
+[00:00:04.668] Yellow rectangle on teal. Person enters kitchen.
+[00:00:11.868] Title card: "STEP 1 - chop onions".
+[00:00:19.932] Background shifts to teal. Text reads "Stir and serve".
+[00:00:27.388] Text disappears. Outline remains.

@@ -1,0 +1,370 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 110.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.04356363636363625,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 79.17200000000001,
+      "duration": 79.09200000000001,
+      "narratable": true,
+      "word_budget_en": 180,
+      "word_budget_hi": 204,
+      "en": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap.",
+      "hi": "एक व्यक्ति काली शर्ट और नीले दस्ताने पहने अंतरिक्ष यान की दीवार पर लगे सफेद पैनल में पौधों की देखभाल करता है। फिर वह एक लाल मिर्च को \"VEGGIE KEEP SAMPLE\" लिखे पीले कार्ड के बगल में गहरे पैनल पर रखता है, जबकि दो अन्य अंतरिक्ष यात्री देखते और ताली बजाते हैं।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 84.124,
+      "end": 109.92,
+      "duration": 25.796000000000006,
+      "narratable": true,
+      "word_budget_en": 58,
+      "word_budget_hi": 66,
+      "en": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enter from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels.",
+      "hi": "दो पुरुष अंतरिक्ष यान मॉड्यूल के अंदर खड़े हैं। हरी शर्ट वाला व्यक्ति और पारदर्शी बैग लिए काली शर्ट वाला व्यक्ति विपरीत दिशाओं से प्रवेश करते हैं। समूह उपकरणों के चारों ओर इकट्ठा होता है, नीली शर्ट वाला आदमी पीली वस्तु पकड़े हुए है जबकि अन्य पैनलों की ओर इशारा करते हैं।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 14.743401,
+        "duration": 79.09200000000001,
+        "narratable": true,
+        "word_budget_en": 180,
+        "word_budget_hi": 204,
+        "en": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap.",
+        "hi": "एक व्यक्ति काली शर्ट और नीले दस्ताने पहने अंतरिक्ष यान की दीवार पर लगे सफेद पैनल में पौधों की देखभाल करता है। फिर वह एक लाल मिर्च को \"VEGGIE KEEP SAMPLE\" लिखे पीले कार्ड के बगल में गहरे पैनल पर रखता है, जबकि दो अन्य अंतरिक्ष यात्री देखते और ताली बजाते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 84.124,
+        "end": 99.878739,
+        "duration": 25.796000000000006,
+        "narratable": true,
+        "word_budget_en": 58,
+        "word_budget_hi": 66,
+        "en": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enter from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels.",
+        "hi": "दो पुरुष अंतरिक्ष यान मॉड्यूल के अंदर खड़े हैं। हरी शर्ट वाला व्यक्ति और पारदर्शी बैग लिए काली शर्ट वाला व्यक्ति विपरीत दिशाओं से प्रवेश करते हैं। समूह उपकरणों के चारों ओर इकट्ठा होता है, नीली शर्ट वाला आदमी पीली वस्तु पकड़े हुए है जबकि अन्य पैनलों की ओर इशारा करते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 21.500407999999997,
+        "duration": 79.09200000000001,
+        "narratable": true,
+        "word_budget_en": 180,
+        "word_budget_hi": 204,
+        "en": "A person in black shirt and blue gloves tends to plants inside a white panel on a spacecraft wall. The person then places a red chili pepper on a dark panel beside a yellow card reading \"VEGGIE KEEP SAMPLE\", while two other astronauts watch and clap.",
+        "hi": "एक व्यक्ति काली शर्ट और नीले दस्ताने पहने अंतरिक्ष यान की दीवार पर लगे सफेद पैनल में पौधों की देखभाल करता है। फिर वह एक लाल मिर्च को \"VEGGIE KEEP SAMPLE\" लिखे पीले कार्ड के बगल में गहरे पैनल पर रखता है, जबकि दो अन्य अंतरिक्ष यात्री देखते और ताली बजाते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 84.124,
+        "end": 106.72862599999999,
+        "duration": 25.796000000000006,
+        "narratable": true,
+        "word_budget_en": 58,
+        "word_budget_hi": 66,
+        "en": "Two men stand inside a spacecraft module. A green-shirted person and a black-shirted person with a transparent bag enter from opposite sides. The group gathers around equipment, the blue-shirted man holding a yellow object while others gesture at panels.",
+        "hi": "दो पुरुष अंतरिक्ष यान मॉड्यूल के अंदर खड़े हैं। हरी शर्ट वाला व्यक्ति और पारदर्शी बैग लिए काली शर्ट वाला व्यक्ति विपरीत दिशाओं से प्रवेश करते हैं। समूह उपकरणों के चारों ओर इकट्ठा होता है, नीली शर्ट वाला आदमी पीली वस्तु पकड़े हुए है जबकि अन्य पैनलों की ओर इशारा करते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 79.17200000000001,
+      "duration": 79.09200000000001,
+      "narratable": true,
+      "word_budget_en": 180,
+      "word_budget_hi": 204
+    },
+    {
+      "id": 1,
+      "start": 84.124,
+      "end": 109.92,
+      "duration": 25.796000000000006,
+      "narratable": true,
+      "word_budget_en": 58,
+      "word_budget_hi": 66
+    }
+  ],
+  "speech": [
+    {
+      "start": 79.25200000000001,
+      "end": 84.044
+    }
+  ],
+  "cues_committed": 2,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 29.00059110670429,
+    "hi": 41.97337540996108
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2857,
+      "output_tokens": 36,
+      "cost_usd": 0.002965,
+      "latency_s": 1.6939785719878273,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3073,
+      "output_tokens": 152,
+      "cost_usd": 0.003529,
+      "latency_s": 3.1294666310132015,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2759,
+      "output_tokens": 229,
+      "cost_usd": 0.0010337999999999999,
+      "latency_s": 9.614084073007689,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2776,
+      "output_tokens": 73,
+      "cost_usd": 0.0008985,
+      "latency_s": 4.085483116999967,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1172,
+      "output_tokens": 243,
+      "cost_usd": 0.0005702999999999999,
+      "latency_s": 2.9603925650008023,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3650,
+      "output_tokens": 400,
+      "cost_usd": 0.00485,
+      "latency_s": 21.90338459900522,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 531,
+      "output_tokens": 76,
+      "cost_usd": 5.009999999999999e-05,
+      "latency_s": 1.1528966379992198,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 637,
+      "output_tokens": 68,
+      "cost_usd": 5.4539999999999996e-05,
+      "latency_s": 1.2033335149899358,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4308,
+      "output_tokens": 81,
+      "cost_usd": 0.004551,
+      "latency_s": 3.516407164002885,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1174,
+      "output_tokens": 59,
+      "cost_usd": 0.0004053,
+      "latency_s": 1.0291959839960327,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4522,
+      "output_tokens": 110,
+      "cost_usd": 0.004852,
+      "latency_s": 5.858425743994303,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4819,
+      "output_tokens": 82,
+      "cost_usd": 0.005065,
+      "latency_s": 1.3914452710014302,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1182,
+      "output_tokens": 59,
+      "cost_usd": 0.0004077,
+      "latency_s": 1.5508583369955886,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5033,
+      "output_tokens": 101,
+      "cost_usd": 0.005336,
+      "latency_s": 2.533184629995958,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5313,
+      "output_tokens": 45,
+      "cost_usd": 0.005448,
+      "latency_s": 2.1080063999979757,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 481,
+      "output_tokens": 238,
+      "cost_usd": 0.001195,
+      "latency_s": 6.810907096005394,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5584,
+      "output_tokens": 29,
+      "cost_usd": 0.005671,
+      "latency_s": 63.4374232209957,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.042267,
+    "perceive": 0.0025026,
+    "verify": 0.0008129999999999999,
+    "draft": 0.00010463999999999999,
+    "translate": 0.001195
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.02557213090909091,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 2,
+      "draft_description": 2,
+      "verify_claim": 2,
+      "propose_cue": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 2,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 9,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.04346200000000001,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0033155999999999997,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00010463999999999999
+    },
+    "total_latency_s": 155.596483360001
+  },
+  "estimated_cost_usd": 0.04688224,
+  "would_be_token_factory_cost_usd": 0.04688224,
+  "reserved_spend_usd": 0.05882924,
+  "cost_per_minute": 0.02557213090909091,
+  "latency_s": 155.596483360001
+}

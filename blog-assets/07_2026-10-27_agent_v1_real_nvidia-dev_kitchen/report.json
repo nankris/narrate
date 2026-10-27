@@ -1,0 +1,226 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 30.0,
+  "fallback_finalize": true,
+  "issues": [
+    "Cue 0: missing hi",
+    "Cue 1: missing hi",
+    "Cue 2: missing hi",
+    "3 high-importance events lack an associated cue"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "word_budget_en": 8,
+      "word_budget_hi": 7,
+      "en": "Yellow rectangle animates across dark teal background."
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "word_budget_en": 9,
+      "word_budget_hi": 8,
+      "en": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "word_budget_en": 9,
+      "word_budget_hi": 8,
+      "en": "Text \"Stir and serve\". Rectangle mid-right. Fragments out."
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "word_budget_en": 4,
+      "word_budget_hi": 4,
+      "en": "Yellow rectangle moves.",
+      "hi": "पीला आयत चलता है।"
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 8.117342,
+        "duration": 4.039999999999998,
+        "word_budget_en": 8,
+        "word_budget_hi": 7,
+        "en": "Yellow rectangle animates across dark teal background."
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 16.466912,
+        "duration": 4.7440000000000015,
+        "word_budget_en": 9,
+        "word_budget_hi": 8,
+        "en": "Yellow outline glitches. Text cycles \"STEP 1 chop onions\"."
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 24.708000000000002,
+        "duration": 4.776000000000003,
+        "word_budget_en": 9,
+        "word_budget_hi": 8,
+        "en": "Text \"Stir and serve\". Rectangle mid-right. Fragments out."
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.192943,
+        "duration": 2.5320000000000036,
+        "word_budget_en": 4,
+        "word_budget_hi": 4,
+        "en": "Yellow rectangle moves.",
+        "hi": "पीला आयत चलता है।"
+      }
+    ],
+    "hi": [
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.154847999999998,
+        "duration": 2.5320000000000036,
+        "word_budget_en": 4,
+        "word_budget_hi": 4,
+        "en": "Yellow rectangle moves.",
+        "hi": "पीला आयत चलता है।"
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "word_budget_en": 8,
+      "word_budget_hi": 7
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "word_budget_en": 9,
+      "word_budget_hi": 8
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "word_budget_en": 9,
+      "word_budget_hi": 8
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "word_budget_en": 4,
+      "word_budget_hi": 4
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 90.90975018642803,
+    "hi": 10.979666915237377
+  },
+  "high_importance_events_covered_percent": 80.0,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [
+    {
+      "t_start": 0.0,
+      "t_end": 1.0,
+      "what": "title card text A person enters a kitchen",
+      "on_screen_text": "A person enters a kitchen",
+      "importance": 5,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 25.0,
+      "t_end": 25.3,
+      "what": "Title card with text 'Stir and serve' and a yellow outline rectangle on the right side.",
+      "on_screen_text": "Stir and serve",
+      "importance": 5,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 26.6,
+      "t_end": 27.2,
+      "what": "Yellow rectangle moves from right side toward center; text is gone.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 0.9
+    }
+  ],
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 2,
+      "inspect_video_segment": 13,
+      "draft_description": 5,
+      "measure_tts_duration": 3,
+      "check_fit": 7,
+      "commit_cue": 5,
+      "translate_hindi": 1,
+      "render_preview": 1,
+      "finalize": 2,
+      "verify_claim": 2
+    },
+    "corrections": 4,
+    "verifications": {
+      "uncertain": 1
+    },
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.12992599999999999,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0135099,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00011604000000000001
+    },
+    "total_latency_s": 223.70578190599917
+  },
+  "estimated_cost_usd": 0,
+  "would_be_token_factory_cost_usd": 0.14355194000000007,
+  "reserved_spend_usd": 0.14355194000000007,
+  "cost_per_minute": 0.28710388000000014,
+  "latency_s": 223.70578190599917
+}

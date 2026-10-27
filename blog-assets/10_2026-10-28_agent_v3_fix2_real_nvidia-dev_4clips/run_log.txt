@@ -1,0 +1,25 @@
+=== sample_kitchen 00:01:11
+Complete: runs/real_sample_kitchen; estimated cost $0.081876
+real	2m41.327s
+user	0m40.709s
+sys	0m4.344s
+=== tears_of_steel_0015-0155 00:03:52
+80 fallback Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)
+82 fallback translate_hindi
+83 fallback finalize
+Complete: runs/real_tears_of_steel_0015-0155; estimated cost $0.197815
+real	3m32.502s
+user	0m47.866s
+sys	0m4.238s
+=== nasa_chile_harvest_0000-0150 00:07:25
+27 system retry after APITimeoutError (attempt 2/3, backoff 1s)
+Complete: runs/real_nasa_chile_harvest_0000-0150; estimated cost $0.046882
+real	2m35.987s
+user	0m30.731s
+sys	0m2.188s
+=== failure_continuous_speech 00:10:01
+Complete: runs/real_failure_continuous_speech; estimated cost $0.006046
+real	0m5.594s
+user	0m2.347s
+sys	0m0.495s
+ALLDONE

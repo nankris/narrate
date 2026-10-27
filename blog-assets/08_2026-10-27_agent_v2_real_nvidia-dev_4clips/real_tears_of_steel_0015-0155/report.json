@@ -1,0 +1,528 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 100.0,
+  "fallback_finalize": true,
+  "issues": [
+    "Agent stopped: InternalServerError HTTP 500",
+    "21 high-importance events lack an associated cue"
+  ],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [],
+  "tracks": {
+    "en": [],
+    "hi": []
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 9.123999999999999,
+      "duration": 9.043999999999999,
+      "word_budget_en": 19,
+      "word_budget_hi": 22
+    },
+    {
+      "id": 1,
+      "start": 30.523999999999997,
+      "end": 31.651999999999997,
+      "duration": 1.1280000000000001,
+      "word_budget_en": 1,
+      "word_budget_hi": 1
+    },
+    {
+      "id": 2,
+      "start": 32.53999999999999,
+      "end": 34.916000000000004,
+      "duration": 2.376000000000012,
+      "word_budget_en": 4,
+      "word_budget_hi": 5
+    },
+    {
+      "id": 3,
+      "start": 38.971999999999994,
+      "end": 45.572,
+      "duration": 6.6000000000000085,
+      "word_budget_en": 14,
+      "word_budget_hi": 16
+    },
+    {
+      "id": 4,
+      "start": 47.611999999999995,
+      "end": 99.92,
+      "duration": 52.30800000000001,
+      "word_budget_en": 119,
+      "word_budget_hi": 135
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 21.324
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 0,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 0.0,
+    "hi": 0.0
+  },
+  "high_importance_covered_percent": 0.0,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [
+    {
+      "t_start": 0.0,
+      "t_end": 0.22,
+      "what": "Close-up shot of multiple rocket engines with bright flames and smoke erupting from their nozzles.",
+      "on_screen_text": null,
+      "importance": 5,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 0.22,
+      "t_end": 3.11,
+      "what": "Blinding white light floods the screen as the rocket engines ignite at full thrust, obscuring the view.",
+      "on_screen_text": null,
+      "importance": 5,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 3.11,
+      "t_end": 4.02,
+      "what": "A wide shot of an industrial cityscape with tall towers and smokestacks as smoke and flames fill the center background.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 24.52,
+      "t_end": 26.04,
+      "what": "Two people stand on a bridge talking, one in a dark jacket and jeans, the other in a blue top and vest leaning on the railing.",
+      "on_screen_text": "",
+      "importance": 5,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 26.04,
+      "t_end": 26.94,
+      "what": "Glowing wireframe holograms appear, one orange on the left and one blue on the right, overlapping where the people were.",
+      "on_screen_text": "",
+      "importance": 5,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 26.94,
+      "t_end": 31.54,
+      "what": "A dark futuristic interior scene with green wires and structures, displaying the text \"40 YEARS LATER\" in white capital letters.",
+      "on_screen_text": "40 YEARS LATER",
+      "importance": 5,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 31.54,
+      "t_end": 32.52,
+      "what": "The scene returns to the orange and blue wireframe holograms standing against the dark background.",
+      "on_screen_text": "",
+      "importance": 4,
+      "confidence": 1.0
+    },
+    {
+      "t_start": 26.54,
+      "t_end": 27.78,
+      "what": "Two glowing wireframe humanoid figures, one orange and one blue, stand side by side in a dark industrial environment.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 27.78,
+      "t_end": 29.78,
+      "what": "A wide shot of a dark courtyard with glowing pink and blue lights; the text \"40 YEARS LATER\" appears in white capital letters at center screen.",
+      "on_screen_text": "40 YEARS LATER",
+      "importance": 5,
+      "confidence": 0.98
+    },
+    {
+      "t_start": 29.78,
+      "t_end": 33.02,
+      "what": "The camera pushes into bright pink light before fading back to the dark courtyard scene.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 33.02,
+      "t_end": 37.98,
+      "what": "The glowing wireframe figures return, shifting slightly as pink circular bands rotate in the foreground.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 37.98,
+      "t_end": 42.42,
+      "what": "A green futuristic heads-up display interface overlays the scene, featuring media playback controls and telemetry bars; a wireframe hand briefly enters the frame.",
+      "on_screen_text": null,
+      "importance": 5,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 42.42,
+      "t_end": 44.92,
+      "what": "A close-up of complex electronic hardware panels with gauges and circuit boards, illuminated by green light.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 32.97,
+      "t_end": 35.27,
+      "what": "Abstract neon digital interface elements float in pink and green hues.",
+      "on_screen_text": "none",
+      "importance": 4,
+      "confidence": 0.95
+    },
+    {
+      "t_start": 35.27,
+      "t_end": 37.87,
+      "what": "A gloved hand adjusts dials and wires on a complex control panel.",
+      "on_screen_text": "none",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 37.87,
+      "t_end": 41.27,
+      "what": "A man with curly hair and glasses looks forward while two people in white coats stand beside him.",
+      "on_screen_text": "none",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 41.27,
+      "t_end": 44.27,
+      "what": "The man with glasses speaks directly toward the camera.",
+      "on_screen_text": "none",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 44.27,
+      "t_end": 48.27,
+      "what": "A woman with long hair in a beige coat and a man in a white coat work at a station; 'SIMULATION READY' appears in blue neon text behind them.",
+      "on_screen_text": "SIMULATION READY",
+      "importance": 5,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 48.27,
+      "t_end": 53.27,
+      "what": "A physical brain model with electrodes sits on a pedestal as an older man with a mechanical eye peers closely at it.",
+      "on_screen_text": "none",
+      "importance": 4,
+      "confidence": 0.9
+    },
+    {
+      "t_start": 41.61,
+      "t_end": 46.35,
+      "what": "The sniper continues firing, then lowers his rifle as explosions continue outside. A candle burns near where an older person lies motionless wrapped in material.",
+      "on_screen_text": null,
+      "importance": 4,
+      "confidence": 0.89
+    },
+    {
+      "t_start": 46.35,
+      "t_end": 58.31,
+      "what": "Through the scope view, a large flying war platform is struck repeatedly by explosions and crashes down through fog onto the rooftops below.",
+      "on_screen_text": null,
+      "importance": 5,
+      "confidence": 0.88
+    }
+  ],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2510,
+      "output_tokens": 36,
+      "cost_usd": 0.002618,
+      "latency_s": 2.075371790997451,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2813,
+      "output_tokens": 372,
+      "cost_usd": 0.003929,
+      "latency_s": 12.901487158000236,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2721,
+      "output_tokens": 363,
+      "cost_usd": 0.001143,
+      "latency_s": 5.238429342003656,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2746,
+      "output_tokens": 312,
+      "cost_usd": 0.0011045999999999999,
+      "latency_s": 7.977772826998262,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2746,
+      "output_tokens": 456,
+      "cost_usd": 0.0012342,
+      "latency_s": 8.158256880997214,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2754,
+      "output_tokens": 429,
+      "cost_usd": 0.0012123,
+      "latency_s": 4.9177129570016405,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2760,
+      "output_tokens": 163,
+      "cost_usd": 0.0009747,
+      "latency_s": 7.505786285997601,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4267,
+      "output_tokens": 1112,
+      "cost_usd": 0.007603,
+      "latency_s": 31.270161092994385,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1948,
+      "output_tokens": 49,
+      "cost_usd": 0.00032159999999999996,
+      "latency_s": 0.6861032660090132,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1962,
+      "output_tokens": 36,
+      "cost_usd": 0.00031590000000000003,
+      "latency_s": 1.478322693001246,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1960,
+      "output_tokens": 31,
+      "cost_usd": 0.0003126,
+      "latency_s": 0.4902922689943807,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1952,
+      "output_tokens": 53,
+      "cost_usd": 0.00032460000000000003,
+      "latency_s": 0.9339541709923651,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1952,
+      "output_tokens": 94,
+      "cost_usd": 0.0003492,
+      "latency_s": 1.4744892589951633,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 5840,
+      "output_tokens": 181,
+      "cost_usd": 0.006383,
+      "latency_s": 3.8191088320018025,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6171,
+      "output_tokens": 153,
+      "cost_usd": 0.00663,
+      "latency_s": 2.6064046699902974,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6470,
+      "output_tokens": 127,
+      "cost_usd": 0.006851,
+      "latency_s": 11.875137128008646,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 6752,
+      "output_tokens": 115,
+      "cost_usd": 0.007097,
+      "latency_s": 2.3676025829918217,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7012,
+      "output_tokens": 143,
+      "cost_usd": 0.007441,
+      "latency_s": 3.0185056529880967,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7310,
+      "output_tokens": 125,
+      "cost_usd": 0.007685,
+      "latency_s": 5.096568167005898,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7584,
+      "output_tokens": 119,
+      "cost_usd": 0.007941,
+      "latency_s": 21.645644502990763,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 7848,
+      "output_tokens": 161,
+      "cost_usd": 0.008331,
+      "latency_s": 2.9513269390008645,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.072509,
+    "perceive": 0.0056688,
+    "verify": 0,
+    "draft": 0.0016239,
+    "translate": 0
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.047881019999999996,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 5,
+      "draft_description": 5,
+      "measure_tts_duration": 8,
+      "check_fit": 8,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 3,
+    "verifications": {},
+    "orchestrator_turns": 11,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.072509,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0056688,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0016239000000000002
+    },
+    "total_latency_s": 167.55912564499886
+  },
+  "estimated_cost_usd": 0.0798017,
+  "would_be_token_factory_cost_usd": 0.0798017,
+  "reserved_spend_usd": 0.09460670000000002,
+  "cost_per_minute": 0.047881019999999996,
+  "latency_s": 167.55912564499886
+}

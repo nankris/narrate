@@ -1,0 +1,330 @@
+{
+  "mock": false,
+  "provider": "nvidia-dev",
+  "dev_only": true,
+  "duration_s": 110.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.04356363636363625,
+  "detector_fallback_reason": null,
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 79.17200000000001,
+      "duration": 79.09200000000001,
+      "word_budget_en": 180,
+      "word_budget_hi": 204,
+      "en": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel.",
+      "hi": "एक अंतरिक्ष यात्री नीले दस्ताने पहनकर एक कक्ष से हरे पत्तेदार पौधे तोड़ता है, फिर एक गहरे पैनल पर लाल शिमला मिर्च को कैंची से काटता है।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 84.124,
+      "end": 109.92,
+      "duration": 25.796000000000006,
+      "word_budget_en": 58,
+      "word_budget_hi": 66,
+      "en": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse.",
+      "hi": "नीली शर्ट पहने अंतरिक्ष यात्री एक भरे हुए मॉड्यूल में तैरते हैं, तालमेल से हाथ मिलाते हैं, दूसरे देखते हैं, हरी पोशाक वाली महिला हाथों का घेरा बनाती है, वे हँसते हैं और बिखर जाते हैं।",
+      "tts_backend": {
+        "en": "PiperBackend",
+        "hi": "PiperBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 8.764263,
+        "duration": 79.09200000000001,
+        "word_budget_en": 180,
+        "word_budget_hi": 204,
+        "en": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel.",
+        "hi": "एक अंतरिक्ष यात्री नीले दस्ताने पहनकर एक कक्ष से हरे पत्तेदार पौधे तोड़ता है, फिर एक गहरे पैनल पर लाल शिमला मिर्च को कैंची से काटता है।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 84.124,
+        "end": 96.61633599999999,
+        "duration": 25.796000000000006,
+        "word_budget_en": 58,
+        "word_budget_hi": 66,
+        "en": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse.",
+        "hi": "नीली शर्ट पहने अंतरिक्ष यात्री एक भरे हुए मॉड्यूल में तैरते हैं, तालमेल से हाथ मिलाते हैं, दूसरे देखते हैं, हरी पोशाक वाली महिला हाथों का घेरा बनाती है, वे हँसते हैं और बिखर जाते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 0,
+        "start": 0.08,
+        "end": 11.237188,
+        "duration": 79.09200000000001,
+        "word_budget_en": 180,
+        "word_budget_hi": 204,
+        "en": "An astronaut in blue gloves harvests green leafy plants from a chamber, then uses scissors to cut a red pepper on a dark panel.",
+        "hi": "एक अंतरिक्ष यात्री नीले दस्ताने पहनकर एक कक्ष से हरे पत्तेदार पौधे तोड़ता है, फिर एक गहरे पैनल पर लाल शिमला मिर्च को कैंची से काटता है।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 84.124,
+        "end": 98.69452199999999,
+        "duration": 25.796000000000006,
+        "word_budget_en": 58,
+        "word_budget_hi": 66,
+        "en": "Astronauts in blue shirts float in a cluttered module, perform synchronized handshake chains, clasp hands while others watch, a woman in green joins a hand circle, they laugh and disperse.",
+        "hi": "नीली शर्ट पहने अंतरिक्ष यात्री एक भरे हुए मॉड्यूल में तैरते हैं, तालमेल से हाथ मिलाते हैं, दूसरे देखते हैं, हरी पोशाक वाली महिला हाथों का घेरा बनाती है, वे हँसते हैं और बिखर जाते हैं।",
+        "tts_backend": {
+          "en": "PiperBackend",
+          "hi": "PiperBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 79.17200000000001,
+      "duration": 79.09200000000001,
+      "word_budget_en": 180,
+      "word_budget_hi": 204
+    },
+    {
+      "id": 1,
+      "start": 84.124,
+      "end": 109.92,
+      "duration": 25.796000000000006,
+      "word_budget_en": 58,
+      "word_budget_hi": 66
+    }
+  ],
+  "speech": [
+    {
+      "start": 79.25200000000001,
+      "end": 84.044
+    }
+  ],
+  "cues_committed": 2,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 20.18972523072229,
+    "hi": 24.528744946991065
+  },
+  "high_importance_covered_percent": 100.0,
+  "coverage_method": "temporal association proxy; not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2510,
+      "output_tokens": 36,
+      "cost_usd": 0.002618,
+      "latency_s": 2.430303653003648,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 2699,
+      "output_tokens": 105,
+      "cost_usd": 0.003014,
+      "latency_s": 6.535615370012238,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2739,
+      "output_tokens": 257,
+      "cost_usd": 0.001053,
+      "latency_s": 8.964756574001512,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2736,
+      "output_tokens": 325,
+      "cost_usd": 0.0011133,
+      "latency_s": 6.040850557998056,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3261,
+      "output_tokens": 42,
+      "cost_usd": 0.003387,
+      "latency_s": 1.3546937510109274,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 829,
+      "output_tokens": 83,
+      "cost_usd": 0.00017414999999999998,
+      "latency_s": 1.0852998179907445,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3438,
+      "output_tokens": 42,
+      "cost_usd": 0.003564,
+      "latency_s": 1.5434440459939651,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 819,
+      "output_tokens": 72,
+      "cost_usd": 0.00016604999999999997,
+      "latency_s": 1.2374077620042954,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3591,
+      "output_tokens": 89,
+      "cost_usd": 0.003858,
+      "latency_s": 1.408437692996813,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3765,
+      "output_tokens": 101,
+      "cost_usd": 0.004068,
+      "latency_s": 18.465253263988416,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 3951,
+      "output_tokens": 77,
+      "cost_usd": 0.004182,
+      "latency_s": 1.5420178110070992,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4165,
+      "output_tokens": 89,
+      "cost_usd": 0.004432,
+      "latency_s": 6.096623107994674,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4403,
+      "output_tokens": 45,
+      "cost_usd": 0.004538,
+      "latency_s": 1.089106861007167,
+      "base_url_host": "integrate.api.nvidia.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 429,
+      "output_tokens": 176,
+      "cost_usd": 0.000957,
+      "latency_s": 4.296974414988654,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "input_tokens": 4732,
+      "output_tokens": 32,
+      "cost_usd": 0.004828,
+      "latency_s": 3.677978767998866,
+      "base_url_host": "integrate.api.nvidia.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.038489,
+    "perceive": 0.0021663,
+    "verify": 0,
+    "draft": 0.0003401999999999999,
+    "translate": 0.000957
+  },
+  "billed_to": "nvidia-dev free tier (dev only)",
+  "cost_per_minute_usd": 0.022883181818181816,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 2,
+      "draft_description": 2,
+      "check_fit": 2,
+      "commit_cue": 2,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 0,
+    "verifications": {},
+    "orchestrator_turns": 10,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.039445999999999995,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.0021663,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0003401999999999999
+    },
+    "total_latency_s": 87.69779527500214
+  },
+  "estimated_cost_usd": 0.0419525,
+  "would_be_token_factory_cost_usd": 0.0419525,
+  "reserved_spend_usd": 0.041952500000000004,
+  "cost_per_minute": 0.022883181818181816,
+  "latency_s": 87.69779527500214
+}

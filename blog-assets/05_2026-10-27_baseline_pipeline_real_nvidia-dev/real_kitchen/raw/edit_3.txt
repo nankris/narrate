@@ -1,0 +1,1 @@
+{"cues": [{"id": 1, "en": "A yellow rectangle appears on dark teal", "hi": "पीला आयत गहरे नीले पर प्रकट होता"}, {"id": 2, "en": "Text reads STEP 1 chop onions on brown", "hi": "पाठ STEP 1 काटें प्याज भूरे पर दिखता"}]}

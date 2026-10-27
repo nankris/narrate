@@ -1,0 +1,50 @@
+{
+  "status": "complete",
+  "mock": false,
+  "provider": "nvidia-dev",
+  "requested_provider": "nvidia-dev",
+  "dev_only": true,
+  "base_url_host": "integrate.api.nvidia.com",
+  "models": {
+    "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b"
+  },
+  "latency_s": {
+    "probe": 0.08391316600318532,
+    "perceive": 12.095282649999717,
+    "gaps": 0.6982405790040502,
+    "fit": 4.3999170884490013e-07,
+    "edit": 3.180030034855008e-07,
+    "tts_en": 9.590003173798323e-07,
+    "mix_en": 1.4287194889911916,
+    "tts_hi": 1.52099528349936e-06,
+    "mix_hi": 1.421999465994304
+  },
+  "cues_dropped": 0,
+  "overlaps_with_speech": 0,
+  "issues": [],
+  "tts": [],
+  "duration_s": 100.0,
+  "perception_strategy": "video",
+  "perception_fallback": false,
+  "perception_error": null,
+  "perception_events_dropped": 0,
+  "gaps": [],
+  "gap_coverage_percent": {
+    "en": 0.0,
+    "hi": 0.0
+  },
+  "cues": [],
+  "usage": [
+    {
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2870,
+      "output_tokens": 819,
+      "cost_usd": 0.0015980999999999999,
+      "latency_s": 8.650198721996276
+    }
+  ],
+  "would_be_token_factory_cost_usd": 0.0015980999999999999,
+  "estimated_cost_usd": 0
+}

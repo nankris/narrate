@@ -1,0 +1,47 @@
+[
+ {
+  "step": 31,
+  "args": {
+   "claim": "Text 'This film is supported by the Netherlands Film Fund' appears on screen at 3.3-6.6s",
+   "gap_id": 0
+  },
+  "verdict": "supported",
+  "evidence": "The text 'This film is supported by the Netherlands Film Fund' is clearly visible in white font at the bottom left of the frame at 4.6 seconds."
+ },
+ {
+  "step": 34,
+  "args": {
+   "gap_id": 2,
+   "claim": "Text '40 YEARS LATER' appears on screen"
+  },
+  "verdict": "contradicted",
+  "evidence": "The visible frames show glowing orange and blue humanoid figures, a green media control bar reading 'OPERATRACK - GLOBAL', and a control panel with switches and a hand; no text '40 YEARS LATER' appears."
+ },
+ {
+  "step": 37,
+  "args": {
+   "gap_id": 3,
+   "claim": "Text 'SIMULATION READY' appears on screen"
+  },
+  "verdict": "contradicted",
+  "evidence": "The frames show two people at a desk with holographic displays, then a close-up of a model brain with wires, then a man with a mechanical eye looking at the brain. No text 'SIMULATION READY' appears on screen in any frame."
+ },
+ {
+  "step": 46,
+  "args": {
+   "claim": "Text 'SIMULATION READY' appears on screen behind two people at counter",
+   "gap_id": 3
+  },
+  "verdict": "contradicted",
+  "evidence": "The text 'SIMULATION READY' does not appear on screen behind two people at counter. Only 'PLAYBACK READY' text is visible at the top center behind the two people at the counter."
+ },
+ {
+  "step": 67,
+  "args": {
+   "claim": "Text 'PLAYBACK READY' appears on screen",
+   "gap_id": 3
+  },
+  "verdict": "contradicted",
+  "evidence": "The visible frames do not display the text 'PLAYBACK READY' on screen; instead they show two figures at a workstation with holographic interfaces, a brain model on a plate, and a person with a mechanical eye examining it."
+ }
+]

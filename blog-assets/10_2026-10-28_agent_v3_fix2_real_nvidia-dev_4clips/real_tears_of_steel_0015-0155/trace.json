@@ -1,0 +1,2667 @@
+{
+  "metadata": {
+    "provider": "nvidia-dev",
+    "mock": false,
+    "dev_only": true,
+    "models": {
+      "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "fit_alt": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "edit": "nvidia/nemotron-3-ultra-550b-a55b",
+      "orchestrate": "nvidia/nemotron-3-ultra-550b-a55b"
+    },
+    "base_url_host": "integrate.api.nvidia.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.6,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 2.4519416870025452,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.4518739620107226,
+      "tokens_in": 2857,
+      "tokens_out": 36,
+      "cost_usd": 0.002965,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 3.0657391530112363,
+      "role": "tool",
+      "note": "Find speech-free gaps for audio description",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 9.12,
+            "word_budget_en": 19,
+            "word_budget_hi": 22,
+            "narratable": true
+          },
+          {
+            "id": 1,
+            "start": 30.52,
+            "end": 31.65,
+            "word_budget_en": 1,
+            "word_budget_hi": 1,
+            "narratable": false,
+            "reason": "too short"
+          },
+          {
+            "id": 2,
+            "start": 32.54,
+            "end": 34.92,
+            "word_budget_en": 4,
+            "word_budget_hi": 5,
+            "narratable": true
+          },
+          {
+            "id": 3,
+            "start": 38.97,
+            "end": 45.57,
+            "word_budget_en": 14,
+            "word_budget_hi": 16,
+            "narratable": true
+          },
+          {
+            "id": 4,
+            "start": 47.61,
+            "end": 99.92,
+            "word_budget_en": 119,
+            "word_budget_hi": 135,
+            "narratable": true
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.27,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 12,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.6137619640066987,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 3,
+      "t_wall": 4.277546823999728,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2116652550030267,
+      "tokens_in": 3209,
+      "tokens_out": 77,
+      "cost_usd": 0.00344,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 9.138373699010117,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Close-up view of rocket engine nozzles firing upward, emitting intense white light and exhaust plumes.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 6.6,
+            "what": "Wide shot of an industrial cityscape with tall skeletal towers as a bright rocket ascends into a cloudy sky from the center.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 6.6,
+            "t_end": 9.12,
+            "what": "Rocket continues rising higher, leaving thick smoke trails against grey clouds amid industrial structures.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.93
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.106231038997066,
+      "tokens_in": 2728,
+      "tokens_out": 217,
+      "cost_usd": 0.0010137,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 9.13862649400835,
+      "role": "tool",
+      "note": "Inspect first narratable gap 0-9.12s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 0,
+        "end": 9.12,
+        "focus": "Visual content during first gap"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.3,
+            "what": "Close-up view of rocket engine nozzles firing upward, emitting intense white light and exhaust plumes.",
+            "on_screen_text": null,
+            "importance": 5,
+            "confidence": 0.98
+          },
+          {
+            "t_start": 3.3,
+            "t_end": 6.6,
+            "what": "Wide shot of an industrial cityscape with tall skeletal towers as a bright rocket ascends into a cloudy sky from the center.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 11,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.861051945001236,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 6,
+      "t_wall": 10.686175504000857,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5474215690046549,
+      "tokens_in": 3507,
+      "tokens_out": 88,
+      "cost_usd": 0.003771,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 19.466402614998515,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 30.54,
+            "t_end": 32.06,
+            "what": "An orange wireframe humanoid figure on the left and a blue wireframe humanoid figure on the right appear against a dark background with floating digital particles.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 32.06,
+            "t_end": 33.79,
+            "what": "Pink energy rings encircle the figures while green digital bars and control icons slide upward across the screen.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 8.158066257004975,
+      "tokens_in": 2754,
+      "tokens_out": 335,
+      "cost_usd": 0.0011277,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 19.4665172570094,
+      "role": "tool",
+      "note": "Inspect gap 2 around 32.54-34.92s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 34.92,
+        "focus": "Visual content during gap 2",
+        "start": 30.54
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 30.54,
+            "t_end": 32.06,
+            "what": "An orange wireframe humanoid figure on the left and a blue wireframe humanoid figure on the right appear against a dark background with floating digital particles.",
+            "on_screen_text": "40 YEARS LATER",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 32.06,
+            "t_end": 33.79,
+            "what": "Pink energy rings encircle the figures while green digital bars and control icons slide upward across the screen.",
+            "on_screen_text": null,
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 10,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 8.780316097996547,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 21.40181525600201,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.935227138994378,
+      "tokens_in": 3827,
+      "tokens_out": 88,
+      "cost_usd": 0.004091,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 26.477473928011023,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 36.97,
+            "t_end": 42.0,
+            "what": "A person with glasses reacts while others stand nearby in a lab with neon lights.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 42.0,
+            "t_end": 49.0,
+            "what": "Two people stand behind a counter with glowing equipment while text appears behind them.",
+            "on_screen_text": "SIMULATION READY",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 49.0,
+            "t_end": 56.97,
+            "what": "A brain model with pins hovers above a plate surrounded by purple energy rings as a person watches.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.3118646329967305,
+      "tokens_in": 2754,
+      "tokens_out": 208,
+      "cost_usd": 0.0010134,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 26.47756205900805,
+      "role": "tool",
+      "note": "Inspect gap 3 around 38.97-45.57s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "end": 45.57,
+        "start": 36.97,
+        "focus": "Visual content during gap 3"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 36.97,
+            "t_end": 42.0,
+            "what": "A person with glasses reacts while others stand nearby in a lab with neon lights.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 42.0,
+            "t_end": 49.0,
+            "what": "Two people stand behind a counter with glowing equipment while text appears behind them.",
+            "on_screen_text": "SIMULATION READY",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "mixed",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 9,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 5.0757120410125935,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 12,
+      "t_wall": 28.2472321200039,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7696301410032902,
+      "tokens_in": 4114,
+      "tokens_out": 84,
+      "cost_usd": 0.004366,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 36.72095198401075,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 45.61,
+            "t_end": 54.31,
+            "what": "Airships fly through city",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.98
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 5.278942957011168,
+      "tokens_in": 2769,
+      "tokens_out": 61,
+      "cost_usd": 0.0008856,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 36.72105115299928,
+      "role": "tool",
+      "note": "Inspect long gap 4 from 47.61s",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 45.61,
+        "focus": "Visual content during long gap 4",
+        "end": 99.92
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 45.61,
+            "t_end": 54.31,
+            "what": "Airships fly through city",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.98
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 8.473800238003605,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 15,
+      "t_wall": 38.0594354269997,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3383481729979394,
+      "tokens_in": 4329,
+      "tokens_out": 77,
+      "cost_usd": 0.00456,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 38.06109402200673,
+      "role": "tool",
+      "note": "Inspect more of long gap 4",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "focus": "Continue gap 4 visual content",
+        "start": 54.31,
+        "end": 99.92
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 45.61,
+            "t_end": 54.31,
+            "what": "Airships fly through city",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.98
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "cached": true,
+        "reminder": "Already inspected >=70% of this range; use cached evidence.",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0016352969978470355,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 39.630077447000076,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5689518379949732,
+      "tokens_in": 4559,
+      "tokens_out": 45,
+      "cost_usd": 0.004694,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 41.409102197998436,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A close-up shows rocket nozzles firing with intense white light and exhaust plumes. A wide shot follows a bright rocket ascending into a cloudy sky above an industrial cityscape of tall skeletal towers. The rocket continues rising higher, leaving thick smoke trails against grey clouds amid industrial structures."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.7767611509916605,
+      "tokens_in": 517,
+      "tokens_out": 84,
+      "cost_usd": 5.118e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 41.40915711699927,
+      "role": "tool",
+      "note": "Draft cue for gap 0 with rocket launch",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          0
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "text": "A close-up shows rocket nozzles firing with intense white light and exhaust plumes. A wide shot follows a bright rocket ascending into a cloudy sky above an industrial cityscape of tall skeletal towers. The rocket continues rising higher, leaving thick smoke trails against grey clouds amid industrial structures."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.779061744993669,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 20,
+      "t_wall": 42.90212235800573,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4929369680030504,
+      "tokens_in": 4746,
+      "tokens_out": 45,
+      "cost_usd": 0.004881,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 45.319751396003994,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Wireframe figures emerge with digital particles; energy rings surround them as control icons slide upward. Playback interface displays MEMORY PLAYBACK GLOBAL with scrolling memory speed data."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.415365742999711,
+      "tokens_in": 570,
+      "tokens_out": 62,
+      "cost_usd": 4.908e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 45.31980423400819,
+      "role": "tool",
+      "note": "Draft cue for gap 2 wireframe figures",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          2
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Wireframe figures emerge with digital particles; energy rings surround them as control icons slide upward. Playback interface displays MEMORY PLAYBACK GLOBAL with scrolling memory speed data."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 22,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.4176653629983775,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 46.527429510009824,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2075992619938916,
+      "tokens_in": 4911,
+      "tokens_out": 44,
+      "cost_usd": 0.005043,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 47.71269243401184,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.1830874480074272,
+      "tokens_in": 680,
+      "tokens_out": 57,
+      "cost_usd": 5.448e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 47.71274893300142,
+      "role": "tool",
+      "note": "Draft cue for gap 3 lab scene",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.185300263998215,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 51.76888144201075,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.056100066998624,
+      "tokens_in": 5079,
+      "tokens_out": 45,
+      "cost_usd": 0.005214,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 52.947405803002766,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "Two people stand behind a counter with glowing equipment as text \"SIMULATION READY\" appears behind them. Airships fly through a city outside."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.1763100910029607,
+      "tokens_in": 506,
+      "tokens_out": 58,
+      "cost_usd": 4.428e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 52.9474740170117,
+      "role": "tool",
+      "note": "Draft cue for long gap 4 airships",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          4
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "Two people stand behind a counter with glowing equipment as text \"SIMULATION READY\" appears behind them. Airships fly through a city outside."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 20,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.1785671570105478,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 29,
+      "t_wall": 54.75843275200168,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8109265069942921,
+      "tokens_in": 5240,
+      "tokens_out": 78,
+      "cost_usd": 0.005474,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 56.094591897010105,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "The text 'This film is supported by the Netherlands Film Fund' is clearly visible in white font at the bottom left of the frame at 4.6 seconds."
+      },
+      "ok": true,
+      "latency_s": 1.066972036001971,
+      "tokens_in": 1126,
+      "tokens_out": 47,
+      "cost_usd": 0.0003801,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 56.09466197200527,
+      "role": "tool",
+      "note": "Verify on-screen text for gap 0",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Text 'This film is supported by the Netherlands Film Fund' appears on screen at 3.3-6.6s",
+        "gap_id": 0
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The text 'This film is supported by the Netherlands Film Fund' is clearly visible in white font at the bottom left of the frame at 4.6 seconds.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 19,
+            "inspections": 8,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.336208232009085,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 32,
+      "t_wall": 58.032019688005676,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9373284190078266,
+      "tokens_in": 5443,
+      "tokens_out": 66,
+      "cost_usd": 0.005641,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 90.91445648400986,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The visible frames show glowing orange and blue humanoid figures, a green media control bar reading 'OPERATRACK - GLOBAL', and a control panel with switches and a hand; no text '40 YEARS LATER' appears."
+      },
+      "ok": true,
+      "latency_s": 32.59633162700629,
+      "tokens_in": 1129,
+      "tokens_out": 69,
+      "cost_usd": 0.0004008,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 90.91459354100516,
+      "role": "tool",
+      "note": "Verify on-screen text for gap 2",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 2,
+        "claim": "Text '40 YEARS LATER' appears on screen"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The visible frames show glowing orange and blue humanoid figures, a green media control bar reading 'OPERATRACK - GLOBAL', and a control panel with switches and a hand; no text '40 YEARS LATER' appears.",
+        "modality": "frames",
+        "gap_ids": [
+          2
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 32.882554249008535,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 35,
+      "t_wall": 95.94957497500582,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.034935642994242,
+      "tokens_in": 5681,
+      "tokens_out": 65,
+      "cost_usd": 0.005876,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 36,
+      "t_wall": 98.00885970600939,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The frames show two people at a desk with holographic displays, then a close-up of a model brain with wires, then a man with a mechanical eye looking at the brain. No text 'SIMULATION READY' appears on screen in any frame."
+      },
+      "ok": true,
+      "latency_s": 1.7402976020093774,
+      "tokens_in": 1118,
+      "tokens_out": 71,
+      "cost_usd": 0.00039929999999999995,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 37,
+      "t_wall": 98.00892803900933,
+      "role": "tool",
+      "note": "Verify on-screen text for gap 3",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 3,
+        "claim": "Text 'SIMULATION READY' appears on screen"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The frames show two people at a desk with holographic displays, then a close-up of a model brain with wires, then a man with a mechanical eye looking at the brain. No text 'SIMULATION READY' appears on screen in any frame.",
+        "modality": "frames",
+        "gap_ids": [
+          3
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.059324450994609,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 100.62237380399893,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.613415397994686,
+      "tokens_in": 5921,
+      "tokens_out": 45,
+      "cost_usd": 0.006056,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 39,
+      "t_wall": 101.40873625400127,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Orange and blue wireframe figures appear with digital particles. Pink rings orbit them as green bars slide upward. A memory playback interface shows speed data scrolling."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.7840228949935408,
+      "tokens_in": 570,
+      "tokens_out": 48,
+      "cost_usd": 4.5719999999999996e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 101.40879346600559,
+      "role": "tool",
+      "note": "Redraft gap 2 without contradicted text",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          2
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "text": "Orange and blue wireframe figures appear with digital particles. Pink rings orbit them as green bars slide upward. A memory playback interface shows speed data scrolling."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.7864013999933377,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 41,
+      "t_wall": 103.0968488510116,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6880283089994919,
+      "tokens_in": 6081,
+      "tokens_out": 45,
+      "cost_usd": 0.006216,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 42,
+      "t_wall": 104.4661338260048,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment while text appears behind them reading SIMULATION READY."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.366786212005536,
+      "tokens_in": 680,
+      "tokens_out": 64,
+      "cost_usd": 5.616e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 43,
+      "t_wall": 104.4661898589984,
+      "role": "tool",
+      "note": "Redraft gap 3 without contradicted text",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment while text appears behind them reading SIMULATION READY."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 8,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.3693198559922166,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 44,
+      "t_wall": 106.45506015799765,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9888442270021187,
+      "tokens_in": 6248,
+      "tokens_out": 71,
+      "cost_usd": 0.006461,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 45,
+      "t_wall": 110.53233115799958,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The text 'SIMULATION READY' does not appear on screen behind two people at counter. Only 'PLAYBACK READY' text is visible at the top center behind the two people at the counter."
+      },
+      "ok": true,
+      "latency_s": 3.807164660000126,
+      "tokens_in": 1123,
+      "tokens_out": 61,
+      "cost_usd": 0.00039179999999999993,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 110.53239535899775,
+      "role": "tool",
+      "note": "Re-verify SIMULATION READY text",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Text 'SIMULATION READY' appears on screen behind two people at counter",
+        "gap_id": 3
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The text 'SIMULATION READY' does not appear on screen behind two people at counter. Only 'PLAYBACK READY' text is visible at the top center behind the two people at the counter.",
+        "modality": "frames",
+        "gap_ids": [
+          3
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 4.0773174470086815,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 47,
+      "t_wall": 113.69090229300491,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.158474126001238,
+      "tokens_in": 6484,
+      "tokens_out": 49,
+      "cost_usd": 0.006631,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 48,
+      "t_wall": 114.5700180720014,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment while text appears behind them reading \"SIMULATION READY\"."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.8759009719942696,
+      "tokens_in": 680,
+      "tokens_out": 58,
+      "cost_usd": 5.472e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 49,
+      "t_wall": 114.57008100100211,
+      "role": "tool",
+      "note": "Redraft gap 3 with correct text PLAYBACK READY",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment while text appears behind them reading \"SIMULATION READY\"."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.879154974987614,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 50,
+      "t_wall": 119.84861102599825,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.278498629995738,
+      "tokens_in": 6658,
+      "tokens_out": 61,
+      "cost_usd": 0.006841,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 51,
+      "t_wall": 120.81117814101162,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9604390599997714,
+      "tokens_in": 680,
+      "tokens_out": 57,
+      "cost_usd": 5.448e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 52,
+      "t_wall": 120.81124188400281,
+      "role": "tool",
+      "note": "Redraft gap 3 with corrected text PLAYBACK READY",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ],
+        "max_words": 14
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.9626103340124246,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 53,
+      "t_wall": 125.20440449700982,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.393134214988095,
+      "tokens_in": 6843,
+      "tokens_out": 91,
+      "cost_usd": 0.007116,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 54,
+      "t_wall": 127.55831295800454,
+      "role": "tool",
+      "note": "Propose final cue for gap 0 rocket launch",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "Close-up of rocket nozzles firing with intense white light and exhaust. Wide shot shows a bright rocket ascending into a cloudy sky above an industrial cityscape of tall skeletal towers."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 19,
+        "seconds": 12.69,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 11,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.3538870649936143,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 130.42708917900745,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.86871435600915,
+      "tokens_in": 7050,
+      "tokens_out": 77,
+      "cost_usd": 0.007281,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 132.33791259099962,
+      "role": "tool",
+      "note": "Propose shorter cue for gap 0",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Rocket nozzles fire intensely. A bright rocket ascends into cloudy sky above industrial cityscape with tall towers.",
+        "gap_id": 0
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 9.12,
+          "duration": 9.04,
+          "narratable": true,
+          "word_budget_en": 19,
+          "word_budget_hi": 22,
+          "en": "Rocket nozzles fire intensely. A bright rocket ascends into cloudy sky above industrial cityscape with tall towers."
+        },
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.9107935520005412,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 54
+    },
+    {
+      "step": 57,
+      "t_wall": 135.5946929519996,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.256727967003826,
+      "tokens_in": 7280,
+      "tokens_out": 80,
+      "cost_usd": 0.00752,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 58,
+      "t_wall": 137.6904622459988,
+      "role": "tool",
+      "note": "Propose cue for gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Orange and blue wireframe figures appear with particles. Pink rings orbit them as green bars slide up. Memory playback interface shows scrolling speed data.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 9.9,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 9,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.095749068001169,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 59,
+      "t_wall": 141.27648686501198,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.585985737008741,
+      "tokens_in": 7471,
+      "tokens_out": 67,
+      "cost_usd": 0.007672,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 60,
+      "t_wall": 143.03193610100425,
+      "role": "tool",
+      "note": "Propose very short cue for gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "Wireframe figures with particles; rings orbit, bars slide up.",
+        "gap_id": 2
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded",
+          "TTS duration exceeds allowed speedup"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 4.76,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 8,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.755422591988463,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 61,
+      "t_wall": 146.26282914500916,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.230848841005354,
+      "tokens_in": 7650,
+      "tokens_out": 60,
+      "cost_usd": 0.00783,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 62,
+      "t_wall": 148.29631940400577,
+      "role": "tool",
+      "note": "Propose minimal cue for gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Wireframe figures appear with particles."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 4,
+        "seconds": 2.5,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            2,
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.0334705270070117,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 63,
+      "t_wall": 150.33198665900272,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0356284949957626,
+      "tokens_in": 7813,
+      "tokens_out": 61,
+      "cost_usd": 0.007996,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 64,
+      "t_wall": 152.12012748800043,
+      "role": "tool",
+      "note": "Propose 4-word cue for gap 2",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "Wireframe figures with particles."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 32.54,
+          "end": 34.92,
+          "duration": 2.38,
+          "narratable": true,
+          "word_budget_en": 4,
+          "word_budget_hi": 5,
+          "en": "Wireframe figures with particles."
+        },
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 6,
+            "inspections": 8,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7881150330067612,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 34
+    },
+    {
+      "step": 65,
+      "t_wall": 154.7273603180074,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.607193117000861,
+      "tokens_in": 8008,
+      "tokens_out": 67,
+      "cost_usd": 0.008209,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 66,
+      "t_wall": 156.82770310901105,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The visible frames do not display the text 'PLAYBACK READY' on screen; instead they show two figures at a workstation with holographic interfaces, a brain model on a plate, and a person with a mechanical eye examining it."
+      },
+      "ok": true,
+      "latency_s": 1.8384593600057997,
+      "tokens_in": 1117,
+      "tokens_out": 67,
+      "cost_usd": 0.00039539999999999996,
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 67,
+      "t_wall": 156.8278108920058,
+      "role": "tool",
+      "note": "Verify PLAYBACK READY text for gap 3",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Text 'PLAYBACK READY' appears on screen",
+        "gap_id": 3
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The visible frames do not display the text 'PLAYBACK READY' on screen; instead they show two figures at a workstation with holographic interfaces, a brain model on a plate, and a person with a mechanical eye examining it.",
+        "modality": "frames",
+        "gap_ids": [
+          3
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 5,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.1004297909967136,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 68,
+      "t_wall": 159.06423948300653,
+      "role": "orchestrator",
+      "note": "\n\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.2363954839966027,
+      "tokens_in": 8244,
+      "tokens_out": 45,
+      "cost_usd": 0.008379,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 69,
+      "t_wall": 160.00653893200797,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Behind them, two people stand at a counter with glowing equipment as \"SIMULATION READY\" text appears."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9388915659947088,
+      "tokens_in": 680,
+      "tokens_out": 58,
+      "cost_usd": 5.472e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 70,
+      "t_wall": 160.0066333959985,
+      "role": "tool",
+      "note": "Redraft gap 3 without on-screen text",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Behind them, two people stand at a counter with glowing equipment as \"SIMULATION READY\" text appears."
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 4,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.9423689539980842,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 71,
+      "t_wall": 161.93665982400125,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9300018529902445,
+      "tokens_in": 8412,
+      "tokens_out": 55,
+      "cost_usd": 0.008577,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 72,
+      "t_wall": 163.02147750700533,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.082123706000857,
+      "tokens_in": 680,
+      "tokens_out": 57,
+      "cost_usd": 5.448e-05,
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 73,
+      "t_wall": 163.02157818200067,
+      "role": "tool",
+      "note": "Redraft gap 3 visual only",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ],
+        "max_words": 14
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "A person with glasses reacts while others stand nearby in a lab with neon lights. Two people stand behind a counter with glowing equipment as \"SIMULATION READY\" text appears behind them."
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 3,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.0848966369958362,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 74,
+      "t_wall": 164.80697473400505,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7853671539924107,
+      "tokens_in": 8607,
+      "tokens_out": 76,
+      "cost_usd": 0.008835,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 75,
+      "t_wall": 166.8337721410062,
+      "role": "tool",
+      "note": "Propose visual-only cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "text": "A person with glasses reacts in a neon-lit lab. Two people stand behind a counter with glowing equipment.",
+        "gap_id": 3
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded"
+        ],
+        "suggested_max_words": 14,
+        "seconds": 6.29,
+        "overlap_seconds": 0,
+        "state": {
+          "committed": [
+            0,
+            2
+          ],
+          "remaining": [
+            3,
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 2,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 2.0267780629947083,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 76,
+      "t_wall": 175.81004967000626,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 8.976241466007195,
+      "tokens_in": 8788,
+      "tokens_out": 69,
+      "cost_usd": 0.008995,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 77,
+      "t_wall": 177.68034134800837,
+      "role": "tool",
+      "note": "Propose shorter cue for gap 3",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "Person with glasses reacts in neon lab. Two people at counter with glowing equipment."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 38.97,
+          "end": 45.57,
+          "duration": 6.6,
+          "narratable": true,
+          "word_budget_en": 14,
+          "word_budget_hi": 16,
+          "en": "Person with glasses reacts in neon lab. Two people at counter with glowing equipment."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3
+          ],
+          "remaining": [
+            4
+          ],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 1,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.870261667005252,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 37
+    },
+    {
+      "step": 78,
+      "t_wall": 182.84363038001175,
+      "role": "orchestrator",
+      "note": "\n",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 5.163228669989621,
+      "tokens_in": 9002,
+      "tokens_out": 85,
+      "cost_usd": 0.009257,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 79,
+      "t_wall": 185.11061983001127,
+      "role": "tool",
+      "note": "Propose cue for long gap 4",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "Airships fly through a city skyline. Later, a person with a mechanical eye examines a brain model while two figures work at a holographic counter."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 47.61,
+          "end": 99.92,
+          "duration": 52.31,
+          "narratable": true,
+          "word_budget_en": 119,
+          "word_budget_hi": 135,
+          "en": "Airships fly through a city skyline. Later, a person with a mechanical eye examines a brain model while two figures work at a holographic counter."
+        },
+        "state": {
+          "committed": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "remaining": [],
+          "skipped_too_short": [
+            1
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 0,
+            "inspections": 8,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.2669650230091065,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 80,
+      "t_wall": 185.11067937800544,
+      "role": "fallback",
+      "note": "Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 81,
+      "t_wall": 199.45102803999907,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "रॉकेट नोजल तीव्रता से दहकते हैं। चमकीला रॉकेट बादल भरे आसमान में औद्योगिक नगर के ऊंचे टावरों के ऊपर उठता है।"
+          },
+          {
+            "id": 2,
+            "hi": "पार्टिकल्स के साथ वायरफ्रेम आकृतियाँ।"
+          },
+          {
+            "id": 3,
+            "hi": "चश्मा पहना व्यक्ति नीयन लैब में प्रतिक्रिया देता है। चमकते उपकरणों वाले काउंटर पर दो लोग।"
+          },
+          {
+            "id": 4,
+            "hi": "हवाई जहाज शहर के क्षितिज से गुजरते हैं। बाद में, यांत्रिक आंख वाला व्यक्ति मस्तिष्क मॉडल की जांच करता है जबकि दो आकृतियाँ होलोग्राफिक काउंटर पर काम करती हैं।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 14.340206875000149,
+      "tokens_in": 674,
+      "tokens_out": 242,
+      "cost_usd": 0.0014,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 82,
+      "t_wall": 207.5844482280081,
+      "role": "fallback",
+      "note": "Translated committed cues to Hindi",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 83,
+      "t_wall": 212.1022284510109,
+      "role": "fallback",
+      "note": "Forced finalize with committed cues",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "runs/real_tears_of_steel_0015-0155"
+      },
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 5,
+      "draft_description": 10,
+      "verify_claim": 5,
+      "propose_cue": 9
+    },
+    "corrections": 3,
+    "verifications": {
+      "verified": 1,
+      "contradicted": 4,
+      "unverified": 0
+    },
+    "orchestrator_turns": 30,
+    "cost_by_model": {
+      "nvidia/nemotron-3-ultra-550b-a55b": 0.19128799999999999,
+      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.006007800000000001,
+      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0005193
+    },
+    "total_latency_s": 212.10278291600116
+  }
+}

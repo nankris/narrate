@@ -1,0 +1,135 @@
+{
+  "status": "complete",
+  "mock": false,
+  "provider": "nvidia-dev",
+  "requested_provider": "nvidia-dev",
+  "dev_only": true,
+  "base_url_host": "integrate.api.nvidia.com",
+  "models": {
+    "perceive": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "fit": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "edit": "nvidia/nemotron-3-ultra-550b-a55b"
+  },
+  "latency_s": {
+    "probe": 0.06533548299921677,
+    "perceive": 15.265795996005181,
+    "gaps": 0.6284295160003239,
+    "fit": 2.0654923919937573,
+    "edit": 13.095369386006496,
+    "tts_en": 0.32958312099799514,
+    "mix_en": 2.3225667549995705,
+    "tts_hi": 0.3457942289969651,
+    "mix_hi": 2.4232532890018774
+  },
+  "cues_dropped": 0,
+  "overlaps_with_speech": 0,
+  "issues": [],
+  "tts": [
+    {
+      "lang": "en",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "en",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 0,
+      "speed": 1.0,
+      "trimmed": false
+    },
+    {
+      "lang": "hi",
+      "cue": 1,
+      "speed": 1.0,
+      "trimmed": false
+    }
+  ],
+  "duration_s": 110.0,
+  "perception_strategy": "video",
+  "perception_fallback": false,
+  "perception_error": null,
+  "perception_events_dropped": 0,
+  "gaps": [
+    {
+      "start": 0.0,
+      "end": 79.530295,
+      "duration": 79.530295
+    },
+    {
+      "start": 83.401859,
+      "end": 110.0,
+      "duration": 26.598141
+    }
+  ],
+  "described_event_indices": [
+    0,
+    5
+  ],
+  "gap_coverage_percent": {
+    "en": 99.69847854914211,
+    "hi": 99.69847854914211
+  },
+  "cues": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 79.450295,
+      "budget": 181,
+      "hi_budget": 157,
+      "assigned_event_indices": [
+        0
+      ],
+      "en": "An astronaut with gray hair and glasses in a black shirt floats into view beside a window showing green plants. He places both hands on the glass and touches the plants inside. He reaches through the open window frame to inspect and touch the greenery. The window stays open with plants floating inside. Blue-gloved hands hold a long red pepper above a white tag reading KALE RED. Six astronauts gather in the module and float individually packaged food items toward the camera.",
+      "hi": "एक अंतरिक्ष यात्री जिसके भूरे बाल और चश्मा हैं और काली शर्ट पहने है खिड़की के पास तैरता हुआ दिखाई देता है जिसमें हरे पौधे दिख रहे हैं। वह दोनों हाथ कांच पर रखता है और अंदर के पौधों को छूता है। वह खुली खिड़की के फ्रेम से अंदर पहुंचकर हरे पौधों की जांच करता है और उन्हें छूता है। खिड़की खुली रहती है और पौधे अंदर तैरते रहते हैं। नीले दस्ताने वाले हाथ एक लंबी लाल मिर्च को एक सफेद टैग के ऊपर रखते हैं जिस पर KALE RED लिखा है। छह अंतरिक्ष यात्री मॉड्यूल में इकट्ठा होते हैं और अलग-अलग पैक किया हुआ खाना कैमरे की ओर तैराते हैं।"
+    },
+    {
+      "id": 1,
+      "start": 83.481859,
+      "end": 109.92,
+      "budget": 59,
+      "hi_budget": 51,
+      "assigned_event_indices": [
+        5
+      ],
+      "en": "Six astronauts gather in the module and float packaged food toward the camera. Blue-gloved hands hold a red pepper above a KALE RED tag.",
+      "hi": "छह अंतरिक्ष यात्री मॉड्यूल में इकट्ठा होते हैं और पैक किया हुआ खाना कैमरे की ओर तैराते हैं। नीले दस्ताने वाले हाथ एक लाल मिर्च को KALE RED टैग के ऊपर रखते हैं।"
+    }
+  ],
+  "usage": [
+    {
+      "stage": "perceive",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 2889,
+      "output_tokens": 353,
+      "cost_usd": 0.0011844,
+      "latency_s": 12.047820902007516
+    },
+    {
+      "stage": "fit",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 931,
+      "output_tokens": 120,
+      "cost_usd": 8.465999999999999e-05,
+      "latency_s": 2.056277556999703
+    },
+    {
+      "stage": "edit",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "base_url_host": "integrate.api.nvidia.com",
+      "input_tokens": 1376,
+      "output_tokens": 418,
+      "cost_usd": 0.00263,
+      "latency_s": 13.088631889986573
+    }
+  ],
+  "would_be_token_factory_cost_usd": 0.0038990599999999998,
+  "estimated_cost_usd": 0
+}
