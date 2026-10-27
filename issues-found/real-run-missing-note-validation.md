@@ -13,3 +13,11 @@ nothing. Ultra kept retrying draft/inspect/propose with varied arguments until t
 **Fix (fix6).** `note` is normalised before validation (missing → tool name, longer than 25 words → truncated), and real
 argument errors are returned as `invalid arguments: <jsonschema message>` instead of the bare class name.
 Test: `tests/test_fix6.py`.
+
+## Same pattern, second instance: unknown gap id (fix6 runs, 02:06 IST)
+
+On the continuous-speech clip (0 narratable gaps) Ultra inspected the video anyway and then called draft/propose/verify/drop
+for a non-existent `gap_id 1`. The lookup raised a bare `StopIteration`; 13 calls failed and the run took 22 turns and
+$0.109 instead of 2–3 turns and ~$0.01 — still the correct result (0 cues). Fix: unknown ids return
+`invalid arguments: unknown gap_id N; valid gap ids: [...]` (or "no narratable gaps … call finalize"), and
+`inspect_video_segment` refuses when detection found no narratable gaps. Test: `tests/test_fix6.py`.

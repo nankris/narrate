@@ -189,7 +189,7 @@ class Agent:
 
     def detect_speech_gaps(self):
         if self.counts['gap_detection']:
-            return {'cached':True,'reminder':'Use the gaps from the first detection.'}
+            return {'cached':True,'reminder':'Use the gaps from the first detection.'+('' if any(g.get('narratable',True) for g in self.gaps) else ' There are no narratable gaps: call finalize.')}
         self.counts['gap_detection']+=1
         result = detect(self.path,self.duration,self.has_audio,self.cfg)
         cfg_min_gap = self.cfg['agent'].get('min_gap_s',1.5)
@@ -264,6 +264,8 @@ class Agent:
             'next':f'draft_description(gap_ids={todo})' if todo else 'gaps in this range are already committed; move on'}
 
     def inspect_video_segment(self,start,end,focus=''):
+        if self.counts['gap_detection'] and not any(g.get('narratable',True) for g in self.gaps):
+            return {'ok':False,'error':'no narratable gaps: speech covers the video, so nothing seen can be narrated without extended AD','next':'finalize'}
         self.segment(start,end)
         key=(start,end,focus)
         for (s,e,_),cached in self.cache.items():
@@ -410,7 +412,12 @@ class Agent:
         return out
 
     def gap(self,gap_id):
-        return next(g for g in self.gaps if g['id']==gap_id)
+        for g in self.gaps:
+            if g['id']==gap_id: return g
+        # Real-run finding (fix6, continuous-speech clip): an unknown id raised a bare StopIteration and Ultra
+        # retried for 20 turns. Say what is valid instead.
+        ids=[g['id'] for g in self.gaps if g.get('narratable',True)]
+        raise ValueError(f'invalid arguments: unknown gap_id {gap_id}; '+(f'valid gap ids: {ids}' if ids else 'there are no narratable gaps, so nothing can be described: call finalize'))
 
     def onscreen(self,g,context_events=None):
         """Distinct on-screen texts among the (non-context) events of one gap, most important first."""
