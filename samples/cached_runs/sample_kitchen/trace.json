@@ -20,6 +20,9 @@
       "timeout_s": 600,
       "max_atempo": 1.25,
       "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
       "hangover_s": 0.3
     },
     "mock_notice": "Scripted synthetic behavior; not visual understanding"
@@ -27,14 +30,14 @@
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.0002657589939190075,
+      "t_wall": 0.0002319530030945316,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.06670117424801e-05,
+      "latency_s": 2.766500983852893e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -44,7 +47,7 @@
     },
     {
       "step": 2,
-      "t_wall": 0.32243490999098867,
+      "t_wall": 0.2453182460012613,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "detect_speech_gaps",
@@ -56,28 +59,32 @@
             "start": 4.67,
             "end": 8.71,
             "word_budget_en": 8,
-            "word_budget_hi": 9
+            "word_budget_hi": 9,
+            "narratable": true
           },
           {
             "id": 1,
             "start": 11.87,
             "end": 16.61,
             "word_budget_en": 9,
-            "word_budget_hi": 11
+            "word_budget_hi": 11,
+            "narratable": true
           },
           {
             "id": 2,
             "start": 19.93,
             "end": 24.71,
             "word_budget_en": 9,
-            "word_budget_hi": 11
+            "word_budget_hi": 11,
+            "narratable": true
           },
           {
             "id": 3,
             "start": 27.39,
             "end": 29.92,
             "word_budget_en": 4,
-            "word_budget_hi": 5
+            "word_budget_hi": 5,
+            "narratable": true
           }
         ],
         "detector": "silero-onnx",
@@ -90,6 +97,8 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 29,
             "inspections": 12,
@@ -98,7 +107,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.3221546830027364,
+      "latency_s": 0.24507459899177775,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -108,14 +117,14 @@
     },
     {
       "step": 3,
-      "t_wall": 0.3226484530023299,
+      "t_wall": 0.24546266200195532,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 0.000138980001793243,
+      "latency_s": 9.985500946640968e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -125,7 +134,7 @@
     },
     {
       "step": 4,
-      "t_wall": 0.3253484399901936,
+      "t_wall": 0.2469404800067423,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -147,8 +156,8 @@
         ]
       },
       "ok": true,
-      "latency_s": 6.674000178463757e-05,
-      "tokens_in": 67,
+      "latency_s": 3.628700505942106e-05,
+      "tokens_in": 73,
       "tokens_out": 153,
       "cost_usd": 0,
       "model": "MOCK/perceive",
@@ -158,12 +167,12 @@
     },
     {
       "step": 5,
-      "t_wall": 0.32544455300376285,
+      "t_wall": 0.24698152400378603,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 0,
+        "start": 2.67,
         "end": 8.71
       },
       "result": {
@@ -182,6 +191,7 @@
           }
         ],
         "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [],
           "remaining": [
@@ -190,6 +200,8 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -198,7 +210,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.002708026993786916,
+      "latency_s": 0.001496172000770457,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -208,7 +220,7 @@
     },
     {
       "step": 6,
-      "t_wall": 0.3290520930022467,
+      "t_wall": 0.2488634239998646,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -217,8 +229,8 @@
         "text": "word word word word word word word word word word word word word "
       },
       "ok": true,
-      "latency_s": 4.962400998920202e-05,
-      "tokens_in": 252,
+      "latency_s": 2.772899460978806e-05,
+      "tokens_in": 280,
       "tokens_out": 25,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -228,7 +240,7 @@
     },
     {
       "step": 7,
-      "t_wall": 0.32909686099446844,
+      "t_wall": 0.24889990499650594,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -260,6 +272,8 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -268,7 +282,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0035401409986661747,
+      "latency_s": 0.0018783810082823038,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -278,7 +292,7 @@
     },
     {
       "step": 8,
-      "t_wall": 0.4174494129983941,
+      "t_wall": 0.3429400230088504,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "check_fit",
@@ -303,6 +317,8 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -311,7 +327,7 @@
         }
       },
       "ok": false,
-      "latency_s": 0.08831843599909917,
+      "latency_s": 0.0940115960111143,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -321,14 +337,14 @@
     },
     {
       "step": 9,
-      "t_wall": 0.4175403099943651,
+      "t_wall": 0.34300081500259694,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 6.3034996856004e-05,
+      "latency_s": 3.656999615486711e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -338,7 +354,7 @@
     },
     {
       "step": 10,
-      "t_wall": 0.4198649390018545,
+      "t_wall": 0.3450296899973182,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -347,8 +363,8 @@
         "text": "A person enters a kitchen"
       },
       "ok": true,
-      "latency_s": 3.214299795217812e-05,
-      "tokens_in": 252,
+      "latency_s": 3.288401057943702e-05,
+      "tokens_in": 280,
       "tokens_out": 12,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -358,7 +374,7 @@
     },
     {
       "step": 11,
-      "t_wall": 0.41990096899098717,
+      "t_wall": 0.34506962200975977,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -390,6 +406,8 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 27,
             "inspections": 11,
@@ -398,7 +416,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0023447850107913837,
+      "latency_s": 0.002055117001873441,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -408,128 +426,10 @@
     },
     {
       "step": 12,
-      "t_wall": 0.42109933200117666,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 1.3554003089666367e-05,
-      "tokens_in": 83,
-      "tokens_out": 39,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 13,
-      "t_wall": 0.4211410540010547,
+      "t_wall": 0.4643270500091603,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "start": 4.67,
-        "end": 8.71,
-        "claim": "A blue dot appears and the text fades out"
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0012120390019845217,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 14,
-      "t_wall": 0.5013628360029543,
-      "role": "tool",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": "check_fit",
-      "args": {
-        "gap_id": 0,
-        "text": "A person enters a kitchen",
-        "lang": "en"
-      },
-      "result": {
-        "ok": true,
-        "problems": [],
-        "suggested_max_words": 8,
-        "seconds": 1.84,
-        "overlap_seconds": 0,
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.08019445999525487,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 13
-    },
-    {
-      "step": 15,
-      "t_wall": 0.5014311440027086,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 4.554299812298268e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 16,
-      "t_wall": 0.5028527959948406,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
+      "tool_name": "propose_cue",
       "args": {
         "gap_id": 0,
         "text": "A person enters a kitchen"
@@ -541,6 +441,7 @@
           "start": 4.67,
           "end": 8.71,
           "duration": 4.04,
+          "narratable": true,
           "word_budget_en": 8,
           "word_budget_hi": 9,
           "en": "A person enters a kitchen"
@@ -554,15 +455,17 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
-            "turns": 26,
+            "turns": 27,
             "inspections": 11,
-            "verifications": 7
+            "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0014119900006335229,
+      "latency_s": 0.1192273619963089,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -571,62 +474,119 @@
       "corrects_step": null
     },
     {
-      "step": 17,
-      "t_wall": 0.5041944519907702,
+      "step": 13,
+      "t_wall": 0.46593434900569264,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 0,
-            "t_end": 10,
-            "who": "A yellow shape",
-            "action": "A yellow shape moves beneath a kitchen title",
-            "on_screen_text": "A person enters a kitchen",
-            "importance": 3,
-            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
-            "what": "A yellow shape moves beneath a kitchen title",
-            "confidence": 1.0,
-            "mock": true
-          },
-          {
-            "t_start": 10,
-            "t_end": 20,
-            "who": "A yellow shape",
-            "action": "The red scene displays an onion chopping instruction",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-            "what": "The red scene displays an onion chopping instruction",
-            "confidence": 1.0,
-            "mock": true
-          }
-        ]
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
       },
       "ok": true,
-      "latency_s": 5.139299901202321e-05,
-      "tokens_in": 68,
-      "tokens_out": 319,
+      "latency_s": 2.0298000890761614e-05,
+      "tokens_in": 83,
+      "tokens_out": 39,
       "cost_usd": 0,
       "model": "MOCK/perceive",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 18,
-      "t_wall": 0.5042558639979688,
+      "step": 14,
+      "t_wall": 0.46596947900252417,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
+      "tool_name": "verify_claim",
       "args": {
-        "start": 5.87,
-        "end": 16.61
+        "gap_id": 0,
+        "claim": "A blue dot appears and the text fades out"
       },
       "result": {
-        "events": [
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "uncommitted": [
+          0
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016017030138755217,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 15,
+      "t_wall": 0.46602971700485796,
+      "role": "orchestrator",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.8936996133998036e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 0.4678955639974447,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "A person enters a kitchen"
+      },
+      "ok": true,
+      "latency_s": 2.524800947867334e-05,
+      "tokens_in": 280,
+      "tokens_out": 12,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 0.4679417779989308,
+      "role": "tool",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 0,
+        "context_events": [
           {
             "t_start": 0,
             "t_end": 10,
@@ -636,23 +596,62 @@
             "importance": 3,
             "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
             "what": "A yellow shape moves beneath a kitchen title",
-            "confidence": 1.0,
-            "mock": true
-          },
-          {
-            "t_start": 10,
-            "t_end": 20,
-            "who": "A yellow shape",
-            "action": "The red scene displays an onion chopping instruction",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-            "what": "The red scene displays an onion chopping instruction",
             "confidence": 1.0,
             "mock": true
           }
         ],
-        "modality": "mock",
+        "max_words": 6
+      },
+      "result": {
+        "text": "A person enters a kitchen",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0018983140034833923,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 14
+    },
+    {
+      "step": 18,
+      "t_wall": 0.5447791870101355,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "A person enters"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 4.67,
+          "end": 8.71,
+          "duration": 4.04,
+          "narratable": true,
+          "word_budget_en": 8,
+          "word_budget_hi": 9,
+          "en": "A person enters"
+        },
         "state": {
           "committed": [
             0
@@ -662,15 +661,17 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 26,
-            "inspections": 10,
+            "inspections": 11,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0013702909927815199,
+      "latency_s": 0.07681052900443319,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -680,7 +681,135 @@
     },
     {
       "step": 19,
-      "t_wall": 0.5071834679984022,
+      "t_wall": 0.5463906970107928,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 4.597500083036721e-05,
+      "tokens_in": 74,
+      "tokens_out": 319,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 0.5464834279991919,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 9.87,
+        "end": 16.61
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
+          },
+          {
+            "t_start": 0,
+            "t_end": 10,
+            "who": "A yellow shape",
+            "action": "A yellow shape moves beneath a kitchen title",
+            "on_screen_text": "A person enters a kitchen",
+            "importance": 3,
+            "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
+            "what": "A yellow shape moves beneath a kitchen title",
+            "confidence": 1.0,
+            "mock": true
+          }
+        ],
+        "modality": "mock",
+        "time_base": "absolute",
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1,
+            2,
+            3
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0016606540011707693,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 0.5465709160052938,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.0545998015441e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 0.5484919529990293,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -689,8 +818,8 @@
         "text": "STEP 1 - chop onions"
       },
       "ok": true,
-      "latency_s": 5.067099118605256e-05,
-      "tokens_in": 270,
+      "latency_s": 2.84690031548962e-05,
+      "tokens_in": 459,
       "tokens_out": 10,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -699,8 +828,8 @@
       "cached_tokens": 0
     },
     {
-      "step": 20,
-      "t_wall": 0.5072284219932044,
+      "step": 23,
+      "t_wall": 0.5485417550080456,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -733,65 +862,8 @@
             2,
             3
           ],
-          "budget": {
-            "turns": 26,
-            "inspections": 10,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.002911818999564275,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 21,
-      "t_wall": 0.5072702949983068,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.3122993297874928e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 22,
-      "t_wall": 0.5844226289918879,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "check_fit",
-      "args": {
-        "gap_id": 1,
-        "text": "STEP 1 - chop onions",
-        "lang": "en"
-      },
-      "result": {
-        "ok": true,
-        "problems": [],
-        "suggested_max_words": 9,
-        "seconds": 1.94,
-        "overlap_seconds": 0,
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            1,
-            2,
-            3
-          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 25,
             "inspections": 10,
@@ -800,7 +872,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0771293669968145,
+      "latency_s": 0.0019535309984348714,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -809,11 +881,11 @@
       "corrects_step": null
     },
     {
-      "step": 23,
-      "t_wall": 0.5858043689950136,
+      "step": 24,
+      "t_wall": 0.6176340840029297,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
+      "tool_name": "propose_cue",
       "args": {
         "gap_id": 1,
         "text": "STEP 1 - chop onions"
@@ -825,10 +897,15 @@
           "start": 11.87,
           "end": 16.61,
           "duration": 4.74,
+          "narratable": true,
           "word_budget_en": 9,
           "word_budget_hi": 11,
           "en": "STEP 1 - chop onions"
         },
+        "verify_required": [
+          "number"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0,
@@ -838,6 +915,10 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
             "turns": 25,
             "inspections": 10,
@@ -846,7 +927,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.001349317011772655,
+      "latency_s": 0.0690639919921523,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -855,26 +936,14 @@
       "corrects_step": null
     },
     {
-      "step": 24,
-      "t_wall": 0.5870459430007031,
+      "step": 25,
+      "t_wall": 0.619571798000834,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
         "events": [
-          {
-            "t_start": 10,
-            "t_end": 20,
-            "who": "A yellow shape",
-            "action": "The red scene displays an onion chopping instruction",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-            "what": "The red scene displays an onion chopping instruction",
-            "confidence": 1.0,
-            "mock": true
-          },
           {
             "t_start": 20,
             "t_end": 30,
@@ -886,31 +955,7 @@
             "what": "The teal scene displays the stir and serve title",
             "confidence": 1.0,
             "mock": true
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 3.798000398091972e-05,
-      "tokens_in": 73,
-      "tokens_out": 333,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 25,
-      "t_wall": 0.5870859519927762,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 13.93,
-        "end": 24.71
-      },
-      "result": {
-        "events": [
+          },
           {
             "t_start": 10,
             "t_end": 20,
@@ -922,7 +967,31 @@
             "what": "The red scene displays an onion chopping instruction",
             "confidence": 1.0,
             "mock": true
-          },
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 6.799100083298981e-05,
+      "tokens_in": 74,
+      "tokens_out": 333,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 0.6197465590084903,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 17.93,
+        "end": 24.71
+      },
+      "result": {
+        "events": [
           {
             "t_start": 20,
             "t_end": 30,
@@ -937,6 +1006,7 @@
           }
         ],
         "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [
             0,
@@ -946,15 +1016,20 @@
             2,
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
             "turns": 25,
             "inspections": 9,
             "verifications": 7
           }
-        }
+        },
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.0012505749909905717,
+      "latency_s": 0.0020647880010074005,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -963,15 +1038,15 @@
       "corrects_step": null
     },
     {
-      "step": 26,
-      "t_wall": 0.5871465039963368,
+      "step": 27,
+      "t_wall": 0.6199025359965162,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.967100590467453e-05,
+      "latency_s": 4.761500167660415e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -980,19 +1055,19 @@
       "cached_tokens": 0
     },
     {
-      "step": 27,
-      "t_wall": 0.589098083000863,
+      "step": 28,
+      "t_wall": 0.6220886689989129,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "text": "STEP 1 - chop onions"
+        "text": "Stir and serve"
       },
       "ok": true,
-      "latency_s": 3.1072995625436306e-05,
-      "tokens_in": 433,
-      "tokens_out": 10,
+      "latency_s": 4.1247010813094676e-05,
+      "tokens_in": 622,
+      "tokens_out": 8,
       "cost_usd": 0,
       "model": "MOCK/fit",
       "correction": false,
@@ -1000,26 +1075,14 @@
       "cached_tokens": 0
     },
     {
-      "step": 28,
-      "t_wall": 0.5891402199922595,
+      "step": 29,
+      "t_wall": 0.6221606620092643,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
       "args": {
         "gap_id": 2,
         "context_events": [
-          {
-            "t_start": 10,
-            "t_end": 20,
-            "who": "A yellow shape",
-            "action": "The red scene displays an onion chopping instruction",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-            "what": "The red scene displays an onion chopping instruction",
-            "confidence": 1.0,
-            "mock": true
-          },
           {
             "t_start": 20,
             "t_end": 30,
@@ -1031,12 +1094,24 @@
             "what": "The teal scene displays the stir and serve title",
             "confidence": 1.0,
             "mock": true
+          },
+          {
+            "t_start": 10,
+            "t_end": 20,
+            "who": "A yellow shape",
+            "action": "The red scene displays an onion chopping instruction",
+            "on_screen_text": "STEP 1 - chop onions",
+            "importance": 4,
+            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "what": "The red scene displays an onion chopping instruction",
+            "confidence": 1.0,
+            "mock": true
           }
         ],
         "max_words": 7
       },
       "result": {
-        "text": "STEP 1 - chop onions",
+        "text": "Stir and serve",
         "state": {
           "committed": [
             0,
@@ -1046,48 +1121,10 @@
             2,
             3
           ],
-          "budget": {
-            "turns": 24,
-            "inspections": 9,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.001977494001039304,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 29,
-      "t_wall": 0.5904709699971136,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "check_fit",
-      "args": {
-        "gap_id": 2,
-        "text": "STEP 1 - chop onions",
-        "lang": "en"
-      },
-      "result": {
-        "ok": true,
-        "problems": [],
-        "suggested_max_words": 9,
-        "seconds": 1.94,
-        "overlap_seconds": 0,
-        "state": {
-          "committed": [
-            0,
+          "skipped_too_short": [],
+          "needs_verification": [
             1
           ],
-          "remaining": [
-            2,
-            3
-          ],
           "budget": {
             "turns": 24,
             "inspections": 9,
@@ -1096,7 +1133,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0013110709987813607,
+      "latency_s": 0.0022237279918044806,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1106,13 +1143,13 @@
     },
     {
       "step": 30,
-      "t_wall": 0.5916082059993641,
+      "t_wall": 0.687649618004798,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
+      "tool_name": "propose_cue",
       "args": {
         "gap_id": 2,
-        "text": "STEP 1 - chop onions"
+        "text": "Stir and serve"
       },
       "result": {
         "ok": true,
@@ -1121,9 +1158,10 @@
           "start": 19.93,
           "end": 24.71,
           "duration": 4.78,
+          "narratable": true,
           "word_budget_en": 9,
           "word_budget_hi": 11,
-          "en": "STEP 1 - chop onions"
+          "en": "Stir and serve"
         },
         "state": {
           "committed": [
@@ -1134,6 +1172,10 @@
           "remaining": [
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
             "turns": 24,
             "inspections": 9,
@@ -1142,7 +1184,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0011149580095661804,
+      "latency_s": 0.06546711700502783,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1152,24 +1194,7 @@
     },
     {
       "step": 31,
-      "t_wall": 0.5916558469907613,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.565199974924326e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 32,
-      "t_wall": 0.5929266899911454,
+      "t_wall": 0.6891120200016303,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1191,8 +1216,8 @@
         ]
       },
       "ok": true,
-      "latency_s": 2.2218999220058322e-05,
-      "tokens_in": 72,
+      "latency_s": 2.9624992748722434e-05,
+      "tokens_in": 78,
       "tokens_out": 167,
       "cost_usd": 0,
       "model": "MOCK/perceive",
@@ -1201,13 +1226,13 @@
       "cached_tokens": 0
     },
     {
-      "step": 33,
-      "t_wall": 0.592960244990536,
+      "step": 32,
+      "t_wall": 0.6891881640040083,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 21.39,
+        "start": 25.39,
         "end": 29.92
       },
       "result": {
@@ -1226,6 +1251,7 @@
           }
         ],
         "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [
             0,
@@ -1235,15 +1261,19 @@
           "remaining": [
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
-            "turns": 23,
+            "turns": 24,
             "inspections": 8,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.0012911179946968332,
+      "latency_s": 0.001505692009232007,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1252,8 +1282,25 @@
       "corrects_step": null
     },
     {
+      "step": 33,
+      "t_wall": 0.689252647003741,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.7870002668350935e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
       "step": 34,
-      "t_wall": 0.5949680530029582,
+      "t_wall": 0.691109569001128,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1262,8 +1309,8 @@
         "text": "Stir and serve"
       },
       "ok": true,
-      "latency_s": 2.2904991055838764e-05,
-      "tokens_in": 266,
+      "latency_s": 2.850999590009451e-05,
+      "tokens_in": 472,
       "tokens_out": 8,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -1273,7 +1320,7 @@
     },
     {
       "step": 35,
-      "t_wall": 0.5949978499993449,
+      "t_wall": 0.6911673290014733,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -1306,6 +1353,10 @@
           "remaining": [
             3
           ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
             "turns": 23,
             "inspections": 8,
@@ -1314,7 +1365,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0020023200049763545,
+      "latency_s": 0.0019000579923158512,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1324,29 +1375,27 @@
     },
     {
       "step": 36,
-      "t_wall": 0.6699031610041857,
+      "t_wall": 0.6921521570038749,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "check_fit",
+      "tool_name": "drop_gap",
       "args": {
         "gap_id": 3,
-        "text": "Stir and serve",
-        "lang": "en"
+        "reason": "Same on-screen title is already narrated in an earlier gap"
       },
       "result": {
         "ok": true,
-        "problems": [],
-        "suggested_max_words": 4,
-        "seconds": 1.32,
-        "overlap_seconds": 0,
+        "reason": "Same on-screen title is already narrated in an earlier gap",
         "state": {
           "committed": [
             0,
             1,
             2
           ],
-          "remaining": [
-            3
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
           ],
           "budget": {
             "turns": 23,
@@ -1356,7 +1405,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.07488422399910633,
+      "latency_s": 0.0009573459974490106,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1366,69 +1415,7 @@
     },
     {
       "step": 37,
-      "t_wall": 0.6699554450024152,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.797500928863883e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 38,
-      "t_wall": 0.6713103319925722,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
-      "args": {
-        "gap_id": 3,
-        "text": "Stir and serve"
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 3,
-          "start": 27.39,
-          "end": 29.92,
-          "duration": 2.53,
-          "word_budget_en": 4,
-          "word_budget_hi": 5,
-          "en": "Stir and serve"
-        },
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "remaining": [],
-          "budget": {
-            "turns": 22,
-            "inspections": 8,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0013463009963743389,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 39,
-      "t_wall": 0.6726504899997963,
+      "t_wall": 0.6932454390043858,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -1445,18 +1432,14 @@
           },
           {
             "id": 2,
-            "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।"
-          },
-          {
-            "id": 3,
-            "hi": "शीर्षक।"
+            "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।"
           }
         ]
       },
       "ok": true,
-      "latency_s": 5.64239890081808e-05,
-      "tokens_in": 279,
-      "tokens_out": 244,
+      "latency_s": 3.811799979303032e-05,
+      "tokens_in": 240,
+      "tokens_out": 225,
       "cost_usd": 0,
       "model": "MOCK/edit",
       "correction": false,
@@ -1464,8 +1447,8 @@
       "cached_tokens": 0
     },
     {
-      "step": 40,
-      "t_wall": 0.9079710779915331,
+      "step": 38,
+      "t_wall": 0.8983045970089734,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "translate_hindi",
@@ -1495,21 +1478,11 @@
           },
           {
             "id": 2,
-            "text": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
+            "text": "शीर्षक में हिलाने और परोसने का निर्देश है।",
             "ok": true,
             "problems": [],
             "suggested_max_words": 11,
-            "seconds": 3.04,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 3,
-            "text": "शीर्षक।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 3,
-            "seconds": 0.96,
+            "seconds": 3.3,
             "overlap_seconds": 0,
             "retried": false
           }
@@ -1518,19 +1491,22 @@
           "committed": [
             0,
             1,
-            2,
-            3
+            2
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
-            "turns": 22,
+            "turns": 23,
             "inspections": 8,
             "verifications": 7
           }
         }
       },
       "ok": true,
-      "latency_s": 0.23663103199214675,
+      "latency_s": 0.2061335919861449,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1539,8 +1515,25 @@
       "corrects_step": null
     },
     {
-      "step": 41,
-      "t_wall": 2.1004560869914712,
+      "step": 39,
+      "t_wall": 0.8983696240029531,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7180995200760663e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 1.8397678110050038,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "render_preview",
@@ -1556,10 +1549,13 @@
           "committed": [
             0,
             1,
-            2,
-            3
+            2
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1
+          ],
           "budget": {
             "turns": 22,
             "inspections": 8,
@@ -1568,7 +1564,7 @@
         }
       },
       "ok": true,
-      "latency_s": 1.1924343900027452,
+      "latency_s": 0.941387876009685,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1577,15 +1573,15 @@
       "corrects_step": null
     },
     {
-      "step": 42,
-      "t_wall": 2.1005133479920914,
+      "step": 41,
+      "t_wall": 1.8398842660099035,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.0767009118571877e-05,
+      "latency_s": 8.294200233649462e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1594,8 +1590,88 @@
       "cached_tokens": 0
     },
     {
+      "step": 42,
+      "t_wall": 1.8418758620100562,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
+      },
+      "ok": true,
+      "latency_s": 3.6254001315683126e-05,
+      "tokens_in": 76,
+      "tokens_out": 38,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
       "step": 43,
-      "t_wall": 4.002603956992971,
+      "t_wall": 1.8419424780004192,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "STEP 1 - chop onions"
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 21,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0020456839993130416,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 44,
+      "t_wall": 1.8419924350018846,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.8380003641359508e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 45,
+      "t_wall": 3.4605995410092873,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "finalize",
@@ -1608,19 +1684,20 @@
           "committed": [
             0,
             1,
-            2,
-            3
+            2
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
-            "turns": 21,
+            "turns": 20,
             "inspections": 8,
-            "verifications": 7
+            "verifications": 6
           }
         }
       },
       "ok": true,
-      "latency_s": 1.9020767210022314,
+      "latency_s": 1.6185957310080994,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1633,25 +1710,28 @@
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 4,
-      "draft_description": 5,
-      "check_fit": 5,
-      "verify_claim": 1,
-      "commit_cue": 4,
+      "draft_description": 6,
+      "check_fit": 1,
+      "propose_cue": 4,
+      "verify_claim": 2,
+      "drop_gap": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
     },
     "corrections": 2,
     "verifications": {
-      "contradicted": 1
+      "verified": 1,
+      "contradicted": 1,
+      "unverified": 0
     },
-    "orchestrator_turns": 9,
+    "orchestrator_turns": 10,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 4.002769152997644
+    "total_latency_s": 3.4607736830075737
   }
 }

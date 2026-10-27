@@ -1,2 +1,1 @@
-[00:00:00.080] A static scene is displayed
-[00:01:24.124] A static scene is displayed
+[00:00:00.080] A static scene

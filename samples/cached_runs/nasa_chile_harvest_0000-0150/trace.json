@@ -20,6 +20,9 @@
       "timeout_s": 600,
       "max_atempo": 1.25,
       "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
       "hangover_s": 0.3
     },
     "mock_notice": "Scripted synthetic behavior; not visual understanding"
@@ -27,14 +30,14 @@
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.0002129359927494079,
+      "t_wall": 0.00014878000365570188,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.6115001421421766e-05,
+      "latency_s": 2.5372995878569782e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -44,7 +47,7 @@
     },
     {
       "step": 2,
-      "t_wall": 0.714801844995236,
+      "t_wall": 0.5755278910073685,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "detect_speech_gaps",
@@ -56,14 +59,16 @@
             "start": 0.08,
             "end": 79.17,
             "word_budget_en": 180,
-            "word_budget_hi": 204
+            "word_budget_hi": 204,
+            "narratable": true
           },
           {
             "id": 1,
             "start": 84.12,
             "end": 109.92,
             "word_budget_en": 58,
-            "word_budget_hi": 66
+            "word_budget_hi": 66,
+            "narratable": true
           }
         ],
         "detector": "silero-onnx",
@@ -74,6 +79,8 @@
             0,
             1
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 29,
             "inspections": 12,
@@ -82,7 +89,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.7145741660060594,
+      "latency_s": 0.5753656390006654,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -92,14 +99,14 @@
     },
     {
       "step": 3,
-      "t_wall": 0.7150389469898073,
+      "t_wall": 0.5756933439988643,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 0.00018768699374049902,
+      "latency_s": 0.00013476000458467752,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -109,7 +116,7 @@
     },
     {
       "step": 4,
-      "t_wall": 0.7173575069900835,
+      "t_wall": 0.5772025559999747,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -128,8 +135,8 @@
         ]
       },
       "ok": true,
-      "latency_s": 4.1067993151955307e-05,
-      "tokens_in": 67,
+      "latency_s": 3.0063994927331805e-05,
+      "tokens_in": 72,
       "tokens_out": 55,
       "cost_usd": 0,
       "model": "MOCK/perceive",
@@ -139,7 +146,7 @@
     },
     {
       "step": 5,
-      "t_wall": 0.7173941380024189,
+      "t_wall": 0.5772424850001698,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
@@ -160,12 +167,15 @@
           }
         ],
         "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [],
           "remaining": [
             0,
             1
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -174,7 +184,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.002324578003026545,
+      "latency_s": 0.0015190760022960603,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -184,7 +194,7 @@
     },
     {
       "step": 6,
-      "t_wall": 0.7194914930005325,
+      "t_wall": 0.5792273660044884,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -194,8 +204,8 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 2.7335001504980028e-05,
-      "tokens_in": 156,
+      "latency_s": 3.968300006818026e-05,
+      "tokens_in": 235,
       "tokens_out": 312,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -205,7 +215,7 @@
     },
     {
       "step": 7,
-      "t_wall": 0.7195421179931145,
+      "t_wall": 0.579278264005552,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -232,6 +242,8 @@
             0,
             1
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -241,7 +253,7 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 0.002107659005559981,
+      "latency_s": 0.0019990639993920922,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -251,7 +263,7 @@
     },
     {
       "step": 8,
-      "t_wall": 0.8559917819948168,
+      "t_wall": 0.7061125400068704,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "check_fit",
@@ -275,6 +287,8 @@
             0,
             1
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 11,
@@ -283,7 +297,7 @@
         }
       },
       "ok": false,
-      "latency_s": 0.13640810899960343,
+      "latency_s": 0.12678203999530524,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -293,14 +307,14 @@
     },
     {
       "step": 9,
-      "t_wall": 0.8560553549905308,
+      "t_wall": 0.7061894289945485,
       "role": "orchestrator",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.861299774143845e-05,
+      "latency_s": 4.75129927508533e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -310,7 +324,7 @@
     },
     {
       "step": 10,
-      "t_wall": 0.8585058449971257,
+      "t_wall": 0.7083353220077697,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -319,8 +333,8 @@
         "text": "A static scene is displayed"
       },
       "ok": true,
-      "latency_s": 3.3832009648904204e-05,
-      "tokens_in": 155,
+      "latency_s": 4.37400012742728e-05,
+      "tokens_in": 234,
       "tokens_out": 13,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -330,7 +344,7 @@
     },
     {
       "step": 11,
-      "t_wall": 0.8585363259917358,
+      "t_wall": 0.7083710590086412,
       "role": "tool",
       "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
       "tool_name": "draft_description",
@@ -357,6 +371,8 @@
             0,
             1
           ],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 27,
             "inspections": 11,
@@ -365,7 +381,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.002461391006363556,
+      "latency_s": 0.002162807999411598,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -375,124 +391,10 @@
     },
     {
       "step": 12,
-      "t_wall": 0.8598174419894349,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
-      },
-      "ok": true,
-      "latency_s": 1.8154009012505412e-05,
-      "tokens_in": 83,
-      "tokens_out": 39,
-      "cost_usd": 0,
-      "model": "MOCK/perceive",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 13,
-      "t_wall": 0.8598440179921454,
+      "t_wall": 0.7745352110068779,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "verify_claim",
-      "args": {
-        "start": 0.08,
-        "end": 79.17,
-        "claim": "A blue dot appears and the text fades out"
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
-        "modality": "frames",
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0012857879919465631,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 14,
-      "t_wall": 0.933760005995282,
-      "role": "tool",
-      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
-      "tool_name": "check_fit",
-      "args": {
-        "gap_id": 0,
-        "text": "A static scene is displayed",
-        "lang": "en"
-      },
-      "result": {
-        "ok": true,
-        "problems": [],
-        "suggested_max_words": 180,
-        "seconds": 2.01,
-        "overlap_seconds": 0,
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 11,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.07389357499778271,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 13
-    },
-    {
-      "step": 15,
-      "t_wall": 0.933819740996114,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 3.896300040651113e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 16,
-      "t_wall": 0.9351758429984329,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
+      "tool_name": "propose_cue",
       "args": {
         "gap_id": 0,
         "text": "A static scene is displayed"
@@ -504,16 +406,228 @@
           "start": 0.08,
           "end": 79.17,
           "duration": 79.09,
+          "narratable": true,
           "word_budget_en": 180,
           "word_budget_hi": 204,
           "en": "A static scene is displayed"
         },
+        "verify_required": [
+          "low-confidence events (<0.75)"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0
           ],
           "remaining": [
             1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
+          ],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06613997599924915,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 13,
+      "t_wall": 0.7762166430038633,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
+      },
+      "ok": true,
+      "latency_s": 3.208599810022861e-05,
+      "tokens_in": 83,
+      "tokens_out": 39,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 0.7762534670036985,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 0,
+        "claim": "A blue dot appears and the text fades out"
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "uncommitted": [
+          0
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016677009989507496,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 15,
+      "t_wall": 0.776308947999496,
+      "role": "orchestrator",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.1494011636823416e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 0.7780937180068577,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "A static scene is displayed"
+      },
+      "ok": true,
+      "latency_s": 3.182799264322966e-05,
+      "tokens_in": 234,
+      "tokens_out": 13,
+      "cost_usd": 0,
+      "model": "MOCK/fit",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 0.7781316339969635,
+      "role": "tool",
+      "note": "The earlier check failed. I will use a shorter description grounded in the scene evidence.",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_id": 0,
+        "context_events": [
+          {
+            "t_start": 0.08,
+            "t_end": 79.17,
+            "what": "A static scene is displayed",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 0,
+            "mock": true
+          }
+        ],
+        "max_words": 6
+      },
+      "result": {
+        "text": "A static scene is displayed",
+        "state": {
+          "committed": [],
+          "remaining": [
+            0,
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 11,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001797927005100064,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 14
+    },
+    {
+      "step": 18,
+      "t_wall": 0.8420843380008591,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 0,
+        "text": "A static scene"
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 0,
+          "start": 0.08,
+          "end": 79.17,
+          "duration": 79.09,
+          "narratable": true,
+          "word_budget_en": 180,
+          "word_budget_hi": 204,
+          "en": "A static scene"
+        },
+        "verify_required": [
+          "low-confidence events (<0.75)"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [
+            1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
           ],
           "budget": {
             "turns": 26,
@@ -523,7 +637,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0013467730022966862,
+      "latency_s": 0.06393029699393082,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -532,8 +646,8 @@
       "corrects_step": null
     },
     {
-      "step": 17,
-      "t_wall": 0.9365604589984287,
+      "step": 19,
+      "t_wall": 0.8438583179959096,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -541,7 +655,7 @@
       "result": {
         "events": [
           {
-            "t_start": 78.12,
+            "t_start": 82.12,
             "t_end": 109.92,
             "what": "A static scene is displayed",
             "on_screen_text": "",
@@ -552,8 +666,8 @@
         ]
       },
       "ok": true,
-      "latency_s": 2.8274997021071613e-05,
-      "tokens_in": 69,
+      "latency_s": 3.9202001062221825e-05,
+      "tokens_in": 74,
       "tokens_out": 53,
       "cost_usd": 0,
       "model": "MOCK/perceive",
@@ -562,19 +676,19 @@
       "cached_tokens": 0
     },
     {
-      "step": 18,
-      "t_wall": 0.9365959339920664,
+      "step": 20,
+      "t_wall": 0.8439214240061119,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "inspect_video_segment",
       "args": {
-        "start": 78.12,
+        "start": 82.12,
         "end": 109.92
       },
       "result": {
         "events": [
           {
-            "t_start": 78.12,
+            "t_start": 82.12,
             "t_end": 109.92,
             "what": "A static scene is displayed",
             "on_screen_text": "",
@@ -584,12 +698,17 @@
           }
         ],
         "modality": "mock",
+        "time_base": "absolute",
         "state": {
           "committed": [
             0
           ],
           "remaining": [
             1
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
           ],
           "budget": {
             "turns": 26,
@@ -599,7 +718,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.001393155995174311,
+      "latency_s": 0.0017896060016937554,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -608,8 +727,25 @@
       "corrects_step": null
     },
     {
-      "step": 19,
-      "t_wall": 0.9387466079933802,
+      "step": 21,
+      "t_wall": 0.843978071003221,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 3.057799767702818e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 0.8459889579971787,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -618,8 +754,8 @@
         "text": "A static scene is displayed"
       },
       "ok": true,
-      "latency_s": 2.5998000637628138e-05,
-      "tokens_in": 149,
+      "latency_s": 3.421599103603512e-05,
+      "tokens_in": 289,
       "tokens_out": 13,
       "cost_usd": 0,
       "model": "MOCK/fit",
@@ -628,8 +764,8 @@
       "cached_tokens": 0
     },
     {
-      "step": 20,
-      "t_wall": 0.9387747699947795,
+      "step": 23,
+      "t_wall": 0.8460297090059612,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "draft_description",
@@ -657,63 +793,10 @@
           "remaining": [
             1
           ],
-          "budget": {
-            "turns": 26,
-            "inspections": 10,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.002147022998542525,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 21,
-      "t_wall": 0.9388068639964331,
-      "role": "orchestrator",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7505997675471008e-05,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": "MOCK/orchestrate",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 22,
-      "t_wall": 0.9401012619928224,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "check_fit",
-      "args": {
-        "gap_id": 1,
-        "text": "A static scene is displayed",
-        "lang": "en"
-      },
-      "result": {
-        "ok": true,
-        "problems": [],
-        "suggested_max_words": 58,
-        "seconds": 2.01,
-        "overlap_seconds": 0,
-        "state": {
-          "committed": [
+          "skipped_too_short": [],
+          "needs_verification": [
             0
           ],
-          "remaining": [
-            1
-          ],
           "budget": {
             "turns": 25,
             "inspections": 10,
@@ -722,50 +805,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0012848390033468604,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 23,
-      "t_wall": 0.9411972429952584,
-      "role": "tool",
-      "note": "I will check the available evidence and timing before committing narration.",
-      "tool_name": "commit_cue",
-      "args": {
-        "gap_id": 1,
-        "text": "A static scene is displayed"
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 1,
-          "start": 84.12,
-          "end": 109.92,
-          "duration": 25.8,
-          "word_budget_en": 58,
-          "word_budget_hi": 66,
-          "en": "A static scene is displayed"
-        },
-        "state": {
-          "committed": [
-            0,
-            1
-          ],
-          "remaining": [],
-          "budget": {
-            "turns": 25,
-            "inspections": 10,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.0010744780011009425,
+      "latency_s": 0.002037191006820649,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -775,7 +815,45 @@
     },
     {
       "step": 24,
-      "t_wall": 0.9424270659947069,
+      "t_wall": 0.8469594860071084,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "drop_gap",
+      "args": {
+        "gap_id": 1,
+        "reason": "Same on-screen title is already narrated in an earlier gap"
+      },
+      "result": {
+        "ok": true,
+        "reason": "Same on-screen title is already narrated in an earlier gap",
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
+          ],
+          "budget": {
+            "turns": 25,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.00091128698841203,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 0.8481166220008163,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -785,17 +863,13 @@
           {
             "id": 0,
             "hi": "दृश्य दिखाई देता है।"
-          },
-          {
-            "id": 1,
-            "hi": "दृश्य दिखाई देता है।"
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.4829001631587744e-05,
-      "tokens_in": 170,
-      "tokens_out": 87,
+      "latency_s": 2.4968001525849104e-05,
+      "tokens_in": 118,
+      "tokens_out": 45,
       "cost_usd": 0,
       "model": "MOCK/edit",
       "correction": false,
@@ -803,8 +877,8 @@
       "cached_tokens": 0
     },
     {
-      "step": 25,
-      "t_wall": 1.016519654993317,
+      "step": 26,
+      "t_wall": 0.9137847370002419,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "translate_hindi",
@@ -821,24 +895,17 @@
             "seconds": 1.85,
             "overlap_seconds": 0,
             "retried": false
-          },
-          {
-            "id": 1,
-            "text": "दृश्य दिखाई देता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 66,
-            "seconds": 1.85,
-            "overlap_seconds": 0,
-            "retried": false
           }
         ],
         "state": {
           "committed": [
-            0,
-            1
+            0
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
+          ],
           "budget": {
             "turns": 25,
             "inspections": 10,
@@ -847,7 +914,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.07529680700099561,
+      "latency_s": 0.0668055020069005,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -856,15 +923,15 @@
       "corrects_step": null
     },
     {
-      "step": 26,
-      "t_wall": 1.0165808169986121,
+      "step": 27,
+      "t_wall": 0.9138515289960196,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.3240994778461754e-05,
+      "latency_s": 2.6684007025323808e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -873,8 +940,8 @@
       "cached_tokens": 0
     },
     {
-      "step": 27,
-      "t_wall": 4.020752797994646,
+      "step": 28,
+      "t_wall": 3.608913345000474,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "render_preview",
@@ -888,10 +955,13 @@
         "duration": 8.0,
         "state": {
           "committed": [
-            0,
-            1
+            0
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0
+          ],
           "budget": {
             "turns": 24,
             "inspections": 10,
@@ -900,7 +970,7 @@
         }
       },
       "ok": true,
-      "latency_s": 3.004146638995735,
+      "latency_s": 2.6950456380000105,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -909,31 +979,129 @@
       "corrects_step": null
     },
     {
-      "step": 28,
-      "t_wall": 8.221730883000419,
+      "step": 29,
+      "t_wall": 3.6090001209959155,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 4.9201000365428627e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 3.611117752996506,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."
+      },
+      "ok": true,
+      "latency_s": 4.082400118932128e-05,
+      "tokens_in": 74,
+      "tokens_out": 38,
+      "cost_usd": 0,
+      "model": "MOCK/perceive",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 3.6111621400050353,
+      "role": "tool",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 0,
+        "claim": "A static scene"
+      },
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "state": {
+          "committed": [
+            0
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 10,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0021487519989022985,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 32,
+      "t_wall": 3.611199573002523,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.4218006981536746e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 7.469924744000309,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "finalize",
       "args": {},
       "result": {
         "ok": true,
-        "warnings": [],
+        "warnings": [
+          "Cue 0: unverified"
+        ],
         "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/nasa_chile_harvest_0000-0150",
         "state": {
           "committed": [
-            0,
-            1
+            0
           ],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
-            "turns": 24,
+            "turns": 22,
             "inspections": 10,
-            "verifications": 7
+            "verifications": 6
           }
         }
       },
       "ok": true,
-      "latency_s": 4.200943685005768,
+      "latency_s": 3.8587104420003016,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -946,25 +1114,28 @@
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 2,
-      "draft_description": 3,
-      "check_fit": 3,
-      "verify_claim": 1,
-      "commit_cue": 2,
+      "draft_description": 4,
+      "check_fit": 1,
+      "propose_cue": 2,
+      "verify_claim": 2,
+      "drop_gap": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
     },
     "corrections": 2,
     "verifications": {
-      "contradicted": 1
+      "verified": 0,
+      "contradicted": 1,
+      "unverified": 1
     },
-    "orchestrator_turns": 6,
+    "orchestrator_turns": 8,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 8.221808987989789
+    "total_latency_s": 7.470028605006519
   }
 }

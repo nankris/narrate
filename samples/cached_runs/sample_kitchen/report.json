@@ -15,9 +15,10 @@
       "start": 4.668,
       "end": 8.707999999999998,
       "duration": 4.039999999999998,
+      "narratable": true,
       "word_budget_en": 8,
       "word_budget_hi": 9,
-      "en": "A person enters a kitchen",
+      "en": "A person enters",
       "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
       "tts_backend": {
         "en": "EspeakBackend",
@@ -29,6 +30,7 @@
       "start": 11.868,
       "end": 16.612000000000002,
       "duration": 4.7440000000000015,
+      "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11,
       "en": "STEP 1 - chop onions",
@@ -43,24 +45,11 @@
       "start": 19.932,
       "end": 24.708000000000002,
       "duration": 4.776000000000003,
+      "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11,
-      "en": "STEP 1 - chop onions",
-      "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 3,
-      "start": 27.387999999999998,
-      "end": 29.92,
-      "duration": 2.5320000000000036,
-      "word_budget_en": 4,
-      "word_budget_hi": 5,
       "en": "Stir and serve",
-      "hi": "शीर्षक।",
+      "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -72,11 +61,12 @@
       {
         "id": 0,
         "start": 4.668,
-        "end": 6.511673,
+        "end": 6.045596,
         "duration": 4.039999999999998,
+        "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
-        "en": "A person enters a kitchen",
+        "en": "A person enters",
         "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -88,6 +78,7 @@
         "start": 11.868,
         "end": 13.811719,
         "duration": 4.7440000000000015,
+        "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "en": "STEP 1 - chop onions",
@@ -100,26 +91,13 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 21.875719,
+        "end": 21.254222,
         "duration": 4.776000000000003,
+        "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "STEP 1 - chop onions",
-        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 27.387999999999998,
-        "end": 28.710221999999998,
-        "duration": 2.5320000000000036,
-        "word_budget_en": 4,
-        "word_budget_hi": 5,
         "en": "Stir and serve",
-        "hi": "शीर्षक।",
+        "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -132,9 +110,10 @@
         "start": 4.668,
         "end": 7.699973,
         "duration": 4.039999999999998,
+        "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
-        "en": "A person enters a kitchen",
+        "en": "A person enters",
         "hi": "पीली आकृति शीर्षक के नीचे चलती है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -146,6 +125,7 @@
         "start": 11.868,
         "end": 14.909587,
         "duration": 4.7440000000000015,
+        "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "en": "STEP 1 - chop onions",
@@ -158,26 +138,13 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 22.973587,
+        "end": 23.230729999999998,
         "duration": 4.776000000000003,
+        "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
-        "en": "STEP 1 - chop onions",
-        "hi": "लाल दृश्य में प्याज़ काटने का निर्देश है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 27.387999999999998,
-        "end": 28.352625999999997,
-        "duration": 2.5320000000000036,
-        "word_budget_en": 4,
-        "word_budget_hi": 5,
         "en": "Stir and serve",
-        "hi": "शीर्षक।",
+        "hi": "शीर्षक में हिलाने और परोसने का निर्देश है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -191,6 +158,7 @@
       "start": 4.668,
       "end": 8.707999999999998,
       "duration": 4.039999999999998,
+      "narratable": true,
       "word_budget_en": 8,
       "word_budget_hi": 9
     },
@@ -199,6 +167,7 @@
       "start": 11.868,
       "end": 16.612000000000002,
       "duration": 4.7440000000000015,
+      "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11
     },
@@ -207,6 +176,7 @@
       "start": 19.932,
       "end": 24.708000000000002,
       "duration": 4.776000000000003,
+      "narratable": true,
       "word_budget_en": 9,
       "word_budget_hi": 11
     },
@@ -215,6 +185,7 @@
       "start": 27.387999999999998,
       "end": 29.92,
       "duration": 2.5320000000000036,
+      "narratable": true,
       "word_budget_en": 4,
       "word_budget_hi": 5
     }
@@ -237,16 +208,23 @@
       "end": 27.308
     }
   ],
-  "cues_committed": 4,
-  "cues_dropped": 0,
-  "dropped_gaps": {},
+  "cues_committed": 3,
+  "cues_dropped": 1,
+  "dropped_gaps": {
+    "3": "Same on-screen title is already narrated in an earlier gap"
+  },
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 43.83130126771066,
-    "hi": 62.638410390256
+    "en": 28.856183196619423,
+    "hi": 58.24192145165297
   },
   "high_importance_covered_percent": 100.0,
-  "coverage_method": "temporal association proxy; not semantic verification",
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
   "usage": [],
   "cost_by_role": {
@@ -262,30 +240,33 @@
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 4,
-      "draft_description": 5,
-      "check_fit": 5,
-      "verify_claim": 1,
-      "commit_cue": 4,
+      "draft_description": 6,
+      "check_fit": 1,
+      "propose_cue": 4,
+      "verify_claim": 2,
+      "drop_gap": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
     },
     "corrections": 2,
     "verifications": {
-      "contradicted": 1
+      "verified": 1,
+      "contradicted": 1,
+      "unverified": 0
     },
-    "orchestrator_turns": 9,
+    "orchestrator_turns": 10,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 4.002769152997644
+    "total_latency_s": 3.4607736830075737
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 4.002769152997644
+  "latency_s": 3.4607736830075737
 }

@@ -4,7 +4,10 @@
   "dev_only": false,
   "duration_s": 100.0,
   "fallback_finalize": false,
-  "issues": [],
+  "issues": [
+    "Cue 0: unverified",
+    "Cue 2: unverified"
+  ],
   "detector": "silero-onnx",
   "speech_ratio": 0.2650399999999999,
   "detector_fallback_reason": null,
@@ -15,24 +18,11 @@
       "start": 0.08,
       "end": 9.123999999999999,
       "duration": 9.043999999999999,
+      "narratable": true,
       "word_budget_en": 19,
       "word_budget_hi": 22,
-      "en": "A static scene is displayed",
+      "en": "A static scene",
       "hi": "दृश्य दिखाई देता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 1,
-      "start": 30.523999999999997,
-      "end": 31.651999999999997,
-      "duration": 1.1280000000000001,
-      "word_budget_en": 1,
-      "word_budget_hi": 1,
-      "en": "A",
-      "hi": "शीर्षक।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -43,37 +33,10 @@
       "start": 32.53999999999999,
       "end": 34.916000000000004,
       "duration": 2.376000000000012,
+      "narratable": true,
       "word_budget_en": 4,
       "word_budget_hi": 5,
       "en": "A static scene is",
-      "hi": "दृश्य दिखाई देता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 3,
-      "start": 38.971999999999994,
-      "end": 45.572,
-      "duration": 6.6000000000000085,
-      "word_budget_en": 14,
-      "word_budget_hi": 16,
-      "en": "A static scene is displayed",
-      "hi": "दृश्य दिखाई देता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 4,
-      "start": 47.611999999999995,
-      "end": 99.92,
-      "duration": 52.30800000000001,
-      "word_budget_en": 119,
-      "word_budget_hi": 135,
-      "en": "A static scene is displayed",
       "hi": "दृश्य दिखाई देता है।",
       "tts_backend": {
         "en": "EspeakBackend",
@@ -86,26 +49,13 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 2.0879820000000002,
+        "end": 1.465714,
         "duration": 9.043999999999999,
+        "narratable": true,
         "word_budget_en": 19,
         "word_budget_hi": 22,
-        "en": "A static scene is displayed",
+        "en": "A static scene",
         "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 1,
-        "start": 30.523999999999997,
-        "end": 31.173795999999996,
-        "duration": 1.1280000000000001,
-        "word_budget_en": 1,
-        "word_budget_hi": 1,
-        "en": "A",
-        "hi": "शीर्षक।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -116,37 +66,10 @@
         "start": 32.53999999999999,
         "end": 34.03265299999999,
         "duration": 2.376000000000012,
+        "narratable": true,
         "word_budget_en": 4,
         "word_budget_hi": 5,
         "en": "A static scene is",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 38.971999999999994,
-        "end": 40.97998199999999,
-        "duration": 6.6000000000000085,
-        "word_budget_en": 14,
-        "word_budget_hi": 16,
-        "en": "A static scene is displayed",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 4,
-        "start": 47.611999999999995,
-        "end": 49.61998199999999,
-        "duration": 52.30800000000001,
-        "word_budget_en": 119,
-        "word_budget_hi": 135,
-        "en": "A static scene is displayed",
         "hi": "दृश्य दिखाई देता है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -160,24 +83,11 @@
         "start": 0.08,
         "end": 1.9330610000000001,
         "duration": 9.043999999999999,
+        "narratable": true,
         "word_budget_en": 19,
         "word_budget_hi": 22,
-        "en": "A static scene is displayed",
+        "en": "A static scene",
         "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 1,
-        "start": 30.523999999999997,
-        "end": 31.488625999999996,
-        "duration": 1.1280000000000001,
-        "word_budget_en": 1,
-        "word_budget_hi": 1,
-        "en": "A",
-        "hi": "शीर्षक।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -188,37 +98,10 @@
         "start": 32.53999999999999,
         "end": 34.39306099999999,
         "duration": 2.376000000000012,
+        "narratable": true,
         "word_budget_en": 4,
         "word_budget_hi": 5,
         "en": "A static scene is",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 38.971999999999994,
-        "end": 40.82506099999999,
-        "duration": 6.6000000000000085,
-        "word_budget_en": 14,
-        "word_budget_hi": 16,
-        "en": "A static scene is displayed",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 4,
-        "start": 47.611999999999995,
-        "end": 49.46506099999999,
-        "duration": 52.30800000000001,
-        "word_budget_en": 119,
-        "word_budget_hi": 135,
-        "en": "A static scene is displayed",
         "hi": "दृश्य दिखाई देता है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -233,6 +116,7 @@
       "start": 0.08,
       "end": 9.123999999999999,
       "duration": 9.043999999999999,
+      "narratable": true,
       "word_budget_en": 19,
       "word_budget_hi": 22
     },
@@ -241,6 +125,8 @@
       "start": 30.523999999999997,
       "end": 31.651999999999997,
       "duration": 1.1280000000000001,
+      "narratable": false,
+      "reason": "too short",
       "word_budget_en": 1,
       "word_budget_hi": 1
     },
@@ -249,6 +135,7 @@
       "start": 32.53999999999999,
       "end": 34.916000000000004,
       "duration": 2.376000000000012,
+      "narratable": true,
       "word_budget_en": 4,
       "word_budget_hi": 5
     },
@@ -257,6 +144,7 @@
       "start": 38.971999999999994,
       "end": 45.572,
       "duration": 6.6000000000000085,
+      "narratable": true,
       "word_budget_en": 14,
       "word_budget_hi": 16
     },
@@ -265,6 +153,7 @@
       "start": 47.611999999999995,
       "end": 99.92,
       "duration": 52.30800000000001,
+      "narratable": true,
       "word_budget_en": 119,
       "word_budget_hi": 135
     }
@@ -299,16 +188,24 @@
       "end": 47.532
     }
   ],
-  "cues_committed": 5,
-  "cues_dropped": 0,
-  "dropped_gaps": {},
+  "cues_committed": 2,
+  "cues_dropped": 2,
+  "dropped_gaps": {
+    "3": "Same on-screen title is already narrated in an earlier gap",
+    "4": "Same on-screen title is already narrated in an earlier gap"
+  },
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 11.42856443125838,
-    "hi": 11.723116323331821
+    "en": 4.09277528153793,
+    "hi": 5.269767375725166
   },
   "high_importance_covered_percent": 100,
-  "coverage_method": "temporal association proxy; not semantic verification",
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
   "usage": [],
   "cost_by_role": {
@@ -323,18 +220,21 @@
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 5,
+      "inspect_video_segment": 4,
       "draft_description": 6,
-      "check_fit": 6,
-      "verify_claim": 1,
-      "commit_cue": 5,
+      "check_fit": 1,
+      "propose_cue": 3,
+      "verify_claim": 3,
+      "drop_gap": 2,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
     },
     "corrections": 2,
     "verifications": {
-      "contradicted": 1
+      "verified": 0,
+      "contradicted": 1,
+      "unverified": 2
     },
     "orchestrator_turns": 10,
     "cost_by_model": {
@@ -343,11 +243,11 @@
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 8.229771155005437
+    "total_latency_s": 6.308251896000002
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 8.229771155005437
+  "latency_s": 6.308251896000002
 }

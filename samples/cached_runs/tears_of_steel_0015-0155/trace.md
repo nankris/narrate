@@ -11,42 +11,39 @@
 - 9 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
 - 10 ✓ submodel : {"text": "A static scene is displayed"}
 - 11 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 8)
-- 12 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
-- 13 ✗ tool verify_claim: I will check the available evidence and timing before committing narration.
-- 14 ↪ tool check_fit: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 13)
-- 15 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 16 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
-- 17 ✓ submodel : {"events": [{"t_start": 24.52, "t_end": 31.65, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 18 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 19 ✓ submodel : {"text": "A"}
-- 20 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 12 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 13 ✓ submodel : {"verdict": "contradicted", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
+- 14 ✗ tool verify_claim: I will check the available evidence and timing before committing narration.
+- 15 ✓ orchestrator : The earlier check failed. I will use a shorter description grounded in the scene evidence.
+- 16 ✓ submodel : {"text": "A static scene is displayed"}
+- 17 ↪ tool draft_description: The earlier check failed. I will use a shorter description grounded in the scene evidence. (corrects 14)
+- 18 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 19 ✓ submodel : {"events": [{"t_start": 30.54, "t_end": 34.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
+- 20 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
 - 21 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 22 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
-- 23 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
-- 24 ✓ submodel : {"events": [{"t_start": 26.54, "t_end": 34.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 25 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 26 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 27 ✓ submodel : {"text": "A static scene is"}
-- 28 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 29 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
-- 30 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
-- 31 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 32 ✓ submodel : {"events": [{"t_start": 32.97, "t_end": 45.57, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 33 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 22 ✓ submodel : {"text": "A static scene is"}
+- 23 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 24 ✓ tool propose_cue: I will check the available evidence and timing before committing narration.
+- 25 ✓ submodel : {"events": [{"t_start": 36.97, "t_end": 45.57, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
+- 26 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 27 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 28 ✓ submodel : {"text": "A static scene is displayed"}
+- 29 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
+- 30 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
+- 31 ✓ submodel : {"events": [{"t_start": 45.61, "t_end": 99.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
+- 32 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
+- 33 ✓ orchestrator : I will check the available evidence and timing before committing narration.
 - 34 ✓ submodel : {"text": "A static scene is displayed"}
 - 35 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 36 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
-- 37 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 38 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
-- 39 ✓ submodel : {"events": [{"t_start": 41.61, "t_end": 99.92, "what": "A static scene is displayed", "on_screen_text": "", "importance": 2, "confidence": 0, "mock": true}]}
-- 40 ✓ tool inspect_video_segment: I will check the available evidence and timing before committing narration.
-- 41 ✓ submodel : {"text": "A static scene is displayed"}
-- 42 ✓ tool draft_description: I will check the available evidence and timing before committing narration.
-- 43 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 44 ✓ tool check_fit: I will check the available evidence and timing before committing narration.
-- 45 ✓ tool commit_cue: I will check the available evidence and timing before committing narration.
-- 46 ✓ submodel : {"cues": [{"id": 0, "hi": "दृश्य दिखाई देता है।"}, {"id": 1, "hi": "शीर्षक।"}, {"id": 2, "hi": "दृश्य दिखाई देता है।"}, {"id": 3, "hi": "दृश्य दिखाई देता है।"}, {"id": 4, "hi": "दृश्य दिखाई देता है।"}]}
-- 47 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
-- 48 ✓ orchestrator : I will check the available evidence and timing before committing narration.
-- 49 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
-- 50 ✓ tool finalize: I will check the available evidence and timing before committing narration.
+- 36 ✓ tool drop_gap: I will check the available evidence and timing before committing narration.
+- 37 ✓ submodel : {"cues": [{"id": 0, "hi": "दृश्य दिखाई देता है।"}, {"id": 2, "hi": "दृश्य दिखाई देता है।"}]}
+- 38 ✓ tool translate_hindi: I will check the available evidence and timing before committing narration.
+- 39 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 40 ✓ tool render_preview: I will check the available evidence and timing before committing narration.
+- 41 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 42 ✓ submodel : {"verdict": "uncertain", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
+- 43 ✓ tool verify_claim: I will check the available evidence and timing before committing narration.
+- 44 ✓ submodel : {"verdict": "uncertain", "evidence": "MOCK sidecar describes title and yellow shape; no blue dot or fading text."}
+- 45 ✓ tool verify_claim: I will check the available evidence and timing before committing narration.
+- 46 ✓ orchestrator : I will check the available evidence and timing before committing narration.
+- 47 ✓ tool finalize: I will check the available evidence and timing before committing narration.

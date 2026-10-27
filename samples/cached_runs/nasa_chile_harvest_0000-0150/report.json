@@ -4,7 +4,9 @@
   "dev_only": false,
   "duration_s": 110.0,
   "fallback_finalize": false,
-  "issues": [],
+  "issues": [
+    "Cue 0: unverified"
+  ],
   "detector": "silero-onnx",
   "speech_ratio": 0.04356363636363625,
   "detector_fallback_reason": null,
@@ -15,23 +17,10 @@
       "start": 0.08,
       "end": 79.17200000000001,
       "duration": 79.09200000000001,
+      "narratable": true,
       "word_budget_en": 180,
       "word_budget_hi": 204,
-      "en": "A static scene is displayed",
-      "hi": "दृश्य दिखाई देता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 1,
-      "start": 84.124,
-      "end": 109.92,
-      "duration": 25.796000000000006,
-      "word_budget_en": 58,
-      "word_budget_hi": 66,
-      "en": "A static scene is displayed",
+      "en": "A static scene",
       "hi": "दृश्य दिखाई देता है।",
       "tts_backend": {
         "en": "EspeakBackend",
@@ -44,25 +33,12 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 2.0879820000000002,
+        "end": 1.465714,
         "duration": 79.09200000000001,
+        "narratable": true,
         "word_budget_en": 180,
         "word_budget_hi": 204,
-        "en": "A static scene is displayed",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 1,
-        "start": 84.124,
-        "end": 86.131982,
-        "duration": 25.796000000000006,
-        "word_budget_en": 58,
-        "word_budget_hi": 66,
-        "en": "A static scene is displayed",
+        "en": "A static scene",
         "hi": "दृश्य दिखाई देता है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -76,23 +52,10 @@
         "start": 0.08,
         "end": 1.9330610000000001,
         "duration": 79.09200000000001,
+        "narratable": true,
         "word_budget_en": 180,
         "word_budget_hi": 204,
-        "en": "A static scene is displayed",
-        "hi": "दृश्य दिखाई देता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 1,
-        "start": 84.124,
-        "end": 85.97706099999999,
-        "duration": 25.796000000000006,
-        "word_budget_en": 58,
-        "word_budget_hi": 66,
-        "en": "A static scene is displayed",
+        "en": "A static scene",
         "hi": "दृश्य दिखाई देता है।",
         "tts_backend": {
           "en": "EspeakBackend",
@@ -107,6 +70,7 @@
       "start": 0.08,
       "end": 79.17200000000001,
       "duration": 79.09200000000001,
+      "narratable": true,
       "word_budget_en": 180,
       "word_budget_hi": 204
     },
@@ -115,6 +79,7 @@
       "start": 84.124,
       "end": 109.92,
       "duration": 25.796000000000006,
+      "narratable": true,
       "word_budget_en": 58,
       "word_budget_hi": 66
     }
@@ -125,16 +90,23 @@
       "end": 84.044
     }
   ],
-  "cues_committed": 2,
-  "cues_dropped": 0,
-  "dropped_gaps": {},
+  "cues_committed": 1,
+  "cues_dropped": 1,
+  "dropped_gaps": {
+    "1": "Same on-screen title is already narrated in an earlier gap"
+  },
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 3.828811684844785,
-    "hi": 3.5334089695675353
+    "en": 1.3211368316680645,
+    "hi": 1.7667044847837692
   },
   "high_importance_covered_percent": 100,
-  "coverage_method": "temporal association proxy; not semantic verification",
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
   "usage": [],
   "cost_by_role": {
@@ -150,30 +122,33 @@
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 2,
-      "draft_description": 3,
-      "check_fit": 3,
-      "verify_claim": 1,
-      "commit_cue": 2,
+      "draft_description": 4,
+      "check_fit": 1,
+      "propose_cue": 2,
+      "verify_claim": 2,
+      "drop_gap": 1,
       "translate_hindi": 1,
       "render_preview": 1,
       "finalize": 1
     },
     "corrections": 2,
     "verifications": {
-      "contradicted": 1
+      "verified": 0,
+      "contradicted": 1,
+      "unverified": 1
     },
-    "orchestrator_turns": 6,
+    "orchestrator_turns": 8,
     "cost_by_model": {
       "MOCK/orchestrate": 0,
       "MOCK/perceive": 0,
       "MOCK/fit": 0,
       "MOCK/edit": 0
     },
-    "total_latency_s": 8.221808987989789
+    "total_latency_s": 7.470028605006519
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 8.221808987989789
+  "latency_s": 7.470028605006519
 }

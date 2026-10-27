@@ -32,7 +32,12 @@
     "hi": 0.0
   },
   "high_importance_covered_percent": 100,
-  "coverage_method": "temporal association proxy; not semantic verification",
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
   "uncovered_events": [],
   "usage": [],
   "cost_by_role": {
@@ -52,16 +57,20 @@
       "finalize": 1
     },
     "corrections": 0,
-    "verifications": {},
-    "orchestrator_turns": 2,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 3,
     "cost_by_model": {
       "MOCK/orchestrate": 0
     },
-    "total_latency_s": 3.0061064369947417
+    "total_latency_s": 2.547173434999422
   },
   "estimated_cost_usd": 0,
   "would_be_token_factory_cost_usd": 0,
   "reserved_spend_usd": 0.0,
   "cost_per_minute": 0.0,
-  "latency_s": 3.0061064369947417
+  "latency_s": 2.547173434999422
 }

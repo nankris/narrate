@@ -20,6 +20,9 @@
       "timeout_s": 600,
       "max_atempo": 1.25,
       "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
       "hangover_s": 0.3
     },
     "mock_notice": "Scripted synthetic behavior; not visual understanding"
@@ -27,14 +30,14 @@
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.00017757699242793024,
+      "t_wall": 0.00020429700089152902,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.5834000553004444e-05,
+      "latency_s": 3.073099651373923e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -44,7 +47,7 @@
     },
     {
       "step": 2,
-      "t_wall": 0.26350771299621556,
+      "t_wall": 0.23509883900987916,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "detect_speech_gaps",
@@ -56,6 +59,8 @@
         "state": {
           "committed": [],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 29,
             "inspections": 12,
@@ -64,7 +69,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.2633156060037436,
+      "latency_s": 0.23487937900063116,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -74,14 +79,14 @@
     },
     {
       "step": 3,
-      "t_wall": 0.26355641199916136,
+      "t_wall": 0.2351509900036035,
       "role": "orchestrator",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 2.797599881887436e-05,
+      "latency_s": 2.7829999453388155e-05,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -91,7 +96,7 @@
     },
     {
       "step": 4,
-      "t_wall": 0.2651439829933224,
+      "t_wall": 0.23672276100842282,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "translate_hindi",
@@ -101,6 +106,8 @@
         "state": {
           "committed": [],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 12,
@@ -109,7 +116,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0015209859993774444,
+      "latency_s": 0.0014586979959858581,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -119,7 +126,7 @@
     },
     {
       "step": 5,
-      "t_wall": 1.415806849996443,
+      "t_wall": 1.2014464360108832,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "render_preview",
@@ -134,6 +141,8 @@
         "state": {
           "committed": [],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 12,
@@ -142,7 +151,7 @@
         }
       },
       "ok": true,
-      "latency_s": 1.1506370910065016,
+      "latency_s": 0.964700290991459,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -152,7 +161,24 @@
     },
     {
       "step": 6,
-      "t_wall": 3.0060593130037887,
+      "t_wall": 1.2014896680047968,
+      "role": "orchestrator",
+      "note": "I will check the available evidence and timing before committing narration.",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0969993784092367e-05,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": "MOCK/orchestrate",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 2.547123174997978,
       "role": "tool",
       "note": "I will check the available evidence and timing before committing narration.",
       "tool_name": "finalize",
@@ -164,15 +190,17 @@
         "state": {
           "committed": [],
           "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
           "budget": {
-            "turns": 28,
+            "turns": 27,
             "inspections": 12,
             "verifications": 8
           }
         }
       },
       "ok": true,
-      "latency_s": 1.5902181819983525,
+      "latency_s": 1.345621875996585,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -189,11 +217,15 @@
       "finalize": 1
     },
     "corrections": 0,
-    "verifications": {},
-    "orchestrator_turns": 2,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "orchestrator_turns": 3,
     "cost_by_model": {
       "MOCK/orchestrate": 0
     },
-    "total_latency_s": 3.0061064369947417
+    "total_latency_s": 2.547173434999422
   }
 }
