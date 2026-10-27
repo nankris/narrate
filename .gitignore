@@ -14,3 +14,7 @@ uploads/
 *key*.txt
 
 voices/
+
+# raw CLI transcripts (FINAL-*.md summaries are kept)
+_agent_logs/codex-*.final.md
+blog-assets/**/work/
