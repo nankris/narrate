@@ -1,389 +1,220 @@
-# Narrate
+# Narrate: an agent that writes audio description
 
-Audio description for blind and low-vision viewers: upload a short video through the CLI and receive English and Hindi narration, WebVTT captions, transcripts, and narrated MP4s with original sound ducked during descriptions. This core pipeline supports the accessibility goal of WCAG 1.2.5 (prerecorded audio description); it is not a compliance certification. An offline-first Gradio Web UI presents cached samples and streaming agent traces.
+**Upload a video of up to 2 minutes. Narrate returns an audio-description track for blind and low-vision viewers, in English and Hindi.** It writes descriptions only into the moments when nobody is speaking, checks its own claims before it speaks them, and outputs:
 
-Built during the submission period for the Nebius x NVIDIA Global AI Hackathon, Best Apps & Agents track, 27 October 2026. Copyright 2026 Nandigam Hari Krishna. Apache-2.0.
+- WebVTT description tracks (`ad_en.vtt`, `ad_hi.vtt`) and plain-text transcripts;
+- narrated MP4s with the original audio ducked under each description;
+- `trace.json` / `trace.md`, the full agent trace (every tool call, model, token count, cost and correction);
+- `report.json`, the results card (coverage, overlaps, verifications, cost per minute, latency).
 
-## 30-second quickstart
+Narrate is a **tool-calling agent built on NVIDIA Nemotron**, designed to run on **Nebius Token Factory**. It was built for the Nebius × NVIDIA hackathon (Apps & Agents track), Oct 27–30 2026. License: Apache-2.0.
 
-Requires Python 3.13, ffmpeg/ffprobe and espeak-ng with `en` and `hi` voices. Python dependencies install from pip; everything after installation runs offline in mock mode.
+> Audio description supports WCAG 2.x SC 1.2.5 (Audio Description, prerecorded). Narrate is an assistive drafting tool, not a compliance certification. Human review is still required.
+
+![Web UI: cached real run with the agent trace and results card](blog-assets/19_2026-10-28_ui_samples.png)
+
+---
+
+## Quickstart (offline, no key, about 2 min)
+
+You need Python 3.13 (tested), `ffmpeg`/`ffprobe`, and `espeak-ng` (with `en` and `hi` voices).
 
 ```bash
+git clone <this repo> narrate && cd narrate
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/pip install silero-vad --no-deps
-.venv/bin/python -m app.app  # Web UI on localhost:7860
-# Or run the CLI:
-.venv/bin/python -m narrate run samples/sample_kitchen.mp4 --out runs/demo --mock
-.venv/bin/python -m pytest -q
+.venv/bin/pip install silero-vad --no-deps          # MIT Silero VAD ONNX model, no torch
+.venv/bin/python -m pytest -q                       # fully offline
+.venv/bin/python -m app.app                         # web UI → http://127.0.0.1:7860 (cached real runs, zero cost)
+.venv/bin/python -m narrate agent samples/sample_kitchen.mp4 --out runs/demo --provider mock
 ```
 
-Open `runs/demo/narrated_en.mp4` or `narrated_hi.mp4`. The same directory contains `ad_en.vtt`, `ad_hi.vtt`, `transcript_en.txt`, `transcript_hi.txt`, and `report.json`. Checked-in mock artifacts are in `samples/outputs_mock/`. Regenerate the synthetic sample using `.venv/bin/python scripts/make_sample.py`.
+`--provider mock` is scripted and offline. It exercises the whole agent loop (tools, corrections, verification, fallback, TTS, mixing), but its descriptions are synthetic and its costs are $0. **Never read mock output as a quality or cost number.**
 
-**Mock means synthetic descriptions, not visual understanding.** Events use the synthetic sample scene sidecar when available, otherwise varied timestamp phrases; Hindi uses natural Devanagari phrases. Usage and would-be Token Factory costs are simulated. A missing selected-provider key selects mock with a warning, unless `--strict` is set. Zero mock cost and latency do not predict real quality, provider cost, or provider latency.
-
-## Real mode (not exercised in this build)
+## Real mode
 
 ```bash
-export NEBIUS_API_KEY='YOUR_RUNTIME_KEY'
-.venv/bin/python -m narrate run your_video.mp4 --out runs/real --lang en,hi --budget-usd 0.25
+# Final runs: Nebius Token Factory
+export NEBIUS_API_KEY=...            # read from env only, never from files or the browser
+.venv/bin/python scripts/smoke_provider.py        # one-command readiness check, ~$0.01, prints READY / NOT READY
+.venv/bin/python -m narrate agent my_clip.mp4 --out runs/real --provider nebius --strict --budget-usd 0.50
+.venv/bin/python -m narrate agent my_clip.mp4 --out runs/real --provider nebius --orchestrator super   # about 3x cheaper orchestration
+
+# Development only: NVIDIA build endpoint (free tier, 40 rpm)
+export NVIDIA_DEV_API_KEY=...
+.venv/bin/python -m narrate agent my_clip.mp4 --out runs/dev --provider nvidia-dev --strict
 ```
 
-Use only a runtime environment variable for the key; no dotenv loading or saved credentials. Response text only is saved under `out/raw/`, truncated to 4,096 characters; headers and requests are never logged. Real mode sends media to Token Factory and incurs charges. No provider calls were made during this implementation; the lead supplied separate NVIDIA development probe results. Token Factory behavior remains **to verify**. Supplied NVIDIA development probe findings are recorded in the Agent section below.
+| Provider | Key env | Base URL (override: `NARRATE_BASE_URL_NEBIUS` / `_NVIDIA_DEV`) | Use |
+|---|---|---|---|
+| `nebius` (default) | `NEBIUS_API_KEY` | `https://api.tokenfactory.nebius.com/v1/` | final runs and demo numbers |
+| `nvidia-dev` | `NVIDIA_DEV_API_KEY` | `https://integrate.api.nvidia.com/v1` | development testing only; reports are marked `dev_only: true` |
+| `mock` | – | – | offline tests and demo |
 
-`config.yaml` controls models, prices, budget, silence detection, maximum duration (120 seconds), sample interval, perception strategy, speech rates, voices and ducking. `NARRATE_CONFIG` selects another YAML file. Each model may set `base_url` (for example `https://api.tokenfactory.us-central1.nebius.com/v1/`) and `json_mode: false` if JSON mode is unsupported. To select Lightning, replace `providers.<provider>.models.fit` with the `fit_alt` model ID or mapping. `auto` tries video, then frame grids on API errors or zero valid events; `video_frames` sends at most 16 timestamped separate images; explicit `video` surfaces video errors, and `frames` skips video. Budget errors always stop, without fallback spending.
+- If the provider's key is missing, the run exits with code 2 and a clear message. It never falls back to mock silently.
+- Each model entry in `config.yaml` can set its own `base_url`, for example a regional data-plane URL such as `https://api.tokenfactory.us-central1.nebius.com/v1/`.
+- **`scripts/smoke_provider.py [--provider nebius|nvidia-dev]`** runs the real code paths with tiny inputs. It checks:
+  - every configured model ID is served (if not, it suggests similar served IDs);
+  - Nano drafting returns JSON;
+  - Ultra returns a tool call;
+  - Super VL reads on-screen text from a 4 s MP4 sent as `video_url` and from frames.
 
-`tts.backend: auto` selects Piper when both configured ONNX models and companion JSON files exist, otherwise espeak-ng. `silent` is for tests. Install and download:
+  Spend cap $0.05; exit 0 means ready. On nvidia-dev it passed all 6 checks for $0.0035. Without a key it exits 2 and makes no calls.
+- **Model IDs** live in `config.yaml` (`providers.nebius.models`). You can override one per role without editing files, for example `NARRATE_MODEL_ORCHESTRATE=nvidia/nemotron-3-super-120b-a12b` (roles: `PERCEIVE`, `FIT`, `FIT_ALT`, `EDIT`, `ORCHESTRATE`, `ORCHESTRATE_ALT`).
+- `scripts/list_models.py --provider nebius` lists the Nemotron IDs your key can see.
+- Every run has a hard spend cap (SpendGuard). Real-mode raw responses are saved, truncated, with no headers. Keys are never logged.
 
-```bash
-.venv/bin/pip install piper-tts
-scripts/download_voices.sh
-```
-
-Models live in gitignored `voices/`. `en_US-ljspeech-medium` is public domain;
-`hi_IN-priyamvada-medium` is CC BY-NC-SA 4.0 and **non-commercial only**.
-Piper TTS is GPL-3.0, separately installed and invoked as a CLI subprocess;
-no Piper code or models are vendored. The CLI wrapper caps ONNX workers.
-Reports identify the backend per cue. Both voices passed local synthesis smoke tests;
-Hindi pronunciation still needs native-listener review.
-
-## Pipeline
-
-```text
-ffprobe duration check
-    -> Super VL: compressed video / timestamped frame contact sheets
-    -> ffmpeg silence detection (NumPy energy fallback)
-    -> Nano: batched, gap-budgeted English cues, one shorter retry
-    -> Ultra: one editorial call + Hindi translation
-    -> deterministic validation + espeak/Piper/silent TTS
-    -> atempo <=1.35x, trim and flag if still too long
-    -> ffmpeg delay + original-audio ducking -> MP4 / VTT / text / report
-```
-
-Cue timestamps come exclusively from detected gaps, with 80 ms inset at both ends. Models cannot move cues. Budgets are `max(0, floor(gap_seconds * words_per_second - margin))`. English defaults to 2.3 words/sec, Hindi 2.6. Overlong Nano text gets one shorter-budget retry, then truncation with a report entry. Invalid Ultra cues fall back individually to fitted English; invalid Hindi cues are marked unavailable while valid cues are retained. Continuous sound produces empty cue tracks, not narration over dialogue.
-
-The callable API is `narrate.pipeline.run(path, out_dir, langs, client, budget, progress=callback, config=None, provider=None, strict=False)`. The callback receives `{stage, status}` events. It runs synchronously and can be placed in a UI worker later. Pass a reusable `SpendGuard` as `budget` for a session cap. Provider retries reserve cost separately; failed attempts retain their reservation because billing is uncertain. Reservations estimate text at chars/3, each image at 1,800 tokens, and video at 300 tokens/second; media encoding bytes are excluded. These values and stage output limits (3,000/2,000/4,000) are configurable. Provider billing/tokenization is not locally guaranteed; reported usage above the estimate stops the run. No automatic calls continue after budget exhaustion. `report.json` is saved on failure.
-
-## Nemotron model-by-model
-
-Illustrative token/cost estimates below are planning assumptions, **not measured usage**. Rates are configured USD per million input/output tokens. Batched fitting assigns event indices across gaps and instructs the model to track earlier cues; shorter retries receive previous cues.
-
-| Stage | Model id | Why this model | Calls/video | Illustrative input/output tokens; cost |
-|---|---|---|---|---|
-| Perceive | `nvidia/Nemotron-3.5-Super-VL` | Visual events and readable text | 1; fallback may add 1 logical call | 8,000/1,000; $0.00330 at 0.30/0.90 |
-| Fit | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | Cheap constrained gap writing | 1 batched; up to 1 shorter retry | 2,000/500; $0.00024 at 0.06/0.24 |
-| Alternate fit | `nvidia/Nemotron-3_5-Lightning` | Configurable low-cost alternative | Replaces Nano | 2,000/500; $0.00024 at 0.06/0.24 |
-| Edit | `nvidia/Nemotron-3-Ultra-550b-a55b` | Global consistency and bilingual editing | 1 when there are cues | 2,000/1,000; $0.00500 at 1.00/3.00 |
-
-Each logical SDK call permits two transport retries with backoff; Ultra has one logical editorial call. Empty-gap videos skip fit and edit. Reports include configured models, actual/mock call records, token counts, reserved/estimated cost, strategy, fallback, per-stage latency, scheduling coverage, dropped slots and TTS trim flags.
-
-## Where Token Factory helped
-
-The integration is designed around one OpenAI-compatible endpoint for three Nemotron sizes: expensive visual perception and global editing surround cheap Nano fitting. Per-stage model selection allocates cost according to the task; Nano's configured rate also supports future per-gap calls. JSON mode and regional per-model endpoints are configurable. These integration advantages are **to verify** in real mode: video_url acceptance, image-grid interpretation, JSON mode across each model, Hindi quality, regional availability, actual tokenization and pricing. Offline tests verify our request construction paths and deterministic pipeline, not these service claims.
-
-## Providers and smoke diagnostics
-
-| Provider | Runtime key variable | Use |
-|---|---|---|
-| `nebius` (default) | `NEBIUS_API_KEY` | Final/demo measurements, Token Factory |
-| `nvidia-dev` | `NVIDIA_DEV_API_KEY` | Free development only, limited to 40 requests/minute |
-| `mock` | None | Offline synthetic descriptions |
-
-**Final/demo numbers must come from provider `nebius`.** NVIDIA development runs carry `"dev_only": true`; `estimated_cost_usd` and `would_be_token_factory_cost_usd` report comparable list-price costs, with `billed_to` identifying the free dev tier. Mock usage is simulated and marked `mock`. Reports record actual used model IDs and endpoint hosts in usage entries.
-
-Use `--provider nebius|nvidia-dev|mock` and `--strict` to prohibit missing-key fallback. `--mock` remains an alias. Configuration has `default_provider`, `providers`, stage-keyed `prices` and `stages`. A provider model value may be an ID string or `{id: ..., base_url: ..., json_mode: false}`. `NARRATE_BASE_URL_NEBIUS` and `NARRATE_BASE_URL_NVIDIA_DEV` override provider URLs; explicit per-model regional URLs take precedence. Per-provider/stage `thinking: false` defaults to `chat_template_kwargs.enable_thinking=false`. The supplied NVIDIA development probes showed that `/no_think` alone does not work. Empty content is retried; reasoning is never treated as the answer. A JSON-mode HTTP 400 retries without response_format and remembers the endpoint/model for that client session.
-
-Run these manually with authorized runtime keys; **they make real requests and Nebius calls incur charges**. They were not run against a provider during this task.
-
-```bash
-.venv/bin/python scripts/list_models.py --provider nebius
-.venv/bin/python scripts/smoke_video_input.py --provider nvidia-dev
-.venv/bin/python scripts/smoke_text.py --provider nebius
-.venv/bin/python -m narrate run your_video.mp4 --out runs/real --provider nebius --strict
-```
-
-Video smoke compares video data URLs, a contact sheet, and separate frames for a generated four-second RED SQUARE / BLUE CIRCLE clip. Text smoke probes fit, fit_alt and edit for JSON and Devanagari. Both print latency, usage and diagnostic outcomes and save timestamped JSON under `runs/smoke/`. Errors retain only exception class and HTTP status to avoid echoing credentials or media. Rate limiting applies to every inference attempt, including retries.
-
-## Results card — MOCK
-
-Synthetic 30-second kitchen-title clip; espeak English and Hindi; no real visual analysis or human accessibility evaluation.
-
-| Metric | MOCK result |
-|---|---|
-| Scheduled gap coverage | 91.77% English / 91.77% Hindi |
-| Overlaps with dialogue | 0 detected-gap boundary violations (not a speech-recognition assessment) |
-| Cues dropped | 1 gap too short after inset/budget |
-| TTS cues trimmed | 0 |
-| Cost/minute | $0.00, offline mock |
-| Pipeline latency | Approximately 3 seconds on this shared CPU host; see cached report |
-
-For a real results card replace these fields with measured values, model/region, clip cohort, accessibility review findings, and date. Gap coverage measures allocated cue windows divided by detected silent seconds, not useful information coverage or audible narration occupancy.
-
-## Limitations & published failure cases
-
-- Fast cuts and sparse frame sampling miss actions; timestamp mock events do not detect visual scenes.
-- Gaps shorter than 1.5 s are skipped as not narratable; aggressive word truncation and speech trimming can hurt comprehension.
-- Continuous speech can leave no safe gaps: extended AD with paused video is needed and not implemented.
-- The baseline energy/silence detector is not speech recognition. The agent uses Silero VAD, which can still miss robotic or quiet speech. Quiet speech can be mistaken for silence; music can hide safe speech-free intervals. Zero scheduled violations cannot establish zero real dialogue overlap.
-- On-screen Hindi text and translations need native-reader review. Ultra failure leaves Hindi descriptions unavailable.
-- espeak voices sound robotic; Piper voice quality still needs listener review.
-- VL hallucinations and stale event selection are possible; verification samples stills, so it cannot confirm motion, and its text/number heuristic is a simple regex. The fallback finisher can commit a cue as `unverified` when budget runs out; duplicate rejection is lexical only.
-- Events during dialogue are not covered (needs extended AD). Human review is required before relying on descriptions.
-- The synthetic sample uses captions and shapes, not a filmed kitchen. Mock-mode numbers are not quality numbers.
-- Video_url schema, model JSON support, regional routing and cost estimates are not yet verified against Token Factory.
-
-See [issues-found](issues-found/README.md) for evidence, causes and status. Tests run entirely offline, including full-pipeline tests marked `slow` but included by default. Output video streams are copied; input formats/codecs must be compatible with MP4. This prototype does not run OCR, diarization or safety-critical scene interpretation.
-
-
-## Agent vs fixed pipeline
-
-```bash
-python -m narrate agent samples/sample_kitchen.mp4 --out runs/agent_mock --provider mock
-python -m narrate pipeline samples/sample_kitchen.mp4 --out runs/baseline --provider mock
-# run remains an alias for pipeline
-python scripts/make_sample.py --kind lecture
-python -m narrate agent samples/failure_continuous_speech.mp4 --out runs/agent_failure --provider mock
-python scripts/eval_against_subs.py dialogue.srt runs/agent_mock/report.json --offset 0
-```
-
-The baseline runs a fixed perceive → fit → edit sequence. The agent gives Ultra
-OpenAI function schemas and lets it choose tools, inspect observations, revise
-failed descriptions and finalize. Every tool schema requires a string `note` (at most 25 words),
-not chain-of-thought. Mock uses a deterministic script and sidecar facts;
-its corrections demonstrate control flow, not reasoning quality.
+## How the agent works
 
 ```mermaid
-flowchart TD
-    U[Ultra or Super: required note + batched tool calls] --> T[Validated tool dispatch]
-    T --> V[Silero speech gaps]
-    T --> P[Super VL: video inspection]
-    T --> F[Super VL: independent frame verification]
-    T --> N[Nano / Lightning: draft]
-    T --> C[Measured TTS + deterministic fit + commit]
-    T --> H[Ultra: Hindi JSON translation]
-    V --> O[800-character observations + remaining state + append-only history]
-    P --> O
-    F --> O
-    N --> O
-    C --> O
-    H --> O
-    O --> U
-    T --> R[Validate / preview / final mix and captions]
-    B[Step, spend, time and tool caps] --> R
+flowchart LR
+    U["Nemotron 3 Ultra<br/>orchestrator<br/>plan → act → observe → reflect"] -->|tool calls| T{tools}
+    T --> G["detect_speech_gaps<br/>Silero VAD + slotting"]
+    T --> I["inspect_video_segment<br/>Super VL · video"]
+    T --> D["draft_description<br/>Nano · word budget"]
+    T --> F["check_fit / propose_cue<br/>measured TTS duration"]
+    T --> V["verify_claim<br/>Super VL · still frames"]
+    T --> H["translate_hindi<br/>Ultra"]
+    T --> R["render_preview / finalize"]
+    G & I & D & F & V & H & R -->|observations + state| U
 ```
 
-| Tool | Behavior |
-|---|---|
-| detect_speech_gaps | Silero ONNX; 300 ms smoothing, minimum gap 1.2 s; gaps under `agent.min_gap_s` (1.5 s) are marked `narratable:false, reason:"too short"` and skipped, language word budgets, speech ratio; reported silence/energy fallback |
-| inspect_video_segment | One gap neighbourhood `[max(0,start-2),end]`; VL times are normalised to absolute video time (clip-relative answers get the segment start added); >=70% overlap returns cached events and reminder; default 12 inspections |
-| verify_claim | `gap_id` (or start/end) + claim; independent sampled frames; supported/contradicted/uncertain. A contradicted claim uncommits the cue. Default cap 8 |
-| draft_description | One budgeted line or a batch via optional `gap_ids`; evidence is limited to events overlapping the gap window (start-1 s..end+0.5 s) plus at most 2 earlier events tagged context-only |
-| measure_tts_duration | Exploration only: cached configured-backend synthesis |
-| check_fit | Exploration only: words, measured duration, <=1.25x speed, no speech overlap, banned phrases. Commits nothing; a passing English text is remembered as the gap's best candidate |
-| propose_cue / commit_cue / drop_gap | Preferred: propose_cue fits and commits in one call. Only fit English can commit; near-duplicate text (token Jaccard >= 0.8) of another cue is rejected; explicit reasons for dropped gaps |
-| translate_hindi | Ultra translation; measured duration is primary, one internal retry with max_words/max_seconds, per-cue status |
-| render_preview | Narration-mixed MP4 excerpt |
-| finalize | Refuses (`needs_verification`) until risky cues are verified; validates, reports uncovered important events, rejects at most twice; then outputs safe tracks with warnings |
+1. **Plan.** Ultra receives the video facts and a step, spend and time budget. It calls `detect_speech_gaps`: Silero VAD finds speech-free windows, gaps under 1.5 s are skipped, and long gaps are split into 6–12 s slots at scene cuts.
+2. **Act.** It inspects each slot with **Super VL**, which watches the actual video segment. What it sees goes onto a persistent **evidence board** that survives history compaction, and re-inspecting a covered slot is refused. Then it drafts all slots in one batched **Nano** call. Every gap has a single `max_words` limit, shared by the drafter and the checker. A draft over the limit is re-asked once and then cut deterministically, keeping any on-screen text first.
+3. **Observe.** `propose_cue` synthesises the line with the real TTS voice, measures how long it takes to speak, and checks four things: it fits the gap, it does not overlap speech, it is no longer than 8 s, and it is not a duplicate. Failures come back with reasons. On a second failure the tool redrafts the line itself, so the 550B model never counts words.
+4. **Reflect and self-verify.** `finalize` refuses to finish while any risky cue is unverified. Risky means it quotes on-screen text, numbers or names, came from low-confidence perception, or was written by the orchestrator itself. Those claims go to `verify_claim`, which uses a different modality (still frames rather than video). A contradicted claim is un-committed and redrafted.
+5. **Hindi.** Ultra translates the cues, then the Hindi lines are re-checked for timing. Hindi runs longer, so fit is measured on the Hindi TTS.
+6. **Finish.** The narration is mixed with the original audio ducked, and the tracks, transcripts, report and trace are written.
 
-| Role | Nebius model | NVIDIA development model |
-|---|---|---|
-| Orchestrate | nvidia/Nemotron-3-Ultra-550b-a55b | nvidia/nemotron-3-ultra-550b-a55b |
-| Inspect / verify | nvidia/Nemotron-3.5-Super-VL | nvidia/nemotron-3.5-super-vl-120b-a12b |
-| Draft | nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B | nvidia/nemotron-3.5-lightning-30b-a3b |
-| Translate | nvidia/Nemotron-3-Ultra-550b-a55b | nvidia/nemotron-3-ultra-550b-a55b |
+Safety rails:
 
-Nebius orchestrator alternative: `nvidia/nemotron-3-super-120b-a12b`.
-Provider/stage model mappings support regional base URLs. Token Factory has
-not been live-tested. Supplied NVIDIA probes establish Ultra tool calling,
-VL video/images and the thinking control; see [findings](issues-found/agent-probes.md).
+- step, spend and wall-clock budgets;
+- retries with backoff on HTTP 5xx, 429 and timeouts;
+- a deterministic **fallback finisher**: on any stop it commits the best fitting candidates, drafts missing slots in one batched call, verifies if the budget allows, and finalizes;
+- cue timestamps come only from detected gaps, so models cannot move narration over speech;
+- tool errors are explicit: `invalid arguments: …` or `unknown gap_id N; valid gap ids: […]`. In real runs, opaque errors (`ValidationError`, `StopIteration`) made Ultra retry blindly for 13–21 calls.
 
-Robustness: orchestrator and submodel calls retry HTTP 5xx/429, timeouts and connection errors
-up to 3 attempts with 1 s/2 s/4 s exponential backoff (other 4xx are not retried); each retry is a
-`system` trace step. Any stop (exception after retries, max turns, budget, timeout) runs a deterministic
-**fallback finisher** (`fallback` trace steps): per uncommitted gap it commits the best fitting
-`check_fit` candidate, else the latest draft trimmed to `suggested_max_words`, else drops the gap with a
-reason; then verifies pending cues if budget allows (otherwise commits with an `unverified` warning),
-translates and finalizes. Verification is enforced: cues with events below `agent.verify_below` (0.75)
-confidence, or containing quotes, digits or mid-sentence capitalised words, must pass `verify_claim`
-before `finalize` succeeds. `agent_stats.verifications` reports `{verified, contradicted, unverified}`.
-Coverage counts only high-importance events overlapping narratable gaps; events inside dialogue are
-listed separately as `events_in_speech_regions` (may need extended AD).
+The trace is the product's centrepiece. Every step records the role, a short public `note` (required on every tool call; it is not chain-of-thought), arguments, results, model, tokens, cost, latency and correction links. The web UI streams it live.
 
-Defaults: 30 orchestrator turns, $0.50 reserved spend cap including submodels/retries,
-600-second wall-clock deadline checked between operations, provider rate
-limiting, structured observations capped at 800 characters, rounded to two decimals, with state summaries and append-only history.
-Budget exhaustion, step exhaustion or a tool-less answer invokes a deterministic
-finisher using committed cues only. Rendering can extend beyond the model-loop
-deadline. Mock calls cost zero and need no provider SDK connection.
+API: `narrate.agent.run_agent(path, out_dir, provider, langs, max_steps, budget_usd, on_step=callback)`. The old fixed pipeline is kept as a baseline: `python -m narrate pipeline ...`.
 
-The streaming entry point is
-`narrate.agent.run_agent(path, out_dir, provider, langs, max_steps, budget_usd, on_step=callback)`.
-The synchronous callback receives each trace step; the Web UI streams these steps.
-Outputs include bilingual MP4/VTT/transcripts, `report.json`, `trace.json`,
-`trace.md` and a requested preview. Trace metadata includes provider, role
-models, endpoint host, development-only status and budgets. Steps include
-public notes, tool arguments, compact results, usage/cost/latency and correction
-links. Report coverage of important events is a **temporal association proxy**,
-not semantic validation. Caption coverage measures actual scheduled narration
-duration. Missing Hindi is explicitly reported, never silently fabricated in
-real mode.
+## Nemotron, model by model
 
-### Trace excerpt — MOCK
-
-From the offline kitchen run (scripted, not model reasoning):
-
-```text
-8  ✓ draft_description: deliberately over-budget mock draft
-10 ✗ check_fit: Word budget exceeded
-13 ↪ draft_description: shorter scene-grounded text (corrects 10)
-16 ✗ verify_claim: contradicted — no blue dot or fading text in sidecar
-18 ↪ check_fit: corrected title text fits (corrects 16)
-20 ✓ commit_cue
-53 ✓ translate_hindi
-55 ✓ render_preview
-57 ✓ finalize
-```
-
-The espeak mock run committed 4 cues, recorded 2 corrections and 1 contradicted
-verification, and reported 0 overlaps with **detected** speech. English/Hindi
-narration occupies about 43.8%/62.6% of available gap time; local latency was
-about 4.1 seconds. These are synthetic control-flow measurements, not quality
-claims or provider benchmarks. Regenerate to obtain current timings.
-
-### Speech detection and published failure case
-
-Install `silero-vad --no-deps` alongside `onnxruntime`; Narrate loads the MIT
-ONNX model directly without torch. Attribution and license are in
-[narrate/assets](narrate/assets/README.md). If unavailable, the report names
-the fallback detector. Silero can miss robotic speech, as the supplied film
-probe did: zero detected overlap does not prove zero dialogue overlap.
-Use `scripts/eval_against_subs.py VIDEO.srt REPORT_OR_VTT [--offset S]` for
-subtitle-ground-truth overlap seconds and dialogue-free narration coverage.
-For VTT, supply `--duration` to include trailing free time; otherwise the
-last cue/subtitle end is explicitly reported as the estimated duration.
-Offsets shift subtitles (use a negative offset for an excerpt).
-
-The published `failure_continuous_speech.mp4` is a 30-second synthetic lecture.
-The offline run finds zero usable gaps, writes empty AD tracks and reports
-that narration requires extended AD (pause-the-video), which is not implemented.
-Sample provenance and the film soundtrack licensing caveat are recorded in
-[samples/SOURCES.md](samples/SOURCES.md). Media names are never hard-coded in
-the agent; optional `.scenes.json` sidecars only inform mock descriptions.
-
-
-## First real run and cost fixes
-
-**First real run, nvidia-dev, would-be Token Factory list price** (BLOG_NOTES,
-27 October 2026, 23:30; HEAD bf693ad): the 30-second synthetic kitchen clip took
-3 min 44 s, 101 trace steps and 40 orchestrator turns, then fallback finalization.
-Total cost was about **$0.144**, including **$0.130 (90%) orchestration**.
-Ultra orchestration used 121,496 input / 2,452 output tokens over 128 s;
-14 VL calls used 34,593 / 3,480 tokens over 78 s. Five Lightning calls took
-2.6 s and the Ultra Hindi pass took 7 s. Four corrections were recorded.
-English/Hindi gap coverage was 91%/11%, with only one of four Hindi cues surviving.
-
-| Same sample | Fixed pipeline | First real agent | Revised agent (offline target) |
+| Role | Token Factory model | Dev-endpoint model | Why this model |
 |---|---|---|---|
-| Would-be cost | ~$0.003 | ~$0.144 (~50x) | Not measured against a provider |
-| Wall time | 12.6 s | 224 s | Offline timing is not a provider benchmark |
-| Control | Fixed perceive/fit/edit | 40 turns, 13 inspections | <=20 scripted mock turns; default cap 30 |
-| Review | Editorial pass | Four corrections, independent frame checks | Verify uncertain claims; cache repeated inspections |
-| Hindi | Editorial translation | 1/4 cues survived | Duration-first fit; one shorter retry |
+| Orchestrator | `nvidia/Nemotron-3-Ultra-550b-a55b` (or `nvidia/nemotron-3-super-120b-a12b` via `--orchestrator super`) | `nvidia/nemotron-3-ultra-550b-a55b` | Reliable multi-step tool calling with parallel calls. It decides what to inspect, what to rewrite and what to verify. |
+| Perceive and verify | `nvidia/Nemotron-3.5-Super-VL` | `nvidia/nemotron-3.5-super-vl-120b-a12b` | Accepts **video input** (base64 MP4 `video_url`, confirmed) for perception, and still images for independent verification. |
+| Draft | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` | `nvidia/nemotron-3.5-lightning-30b-a3b` (Nano is not enabled on the dev key) | Cheap and fast enough to call once per slot or batch, and it follows hard word budgets. |
+| Hindi | `nvidia/Nemotron-3-Ultra-550b-a55b` | same | The best multilingual quality of the set; it is one call per run. |
 
-The efficient plan is gaps → parallel gap-neighbourhood inspections → batched
-drafts → propose_cue → verify uncertain claims → translate once → finalize.
-Tool calls in a turn execute in order, without extra worker threads. Each result
-includes committed cue IDs, remaining gap IDs and remaining turn/inspection/
-verification budgets; repeated gap detection does not repeat the gap list.
-History stays append-only to preserve provider prompt-cache prefixes.
-Three turns before exhaustion, the loop nudges commit/translate/finalize.
-The fallback attempts missing translation subject to remaining spend/time limits.
-Missing Hindi after a retry produces warnings and coverage, rather than blocking output.
+All four run with reasoning disabled through `chat_template_kwargs.enable_thinking=false`. With thinking on, reasoning consumed the whole `max_tokens` budget and returned empty content. `/no_think` alone did not disable it.
 
-Use `--orchestrator ultra|super`; Super selects
-`nvidia/nemotron-3-super-120b-a12b` on Nebius. Super is not available through
-this configuration's nvidia-dev endpoint. `parallel_tool_calls` defaults on;
-set it false on the model mapping for an endpoint that does not support it.
-Cached input rates per million tokens: Ultra $0.12, Super $0.06, Super VL $0.06,
-Nano $0.012, Lightning $0.03. Returned cached tokens are recorded and discounted.
-`estimated_cost_usd` sums actual per-call list-price estimates, including dev runs;
-reservations stay separate. `cost_per_minute_usd`, `cost_by_role` and `billed_to`
-make comparisons explicit. Failed transport calls without usage retain budget
-reservations but cannot provide measured list-price costs.
+**Measured usage per model**, from the final cached runs: NVIDIA dev endpoint, final code, priced at Token Factory list prices. Super VL calls are split into perceive + verify.
 
-`high_importance_covered_percent` considers only events overlapping a gap or
-ending within six seconds before one. Coverage remains a temporal proxy.
-Static-text motion hallucinations remain open: neither caching nor frame checks
-guarantee perceptual correctness. No real provider calls were made for these fixes.
+| Clip | Ultra orchestrator | Super VL perceive + verify | Lightning draft (Nano on TF) | Ultra Hindi | Total |
+|---|---|---|---|---|---|
+| Kitchen (synthetic), 30 s | 8 calls, 41.7k in / 0.9k out, $0.045 | 4 + 4 calls, 15.6k in, $0.006 | 2 calls, $0.0002 | 1 call, $0.001 | **$0.052** |
+| Tears of Steel, 100 s | 14 calls, 103.2k / 5.5k, $0.120 | 6 + 5 calls, 22.0k, $0.008 | 7 calls, $0.0007 | 2 calls, $0.004 | **$0.171*** |
+| NASA harvest, 110 s | 16 calls, 116.6k / 3.7k, $0.124 | 8 + 3 calls, 25.4k, $0.010 | 5 calls, $0.0007 | 1 call, $0.003 | **$0.137** |
+| Continuous speech, 30 s | 3 calls, 9.9k / 0.1k, $0.010 | – | – | – | **$0.010** |
 
-## How it works
+\* includes $0.038 charged conservatively for dev-endpoint calls that failed with HTTP 500/503 or stalled. The SpendGuard counts uncertain spend against the cap.
 
-The [agent workflow](#agent-vs-fixed-pipeline) chooses perception, drafting,
-verification and deterministic timing tools. Its public action notes and correction
-links are shown in the Web UI; they are not private chain-of-thought.
+Orchestration is 86–96% of the cost. Its input grows each turn, and the dev endpoint reported 0 cached tokens. That is why `--orchestrator super` exists (Super is $0.30/$0.90 per 1M tokens vs Ultra's $1/$3) and why prompt-prefix caching matters (see below).
+
+## Where Token Factory helps
+
+- **One OpenAI-compatible API for the whole Nemotron family.** The orchestrator, vision, drafting and translation models are just different `model` strings on the same client and key. Per-role model choice is what makes the economics work: the expensive model only plans, and the cheap model writes.
+- **Price spread inside one provider.** Per 1M input/output tokens: Nano $0.06/$0.24, Super VL $0.30/$0.90, Ultra $1/$3. Narrate prices every call from reported usage and enforces per-run, per-session and per-day caps.
+- **Cached-input pricing** (Ultra $0.12 vs $1.00 per 1M) fits an agent loop, whose prompt prefix (system prompt, tools, state) repeats every turn. Narrate keeps that prefix stable on purpose. *To verify on Token Factory:* the dev endpoint reported 0 cached tokens.
+- **Model catalog and regional endpoints.** `/v1/models` and the per-model `base_url` in config cover regional data planes.
+
+**Not yet verified on Token Factory:** every real number in this README comes from the NVIDIA dev endpoint. A `NEBIUS_API_KEY` run is still pending. Video-input acceptance, JSON mode, tool calling, caching and latency may differ there, so treat the costs as *would-be list price*.
+
+## Results card
+
+All figures are real runs on the **NVIDIA dev endpoint (dev only)**, with costs at Token Factory list prices. They are the runs cached in the UI (`samples/cached_runs/`, evidence in `blog-assets/18_*`). Overlaps are counted against Narrate's own speech detection; for Tears of Steel they are also checked against the film's subtitles.
+
+| Clip | Turns | Cues / narratable gaps | Gap coverage EN / HI | Detected overlaps | Verified / contradicted | Cost | Cost per min | Wall time |
+|---|---|---|---|---|---|---|---|---|
+| Kitchen (synthetic), 30 s | 8 | 4 / 4 | 74% / 76% | 0 | 3 / 0 | $0.052 | $0.10 | 65 s |
+| Tears of Steel, 100 s | 14 | 8 / 8 | 60% / 62% | 0 | 4 / 1 | $0.171 | $0.10 | 375 s † |
+| NASA harvest, 110 s | 16 | 10 / 10 | 43% / 53% | 0 | 1 / 1 | $0.137 | $0.07 | 174 s |
+| Continuous speech, 30 s | 3 | 0 / 0, refused by design | – | 0 | – | $0.010 | – | 27 s |
+
+† includes dev-endpoint HTTP 500/503 retries and a 139 s stall. The fallback finisher then finalized the 8 committed cues.
+
+**Ground truth, Tears of Steel vs its subtitles:** 41.7 s of the 75 s dialogue-free time was narrated (55.6%). **0.39 s** overlapped subtitled dialogue, from one VAD boundary that was the same in every version.
+
+**How we got here.** There were seven real-run rounds. Each one found a failure, which is published in `issues-found/` and `blog-assets/BLOG_NOTES.md`:
+
+| Version | Kitchen | Tears of Steel | NASA |
+|---|---|---|---|
+| v2: first agent | 8 turns, $0.050 | **0 cues** (HTTP 500 + never committed) | 2 cues |
+| v3: fix2 | 11 turns, $0.082 | 30 turns, $0.198, 4 cues | 2 cues, 29% |
+| v4: slots | 12 turns, $0.082 | 14 turns, $0.082, 4 cues | **36 turns, 2 cues, re-inspection loop** |
+| v5: evidence board | **30 turns, $0.237, 2 cues** (propose loop) | 30 turns, 5 cues | 36 turns, 7 cues |
+| v6: one word limit | 7 turns, $0.045 | 25 turns, 4 cues (**missing-note lockup**) | 36 turns, 8 cues |
+| v7: final | 8 turns, $0.052, 4 cues | 14 turns, 8 cues, 60% | 16 turns, 10 cues, $0.137 |
+
+## Limitations and published failure cases
+
+We publish failures. Each has evidence, a root cause and a status in [`issues-found/`](issues-found/README.md), and the raw traces are in [`blog-assets/`](blog-assets/).
+
+- **Continuous speech means no safe gaps.** The lecture clip gets **0 cues, by design**. Narrate refuses rather than talk over the speaker. Real "extended" description that pauses the video is not implemented.
+- **The vision model hallucinates**, especially motion and on-screen text. On Tears of Steel, Super VL (video mode) claimed the on-screen texts "40 YEARS LATER" and "SIMULATION READY". The frame verifier contradicted both (`blog-assets/11_*`). The verifier is fallible too: it also rejected "PLAYBACK READY", text it had just reported itself. Verification reduces errors; it does not prove correctness.
+- **Verification has gaps.**
+  - "MEMORY PLAYBACK GLOBAL" was marked supported although the verifier's own evidence read "REPLAY ATTACK - GLOBAL".
+  - On the kitchen clip, a supported claim ("STEP 1 - chop onions, then Stir and serve") was committed as only its first half, so the cue is stale for most of its window.
+  - The first kitchen card's title was described as "yellow vertical rectangle" instead of being read.
+
+  On-screen text accuracy is the weakest point.
+- **The orchestrator can loop, invent, or retry blindly.** Each of the following was fixed, and each has an issue file:
+  - Ultra re-inspected 10 slots three times after history compaction and wrote invented cue text ("a window showing Earth's blue curve").
+  - It hand-trimmed one sentence for about 20 turns.
+  - It retried 13–21 times after opaque tool errors.
+
+  The guards are an evidence board, repeat refusal, one shared word limit, tool-side redrafting and explicit errors. Ultra still decides how many turns to spend, and 14–16 turns is typical for a 100 s clip.
+- **The speech detector is not ASR.** Silero misses some robotic or quiet speech, and music can mask gaps. On Tears of Steel, narration overlapped subtitled dialogue by **0.39 s** in one run (`blog-assets/12_*`), so "0 detected overlaps" does not mean 0 real overlaps.
+- **Coverage is a temporal proxy**, not a measure of semantic usefulness. Events during dialogue are listed as `events_in_speech_regions` and cannot be narrated without extended AD.
+- **Cost and latency.** A 100–110 s clip takes about 3–6 min and $0.14–0.17 on the dev endpoint with Ultra orchestrating (86–96% of cost). Free-tier errors and queueing added up to 139 s to a single call. `--orchestrator super` should cut orchestration cost about 3× on Token Factory, but that is untested.
+- **Voices.** espeak-ng sounds robotic. Piper's `en_US-ljspeech` is public domain. Piper's `hi_IN-priyamvada` is **CC BY-NC-SA, non-commercial**, so use espeak for commercial use. Hindi has not had native-speaker review.
+- **Licensing.** The Tears of Steel soundtrack is listed under CC BY-ND 3.0. Narrate only ducks it, but check before redistributing narrated outputs.
+- Only clips of 2 minutes or less, and English or Hindi.
 
 ## Web UI
 
-```bash
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python -m app.app
-# Optional local binding overrides:
-.venv/bin/python -m app.app --host 127.0.0.1 --port 7860
+`python -m app.app` serves Gradio on 127.0.0.1:7860. It does not share by default.
+
+- **Samples tab (zero cost):** cached **real** runs (NVIDIA DEV badge) with the original vs narrated video, an EN/HI toggle, an **Eyes closed** toggle (audio only), the agent trace with model chips (Ultra purple, VL blue, Nano green, tools grey) and corrections highlighted, VTT cues, the results card and downloads. Each cache shows a MOCK, DEV ONLY or NEBIUS badge.
+- **Run tab:** upload a clip of up to 120 s and 50 MB, and watch the trace stream live.
+  - Hard limits per live run: $0.25, 24 orchestrator turns and 300 s. When a limit is hit, the fallback finisher ships what is already committed. Set them with `NARRATE_UI_RUN_CAP`, `NARRATE_UI_MAX_TURNS` and `NARRATE_UI_TIMEOUT_S`.
+  - Spending caps: $0.25 per session and $3.00 per IST day (stored in `runs/ui_spend.json`).
+  - `nebius` appears only if `NEBIUS_API_KEY` is set on the server. `nvidia-dev` also needs `NARRATE_ENABLE_DEV=1`. Keys never come from the browser.
+- To rebuild the caches: `python scripts/build_cached_runs.py --provider mock|nvidia-dev|nebius`. Screenshots: `python scripts/screenshot_ui.py`.
+
+## Samples and licenses
+
+| File | Source | License |
+|---|---|---|
+| `sample_kitchen.mp4`, `failure_continuous_speech.mp4` | generated by `scripts/make_sample.py` | Apache-2.0 (ours) |
+| `tears_of_steel_0015-0155.mp4` + `.en.srt` | *Tears of Steel*, © Blender Foundation, mango.blender.org | CC BY 3.0 (soundtrack caveat above) |
+| `nasa_chile_harvest_0000-0150.mp4` | NASA Image and Video Library, `Plant_Habitat-04_Harvest` | NASA media guidelines; no endorsement implied |
+
+Details: [`samples/SOURCES.md`](samples/SOURCES.md). Silero VAD (MIT): [`narrate/assets/`](narrate/assets/README.md). espeak-ng and Piper (GPL-3.0) are run as external CLIs and are not vendored.
+
+## Repository map
+
+```text
+narrate/agent/   agent loop, tools, orchestrator client, VAD
+narrate/         provider client + SpendGuard, media/ffmpeg, TTS, baseline pipeline
+app/             Gradio UI          scripts/   samples, smoke tests, caches, eval_against_subs
+tests/           offline pytest      issues-found/   published failures and fixes
+blog-assets/     dated evidence + BLOG_NOTES.md      DEMO_SCRIPT.md   demo recording guide
 ```
 
-Open http://127.0.0.1:7860. The default **Samples** tab plays checked-in mock
-caches without inference or provider cost. Select English/Hindi, use **Eyes closed**
-to black out both pictures while retaining playback controls and audio, and inspect
-the agent trace, captions, results and downloads. Mock descriptions are scripted;
-their zero costs are not estimates of real model quality or pricing. NVIDIA
- development caches are separately marked; only Nebius runs are Token Factory runs.
+Development notes: the coding was delegated to Codex and Claude CLIs under human direction (see `_agent_logs/`). Every real-run number above was measured, not estimated.
 
-The **Run** tab accepts MP4/MOV/WebM, at most 120 seconds and 50 MiB. It streams
-agent steps from one worker through a queue. The global run queue permits one
-run at a time; each browser session has a single pending run action. Ultra and
-Super orchestration are selectable (Super is not configured for nvidia-dev).
-Upload decoding and narration remain local in mock mode.
+## License
 
-Keys never come from browser inputs: provider credentials are read only from
-server runtime environment variables. `mock` is always available; `nebius` appears
-only with `NEBIUS_API_KEY`; `nvidia-dev` requires both `NARRATE_ENABLE_DEV=1` and
-`NVIDIA_DEV_API_KEY`. `NARRATE_UI_MOCK_ONLY=1` forces the offline provider selector.
-The app binds to loopback and does not share by default. `--share` explicitly opts
-into a public Gradio tunnel; it is unnecessary for the local demo.
-
-Spending defaults are $0.25 per browser session, $3.00 per IST calendar day and
-$0.25 per run. Configure `ui.session_cap_usd`, `ui.daily_cap_usd`, and
-`ui.per_run_cap_usd` in `config.yaml`, or override with
-`NARRATE_UI_SESSION_CAP`, `NARRATE_UI_DAILY_CAP`, `NARRATE_UI_RUN_CAP`.
-The per-session balance uses `gr.State`; a new session starts a new balance.
-The server-wide daily ledger persists in `runs/ui_spend.json` and uses file locking.
-Before running, the UI reserves the minimum of the three remaining caps and
-passes it to the agent's SpendGuard. It refuses a run below $0.02/minute of video.
-It settles against reserved/reported usage, conservatively retains unknown costs
-on errors, and keeps a crash reservation. Settlement uses the reservation's IST
-date even across midnight. Mock costs settle to zero. These are application
-usage limits, not a guarantee about provider billing or underestimated token usage.
-
-Regenerate the compact caches (640px, CRF 30; currently four samples, under 12 MiB):
-
-```bash
-.venv/bin/python scripts/build_cached_runs.py --provider mock
-# Optional subset: --samples sample_kitchen failure_continuous_speech
-```
-
-The builder also accepts explicit `--provider nebius|nvidia-dev`; those choices
-make real calls. They were not exercised for this UI. Each cache includes
-`meta.json` with source, license, date, provider and original MP4 path. See
-[sample licenses and soundtrack caveat](samples/SOURCES.md).
-
-Screenshots are in [`blog-assets/`](blog-assets/). Regenerate numbered, dated
-Samples and trace screenshots using system Chrome with external requests blocked:
-
-```bash
-.venv/bin/pip install playwright
-.venv/bin/python scripts/screenshot_ui.py
-.venv/bin/python -m pytest tests/test_ui.py -q
-```
-
-The screenshot script also checks the eyes-closed control, a 1280×720 viewport,
-an offline uploaded run and the locally served README/source links.
+Apache-2.0. See [LICENSE](LICENSE). Copyright 2026 Nandigam Hari Krishna.
