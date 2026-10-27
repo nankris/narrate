@@ -38,7 +38,7 @@ def main():
             # The app needs only loopback assets; deny all external browser requests.
             page.route('**/*',lambda route:route.continue_() if route.request.url.startswith(url) else route.abort())
             page.goto(url)
-            page.get_by_text('MOCK · offline / zero cost',exact=True).wait_for()
+            page.locator('.badge').first.wait_for()  # MOCK, NVIDIA DEV or Nebius cached runs
             page.wait_for_timeout(1000)
             for offset, name in enumerate(('samples','trace')):
                 if name == 'trace':
