@@ -114,15 +114,17 @@ agent:
   scene_context: true   # one Super VL pass over 6 frames: setting, people, ingredients, tools
   scene_frames: 6
 director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> one-shot script -> verify/repair -> Hindi
-  window_s: 24          # Super VL video windows covering the WHOLE clip (snapped to shot cuts)
-  window_snap_s: 3
+  window_s: 12          # Super VL video windows covering the WHOLE clip (snapped to shot cuts); ~10 per 2-min clip
+  window_snap_s: 2
   window_fps: 4
   window_fallback_frames: 4
   ultra_stage: edit     # Nemotron 3 Ultra: bible, script, repair, Hindi
   bible_stage: edit     # or orchestrate_alt (Super, nebius only) to trade quality for cost
+  tighten_stage: fit    # Nemotron Nano: shortens cues that are only over budget, before any Ultra repair
   max_ultra_calls: 6
   budget_usd: 0.15      # SpendGuard hard cap per run (target <= 0.10 per 2-min clip)
-  min_words: 3          # gaps whose measured budget is smaller stay silent
+  min_words: 4          # gaps whose measured budget is smaller stay silent (story context only)
+  target_fill: 0.7      # writer aims for 70-100 % of max_words when a gap has something to show
   similarity_prev: 0.5
   similarity_any: 0.8
   verify_batch: 4       # cues per Super VL verification call
