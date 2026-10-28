@@ -1,0 +1,142 @@
+{
+ "en-0": {
+  "raw_s": 10.664,
+  "speed": 1.0,
+  "spoken_s": 10.664,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-1": {
+  "raw_s": 10.036,
+  "speed": 1.0,
+  "spoken_s": 10.036,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-2": {
+  "raw_s": 9.166,
+  "speed": 1.0,
+  "spoken_s": 9.166,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-3": {
+  "raw_s": 9.387,
+  "speed": 1.0,
+  "spoken_s": 9.387,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-4": {
+  "raw_s": 8.609,
+  "speed": 1.0,
+  "spoken_s": 8.609,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-5": {
+  "raw_s": 5.973,
+  "speed": 1.0,
+  "spoken_s": 5.973,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-6": {
+  "raw_s": 7.907,
+  "speed": 1.0,
+  "spoken_s": 7.907,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "en-7": {
+  "raw_s": 6.644,
+  "speed": 1.0,
+  "spoken_s": 6.644,
+  "available_s": 8.599,
+  "overflow_s": 0
+ },
+ "en-8": {
+  "raw_s": 8.347,
+  "speed": 1.0,
+  "spoken_s": 8.347,
+  "available_s": 8.599,
+  "overflow_s": 0
+ },
+ "en-9": {
+  "raw_s": 7.953,
+  "speed": 1.0,
+  "spoken_s": 7.953,
+  "available_s": 8.599,
+  "overflow_s": 0
+ },
+ "hi-0": {
+  "raw_s": 7.42,
+  "speed": 1.0,
+  "spoken_s": 7.42,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-1": {
+  "raw_s": 7.192,
+  "speed": 1.0,
+  "spoken_s": 7.192,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-2": {
+  "raw_s": 6.974,
+  "speed": 1.0,
+  "spoken_s": 6.974,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-3": {
+  "raw_s": 8.274,
+  "speed": 1.0,
+  "spoken_s": 8.274,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-4": {
+  "raw_s": 7.735,
+  "speed": 1.0,
+  "spoken_s": 7.735,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-5": {
+  "raw_s": 4.81,
+  "speed": 1.0,
+  "spoken_s": 4.81,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-6": {
+  "raw_s": 7.957,
+  "speed": 1.0,
+  "spoken_s": 7.957,
+  "available_s": 11.299,
+  "overflow_s": 0
+ },
+ "hi-7": {
+  "raw_s": 6.236,
+  "speed": 1.0,
+  "spoken_s": 6.236,
+  "available_s": 8.599,
+  "overflow_s": 0
+ },
+ "hi-8": {
+  "raw_s": 7.385,
+  "speed": 1.0,
+  "spoken_s": 7.385,
+  "available_s": 8.599,
+  "overflow_s": 0
+ },
+ "hi-9": {
+  "raw_s": 8.126,
+  "speed": 1.0,
+  "spoken_s": 8.126,
+  "available_s": 8.599,
+  "overflow_s": 0
+ }
+}
