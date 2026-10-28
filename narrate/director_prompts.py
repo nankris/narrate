@@ -62,9 +62,9 @@ Use only the supplied facts; video_title is context, never proof that something 
 
 SCRIPT = '''You are an expert audio describer (DCMP / WCAG 1.2.5 practice) writing the WHOLE English description track
 for a blind or low-vision viewer in one pass. Narration is spoken only inside the listed speech-free gaps.
-Input: bible (setting, place, cast descriptors, objects, names, goal, story, beats), video_title (optional, UNVERIFIED user
-context), timeline (every event with id and time; gap = which gap it belongs to, "speech" = happened while someone talked), gaps
-(id, start, end, max_words, target_words, evidence ids, establish, beat = the story beat this gap shows, key_event = its most
+Input: WORD_LIMITS (one line per gap: the word range to aim for and the HARD maximum), bible (setting, place, cast descriptors,
+objects, names, goal, story, beats), video_title (optional, UNVERIFIED user context), timeline (every event with id and time; gap = which gap it belongs to, "speech" = happened while someone talked), gaps
+(id, words = "range (HARD max N)", start, end, max_words, target_words, evidence ids, establish, beat = the story beat this gap shows, key_event = its most
 distinctive event, routine = its events repeat the previous gap's activity, said_before/said_after = words spoken nearby).
 Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per
 gap; "words" is your own count of the words in "text".
@@ -84,10 +84,12 @@ Style:
    Every cue must add at least one NEW concrete detail (an object, a result, a state, a count) that no earlier cue gave;
    never a bare subject and verb ("The cook rolls."). A routine gap whose only news would repeat the previous cue: skip it
    (the previous cue already covers it) unless you can add a genuinely new visible detail.
-3. Length: max_words is a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for target_words
-   (a range, about 70-90 % of max_words): enough for who, the action and its result or link to the goal, with room to spare.
-   Count the words of each cue before answering and put the count in "words". Short cues are only for gaps with little to
-   say. Silence is fine: skip a gap when nothing new or important happens.
+3. Length: WORDS ARE THE MOST COMMON REASON A CUE IS LOST. Before writing each cue, read its line in WORD_LIMITS. max_words is
+   a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for the range (about 70-90 % of max_words):
+   enough for who, the action and its result or link to the goal, with room to spare. One gap, one main action: never chain
+   three actions. Small gaps need small sentences: for max_words 4-6 write one short complete sentence such as "She covers the
+   bowl." or "The lid comes off." Count the words of each cue before answering and put the count in "words"; if it is over
+   max_words, cut a detail and count again. Silence is fine: skip a gap when nothing new or important happens.
 4. The gap with "establish": true opens the track: fold the place (bible place) and who is there into one compact opening with idiomatic phrasing,
    then the action, all within max_words, e.g. "In a home kitchen, the cook mixes flour and water." Add the goal only if
    words remain; shorten the action rather than exceed max_words. For a spacecraft, natural phrasing such as "Aboard the space
@@ -135,22 +137,34 @@ result, new object or change of state over routine ongoing activity; tell the ga
 ongoing activity as a neighbouring cue; every cue adds a new concrete detail (never a bare subject and verb). Never describe
 sounds (applause, laughter, music, voices) or make the camera the subject. When the rejection is "Style: ... vary the
 opening", keep the facts and change only how the sentence starts (avoid other_openings), or skip if it adds nothing new.
-Length: aim for target_words; max_words is a HARD limit (rejected_words = the rejected text's count). When the rejection is
-about length, cut at least rejected_words - max_words words: keep the subject, the main action and its result; drop a
-secondary action, colours or positions. Count the words and report them in "words".
+Length: WORD_LIMITS gives each gap's range and HARD maximum; aim for the range (rejected_words = the rejected text's count).
+When the rejection is about length, cut at least rejected_words - max_words words: keep the subject, the main action and its
+result; drop a secondary action, colours or positions. One main action per cue; for max_words 4-6 one short sentence ("She
+covers the bowl."). Count the words and report them in "words".
+When the verifier quotes a wrong detail, remove or correct only that detail and keep the rest (for the establishing cue, keep
+the place). When the rejection is only a style point (an opening, a fragment, an object name), change only that.
 If "establish" is true, fold the place and who is there into one compact opening ("In the <place>, <who> ..."), then the
 action, within max_words.
 Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}.'''
 
 TIGHTEN = '''You shorten ONE audio-description cue that is over its word limit. Input {"cue":{"gap_id","text","words","max_words",
-"remove_at_least","keep_place"}}: words is the current word count of text, max_words the exact maximum, keep_place (if given)
+"remove_at_least","measured_seconds","allowed_seconds","keep_place"}}: words is the current word count of text, max_words the
+exact maximum, measured_seconds how long the text takes to speak and allowed_seconds the time available, keep_place (if given)
 the words naming the place: keep one of them.
-Write ONE shorter version with at most max_words words: remove at least remove_at_least words, and count them before answering.
+Write THREE shorter versions, each with at most max_words words (the first close to max_words, the last clearly shorter): remove
+at least remove_at_least words, and count them before answering.
 Keep the subject, the main action, its result and the meaning; drop the least important details or merge clauses. Add nothing
 new: no new objects, people, colours or actions.
 It must stay native, idiomatic English as a professional audio describer says it aloud: a complete present-tense sentence with
 a subject (the cast descriptor or a pronoun, never "Person"), no clipped fragments, no semicolons, no translationese.
-Answer with ONLY this JSON object and nothing else (no reasoning, no explanation, no other keys): {"text":"","words":0}'''
+Answer with ONLY this JSON object and nothing else (no reasoning, no explanation, no other keys):
+{"options":[{"text":"","words":0},{"text":"","words":0},{"text":"","words":0}]}'''
+
+STRIKE = '''A checker looked at frames and found ONE detail of this audio-description cue false. Input {"cue":{"gap_id","text",
+"wrong","max_words","keep_place"}}: wrong is the false phrase. Return the same cue with that detail removed (or the sentence
+minimally re-joined so it stays grammatical): keep every other word, add no new object, person, colour or action, keep one of
+keep_place (if given). It must stay a complete, natural English sentence with a subject and a verb, ending with a period.
+Answer with ONLY this JSON object: {"text":"","words":0}'''
 
 HINDI = '''You write the Hindi audio-description track for blind and low-vision viewers in India. For each cue you get the
 English cue's meaning, the time window and a Hindi word limit measured with the Hindi voice.

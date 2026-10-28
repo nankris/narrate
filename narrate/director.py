@@ -24,11 +24,12 @@ DEFAULTS = {
     'window_s': 12, 'window_snap_s': 2, 'window_fps': 4, 'window_fallback_frames': 4,
     'ultra_stage': 'edit', 'bible_stage': 'edit', 'tighten_stage': 'fit', 'max_ultra_calls': 6, 'budget_usd': .15,
     'min_words': 4, 'target_fill': .7, 'target_fill_max': .9, 'similarity_prev': .5, 'similarity_any': .8,
-    'narrator_wps_en': 2.6, 'word_tolerance': .15, 'tighten_attempts': 2, 'tighten_max_tokens': 160, 'coverage_target': .75,
+    'narrator_wps_en': 2.6, 'word_tolerance': .15, 'tighten_attempts': 2, 'tighten_max_tokens': 240, 'coverage_target': .75,
     'verify_batch': 4, 'verify_frames': 2, 'max_repair_rounds': 2,
     'accept_uncertain': True, 'require_verification': True, 'calibrate_tts': True,
     'relook_max': 2, 'min_detail_words': 2, 'openings_max_share': .5, 'openings_min_cues': 3, 'hi_passive_share': .5,
     'max_silent_run_s': 20,
+    'temperature': .2, 'verify_temperature': 0., 'fallback_word_tolerance': .35, 'rescue_strike_max': 4, 'rescue_verify_rounds': 2,
 }
 STOP = {'a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'with', 'into', 'at', 'is', 'are', 'it', 'its', 'her', 'his', 'their', 'then', 'as', 'by', 'from'}
 DIRECTOR_LINT = [
@@ -75,6 +76,50 @@ FINITE_BASE = {'act', 'add', 'appear', 'arrange', 'bend', 'bite', 'carry', 'clap
                'react', 'remove', 'roll', 'set', 'show', 'sit', 'smile', 'stand', 'stir', 'take', 'touch', 'turn', 'use',
                'walk', 'watch', 'wear', 'wrap'}
 TITLE_GENERIC = STOP | {'how', 'video', 'tutorial', 'making', 'make', 'made', 'with', 'from', 'about'}
+# Round 7: two classes of checks. HARD problems (camera direction, "we see", title-only claims, subtitles, evidence, duplicates,
+# measured TTS fit, the verifier) block a cue. SOFT problems are style: one repair attempt, then the best verified candidate
+# that fits the time is kept. Length (over max_words) is repaired, but a candidate whose MEASURED speech fits the gap is kept
+# within director.fallback_word_tolerance. Matching is by these markers in the problem text.
+SOFT_MARKERS = ('Style:', PUNCTUATION_PROBLEM, 'no finite verb', 'headline fragments', 'no subject (headline-style',
+                'no concrete detail', 'object identity', 'person descriptor drift', PLACE_PROBLEM, '"continues"',
+                'generic "Person"', 'film-making jargon', 'describes sound', 'repeats the previous cue')
+NOT_VERB_S = {'its', 'this', 'his', 'hers', 'theirs', 'ours', 'yours', 'yes', 'us', 'thus', 'plus', 'always', 'perhaps', 'as',
+              'across', 'towards', 'afterwards', 'sometimes', 'news', 'series', 'lens', 'canvas', 'bus', 'gas', 'chaos', 'jeans',
+              'pants', 'tongs', 'scissors', 'glasses', 'clothes', 'whereas', 'besides', 'various', 'previous', 'famous', 'nervous'}
+NOUN_BEFORE = {'a', 'an', 'the', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'some', 'many',
+               'several', 'few', 'both', 'all', 'these', 'those', 'his', 'her', 'their', 'its', 'our', 'my', 'your', 'of', 'on',
+               'in', 'into', 'onto', 'with', 'at', 'from', 'to', 'by', 'for', 'over', 'under', 'between', 'more', 'other', 'each',
+               'small', 'large', 'little', 'big', 'round', 'flat', 'green', 'red', 'white', 'black', 'blue', 'dough', 'flour'}
+
+
+def is_soft(problem):
+    return any(m in problem for m in SOFT_MARKERS)
+
+
+def is_length(problem):
+    return any(b in problem for b in BUDGET_PROBLEMS) and 'measured' not in problem and 'TTS duration' not in problem
+
+
+def classify(problems):
+    """(hard, length, soft) problem lists. Measured-time failures stay hard; a word count over max_words is 'length'."""
+    hard, length, soft = [], [], []
+    for p in problems:
+        (soft if is_soft(p) else length if is_length(p) else hard).append(p)
+    return hard, length, soft
+
+
+def normalise_en(text):
+    """Punctuation-only normalisation (the words stay Nemotron's): one line, ';' becomes a sentence break, a trailing comma or
+    colon is removed and a missing final period is appended. Round 6 dropped cues for a missing period or a semicolon."""
+    t = ' '.join(str(text or '').split())
+    if not t:
+        return t
+    t = re.sub(r'\s*;\s*([a-z])', lambda m: '. ' + m.group(1).upper(), t)
+    t = re.sub(r'\s*;\s*', '. ', t).strip()
+    t = re.sub(r'[\s,:;\u2013\u2014-]+$', '', t)
+    if t and not re.search(r'[.!?]["\u201d\']?$', t):
+        t += '.'
+    return t
 
 
 class UltraCapReached(RuntimeError):
@@ -124,10 +169,22 @@ def clean_context(text, limit=200):
 
 
 def has_finite_verb(text):
-    """Cheap English fragment check: auxiliaries, past tense and ordinary third-person verbs."""
+    """Cheap English fragment check: auxiliaries, past tense, listed verbs and (Round 7) any other -s word that does not
+    follow a determiner, number or preposition. Round 6's closed list rejected "The crew cheers", "They brush oil" and
+    "White lid seals the bowl"; "A ball on the mats." is still a fragment."""
     words = re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", str(text).lower())
-    return any(w in FINITE_VERBS or w in FINITE_BASE or w in IRREGULAR_FINITE or w in REGULAR_FINITE or w.endswith('ed')
-               for w in words)
+    for i, w in enumerate(words):
+        if w in FINITE_VERBS or w in FINITE_BASE or w in IRREGULAR_FINITE or w in REGULAR_FINITE or w.endswith('ed'):
+            return True
+        prev = words[i - 1] if i else ''
+        if (i and len(w) > 3 and w.endswith('s') and not w.endswith(('ss', "'s", 'us', 'is')) and w not in NOT_VERB_S
+                and w not in VERB_OPENER_NOUNS and prev not in NOUN_BEFORE and not prev.endswith("'s")):
+            return True
+        # A base verb after "they/we/you/i" or a plural noun ("They brush oil", "crewmates ... cheer").
+        if (i and (prev in ('they', 'we', 'you', 'i') or (len(prev) > 3 and prev.endswith('s') and not prev.endswith('ss')))
+                and w not in NOUN_BEFORE and w not in STOP and w not in PRONOUNS and not w.endswith(('s', 'ing', 'ly'))):
+            return True
+    return False
 
 
 def normalise_events(raw, start, end, duration, burned=False):
@@ -268,6 +325,24 @@ def parse_tightened(response, gid):
     return entry['text'] if entry and not entry['skip'] else ''
 
 
+def parse_tightened_options(response, gid):
+    """Round 7: Nano returns up to three shorter versions ({"options":[{"text"}]}); a single {"text"} still works."""
+    if isinstance(response, dict) and isinstance(response.get('options'), list):
+        out = [' '.join(o['text'].split()) for o in response['options'] if isinstance(o, dict) and isinstance(o.get('text'), str)]
+        out += [' '.join(o.split()) for o in response['options'] if isinstance(o, str)]
+        return [t for t in dict.fromkeys(out) if t]
+    one = parse_tightened(response, gid)
+    return [one] if one else []
+
+
+def lemma(word):
+    """Crude inflection strip for the "adds no new words" test (round 6 rejected "pressing" vs "presses" as new)."""
+    for suffix in ('ing', 'ed', 'es', 's'):
+        if len(word) > len(suffix) + 2 and word.endswith(suffix):
+            return word[:-len(suffix)]
+    return word
+
+
 def parse_srt(path):
     """[(start, end, text)] from a simple .srt sidecar (speech context only; never narrated)."""
     rows = []
@@ -294,6 +369,7 @@ class Director(Agent):
         self.gap_beats, self.restyle, self.restyle_keep, self.restyle_pair = {}, set(), {}, ''
         self.stage_log, self.ultra_calls, self.call_role, self.wps = [], 0, None, {}
         self.stats = Counter()
+        self.pool, self.soft_tried, self.silence_rescued, self.last_fit = {}, set(), {}, None
         self.speech_text = []
         self.report.update(mode='director', video_title=self.context)
         srt = self.path.with_suffix('.en.srt')
@@ -315,6 +391,8 @@ class Director(Agent):
                 raise UltraCapReached(f"Ultra call cap ({self.d['max_ultra_calls']}) reached")
             self.ultra_calls += 1
         self.cost_role, self.call_role = cost_role, 'orchestrator' if ultra else None
+        if '_temperature' not in data:   # Round 7: low, repeatable sampling (run-to-run variance hid the r5 -> r6 regression)
+            data = {**data, '_temperature': self.d['verify_temperature'] if cost_role == 'verify' else self.d['temperature']}
         try:
             return self.submodel(stage, data, media, mock, system=system)
         finally:
@@ -351,6 +429,21 @@ class Director(Agent):
 
     def scriptable(self):
         return [g for g in self.narratable() if g.get('director_words_en', 0) >= self.d['min_words'] and g['id'] not in self.dropped]
+
+    # ---------- TTS preflight (before any paid call) ----------
+    def preflight_tts(self):
+        """Round 7 (r6a spent $0.058 and then failed because piper's dependencies were missing): render one short phrase per
+        language with the configured voice before any model call, and abort with a clear error if it fails."""
+        for lang in self.langs:
+            try:
+                seconds = self.measure_tts_duration(P.CALIBRATION[lang], lang)['seconds']
+                if not seconds or seconds <= 0:
+                    raise ValueError('empty audio')
+            except Exception as exc:
+                raise RuntimeError(f'TTS preflight failed for {lang} ({type(self.engine).__name__}): {sanitize(exc)}. '
+                                   'Fix the voice (install the piper dependencies and voice models, or set tts.backend: espeak); '
+                                   'no paid API call was made.') from None
+        return True
 
     # ---------- stage: gaps + measured budgets ----------
     def calibrate(self):
@@ -633,8 +726,14 @@ class Director(Agent):
         hi = min(m, max(lo, math.floor(self.d['target_fill_max'] * m)))
         return f'{lo}-{hi}'
 
+    def word_limits(self, gids):
+        """Round 7: one prominent line per gap ("gap 7 (2.1 s): 3-4 words, HARD max 4"); the writer overshot 24-29 for 19."""
+        return [f"gap {g}: {self.target_words(self.gap(g))} words, HARD max {self.gap(g)['director_words_en']} "
+                f"({self.gap(g)['end'] - self.gap(g)['start']:.1f} s)" for g in gids]
+
     def gap_payload(self, g, establish=None):
-        return {'gap_id': g['id'], 'start': round(g['start'], 2), 'end': round(g['end'], 2), 'max_words': g['director_words_en'],
+        return {'gap_id': g['id'], 'words': f"{self.target_words(g)} (HARD max {g['director_words_en']})",
+                'start': round(g['start'], 2), 'end': round(g['end'], 2), 'max_words': g['director_words_en'],
                 'target_words': self.target_words(g), 'evidence': [e['id'] for e in self.evidence_for(g['id'])],
                 **({'establish': True} if (self.is_establishing(g['id']) if establish is None else establish) else {}),
                 **({'beat': self.gap_beats[g['id']]} if g['id'] in self.gap_beats else {}),
@@ -721,11 +820,16 @@ class Director(Agent):
         dup = next((r for r in self.accepted_texts(gid) if similarity(text, r[2]) >= self.d['similarity_any']), None)
         if dup and not (before and dup == before[-1]):
             problems.append(f'duplicate of gap {dup[1]}')
-        if not problems:
+        problems += place_problem
+        hard, length, _ = classify(problems)
+        self.last_fit = None
+        if not hard:
             fit = self.check_fit(gid, text, 'en')   # renders with the real TTS voice: measured seconds, speech overlap
-            if not fit['ok']:
-                problems += [p if 'measured' in p or ('exceeds' not in p and 'too long' not in p) else f"{p} (measured {fit['seconds']:.1f} s)" for p in fit['problems']]
-        return valid, problems + place_problem
+            measured = [p for p in fit['problems'] if not is_length(p)]
+            self.last_fit = {'gid': gid, 'text': text, 'seconds': fit['seconds'], 'fits': not measured}
+            new = measured if length else fit['problems']
+            problems += [p if 'measured' in p or ('exceeds' not in p and 'too long' not in p) else f"{p} (measured {fit['seconds']:.1f} s)" for p in new]
+        return valid, problems
 
     def context_only_claims(self, text):
         """Flag distinctive title words absent from perception; bible place/object nouns are accepted context."""
@@ -748,7 +852,7 @@ class Director(Agent):
             canon = {stem(w) for w in head}
             if not canon or canon & words:
                 continue
-            heads = sorted({stem(a.split()[-1]) for a in n['aliases'] if a.split()} - canon)
+            heads = sorted({stem(a.split()[-1]) for a in n['aliases'] if a.split()} - {stem(w) for w in re.findall(r'\w+', n['name'].lower())})
             used = [h for h in heads if h in words]
             if used:
                 out.append(f'Banned phrasing: object identity ("{used[0]}" is "{n["name"]}" in the bible). Fix: call it "{n["name"]}"')
@@ -770,26 +874,64 @@ class Director(Agent):
         self.log(gid, step='skip', reason=reason)
 
     def consider(self, gid, entry, step):
-        """Apply a script/repair entry to one gap: skip, pending (passes checks, awaits verification) or failed."""
+        """Apply a script/repair entry to one gap: skip, pending (passes every check, awaits verification) or failed.
+
+        Round 7: punctuation is normalised first (never a drop). A text with no HARD problem whose measured speech fits the
+        gap joins the gap's candidate pool even when it fails a soft (style) check or is somewhat over max_words; the final
+        pass (st_rescue) verifies and keeps the best pooled candidate when repairs do not produce a clean cue."""
         if entry['skip']:
+            if step != 'script' and self.pool_candidates(gid):
+                self.log(gid, step=step, reason='writer skipped; the earlier candidate stays for the final pass')
+                self.stats['skip_kept_candidate'] += 1
+                return 'failed'
             self.skip_gap(gid, entry['reason'] or 'writer: nothing new')
             return 'skip'
+        text = normalise_en(entry['text'])
+        if text != ' '.join(str(entry['text']).split()):
+            self.stats['punctuation_fixed'] += 1
+        entry = {**entry, 'text': text}
         valid, problems = self.check_cue(gid, entry['text'], entry['evidence'])
         words, claimed = len(entry['text'].split()), entry.get('words_claimed')
         self.log(gid, step=step, text=entry['text'], evidence=entry['evidence'], problems=problems, words=words,
                  **({'words_claimed': claimed} if claimed is not None else {}))
         if claimed is not None and claimed != words:
             self.stats['self_count_mismatch'] += 1
+        hard, length, soft = classify(problems)
+        if not hard:
+            self.add_candidate(gid, entry['text'], valid, length, soft)
         if problems:
             self.failed[gid] = {'text': entry['text'], 'evidence': entry['evidence'], 'valid': valid, 'reasons': problems}
             self.pending.pop(gid, None)
             self.stats['postcheck_failures'] += 1
+            self.stats['hard_failures' if hard else 'length_failures' if length else 'soft_failures'] += 1
             return 'failed'
         if words > self.gap(gid)['director_words_en']:
             self.stats['accepted_within_tolerance'] += 1   # <= word_tolerance over max_words and the measured TTS fits
         self.pending[gid] = {'text': entry['text'], 'evidence': valid}
         self.failed.pop(gid, None)
         return 'pending'
+
+    # ---------- candidate pool (Round 7) ----------
+    def fallback_words(self, g):
+        return math.floor(g['director_words_en'] * (1 + self.d['fallback_word_tolerance']) + 1e-9)
+
+    def add_candidate(self, gid, text, evidence, length, soft):
+        """Pool a text with no hard problem when its MEASURED speech fits the gap and it is within fallback_word_tolerance."""
+        fit = self.last_fit or {}
+        if fit.get('text') != text or fit.get('gid') != gid or not fit.get('fits') or not evidence:
+            return False
+        if len(text.split()) > self.fallback_words(self.gap(gid)):
+            return False
+        pool = self.pool.setdefault(gid, [])
+        if all(c['text'] != text for c in pool):
+            pool.append({'text': text, 'evidence': list(evidence), 'soft': list(soft), 'over': bool(length),
+                         'words': len(text.split()), 'order': sum(len(v) for v in self.pool.values())})
+        return True
+
+    def pool_candidates(self, gid):
+        """Unrefuted candidates, best first: fewest soft problems, within max_words, then the most recent."""
+        bad = set(self.rejected.get(gid, []))
+        return sorted((c for c in self.pool.get(gid, []) if c['text'] not in bad), key=lambda c: (len(c['soft']), c['over'], -c['order']))
 
     # ---------- stage: script ----------
     def mock_script(self, gaps):
@@ -809,7 +951,8 @@ class Director(Agent):
         gaps = [self.gap_payload(g, establish=i == 0) for i, g in enumerate(todo)]
         if not gaps:
             return 'no gaps to script'
-        data = {'bible': self.bible, **self.title_payload(), 'timeline': self.timeline_rows(self.assignment), 'gaps': gaps}
+        data = {'WORD_LIMITS': self.word_limits([g['gap_id'] for g in gaps]), 'bible': self.bible, **self.title_payload(),
+                'timeline': self.timeline_rows(self.assignment), 'gaps': gaps}
         parsed, error = None, None
         for attempt in range(2):
             try:
@@ -862,6 +1005,7 @@ class Director(Agent):
                                                 x['end'] - x['start']))
             gid = g['id']
             evidence = [e['id'] for e in self.evidence_for(gid)]
+            self.silence_rescued[gid] = self.dropped.get(gid, 'silent: writer: nothing new')
             self.skipped.pop(gid, None)
             self.dropped.pop(gid, None)
             self.failed[gid] = {'text': '', 'evidence': evidence, 'valid': evidence,
@@ -873,8 +1017,10 @@ class Director(Agent):
 
     # ---------- stage: tighten (Nano; before any Ultra repair) ----------
     def budget_only(self, gid):
-        reasons = (self.failed.get(gid) or {}).get('reasons') or []
-        return bool(reasons) and all(any(b in r for b in BUDGET_PROBLEMS) for r in reasons)
+        """Over max_words and nothing HARD (soft style problems may ride along): Nano can shorten it."""
+        hard, length, _ = classify((self.failed.get(gid) or {}).get('reasons') or [])
+        measured = [p for p in hard if any(b in p for b in BUDGET_PROBLEMS)]   # measured too long: also fixed by shortening
+        return bool(length or measured) and len(measured) == len(hard)
 
     def tighten_reject(self, gid, old, text):
         """Why a Nano rewrite is unusable (None if usable): not shorter, invents content, or loses the establishing place."""
@@ -882,7 +1028,7 @@ class Director(Agent):
             return 'no shorter version returned'
         if len(text.split()) >= len(old.split()):
             return f'not shorter ({len(text.split())} words, was {len(old.split())}); rejected'
-        added = {stem(w) for w in content_tokens(text)} - {stem(w) for w in content_tokens(old)}
+        added = {lemma(w) for w in content_tokens(text)} - {lemma(w) for w in content_tokens(old)}
         if len(added) > 1:
             return f'tighten added new words {sorted(added)}; rejected'
         terms = place_terms(self.bible) if self.is_establishing(gid) else set()
@@ -890,19 +1036,33 @@ class Director(Agent):
             return 'tighten dropped the place from the establishing cue; rejected'
         return None
 
+    def tighten_target(self, gid, text):
+        """Words Nano must reach: max_words, or fewer when the measured voice says the text cannot fit even at max_words."""
+        g, words = self.gap(gid), len(text.split())
+        fit = self.last_fit if (self.last_fit or {}).get('text') == text else None
+        target = g['director_words_en']
+        if fit and fit['seconds'] > 0:
+            target = min(target, max(self.d['min_words'], int(words * self.allowed_seconds(g) / fit['seconds'])))
+        return max(1, target)
+
     def st_tighten(self, step):
-        """Cues that fail ONLY on length go to Nemotron Nano first: ONE shorter version per call, given the cue's current word
-        count and the exact max. Up to director.tighten_attempts calls per cue; a rewrite that is not shorter, adds content
-        words or loses the establishing place is rejected. Small max_tokens: round 2 saw Nano run to the 2000-token cap after
-        a bare JSON object (thinking was already off). Still over budget afterwards -> Ultra repair (verify_and_repair)."""
+        """Cues whose only blocking problem is length go to Nemotron Nano first, one cue per call, with the cue's word count, the
+        exact target (max_words, or fewer if the measured voice needs it) and the measured seconds. Round 7: Nano returns up to
+        three shorter options; the best one (no hard problem, then within max_words, then fewest soft problems) is applied.
+        An option that is not shorter, adds content words or loses the establishing place is rejected. Up to
+        director.tighten_attempts calls per cue; still over budget afterwards -> Ultra repair (verify_and_repair)."""
         outcome = Counter()
         for g in sorted((g for g in self.failed if self.budget_only(g)), key=lambda g: self.gap(g)['start']):
-            max_w = self.gap(g)['director_words_en']
             for attempt in range(max(1, int(self.d['tighten_attempts']))):
                 old = self.failed[g]['text']
+                evidence = self.failed[g]['evidence']
                 words = len(old.split())
+                self.check_cue(g, old, evidence)   # refresh the measured seconds of the current text
+                max_w = self.tighten_target(g, old)
                 terms = sorted(place_terms(self.bible) & {stem(w) for w in tokens(old)}) if self.is_establishing(g) else []
+                fit = self.last_fit if (self.last_fit or {}).get('text') == old else None
                 cue = {'gap_id': g, 'text': old, 'words': words, 'max_words': max_w, 'remove_at_least': max(1, words - max_w),
+                       **({'measured_seconds': round(fit['seconds'], 2), 'allowed_seconds': self.allowed_seconds(self.gap(g))} if fit else {}),
                        **({'keep_place': terms} if terms else {})}
                 mock = {'text': ' '.join(old.split()[:max_w]), 'words': min(words, max_w)}
                 try:
@@ -914,20 +1074,28 @@ class Director(Agent):
                     self.report['issues'].append(f'Nano tighten unavailable for gap {g}: ' + sanitize(exc))
                     outcome['error'] += 1
                     break
-                text = parse_tightened(raw, g)
-                why = self.tighten_reject(g, old, text)
-                if why:
-                    self.log(g, step=step, text=text, problems=[why])
+                best = None
+                for option in parse_tightened_options(raw, g) or ['']:
+                    text = normalise_en(option)
+                    why = self.tighten_reject(g, old, text)
+                    if why:
+                        self.log(g, step=step, text=text, problems=[why])
+                        continue
+                    hard, length, soft = classify(self.check_cue(g, text, evidence)[1])
+                    rank = (len(hard), len(length), len(soft))
+                    if best is None or rank < best[0]:
+                        best = (rank, text)
+                if best is None:
                     outcome['rejected'] += 1
                     continue
-                result = self.consider(g, {'text': text, 'evidence': self.failed[g]['evidence'], 'skip': False, 'reason': ''}, step)
+                result = self.consider(g, {'text': best[1], 'evidence': evidence, 'skip': False, 'reason': ''}, step)
                 if result != 'failed' or not self.budget_only(g):
-                    outcome[result] += 1   # pending, or a non-length problem now: Ultra repair handles it
+                    outcome[result] += 1   # pending, or a non-length problem now: Ultra repair / the final pass handles it
                     break
             else:
                 outcome['still_over'] += 1
         self.stats['tightened'] += outcome['pending']
-        return f'over-budget cues shortened by Nano (one cue per call, <= {self.d["tighten_attempts"]} attempts): {dict(outcome)}'
+        return f'over-budget cues shortened by Nano (one cue per call, up to 3 options, <= {self.d["tighten_attempts"]} attempts): {dict(outcome)}'
 
     def maybe_tighten(self, name):
         n = sum(self.budget_only(g) for g in self.failed)
@@ -968,6 +1136,10 @@ class Director(Agent):
 
     def commit(self, gid, verdict, reason=''):
         p = self.pending.pop(gid)
+        if p.get('rescued'):
+            self.stats['rescued'] += 1
+            self.stats['soft_kept'] += bool(p.get('soft'))
+            self.stats['length_fallback'] += bool(p.get('over'))
         self.cues[gid] = {**self.gap(gid), 'en': p['text'], 'evidence': p['evidence'], 'verdict': verdict}
         self.verified[gid] = verdict
         self.dropped.pop(gid, None)
@@ -1047,7 +1219,9 @@ class Director(Agent):
                         self.contradicted += 1
                         self.rejected.setdefault(g, []).append(text)
                     why = f'verifier ({verdict}) on frames {self.frame_times(g)}: ' + (f'"{wrong}" is wrong; ' if wrong else '') + (reason or 'unsupported') + (f'; risky details: {", ".join(risky)}' if verdict == 'uncertain' else '')
-                    self.failed[g] = {**self.pending.pop(g), 'reasons': [why], 'refuted': refuted}
+                    if wrong:   # Round 7: repair only the wrong detail (roti r6b lost its establishing cue over "black gloves")
+                        why += f'. Fix: remove or correct only "{wrong}" and keep the rest of the cue' + (' (keep the place)' if self.is_establishing(g) else '')
+                    self.failed[g] = {**self.pending.pop(g), 'reasons': [why], 'refuted': refuted, 'wrong': wrong}
                     self.log(g, step='verify', verdict=verdict, reason=why, refuted=refuted)
                 tally[verdict] += 1
                 self.trace('tool', tool_name='verify_claim', note=f'gap {g}: {verdict}' + (f' ({reason[:120]})' if reason else ''), ok=verdict != 'contradicted',
@@ -1062,15 +1236,22 @@ class Director(Agent):
         nxt = [r[2] for r in rows if r[0] > start][:1]
         return {**({'previous_cue': prev[0]} if prev else {}), **({'next_cue': nxt[0]} if nxt else {})}
 
+    def repairable(self):
+        """Failed gaps worth an Ultra repair: anything with a hard or length problem, and soft-only (style) failures once."""
+        return sorted((g for g, f in self.failed.items() if not (g in self.soft_tried and all(is_soft(r) for r in f['reasons']))),
+                      key=lambda i: self.gap(i)['start'])
+
     def st_repair(self, round_no):
-        gids = sorted(self.failed, key=lambda i: self.gap(i)['start'])
+        gids = self.repairable()
+        self.soft_tried.update(g for g in gids if all(is_soft(r) for r in self.failed[g]['reasons']))
         items = [{**self.gap_payload(self.gap(g)), 'rejected_text': self.failed[g]['text'], 'rejected_words': len(self.failed[g]['text'].split()),
                   'why_rejected': self.failed[g]['reasons'],
                   'trusted_evidence': [r for r in self.timeline_rows() if g in self.assignment.get(r['id'], ())], **self.neighbours(g),
                   **({'other_openings': self.other_openings(g)} if g in self.restyle else {})} for g in gids]
         bible = {k: self.bible.get(k) for k in ('setting', 'place', 'cast', 'objects', 'names', 'goal', 'story')}
         mock = {'cues': [{'gap_id': g, 'skip': True, 'reason': 'MOCK repair: nothing reliable'} for g in gids]}
-        parsed = parse_cues(self.model('repair', self.d['ultra_stage'], P.REPAIR, {'bible': bible, **self.title_payload(), 'round': round_no, 'gaps': items}, None, mock if self.mock else None, ultra=True))
+        data = {'WORD_LIMITS': self.word_limits(gids), 'bible': bible, **self.title_payload(), 'round': round_no, 'gaps': items}
+        parsed = parse_cues(self.model('repair', self.d['ultra_stage'], P.REPAIR, data, None, mock if self.mock else None, ultra=True))
         outcome = Counter()
         for g in gids:
             if g in parsed:
@@ -1130,23 +1311,101 @@ class Director(Agent):
             reserve = 1 if 'hi' in self.langs else 0
             if round_no == 0 and self.d['max_repair_rounds'] and self.ultra_calls + 1 + reserve <= self.d['max_ultra_calls']:
                 self.restyle_openings()
-            if not self.failed or round_no == self.d['max_repair_rounds']:
+            if not self.repairable() or round_no == self.d['max_repair_rounds']:
                 break
             # Length failures Nano could not fix ARE repairable: Ultra rewrites them with the word count and the Fix hint.
             if self.ultra_calls >= self.d['max_ultra_calls']:
                 self.report['issues'].append('Ultra call cap reached: no further repair')
                 break
             before = set(self.pending)
-            self.stage(f'repair_{round_no+1}', lambda: self.st_repair(round_no + 1), f'{len(self.failed)} failed cues')
+            self.stage(f'repair_{round_no+1}', lambda: self.st_repair(round_no + 1), f'{len(self.repairable())} failed cues')
             self.maybe_tighten(f'tighten_{round_no+1}')
             todo = [g for g in self.pending if g not in before]
         self.restore_restyled()
+        if self.failed:
+            self.stage('rescue', self.st_rescue, f'{len(self.failed)} gaps still failing -> best pooled candidate / Nano strike, Super VL verify')
         for g, f in list(self.failed.items()):
             prefix = 'dropped (still over budget after Nano tighten and Ultra repair): ' if self.budget_only(g) else 'dropped after repair: '
             self.failed.pop(g)
+            if g in self.silence_rescued:   # a failed max-silence rescue is soft: the gap stays silent by choice
+                self.skipped[g] = True
+                self.drop_gap(g, self.silence_rescued[g])
+                self.log(g, step='silence_kept', reason='max-silence rescue did not produce a verified cue')
+                self.stats['silence_rescue_failed'] += 1
+                continue
             self.drop_gap(g, prefix + '; '.join(f['reasons'])[:200])
             self.log(g, step='drop', reason='; '.join(f['reasons']))
             self.stats['dropped_after_repair'] += 1
+        long_enough = [g for g in self.narratable() if g.get('director_words_en', 0) >= self.d['min_words'] and g['id'] not in self.skipped]
+        first = min(long_enough, key=lambda g: g['start'], default=None)
+        if first and first['id'] not in self.cues:
+            self.report['issues'].append(f"Establishing gap {first['id']} has no verified cue")
+
+    def strike(self, gid):
+        """Nano removes the phrase the verifier quoted as wrong; the rest stays Nemotron's words. Accepted only if it adds no
+        content word and the wrong phrase is gone."""
+        f = self.failed[gid]
+        old, wrong = f.get('text') or '', f.get('wrong') or ''
+        if not old or not wrong:
+            return None
+        cue = {'gap_id': gid, 'text': old, 'wrong': wrong, 'max_words': self.gap(gid)['director_words_en'],
+               **({'keep_place': sorted(place_terms(self.bible) & {stem(w) for w in tokens(old)})} if self.is_establishing(gid) else {})}
+        mock = {'text': re.sub(r'\s+([,.!?])', r'\1', old.replace(wrong, '').replace(', .', '.')).strip()}
+        try:
+            raw = self.model('tighten', self.d['tighten_stage'], P.STRIKE, {'cue': cue, '_max_tokens': self.d['tighten_max_tokens']},
+                             None, mock if self.mock else None)
+        except (BudgetExceeded, TimeoutError):
+            raise
+        except Exception as exc:
+            self.report['issues'].append(f'Nano strike unavailable for gap {gid}: ' + sanitize(exc))
+            return None
+        text = normalise_en(parse_tightened(raw, gid))
+        added = {lemma(w) for w in content_tokens(text)} - {lemma(w) for w in content_tokens(old)}
+        wt = {lemma(w) for w in content_tokens(wrong)}
+        kept = wt & {lemma(w) for w in content_tokens(text)}
+        if not text or added or (wt and len(kept) / len(wt) > .5) or len(text.split()) >= len(old.split()):
+            self.log(gid, step='strike', text=text, problems=[f'strike rejected (added {sorted(added)}, kept {sorted(kept)})'])
+            return None
+        return text
+
+    def st_rescue(self):
+        """Round 7 final pass, no Ultra call. For every gap still failing after the repair rounds: (1) if the last text was
+        contradicted on a quoted detail and no candidate is pooled, Nano strikes just that detail; (2) the best pooled
+        candidate (no hard problem, measured speech fits, fewest soft problems) is re-checked against the current track and
+        verified on stills. Supported cues are committed; up to director.rescue_verify_rounds verification rounds."""
+        outcome, strikes, before = Counter(), 0, set(self.cues)
+        for g in sorted(self.failed, key=lambda i: self.gap(i)['start']):
+            if not self.pool_candidates(g) and self.failed[g].get('wrong') and strikes < self.d['rescue_strike_max']:
+                strikes += 1
+                text = self.strike(g)
+                if text:
+                    outcome['strike_' + self.consider(g, {'text': text, 'evidence': self.failed[g]['evidence'], 'skip': False, 'reason': ''}, 'strike')] += 1
+        tried = {}
+        for _ in range(max(1, int(self.d['rescue_verify_rounds']))):
+            batch = [g for g in self.pending]
+            for g in sorted(self.failed, key=lambda i: self.gap(i)['start']):
+                for c in self.pool_candidates(g):
+                    if c['text'] in tried.setdefault(g, set()):
+                        continue
+                    tried[g].add(c['text'])
+                    valid, problems = self.check_cue(g, c['text'], c['evidence'])
+                    hard, length, soft = classify(problems)
+                    fits = (self.last_fit or {}).get('fits') and len(c['text'].split()) <= self.fallback_words(self.gap(g))
+                    if hard or not valid or (length and not fits):
+                        continue
+                    self.failed.pop(g)
+                    self.pending[g] = {'text': c['text'], 'evidence': valid, 'soft': soft, 'over': bool(length), 'rescued': True}
+                    self.log(g, step='rescue', text=c['text'], problems=soft + length)
+                    batch.append(g)
+                    break
+            if not batch:
+                break
+            self.st_verify(batch)
+            outcome['verified'] += len(batch)
+        outcome['committed'] = len(set(self.cues) - before)
+        for g in list(self.pending):   # never left pending after the last round
+            self.failed[g] = {**self.pending.pop(g), 'reasons': ['not verified in the final pass']}
+        return f'final pass (no Ultra): {strikes} Nano strikes; {dict(outcome)}; soft-kept {self.stats["soft_kept"]}, length fallback {self.stats["length_fallback"]}'
 
     # ---------- stage: hindi ----------
     def hi_problems(self, gid, text):
@@ -1255,7 +1514,8 @@ class Director(Agent):
     # ---------- stage: render + report ----------
     def st_render(self):
         for gid, c in list(self.cues.items()):
-            if not self.check_fit(gid, c['en'], 'en')['ok']:
+            # Measured speech is authoritative here: a final-pass cue may be within fallback_word_tolerance over max_words.
+            if [p for p in self.check_fit(gid, c['en'], 'en')['problems'] if not is_length(p)] or len(c['en'].split()) > self.fallback_words(c):
                 self.cues.pop(gid)
                 self.drop_gap(gid, 'Final validation rejected English cue')
             elif c.get('hi') and not self.check_fit(gid, c['hi'], 'hi')['ok']:
@@ -1318,6 +1578,7 @@ class Director(Agent):
 
     def run(self):
         stop = None
+        self.preflight_tts()   # raises before any paid API call
         try:
             self.stage('gaps', self.st_gaps, 'Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS')
             if self.scriptable():
@@ -1391,6 +1652,8 @@ class Director(Agent):
              f"- **Cues:** {len(self.cues)} committed of {len(self.narratable())} narratable gaps · average budget use {self.stats.get('budget_use_percent', 0)} % · repairs {self.stats.get('repair_rounds', 0)} · Nano-tightened {self.stats.get('tightened', 0)} · within word tolerance {self.stats.get('accepted_within_tolerance', 0)}",
              '- **Silent by choice:** ' + ('; '.join(f'gap {g} ({short(self.dropped.get(g, ""))})' for g in silent) or 'none'),
              '- **Dropped:** ' + ('; '.join(f'gap {g} ({short(r)})' for g, r in sorted(dropped.items())) or 'none')]
+        L.append(f"- **Round 7 robustness:** punctuation fixed {self.stats.get('punctuation_fixed', 0)} · final pass rescued {self.stats.get('rescued', 0)} "
+                 f"(soft-kept {self.stats.get('soft_kept', 0)}, length fallback {self.stats.get('length_fallback', 0)}) · failed silence rescues back to silent {self.stats.get('silence_rescue_failed', 0)}")
         cov = self.coverage()
         L.append(f"- **Coverage:** {cov['narrated']}/{cov['narratable']} narratable gaps narrated ({cov['percent_of_narratable']} %; "
                  f"{cov['percent_excluding_silent_by_choice']} % excluding {cov['silent_by_choice']} silent by choice; target {cov['target_percent']} %"

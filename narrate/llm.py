@@ -146,7 +146,7 @@ class Client:
         if model.get('reasoning', 'off') in ('off', False):
             system += '\n/no_think'
         # The system prompt travels once, in the system message; never repeat it in the user payload.
-        # Keys starting with "_" are call options (_system, _max_tokens), never payload.
+        # Keys starting with "_" are call options (_system, _max_tokens, _temperature), never payload.
         content = [{'type': 'text', 'text': json.dumps({k: v for k, v in data.items() if not str(k).startswith('_')}, ensure_ascii=False)}] + (media or [])
         estimate = estimate_tokens(content + [{'type':'text','text':system}], data.get('duration', 0), self.config)
         output_limit = int(data.get('_max_tokens') or model.get('max_tokens', 2000))
@@ -161,6 +161,8 @@ class Client:
             using_json = model.get('json_mode', True) and identity not in self.no_json
             if using_json:
                 kwargs['response_format'] = {'type':'json_object'}
+            if isinstance(data.get('_temperature'), (int, float)) and not isinstance(data.get('_temperature'), bool):
+                kwargs['temperature'] = float(data['_temperature'])   # Round 7: low, repeatable sampling for text stages
             if self.config.get('extra_body_thinking', True):
                 kwargs['extra_body'] = {'chat_template_kwargs': {'enable_thinking': model.get('thinking', False)}}
             started = time.monotonic()

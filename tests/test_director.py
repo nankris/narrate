@@ -542,7 +542,7 @@ def test_nano_tightens_over_budget_cue_before_any_ultra_repair(tmp_path, monkeyp
     assert len(fake.role('tighten')) == 1 and fake.role('tighten')[0]['stage'] == 'fit' and not fake.role('repair')
     sent = fake.role('tighten')[0]['data']
     assert sent['cue']['gap_id'] == 1 and sent['cue']['max_words'] == d.gap(1)['director_words_en'] and sent['cue']['words'] == 20
-    assert sent['cue']['remove_at_least'] == 20 - d.gap(1)['director_words_en'] and sent['_max_tokens'] <= 200
+    assert sent['cue']['remove_at_least'] == 20 - d.gap(1)['director_words_en'] and sent['_max_tokens'] <= 260
     assert {c['id']: c['en'] for c in report['cues']}[1] == tight
     assert report['director_stats']['ultra_calls'] == 2 and report['director_stats']['tightened'] == 1   # bible + script only
     assert [h['step'] for h in report['cue_history']['1']][:2] == ['script', 'tighten']
@@ -576,13 +576,17 @@ def test_length_failure_dropped_only_after_nano_and_ultra(tmp_path, monkeypatch)
     assert any('not shorter' in ' '.join(h.get('problems') or []) for h in report['cue_history']['1'])
 
 
-def test_missing_place_establishing_candidate_is_not_committed(tmp_path, monkeypatch):
+def test_missing_place_establishing_cue_gets_one_repair_then_is_kept(tmp_path, monkeypatch):
+    # Round 7 reverses round 6: the place check is SOFT. One repair attempt; if it fails, the verified cue is kept (an issue
+    # is reported) instead of losing the establishing gap.
     no_place = {**GOOD, 0: ('The cook pours water into flour.', ['e1'])}
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(no_place),
                           repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'skip': True, 'reason': 'cannot add place'}
                                                            for g in data['gaps']]})
     cues = {c['id']: c for c in report['cues']}
-    assert 0 not in cues
+    assert cues[0]['en'] == no_place[0][0] and len(fake.role('repair')) == 1
+    assert any('does not name the place' in i for i in report['issues'])
+    assert report['director_stats']['soft_kept'] == 1
     repair = fake.role('repair')[0]['data']['gaps'][0]['why_rejected']
     assert any('Aboard ...' in reason and 'In a ...' in reason for reason in repair)
     assert 'module' in __import__('narrate.director', fromlist=['place_terms']).place_terms(

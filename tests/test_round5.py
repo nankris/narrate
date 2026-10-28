@@ -134,10 +134,12 @@ def test_monotone_openings_are_restyled_in_the_batched_repair_and_kept_if_the_re
     texts = {c['id']: c['en'] for c in report['cues']}
     assert texts == {0: same[0][0], 1: 'Now she kneads the flour into a smooth ball.', 2: same[2][0]}   # gap 2: verified original kept
     assert [g['gap_id'] for g in fake.role('repair')[0]['data']['gaps']] == [1, 2]
-    assert 'still opens with "the cook"' in ' '.join(fake.role('repair')[1]['data']['gaps'][0]['why_rejected'])
+    # Round 7: a style point gets ONE repair; the rewrite that still opens "the cook" keeps the verified original, no 2nd call.
+    assert len(fake.role('repair')) == 1
+    assert any('still opens with "the cook"' in p for h in report['cue_history']['2'] for p in h.get('problems') or [])
     assert report['director_stats']['restyled'] == 2 and report['director_stats']['restyle_kept'] == 1
-    assert [h['step'] for h in report['cue_history']['2']][-2:] == ['repair_2', 'restyle_kept']
-    assert report['director_stats']['ultra_calls'] == 4 and not report['dropped_gaps'].get(2)
+    assert [h['step'] for h in report['cue_history']['2']][-2:] == ['repair_1', 'restyle_kept']
+    assert report['director_stats']['ultra_calls'] == 3 and not report['dropped_gaps'].get(2)
 
 
 def test_restyle_needs_spare_ultra_calls_and_a_monotone_track(tmp_path, monkeypatch):

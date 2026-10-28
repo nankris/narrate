@@ -235,3 +235,49 @@ object/dish nouns. Thus unsupported “historic” / “first” claims route to
 `tests/test_round6.py` adds offline coverage for the silence threshold and tie-break, short-run behavior, fragment and
 punctuation lint, low-false-positive verb cases, Hindi normalisation, strict establishing repair, and title-only claims. No
 network or real API calls are used. Full validation completed with 208 passed and 1 existing optional-dependency skip.
+
+## Round 7
+
+**Diagnosis (confirmed from the `runs/*_v2_r6b` traces).** Round 6 turned style checks into hard drop conditions. Every
+loss in r6b came from a check, not from a missing model skill:
+* The closed finite-verb word list rejected "The crew cheers and raises …", "They brush oil …", "White lid seals the bowl" and "… passes a small white object …".
+* A missing period dropped roti gap 6.
+* An object alias that is part of its own canonical name ("label" vs "white label marked VEGG-03 CABBAGE") dropped NASA gap 5.
+* Over-budget rewrites (24–29 words for 19, plus `;`) dropped NASA gaps 6–8.
+* The establishing cue was contradicted on "wearing black gloves" in the last verification round and died with no repair left.
+
+**Changes** (details in DESIGN_v2.md §11):
+1. **HARD / LENGTH / SOFT classes** (`classify`).
+   * Hard: verifier, measured TTS fit and speech overlap, camera direction, "we see", title-only claims, subtitles, evidence, duplicates.
+   * Soft: everything stylistic. It gets one batched repair attempt (`soft_tried`); after that the best candidate is kept.
+2. **Punctuation never drops a cue.** `normalise_en` is a punctuation-only edit: `;` becomes a sentence break and a final period is appended. The finite-verb heuristic is broader (an `-s` verb not after a determiner, or a base verb after "they" or a plural noun).
+3. **Candidate pool plus a final pass with no Ultra call** (`rescue`).
+   * Texts with no hard problem whose measured speech fits are pooled.
+   * A contradicted detail is struck by Nano (`P.STRIKE`, which may add no content words).
+   * The best candidate is re-checked and verified on stills, then committed. The establishing gap is covered and is reported if it is still lost.
+4. **Budget.**
+   * `WORD_LIMITS` lines head the script and repair payloads, and each gap carries `words: "lo-hi (HARD max N)"`.
+   * The prompt asks for one main action per gap and short sentences for small gaps.
+   * Nano gets the measured target and returns three options; the best is chosen.
+   * Length is soft up to `fallback_word_tolerance` (35 %) when the measured speech fits. Render also judges measured seconds.
+5. **Determinism.** `_temperature` 0.2 for text stages and 0.0 for verification. The client sends it as `temperature`, never in the payload.
+6. **TTS preflight.** One phrase is rendered per language before any model call; a failure raises a clear error saying no paid call was made.
+7. **Kept from earlier rounds.** r5/r6 wins are kept. A failed max-silence rescue now returns the gap to *silent by choice* instead of dropped.
+
+**Offline replay of r6b** (`/tmp` script, no API calls). Every text Nemotron wrote in r6b was re-judged with the Round 7 checks and measured piper speech. Verification was assumed to pass for texts it had not contradicted.
+* roti: 3 of the 5 dropped gaps have a keepable candidate (gaps 6 and 9 are the "no finite verb" false positives). Gaps 7 and 10 (max 4 and 6 words) still have none, because every rewrite was 8–23 words.
+* That is an upper bound of 10/12, before the stronger prompt and the Nano strike.
+* NASA: 5 of the 7 lost gaps have a keepable candidate. They are the pepper-on-board shot (gap 5), the photo/food hand-off (6), the toast and eating (7, a 22-word cue whose measured speech fits), the cheering (8, a finite-verb false positive) and the hand-off (9). That is an upper bound of 8/10; the remaining two were the writer's own routine skips.
+
+**Tests.** `tests/test_round7.py` adds 17 offline tests. Two earlier tests were updated to the new soft policy. All 226 tests pass (run file by file).
+
+**Not done.** No real Token Factory run was made in this round, so the ≥ 80 % coverage target is unmeasured. Next:
+```bash
+.venv/bin/python -m narrate agent samples/<roti clip> --out runs/roti_v2_r7 --provider nebius --context "<title>"
+.venv/bin/python scripts/compare_runs.py runs/roti_v2_r6b/report.json runs/roti_v2_r7/report.json
+```
+
+**Risks.**
+* The length fallback keeps cues up to 35 % over the 2.6 words/s human-narrator budget. They fit the rendered piper voice, but would be tight for a slower human narrator.
+* The broader verb heuristic lets a few plural-noun fragments through. It is soft, so the cost is style, not truth.
+* Soft-kept cues still pass still-frame verification.

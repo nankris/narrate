@@ -297,3 +297,60 @@ in timeline evidence. Bible-approved setting and object/dish nouns are exempt, k
 such as “historic” or “first” that came only from a title. `tests/test_round6.py` covers all four changes with fake/offline
 fixtures, including silence threshold selection, low-false-positive fragment cases, Hindi punctuation, setting enforcement,
 and title-only claim leakage.
+
+## 11. Round 7: robustness, not more rules
+
+Round 6 regressed badly on real runs (`runs/roti_v2_r6b` 7/12 gaps, `runs/nasa_v2_r6b` 3/10; the whole NASA harvest, photo and
+tasting story was lost). The traces show one cause: every style check had become a **hard drop condition**, so each new lint
+lowered coverage. Examples:
+* The closed finite-verb list rejected "The crew cheers and raises their arms", "They brush oil …" and "White lid seals the bowl".
+* A missing final period dropped roti gap 6.
+* A bible name whose alias ("label") was part of the name itself dropped NASA gap 5.
+* Over-budget rewrites (24–29 words for 19) dropped gaps 6–8.
+* The establishing cue was contradicted on one detail ("wearing black gloves") in the last verification round, with no repair left.
+
+Round 7 changes the control policy. It adds no new style rules, and every narration word is still Nemotron-written.
+
+**Two classes of checks** (`classify` → hard, length, soft):
+
+| Class | Checks | Policy |
+|---|---|---|
+| HARD | verifier contradicted, measured TTS too long even at `max_atempo` or overlapping speech, camera direction / "we see" / camera as subject, unverified title-only claim, reading a subtitle, no evidence inside the gap, duplicate of another cue, empty or multi-line | Repaired. If it still fails after the repair rounds, the text is never committed. |
+| LENGTH | over `max_words` (word count only) | Nano tightens it, then Ultra repairs it. The final pass may keep a candidate whose **measured** speech fits and that is ≤ `fallback_word_tolerance` (35 %) over `max_words`. |
+| SOFT | opening variety, fragment / finite verb, `;` headline, bare-verb opener, concrete detail, object alias, cast drift, "continues", "Person", film jargon, sound words, repeats the previous cue, establishing place | **One** batched Ultra repair attempt (`soft_tried`). If that fails or is worse, the best candidate is kept and verified. A style point never costs a second Ultra call. |
+
+**Punctuation is deterministic.** `normalise_en` makes a punctuation-only edit before any check: `;` becomes a sentence break, a trailing comma or colon is removed and a missing final period is added. It never causes a drop. `has_finite_verb` now also accepts an `-s` verb that does not follow a determiner, number or preposition, and a base verb after "they"/a plural noun. "A ball on the mat." is still a fragment.
+
+**Candidate pool and final pass (`rescue` stage, no Ultra).**
+* Every text the writer, repair or Nano produces is pooled per gap if it has no hard problem and its measured TTS fits.
+* After the repair rounds, each gap that still fails goes through the final pass:
+  1. If its last text was contradicted on a quoted `wrong` phrase and nothing is pooled, Nemotron Nano **strikes just that detail** (`P.STRIKE`). The strike must add no content word, must remove the wrong phrase and must be shorter.
+  2. The best pooled candidate is chosen: fewest soft problems, then within `max_words`, then the most recent. It is re-checked against the current track and verified on stills by Super VL. That is at most `rescue_verify_rounds` (2) batched calls, about $0.001 each.
+* Supported cues are committed and counted in `director_stats` as `rescued`, `soft_kept` and `length_fallback`.
+* Contradiction hints now say "remove or correct only "<wrong>" and keep the rest (keep the place)". A repair that skips a gap with a pooled candidate leaves the candidate for the final pass.
+* The establishing gap is never silently lost: the strike plus the pool cover the r6b case, and an issue is reported if it still has no cue.
+
+**Budget shortening.**
+* The script and repair payloads open with `WORD_LIMITS`, one line per gap ("gap 7: 4-4 words, HARD max 4 (2.1 s)"). Each gap also carries `words: "lo-hi (HARD max N)"`.
+* The prompt says length is the most common reason a cue is lost. It asks for one main action per gap and short sentences for 4–6-word gaps ("She covers the bowl.").
+* Nano tighten gets the measured seconds, the allowed seconds and a target (`max_words`, or fewer if the measured voice needs it). It returns **three options**, and the best is applied: no hard problem, then within budget, then fewest soft problems.
+* The "added new words" test compares crude lemmas, so "pressing" vs "presses" is no longer a new word.
+
+**Max-silence rescue is soft.** If the rescued gap still fails, it goes back to *silent by choice* with its original writer reason. It is not "dropped", so it never lowers the coverage figure.
+
+**Determinism.** Every director model call carries `_temperature` (`director.temperature` 0.2; verification 0.0), which the client sends as `temperature` and never in the payload. Ordering was already deterministic (sorted by gap start).
+
+**TTS preflight.** `Director.preflight_tts()` renders `P.CALIBRATION` for each requested language with the configured backend before any model call. It raises `RuntimeError("TTS preflight failed for hi (PiperBackend): … no paid API call was made")`. r6a lost $0.058 to missing piper dependencies. Calibration reuses the cached render.
+
+**Kept from r5/r6.** These are unchanged:
+* story beats, `key_event` and routine skips;
+* canonical object names, with the alias check now soft and ignoring words of the name itself;
+* the tasting re-look;
+* opening restyle, whose verified original is kept;
+* the max-silence rescue;
+* the title-claim check (hard);
+* the Hindi danda.
+
+**Calls and cost.** The Ultra cap is unchanged at ≤ 6: bible, script, ≤ 2 repairs, Hindi and ≤ 1 refit. Soft-only failures never trigger repair round 2 on their own, so runs often use fewer calls. The final pass adds ≤ 4 Nano calls and ≤ 2 Super VL calls, about $0.002. The expected cost stays around $0.04–0.05 per clip.
+
+**Tests.** `tests/test_round7.py` has 17 offline tests with fake models. Two round-5/6 tests were updated to the new soft policy: restyle uses one repair, and the place check is soft.
