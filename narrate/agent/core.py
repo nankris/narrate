@@ -104,6 +104,63 @@ def risky_text(text):
     return reasons
 
 
+SCENE_INSTRUCTION=('Establish the scene for a blind viewer from these frames sampled across the whole video. Return JSON '
+    '{setting, people:[{description, doing}], ingredients:[], tools:[], objects:[], activity, dish, visual_style, '
+    'burned_in_subtitles, confidence}. setting: the kind of place (e.g. room type, indoor/outdoor, surfaces, lighting). '
+    'Keep setting under 15 words and each person description under 12 words. '
+    'people: who is visible, by appearance only (clothing, hands only, how many); never guess names, age or identity. '
+    'ingredients/tools/objects: short concrete nouns that are clearly visible. activity: what is being done overall. '
+    'dish: what is being made only if visibly established or written on screen, else "". burned_in_subtitles: true if '
+    'any frame has a short line of text (usually near the bottom) that reads like a fragment of spoken words, i.e. subtitles '
+    'of the speaker; titles, labels and recipe cards do not count. confidence 0-1. Use only what is visible.')
+SCENE_LISTS=('ingredients','tools','objects')
+
+
+def clean_scene(raw):
+    """Normalise a scene-context answer into short strings and lists; anything malformed is dropped."""
+    raw=raw if isinstance(raw,dict) else {}
+    short=lambda v,n: ' '.join(str(v).split())[:n] if isinstance(v,(str,int,float)) and not isinstance(v,bool) else ''
+    out={k:short(raw.get(k,''),200) for k in ('setting','activity','dish','visual_style')}
+    people=raw.get('people',[])
+    people=people if isinstance(people,list) else [people]
+    out['people']=[x for x in ([' '.join(f"{short(p.get('description',''),80)} {short(p.get('doing',''),60)}".split()) if isinstance(p,dict) else short(p,120) for p in people[:4]]) if x]
+    for k in SCENE_LISTS:
+        v=raw.get(k,[])
+        v=v if isinstance(v,list) else [v]
+        out[k]=list(dict.fromkeys(x for x in (short(i,40) for i in v[:10]) if x))
+    out['burned_in_subtitles']=raw.get('burned_in_subtitles') in (True,'true','yes',1)
+    try: out['confidence']=max(0.,min(1.,float(raw.get('confidence',0))))
+    except (TypeError,ValueError): out['confidence']=0.
+    return out
+
+
+def scene_brief(ctx,limit=420):
+    """One compact line of scene context for drafting/inspection prompts ('' when unknown)."""
+    if not ctx: return ''
+    parts=[f"setting: {ctx['setting']}" if ctx.get('setting') else '',
+        'people: '+'; '.join(ctx['people']) if ctx.get('people') else '',
+        f"activity: {ctx['activity']}" if ctx.get('activity') else '',
+        f"dish: {ctx['dish']}" if ctx.get('dish') else '',
+        *[f"{k}: "+', '.join(ctx[k]) for k in SCENE_LISTS if ctx.get(k)]]
+    return ' | '.join(p for p in parts if p)[:limit]
+
+
+BANNED=[(re.compile(r'\b(?:we|you)\s+(?:can\s+)?see\b',re.I),'"we see"'),
+    (re.compile(r'\b(?:the\s+)?camera\s+(?:moves|pans|zooms|tilts|cuts|records|follows|shows|focuses|captures|reveals)\b|\b(?:as|while)\s+(?:the\s+)?camera\b|\bthe camera\b',re.I),'camera direction'),
+    (re.compile(r'\bTITLE\b(?!:)'),'literal TITLE label (write Title: "...")'),
+    (re.compile(r'^\s*(?:the\s+)?screen\b',re.I),'cue starts with "Screen"'),
+    (re.compile(r'\bSKIP\b'),'SKIP marker is not narration')]
+
+
+def lint(text):
+    """Deterministic style rules the prompts state but models break (review finding 7)."""
+    return [f'Banned phrasing: {why}' for rx,why in BANNED if rx.search(text)]
+
+
+def is_skip(text):
+    return isinstance(text,str) and text.strip().strip('."\'').upper() in ('SKIP','NO NEW INFORMATION')
+
+
 class Agent:
     def __init__(self,path,out,cfg,langs,guard,on_step=None,client=None):
         self.path,self.out,self.cfg = Path(path),Path(out),cfg
@@ -135,6 +192,9 @@ class Agent:
         self.report = {'mock':self.mock,'provider':cfg['provider'],'dev_only':cfg['provider']=='nvidia-dev',
             'duration_s':self.duration,'fallback_finalize':False,'issues':[]}
         self.scenes = []
+        self.scene_context = None
+        self.skipped = {}
+        self.translated_cues = None
         sidecar = self.path.with_suffix('.scenes.json')
         if self.mock and sidecar.is_file():
             self.scenes = json.loads(sidecar.read_text())
@@ -187,6 +247,40 @@ class Agent:
                    cost_usd=usage['cost_usd'],latency_s=time.monotonic()-start,result=compact(result))
         return result
 
+    def mock_scene(self):
+        whats=[s.get('action','') for s in self.scenes if s.get('action')]
+        return {'setting':'MOCK: '+(whats[0] if whats else 'static synthetic scene'),'people':[],'ingredients':[],'tools':[],
+                'objects':[s.get('who','') for s in self.scenes[:3] if s.get('who')],'activity':'MOCK sidecar scene','dish':'','confidence':0}
+
+    def establish_scene(self):
+        """Scene-context pass (Super VL, once per run): setting, people, ingredients, tools, activity.
+
+        Frames are sampled evenly across the whole video so the context does not depend on any one gap. The
+        result is fed into every inspection, draft and translation so cues can name the place, who is in it
+        and what they handle, instead of bare actions."""
+        if self.scene_context is not None or not self.cfg['agent'].get('scene_context',True):
+            return self.scene_context or {}
+        n=max(1,int(self.cfg['agent'].get('scene_frames',6)))
+        times=[round(self.duration*(i+.5)/n,2) for i in range(n)]
+        media=None if self.mock else separate_frames(self.path,times)
+        previous=getattr(self,'cost_role',None); self.cost_role='scene'
+        try:
+            raw=self.submodel('perceive',{'duration':0,'instruction':SCENE_INSTRUCTION,'timestamps':times},media,self.mock_scene())
+        except BudgetExceeded:
+            raise
+        except Exception as exc:
+            raw={}; self.report['issues'].append('Scene context unavailable: '+sanitize(exc))
+        finally:
+            self.cost_role=previous
+        self.scene_context=clean_scene(raw)
+        self.report['scene_context']=self.scene_context
+        return self.scene_context
+
+    def establishing_gap(self):
+        """Id of the first narratable gap: its cue opens with the setting and who is present."""
+        ids=[g['id'] for g in sorted(self.gaps,key=lambda g:g['start']) if g.get('narratable',True) and g['id'] not in self.dropped]
+        return ids[0] if ids else None
+
     def detect_speech_gaps(self):
         if self.counts['gap_detection']:
             return {'cached':True,'reminder':'Use the gaps from the first detection.'+('' if any(g.get('narratable',True) for g in self.gaps) else ' There are no narratable gaps: call finalize.')}
@@ -215,7 +309,8 @@ class Agent:
             self.report['issues'].append('Every speech-free gap is shorter than agent.min_gap_s; extended AD is needed.')
         if not self.gaps:
             self.report['issues'].append('Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.')
-        return {'gaps':[{k:g[k] for k in ('id','start','end','max_words_en','max_words_hi','narratable','reason','parent_gap') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
+        scene=self.establish_scene() if any(g['narratable'] for g in self.gaps) else {}
+        return {**({'scene_context':scene_brief(scene,200)} if scene_brief(scene) else {}),'gaps':[{k:g[k] for k in ('id','start','end','max_words_en','max_words_hi','narratable','reason','parent_gap') if k in g} for g in self.gaps], 'detector':result['detector'],'speech_ratio':result['speech_ratio']}
 
     def cue_cap(self,g):
         """Longest speech a single English cue may take in this gap (seconds)."""
@@ -236,8 +331,18 @@ class Agent:
         return g['start']-1.0,g['end']+.5
 
     def overlaps(self,e,g):
+        """Event belongs to gap g only if it really happens there (review finding 4).
+
+        Assigned when the event midpoint lies in the gap window (1 s pre-roll, 0.5 s tail), or it overlaps the gap
+        itself by >= max(1 s, half the event), or it covers >= half of the gap. A long shot that only brushes the
+        gap edge no longer leaks into the gap's narration."""
+        try: s,e1=float(e['t_start']),float(e['t_end'])
+        except (KeyError,TypeError,ValueError): return False
         w0,w1=self.window(g)
-        return float(e['t_start'])<w1 and float(e['t_end'])>w0
+        if not (s<w1 and e1>w0): return False
+        if w0<=(s+e1)/2<=w1: return True
+        ov=max(0.,min(e1,g['end'])-max(s,g['start']))
+        return ov>=max(1.,.5*(e1-s)) or ov>=.5*max(g['end']-g['start'],1e-6)
 
     def gap_events(self,g,passed=None):
         """Evidence for one gap: events overlapping its window, plus at most 2 recent earlier ones (context only)."""
@@ -246,6 +351,7 @@ class Agent:
         for e in list(self.events)+list(passed or []):
             if isinstance(e,dict) and 't_start' in e and 't_end' in e and not any(e['t_start']==x['t_start'] and e['t_end']==x['t_end'] and e.get('what')==x.get('what') for x in pool):
                 pool.append(e)
+        pool=[e for e in pool if not e.get('refuted')]
         inside=[e for e in pool if self.overlaps(e,g)]
         # Only recent predecessors (<=10s) are useful context; anything else risks narrating the wrong moment.
         earlier=sorted([e for e in pool if float(e['t_end'])<=w0 and w0-float(e['t_end'])<=10],key=lambda e:float(e['t_end']))[-2:]
@@ -282,7 +388,9 @@ class Agent:
             return {'ok':False,'error':'Inspection cap reached'}
         self.counts['inspections']+=1
         for g in self.owned_gaps(start,end): self.inspect_tries[g['id']]+=1
-        data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute video t_start/t_end (seconds), what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start),'focus':focus}
+        data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute video t_start/t_end (seconds), what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start)
+              +' s. In what, say who acts, on which ingredient or object, with which tool, and the visible result; reuse the nouns from scene_context when they match what is visible. on_screen_text is only for titles, labels, signs and recipe cards; subtitle lines that transcribe the speaker\'s words are NOT on_screen_text (leave it empty)'+(' - this video has burned-in subtitles' if (self.scene_context or {}).get('burned_in_subtitles') else '')+'.',
+              'focus':focus,**({'scene_context':scene_brief(self.scene_context)} if scene_brief(self.scene_context) else {})}
         media=None; modality='mock'
         if not self.mock:
             clip=self.work/'inspection.mp4'
@@ -309,7 +417,7 @@ class Agent:
                 if base=='mixed' and (e<=start-.5 or s>=end+.5): continue
                 if not 0<=s<e<=self.duration or not 1<=float(event['importance'])<=5:
                     continue
-                event={**event,'what':event.get('what',event.get('action',''))}
+                event={**event,'what':event.get('what') or event.get('action') or event.get('event') or event.get('description') or ''}
                 if not isinstance(event['what'],str):
                     continue
                 if event not in self.events:
@@ -406,10 +514,27 @@ class Agent:
                     self.translation_done=False
                     out.setdefault('uncommitted',[]).append(gid)
         if verdict=='contradicted':
+            refuted=self.refute(claim,ids)
+            if refuted: out['refuted_events']=refuted
             self.contradicted+=1
             for gid in ids: self.verified.pop(gid,None)
             out['next']='claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description'
         return out
+
+    def refute(self,claim,ids):
+        """Mark stored events that a contradicted claim was built on as refuted (review finding 3).
+
+        Refuted events leave the evidence board, drafting, on-screen text and finalize coverage, so a hallucinated
+        title cannot be re-drafted again and again or block finalize as an 'uncovered' event."""
+        ct=tokens(claim); low=claim.lower(); count=0
+        gaps=[self.gap(i) for i in ids if any(g['id']==i for g in self.gaps)]
+        for e in self.events:
+            if e.get('refuted') or not any(self.overlaps(e,g) for g in gaps): continue
+            ost=str(e.get('on_screen_text') or '').strip()
+            wt=tokens(str(e.get('what','')))
+            if (ost and (ost.lower() in low or len(tokens(ost)&ct)>=max(1,len(tokens(ost))//2))) or (wt and len(wt&ct)/len(wt)>=.5):
+                e['refuted']=True; count+=1
+        return count
 
     def gap(self,gap_id):
         for g in self.gaps:
@@ -452,7 +577,10 @@ class Agent:
         replaced deterministically, so every returned draft fits."""
         avoid=avoid or {}
         def ask(todo,hard):
+            opener=self.establishing_gap()
             payload=[{'id':g['id'],'start':g['start'],'end':g['end'],'duration':round(g['duration'],2),'max_words':limits[g['id']],
+                      'role':'establishing' if g['id']==opener else 'action',
+                      **({'previous_lines':prev} if (prev:=self.previous_lines(g)) else {}),
                       'on_screen_text':self.onscreen(g,context_events),'events':self.gap_events(g,context_events),
                       **({'avoid_repeating':avoid[g['id']]} if avoid.get(g['id']) else {})} for g in todo]
             single={'events':payload[0]['events'],'max_words':payload[0]['max_words'],'avoid_repeating':payload[0].get('avoid_repeating','')} if len(todo)==1 else {}
@@ -460,19 +588,32 @@ class Agent:
             def mock_text(g):
                 if self.mock and getattr(self,'inject_overbudget',False) and not hard: return 'word '*(limits[g['id']]+5)
                 return self.mock_line(self.mock_events(g['start'],g['end']),limits[g['id']])
-            result=self.submodel('fit',{'instruction':lead+'Draft one English audio-description cue per gap. Return {cues:[{id,text}]}. Quote on-screen text verbatim when present (it is the most important content); <= max_words words; describe only events in this gap. Events tagged "earlier, context only" must not be described.',
-                'gaps':payload,**single},mock_result={'cues':[{'id':g['id'],'text':mock_text(g)} for g in todo]})
+            brief=scene_brief(self.scene_context)
+            scene_rules=(' Use scene_context for concrete nouns: the kind of place, the visible person (by appearance, never a name), the ingredients and tools. '
+                'A gap with role "establishing" opens with where we are and who is there, then the action in this gap. Other gaps: who does what, to which ingredient or object, with which tool, and the visible result; do not repeat the setting. '
+                'Write natural, fluent sentences (no semicolons, no "Label:" headings); vary sentence openings; after the first mention refer to the person briefly (e.g. by their role or one visible detail).') if brief else ''
+            continuity=(' Only describe what is NEW compared with previous_lines and earlier gaps in this batch; never paraphrase them. '
+                'If nothing new and visually important happens in an action gap, return text "SKIP" for it (silence is better than repetition); never SKIP the establishing gap. '
+                'Never read out subtitle text that transcribes the speaker; on_screen_text worth quoting is titles, labels and recipe cards, written as Title: "..." or Label: "...".')
+            result=self.submodel('fit',{'instruction':lead+'Draft one English audio-description cue per gap. Return {cues:[{id,text}]}. Quote on-screen text verbatim when present (it is the most important content); <= max_words words; describe only events in this gap. Events tagged "earlier, context only" must not be described.'+scene_rules+continuity,
+                **({'scene_context':brief} if brief else {}),'gaps':payload,**single},mock_result={'cues':[{'id':g['id'],'text':mock_text(g)} for g in todo]})
             if not hard: self.inject_overbudget=False
             if len(todo)==1 and isinstance(result.get('text'),str): return {todo[0]['id']:result['text']}
             return {c['id']:c['text'] for c in result.get('cues',[]) if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in limits}
         texts=ask(gaps,False)
-        over=[g for g in gaps if len(texts.get(g['id'],'').split())>limits[g['id']] or g['id'] not in texts]
+        skip={i for i,t in texts.items() if is_skip(t) and i!=self.establishing_gap()}
+        over=[g for g in gaps if g['id'] not in skip and (len(texts.get(g['id'],'').split())>limits[g['id']] or g['id'] not in texts or is_skip(texts.get(g['id'])))]
         self.draft_overlimit+=sum(g['id'] in texts for g in over)
         if over:
-            texts.update({i:t for i,t in ask(over,True).items() if t.strip()})
+            texts.update({i:t for i,t in ask(over,True).items() if t.strip() and not is_skip(t)})
         out={}
         for g in gaps:
+            if g['id'] in skip:
+                # The drafter judged the gap redundant: leave it silent (DCMP: describe what is new; silence is allowed).
+                self.skipped[g['id']]=True; self.drop_gap(g['id'],'no new visual information (drafter SKIP)')
+                continue
             t=texts.get(g['id'],'')
+            if is_skip(t): t=''
             if not t.strip() or len(t.split())>limits[g['id']]:
                 t=self.fallback_text(g,limits[g['id']],context_events,t)
             if not t: continue
@@ -486,7 +627,8 @@ class Agent:
             usable=[g for g in gaps if g.get('narratable',True)]
             limits={g['id']:max(1,min(max_words or 99,self.max_words(g))) for g in usable}
             out=self.draft_batch(usable,limits,context_events) if usable else {}
-            result={'cues':[{'id':i,'text':t,'max_words':limits[i]} for i,t in out.items()]}
+            result={'cues':[{'id':i,'text':t,'max_words':limits[i]} for i,t in out.items()],
+                    **({'skipped_no_new_info':[g['id'] for g in usable if g['id'] in self.skipped and g['id'] not in out]} if any(g['id'] in self.skipped and g['id'] not in out for g in usable) else {})}
             skipped=[g['id'] for g in gaps if not g.get('narratable',True)]
             return {**result,'skipped_too_short':skipped} if skipped else result
         g=self.gap(gap_id)
@@ -494,7 +636,14 @@ class Agent:
             return {'ok':False,'problems':['too short'],'reason':'too short'}
         limit=max(1,min(max_words or self.max_words(g),self.max_words(g)))
         out=self.draft_batch([g],{gap_id:limit},context_events,{gap_id:avoid_repeating})
-        return {'text':out[gap_id],'max_words':limit} if gap_id in out else {'ok':False,'problems':['no draft produced from the evidence']}
+        if gap_id in out: return {'text':out[gap_id],'max_words':limit}
+        if gap_id in self.skipped: return {'ok':True,'skipped':True,'reason':'no new visual information; gap dropped (silence)'}
+        return {'ok':False,'problems':['no draft produced from the evidence']}
+
+    def previous_lines(self,g,n=2):
+        """Last n committed English cues before gap g (continuity context for the drafter)."""
+        before=sorted([c for c in self.cues.values() if c['start']<g['start'] and c['id']!=g['id']],key=lambda c:c['start'])
+        return [c['en'] for c in before[-n:]]
 
     def measure_tts_duration(self,text,lang):
         if lang not in ('en','hi') or not isinstance(text,str) or len(text)>4000:
@@ -518,6 +667,8 @@ class Agent:
             problems.append(f"Word budget exceeded (max {limit} words)")
         if re.search(r'\b(we see|the camera)\b',text,re.I):
             problems.append('Banned phrase')
+        if lang=='en':
+            problems+= [p for p in lint(text) if not (p.endswith('"we see"') or 'camera' in p and re.search(r'\bthe camera\b',text,re.I)) or 'Banned phrase' not in problems]
         if lang=='hi' and not re.search('[\u0900-\u097f]',text):
             problems.append('Hindi must use Devanagari')
         seconds=self.measure_tts_duration(text,lang)['seconds']
@@ -549,6 +700,11 @@ class Agent:
         for other,c in self.cues.items():
             if other!=gap_id and similarity(text,c['en'])>=.8:
                 return {**result,'ok':False,'problems':[f'duplicate of gap {other}'],'problem':f'duplicate of gap {other}'}
+        prev=[c for c in self.cues.values() if c['id']!=gap_id and c['start']<self.gap(gap_id)['start']]
+        if prev:
+            last=max(prev,key=lambda c:c['start'])
+            if similarity(text,last['en'])>=.5:
+                return {**result,'ok':False,'problems':[f"repeats the previous cue (gap {last['id']})"],'problem':'too similar to the previous cue: describe only what is new, or drop_gap if nothing new happens'}
         if any(similarity(text,r)>=.8 for r in self.rejected.get(gap_id,[])):
             return {**result,'ok':False,'problems':['text was contradicted by verification'],'problem':'text was contradicted by verification; redraft'}
         g=self.gap(gap_id)
@@ -601,6 +757,9 @@ class Agent:
 
     def translate_hindi(self,cue_ids=None,max_words=None):
         cues=[c for i,c in self.cues.items() if cue_ids is None or i in cue_ids]
+        signature=sorted((c['id'],c['en']) for c in cues)
+        if cues and cue_ids is None and self.translation_done and self.translated_cues==signature and all(c.get('hi') for c in cues):
+            return {'ok':True,'cached':True,'note':'cue set unchanged since the last translation; nothing to do','cues':[{'id':c['id'],'text':c['hi']} for c in cues]}
         if not cues:
             self.translation_done=True
             return {'cues':[]}
@@ -612,7 +771,8 @@ class Agent:
             if len(hi.split())>limits[c['id']]:
                 hi='शीर्षक।'
             mock.append({'id':c['id'],'hi':hi})
-        response=self.submodel('edit',{'instruction':'Translate committed English cues into natural Devanagari Hindi. Return {cues:[{id,hi}]}, each <= its word limit. Preserve meaning.','cues':cues,'limits':limits},mock_result={'cues':mock})
+        brief=scene_brief(self.scene_context)
+        response=self.submodel('edit',{'instruction':'Translate committed English cues into natural Devanagari Hindi. Return {cues:[{id,hi}]}, each <= its word limit. Preserve meaning.'+(' Use scene_context only to pick the usual Hindi words for the place, ingredients and tools; add no facts.' if brief else ''),**({'scene_context':brief} if brief else {}),'cues':cues,'limits':limits},mock_result={'cues':mock})
         results={}
         for attempt in range(2):
             by_id={c['id']:c for c in response.get('cues',[]) if isinstance(c,dict) and 'id' in c}
@@ -629,6 +789,7 @@ class Agent:
             cues=[self.cues[c['id']] for c in failing]
             response=self.submodel('edit',{'instruction':'Shorten failing Hindi translations. Return {cues:[{id,hi}]}. Obey explicit max_words and max_seconds per cue; retain core meaning.','cues':failing},mock_result={'cues':[{'id':c['id'],'hi':'शीर्षक।'} for c in failing]})
         self.translation_done=True
+        if cue_ids is None: self.translated_cues=signature
         return {'ok':all(c['ok'] for c in results.values()),'cues':list(results.values())}
 
     def render(self,lang,target):
@@ -673,8 +834,9 @@ class Agent:
                 elif not self.check_fit(c['id'],c[lang],lang)['ok']:
                     problems.append(f"Cue {c['id']}: invalid {lang}")
         narratable=[g for g in self.gaps if g.get('narratable',True)]
-        high=[e for e in self.events if e['importance']>=4 and any(self.overlaps(e,g) for g in narratable)]
-        in_speech=[e for e in self.events if e['importance']>=4 and not any(self.overlaps(e,g) for g in narratable)]
+        live=[e for e in self.events if not e.get('refuted') and self.gap_for(e) not in self.skipped]
+        high=[e for e in live if float(e['importance'])>=4 and any(self.overlaps(e,g) for g in narratable)]
+        in_speech=[e for e in live if float(e['importance'])>=4 and not any(self.overlaps(e,g) for g in narratable)]
         # Temporal association is explicitly a proxy, not semantic coverage verification.
         uncovered=[e for e in high if not any(self.overlaps(e,c) for c in self.cues.values())]
         if uncovered:
@@ -696,9 +858,9 @@ class Agent:
         for lang in self.langs:
             tracks[lang]=self.render(lang,self.out/f'narrated_{lang}.mp4')
             write_texts(self.out,lang,tracks[lang])
-        total=max(.001,sum(g['duration'] for g in narratable))
+        total=max(.001,sum(g['duration'] for g in narratable if g['id'] not in self.skipped))
         self.report.update(status='complete',cues=sorted(self.cues.values(),key=lambda c:c['start']),tracks=tracks,gaps=self.gaps,speech=self.speech,
-            cues_committed=len(self.cues),cues_dropped=len(self.dropped),dropped_gaps=self.dropped,
+            cues_committed=len(self.cues),cues_dropped=len(self.dropped),dropped_gaps=self.dropped,gaps_skipped_no_new_info=sorted(self.skipped),
             overlaps_with_speech=sum(self.check_fit(c['id'],c[l],l)['overlap_seconds']>0 for c in self.cues.values() for l in self.langs if c.get(l)),
             gap_coverage_percent={l:100*sum(c['end']-c['start'] for c in track)/total for l,track in tracks.items()},
             high_importance_covered_percent=100*(len(high)-len(uncovered))/len(high) if high else 100,
@@ -706,6 +868,10 @@ class Agent:
             coverage_method='temporal association proxy (events overlapping narratable gap windows); not semantic verification',uncovered_events=uncovered)
         self.done=True
         return {'ok':True,'warnings':problems+warnings,'outputs':str(self.out)}
+
+    def gap_for(self,e):
+        ids=[g['id'] for g in self.gaps if g.get('narratable',True) and self.overlaps(e,g)]
+        return ids[0] if len(ids)==1 else None
 
     def verified_required(self):
         return [gid for gid in self.cues if self.verification_reasons(gid)]
@@ -832,7 +998,7 @@ class Agent:
         (self.out/'trace.json').write_text(json.dumps(trace,ensure_ascii=False,indent=2))
         (self.out/'trace.md').write_text('# Agent trace'+(' — MOCK' if self.mock else '')+'\n\n'+'\n'.join(
             f"- {s['step']} {'↪' if s['correction'] else '✓' if s['ok'] else '✗'} {s['role']} {s['tool_name'] or ''}: {s['note'] or json.dumps(s['result'],ensure_ascii=False)[:220]}"+ (f" (corrects {s['corrects_step']})" if s['correction'] else '') for s in self.steps))
-        roles={r:sum(s['cost_usd'] for s in self.steps if s.get('cost_role',s['role'])==r) for r in ('orchestrator','perceive','verify','draft','translate')}
+        roles={r:sum(s['cost_usd'] for s in self.steps if s.get('cost_role',s['role'])==r) for r in ('orchestrator','scene','perceive','verify','draft','translate')}
         if self.client.usage:
             roles={r:sum(u['cost_usd'] for u in self.client.usage if u.get('cost_role',{'orchestrate':'orchestrator','fit':'draft','edit':'translate'}.get(u['stage'],u['stage']))==r) for r in roles}
         self.report.update(usage=self.client.usage,cost_by_role=roles,billed_to='nvidia-dev free tier (dev only)' if self.cfg['provider']=='nvidia-dev' else 'mock (offline)' if self.mock else 'nebius token factory',cost_per_minute_usd=cost/(self.duration/60),agent_stats=summary,estimated_cost_usd=cost,

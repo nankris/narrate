@@ -1,0 +1,134 @@
+# Agent trace
+
+- 1 ✓ orchestrator : null
+- 2 ✓ submodel : {"setting": "Indoor kitchen workspace with a white distressed wooden table, black silicone baking mat with ci", "people": [{"description": "One person wearing a black apron over a yellow and white striped long-s", "doing
+- 3 ✓ tool detect_speech_gaps: Detect speech gaps for audio description
+- 4 ✓ orchestrator : null
+- 5 ✓ submodel : {"events": [{"t_start": 4.2, "t_end": 5.2, "what": "The person pours water from a glass measuring cup into the wooden bowl of flour while stirring with a spoon.", "on_screen_text": "", "importance": 4, "confidence": 1}, 
+- 6 ✓ tool inspect_video_segment: Inspect gap 1 area for dough prep
+- 7 ✓ submodel : {"events": [{"t_start": 13.8, "t_end": 16.4, "what": "A person mixes flour and liquid in a large wooden bowl using a gloved hand, combining the ingredients into a shaggy dough mass.", "on_screen_text": "Once the dough", 
+- 8 ✓ tool inspect_video_segment: Inspect gap 2 area for rolling
+- 9 ✓ submodel : {"events": [{"t_start": 23.6, "t_end": 26.0, "what": "A person wearing a black apron and striped sleeves holds a small bowl over a large wooden bowl and pours liquid from it onto a ball of dough using a metal spoon.", "o
+- 10 ✓ tool inspect_video_segment: Inspect gap 3 area for shaping
+- 11 ✓ submodel : {"events": [{"t_start": 40.4, "t_end": 42.2, "what": "The person divides a lump of dough on a black silicone baking mat using a knife into several oblong pieces.", "on_screen_text": "into smaller balls", "importance": 4,
+- 12 ✓ tool inspect_video_segment: Inspect gap 4 area for filling
+- 13 ✓ orchestrator : null
+- 14 ✓ submodel : {"events": [{"t_start": 65.2, "t_end": 71.5, "what": "A person wearing a black apron and yellow-and-white striped sleeves dusts flour from a glass dish onto a rolled sheet of dough on a black silicone mat, then presses a
+- 15 ✓ tool inspect_video_segment: Inspect gap 6 area 67.2-71.4
+- 16 ✓ submodel : {"events": [{"t_start": 73.6, "t_end": 74.9, "what": "A person rolls a piece of dough into a rope with their hands on a floured mat, creating an elongated strand.", "on_screen_text": "As shown", "importance": 3, "confide
+- 17 ✓ tool inspect_video_segment: Inspect gap 7 area 75.6-78.0
+- 18 ✓ submodel : {"events": [{"t_start": 78.8, "t_end": 84.4, "what": "A person rolls a dough log into a thin spiral on the silicone mat using their hands, then presses it into a flat round disc.", "on_screen_text": "like a cinnamon roll
+- 19 ✓ tool inspect_video_segment: Inspect gap 8 area 80.8-88.0
+- 20 ✓ submodel : {"events": [{"t_start": 88.1, "t_end": 88.6, "what": "A person drizzles oil from a bowl over several round dough balls sitting in a light brown bowl on a black silicone mat.", "on_screen_text": "Add a little", "importanc
+- 21 ✓ tool inspect_video_segment: Inspect gap 9 area 90.1-93.1
+- 22 ✓ orchestrator : null
+- 23 ✓ submodel : {"cues": [{"id": 1, "text": "Indoors, one person in a black apron over a yellow‑white striped shirt pours water into a wooden bowl of flour and mixes to form a shaggy dough."}, {"id": 2, "text": "The individual kneads th
+- 24 ✓ submodel : {"cues": [{"id": 1, "text": "In kitchen, person in black apron kneads dough in wooden bowl with poured water and mixing."}, {"id": 2, "text": "They incorporate more water until dough forms shaggy mass."}, {"id": 4, "text
+- 25 ✓ tool draft_description: Draft cues for all 9 gaps
+- 26 ✓ orchestrator : null
+- 27 ✓ submodel : {"cues": [{"id": 1, "text": "In a white distressed kitchen workspace, a person in a black apron kneads dough in a wooden bowl, pouring water to form a shaggy mass"}, {"id": 2, "text": "They press and fold the dough until
+- 28 ✓ submodel : {"cues": [{"id": 1, "text": "Indoor kitchen: Person in black apron kneads dough in bowl; pours water, mixes into shaggy mass."}, {"id": 2, "text": "Person continues kneading dough until it forms cohesive ball."}]}
+- 29 ✓ tool draft_description: Redraft gap 1 & 2 with max words
+- 30 ✓ orchestrator : null
+- 31 ✓ submodel : {"events": [{"t_start": 99.9, "t_end": 102.2, "what": "The person places a brown bowl containing small dough balls onto the black silicone mat and taps the dough balls.", "on_screen_text": "to 35 minutes", "importance": 
+- 32 ✓ tool inspect_video_segment: Inspect gap 10 evidence
+- 33 ✓ submodel : {"events": [{"t_start": 112.7, "t_end": 116.3, "what": "A person uses a wooden rolling pin to roll a piece of dough flat on a black silicone mat.", "on_screen_text": "", "importance": 5, "confidence": 1.0}, {"t_start": 1
+- 34 ✓ tool inspect_video_segment: Inspect gap 12 final segment
+- 35 ✓ orchestrator : null
+- 36 ✓ tool propose_cue: Propose cue for gap 1
+- 37 ✓ orchestrator : null
+- 38 ✓ submodel : {"verdict": "supported", "evidence": "A person wearing a black apron stands at a wooden table, mixing flour and water in a large wooden bowl with one hand; a glass pitcher of water sits beside the bowl, and the mixture a
+- 39 ✓ tool verify_claim: Verify gap 1 committed text
+- 40 ✓ orchestrator : null
+- 41 ✓ tool propose_cue: Propose cue for gap 2
+- 42 ✓ orchestrator : null
+- 43 ✓ tool propose_cue: Propose gap 3 cue
+- 44 ✓ orchestrator : null
+- 45 ✓ submodel : {"verdict": "supported", "evidence": "A person wearing a black glove adds liquid labeled 'of oil' to dough in a wooden bowl, then mixes and presses the dough by hand, consistent with kneading until a ball forms."}
+- 46 ✓ tool verify_claim: Verify gap 3 committed text
+- 47 ✓ orchestrator : null
+- 48 ✓ tool propose_cue: Propose gap 4 cue
+- 49 ✓ orchestrator : null
+- 50 ✓ submodel : {"verdict": "supported", "evidence": "The text overlay 'oil on top' is clearly visible at the bottom of the frame over a bowl containing rolled dough balls."}
+- 51 ✓ tool verify_claim: Verify gap 9
+- 52 ✓ orchestrator : null
+- 53 ✓ tool propose_cue: Propose gap 5 cue
+- 54 ✓ orchestrator : null
+- 55 ✓ submodel : {"verdict": "supported", "evidence": "The person holds a portion of dough, several dough balls are lined up on the mat, and additional dough is being shaped into balls."}
+- 56 ✓ tool verify_claim: Verify gap 4 committed text
+- 57 ✓ orchestrator : null
+- 58 ✓ submodel : {"cues": [{"id": 6, "text": "Person wearing a black apron with yellow strips dusts flour onto a rolled sheet of dough on a black mat."}, {"id": 7, "text": "person rolls a rope shaped piece of dough to thin it"}, {"id": 8
+- 59 ✓ submodel : {"cues": [{"id": 6, "text": "A person in a black apron with yellow-and-white striped sleeves sprinkles flour onto dough on a mat."}, {"id": 7, "text": "They roll and fold the dough into an oblong shape."}, {"id": 9, "tex
+- 60 ✓ tool draft_description: Draft remaining cues
+- 61 ✓ orchestrator : null
+- 62 ✓ submodel : {"verdict": "contradicted", "evidence": "The frame shows dough balls in a bowl with the text 'oil on top', but no oil is being drizzled and no person is seen rubbing dough to coat it."}
+- 63 ✗ tool verify_claim: Verify gap 9 committed text
+- 64 ✓ orchestrator : null
+- 65 ✓ tool propose_cue: Propose gap 6 cue
+- 66 ✓ orchestrator : null
+- 67 ✓ submodel : {"cues": [{"id": 7, "text": "A person with black apron and striped sleeves dusts flour onto rolled dough on a black silicone mat, then folds it into an oblong shape."}, {"id": 8, "text": "The individual transforms a doug
+- 68 ✓ submodel : {"cues": [{"id": 7, "text": "Add a little"}, {"id": 8, "text": "like a cinnamon roll"}, {"id": 9, "text": "oil on top"}, {"id": 10, "text": "to 35 minutes"}, {"id": 11, "text": "wooden rolling pin rolls"}, {"id": 12, "te
+- 69 ✓ tool draft_description: Draft remaining gaps
+- 70 ✓ orchestrator : null
+- 71 ✗ tool propose_cue: Propose gap 7
+- 72 ✓ orchestrator : null
+- 73 ✓ submodel : {"cues": [{"id": 7, "text": "A little more flour."}, {"id": 8, "text": "Add a little."}, {"id": 9, "text": "Oil on top."}, {"id": 10, "text": "Place dough balls in bowl for 35 minutes."}, {"id": 11, "text": "Roll dough i
+- 74 ✓ submodel : {"cues": [{"id": 7, "text": "A person rolls dough strands, extending them across the mat."}, {"id": 10, "text": "They place dough balls on mat and tap, then lift bowl, leaving scattered flour."}]}
+- 75 ✓ tool draft_description: Redraft gaps after budget check
+- 76 ✓ orchestrator : null
+- 77 ↪ tool propose_cue: Propose gap 7 (corrects 71)
+- 78 ✓ orchestrator : null
+- 79 ✓ submodel : {"verdict": "contradicted", "evidence": "The dough is rolled into a long rope shape, not flattened."}
+- 80 ✗ tool verify_claim: Verify gap 7 committed text
+- 81 ✓ orchestrator : null
+- 82 ✓ submodel : {"cues": [{"id": 7, "text": "dusts flour onto dough before rolling"}]}
+- 83 ✓ submodel : {"cues": [{"id": 7, "text": "A little more flour"}]}
+- 84 ✓ tool draft_description: Redraft gap 7 after contradiction
+- 85 ✓ orchestrator : null
+- 86 ↪ tool propose_cue: Propose gap 7 redraft (corrects 80)
+- 87 ✓ orchestrator : null
+- 88 ✓ submodel : {"cues": [{"id": 8, "text": "A person wearing a black apron over a striped shirt rolls and stretches dough on the mat, shaping it into a flat round disc before placing it beside other balls."}, {"id": 9, "text": "The per
+- 89 ✓ submodel : {"cues": [{"id": 8, "text": "Rolling dough on mat, extending length flat", "index": 0}, {"id": 9, "text": "Oil drizzled, coated brown bowl", "index": 1}, {"id": 10, "text": "Bowl placed, tapped, then lifted away", "index
+- 90 ✓ tool draft_description: Get draft texts for remaining gaps
+- 91 ✓ orchestrator : null
+- 92 ✓ submodel : {"verdict": "supported", "evidence": "Hands roll a dough ball on the mat into a longer, flattened shape."}
+- 93 ✓ tool verify_claim: Verify gap 8 drafted text
+- 94 ✓ orchestrator : null
+- 95 ✓ submodel : {"verdict": "uncertain", "evidence": "The bowl is brown and contains rolls; text 'oil on top' is visible, but the actual dripping or coating of oil is not shown in these frames."}
+- 96 ✓ tool verify_claim: Verify gap 9 text
+- 97 ✓ orchestrator : null
+- 98 ✗ tool verify_claim: Verify gap 11 text
+- 99 ✓ orchestrator : null
+- 100 ✗ tool verify_claim: Verify gap 11 rolling action
+- 101 ✓ orchestrator : null
+- 102 ✗ tool verify_claim: Verify gap 9
+- 103 ✓ orchestrator : null
+- 104 ✓ tool propose_cue: propose cue
+- 105 ✓ orchestrator : null
+- 106 ↪ tool propose_cue: propose cue (corrects 63)
+- 107 ✓ orchestrator : null
+- 108 ✗ tool propose_cue: propose cue
+- 109 ✓ orchestrator : null
+- 110 ✓ submodel : {"cues": [{"id": 10, "text": "A hand drizzles oil onto dough balls in a bowl; later places them onto the black silicone mat and taps them lightly."}, {"id": 11, "text": "A rolling pin flattens a dough piece on the mat; t
+- 111 ✓ submodel : {"cues": [{"id": 10, "text": "Person taps dough balls onto mat with oil on top"}, {"id": 11, "text": "Person uses rolling pin to flatten dough piece"}, {"id": 12, "text": "Person flips dough gently then presses rolling p
+- 112 ✓ tool draft_description: draft description
+- 113 ✓ orchestrator : null
+- 114 ↪ tool propose_cue: propose cue (corrects 108)
+- 115 ✓ orchestrator : null
+- 116 ✓ submodel : {"cues": [{"id": 11, "text": "Person kneads dough balls with wooden tools before gently pulling away and flipping one.", "on_screen_text": "to 35 minutes"}, {"id": 12, "text": "Person lifts dough and flips it over for fu
+- 117 ✓ submodel : {"cues": [{"id": 11, "text": "A person rolls dough using a wooden rolling pin on the mat."}]}
+- 118 ✓ tool draft_description: draft description
+- 119 ✓ orchestrator : null
+- 120 ↪ tool propose_cue: propose cue (corrects 98)
+- 121 ✓ orchestrator : null
+- 122 ↪ tool propose_cue: propose cue (corrects 100)
+- 123 ✓ orchestrator : null
+- 124 ✓ tool propose_cue: propose cue
+- 125 ✓ orchestrator : null
+- 126 ✗ tool verify_claim: verify claim
+- 127 ✓ orchestrator : null
+- 128 ✓ submodel : {"cues": [{"id": 1, "hi": "रसोई: काले ऐप्रन में व्यक्ति कटोरे में आटा गूँथता है; पानी डालकर मिलाता है।"}, {"id": 2, "hi": "व्यक्ति आटा गूँथता रहता है जब तक गोला न बने।"}, {"id": 3, "hi": "व्यक्ति आटे में तेल डालता है; गो
+- 129 ✓ tool translate_hindi: translate hindi
+- 130 ✓ fallback : Fallback finisher started: orchestrator stopped early (max turns, timeout or no tool calls)
+- 131 ✗ fallback verify_claim: Gap 6: unverified, Verification cap reached
+- 132 ✓ fallback finalize: Forced finalize with committed cues

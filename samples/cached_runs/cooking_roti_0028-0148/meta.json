@@ -1,0 +1,11 @@
+{
+  "title": "Cooking roti 0028-0148",
+  "input_path": "samples/cooking_roti_0028-0148.mp4",
+  "source": "https://www.youtube.com/watch?v=FX3KAGdnKQk",
+  "license": "CC-BY 3.0 (YouTube \"Creative Commons Attribution license (reuse allowed)\")",
+  "attribution": "Maple Kitchen, “How To Make Soft Layered Roti - Paratha” (https://www.youtube.com/channel/UC-nVNIaPWHbA4VhYymCuM4w), uploaded 2025-04-09",
+  "notes": "Real home-kitchen cooking video. Clip 0:28–2:28 (119.9 s), downloaded with yt-dlp (480p), re-encoded to 640 px, H.264 CRF 28, AAC 96k. The cook speaks as an English voice-over in bursts (Silero speech ratio 0.37) while hands knead, divide, oil and roll the dough in the gaps; English subtitles are burned into the picture. Changes: trimmed, re-encoded, audio description added. No endorsement implied.",
+  "provider": "nebius",
+  "dev_only": false,
+  "date": "2026-10-28"
+}
