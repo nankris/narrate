@@ -16,6 +16,8 @@ def main():
     p.add_argument('--strict', action='store_true')
     p.add_argument('--mock', action='store_true')
     p.add_argument('--budget-usd', type=float, default=None)
+    p.add_argument('--mode', choices=['director', 'agent', 'pipeline'], default=None,
+                   help='director (v2, default), agent (tool-calling loop) or pipeline (legacy one-shot; default for the pipeline command)')
     args = parser.parse_args()
     if not args.mock and args.provider != 'mock':
         import os
@@ -27,7 +29,11 @@ def main():
     if args.mock:
         print('MOCK: synthetic descriptions; no visual analysis or provider calls.')
     try:
-        if args.command == 'agent':
+        mode = args.mode or ('pipeline' if args.command == 'pipeline' else 'director')
+        if mode == 'director':
+            from .director import run_director
+            report = run_director(args.input, args.out, provider='mock' if args.mock else args.provider, langs=args.lang, budget_usd=args.budget_usd, on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or '', (e['note'] or '')[:160]))
+        elif mode == 'agent':
             from .agent import run_agent
             report = run_agent(args.input, args.out, provider='mock' if args.mock else args.provider, langs=args.lang, max_steps=args.max_steps, orchestrator_model=args.orchestrator, budget_usd=args.budget_usd, on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or e['note']))
         else:

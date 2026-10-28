@@ -220,7 +220,7 @@ class Agent:
         text = events[0].get('on_screen_text') or events[0].get('what','Scene')
         return ' '.join(text.split()[:max(1,min(limit,7))])
 
-    def submodel(self,stage,data,media=None,mock_result=None):
+    def submodel(self,stage,data,media=None,mock_result=None,system=None):
         start = time.monotonic()
         if start > self.client.deadline:
             raise TimeoutError('Agent deadline reached')
@@ -232,7 +232,7 @@ class Agent:
         else:
             before=len(self.client.usage)
             try:
-                result = self.client.call(stage,{**data, '_system': 'You are a precise audio description assistant. Follow the requested JSON schema. Describe only supported visible facts. '+data.get('instruction','')},media)
+                result = self.client.call(stage,{**data, '_system': system or 'You are a precise audio description assistant. Follow the requested JSON schema. Describe only supported visible facts. '+data.get('instruction','')},media)
             except Exception:
                 for usage in self.client.usage[before:]:
                     usage['cost_role']=getattr(self,'cost_role',None) or {'fit':'draft','edit':'translate'}.get(stage,stage)

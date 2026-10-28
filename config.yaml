@@ -113,7 +113,26 @@ agent:
   hangover_s: 0.3
   scene_context: true   # one Super VL pass over 6 frames: setting, people, ingredients, tools
   scene_frames: 6
+director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> one-shot script -> verify/repair -> Hindi
+  window_s: 24          # Super VL video windows covering the WHOLE clip (snapped to shot cuts)
+  window_snap_s: 3
+  window_fps: 4
+  window_fallback_frames: 4
+  ultra_stage: edit     # Nemotron 3 Ultra: bible, script, repair, Hindi
+  bible_stage: edit     # or orchestrate_alt (Super, nebius only) to trade quality for cost
+  max_ultra_calls: 6
+  budget_usd: 0.15      # SpendGuard hard cap per run (target <= 0.10 per 2-min clip)
+  min_words: 3          # gaps whose measured budget is smaller stay silent
+  similarity_prev: 0.5
+  similarity_any: 0.8
+  verify_batch: 4       # cues per Super VL verification call
+  verify_frames: 2      # stills per cue, taken inside the cue's own gap
+  max_repair_rounds: 2
+  accept_uncertain: true        # 'uncertain' is accepted only for cues without quotes/numbers/names
+  require_verification: true    # no verdict -> cue dropped, never committed unverified
+  calibrate_tts: true           # word budgets from the measured speaking rate of the actual TTS voice
 ui:
+  mode: director       # live runs: director (v2) or agent
   session_cap_usd: 0.25
   daily_cap_usd: 3.0
   per_run_cap_usd: 0.25

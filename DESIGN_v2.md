@@ -78,11 +78,13 @@ Because the timeline covers speech regions too, the writer knows what happened w
 
 ### 2c. Event→gap assignment (P0-3) and refuted evidence (P0-2)
 
-Each event is assigned to **at most one** narratable gap. The rule (`assign_events`):
+Each event gets one **home** gap. The rule (`assign_events`):
 
 1. Use the gap containing the event **midpoint**.
 2. Otherwise use the gap that covers **≥ 50 % of the event**.
 3. Otherwise the event is "in speech". It is story context only and cannot be cited as evidence.
+
+A long, ongoing event (for example a 20 s kneading shot) is also evidence for any *other* gap it covers ≥ 50 % of. An event that only brushes a gap edge, like the NASA pepper shot that overlapped gap 6 by 0.1 s, is never assigned there.
 
 A refuted event (`refuted: true`, set after a contradicted verification) is excluded from assignment, from the script and repair inputs, and from coverage metrics.
 
@@ -128,7 +130,7 @@ A refuted event (`refuted: true`, set after a contradicted verification) is excl
 * Motion is judged "consistent", because stills cannot show movement.
 
 **Policy:**
-* `contradicted`: the cited events that the wrong phrase overlaps are **refuted** (all cited events if none overlap), and the cue goes to repair with the verifier's reason.
+* `contradicted`: the cited events that the quoted wrong phrase overlaps are **refuted**. If the verifier quotes no phrase, the whole cue is wrong, so the events it rests on are refuted. The cue then goes to repair with the verifier's reason.
 * `uncertain`: accepted only when the cue has no risky content (quotes, numbers, names, per `risky_text`); otherwise it goes to repair.
 * Verification call failed: the cue is **not** committed (`require_verification: true`). The only exception is mock mode.
 
