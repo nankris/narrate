@@ -414,3 +414,32 @@ count, confusing-parts-explained percentage and mean fluency. The scoring SpendG
 `tests/test_round8.py` is fully offline and covers snapping, spacing, continuous-speech-like gaps, contiguous timeline math,
 source→output mapping, speech rejection, VTT output times, ground-truth normalisation, scorer aggregation, CLI language routing,
 and a mock end-to-end ffmpeg render whose video/audio duration equals source plus freezes within 0.1 s.
+
+## 13. Round 8b: complete, chronological extended description
+
+Round 8b makes source coverage a hard planning property. `extended.max_coverage_gap_s` defaults to 25 seconds and can add
+deterministic speech-free coverage anchors even after the semantic pause cap is filled. A closing pause holds the last source
+frame when no selected pause is within three seconds of the end. Every planned pause is sent through one final batched
+Nemotron rewrite retry if the writer, checks or verifier dropped it; a remaining verifier-quoted false detail can go through
+the Round 7 Nano strike and still must pass the ordinary evidence checks and Super VL verification. No fallback prose is
+authored in code.
+
+Event windows now use the event's completion time: only events ending in `(previous_pause, current_pause]` are supplied,
+sorted by absolute `t_end`, with explicit exclusive/inclusive bounds. All cited ids are checked, not merely one valid id;
+future, stale and unknown citations are hard repair reasons. The writer and repair prompts require chronological narration,
+forbid treating a first-frame observation as a claim about the full clip, and receive the previous cues during repair.
+Similarity to the immediately preceding cue has its own stricter redundancy threshold.
+
+Key events and beats prefer the nearest safe scene cut, speech end or confirmed micro-silence up to three seconds after the
+event and record `from_t`, `snap_seconds` and a boundary-specific `snap_reason`. Extended speech analysis supplements Silero
+with ffmpeg `silencedetect` at -30 dB for at least 0.08 seconds and subtracts those confirmed gaps from broad VAD intervals.
+A micro-silence is eligible only inside a VAD speech run of at least eight seconds, avoiding ordinary short pauses and initial
+room tone in live-action clips.
+A cheap 2 fps downscaled grey-frame difference pass detects slide/text replacements that the normal scene score misses; a
+visual change uses the first following micro-silence (up to four seconds) rather than stopping mid-word. The existing
+approximately 12-second Super VL video windows remain the evidence source, avoiding a duplicate perception pass. The real
+Round 8 run cost about $0.04, and the extended SpendGuard is now $0.10 per clip.
+
+`tests/test_round8b.py` is offline and covers the real lecture file's four micro-silences and 15-second slide change, the
+3.1/18.1-second pause plan, hard coverage gaps, a final-frame pause, natural-boundary provenance, strict chronology/citation
+checking, previous-cue redundancy, and model-written recovery of a dropped planned pause.

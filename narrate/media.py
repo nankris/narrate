@@ -71,6 +71,56 @@ def scene_cuts(path, threshold=.3, timeout=60):
         return []
 
 
+def micro_silences(path, duration=None, noise_db=-30, minimum=.08, timeout=60):
+    """Return brief, confirmed acoustic silences suitable for extended-AD pauses.
+
+    This deliberately uses ffmpeg's energy detector rather than VAD: a VAD may
+    merge an entire lecture into one speech interval even though sentence-final
+    breaths leave a safe tenth of a second in which the picture can be paused.
+    """
+    try:
+        done = subprocess.run(
+            ['ffmpeg', '-hide_banner', '-nostats', '-threads', '2', '-i', str(path),
+             '-af', f'silencedetect=noise={noise_db}dB:d={minimum}', '-f', 'null', '-'],
+            capture_output=True, timeout=timeout)
+        text = done.stderr.decode(errors='replace')
+        gaps, start = [], None
+        for kind, value in re.findall(r'silence_(start|end):\s*([-\d.]+)', text):
+            value = max(0., float(value))
+            if duration is not None:
+                value = min(float(duration), value)
+            if kind == 'start':
+                start = value
+            elif start is not None and value - start >= minimum - 1e-4:
+                gaps.append({'start': round(start, 6), 'end': round(value, 6),
+                             'duration': round(value - start, 6),
+                             'midpoint': round((start + value) / 2, 6)})
+                start = None
+        return gaps
+    except (subprocess.SubprocessError, OSError, ValueError):
+        return []
+
+
+def sensitive_visual_changes(path, threshold=1., fps=2., timeout=60):
+    """Detect sparse slide/text changes missed by ffmpeg's scene score.
+
+    Consecutive downscaled grey frames are differenced and ``YAVG`` is the mean
+    absolute pixel change on ffmpeg's 0-255 scale.  The low default catches a
+    title/text replacement while remaining much cheaper than another VL pass.
+    """
+    try:
+        vf = (f'fps={fps},scale=320:-2,format=gray,tblend=all_mode=difference,'
+              'signalstats,metadata=print:key=lavfi.signalstats.YAVG')
+        done = subprocess.run(
+            ['ffmpeg', '-hide_banner', '-nostats', '-threads', '2', '-i', str(path),
+             '-an', '-vf', vf, '-f', 'null', '-'], capture_output=True, timeout=timeout)
+        text = done.stderr.decode(errors='replace')
+        pairs = re.findall(r'pts_time:([\d.]+)[\s\S]*?lavfi\.signalstats\.YAVG=([\deE+.-]+)', text)
+        return sorted({round(float(t), 3) for t, score in pairs if float(score) >= threshold})
+    except (subprocess.SubprocessError, OSError, ValueError):
+        return []
+
+
 def split_slots(start, end, max_slot=12., cuts=(), snap=2., floor=4.):
     """Split [start,end] into consecutive slots of roughly equal length (6-12 s when end-start > max_slot).
 

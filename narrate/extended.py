@@ -17,6 +17,8 @@ DEFAULTS = {
     'snap_max_s': 3.,
     'min_pause_spacing_s': 12.,
     'max_pauses_per_minute': 4.,
+    'max_coverage_gap_s': 25.,
+    'final_pause_within_s': 3.,
     'pad_before_s': .3,
     'pad_after_s': .4,
     'max_words': 45,
@@ -100,9 +102,24 @@ def _event_time(event):
     return _number(event.get('t_start'))
 
 
+def _micro_midpoints(rows, duration):
+    points = []
+    for row in rows or []:
+        if isinstance(row, dict):
+            start, end = _number(row.get('start')), _number(row.get('end'))
+            t = _number(row.get('midpoint'), (start + end) / 2)
+        else:
+            start, end = _number(row[0]), _number(row[1])
+            t = (start + end) / 2
+        if 0 < t < duration and end > start:
+            points.append(round(t, 3))
+    return sorted(set(points))
+
+
 def plan_pauses(source_duration, speech_intervals, scene_cuts=(), timeline_events=(),
                 story_beats=(), *, safety_margin=.15, snap_max_s=3.,
-                min_spacing_s=12., max_pauses_per_minute=4.):
+                min_spacing_s=12., max_pauses_per_minute=4., max_coverage_gap_s=25.,
+                final_pause_within_s=3., micro_silences=(), visual_changes=()):
     """Choose deterministic extended-AD pauses from cuts, speech ends and story facts.
 
     The establishing pause is always selected first, immediately after opening
@@ -115,19 +132,53 @@ def plan_pauses(source_duration, speech_intervals, scene_cuts=(), timeline_event
     if duration <= 0:
         return []
     candidates = []
+    cuts = sorted({_number(c) for c in scene_cuts or [] if 0 < _number(c) < duration})
+    micro = _micro_midpoints(micro_silences, duration)
 
-    def add(t, reason, priority, source, detail=None):
-        snap = snap_pause_time(t, speech, duration, safety_margin, snap_max_s)
+    def add(t, reason, priority, source, detail=None, *, exact=False, boundary_from=None,
+            boundary_kind=None):
+        snap = ({'t': round(_number(t), 3), 'snapped': boundary_from is not None,
+                 'from_t': round(_number(boundary_from, t), 3),
+                 'snap_seconds': round(_number(t) - _number(boundary_from, t), 3),
+                 'snap_reason': (f'forward_to_{boundary_kind}' if boundary_kind else
+                                 'confirmed_micro_silence' if exact else 'already_speech_free')}
+                if exact else snap_pause_time(t, speech, duration, safety_margin, snap_max_s))
         if snap is None or not 0 <= snap['t'] <= duration:
             return
+        if boundary_from is not None and not exact:
+            snap.update(snapped=True, from_t=round(_number(boundary_from), 3),
+                        snap_seconds=round(snap['t'] - _number(boundary_from), 3),
+                        snap_reason=f'forward_to_{boundary_kind}')
         candidates.append({**snap, 'candidate_t': round(_number(t), 3),
                            'reason': reason, 'source': source, 'priority': priority,
                            **({'detail': detail} if detail else {})})
 
+    def natural_boundary(t):
+        """Nearest safe cut/speech-end/micro-silence after a key moment."""
+        t = _number(t)
+        options = []
+        options += [(x, 'scene_cut') for x in cuts if t <= x <= t + snap_max_s]
+        options += [(x, 'micro_silence') for x in micro if t <= x <= t + snap_max_s]
+        options += [(s['end'] + safety_margin, 'speech_end') for s in speech
+                    if t <= s['end'] + safety_margin <= t + snap_max_s]
+        for boundary, kind in sorted(options):
+            if kind == 'micro_silence':
+                return boundary, kind
+            safe = snap_pause_time(boundary, speech, duration, safety_margin,
+                                   max(0., t + snap_max_s - boundary))
+            if safe is not None and safe['t'] <= t + snap_max_s + 1e-9:
+                return safe['t'], ('speech_end_after_' + kind
+                                   if safe['t'] > boundary + 1e-6 else kind)
+        return None
+
     # Near-start establishing pause: after opening speech, otherwise the earliest
     # useful boundary/cut (or 0.5 s into a very short, silent clip).
     opening = next((s for s in speech if s['start'] <= .5), None)
-    if opening:
+    early_micro = next((t for t in micro if t <= min(duration, 6.)), None)
+    if early_micro is not None:
+        establishing_t = early_micro
+        establishing_reason = 'establishing pause at a between-sentence micro-silence'
+    elif opening:
         establishing_t = opening['end'] + safety_margin
         establishing_reason = 'establishing pause after opening speech'
     else:
@@ -135,25 +186,45 @@ def plan_pauses(source_duration, speech_intervals, scene_cuts=(), timeline_event
                                    *[s['end'] + safety_margin for s in speech]] if .05 <= t <= min(duration, 6.))
         establishing_t = early[0] if early else min(duration, .5)
         establishing_reason = 'establishing pause near the start'
-    add(establishing_t, establishing_reason, 100, 'establishing')
+    add(establishing_t, establishing_reason, 100, 'establishing', exact=early_micro is not None)
 
-    for cut in sorted({_number(c) for c in scene_cuts or []}):
-        if 0 < cut < duration:
-            add(cut, 'scene cut', 50, 'scene_cut')
+    for cut in cuts:
+        add(cut, 'scene cut', 50, 'scene_cut')
     for interval in speech:
         if interval['end'] < duration:
             add(interval['end'] + safety_margin, 'speech-end boundary', 40, 'speech_end')
+    for t in micro:
+        add(t, 'between-sentence micro-silence', 48, 'micro_silence', exact=True)
+    for change in sorted({_number(c) for c in visual_changes or []}):
+        boundary = next((t for t in micro if change <= t <= change + max(4., snap_max_s)), None)
+        if boundary is not None:
+            add(boundary, 'visual change; first between-sentence boundary after it', 72,
+                'visual_change', exact=True, boundary_from=change, boundary_kind='micro_silence')
     for event in timeline_events or []:
         if not isinstance(event, dict):
             continue
         importance = max(1, min(5, int(round(_number(event.get('importance'), 3)))))
         if importance >= 4 or event.get('key_event'):
-            add(_event_time(event), f'high-importance event {event.get("id", "")}'.strip(),
-                55 + importance, 'timeline_event', str(event.get('what') or event.get('action') or '')[:160])
+            at = _event_time(event)
+            boundary = natural_boundary(at)
+            if boundary:
+                add(boundary[0], f'high-importance event {event.get("id", "")}'.strip(),
+                    55 + importance, 'timeline_event', str(event.get('what') or event.get('action') or '')[:160],
+                    exact=boundary[1] == 'micro_silence', boundary_from=at, boundary_kind=boundary[1])
+            else:
+                add(at, f'high-importance event {event.get("id", "")}'.strip(),
+                    55 + importance, 'timeline_event', str(event.get('what') or event.get('action') or '')[:160])
     for beat in story_beats or []:
         if isinstance(beat, dict):
-            add(_event_time(beat), f'story beat {beat.get("id", "")}'.strip(), 58,
-                'story_beat', str(beat.get('beat') or beat.get('what') or '')[:160])
+            at = _event_time(beat)
+            boundary = natural_boundary(at)
+            if boundary:
+                add(boundary[0], f'story beat {beat.get("id", "")}'.strip(), 58,
+                    'story_beat', str(beat.get('beat') or beat.get('what') or '')[:160],
+                    exact=boundary[1] == 'micro_silence', boundary_from=at, boundary_kind=boundary[1])
+            else:
+                add(at, f'story beat {beat.get("id", "")}'.strip(), 58,
+                    'story_beat', str(beat.get('beat') or beat.get('what') or '')[:160])
 
     # Same snapped instant: retain the strongest row and merge its reasons.
     merged = {}
@@ -179,6 +250,54 @@ def plan_pauses(source_duration, speech_intervals, scene_cuts=(), timeline_event
             break
         if all(abs(row['t'] - kept['t']) >= min_spacing_s - 1e-9 for kept in selected):
             selected.append(row)
+
+    # Coverage is a hard constraint, unlike the semantic cap.  Prefer an existing
+    # natural boundary, then add a deterministic safe coverage anchor.  A closing
+    # freeze at source duration is always safe, including after continuous speech.
+    max_gap = max(1., _number(max_coverage_gap_s, 25.))
+    pool = sorted(rows, key=lambda r: r['t'])
+    while True:
+        points = [0.] + sorted(r['t'] for r in selected) + [duration]
+        hole = next(((a, b) for a, b in zip(points, points[1:]) if b - a > max_gap + 1e-9), None)
+        if not hole:
+            break
+        left, right = hole
+        deadline = min(right, left + max_gap)
+        choices = [r for r in pool if left + 1e-6 < r['t'] <= deadline + 1e-9 and r not in selected]
+        if choices:
+            chosen = max(choices, key=lambda r: (r['t'], r.get('priority', 0)))
+        else:
+            snap = snap_pause_time(deadline, speech, duration, safety_margin, snap_max_s)
+            if snap is None or snap['t'] > deadline + 1e-9:
+                before = [s['start'] - safety_margin for s in speech
+                          if left + 1e-6 < s['start'] - safety_margin <= deadline]
+                t = max(before, default=deadline)
+                snap = snap_pause_time(t, speech, duration, safety_margin, 0.)
+            if snap is None or snap['t'] <= left + 1e-6:
+                # No legal instant exists in this interval (truly uninterrupted
+                # speech).  The final source-end pause still closes the story.
+                break
+            chosen = {**snap, 'candidate_t': round(deadline, 3),
+                      'reason': f'coverage anchor (maximum {max_gap:g} s source gap)',
+                      'source': 'coverage', 'priority': 110}
+            pool.append(chosen)
+        selected.append(chosen)
+
+    selected.sort(key=lambda r: r['t'])
+    if not selected or duration - selected[-1]['t'] > max(0., _number(final_pause_within_s, 3.)):
+        closing = {'t': round(duration, 3), 'snapped': False, 'from_t': round(duration, 3),
+                   'snap_seconds': 0., 'snap_reason': 'source_end_closing_freeze',
+                   'candidate_t': round(duration, 3),
+                   'reason': 'closing pause on the final frame', 'source': 'closing'}
+        previous = selected[-2]['t'] if len(selected) > 1 else 0.
+        # Prefer a closing description over a nearby semantic pause when that
+        # preserves both hard coverage and the configured cap/spacing.
+        if (len(selected) >= limit and selected and selected[-1].get('source') == 'story_beat'
+                and duration - previous <= max_gap + 1e-9
+                and duration - previous >= min_spacing_s - 1e-9):
+            selected[-1] = closing
+        else:
+            selected.append(closing)
     selected.sort(key=lambda r: r['t'])
     for i, row in enumerate(selected, 1):
         row['id'] = i
