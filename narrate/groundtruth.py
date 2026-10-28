@@ -3,16 +3,35 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from pathlib import Path
 
 from .agent.vad import detect
 from .config import load_config, resolve_provider
 from .director import parse_srt
 from . import director_prompts as P
-from .extended import normalise_speech, snap_pause_time
+from .extended import normalise_speech
 from .llm import Client, SpendGuard, normalize_json
-from .media import probe, scene_cuts, timestamp
+from .media import ffmpeg, probe, scene_cuts, timestamp
 from .perception import separate_frames
+
+
+GROUNDTRUTH_VISUAL_CONSOLIDATE = '''Merge dense frame observations into one ENGLISH VISUAL ground-truth timeline for
+extended audio description. Describe visuals only. Speech intervals and subtitle_text only identify times when narration
+must not compete with programme audio; never summarize, paraphrase, interpret, or explain speech content. Return strict JSON:
+{"clip":"","duration":0,"setting":"","cast":[{"id":"","description":""}],"objects":[""],
+"segments":[{"id":"","t_start":0,"t_end":0,"setting":"","present":[""],"action_steps":[""],
+"on_screen_text":[""],"importance":1,"confusing":{"is_confusing":true,"why":"","what_to_explain":""},
+"recommendation":"pause_extended|in_gap_short|none","reason":""}],
+"key_events":[{"id":"","t":0,"what":"","importance":1}],
+"confusing_parts":[{"id":"","t":0,"what":"","why":"","what_to_explain":""}],
+"pause_points":[{"t":0,"why":""}]}.
+All text must be grounded only in supplied visual observations. Track visible actions and visible state changes step by step,
+including visuals that occur during speech. A confusing part must be a VISUAL ambiguity, such as an occluded action, an
+unexplained object/state change, or a hard-to-follow visual transition; it must never be missing or unclear speech content.
+Recommend pause_extended where a blind viewer needs a fuller explanation of those visuals. Prefer supplied visual-change
+times or speech-free boundaries for pause points. Do not turn subtitles or any other speech into visual action, on-screen
+text, a key event, a confusing part, or something to explain.'''
 
 
 def _text(value, limit=1000):
@@ -44,6 +63,67 @@ def sample_times(duration, fps=1., cuts=(), after_cut=.05):
     return sorted({round(t, 3) for t in regular + extra if 0 <= t < duration})
 
 
+def parse_micro_silences(log, duration=None, minimum=.08):
+    """Parse ffmpeg silencedetect output into short speech-free intervals."""
+    if isinstance(log, bytes):
+        log = log.decode(errors='replace')
+    limit = float(duration) if duration is not None else None
+    intervals, start = [], None
+    for line in str(log or '').splitlines():
+        start_match = re.search(r'silence_start:\s*(-?[\d.]+)', line)
+        if start_match:
+            start = max(0., _number(start_match.group(1)))
+        end_match = re.search(r'silence_end:\s*(-?[\d.]+)', line)
+        if not end_match:
+            continue
+        end = max(0., _number(end_match.group(1)))
+        duration_match = re.search(r'silence_duration:\s*([\d.]+)', line)
+        inferred = _number(duration_match.group(1)) if duration_match else 0.
+        begin = start if start is not None else max(0., end - inferred)
+        if limit is not None:
+            begin, end = min(limit, begin), min(limit, end)
+        if end >= begin and end - begin + 1e-9 >= minimum:
+            intervals.append({'start': round(begin, 3), 'end': round(end, 3),
+                              'duration': round(end - begin, 3)})
+        start = None
+    return intervals
+
+
+def detect_micro_silences(path, duration, noise_db=-30, minimum=.08):
+    """Find between-sentence energy dips even when VAD merges all speech."""
+    try:
+        done = ffmpeg('-i', path, '-af', f'silencedetect=noise={noise_db}dB:d={minimum}',
+                      '-f', 'null', '-')
+        return parse_micro_silences(done.stderr, duration, minimum)
+    except (OSError, ValueError):
+        return []
+    except Exception:
+        # ffmpeg failures must not prevent ground-truth generation.
+        return []
+
+
+def snap_pause_forward(original, speech, duration, micro_silences=()):
+    """Keep a proposed pause or move it forward to an energy/VAD speech boundary."""
+    original = min(float(duration), max(0., float(original)))
+    inside = next((s for s in speech if s['start'] < original < s['end']), None)
+    if not inside:
+        return {'t': round(original, 3), 'snapped': False, 'from_t': round(original, 3),
+                'snap_seconds': 0., 'snap_reason': 'already_speech_free'}
+    for gap in micro_silences:
+        if gap['start'] <= original <= gap['end']:
+            return {'t': round(original, 3), 'snapped': False, 'from_t': round(original, 3),
+                    'snap_seconds': 0., 'snap_reason': 'energy_micro_silence'}
+    candidates = [(min(float(duration), float(g['end'])), 'next_energy_micro_silence_end')
+                  for g in micro_silences
+                  if float(g['end']) >= original and float(g['end']) <= float(inside['end']) + 1e-6]
+    candidates.append((min(float(duration), float(inside['end'])), 'forward_speech_end'))
+    target, reason = min((x for x in candidates if x[0] + 1e-9 >= original),
+                         key=lambda x: x[0])
+    return {'t': round(target, 3), 'snapped': abs(target - original) > 1e-6,
+            'from_t': round(original, 3), 'snap_seconds': round(target - original, 3),
+            'snap_reason': reason}
+
+
 def normalise_frame_descriptions(raw, requested_times):
     """Accept common VL response shapes while keeping only model-written text."""
     raw = normalize_json(raw)
@@ -64,7 +144,18 @@ def normalise_frame_descriptions(raw, requested_times):
     return sorted(out, key=lambda r: r['t'])
 
 
-def normalise_groundtruth(raw, clip, duration, speech_intervals=(), cuts=()):
+def frame_text_change_times(frames):
+    """Detect title/label/slide changes from ordered Stage A frame descriptions."""
+    changes, previous = [], None
+    for frame in sorted(frames, key=lambda row: row.get('t', 0.)):
+        visible_text = tuple(_text(x, 240).casefold() for x in frame.get('on_screen_text', []) if _text(x, 240))
+        if previous is not None and visible_text != previous and (visible_text or previous):
+            changes.append(round(float(frame.get('t', 0.)), 3))
+        previous = visible_text
+    return sorted(set(changes))
+
+
+def normalise_groundtruth(raw, clip, duration, speech_intervals=(), cuts=(), micro_silences=()):
     """Validate the Ultra timeline and snap proposed pauses out of speech."""
     raw = normalize_json(raw) if isinstance(raw, dict) else {}
     val = lambda k, n=500: _text(raw.get(k), n)
@@ -113,18 +204,10 @@ def normalise_groundtruth(raw, clip, duration, speech_intervals=(), cuts=()):
         if not isinstance(item, dict):
             continue
         original = min(duration, max(0., _number(item.get('t', item.get('time')))))
-        inside = next((s for s in speech if s['start'] < original < s['end']), None)
-        if inside:
-            nearest = min((inside['start'], inside['end']), key=lambda t: (abs(t - original), t))
-            snap = {'t': round(nearest, 3), 'snapped': True, 'from_t': round(original, 3),
-                    'snap_seconds': round(nearest - original, 3),
-                    'snap_reason': 'nearest_speech_free_instant'}
-        else:
-            snap = snap_pause_time(original, speech, duration, margin=0., max_snap=duration)
-            if snap is None:
-                continue
-        # Prefer a nearby scene cut when it is already speech-free; ties go earlier.
-        available_cuts = [float(c) for c in cuts if not any(s['start'] < float(c) < s['end'] for s in speech)]
+        snap = snap_pause_forward(original, speech, duration, micro_silences)
+        # Prefer a nearby forward scene cut when it is already speech-free.
+        available_cuts = [float(c) for c in cuts if float(c) + 1e-9 >= original and
+                          not any(s['start'] < float(c) < s['end'] for s in speech)]
         nearby = min(available_cuts, key=lambda c: (abs(c - original), c), default=None)
         if nearby is not None and abs(nearby - original) <= .25:
             snap = {'t': round(nearby, 3), 'snapped': abs(nearby-original) > 1e-6,
@@ -166,7 +249,7 @@ def normalise_verdicts(raw):
 
 class GroundTruthBuilder:
     def __init__(self, path, out, provider='nebius', budget_usd=.4, fps=1., batch_size=6,
-                 *, config=None, client=None):
+                 *, config=None, client=None, visual_change_threshold=.01):
         self.path, self.out = Path(path), Path(out)
         self.out.mkdir(parents=True, exist_ok=True)
         self.cfg = resolve_provider(config or load_config(), provider)
@@ -175,6 +258,7 @@ class GroundTruthBuilder:
         if self.client is not None:
             self.client.guard, self.client.config = self.guard, self.cfg
         self.fps, self.batch_size = fps, max(1, int(batch_size))
+        self.visual_change_threshold = min(.29, max(.01, float(visual_change_threshold)))
         self.duration, self.has_audio = probe(self.path)
         self.usage = []
 
@@ -220,7 +304,9 @@ class GroundTruthBuilder:
                 'pause_points': [{'t': c, 'why': ''} for c in cuts]}
 
     def build(self):
-        cuts = scene_cuts(self.path)
+        standard_cuts = scene_cuts(self.path)
+        low_threshold_changes = scene_cuts(self.path, threshold=self.visual_change_threshold)
+        cuts = sorted({*standard_cuts, *low_threshold_changes})
         times = sample_times(self.duration, self.fps, cuts)
         frames = []
         for offset in range(0, len(times), self.batch_size):
@@ -231,16 +317,24 @@ class GroundTruthBuilder:
                              '_temperature': 0.}, media, self.mock_frames(batch))
             frames.extend(normalise_frame_descriptions(raw, batch))
 
+        description_changes = frame_text_change_times(frames)
+        visual_changes = sorted({*low_threshold_changes, *description_changes})
+        cuts = sorted({*standard_cuts, *visual_changes})
+
         vad = detect(self.path, self.duration, self.has_audio, self.cfg)
+        micro_silences = detect_micro_silences(self.path, self.duration) if self.has_audio else []
         srt = self.path.with_suffix('.en.srt')
         subtitles = [{'start': s, 'end': e, 'text': text} for s, e, text in parse_srt(srt)] if srt.is_file() else []
-        raw = self.call('consolidate', 'orchestrate', P.GROUNDTRUTH_CONSOLIDATE,
+        raw = self.call('consolidate', 'orchestrate', GROUNDTRUTH_VISUAL_CONSOLIDATE,
                         {'duration': 0, 'clip': self.path.name, 'clip_duration': self.duration,
                          'frames': frames, 'speech_intervals': vad['speech'], 'scene_cuts': cuts,
+                         'visual_change_times': visual_changes,
+                         'speech_free_boundaries': [g['end'] for g in micro_silences],
                          'subtitle_speech_context': subtitles, '_temperature': 0., '_max_tokens': 6000},
                         None, self.consolidate_mock(frames, cuts))
-        gt = normalise_groundtruth(raw, self.path.name, self.duration, vad['speech'], cuts)
+        gt = normalise_groundtruth(raw, self.path.name, self.duration, vad['speech'], cuts, micro_silences)
         gt.update(frame_descriptions=frames, speech_intervals=vad['speech'], scene_cuts=cuts,
+                  visual_change_times=visual_changes, micro_silences=micro_silences,
                   detector=vad['detector'], fps=self.fps)
 
         claims = [('key_events', c) for c in gt['key_events']] + [('confusing_parts', c) for c in gt['confusing_parts']]
@@ -307,5 +401,7 @@ def groundtruth_markdown(gt):
     return '\n'.join(lines) + '\n'
 
 
-def build_groundtruth(path, out, provider='nebius', budget_usd=.4, fps=1., *, config=None, client=None):
-    return GroundTruthBuilder(path, out, provider, budget_usd, fps, config=config, client=client).build()
+def build_groundtruth(path, out, provider='nebius', budget_usd=.4, fps=1., *, config=None, client=None,
+                      visual_change_threshold=.01):
+    return GroundTruthBuilder(path, out, provider, budget_usd, fps, config=config, client=client,
+                              visual_change_threshold=visual_change_threshold).build()
