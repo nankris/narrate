@@ -114,6 +114,7 @@ agent:
   scene_context: true   # one Super VL pass over 6 frames: setting, people, ingredients, tools
   scene_frames: 6
 director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> one-shot script -> verify/repair -> Hindi
+  max_silent_run_s: 20 # rescue one informative writer-skipped gap when consecutive narratable silence exceeds this
   window_s: 12          # Super VL video windows covering the WHOLE clip (snapped to shot cuts); ~10 per 2-min clip
   window_snap_s: 2
   window_fps: 4

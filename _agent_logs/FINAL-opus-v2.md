@@ -218,3 +218,20 @@ rule that every narration line is written by Nemotron:
 - **Canonical names depend on Ultra's judgement.** A wrong identity would be enforced. The bible is told to fill `names` only when the events make it clear, and the verifier still checks frames.
 - **The sound lint is lexical.** "laughter" and "voices" are banned even when they are used visually; the hint asks for the visible verb instead.
 - **Restyling can spend one more Ultra repair and Super VL verification** on an otherwise clean track. It still stays within the 6-call cap, with one call kept for Hindi.
+
+## Round 6
+
+Round-5 real outputs improved story and object identity but exposed four regressions. The director now limits consecutive
+writer-chosen silence to `director.max_silent_run_s` (20 seconds by default): an overlong run restores its most informative
+gap and sends it through the existing batched Ultra repair and verification flow with a concrete-new-detail instruction.
+Establishing narration must name the bible setting; the old fallback that could retain a cue without the place is disabled,
+and repair asks for idiomatic “Aboard …” / “In a …” phrasing.
+
+English post-checks now require final `.`, `!`, or `?` punctuation and a conservative finite-verb heuristic. Hindi prompts
+require `।`, with a punctuation-only normaliser appending a missing danda. A narrow context-leak check rejects distinctive
+title words used by a cue when they appear nowhere in timeline evidence, while permitting bible-approved setting and
+object/dish nouns. Thus unsupported “historic” / “first” claims route to repair instead of verification.
+
+`tests/test_round6.py` adds offline coverage for the silence threshold and tie-break, short-run behavior, fragment and
+punctuation lint, low-false-positive verb cases, Hindi normalisation, strict establishing repair, and title-only claims. No
+network or real API calls are used. Full validation completed with 208 passed and 1 existing optional-dependency skip.

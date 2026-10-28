@@ -85,7 +85,7 @@ def test_routine_flag_marks_a_gap_that_repeats_the_previous_activity(tmp_path, m
               {'t_start': 13.0, 't_end': 17.0, 'what': 'The cook kneads the dough in the bowl with both hands', 'importance': 3, 'confidence': .9},
               {'t_start': 21.0, 't_end': 26.0, 'what': 'The cook rolls a dough ball flat with a rolling pin', 'importance': 5, 'confidence': .9}]
     windows = lambda data, n: {'events': [ev for ev in events if data['window'][0] <= (ev['t_start'] + ev['t_end']) / 2 < data['window'][1]]}
-    cues = {0: ('In a kitchen, the cook kneads the dough in a bowl.', ['e1']), 2: ('She rolls a dough ball flat with a rolling pin.', ['e3'])}
+    cues = {0: ('In a kitchen, the cook kneads dough.', ['e1']), 2: ('She rolls a dough ball flat with a rolling pin.', ['e3'])}
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), timeline=windows, bible={**BIBLE, 'beats': []}, script=script(cues, skip=(1,)))
     gaps = {g['gap_id']: g for g in fake.role('script')[0]['data']['gaps']}
     assert gaps[1].get('routine') is True and 'routine' not in gaps[0] and 'routine' not in gaps[2]

@@ -69,6 +69,7 @@ distinctive event, routine = its events repeat the previous gap's activity, said
 Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per
 gap; "words" is your own count of the words in "text".
 Style:
+0. Every English cue ends with . ! or ? and contains a finite verb; never return a verbless caption fragment.
 1. Write native, idiomatic English as a professional audio describer would say it aloud (fluent and natural, never
    clipped captions, never stiff or translated-sounding phrasing). Complete, natural spoken sentences: a subject (cast descriptor, pronoun or object) and a present-tense verb, one or two
    flowing sentences per cue. Never headline fragments: not "Cuts dough; rolls each into a ball." but "Now the cook cuts the
@@ -164,6 +165,7 @@ passive such as "आटा गूँधा जा रहा है" per cue, and
 or "...रही है" for that person. If the gender is clearly visible, make every verb agree correctly. Agreement with objects
 (आटा m., लोई f., रोटी f.) must always be correct.
 Write on-screen English words (labels, signs) in Devanagari letters, e.g. a sign "OPEN" -> "ओपन"; never Latin letters.
+End every Hindi cue with the danda "।".
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}, at most max_words words per cue.'''
 
 HINDI_REFIT = '''These Hindi audio-description lines failed checks; "problem" lists why, each with a "Fix: ...". Rewrite each
@@ -171,6 +173,7 @@ line in natural spoken Hindi so that EVERY problem is fixed: too long -> at most
 (measured_seconds is the rejected line); Latin letters -> write the English words in Devanagari letters (e.g. "OPEN" -> "ओपन");
 passive chain -> active voice with a noun subject such as the hands ("हाथ ..."). Keep the meaning of "en", a full sentence and
 correct agreement (gender-neutral constructions when cast_gender says the gender is not visible). Devanagari only.
+End every Hindi cue with the danda "।".
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}.'''
 
 # Calibration only (never narrated): measures the TTS voice's real speaking rate per language.

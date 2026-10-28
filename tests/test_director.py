@@ -293,13 +293,16 @@ def test_default_run_stays_within_six_ultra_calls(tmp_path, monkeypatch):
 
 
 def test_script_failure_falls_back_to_verified_timeline_text(tmp_path, monkeypatch):
-    fixed = 'In the kitchen, the cook pours water into flour.'
+    fixed = {0: ('In the kitchen, the cook pours water into flour.', 'e1'),
+             1: ('The cook kneads the dough into a smooth ball.', 'e3'),
+             2: ('The cook rolls a dough ball flat with a rolling pin.', 'e4')}
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=lambda data, n: ValueError('No valid JSON response'),
-                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'text': fixed, 'evidence': ['e1']} for g in data['gaps']]})
+                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'text': fixed[g['gap_id']][0],
+                                                            'evidence': [fixed[g['gap_id']][1]]} for g in data['gaps']]})
     assert len(fake.role('script')) == 2 and report['fallback_finalize'] and 'script call failed' in report['fallback_reason']
     # Timeline text never names the place, so the first cue is repaired by Ultra under the establishing rule.
     assert 'does not say where' in ' '.join(fake.role('repair')[0]['data']['gaps'][0]['why_rejected'])
-    assert [c['en'] for c in report['cues']] == [fixed, EVENTS[2]['what'], EVENTS[3]['what']]
+    assert [c['en'] for c in report['cues']] == [fixed[i][0] for i in range(3)]
     assert all(c['verdict'] == 'supported' for c in report['cues'])
 
 
@@ -573,15 +576,15 @@ def test_length_failure_dropped_only_after_nano_and_ultra(tmp_path, monkeypatch)
     assert any('not shorter' in ' '.join(h.get('problems') or []) for h in report['cue_history']['1'])
 
 
-def test_missing_place_establishing_candidate_survives_repair_skip(tmp_path, monkeypatch):
+def test_missing_place_establishing_candidate_is_not_committed(tmp_path, monkeypatch):
     no_place = {**GOOD, 0: ('The cook pours water into flour.', ['e1'])}
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(no_place),
                           repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'skip': True, 'reason': 'cannot add place'}
                                                            for g in data['gaps']]})
     cues = {c['id']: c for c in report['cues']}
-    assert cues[0]['en'] == no_place[0][0] and cues[0]['verdict'] == 'supported'
-    assert any('committed without naming the place' in issue for issue in report['issues'])
-    assert any(h['step'] == 'establish_fallback' for h in report['cue_history']['0'])
+    assert 0 not in cues
+    repair = fake.role('repair')[0]['data']['gaps'][0]['why_rejected']
+    assert any('Aboard ...' in reason and 'In a ...' in reason for reason in repair)
     assert 'module' in __import__('narrate.director', fromlist=['place_terms']).place_terms(
         {**BIBLE, 'place': 'space station', 'setting': 'a crowded spacecraft module with equipment panels'})
 

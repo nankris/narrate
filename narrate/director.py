@@ -28,6 +28,7 @@ DEFAULTS = {
     'verify_batch': 4, 'verify_frames': 2, 'max_repair_rounds': 2,
     'accept_uncertain': True, 'require_verification': True, 'calibrate_tts': True,
     'relook_max': 2, 'min_detail_words': 2, 'openings_max_share': .5, 'openings_min_cues': 3, 'hi_passive_share': .5,
+    'max_silent_run_s': 20,
 }
 STOP = {'a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'with', 'into', 'at', 'is', 'are', 'it', 'its', 'her', 'his', 'their', 'then', 'as', 'by', 'from'}
 DIRECTOR_LINT = [
@@ -58,6 +59,22 @@ GENERIC_PLACE = {'crowded', 'bright', 'brightly', 'small', 'large', 'big', 'whit
 NEUTRAL = 'not visible: use gender-neutral active constructions with a noun subject such as the hands ("हाथ ..."); at most one passive per line'
 BUDGET_PROBLEMS = ('over budget', 'Word budget exceeded', 'TTS duration exceeds', 'cue too long')
 PLACE_PROBLEM = 'establishing cue does not say where'
+PUNCTUATION_PROBLEM = 'English cue must end with . ! or ?'
+FINITE_VERBS = {'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'has', 'have', 'had', 'do', 'does', 'did',
+                'can', 'could', 'may', 'might', 'must', 'shall', 'should', 'will', 'would'}
+IRREGULAR_FINITE = {'holds', 'puts', 'sets', 'takes', 'makes', 'goes', 'shows', 'stands', 'sits', 'lies', 'reaches', 'eats',
+                    'drinks', 'bites', 'cuts', 'rolls', 'kneads', 'pours', 'adds', 'opens', 'closes', 'moves', 'lifts', 'lowers',
+                    'reads', 'wets'}
+REGULAR_FINITE = {'acts', 'appears', 'arranges', 'bends', 'carries', 'claps', 'cleans', 'covers', 'flattens', 'folds',
+                  'gestures', 'grabs', 'laughs', 'looks', 'mixes', 'photographs', 'places', 'points', 'presses', 'reacts',
+                  'removes', 'smiles', 'stirs', 'touches', 'turns', 'uses', 'walks', 'watches', 'wears', 'wraps', 'dusts',
+                  'heats'}
+FINITE_BASE = {'act', 'add', 'appear', 'arrange', 'bend', 'bite', 'carry', 'clap', 'clean', 'close', 'cover', 'cut', 'drink',
+               'dust', 'eat', 'flatten', 'fold', 'gesture', 'go', 'grab', 'heat', 'hold', 'knead', 'laugh', 'lift', 'look',
+               'lower', 'make', 'mix', 'move', 'open', 'photograph', 'place', 'point', 'pour', 'press', 'put', 'reach',
+               'react', 'remove', 'roll', 'set', 'show', 'sit', 'smile', 'stand', 'stir', 'take', 'touch', 'turn', 'use',
+               'walk', 'watch', 'wear', 'wrap'}
+TITLE_GENERIC = STOP | {'how', 'video', 'tutorial', 'making', 'make', 'made', 'with', 'from', 'about'}
 
 
 class UltraCapReached(RuntimeError):
@@ -96,7 +113,7 @@ def stem(word):
 def place_terms(bible):
     """Words that name WHERE the video is: any content word of the bible's `place` or `setting` ("space station module",
     "a home kitchen with a white table" -> station, module, home, kitchen, table), minus generic adjectives. The establishing
-    cue must contain one of them. Deliberately lenient: a missing place never drops the establishing cue (establish_fallback)."""
+    cue must contain one of them."""
     return {stem(w) for w in content_tokens(str(bible.get('place') or '') + ' ' + str(bible.get('setting') or '')) if not w.isdigit()} - GENERIC_PLACE
 
 
@@ -104,6 +121,13 @@ def clean_context(text, limit=200):
     """Optional user title/one-line description (UNVERIFIED context; never evidence)."""
     text = ' '.join(str(text or '').split())
     return text[:limit] or None
+
+
+def has_finite_verb(text):
+    """Cheap English fragment check: auxiliaries, past tense and ordinary third-person verbs."""
+    words = re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", str(text).lower())
+    return any(w in FINITE_VERBS or w in FINITE_BASE or w in IRREGULAR_FINITE or w in REGULAR_FINITE or w.endswith('ed')
+               for w in words)
 
 
 def normalise_events(raw, start, end, duration, burned=False):
@@ -267,7 +291,6 @@ class Director(Agent):
         self.context = clean_context(context)
         self.timeline, self.shots, self.windows, self.bible = [], [], [], {}
         self.assignment, self.pending, self.failed, self.history = {}, {}, {}, {}
-        self.establish_candidates = {}
         self.gap_beats, self.restyle, self.restyle_keep, self.restyle_pair = {}, set(), {}, ''
         self.stage_log, self.ultra_calls, self.call_role, self.wps = [], 0, None, {}
         self.stats = Counter()
@@ -636,6 +659,10 @@ class Director(Agent):
             return [], ['empty cue']
         if '\n' in text or '-->' in text:
             problems.append('cue must be one line')
+        if not re.search(r'[.!?]["”\']?\s*$', text):
+            problems.append(PUNCTUATION_PROBLEM + '. Fix: write a complete spoken sentence and add final punctuation')
+        if not has_finite_verb(text):
+            problems.append('English cue has no finite verb. Fix: write a complete sentence with who or what does the visible action')
         if words > self.hard_words(g):   # up to word_tolerance over max_words is judged by measured seconds (check_fit)
             problems.append(f"over budget: {words} words, max {g['director_words_en']}. Fix: cut at least {words - g['director_words_en']} words "
                             '(keep the subject and the main action; drop a secondary action, colours or positions)')
@@ -656,6 +683,9 @@ class Director(Agent):
             problems.append('Banned phrasing: no concrete detail (bare subject and verb). Fix: add what is acted on and the visible '
                             'result (the object, its new state), or skip the gap if nothing new is visible')
         problems += self.identity_problems(g, text)
+        leaked = self.context_only_claims(text)
+        if leaked:
+            problems.append('Unverified title-only claim (' + ', '.join(leaked) + '). Fix: remove claims taken only from the title')
         if gid in self.restyle and opening(text) == self.restyle_pair:
             problems.append(f'Style: still opens with "{self.restyle_pair}". Fix: vary the opening (a pronoun, the object first, '
                             '"Now ...", or a participial phrase), keeping the same facts')
@@ -672,8 +702,9 @@ class Director(Agent):
             if terms and not {stem(w) for w in tokens(text)} & terms:
                 place = self.bible.get('place') or re.sub(r'^\s*(?:a|an|the)\s+', '', re.split(r'\b(?:with|where|in|inside|of|on|at)\b|,', self.bible.get('setting', ''), maxsplit=1)[0]).strip()
                 who = ((self.bible.get('cast') or [{}])[0].get('descriptor')) or 'who is there'
-                place_problem.append(f'{PLACE_PROBLEM}. Fix: fold the place into a compact opening, e.g. "In the {place}, {who} ...", then the '
-                                     f"action, all within {g['director_words_en']} words (drop a detail of the action rather than exceed it)")
+                place_problem.append(f'{PLACE_PROBLEM}. Fix: open with where we are, e.g. idiomatic "Aboard ..." / "In a ..."; '
+                                     f'name "{place}" and {who}, then the action, all within {g["director_words_en"]} words '
+                                     '(drop a detail of the action rather than exceed it)')
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
             if any(quoted.lower().strip() in s.lower() or similarity(quoted, s) >= .6 for s in self.subtitles()):
                 problems.append(f'reads a burned-in subtitle ("{quoted}"): subtitles are speech, never narrate them')
@@ -694,8 +725,17 @@ class Director(Agent):
             fit = self.check_fit(gid, text, 'en')   # renders with the real TTS voice: measured seconds, speech overlap
             if not fit['ok']:
                 problems += [p if 'measured' in p or ('exceeds' not in p and 'too long' not in p) else f"{p} (measured {fit['seconds']:.1f} s)" for p in fit['problems']]
-        # Last, so a place-only failure means every other check (incl. the measured fit) passed: see establish_fallback.
         return valid, problems + place_problem
+
+    def context_only_claims(self, text):
+        """Flag distinctive title words absent from perception; bible place/object nouns are accepted context."""
+        if not self.context:
+            return []
+        title = {stem(w) for w in content_tokens(self.context)} - TITLE_GENERIC
+        visible = {stem(w) for w in tokens(' '.join(e.get('what', '') + ' ' + e.get('on_screen_text', '') for e in self.timeline))}
+        allowed = place_terms(self.bible) | {stem(w) for w in tokens(' '.join(map(str, self.bible.get('objects', []))))}
+        used = {stem(w) for w in content_tokens(text)}
+        return sorted(w for w in title & used - visible - allowed if len(w) >= 5 or w in {'first', 'last'})
 
     def identity_problems(self, g, text):
         """Bible object identity (Round 5, nasa_v2_r4 passed "the plant" around after the pepper harvest): from from_t on,
@@ -742,10 +782,6 @@ class Director(Agent):
             self.stats['self_count_mismatch'] += 1
         if problems:
             self.failed[gid] = {'text': entry['text'], 'evidence': entry['evidence'], 'valid': valid, 'reasons': problems}
-            # Keep model-written prose that misses only the lexical place check. A later repair may return skip, but Round 3
-            # requires this otherwise-valid establishing cue to survive as the last-resort candidate.
-            if valid and all(r.startswith(PLACE_PROBLEM) for r in problems):
-                self.establish_candidates[gid] = {'text': entry['text'], 'evidence': valid}
             self.pending.pop(gid, None)
             self.stats['postcheck_failures'] += 1
             return 'failed'
@@ -764,7 +800,7 @@ class Director(Agent):
                 cues.append({'gap_id': g['gap_id'], 'skip': True, 'reason': 'MOCK: no evidence'})
                 continue
             e = ev[0]
-            text = f'On screen: "{e["on_screen_text"]}"' if e['on_screen_text'] else e['what']
+            text = f'A sign reads "{e["on_screen_text"]}".' if e['on_screen_text'] else e['what']
             cues.append({'gap_id': g['gap_id'], 'text': ' '.join(text.split()[:g['max_words']]), 'evidence': [e['id']]})
         return {'cues': cues}
 
@@ -798,6 +834,42 @@ class Director(Agent):
                 continue
             outcome[self.consider(g['gap_id'], entry, 'script')] += 1
         return f"{len(gaps)} gaps scripted in one call: {dict(outcome)}" + (' (FALLBACK)' if self.report['fallback_finalize'] else '')
+
+    def enforce_max_silence(self):
+        """Route one informative writer-skipped gap per overlong silent run into the normal Ultra repair."""
+        ordered = sorted((g for g in self.narratable() if g.get('director_words_en', 0) >= self.d['min_words']),
+                         key=lambda g: g['start'])
+        runs, current = [], []
+        for g in ordered + [None]:
+            if g is not None and g['id'] in self.skipped:
+                current.append(g)
+            else:
+                if current:
+                    runs.append(current)
+                current = []
+        rescued = []
+        hint = ('write one cue adding a concrete, not-yet-mentioned visible detail (appearance, setting, object, result); '
+                'never repeat earlier cues')
+        mentioned = {eid for c in (*self.cues.values(), *self.pending.values()) for eid in c.get('evidence', [])}
+        for run in runs:
+            span = run[-1]['end'] - run[0]['start']
+            if span <= self.d['max_silent_run_s']:
+                continue
+            candidates = [g for g in run if self.evidence_for(g['id'])]
+            if not candidates:
+                continue
+            g = max(candidates, key=lambda x: (sum(e['id'] not in mentioned for e in self.evidence_for(x['id'])),
+                                                x['end'] - x['start']))
+            gid = g['id']
+            evidence = [e['id'] for e in self.evidence_for(gid)]
+            self.skipped.pop(gid, None)
+            self.dropped.pop(gid, None)
+            self.failed[gid] = {'text': '', 'evidence': evidence, 'valid': evidence,
+                                'reasons': [f'Maximum silent run exceeded ({span:.1f}s > {self.d["max_silent_run_s"]}s). Fix: {hint}']}
+            self.log(gid, step='max_silence', problems=self.failed[gid]['reasons'])
+            self.stats['max_silence_rescued'] += 1
+            rescued.append(gid)
+        return rescued
 
     # ---------- stage: tighten (Nano; before any Ultra repair) ----------
     def budget_only(self, gid):
@@ -1049,6 +1121,7 @@ class Director(Agent):
             self.stats['restyle_kept'] += 1
 
     def verify_and_repair(self):
+        self.enforce_max_silence()
         todo = list(self.pending)
         for round_no in range(self.d['max_repair_rounds'] + 1):
             if todo:
@@ -1068,32 +1141,12 @@ class Director(Agent):
             self.maybe_tighten(f'tighten_{round_no+1}')
             todo = [g for g in self.pending if g not in before]
         self.restore_restyled()
-        self.establish_fallback()
         for g, f in list(self.failed.items()):
             prefix = 'dropped (still over budget after Nano tighten and Ultra repair): ' if self.budget_only(g) else 'dropped after repair: '
             self.failed.pop(g)
             self.drop_gap(g, prefix + '; '.join(f['reasons'])[:200])
             self.log(g, step='drop', reason='; '.join(f['reasons']))
             self.stats['dropped_after_repair'] += 1
-
-    def establish_fallback(self):
-        """Never drop the establishing cue only because it does not name the place: after the repair rounds, the best attempt
-        that passed every other check is verified on stills and committed if supported, with an issue recorded."""
-        rescue = [g for g in sorted(self.establish_candidates, key=lambda i: self.gap(i)['start']) if g not in self.cues][:1]
-        if not rescue:
-            return
-        for g in rescue:
-            candidate = self.establish_candidates[g]
-            self.failed.pop(g, None)
-            self.skipped.pop(g, None)
-            self.pending[g] = dict(candidate)
-            self.log(g, step='establish_fallback', text=candidate['text'],
-                     reason='place still not named after repairs; verifying the best otherwise-valid model-written attempt')
-        self.stage('verify_establish', lambda: self.st_verify(rescue), f'{len(rescue)} establishing cue(s) that only miss the place')
-        for g in rescue:
-            if g in self.cues:
-                self.stats['establish_without_place'] += 1
-                self.report['issues'].append(f'Establishing cue (gap {g}) committed without naming the place after repairs; verified on stills')
 
     # ---------- stage: hindi ----------
     def hi_problems(self, gid, text):
@@ -1108,6 +1161,12 @@ class Director(Agent):
             return ['must be one line'], 0, None
         fit = self.check_fit(gid, text, 'hi')
         return ([] if fit['ok'] else fit['problems']), fit['seconds'], fit['suggested_max_words']
+
+    @staticmethod
+    def normalise_hindi(text):
+        """Punctuation-only normalisation; model-written words remain untouched."""
+        text = str(text or '').strip()
+        return text if not text or text.endswith('।') else text + '।'
 
     def st_hindi(self):
         cues = sorted(self.cues.values(), key=lambda c: c['start'])
@@ -1125,7 +1184,7 @@ class Director(Agent):
         bible = {k: self.bible.get(k) for k in ('setting', 'place', 'cast', 'objects', 'goal', 'story')}
         gender = self.cast_gender()
         got = self.model('hindi', self.d['ultra_stage'], P.HINDI, {'bible': bible, 'cast_gender': gender, 'cues': rows}, None, mock_hi(rows) if self.mock else None, ultra=True)
-        texts = {g: v['text'] for g, v in parse_hi(got).items()}
+        texts = {g: self.normalise_hindi(v['text']) for g, v in parse_hi(got).items()}
         failing, kinds = [], Counter()
         for r in rows:
             problems, seconds, suggested = self.hi_problems(r['gap_id'], texts.get(r['gap_id']))
@@ -1144,7 +1203,7 @@ class Director(Agent):
             try:
                 send = [{k: v for k, v in r.items() if k != 'soft'} for r in failing]
                 got = self.model('hindi', self.d['ultra_stage'], P.HINDI_REFIT, {'bible': bible, 'cast_gender': gender, 'cues': send}, None, mock_hi(failing) if self.mock else None, ultra=True)
-                texts = {g: v['text'] for g, v in parse_hi(got).items()}
+                texts = {g: self.normalise_hindi(v['text']) for g, v in parse_hi(got).items()}
                 for r in failing:
                     new = texts.get(r['gap_id'])
                     problems = self.hi_problems(r['gap_id'], new)[0]

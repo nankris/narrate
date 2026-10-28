@@ -278,3 +278,22 @@ written by Nemotron.
 **Cost and calls.** The Ultra cap is unchanged at ≤ 6: bible, script, ≤ 2 repairs (restyle shares them), Hindi and ≤ 1 refit (hard and soft lines in one call). Super VL adds ≤ 2 re-look calls. The expected cost is about $0.035–0.045 per clip, under the $0.15 SpendGuard cap.
 
 **Tests.** `tests/test_round5.py` has 14 tests, offline with fake models. They cover the camera-subject, sound and concrete-detail lints; bible parsing (beats with why/events, names, look_for); object identity, including the verifier payload; beat/key_event/routine in the script payload; the re-look adding only new events as evidence, and no call without look_for; restyling within the batched repair with the verified original kept; restyle skipped when no Ultra call is free; the passive counter; the targeted Latin refit; and the soft passive refit that rejects a worse rewrite.
+
+## 10. Round 6: bounded silence and evidence-safe complete cues
+
+Round 5 improved story progression and object identity, but the real roti and NASA runs exposed four deterministic gaps. A
+`director.max_silent_run_s` guard (default 20 seconds) now finds consecutive narratable gaps the writer chose to skip; when a
+run exceeds the limit, the gap with the most new events (then the longest gap) is restored and included in the existing batched
+Ultra repair. Its instruction asks for one concrete, not-yet-mentioned visible detail and forbids repeating earlier cues. The
+result still passes every post-check and still-frame verification before it can be committed.
+
+The first cue must now pass the bible-place lexical check; the former last-resort path that could commit a verified cue without
+the setting is no longer used. Its repair hint explicitly asks for an idiomatic “Aboard …” or “In a …” opening. English cues
+must end in `.`, `!`, or `?` and pass a conservative finite-verb heuristic, routing caption fragments such as “A ball on the
+mat” back to Ultra. Hindi prompts require a danda, and a punctuation-only normaliser appends `।` when the model omits it.
+
+Finally, distinctive content words copied from the unverified context title are rejected when they occur in a cue but nowhere
+in timeline evidence. Bible-approved setting and object/dish nouns are exempt, keeping the check narrow while removing claims
+such as “historic” or “first” that came only from a title. `tests/test_round6.py` covers all four changes with fake/offline
+fixtures, including silence threshold selection, low-false-positive fragment cases, Hindi punctuation, setting enforcement,
+and title-only claim leakage.
