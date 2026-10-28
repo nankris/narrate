@@ -124,7 +124,13 @@ director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> on
   max_ultra_calls: 6
   budget_usd: 0.15      # SpendGuard hard cap per run (target <= 0.10 per 2-min clip)
   min_words: 4          # gaps whose measured budget is smaller stay silent (story context only)
-  target_fill: 0.7      # writer aims for 70-100 % of max_words when a gap has something to show
+  target_fill: 0.7      # writer aims for a 70-90 % range and reports its own word count
+  target_fill_max: 0.9
+  narrator_wps_en: 2.6  # conservative natural narrator budget; measured seconds remain authoritative
+  word_tolerance: 0.15  # accept <=15% word overage only when measured TTS fits with max_atempo
+  tighten_attempts: 2   # one cue per Nano call; reject a result that is not shorter
+  tighten_max_tokens: 160
+  coverage_target: 0.75
   similarity_prev: 0.5
   similarity_any: 0.8
   verify_batch: 4       # cues per Super VL verification call

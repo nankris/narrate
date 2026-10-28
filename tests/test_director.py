@@ -1,11 +1,12 @@
 """Offline tests for the v2 director (DESIGN_v2.md). Model calls are replaced by a scripted fake; no network."""
 import json
 import sys
+from types import SimpleNamespace as NS
 import pytest
 from narrate.config import load_config, resolve_provider
 from narrate.director import (Director, run_director, assign_events, normalise_events, looks_like_subtitle, clean_bible,
-                              parse_cues, parse_srt)
-from narrate.llm import SpendGuard
+                              parse_cues, parse_srt, parse_tightened)
+from narrate.llm import SpendGuard, Client
 from tests.test_fix3 import fake_detect
 
 GAPS = [(4.0, 9.0), (12.0, 18.0), (20.0, 27.0)]
@@ -119,6 +120,25 @@ def test_parsers_tolerate_model_shapes(tmp_path):
     srt = tmp_path / 'x.srt'
     srt.write_text('1\n00:00:01,000 --> 00:00:02,500\nHello there\n\n2\n00:01:00,000 --> 00:01:01,000\nBye\n')
     assert parse_srt(srt) == [(1.0, 2.5, 'Hello there'), (60.0, 61.0, 'Bye')]
+    assert parse_tightened({'gap_id': 2, 'text': ' A shorter line. '}, 2) == 'A shorter line.'
+
+
+def test_nano_call_options_cap_output_disable_thinking_and_stay_out_of_payload(monkeypatch):
+    monkeypatch.setenv('NARRATE_TEST_KEY', 'fake-test-value')
+    calls = []
+    def create(**kwargs):
+        calls.append(kwargs)
+        return NS(usage=NS(prompt_tokens=20, completion_tokens=8), choices=[NS(message=NS(content='{"text":"Short line."}'))])
+    cfg = load_config()
+    cfg['key_env'] = 'NARRATE_TEST_KEY'
+    cfg['models']['fit']['thinking'] = False
+    client = Client(cfg, sdk_factory=lambda **kw: NS(chat=NS(completions=NS(create=create))))
+    assert client.call('fit', {'cue': {'text': 'A line that is too long.'}, '_max_tokens': 160}) == {'text': 'Short line.'}
+    assert calls[0]['max_tokens'] == 160
+    assert calls[0]['extra_body']['chat_template_kwargs']['enable_thinking'] is False
+    assert '/no_think' in calls[0]['messages'][0]['content']
+    payload = json.loads(calls[0]['messages'][1]['content'][0]['text'])
+    assert payload == {'cue': {'text': 'A line that is too long.'}} and '_max_tokens' not in payload
 
 
 # ---------- full flow ----------
@@ -170,10 +190,26 @@ def test_budgets_come_from_measured_voice(tmp_path, monkeypatch):
     d.st_gaps()
     assert d.wps['en'] == pytest.approx(2.5, abs=.05)        # silent test backend speaks 2.5 words/s
     g = d.gap(0)
-    assert g['director_words_en'] == min(d.max_words(g, 'en'), int(d.cue_cap(g) * d.wps['en']) - 1)
+    # English budgets assume a natural narrator (2.6 words/s) or the measured voice if slower; config 2.3 no longer caps them.
+    assert d.budget_wps('en') == min(2.6, d.wps['en']) and g['director_words_en'] == int(d.cue_cap(g) * d.budget_wps('en')) - 1
     d2 = make(tmp_path / 'b', monkeypatch, gaps=[(4.0, 6.0)], langs=('en',), min_words=5)
     d2.st_gaps()
     assert not d2.scriptable() and 'too short' in d2.dropped[0]
+
+
+def test_english_fit_accepts_only_measured_fitting_overage_within_fifteen_percent(tmp_path, monkeypatch):
+    d = postcheck_director(tmp_path, monkeypatch)
+    g = d.gap(1)
+    maximum, hard = g['director_words_en'], d.hard_words(g)
+    assert hard == int(maximum * 1.15)
+    text = ' '.join(['word'] * hard)
+    d.tts_cache[(text, 'en')] = (d.allowed_seconds(g) - .1, tmp_path / 'fits.wav')
+    assert d.check_fit(1, text, 'en')['ok']
+    too_many = text + ' word'
+    d.tts_cache[(too_many, 'en')] = (d.allowed_seconds(g) - .1, tmp_path / 'many.wav')
+    assert any('over budget' in p for p in d.check_fit(1, too_many, 'en')['problems'])
+    d.tts_cache[(text, 'en')] = (d.allowed_seconds(g) + .1, tmp_path / 'slow.wav')
+    assert any('cue too long' in p for p in d.check_fit(1, text, 'en')['problems'])
 
 
 def test_verify_contradiction_refutes_repairs_and_drops(tmp_path, monkeypatch):
@@ -449,8 +485,22 @@ def test_script_payload_marks_establishing_gap_and_target_words(tmp_path, monkey
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',))
     gaps = fake.role('script')[0]['data']['gaps']
     assert gaps[0].get('establish') is True and not any(g.get('establish') for g in gaps[1:])
-    assert all(4 <= g['target_words'] <= g['max_words'] for g in gaps)
-    assert 'HARD limit' in fake.role('script')[0]['system'] and 'count the words' in fake.role('script')[0]['system']
+    for g in gaps:   # round 3: a 70-90 % range, so the writer does not overshoot max_words
+        lo, hi = (int(x) for x in g['target_words'].split('-'))
+        assert 4 <= lo <= hi <= g['max_words'] and lo >= .7 * g['max_words'] and hi <= .9 * g['max_words']
+    system = fake.role('script')[0]['system']
+    assert 'HARD limit' in system and 'Count the words' in system and '"words":0' in system and 'compact opening' in system
+
+
+def test_writer_word_self_count_is_audited_not_trusted(tmp_path, monkeypatch):
+    counted = {g: (text, ev) for g, (text, ev) in GOOD.items()}
+    def with_bad_count(data, n):
+        return {'cues': [{'gap_id': g['gap_id'], 'text': counted[g['gap_id']][0], 'words': 999,
+                          'evidence': counted[g['gap_id']][1]} for g in data['gaps']]}
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=with_bad_count)
+    assert len(report['cues']) == 3 and report['director_stats']['self_count_mismatch'] == 3
+    assert report['cue_history']['0'][0]['words'] == len(GOOD[0][0].split())
+    assert report['cue_history']['0'][0]['words_claimed'] == 999
 
 
 def test_nano_tightens_over_budget_cue_before_any_ultra_repair(tmp_path, monkeypatch):
@@ -458,25 +508,65 @@ def test_nano_tightens_over_budget_cue_before_any_ultra_repair(tmp_path, monkeyp
     cues = {0: GOOD[0], 1: (long, ['e3']), 2: GOOD[2]}
     tight = 'Now she kneads the dough into a smooth ball.'
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues),
-                          tighten=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'text': tight} for c in data['cues']]})
-    assert len(long.split()) > d.gap(1)['director_words_en']
+                          tighten=lambda data, n: {'text': tight, 'words': 9})
+    assert len(long.split()) > d.hard_words(d.gap(1))
     assert len(fake.role('tighten')) == 1 and fake.role('tighten')[0]['stage'] == 'fit' and not fake.role('repair')
-    sent = fake.role('tighten')[0]['data']['cues']
-    assert [c['gap_id'] for c in sent] == [1] and sent[0]['max_words'] == d.gap(1)['director_words_en']
+    sent = fake.role('tighten')[0]['data']
+    assert sent['cue']['gap_id'] == 1 and sent['cue']['max_words'] == d.gap(1)['director_words_en'] and sent['cue']['words'] == 20
+    assert sent['cue']['remove_at_least'] == 20 - d.gap(1)['director_words_en'] and sent['_max_tokens'] <= 200
     assert {c['id']: c['en'] for c in report['cues']}[1] == tight
     assert report['director_stats']['ultra_calls'] == 2 and report['director_stats']['tightened'] == 1   # bible + script only
     assert [h['step'] for h in report['cue_history']['1']][:2] == ['script', 'tighten']
     assert 'tighten' in [s['stage'] for s in report['stages']] and report['cost_by_role']['tighten'] == pytest.approx(.001)
 
 
-def test_nano_tighten_that_invents_is_rejected_and_length_only_failure_skips_ultra(tmp_path, monkeypatch):
-    long = 'Now she kneads the soft dough firmly with both hands on the wooden table into a smooth round ball today.'
-    cues = {0: GOOD[0], 1: (long, ['e3']), 2: GOOD[2]}
+LONG = 'Now she kneads the soft dough firmly with both hands on the wooden table into a smooth round ball today.'
+
+
+def test_nano_tighten_that_invents_is_rejected_then_ultra_repairs_the_length(tmp_path, monkeypatch):
+    cues = {0: GOOD[0], 1: (LONG, ['e3']), 2: GOOD[2]}
+    fixed = 'Now she kneads the dough into a smooth ball.'
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues),
-                          tighten=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'text': 'She adds sugar and purple berries.'} for c in data['cues']]})
-    assert len(fake.role('tighten')) == 2 and not fake.role('repair')          # never spend Ultra on a word count
-    assert 1 not in {c['id'] for c in report['cues']} and 'over budget after Nano tighten' in report['dropped_gaps'][1]
+                          tighten=lambda data, n: {'text': 'She adds sugar and purple berries.'},
+                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'text': fixed, 'words': 9, 'evidence': ['e3']} for g in data['gaps']]})
+    assert len(fake.role('tighten')) == 2                                   # 2 Nano attempts for the one cue, both rejected
     assert any('tighten added new words' in ' '.join(h.get('problems') or []) for h in report['cue_history']['1'])
+    # Round 3: a length failure Nano cannot fix IS repairable by Ultra (round 2 dropped 5 of 12 roti gaps this way).
+    sent = fake.role('repair')[0]['data']['gaps']
+    assert [g['gap_id'] for g in sent] == [1] and sent[0]['rejected_words'] == 20 and 'over budget' in sent[0]['why_rejected'][0]
+    assert 'cut at least' in sent[0]['why_rejected'][0] and 'rejected_words - max_words' in fake.role('repair')[0]['system']
+    assert {c['id']: c['en'] for c in report['cues']}[1] == fixed and report['director_stats']['ultra_calls'] == 3
+
+
+def test_length_failure_dropped_only_after_nano_and_ultra(tmp_path, monkeypatch):
+    cues = {0: GOOD[0], 1: (LONG, ['e3']), 2: GOOD[2]}
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues), tighten=lambda data, n: {'text': data['cue']['text']},
+                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'text': LONG, 'evidence': ['e3']} for g in data['gaps']]})
+    assert len(fake.role('repair')) == 2 and 1 not in {c['id'] for c in report['cues']}
+    assert 'still over budget after Nano tighten and Ultra repair' in report['dropped_gaps'][1]
+    assert any('not shorter' in ' '.join(h.get('problems') or []) for h in report['cue_history']['1'])
+
+
+def test_missing_place_establishing_candidate_survives_repair_skip(tmp_path, monkeypatch):
+    no_place = {**GOOD, 0: ('The cook pours water into flour.', ['e1'])}
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(no_place),
+                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'skip': True, 'reason': 'cannot add place'}
+                                                           for g in data['gaps']]})
+    cues = {c['id']: c for c in report['cues']}
+    assert cues[0]['en'] == no_place[0][0] and cues[0]['verdict'] == 'supported'
+    assert any('committed without naming the place' in issue for issue in report['issues'])
+    assert any(h['step'] == 'establish_fallback' for h in report['cue_history']['0'])
+    assert 'module' in __import__('narrate.director', fromlist=['place_terms']).place_terms(
+        {**BIBLE, 'place': 'space station', 'setting': 'a crowded spacecraft module with equipment panels'})
+
+
+def test_coverage_report_explains_silence_and_enforces_target(tmp_path, monkeypatch):
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(skip=(1,)))
+    coverage = report['coverage']
+    assert coverage['narratable'] == 3 and coverage['narrated'] == 2 and coverage['silent_by_choice'] == 1
+    assert coverage['percent_of_narratable'] == 67 and coverage['percent_excluding_silent_by_choice'] == 100
+    assert coverage['meets_target'] and coverage['silent']['1']['why'] == 'no_new_info'
+    assert '**Coverage:** 2/3' in (tmp_path / 'trace.md').read_text()
 
 
 def test_context_title_is_unverified_context_for_bible_and_script(tmp_path, monkeypatch):

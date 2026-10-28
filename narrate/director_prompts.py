@@ -49,7 +49,8 @@ for a blind or low-vision viewer in one pass. Narration is spoken only inside th
 Input: bible (setting, place, cast descriptors, objects, goal, story, beats), video_title (optional, UNVERIFIED user context),
 timeline (every event with id and time; gap = which gap it belongs to, "speech" = happened while someone talked), gaps (id,
 start, end, max_words, target_words, evidence ids, establish, said_before/said_after = words spoken around the gap when known).
-Return JSON {"cues":[{"gap_id":0,"text":"","evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per gap.
+Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per
+gap; "words" is your own count of the words in "text".
 Style:
 1. Write native, idiomatic English as a professional audio describer would say it aloud (fluent and natural, never
    clipped captions, never stiff or translated-sounding phrasing). Complete, natural spoken sentences: a subject (cast descriptor, pronoun or object) and a present-tense verb, one or two
@@ -58,11 +59,13 @@ Style:
    metaphors, no opinions, no guessed emotions (visible laughs, smiles or grimaces are facts).
 2. Specific verbs and concrete nouns from the bible (what, who, where). Connect cues into a story: say what is NEW, the visible
    result, and why it matters toward the goal ("Now...", "The dough is now...", "...the first pepper of the harvest").
-3. Length: max_words is a HARD limit; count the words of each cue before answering. When a gap shows something new, use
-   target_words to max_words words (about 70-100 % of the budget): add who, where, the result or the link to the goal.
-   Short cues are only for gaps with little to say. Silence is fine: skip a gap when nothing new or important happens.
-4. The gap with "establish": true opens the track: it must name the place (bible place), who is there (cast descriptor) and,
-   when known, the goal, then the action, e.g. the shape "In a <place>, <who> <does what> for <goal>." Never skip it.
+3. Length: max_words is a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for target_words
+   (a range, about 70-90 % of max_words): enough for who, the action and its result or link to the goal, with room to spare.
+   Count the words of each cue before answering and put the count in "words". Short cues are only for gaps with little to
+   say. Silence is fine: skip a gap when nothing new or important happens.
+4. The gap with "establish": true opens the track: fold the place (bible place) and who is there into one compact opening,
+   then the action, all within max_words, e.g. "In a home kitchen, the cook mixes flour and water." Add the goal only if
+   words remain; shorten the action rather than exceed max_words. Never skip it.
 5. After the first mention use a pronoun or the short cast descriptor. Use he/she only when the bible notes make it visually
    clear; otherwise the descriptor or "they". Never open with "Person" or "A person".
 6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows", "on camera", "shot", "frame",
@@ -88,20 +91,30 @@ was rejected (a verifier looked at frames from inside the gap, or a rule failed;
 that fix), the evidence that is still trusted, the neighbouring cues, the word limit and whether the cue must establish the
 scene. Write a corrected cue that fixes the problem and uses only the trusted evidence of that gap, or skip the gap if nothing
 reliable and new remains.
-Same style as the original script: native, idiomatic English as a professional describer speaks it; complete present-tense spoken sentences with a subject (no fragments, no semicolons),
-concrete verbs and nouns, target_words to max_words words (max_words is a HARD limit; count the words), no camera-movement
-language ("we see", "the camera pans/shows", "on camera"; a person holding a camera is fine), never open with "Person", never
-repeat the neighbouring cues, never read subtitles. If "establish" is true, name the place, who is there and the goal if known.
-Return JSON {"cues":[{"gap_id":0,"text":"","evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}.'''
+Same style as the original script: native, idiomatic English as a professional describer speaks it; complete present-tense
+spoken sentences with a subject (no clipped fragments, no semicolons, no translationese), concrete verbs and nouns, never
+"Person" or "A person" as the subject, no camera-movement language ("we see", "the camera pans/shows", "on camera"; a person
+holding a camera is fine), never repeat the neighbouring cues, never read subtitles.
+Length: aim for target_words; max_words is a HARD limit (rejected_words = the rejected text's count). When the rejection is
+about length, cut at least rejected_words - max_words words: keep the subject, the main action and its result; drop a
+secondary action, colours or positions. Count the words and report them in "words".
+If "establish" is true, fold the place and who is there into one compact opening ("In the <place>, <who> ..."), then the
+action, within max_words.
+Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}.'''
 
-TIGHTEN = '''You shorten audio-description cues that are slightly over their word limit. For each cue, rewrite it in at most
-max_words words (count them). Keep the subject, the main action, every fact and the meaning; drop only the least important
-modifiers or merge clauses. Add nothing new: no new objects, people, colours or actions. Keep a complete present-tense
-sentence with a subject, no semicolons.
-Return JSON {"cues":[{"gap_id":0,"text":""}]}.'''
+TIGHTEN = '''You shorten ONE audio-description cue that is over its word limit. Input {"cue":{"gap_id","text","words","max_words",
+"remove_at_least","keep_place"}}: words is the current word count of text, max_words the exact maximum, keep_place (if given)
+the words naming the place: keep one of them.
+Write ONE shorter version with at most max_words words: remove at least remove_at_least words, and count them before answering.
+Keep the subject, the main action, its result and the meaning; drop the least important details or merge clauses. Add nothing
+new: no new objects, people, colours or actions.
+It must stay native, idiomatic English as a professional audio describer says it aloud: a complete present-tense sentence with
+a subject (the cast descriptor or a pronoun, never "Person"), no clipped fragments, no semicolons, no translationese.
+Answer with ONLY this JSON object and nothing else (no reasoning, no explanation, no other keys): {"text":"","words":0}'''
 
 HINDI = '''You write the Hindi audio-description track for blind and low-vision viewers in India. For each cue you get the
 English cue's meaning, the time window and a Hindi word limit measured with the Hindi voice.
+The English cues are final and are never changed: return only the Hindi line ("hi"), never English text.
 Write natural spoken Hindi in Devanagari as a native describer would say it: full, flowing sentences (never fragments or
 headline style), simple present tense, not a literal translation, no transliteration. Use everyday words; for a kitchen: आटा,
 लोई, बेलन, चकला (or मैट), तेल, कटोरा, तवा, परतदार रोटी / लच्छा पराठा. Use the bible for consistent references; add no new facts.

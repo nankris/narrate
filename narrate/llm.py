@@ -146,9 +146,10 @@ class Client:
         if model.get('reasoning', 'off') in ('off', False):
             system += '\n/no_think'
         # The system prompt travels once, in the system message; never repeat it in the user payload.
-        content = [{'type': 'text', 'text': json.dumps({k: v for k, v in data.items() if k != '_system'}, ensure_ascii=False)}] + (media or [])
+        # Keys starting with "_" are call options (_system, _max_tokens), never payload.
+        content = [{'type': 'text', 'text': json.dumps({k: v for k, v in data.items() if not str(k).startswith('_')}, ensure_ascii=False)}] + (media or [])
         estimate = estimate_tokens(content + [{'type':'text','text':system}], data.get('duration', 0), self.config)
-        output_limit = model.get('max_tokens', 2000)
+        output_limit = int(data.get('_max_tokens') or model.get('max_tokens', 2000))
         reservation = (estimate * model['input_price'] + output_limit * model['output_price']) / 1e6
         url = model.get('base_url', self.config['base_url'])
         identity = (url, model['id'])

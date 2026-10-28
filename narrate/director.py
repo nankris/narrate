@@ -23,13 +23,14 @@ from . import director_prompts as P
 DEFAULTS = {
     'window_s': 12, 'window_snap_s': 2, 'window_fps': 4, 'window_fallback_frames': 4,
     'ultra_stage': 'edit', 'bible_stage': 'edit', 'tighten_stage': 'fit', 'max_ultra_calls': 6, 'budget_usd': .15,
-    'min_words': 4, 'target_fill': .7, 'similarity_prev': .5, 'similarity_any': .8,
+    'min_words': 4, 'target_fill': .7, 'target_fill_max': .9, 'similarity_prev': .5, 'similarity_any': .8,
+    'narrator_wps_en': 2.6, 'word_tolerance': .15, 'tighten_attempts': 2, 'tighten_max_tokens': 160, 'coverage_target': .75,
     'verify_batch': 4, 'verify_frames': 2, 'max_repair_rounds': 2,
     'accept_uncertain': True, 'require_verification': True, 'calibrate_tts': True,
 }
 STOP = {'a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'with', 'into', 'at', 'is', 'are', 'it', 'its', 'her', 'his', 'their', 'then', 'as', 'by', 'from'}
 DIRECTOR_LINT = [
-    (re.compile(r'^\s*(?:a|the|one)?\s*person\b', re.I), 'generic "Person" opener. Fix: use the cast descriptor or a pronoun'),
+    (re.compile(r'(?:^|[.!?]\s+|,\s+)(?:a|the|one)?\s*person\b', re.I), 'generic "Person" opener or subject. Fix: use the cast descriptor or a pronoun'),
     (re.compile(r'\bcontinu(?:e|es|ing)\b', re.I), '"continues". Fix: say what is new or changed (the result, the next step), or skip the gap'),
     (re.compile(r'\b(?:in|on) (?:the|this|that) (?:shot|frame|footage)\b|\bscreen shows\b|\b(?:is|are) filmed\b|\bclose-up\b', re.I),
      'film-making jargon. Fix: describe what is visible and what the people do, e.g. "a crewmate photographs the pepper"'),
@@ -42,6 +43,7 @@ DIRECTOR_LINT = [
 GENERIC_PLACE = {'crowded', 'bright', 'brightly', 'small', 'large', 'big', 'white', 'black', 'blue', 'wooden', 'lit', 'indoor', 'indoors',
                  'outdoor', 'room', 'area', 'space', 'inside', 'interior', 'modern', 'clean', 'busy', 'narrow', 'wide', 'dimly', 'well'}
 BUDGET_PROBLEMS = ('over budget', 'Word budget exceeded', 'TTS duration exceeds', 'cue too long')
+PLACE_PROBLEM = 'establishing cue does not say where'
 
 
 class UltraCapReached(RuntimeError):
@@ -69,10 +71,10 @@ def stem(word):
 
 
 def place_terms(bible):
-    """Words that name WHERE the video is: the bible's `place` plus the head of `setting` ("a home kitchen with a white table"
-    -> home, kitchen). The establishing cue must contain one of them."""
-    head = re.split(r'\b(?:with|where|and|in|inside|of|on|at|near|beside|full|filled|containing)\b|,', str(bible.get('setting') or ''), maxsplit=1)[0]
-    return {stem(w) for w in content_tokens(str(bible.get('place') or '') + ' ' + head) if not w.isdigit()} - GENERIC_PLACE
+    """Words that name WHERE the video is: any content word of the bible's `place` or `setting` ("space station module",
+    "a home kitchen with a white table" -> station, module, home, kitchen, table), minus generic adjectives. The establishing
+    cue must contain one of them. Deliberately lenient: a missing place never drops the establishing cue (establish_fallback)."""
+    return {stem(w) for w in content_tokens(str(bible.get('place') or '') + ' ' + str(bible.get('setting') or '')) if not w.isdigit()} - GENERIC_PLACE
 
 
 def clean_context(text, limit=200):
@@ -195,7 +197,19 @@ def parse_cues(response):
         ev = [str(x) for x in (ev if isinstance(ev, list) else [ev]) if isinstance(x, (str, int))]
         skip = c.get('skip') in (True, 'true', 'yes', 1) or is_skip(text) or not text.strip() and bool(c.get('reason'))
         out[gid] = {'text': ' '.join(text.split()), 'evidence': ev, 'skip': skip, 'reason': str(c.get('reason') or '')[:160]}
+        words = c.get('words')
+        if isinstance(words, (int, float)) and not isinstance(words, bool):
+            out[gid]['words_claimed'] = int(words)   # the writer's self-count; the post-check counts anyway
     return out
+
+
+def parse_tightened(response, gid):
+    """Nano's one shorter version: {"text"}, a bare {"gap_id","text"} object or {"cues":[...]} (round 2 saw the bare object
+    and dropped it as unanswered)."""
+    if isinstance(response, dict) and isinstance(response.get('text'), str) and str(response.get('gap_id', gid)) == str(gid):
+        return ' '.join(response['text'].split())
+    entry = parse_cues(response).get(gid)
+    return entry['text'] if entry and not entry['skip'] else ''
 
 
 def parse_srt(path):
@@ -221,6 +235,7 @@ class Director(Agent):
         self.context = clean_context(context)
         self.timeline, self.shots, self.windows, self.bible = [], [], [], {}
         self.assignment, self.pending, self.failed, self.history = {}, {}, {}, {}
+        self.establish_candidates = {}
         self.stage_log, self.ultra_calls, self.call_role, self.wps = [], 0, None, {}
         self.stats = Counter()
         self.speech_text = []
@@ -296,9 +311,41 @@ class Director(Agent):
             self.wps[lang] = round(wps, 3)
         self.report['tts_wps_measured'] = dict(self.wps)
 
+    def budget_wps(self, lang):
+        """Speaking rate the word budgets assume. English: a natural human narrator (director.narrator_wps_en, 2.6 words/s;
+        the demo ElevenLabs narrator speaks ~2.6-2.8), never faster than the measured pipeline voice (espeak measures ~3.7,
+        so 2.6 applies). Hindi: the measured Hindi voice, capped by the config budget as before."""
+        return min(self.d['narrator_wps_en'], self.wps['en']) if lang == 'en' else self.wps[lang]
+
     def budget(self, g, lang):
-        n = math.floor(self.cue_cap(g) * self.wps[lang]) - self.cfg['word_margin']
-        return max(0, min(n, self.max_words(g, lang)))
+        """max_words = floor(cue_cap * budget_wps) - word_margin. English is no longer capped by config words_per_second
+        (2.3, the legacy agent's estimate): fit is judged by measured seconds (check_fit)."""
+        n = math.floor(self.cue_cap(g) * self.budget_wps(lang)) - self.cfg['word_margin']
+        return max(0, n if lang == 'en' else min(n, self.max_words(g, lang)))
+
+    def hard_words(self, g):
+        """Words a cue may use when its measured TTS still fits: max_words + director.word_tolerance (15 %)."""
+        return math.floor(g['director_words_en'] * (1 + self.d['word_tolerance']) + 1e-9)
+
+    def allowed_seconds(self, g):
+        """Seconds one English cue may speak: the single-cue cap with up to agent.max_atempo speed-up."""
+        return round(self.cue_cap(g) * self.cfg['agent']['max_atempo'], 2)
+
+    def check_fit(self, gap_id, text, lang):
+        """Director English fit is judged in SECONDS: the measured TTS must fit allowed_seconds and the text may exceed
+        max_words by <= word_tolerance. The agent's config-rate word checks (2.3 words/s) do not apply here."""
+        fit = super().check_fit(gap_id, text, lang)
+        g = self.gap(gap_id)
+        if lang != 'en' or 'director_words_en' not in g or not g.get('narratable', True):
+            return fit
+        problems = [p for p in fit['problems'] if not p.startswith(('Word budget exceeded', 'cue too long'))]
+        allowed, words = self.allowed_seconds(g), len(text.split())
+        if fit['seconds'] > allowed and not any(p.startswith('TTS duration exceeds') for p in problems):
+            problems.append(f"cue too long: measured {fit['seconds']:.1f} s, allowed {allowed:.1f} s")
+        if words > self.hard_words(g):
+            problems.append(f"over budget: {words} words, max {g['director_words_en']}")
+        suggested = min(g['director_words_en'], max(1, int(words * allowed / max(fit['seconds'], .001))))
+        return {**fit, 'ok': not problems, 'problems': problems, 'suggested_max_words': suggested}
 
     def st_gaps(self):
         wanted = self.cfg['agent'].get('scene_context', True)
@@ -314,7 +361,8 @@ class Director(Agent):
                 self.drop_gap(g['id'], f"too short for a useful cue (< {self.d['min_words']} words)")
         n = self.narratable()
         return (f"{len(n)} narratable slots of {len(self.gaps)}, {len(self.scriptable())} long enough; detector {self.report.get('detector')}; "
-                f"speech {100*self.report.get('speech_ratio', 0):.0f}%; voice wps en {self.wps['en']} hi {self.wps['hi']}")
+                f"speech {100*self.report.get('speech_ratio', 0):.0f}%; measured voice wps en {self.wps['en']} hi {self.wps['hi']}; "
+                f"English budgets at {self.budget_wps('en')} words/s (natural narrator), fit judged by measured seconds")
 
     # ---------- stage: shots + scene + timeline ----------
     def st_shots(self):
@@ -452,7 +500,11 @@ class Director(Agent):
         return ' / '.join(dict.fromkeys(said))[:200]
 
     def target_words(self, g):
-        return max(self.d['min_words'], math.ceil(self.d['target_fill'] * g['director_words_en']))
+        """'lo-hi', about 70-90 % of max_words (told 70-100 %, the writer overshot max_words in round 2)."""
+        m = g['director_words_en']
+        lo = min(m, max(self.d['min_words'], math.ceil(self.d['target_fill'] * m)))
+        hi = min(m, max(lo, math.floor(self.d['target_fill_max'] * m)))
+        return f'{lo}-{hi}'
 
     def gap_payload(self, g, establish=None):
         return {'gap_id': g['id'], 'start': round(g['start'], 2), 'end': round(g['end'], 2), 'max_words': g['director_words_en'],
@@ -478,15 +530,18 @@ class Director(Agent):
             return [], ['empty cue']
         if '\n' in text or '-->' in text:
             problems.append('cue must be one line')
-        if words > g['director_words_en']:
-            problems.append(f"over budget: {words} words, max {g['director_words_en']}")
+        if words > self.hard_words(g):   # up to word_tolerance over max_words is judged by measured seconds (check_fit)
+            problems.append(f"over budget: {words} words, max {g['director_words_en']}. Fix: cut at least {words - g['director_words_en']} words "
+                            '(keep the subject and the main action; drop a secondary action, colours or positions)')
         problems += lint_with_hints(text) + [f'Banned phrasing: {why}' for rx, why in DIRECTOR_LINT if rx.search(text)]
+        place_problem = []
         if self.is_establishing(gid):
             terms = place_terms(self.bible)
             if terms and not {stem(w) for w in tokens(text)} & terms:
                 place = self.bible.get('place') or re.sub(r'^\s*(?:a|an|the)\s+', '', re.split(r'\b(?:with|where|in|inside|of|on|at)\b|,', self.bible.get('setting', ''), maxsplit=1)[0]).strip()
-                problems.append(f'establishing cue does not say where. Fix: name the place (e.g. "{place}"), who is there'
-                                + (f' and the goal ({self.bible["goal"]})' if self.bible.get('goal') else '') + ', then the action')
+                who = ((self.bible.get('cast') or [{}])[0].get('descriptor')) or 'who is there'
+                place_problem.append(f'{PLACE_PROBLEM}. Fix: fold the place into a compact opening, e.g. "In the {place}, {who} ...", then the '
+                                     f"action, all within {g['director_words_en']} words (drop a detail of the action rather than exceed it)")
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
             if any(quoted.lower().strip() in s.lower() or similarity(quoted, s) >= .6 for s in self.subtitles()):
                 problems.append(f'reads a burned-in subtitle ("{quoted}"): subtitles are speech, never narrate them')
@@ -506,8 +561,9 @@ class Director(Agent):
         if not problems:
             fit = self.check_fit(gid, text, 'en')   # renders with the real TTS voice: measured seconds, speech overlap
             if not fit['ok']:
-                problems += [p if 'exceeds' not in p and 'too long' not in p else f"{p} (measured {fit['seconds']:.1f} s)" for p in fit['problems']]
-        return valid, problems
+                problems += [p if 'measured' in p or ('exceeds' not in p and 'too long' not in p) else f"{p} (measured {fit['seconds']:.1f} s)" for p in fit['problems']]
+        # Last, so a place-only failure means every other check (incl. the measured fit) passed: see establish_fallback.
+        return valid, problems + place_problem
 
     def is_establishing(self, gid):
         """The first narrated cue: no earlier gap holds a pending, failed or committed cue."""
@@ -530,12 +586,22 @@ class Director(Agent):
             self.skip_gap(gid, entry['reason'] or 'writer: nothing new')
             return 'skip'
         valid, problems = self.check_cue(gid, entry['text'], entry['evidence'])
-        self.log(gid, step=step, text=entry['text'], evidence=entry['evidence'], problems=problems)
+        words, claimed = len(entry['text'].split()), entry.get('words_claimed')
+        self.log(gid, step=step, text=entry['text'], evidence=entry['evidence'], problems=problems, words=words,
+                 **({'words_claimed': claimed} if claimed is not None else {}))
+        if claimed is not None and claimed != words:
+            self.stats['self_count_mismatch'] += 1
         if problems:
-            self.failed[gid] = {'text': entry['text'], 'evidence': entry['evidence'], 'reasons': problems}
+            self.failed[gid] = {'text': entry['text'], 'evidence': entry['evidence'], 'valid': valid, 'reasons': problems}
+            # Keep model-written prose that misses only the lexical place check. A later repair may return skip, but Round 3
+            # requires this otherwise-valid establishing cue to survive as the last-resort candidate.
+            if valid and all(r.startswith(PLACE_PROBLEM) for r in problems):
+                self.establish_candidates[gid] = {'text': entry['text'], 'evidence': valid}
             self.pending.pop(gid, None)
             self.stats['postcheck_failures'] += 1
             return 'failed'
+        if words > self.gap(gid)['director_words_en']:
+            self.stats['accepted_within_tolerance'] += 1   # <= word_tolerance over max_words and the measured TTS fits
         self.pending[gid] = {'text': entry['text'], 'evidence': valid}
         self.failed.pop(gid, None)
         return 'pending'
@@ -589,37 +655,58 @@ class Director(Agent):
         reasons = (self.failed.get(gid) or {}).get('reasons') or []
         return bool(reasons) and all(any(b in r for b in BUDGET_PROBLEMS) for r in reasons)
 
+    def tighten_reject(self, gid, old, text):
+        """Why a Nano rewrite is unusable (None if usable): not shorter, invents content, or loses the establishing place."""
+        if not text:
+            return 'no shorter version returned'
+        if len(text.split()) >= len(old.split()):
+            return f'not shorter ({len(text.split())} words, was {len(old.split())}); rejected'
+        added = {stem(w) for w in content_tokens(text)} - {stem(w) for w in content_tokens(old)}
+        if len(added) > 1:
+            return f'tighten added new words {sorted(added)}; rejected'
+        terms = place_terms(self.bible) if self.is_establishing(gid) else set()
+        if terms & {stem(w) for w in tokens(old)} and not terms & {stem(w) for w in tokens(text)}:
+            return 'tighten dropped the place from the establishing cue; rejected'
+        return None
+
     def st_tighten(self, step):
-        """Cues that fail ONLY on length go to Nemotron Nano, not Ultra: shorten to max_words keeping every fact.
-        A rewrite that adds content words is rejected (Nano must not invent). Up to 2 Nano calls."""
+        """Cues that fail ONLY on length go to Nemotron Nano first: ONE shorter version per call, given the cue's current word
+        count and the exact max. Up to director.tighten_attempts calls per cue; a rewrite that is not shorter, adds content
+        words or loses the establishing place is rejected. Small max_tokens: round 2 saw Nano run to the 2000-token cap after
+        a bare JSON object (thinking was already off). Still over budget afterwards -> Ultra repair (verify_and_repair)."""
         outcome = Counter()
-        for attempt in range(2):
-            gids = sorted((g for g in self.failed if self.budget_only(g)), key=lambda g: self.gap(g)['start'])
-            if not gids:
-                break
-            rows = [{'gap_id': g, 'text': self.failed[g]['text'], 'words': len(self.failed[g]['text'].split()),
-                     'max_words': self.gap(g)['director_words_en'], 'problem': '; '.join(self.failed[g]['reasons'])[:160]} for g in gids]
-            mock = {'cues': [{'gap_id': r['gap_id'], 'text': ' '.join(r['text'].split()[:r['max_words']])} for r in rows]}
-            try:
-                parsed = parse_cues(self.model('tighten', self.d['tighten_stage'], P.TIGHTEN, {'cues': rows}, None, mock if self.mock else None))
-            except (BudgetExceeded, TimeoutError):
-                raise
-            except Exception as exc:
-                self.report['issues'].append('Nano tighten unavailable: ' + sanitize(exc))
-                break
-            for g in gids:
-                entry, old = parsed.get(g), self.failed[g]['text']
-                if not entry or entry['skip'] or not entry['text']:
-                    outcome['unanswered'] += 1
-                    continue
-                added = {stem(w) for w in content_tokens(entry['text'])} - {stem(w) for w in content_tokens(old)}
-                if len(added) > 1:
-                    self.log(g, step=step, text=entry['text'], problems=[f'tighten added new words {sorted(added)}; rejected'])
+        for g in sorted((g for g in self.failed if self.budget_only(g)), key=lambda g: self.gap(g)['start']):
+            max_w = self.gap(g)['director_words_en']
+            for attempt in range(max(1, int(self.d['tighten_attempts']))):
+                old = self.failed[g]['text']
+                words = len(old.split())
+                terms = sorted(place_terms(self.bible) & {stem(w) for w in tokens(old)}) if self.is_establishing(g) else []
+                cue = {'gap_id': g, 'text': old, 'words': words, 'max_words': max_w, 'remove_at_least': max(1, words - max_w),
+                       **({'keep_place': terms} if terms else {})}
+                mock = {'text': ' '.join(old.split()[:max_w]), 'words': min(words, max_w)}
+                try:
+                    raw = self.model('tighten', self.d['tighten_stage'], P.TIGHTEN, {'cue': cue, '_max_tokens': self.d['tighten_max_tokens']},
+                                     None, mock if self.mock else None)
+                except (BudgetExceeded, TimeoutError):
+                    raise
+                except Exception as exc:
+                    self.report['issues'].append(f'Nano tighten unavailable for gap {g}: ' + sanitize(exc))
+                    outcome['error'] += 1
+                    break
+                text = parse_tightened(raw, g)
+                why = self.tighten_reject(g, old, text)
+                if why:
+                    self.log(g, step=step, text=text, problems=[why])
                     outcome['rejected'] += 1
                     continue
-                outcome[self.consider(g, {**entry, 'evidence': self.failed[g]['evidence']}, step)] += 1
+                result = self.consider(g, {'text': text, 'evidence': self.failed[g]['evidence'], 'skip': False, 'reason': ''}, step)
+                if result != 'failed' or not self.budget_only(g):
+                    outcome[result] += 1   # pending, or a non-length problem now: Ultra repair handles it
+                    break
+            else:
+                outcome['still_over'] += 1
         self.stats['tightened'] += outcome['pending']
-        return f'over-budget cues shortened by Nano: {dict(outcome)}'
+        return f'over-budget cues shortened by Nano (one cue per call, <= {self.d["tighten_attempts"]} attempts): {dict(outcome)}'
 
     def maybe_tighten(self, name):
         n = sum(self.budget_only(g) for g in self.failed)
@@ -734,7 +821,8 @@ class Director(Agent):
 
     def st_repair(self, round_no):
         gids = sorted(self.failed, key=lambda i: self.gap(i)['start'])
-        items = [{**self.gap_payload(self.gap(g)), 'rejected_text': self.failed[g]['text'], 'why_rejected': self.failed[g]['reasons'],
+        items = [{**self.gap_payload(self.gap(g)), 'rejected_text': self.failed[g]['text'], 'rejected_words': len(self.failed[g]['text'].split()),
+                  'why_rejected': self.failed[g]['reasons'],
                   'trusted_evidence': [r for r in self.timeline_rows() if g in self.assignment.get(r['id'], ())], **self.neighbours(g)} for g in gids]
         bible = {k: self.bible.get(k) for k in ('setting', 'place', 'cast', 'objects', 'goal', 'story')}
         mock = {'cues': [{'gap_id': g, 'skip': True, 'reason': 'MOCK repair: nothing reliable'} for g in gids]}
@@ -755,8 +843,7 @@ class Director(Agent):
                 self.stage('verify' if round_no == 0 else f'verify_{round_no}', lambda: self.st_verify(todo), f'{len(todo)} cues, {self.d["verify_frames"]} stills each')
             if not self.failed or round_no == self.d['max_repair_rounds']:
                 break
-            if all(self.budget_only(g) for g in self.failed):
-                break   # length-only failures that Nano could not fix are not worth an Ultra call: dropped below
+            # Length failures Nano could not fix ARE repairable: Ultra rewrites them with the word count and the Fix hint.
             if self.ultra_calls >= self.d['max_ultra_calls']:
                 self.report['issues'].append('Ultra call cap reached: no further repair')
                 break
@@ -764,12 +851,32 @@ class Director(Agent):
             self.stage(f'repair_{round_no+1}', lambda: self.st_repair(round_no + 1), f'{len(self.failed)} failed cues')
             self.maybe_tighten(f'tighten_{round_no+1}')
             todo = [g for g in self.pending if g not in before]
+        self.establish_fallback()
         for g, f in list(self.failed.items()):
-            prefix = 'dropped (still over budget after Nano tighten): ' if self.budget_only(g) else 'dropped after repair: '
+            prefix = 'dropped (still over budget after Nano tighten and Ultra repair): ' if self.budget_only(g) else 'dropped after repair: '
             self.failed.pop(g)
             self.drop_gap(g, prefix + '; '.join(f['reasons'])[:200])
             self.log(g, step='drop', reason='; '.join(f['reasons']))
             self.stats['dropped_after_repair'] += 1
+
+    def establish_fallback(self):
+        """Never drop the establishing cue only because it does not name the place: after the repair rounds, the best attempt
+        that passed every other check is verified on stills and committed if supported, with an issue recorded."""
+        rescue = [g for g in sorted(self.establish_candidates, key=lambda i: self.gap(i)['start']) if g not in self.cues][:1]
+        if not rescue:
+            return
+        for g in rescue:
+            candidate = self.establish_candidates[g]
+            self.failed.pop(g, None)
+            self.skipped.pop(g, None)
+            self.pending[g] = dict(candidate)
+            self.log(g, step='establish_fallback', text=candidate['text'],
+                     reason='place still not named after repairs; verifying the best otherwise-valid model-written attempt')
+        self.stage('verify_establish', lambda: self.st_verify(rescue), f'{len(rescue)} establishing cue(s) that only miss the place')
+        for g in rescue:
+            if g in self.cues:
+                self.stats['establish_without_place'] += 1
+                self.report['issues'].append(f'Establishing cue (gap {g}) committed without naming the place after repairs; verified on stills')
 
     # ---------- stage: hindi ----------
     def hi_problems(self, gid, text):
@@ -857,10 +964,15 @@ class Director(Agent):
         uncovered = [e for e in high if not any(g in self.cues for g in e['gap_ids'])]
         first = min(self.cues.values(), key=lambda c: c['start'], default=None)
         terms = place_terms(self.bible)
-        if first and terms and not {stem(w) for w in tokens(first['en'])} & terms:
-            self.report['issues'].append(f"First committed cue (gap {first['id']}) does not name the place; its establishing cue was dropped")
+        if first and terms and not {stem(w) for w in tokens(first['en'])} & terms and not self.stats.get('establish_without_place'):
+            self.report['issues'].append(f"First committed cue (gap {first['id']}) does not name the place")
         use = [len(c['en'].split()) / max(1, c.get('director_words_en') or 1) for c in self.cues.values()]
         self.stats['budget_use_percent'] = round(100 * sum(use) / len(use)) if use else 0
+        coverage = self.coverage()
+        self.report['coverage'] = coverage
+        if not coverage['meets_target']:
+            self.report['issues'].append(f"Coverage guard: {coverage['narrated']} of {coverage['narratable']} narratable gaps narrated "
+                                         f"({coverage['percent_excluding_silent_by_choice']} % excluding silent-by-choice; target {coverage['target_percent']} %)")
         self.report.update(status='complete', cues=sorted(self.cues.values(), key=lambda c: c['start']), tracks=tracks, gaps=self.gaps, speech=self.speech,
             cues_committed=len(self.cues), cues_dropped=len(self.dropped), dropped_gaps=self.dropped, gaps_skipped_no_new_info=sorted(self.skipped),
             overlaps_with_speech=sum(self.check_fit(c['id'], c[l], l)['overlap_seconds'] > 0 for c in self.cues.values() for l in self.langs if c.get(l)),
@@ -870,6 +982,31 @@ class Director(Agent):
             coverage_method='event->gap assignment (midpoint / >=50% overlap); writer may skip gaps with nothing new', uncovered_events=uncovered)
         self.done = True
         return f"{len(self.cues)} cues rendered ({', '.join(f'{l}: {len(t)}' for l, t in tracks.items())}); {len(self.skipped)} gaps silent by choice"
+
+    def silence_category(self, gid):
+        reason = self.dropped.get(gid, 'not scripted')
+        if reason.startswith('too short'):
+            return 'too_short'
+        if gid in self.skipped:
+            return {'no events inside this gap': 'no_events', 'writer returned nothing for this gap': 'writer_missing'}.get(reason.replace('silent: ', ''), 'no_new_info')
+        return 'dropped'
+
+    def coverage(self):
+        """Coverage guard: narrated / narratable (gaps long enough for a cue) and why each silent gap is silent. Only a stated
+        no-new-info skip (or no events at all) is an accepted silence; the target applies to the rest."""
+        long_enough = [g for g in self.narratable() if g.get('director_words_en', 0) >= self.d['min_words']]
+        silent = {g['id']: {'why': self.silence_category(g['id']), 'reason': self.dropped.get(g['id'], 'not scripted')[:200]}
+                  for g in self.narratable() if g['id'] not in self.cues}
+        narrated = sum(g['id'] in self.cues for g in long_enough)
+        by_choice = sum(silent.get(g['id'], {}).get('why') in ('no_new_info', 'no_events') for g in long_enough)
+        expected = len(long_enough) - by_choice
+        pct = round(100 * narrated / expected) if expected else 100
+        return {'narratable': len(long_enough), 'narrated': narrated, 'silent_by_choice': by_choice,
+                'dropped': sum(v['why'] in ('dropped', 'writer_missing') for v in silent.values()),
+                'too_short': sum(v['why'] == 'too_short' for v in silent.values()),
+                'percent_of_narratable': round(100 * narrated / len(long_enough)) if long_enough else 100,
+                'percent_excluding_silent_by_choice': pct, 'target_percent': round(100 * self.d['coverage_target']),
+                'meets_target': pct >= 100 * self.d['coverage_target'], 'silent': {str(k): v for k, v in sorted(silent.items())}}
 
     def run(self):
         stop = None
@@ -940,9 +1077,13 @@ class Director(Agent):
         L = ['## Run summary', '',
              f"- **Model calls:** Ultra {self.ultra_calls}/{self.d['max_ultra_calls']} · Super VL {calls['timeline'] + calls['scene'] + calls['verify']} · Nano tighten {calls['tighten']}",
              f"- **Cost:** ${self.report.get('estimated_cost_usd', 0):.4f} (Ultra ${ultra:.4f}, timeline ${cost.get('timeline', 0):.4f}, verify ${cost.get('verify', 0):.4f}, Nano ${cost.get('tighten', 0):.4f})",
-             f"- **Cues:** {len(self.cues)} committed of {len(self.narratable())} narratable gaps · average budget use {self.stats.get('budget_use_percent', 0)} % · repairs {self.stats.get('repair_rounds', 0)} · Nano-tightened {self.stats.get('tightened', 0)}",
+             f"- **Cues:** {len(self.cues)} committed of {len(self.narratable())} narratable gaps · average budget use {self.stats.get('budget_use_percent', 0)} % · repairs {self.stats.get('repair_rounds', 0)} · Nano-tightened {self.stats.get('tightened', 0)} · within word tolerance {self.stats.get('accepted_within_tolerance', 0)}",
              '- **Silent by choice:** ' + ('; '.join(f'gap {g} ({short(self.dropped.get(g, ""))})' for g in silent) or 'none'),
              '- **Dropped:** ' + ('; '.join(f'gap {g} ({short(r)})' for g, r in sorted(dropped.items())) or 'none')]
+        cov = self.coverage()
+        L.append(f"- **Coverage:** {cov['narrated']}/{cov['narratable']} narratable gaps narrated ({cov['percent_of_narratable']} %; "
+                 f"{cov['percent_excluding_silent_by_choice']} % excluding {cov['silent_by_choice']} silent by choice; target {cov['target_percent']} %"
+                 + ('' if cov['meets_target'] else ' — BELOW TARGET') + ')')
         if self.context:
             L.append(f'- **Video title (UNVERIFIED user context, never evidence):** “{self.context}”')
         return L
