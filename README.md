@@ -133,6 +133,7 @@ Orchestration is 88–95% of the cost in the four caches that produced cues. Its
 
 All figures below come from the real **Nebius Token Factory** runs in `samples/cached_runs/*/report.json`. Overlaps are measured against Narrate's speech detector.
 
+<!-- numbers:start -->
 | Clip | Turns | Cues / narratable gaps | Gap coverage EN / HI | Detected overlaps | Verified / contradicted / unverified | Cost | Cost per min | Model latency |
 |---|---|---|---|---|---|---|---|---|
 | Cooking (roti), 120 s | 41 | 10 / 12 | 52% / 55% | 0 | 3 / 2 / 0 | $0.332 | $0.17 | 162 s |
@@ -140,6 +141,7 @@ All figures below come from the real **Nebius Token Factory** runs in `samples/c
 | Tears of Steel, 100 s | 16 | 8 / 8 | 50% / 58% | 0 | 4 / 1 / 0 | $0.134 | $0.08 | 83 s |
 | Kitchen (synthetic), 30 s | 17 | 3 / 4 | 32% / 42% | 0 | 2 / 0 / 0 | $0.099 | $0.20 | 171 s |
 | Continuous speech, 30 s | 2 | 0 / 0, refused by design | 0% / 0% | 0 | 0 / 0 / 0 | $0.007 | $0.01 | 3 s |
+<!-- numbers:end -->
 
 All five reports have `provider: nebius`, `dev_only: false`, `fallback_finalize: false`, and `status: complete`. Narration uses Ultra for orchestration and translation, Super VL for vision, and Nano for drafting; the continuous-speech case needs only Ultra.
 

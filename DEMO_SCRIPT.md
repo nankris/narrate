@@ -27,10 +27,12 @@ The repo already ships **real cached runs**: NVIDIA dev endpoint, final code, ba
 5. Recording setup: 1920×1080, browser zoom 110%, close other tabs, mute notifications, headphones on, system audio captured.
 
 Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 100 s):
-- $0.171 per run, about $0.10 per minute at Token Factory list prices;
-- 14 Ultra turns;
-- 8 of 8 gaps described, 60% EN coverage;
-- 0 overlaps with detected speech, and 0.39 s against the film's subtitles.
+<!-- numbers:start -->
+- $0.134 per run, about $0.08 per minute at Token Factory list prices;
+- 16 Ultra turns;
+- 8 of 8 narratable gaps described, 50% EN coverage;
+- 0 overlaps with detected speech.
+<!-- numbers:end -->
 
 ---
 
@@ -53,7 +55,7 @@ Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 1
   - **blue · Nemotron 3.5 Super VL**: watches each short segment (video input) and later re-checks claims on still frames.
   - **green · Nemotron 3 Nano** (Lightning on the dev endpoint): drafts every gap in one batched call, each to an exact word limit.
   - **grey tools**: speech-gap detection (Silero VAD), TTS duration measurement, fit check, render, finalize.
-- Tick **Only notes & corrections** to make the reasoning readable, then scroll slowly. The top bar shows 14 turns, the tool calls, and the cost per model.
+- Tick **Only notes & corrections** to make the reasoning readable, then scroll slowly. The top bar shows the turn count, tool calls, and cost per model.
 - **Say:** "Ultra runs a plan, act, observe loop. Super VL inspects each gap and writes what it saw on an evidence board. Nano drafts all lines in one call. A deterministic tool speaks each line with the real voice and measures it. If a line doesn't fit, the tool redrafts it, so the big model never counts words. Every step is logged in this trace."
 
 ## 5. 1:20–1:45: Self-verification catches a hallucination
@@ -66,12 +68,12 @@ Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 1
 
 ## 7. 2:00–2:15: Results card (real numbers only)
 - **Screen:** Results card.
-- **Say** (shipped caches; if you rebuilt on Nebius, read your own card): "This 100-second clip took 14 agent turns. Every silent gap got a description, with zero overlaps with detected speech; against the film's subtitles, the overlap was under half a second. Estimated at Token Factory list prices, it costs about ten cents per minute of video, and almost all of that is the Ultra orchestrator, so the expensive model only plans. All the Nemotron models come through one OpenAI-compatible Token Factory API."
+- **Say:** Read the current figures from the synced block above and the Results card, then explain: "Every narratable gap got a description, with zero overlaps with detected speech. Almost all of the estimated cost is the Ultra orchestrator, so the expensive model only plans. All the Nemotron models come through one OpenAI-compatible Token Factory API."
 
 ## 8. 2:15–2:35: Where it fails (be honest)
 - **Click:** sample *Failure continuous speech* → Results / trace.
 - **Screen:** the issue line "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
-- **Say:** "Where it fails: a lecture with nonstop speech has no gaps, so Narrate refuses rather than talk over the speaker. That takes three turns and one cent. Pausing the video for extended description is next. The vision model also still misreads on-screen text, and verification catches some of that, not all. Every failure we hit, seven rounds of them, is published in the repo with its trace."
+- **Say:** "Where it fails: a lecture with nonstop speech has no gaps, so Narrate refuses rather than talk over the speaker. Pausing the video for extended description is next. The vision model also still misreads on-screen text, and verification catches some of that, not all. Every failure we hit is published in the repo with its trace."
 
 ## 9. 2:35–2:45: Close
 - **Screen:** the GitHub README (Apache-2.0 badge and quickstart visible).
