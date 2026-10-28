@@ -1,7 +1,7 @@
 {
   "mock": false,
-  "provider": "nvidia-dev",
-  "dev_only": true,
+  "provider": "nebius",
+  "dev_only": false,
   "duration_s": 110.0,
   "fallback_finalize": false,
   "issues": [],
@@ -21,8 +21,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Astronaut enters; tends and prunes green plants in a window unit.",
-      "hi": "अंतरिक्ष यात्री प्रवेश करता है; खिड़की इकाई में हरे पौधों की देखभाल और काट-छांट करता है।",
+      "en": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber.",
+      "hi": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -39,8 +39,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Man tends plants in open panel; reaches deeper into machinery.",
-      "hi": "आदमी खुले पैनल में पौधों की देखभाल करता है; मशीनरी में गहराई तक पहुंचता है।",
+      "en": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks.",
+      "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -57,8 +57,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Man with glasses reaches into panel of plants and wires; works inside.",
-      "hi": "चश्मा पहना आदमी पौधों और तारों के पैनल में पहुंचता है; अंदर काम करता है।",
+      "en": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber.",
+      "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -75,8 +75,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Man with glasses works on plant chambers in blue gloves.",
-      "hi": "चश्मा पहना आदमी नीले दस्तानों में पौधों के कक्षों पर काम करता है।",
+      "en": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery.",
+      "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -93,8 +93,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Man continues reaching into illuminated chamber tending green plants.",
-      "hi": "आदमी रोशन कक्ष में हरे पौधों की देखभाल करते हुए अंदर पहुंचना जारी रखता है।",
+      "en": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber.",
+      "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -111,8 +111,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "Astronaut in green plants, closes chamber hatch.",
-      "hi": "हरे पौधों में अंतरिक्ष यात्री, कक्ष का ढक्कन बंद करता है।",
+      "en": "A person photographs a red pepper labeled MISSE-8.",
+      "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -129,8 +129,8 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "\"GOT A PIC AND I WANT IT\" astronaut photographs a red chili pepper.",
-      "hi": "\"GOT A PIC AND I WANT IT\" अंतरिक्ष यात्री लाल मिर्च की फोटो खींचता है।",
+      "en": "Two men pose with astronaut in black shirt, adjusting his cap while others smile.",
+      "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -147,8 +147,8 @@
       "word_budget_hi": 21,
       "max_words_en": 16,
       "max_words_hi": 19,
-      "en": "Astronauts form circle and lift joined hands upward in celebration.",
-      "hi": "अंतरिक्ष यात्री घेरा बनाते हैं और जुड़े हाथों को जश्न में ऊपर उठाते हैं।",
+      "en": "Two astronauts pose inside station module filled with equipment.",
+      "hi": "दो अंतरिक्ष यात्री उपकरणों से भरे स्टेशन मॉड्यूल में पोज़ दे रहे हैं।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -165,8 +165,8 @@
       "word_budget_hi": 21,
       "max_words_en": 16,
       "max_words_hi": 19,
-      "en": "People celebrate with clapping, handshakes, and joyful movement.",
-      "hi": "लोग ताली, हाथ मिलाकर और खुशी के साथ जश्न मनाते हैं।",
+      "en": "Group passes small green plant in microgravity while one films the interaction.",
+      "hi": "समूह सूक्ष्म गुरुत्वाकर्षण में छोटा हरा पौधा पास करता है जबकि एक फिल्मा रहा है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -183,8 +183,8 @@
       "word_budget_hi": 21,
       "max_words_en": 16,
       "max_words_hi": 19,
-      "en": "Crew members smile and stand together in a concluding group pose.",
-      "hi": "चालक दल के सदस्य मुस्कुराते हैं और अंतिम समूह मुद्रा में एक साथ खड़े हैं।",
+      "en": "Astronauts reach toward center point in station module as camera records group.",
+      "hi": "अंतरिक्ष यात्री स्टेशन मॉड्यूल में केंद्रीय बिंदु की ओर बढ़ते हैं, कैमरा समूह रिकॉर्ड करता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -196,7 +196,7 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 4.63746,
+        "end": 6.351202,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -204,8 +204,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Astronaut enters; tends and prunes green plants in a window unit.",
-        "hi": "अंतरिक्ष यात्री प्रवेश करता है; खिड़की इकाई में हरे पौधों की देखभाल और काट-छांट करता है।",
+        "en": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber.",
+        "hi": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -214,7 +214,7 @@
       {
         "id": 1,
         "start": 11.378857142857145,
-        "end": 15.760580142857144,
+        "end": 18.287066142857146,
         "duration": 11.298857142857143,
         "narratable": true,
         "parent_gap": 0,
@@ -222,8 +222,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man tends plants in open panel; reaches deeper into machinery.",
-        "hi": "आदमी खुले पैनल में पौधों की देखभाल करता है; मशीनरी में गहराई तक पहुंचता है।",
+        "en": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks.",
+        "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -232,7 +232,7 @@
       {
         "id": 2,
         "start": 22.677714285714288,
-        "end": 27.777805285714287,
+        "end": 27.985787285714288,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -240,8 +240,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man with glasses reaches into panel of plants and wires; works inside.",
-        "hi": "चश्मा पहना आदमी पौधों और तारों के पैनल में पहुंचता है; अंदर काम करता है।",
+        "en": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber.",
+        "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -250,7 +250,7 @@
       {
         "id": 3,
         "start": 33.97657142857143,
-        "end": 37.688045428571435,
+        "end": 40.37303442857143,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -258,8 +258,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man with glasses works on plant chambers in blue gloves.",
-        "hi": "चश्मा पहना आदमी नीले दस्तानों में पौधों के कक्षों पर काम करता है।",
+        "en": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery.",
+        "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -268,7 +268,7 @@
       {
         "id": 4,
         "start": 45.27542857142858,
-        "end": 49.80685757142858,
+        "end": 50.73946457142858,
         "duration": 11.298857142857138,
         "narratable": true,
         "parent_gap": 0,
@@ -276,8 +276,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man continues reaching into illuminated chamber tending green plants.",
-        "hi": "आदमी रोशन कक्ष में हरे पौधों की देखभाल करते हुए अंदर पहुंचना जारी रखता है।",
+        "en": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber.",
+        "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -286,7 +286,7 @@
       {
         "id": 5,
         "start": 56.574285714285715,
-        "end": 60.23469371428571,
+        "end": 59.94507971428571,
         "duration": 11.298857142857152,
         "narratable": true,
         "parent_gap": 0,
@@ -294,8 +294,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Astronaut in green plants, closes chamber hatch.",
-        "hi": "हरे पौधों में अंतरिक्ष यात्री, कक्ष का ढक्कन बंद करता है।",
+        "en": "A person photographs a red pepper labeled MISSE-8.",
+        "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -304,7 +304,7 @@
       {
         "id": 6,
         "start": 67.87314285714287,
-        "end": 72.86602285714287,
+        "end": 73.26407285714286,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -312,8 +312,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "\"GOT A PIC AND I WANT IT\" astronaut photographs a red chili pepper.",
-        "hi": "\"GOT A PIC AND I WANT IT\" अंतरिक्ष यात्री लाल मिर्च की फोटो खींचता है।",
+        "en": "Two men pose with astronaut in black shirt, adjusting his cap while others smile.",
+        "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -322,7 +322,7 @@
       {
         "id": 7,
         "start": 84.124,
-        "end": 88.795746,
+        "end": 88.461868,
         "duration": 8.598666666666674,
         "narratable": true,
         "parent_gap": 1,
@@ -330,8 +330,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "Astronauts form circle and lift joined hands upward in celebration.",
-        "hi": "अंतरिक्ष यात्री घेरा बनाते हैं और जुड़े हाथों को जश्न में ऊपर उठाते हैं।",
+        "en": "Two astronauts pose inside station module filled with equipment.",
+        "hi": "दो अंतरिक्ष यात्री उपकरणों से भरे स्टेशन मॉड्यूल में पोज़ दे रहे हैं।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -340,7 +340,7 @@
       {
         "id": 8,
         "start": 92.72266666666667,
-        "end": 97.30729266666667,
+        "end": 98.08692966666666,
         "duration": 8.59866666666666,
         "narratable": true,
         "parent_gap": 1,
@@ -348,8 +348,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "People celebrate with clapping, handshakes, and joyful movement.",
-        "hi": "लोग ताली, हाथ मिलाकर और खुशी के साथ जश्न मनाते हैं।",
+        "en": "Group passes small green plant in microgravity while one films the interaction.",
+        "hi": "समूह सूक्ष्म गुरुत्वाकर्षण में छोटा हरा पौधा पास करता है जबकि एक फिल्मा रहा है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -358,7 +358,7 @@
       {
         "id": 9,
         "start": 101.32133333333333,
-        "end": 105.73988233333333,
+        "end": 106.55938333333333,
         "duration": 8.598666666666674,
         "narratable": true,
         "parent_gap": 1,
@@ -366,8 +366,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "Crew members smile and stand together in a concluding group pose.",
-        "hi": "चालक दल के सदस्य मुस्कुराते हैं और अंतिम समूह मुद्रा में एक साथ खड़े हैं।",
+        "en": "Astronauts reach toward center point in station module as camera records group.",
+        "hi": "अंतरिक्ष यात्री स्टेशन मॉड्यूल में केंद्रीय बिंदु की ओर बढ़ते हैं, कैमरा समूह रिकॉर्ड करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -378,7 +378,7 @@
       {
         "id": 0,
         "start": 0.08,
-        "end": 6.967891,
+        "end": 6.841678,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -386,8 +386,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Astronaut enters; tends and prunes green plants in a window unit.",
-        "hi": "अंतरिक्ष यात्री प्रवेश करता है; खिड़की इकाई में हरे पौधों की देखभाल और काट-छांट करता है।",
+        "en": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber.",
+        "hi": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -396,7 +396,7 @@
       {
         "id": 1,
         "start": 11.378857142857145,
-        "end": 17.804889142857146,
+        "end": 17.690467142857145,
         "duration": 11.298857142857143,
         "narratable": true,
         "parent_gap": 0,
@@ -404,8 +404,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man tends plants in open panel; reaches deeper into machinery.",
-        "hi": "आदमी खुले पैनल में पौधों की देखभाल करता है; मशीनरी में गहराई तक पहुंचता है।",
+        "en": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks.",
+        "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -414,7 +414,7 @@
       {
         "id": 2,
         "start": 22.677714285714288,
-        "end": 28.65336028571429,
+        "end": 29.413406285714288,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -422,8 +422,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man with glasses reaches into panel of plants and wires; works inside.",
-        "hi": "चश्मा पहना आदमी पौधों और तारों के पैनल में पहुंचता है; अंदर काम करता है।",
+        "en": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber.",
+        "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -432,7 +432,7 @@
       {
         "id": 3,
         "start": 33.97657142857143,
-        "end": 39.17131042857143,
+        "end": 41.06759142857143,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -440,8 +440,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man with glasses works on plant chambers in blue gloves.",
-        "hi": "चश्मा पहना आदमी नीले दस्तानों में पौधों के कक्षों पर काम करता है।",
+        "en": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery.",
+        "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -450,7 +450,7 @@
       {
         "id": 4,
         "start": 45.27542857142858,
-        "end": 51.338421571428576,
+        "end": 52.46200457142858,
         "duration": 11.298857142857138,
         "narratable": true,
         "parent_gap": 0,
@@ -458,8 +458,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Man continues reaching into illuminated chamber tending green plants.",
-        "hi": "आदमी रोशन कक्ष में हरे पौधों की देखभाल करते हुए अंदर पहुंचना जारी रखता है।",
+        "en": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber.",
+        "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -468,7 +468,7 @@
       {
         "id": 5,
         "start": 56.574285714285715,
-        "end": 61.09950071428572,
+        "end": 60.862630714285714,
         "duration": 11.298857142857152,
         "narratable": true,
         "parent_gap": 0,
@@ -476,8 +476,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "Astronaut in green plants, closes chamber hatch.",
-        "hi": "हरे पौधों में अंतरिक्ष यात्री, कक्ष का ढक्कन बंद करता है।",
+        "en": "A person photographs a red pepper labeled MISSE-8.",
+        "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -486,7 +486,7 @@
       {
         "id": 6,
         "start": 67.87314285714287,
-        "end": 73.85123785714286,
+        "end": 75.73219085714287,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -494,8 +494,8 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "\"GOT A PIC AND I WANT IT\" astronaut photographs a red chili pepper.",
-        "hi": "\"GOT A PIC AND I WANT IT\" अंतरिक्ष यात्री लाल मिर्च की फोटो खींचता है।",
+        "en": "Two men pose with astronaut in black shirt, adjusting his cap while others smile.",
+        "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -504,7 +504,7 @@
       {
         "id": 7,
         "start": 84.124,
-        "end": 89.311211,
+        "end": 89.028807,
         "duration": 8.598666666666674,
         "narratable": true,
         "parent_gap": 1,
@@ -512,8 +512,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "Astronauts form circle and lift joined hands upward in celebration.",
-        "hi": "अंतरिक्ष यात्री घेरा बनाते हैं और जुड़े हाथों को जश्न में ऊपर उठाते हैं।",
+        "en": "Two astronauts pose inside station module filled with equipment.",
+        "hi": "दो अंतरिक्ष यात्री उपकरणों से भरे स्टेशन मॉड्यूल में पोज़ दे रहे हैं।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -522,7 +522,7 @@
       {
         "id": 8,
         "start": 92.72266666666667,
-        "end": 97.02829066666666,
+        "end": 98.87940166666667,
         "duration": 8.59866666666666,
         "narratable": true,
         "parent_gap": 1,
@@ -530,8 +530,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "People celebrate with clapping, handshakes, and joyful movement.",
-        "hi": "लोग ताली, हाथ मिलाकर और खुशी के साथ जश्न मनाते हैं।",
+        "en": "Group passes small green plant in microgravity while one films the interaction.",
+        "hi": "समूह सूक्ष्म गुरुत्वाकर्षण में छोटा हरा पौधा पास करता है जबकि एक फिल्मा रहा है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -540,7 +540,7 @@
       {
         "id": 9,
         "start": 101.32133333333333,
-        "end": 106.69992733333333,
+        "end": 108.14863533333333,
         "duration": 8.598666666666674,
         "narratable": true,
         "parent_gap": 1,
@@ -548,8 +548,8 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "Crew members smile and stand together in a concluding group pose.",
-        "hi": "चालक दल के सदस्य मुस्कुराते हैं और अंतिम समूह मुद्रा में एक साथ खड़े हैं।",
+        "en": "Astronauts reach toward center point in station module as camera records group.",
+        "hi": "अंतरिक्ष यात्री स्टेशन मॉड्यूल में केंद्रीय बिंदु की ओर बढ़ते हैं, कैमरा समूह रिकॉर्ड करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -690,8 +690,8 @@
   "dropped_gaps": {},
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 42.531448783464256,
-    "hi": 53.315956067424295
+    "en": 51.53105026313781,
+    "hi": 61.13455590725344
   },
   "high_importance_covered_percent": 100.0,
   "events_in_speech_regions": {
@@ -705,401 +705,591 @@
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 3160,
-      "output_tokens": 43,
-      "cost_usd": 0.003289,
-      "latency_s": 1.2517604820022825,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3207,
+      "output_tokens": 42,
+      "cost_usd": 0.003333,
+      "latency_s": 1.0213386539981002,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 3896,
-      "output_tokens": 265,
-      "cost_usd": 0.004691,
-      "latency_s": 6.7439187830023,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3942,
+      "output_tokens": 278,
+      "cost_usd": 0.004776,
+      "latency_s": 1.7601909109944245,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2730,
-      "output_tokens": 314,
-      "cost_usd": 0.0011015999999999999,
-      "latency_s": 4.951441927012638,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2086,
+      "output_tokens": 599,
+      "cost_usd": 0.0011649000000000002,
+      "latency_s": 6.026573409995763,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2738,
-      "output_tokens": 406,
-      "cost_usd": 0.0011868,
-      "latency_s": 5.881994191993726,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1113,
+      "output_tokens": 198,
+      "cost_usd": 0.0005121,
+      "latency_s": 2.389518865995342,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2738,
-      "output_tokens": 86,
-      "cost_usd": 0.0008988,
-      "latency_s": 2.514046680997126,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1950,
+      "output_tokens": 92,
+      "cost_usd": 0.0006678,
+      "latency_s": 67.57746637800301,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2738,
-      "output_tokens": 135,
-      "cost_usd": 0.0009429,
-      "latency_s": 14.574997835006798,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1125,
+      "output_tokens": 102,
+      "cost_usd": 0.0004293,
+      "latency_s": 1.475067557010334,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1964,
+      "output_tokens": 91,
+      "cost_usd": 0.0006710999999999999,
+      "latency_s": 2.8308377789944643,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1139,
+      "output_tokens": 160,
+      "cost_usd": 0.0004857,
+      "latency_s": 2.2443458969937637,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1958,
+      "output_tokens": 270,
+      "cost_usd": 0.0008304,
+      "latency_s": 5.017992385997786,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 5257,
-      "output_tokens": 57,
-      "cost_usd": 0.005428,
-      "latency_s": 1.0985532459890237,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5215,
+      "output_tokens": 56,
+      "cost_usd": 0.005383,
+      "latency_s": 1.588717654987704,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2435,
-      "output_tokens": 199,
-      "cost_usd": 0.00019386,
-      "latency_s": 3.514784406987019,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1887,
+      "output_tokens": 211,
+      "cost_usd": 0.00016386000000000002,
+      "latency_s": 2.7719916280038888,
       "cost_role": "draft"
     },
     {
       "cached_tokens": 0,
       "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2200,
-      "output_tokens": 95,
-      "cost_usd": 0.00015480000000000002,
-      "latency_s": 1.182392938004341,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1181,
+      "output_tokens": 96,
+      "cost_usd": 9.39e-05,
+      "latency_s": 1.589123430007021,
       "cost_role": "draft"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 5644,
-      "output_tokens": 312,
-      "cost_usd": 0.00658,
-      "latency_s": 7.390127885999391,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5609,
+      "output_tokens": 271,
+      "cost_usd": 0.006422,
+      "latency_s": 3.141945373994531,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6445,
-      "output_tokens": 213,
-      "cost_usd": 0.007084,
-      "latency_s": 3.647500532999402,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2735,
-      "output_tokens": 323,
-      "cost_usd": 0.0011112000000000001,
-      "latency_s": 6.642221558999154,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2728,
-      "output_tokens": 167,
-      "cost_usd": 0.0009687000000000001,
-      "latency_s": 3.4966412569920067,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2728,
-      "output_tokens": 312,
-      "cost_usd": 0.0010992,
-      "latency_s": 4.559834881991264,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2735,
-      "output_tokens": 313,
-      "cost_usd": 0.0011022,
-      "latency_s": 4.890974102992914,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 7978,
-      "output_tokens": 58,
-      "cost_usd": 0.008152,
-      "latency_s": 5.344331189990044,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2327,
-      "output_tokens": 166,
-      "cost_usd": 0.00017946000000000002,
-      "latency_s": 1.6995640889945207,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 8367,
-      "output_tokens": 325,
-      "cost_usd": 0.009342,
-      "latency_s": 7.316969510007766,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 8921,
-      "output_tokens": 1800,
-      "cost_usd": 0.014321,
-      "latency_s": 26.73223982800846,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 4320,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 8921,
-      "output_tokens": 64,
-      "cost_usd": 0.0053114,
-      "latency_s": 1.350853202995495,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1171,
-      "output_tokens": 44,
-      "cost_usd": 0.0003909,
-      "latency_s": 1.4403985069948249,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 8273,
-      "output_tokens": 64,
-      "cost_usd": 0.008465,
-      "latency_s": 3.802639290006482,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1171,
-      "output_tokens": 43,
-      "cost_usd": 0.00039,
-      "latency_s": 1.3079291330068372,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 8368,
-      "output_tokens": 57,
-      "cost_usd": 0.008539,
-      "latency_s": 1.4532365579943871,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 960,
-      "output_tokens": 57,
-      "cost_usd": 7.128e-05,
-      "latency_s": 0.895320167997852,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1023,
-      "output_tokens": 33,
-      "cost_usd": 6.929999999999999e-05,
-      "latency_s": 1.3937074809946353,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 7729,
-      "output_tokens": 73,
-      "cost_usd": 0.007948,
-      "latency_s": 2.450737475999631,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6954,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6304,
       "output_tokens": 68,
-      "cost_usd": 0.007158,
-      "latency_s": 14.486336617002962,
-      "base_url_host": "integrate.api.nvidia.com"
+      "cost_usd": 0.006508,
+      "latency_s": 1.0788144810067024,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6909,
-      "output_tokens": 82,
-      "cost_usd": 0.007155,
-      "latency_s": 1.2908101990033174,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6515,
+      "output_tokens": 277,
+      "cost_usd": 0.007346,
+      "latency_s": 1.4970958949998021,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2095,
+      "output_tokens": 263,
+      "cost_usd": 0.0008652,
+      "latency_s": 64.23264295900299,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2095,
+      "output_tokens": 194,
+      "cost_usd": 0.0008031000000000001,
+      "latency_s": 2.459191852991353,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1622,
+      "output_tokens": 168,
+      "cost_usd": 0.0006378,
+      "latency_s": 2.474808414001018,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1114,
+      "output_tokens": 93,
+      "cost_usd": 0.00041789999999999997,
+      "latency_s": 1.587874140997883,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1631,
+      "output_tokens": 170,
+      "cost_usd": 0.0006422999999999999,
+      "latency_s": 2.4619095509988256,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7935,
+      "output_tokens": 56,
+      "cost_usd": 0.008103,
+      "latency_s": 1.871780964997015,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2187,
+      "output_tokens": 172,
+      "cost_usd": 0.0001725,
+      "latency_s": 2.7381618460058235,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8047,
+      "output_tokens": 330,
+      "cost_usd": 0.009037,
+      "latency_s": 2.3998122999910265,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8343,
+      "output_tokens": 77,
+      "cost_usd": 0.008574,
+      "latency_s": 1.8863364800054114,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1183,
+      "output_tokens": 57,
+      "cost_usd": 0.0004062,
+      "latency_s": 1.4110804609954357,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8468,
+      "output_tokens": 44,
+      "cost_usd": 0.0086,
+      "latency_s": 1.5335340469900984,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 967,
+      "output_tokens": 15,
+      "cost_usd": 6.162e-05,
+      "latency_s": 1.4281438820034964,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7958,
+      "output_tokens": 43,
+      "cost_usd": 0.008087,
+      "latency_s": 2.0136428969999542,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 967,
+      "output_tokens": 27,
+      "cost_usd": 6.45e-05,
+      "latency_s": 1.3382114629930584,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7954,
+      "output_tokens": 65,
+      "cost_usd": 0.008149,
+      "latency_s": 1.5701613270066446,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7276,
+      "output_tokens": 68,
+      "cost_usd": 0.00748,
+      "latency_s": 1.6325993089994881,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1174,
+      "output_tokens": 34,
+      "cost_usd": 0.00038280000000000003,
+      "latency_s": 1.4974216479895404,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7240,
+      "output_tokens": 78,
+      "cost_usd": 0.007474,
+      "latency_s": 1.6783983779896516,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1166,
+      "output_tokens": 49,
+      "cost_usd": 0.00039390000000000003,
+      "latency_s": 1.3449554600083502,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6548,
+      "output_tokens": 64,
+      "cost_usd": 0.00674,
+      "latency_s": 1.5492668829974718,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1173,
+      "output_tokens": 43,
+      "cost_usd": 0.00039059999999999995,
+      "latency_s": 1.6869001960003516,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6575,
+      "output_tokens": 43,
+      "cost_usd": 0.006704,
+      "latency_s": 1.7636374570138287,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 986,
+      "output_tokens": 32,
+      "cost_usd": 6.684e-05,
+      "latency_s": 1.3292388529953314,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6625,
+      "output_tokens": 64,
+      "cost_usd": 0.006817,
+      "latency_s": 1.8041724909999175,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6736,
+      "output_tokens": 70,
+      "cost_usd": 0.006946,
+      "latency_s": 1.7846934000117471,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "edit",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1684,
-      "output_tokens": 373,
-      "cost_usd": 0.002803,
-      "latency_s": 5.986989522003569,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1710,
+      "output_tokens": 508,
+      "cost_usd": 0.003234,
+      "latency_s": 1.7938289410085417,
       "cost_role": "translate"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6470,
-      "output_tokens": 50,
-      "cost_usd": 0.00662,
-      "latency_s": 1.2791543780040229,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6865,
+      "output_tokens": 66,
+      "cost_usd": 0.007063,
+      "latency_s": 1.8783261740027228,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1906,
+      "output_tokens": 418,
+      "cost_usd": 0.00316,
+      "latency_s": 1.686443891012459,
+      "cost_role": "translate"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6579,
-      "output_tokens": 117,
-      "cost_usd": 0.00693,
-      "latency_s": 1.9252734960027738,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7071,
+      "output_tokens": 31,
+      "cost_usd": 0.007164,
+      "latency_s": 1.6754353800060926,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7078,
+      "output_tokens": 63,
+      "cost_usd": 0.007267,
+      "latency_s": 1.7530006779998075,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1177,
-      "output_tokens": 44,
-      "cost_usd": 0.0003927,
-      "latency_s": 1.5930280280008446,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1158,
+      "output_tokens": 46,
+      "cost_usd": 0.00038879999999999996,
+      "latency_s": 1.3036994580033934,
       "cost_role": "verify"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6686,
-      "output_tokens": 55,
-      "cost_usd": 0.006851,
-      "latency_s": 3.1715348809957504,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7159,
+      "output_tokens": 44,
+      "cost_usd": 0.007291,
+      "latency_s": 1.7455211850028718,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 351,
+      "output_tokens": 42,
+      "cost_usd": 0.000477,
+      "latency_s": 0.8450470670068171,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7255,
+      "output_tokens": 70,
+      "cost_usd": 0.007465,
+      "latency_s": 1.8820698449999327,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2077,
+      "output_tokens": 508,
+      "cost_usd": 0.003601,
+      "latency_s": 1.8146261549991323,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7332,
+      "output_tokens": 70,
+      "cost_usd": 0.007542,
+      "latency_s": 1.8659631119953701,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7268,
+      "output_tokens": 32,
+      "cost_usd": 0.007364,
+      "latency_s": 1.588056840992067,
+      "base_url_host": "api.tokenfactory.nebius.com"
     }
   ],
   "cost_by_role": {
-    "orchestrator": 0.1238644,
-    "perceive": 0.0084114,
-    "verify": 0.0011736,
-    "draft": 0.0006687,
-    "translate": 0.002803
+    "orchestrator": 0.177635,
+    "perceive": 0.0081276,
+    "verify": 0.0019623,
+    "draft": 0.0006232200000000001,
+    "translate": 0.010472
   },
-  "billed_to": "nvidia-dev free tier (dev only)",
-  "cost_per_minute_usd": 0.07468423636363636,
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.10844733818181818,
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 8,
-      "draft_description": 3,
-      "propose_cue": 11,
-      "verify_claim": 4,
-      "translate_hindi": 1,
+      "draft_description": 5,
+      "propose_cue": 12,
+      "verify_claim": 5,
+      "translate_hindi": 5,
       "finalize": 2
     },
-    "corrections": 1,
+    "corrections": 3,
     "verifications": {
-      "verified": 1,
-      "contradicted": 1,
+      "verified": 3,
+      "contradicted": 2,
       "unverified": 0
     },
     "repeat_refusals": 1,
     "auto_redrafts": 0,
-    "draft_overlimit": 5,
-    "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 16,
+    "draft_overlimit": 3,
+    "orchestrator_authored_cues": 2,
+    "orchestrator_turns": 25,
     "cost_by_model": {
-      "nvidia/nemotron-3-ultra-550b-a55b": 0.12666739999999999,
-      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.009584999999999998,
-      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.0006686999999999999
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.18810699999999994,
+      "nvidia/Nemotron-3.5-Super-VL": 0.010089900000000002,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00062322
     },
-    "total_latency_s": 173.80300381500274
+    "total_latency_s": 247.71204732099432
   },
-  "estimated_cost_usd": 0.1369211,
-  "would_be_token_factory_cost_usd": 0.1369211,
-  "reserved_spend_usd": 0.18024909999999994,
-  "cost_per_minute": 0.07468423636363636,
-  "latency_s": 173.80300381500274
+  "estimated_cost_usd": 0.19882012,
+  "would_be_token_factory_cost_usd": 0.19882012,
+  "reserved_spend_usd": 0.2036726200000001,
+  "cost_per_minute": 0.10844733818181818,
+  "latency_s": 247.71204732099432
 }

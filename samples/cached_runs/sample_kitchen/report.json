@@ -1,10 +1,12 @@
 {
   "mock": false,
-  "provider": "nvidia-dev",
-  "dev_only": true,
+  "provider": "nebius",
+  "dev_only": false,
   "duration_s": 30.0,
   "fallback_finalize": false,
-  "issues": [],
+  "issues": [
+    "1 high-importance events lack an associated cue"
+  ],
   "detector": "silero-onnx",
   "speech_ratio": 0.4192,
   "detector_fallback_reason": null,
@@ -20,8 +22,8 @@
       "word_budget_hi": 9,
       "max_words_en": 7,
       "max_words_hi": 8,
-      "en": "Yellow vertical rectangle centered on teal background.",
-      "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
+      "en": "A person enters a kitchen.",
+      "hi": "एक व्यक्ति रसोई में प्रवेश करता है।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -37,8 +39,8 @@
       "word_budget_hi": 11,
       "max_words_en": 8,
       "max_words_hi": 10,
-      "en": "'STEP 1 - chop onions' on mauve background.",
-      "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
+      "en": "STEP 1 - chop onions.",
+      "hi": "चरण 1 - प्याज काटें।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -54,25 +56,8 @@
       "word_budget_hi": 11,
       "max_words_en": 8,
       "max_words_hi": 10,
-      "en": "Title: \"STEP 1 - chop onions\".",
-      "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 3,
-      "start": 27.387999999999998,
-      "end": 29.92,
-      "duration": 2.5320000000000036,
-      "narratable": true,
-      "word_budget_en": 4,
-      "word_budget_hi": 5,
-      "max_words_en": 4,
-      "max_words_hi": 4,
-      "en": "Title: \"Stir and serve\".",
-      "hi": "शीर्षक: \"स्टर एंड सर्व\"",
+      "en": "Stir and serve.",
+      "hi": "हिलाएं और परोसें।",
       "tts_backend": {
         "en": "EspeakBackend",
         "hi": "EspeakBackend"
@@ -84,15 +69,15 @@
       {
         "id": 0,
         "start": 4.668,
-        "end": 8.121878,
+        "end": 6.511673,
         "duration": 4.039999999999998,
         "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
         "max_words_en": 7,
         "max_words_hi": 8,
-        "en": "Yellow vertical rectangle centered on teal background.",
-        "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
+        "en": "A person enters a kitchen.",
+        "hi": "एक व्यक्ति रसोई में प्रवेश करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -101,15 +86,15 @@
       {
         "id": 1,
         "start": 11.868,
-        "end": 15.017932,
+        "end": 13.811719,
         "duration": 4.7440000000000015,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "max_words_en": 8,
         "max_words_hi": 10,
-        "en": "'STEP 1 - chop onions' on mauve background.",
-        "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
+        "en": "STEP 1 - chop onions.",
+        "hi": "चरण 1 - प्याज काटें।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -118,32 +103,15 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 22.8359,
+        "end": 21.254222,
         "duration": 4.776000000000003,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "max_words_en": 8,
         "max_words_hi": 10,
-        "en": "Title: \"STEP 1 - chop onions\".",
-        "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 27.387999999999998,
-        "end": 29.854802999999997,
-        "duration": 2.5320000000000036,
-        "narratable": true,
-        "word_budget_en": 4,
-        "word_budget_hi": 5,
-        "max_words_en": 4,
-        "max_words_hi": 4,
-        "en": "Title: \"Stir and serve\".",
-        "hi": "शीर्षक: \"स्टर एंड सर्व\"",
+        "en": "Stir and serve.",
+        "hi": "हिलाएं और परोसें।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -154,15 +122,15 @@
       {
         "id": 0,
         "start": 4.668,
-        "end": 8.324235999999999,
+        "end": 7.566776,
         "duration": 4.039999999999998,
         "narratable": true,
         "word_budget_en": 8,
         "word_budget_hi": 9,
         "max_words_en": 7,
         "max_words_hi": 8,
-        "en": "Yellow vertical rectangle centered on teal background.",
-        "hi": "टील पृष्ठभूमि पर केंद्रित पीला ऊर्ध्वाधर आयत",
+        "en": "A person enters a kitchen.",
+        "hi": "एक व्यक्ति रसोई में प्रवेश करता है।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -171,15 +139,15 @@
       {
         "id": 1,
         "start": 11.868,
-        "end": 15.208091,
+        "end": 13.923329,
         "duration": 4.7440000000000015,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "max_words_en": 8,
         "max_words_hi": 10,
-        "en": "'STEP 1 - chop onions' on mauve background.",
-        "hi": "मॉव पृष्ठभूमि पर 'स्टेप 1 - चॉप अनियन्स'",
+        "en": "STEP 1 - chop onions.",
+        "hi": "चरण 1 - प्याज काटें।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -188,32 +156,15 @@
       {
         "id": 2,
         "start": 19.932,
-        "end": 22.833949999999998,
+        "end": 21.666649,
         "duration": 4.776000000000003,
         "narratable": true,
         "word_budget_en": 9,
         "word_budget_hi": 11,
         "max_words_en": 8,
         "max_words_hi": 10,
-        "en": "Title: \"STEP 1 - chop onions\".",
-        "hi": "शीर्षक: \"स्टेप 1 - चॉप अनियन्स\"",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 27.387999999999998,
-        "end": 29.64546,
-        "duration": 2.5320000000000036,
-        "narratable": true,
-        "word_budget_en": 4,
-        "word_budget_hi": 5,
-        "max_words_en": 4,
-        "max_words_hi": 4,
-        "en": "Title: \"Stir and serve\".",
-        "hi": "शीर्षक: \"स्टर एंड सर्व\"",
+        "en": "Stir and serve.",
+        "hi": "हिलाएं और परोसें।",
         "tts_backend": {
           "en": "EspeakBackend",
           "hi": "EspeakBackend"
@@ -285,290 +236,389 @@
       "end": 27.308
     }
   ],
-  "cues_committed": 4,
-  "cues_dropped": 0,
-  "dropped_gaps": {},
+  "cues_committed": 3,
+  "cues_dropped": 1,
+  "dropped_gaps": {
+    "3": "Duplicate wording with gap 2; same on-screen text \"Stir and serve\" appears in both gaps. No unique visual description possible."
+  },
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 74.41283246333577,
-    "hi": 75.53900695998009
+    "en": 31.752510564255516,
+    "hi": 41.56570966940094
   },
-  "high_importance_covered_percent": 100.0,
+  "high_importance_covered_percent": 75.0,
   "events_in_speech_regions": {
-    "count": 3,
-    "events": [
-      {
-        "t_start": 2.67,
-        "t_end": 3.0,
-        "what": "A yellow vertical rectangle outlined shape remains centered on a teal background while white text fades out.",
-        "on_screen_text": "A person enters a kitchen",
-        "importance": 4,
-        "confidence": 0.9
-      },
-      {
-        "t_start": 25.39,
-        "t_end": 25.62,
-        "what": "A dark blue background with white text reading \"Stir and serve\" in the top-left corner and a yellow rectangle outline on the right side.",
-        "on_screen_text": "Stir and serve",
-        "importance": 5,
-        "confidence": 0.9
-      },
-      {
-        "t_start": 25.62,
-        "t_end": 26.12,
-        "what": "The text changes to just \"Stir\" while the yellow rectangle remains on the right side.",
-        "on_screen_text": "Stir",
-        "importance": 4,
-        "confidence": 0.9
-      }
-    ],
+    "count": 0,
+    "events": [],
     "note": "informational: high-importance events outside every narratable gap; may need extended AD"
   },
   "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
-  "uncovered_events": [],
+  "uncovered_events": [
+    {
+      "t_start": 25.39,
+      "t_end": 29.92,
+      "what": "Teal background with white text 'Stir and serve' in the top-left corner. A yellow rectangular outline appears on the right side, then moves to the left side of the screen.",
+      "on_screen_text": "Stir and serve",
+      "importance": 4,
+      "confidence": 0.98
+    }
+  ],
   "usage": [
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 3159,
-      "output_tokens": 39,
-      "cost_usd": 0.003276,
-      "latency_s": 3.198338247995707,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3206,
+      "output_tokens": 34,
+      "cost_usd": 0.003308,
+      "latency_s": 1.1320790360041428,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 3612,
-      "output_tokens": 279,
-      "cost_usd": 0.004449,
-      "latency_s": 8.683580191005603,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3654,
+      "output_tokens": 239,
+      "cost_usd": 0.004371,
+      "latency_s": 1.4903753859980498,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2748,
-      "output_tokens": 142,
-      "cost_usd": 0.0009521999999999999,
-      "latency_s": 2.738841491009225,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1164,
+      "output_tokens": 84,
+      "cost_usd": 0.0004248,
+      "latency_s": 1.8134263350075344,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2735,
-      "output_tokens": 135,
-      "cost_usd": 0.000942,
-      "latency_s": 2.546554422006011,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1296,
+      "output_tokens": 111,
+      "cost_usd": 0.0004887,
+      "latency_s": 2.650464831996942,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2751,
-      "output_tokens": 155,
-      "cost_usd": 0.0009647999999999999,
-      "latency_s": 3.7023151100001996,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1312,
+      "output_tokens": 148,
+      "cost_usd": 0.0005267999999999999,
+      "latency_s": 63.32082848600112,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 2751,
-      "output_tokens": 518,
-      "cost_usd": 0.0012915,
-      "latency_s": 6.505874743001186,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 996,
+      "output_tokens": 91,
+      "cost_usd": 0.00038070000000000004,
+      "latency_s": 1.6872393050143728,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1139,
+      "output_tokens": 112,
+      "cost_usd": 0.0004425,
+      "latency_s": 2.0679994279926177,
       "cost_role": "perceive"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 4927,
-      "output_tokens": 50,
-      "cost_usd": 0.005077,
-      "latency_s": 4.611713764999877,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 4712,
+      "output_tokens": 49,
+      "cost_usd": 0.004859,
+      "latency_s": 1.5259382649965119,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1813,
-      "output_tokens": 130,
-      "cost_usd": 0.00013998,
-      "latency_s": 1.393842156001483,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1309,
-      "output_tokens": 49,
-      "cost_usd": 9.03e-05,
-      "latency_s": 0.685361190000549,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1283,
+      "output_tokens": 81,
+      "cost_usd": 9.642e-05,
+      "latency_s": 1.6152535610017367,
       "cost_role": "draft"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 5215,
-      "output_tokens": 191,
-      "cost_usd": 0.005788,
-      "latency_s": 5.426305750996107,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 4961,
+      "output_tokens": 214,
+      "cost_usd": 0.005603,
+      "latency_s": 1.494531492004171,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5616,
+      "output_tokens": 55,
+      "cost_usd": 0.005781,
+      "latency_s": 1.5976469419983914,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1154,
-      "output_tokens": 49,
-      "cost_usd": 0.0003903,
-      "latency_s": 0.8473119860136649,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1144,
-      "output_tokens": 64,
-      "cost_usd": 0.0004008,
-      "latency_s": 1.1021913909935392,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1150,
-      "output_tokens": 40,
-      "cost_usd": 0.000381,
-      "latency_s": 1.4007064100005664,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1146,
+      "output_tokens": 56,
+      "cost_usd": 0.0003942,
+      "latency_s": 1.4210356999974465,
       "cost_role": "verify"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 5728,
-      "output_tokens": 65,
-      "cost_usd": 0.005923,
-      "latency_s": 1.8224434709991328,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 1150,
-      "output_tokens": 36,
-      "cost_usd": 0.00037739999999999996,
-      "latency_s": 0.7563087180024013,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 5906,
-      "output_tokens": 240,
-      "cost_usd": 0.006626,
-      "latency_s": 4.365869040004327,
-      "base_url_host": "integrate.api.nvidia.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6473,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5802,
       "output_tokens": 52,
-      "cost_usd": 0.006629,
-      "latency_s": 6.349631963996217,
-      "base_url_host": "integrate.api.nvidia.com"
+      "cost_usd": 0.005958,
+      "latency_s": 0.991163846993004,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1129,
+      "output_tokens": 35,
+      "cost_usd": 0.0003702,
+      "latency_s": 62.5570482799958,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5964,
+      "output_tokens": 54,
+      "cost_usd": 0.006126,
+      "latency_s": 1.78897432400845,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 877,
+      "output_tokens": 19,
+      "cost_usd": 5.718e-05,
+      "latency_s": 0.7521394530049292,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5970,
+      "output_tokens": 49,
+      "cost_usd": 0.006117,
+      "latency_s": 1.1340504529944155,
+      "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "edit",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "base_url_host": "integrate.api.nvidia.com",
-      "input_tokens": 692,
-      "output_tokens": 126,
-      "cost_usd": 0.00107,
-      "latency_s": 2.6050775589974364,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 552,
+      "output_tokens": 71,
+      "cost_usd": 0.000765,
+      "latency_s": 1.0439221810083836,
       "cost_role": "translate"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
-      "model": "nvidia/nemotron-3-ultra-550b-a55b",
-      "input_tokens": 6653,
-      "output_tokens": 28,
-      "cost_usd": 0.006737,
-      "latency_s": 0.9659514459926868,
-      "base_url_host": "integrate.api.nvidia.com"
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5612,
+      "output_tokens": 29,
+      "cost_usd": 0.005699,
+      "latency_s": 1.8081278949975967,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5682,
+      "output_tokens": 54,
+      "cost_usd": 0.005844,
+      "latency_s": 1.1699580410058843,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5322,
+      "output_tokens": 75,
+      "cost_usd": 0.005547,
+      "latency_s": 1.9156106649897993,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5339,
+      "output_tokens": 49,
+      "cost_usd": 0.005486,
+      "latency_s": 1.7672841439925833,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 595,
+      "output_tokens": 61,
+      "cost_usd": 0.000778,
+      "latency_s": 0.9696872289932799,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5536,
+      "output_tokens": 32,
+      "cost_usd": 0.005632,
+      "latency_s": 1.7730543880024925,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5626,
+      "output_tokens": 53,
+      "cost_usd": 0.005785,
+      "latency_s": 1.0087392949935747,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 858,
+      "output_tokens": 19,
+      "cost_usd": 5.604e-05,
+      "latency_s": 0.6770397779910127,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5543,
+      "output_tokens": 54,
+      "cost_usd": 0.005705,
+      "latency_s": 1.2222904079972068,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5558,
+      "output_tokens": 49,
+      "cost_usd": 0.005705,
+      "latency_s": 1.9150772749999305,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 595,
+      "output_tokens": 61,
+      "cost_usd": 0.000778,
+      "latency_s": 1.0133255120017566,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5748,
+      "output_tokens": 32,
+      "cost_usd": 0.005844,
+      "latency_s": 1.1925910440040752,
+      "base_url_host": "api.tokenfactory.nebius.com"
     }
   ],
   "cost_by_role": {
-    "orchestrator": 0.044505,
-    "perceive": 0.0041505,
-    "verify": 0.0015494999999999999,
-    "draft": 0.00023028,
-    "translate": 0.00107
+    "orchestrator": 0.09337,
+    "perceive": 0.0022635,
+    "verify": 0.0007643999999999999,
+    "draft": 0.00020964,
+    "translate": 0.002321
   },
-  "billed_to": "nvidia-dev free tier (dev only)",
-  "cost_per_minute_usd": 0.10301056,
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.19785708,
   "agent_stats": {
     "tool_calls": {
       "detect_speech_gaps": 1,
       "inspect_video_segment": 4,
-      "draft_description": 1,
-      "verify_claim": 4,
-      "propose_cue": 4,
-      "translate_hindi": 1,
-      "finalize": 1
+      "draft_description": 2,
+      "propose_cue": 7,
+      "verify_claim": 2,
+      "translate_hindi": 3,
+      "finalize": 3,
+      "drop_gap": 1
     },
-    "corrections": 1,
+    "corrections": 3,
     "verifications": {
-      "verified": 3,
+      "verified": 2,
       "contradicted": 0,
       "unverified": 0
     },
-    "repeat_refusals": 0,
+    "repeat_refusals": 1,
     "auto_redrafts": 0,
-    "draft_overlimit": 2,
+    "draft_overlimit": 0,
     "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 8,
+    "orchestrator_turns": 17,
     "cost_by_model": {
-      "nvidia/nemotron-3-ultra-550b-a55b": 0.045575000000000004,
-      "nvidia/nemotron-3.5-super-vl-120b-a12b": 0.005699999999999999,
-      "nvidia/nemotron-3.5-lightning-30b-a3b": 0.00023028
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.09569100000000001,
+      "nvidia/Nemotron-3.5-Super-VL": 0.0030279,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00020963999999999998
     },
-    "total_latency_s": 64.64687114000844
+    "total_latency_s": 171.09977614699164
   },
-  "estimated_cost_usd": 0.05150528,
-  "would_be_token_factory_cost_usd": 0.05150528,
-  "reserved_spend_usd": 0.05150528000000001,
-  "cost_per_minute": 0.10301056,
-  "latency_s": 64.64687114000844
+  "estimated_cost_usd": 0.09892854,
+  "would_be_token_factory_cost_usd": 0.09892854,
+  "reserved_spend_usd": 0.10733514,
+  "cost_per_minute": 0.19785708,
+  "latency_s": 171.09977614699164
 }

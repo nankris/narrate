@@ -1,8 +1,7 @@
-[00:00:00.080] Large white text on dark background reads "This film is supported by the Netherlands Film Fund."
-[00:00:32.540] MEMORY PLAYBACK GLOBAL
-[00:00:38.972] A person with dreadlocks examines a realistic brain model
-[00:00:47.612] A cyborg examines a brain under an arc lamp; title card displays "TEARS OF STEEL".
-[00:00:59.000] Title fades; smoky cityscape with flying platform emerges.
-[00:01:09.800] Silhouetted cathedral tower rises above rooftops.
-[00:01:20.400] Scope view: airship hovers over city. Rooftop: prone shooter and candle-bearing figure. Mechanical machine hovers through oval.
-[00:01:29.458] Large mechanical flying machine hovers above cityscape through oval window. It tilts and moves across the frame.
+[00:00:00.080] This film is supported by the Netherlands Film Fund
+[00:00:38.972] Brain model rotates with pink rings, base figurines
+[00:00:47.612] Screen fades to black; TITLE TEARS OF STEEL appears in metallic font over war-torn city
+[00:00:59.000] Camera moves inside bell tower; city visible through openings
+[00:01:09.800] Sniper aims scoped rifle from stone pillar; scope view shows airship over foggy city
+[00:01:20.400] A man points a rifle through a scope that shows a hovering aircraft above a foggy city.
+[00:01:29.458] Empty apartment interior devoid of furniture and decor.

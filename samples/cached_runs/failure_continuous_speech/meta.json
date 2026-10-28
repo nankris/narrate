@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "attribution": "Narrate contributors",
   "notes": "Published failure case: continuous speech, changing slides, extended AD needed",
-  "provider": "nvidia-dev",
-  "dev_only": true,
+  "provider": "nebius",
+  "dev_only": false,
   "date": "2026-10-28"
 }
