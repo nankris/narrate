@@ -1,0 +1,14 @@
+# Deployment copy of the repository requirements, pinned as a reviewed Space input.
+# Resolve and freeze exact transitive versions before the public judging deployment.
+numpy>=2.2
+PyYAML>=6
+openai>=1.60
+pytest>=8
+Pillow>=11
+onnxruntime>=1.20
+jsonschema>=4
+# Install separately: pip install silero-vad --no-deps (MIT ONNX model; no torch needed)
+# Optional separate GPL-3.0 CLI: pip install piper-tts
+
+gradio>=5,<6
+
