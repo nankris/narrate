@@ -51,7 +51,8 @@ timeline (every event with id and time; gap = which gap it belongs to, "speech" 
 start, end, max_words, target_words, evidence ids, establish, said_before/said_after = words spoken around the gap when known).
 Return JSON {"cues":[{"gap_id":0,"text":"","evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per gap.
 Style:
-1. Write complete, natural spoken sentences: a subject (cast descriptor, pronoun or object) and a present-tense verb, one or two
+1. Write native, idiomatic English as a professional audio describer would say it aloud (fluent and natural, never
+   clipped captions, never stiff or translated-sounding phrasing). Complete, natural spoken sentences: a subject (cast descriptor, pronoun or object) and a present-tense verb, one or two
    flowing sentences per cue. Never headline fragments: not "Cuts dough; rolls each into a ball." but "Now the cook cuts the
    dough into portions and rolls each piece into a smooth ball." No semicolons. Clear and factual, not purple prose: no
    metaphors, no opinions, no guessed emotions (visible laughs, smiles or grimaces are facts).
@@ -87,7 +88,7 @@ was rejected (a verifier looked at frames from inside the gap, or a rule failed;
 that fix), the evidence that is still trusted, the neighbouring cues, the word limit and whether the cue must establish the
 scene. Write a corrected cue that fixes the problem and uses only the trusted evidence of that gap, or skip the gap if nothing
 reliable and new remains.
-Same style as the original script: complete present-tense spoken sentences with a subject (no fragments, no semicolons),
+Same style as the original script: native, idiomatic English as a professional describer speaks it; complete present-tense spoken sentences with a subject (no fragments, no semicolons),
 concrete verbs and nouns, target_words to max_words words (max_words is a HARD limit; count the words), no camera-movement
 language ("we see", "the camera pans/shows", "on camera"; a person holding a camera is fine), never open with "Person", never
 repeat the neighbouring cues, never read subtitles. If "establish" is true, name the place, who is there and the goal if known.
