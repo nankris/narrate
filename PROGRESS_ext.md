@@ -12,3 +12,8 @@
     "- ROOM AD"); frames 20-29.7 s show the static "SLIDE 2 - NO ROOM FOR AD".
 - Pipeline fixes: word budget soft to 65 (hard), camera language hard check, verifier now sees 5 stills spread across
   the cue window (was 2 at the pause), writer told to ignore text flicker and avoid handedness unless consistent.
+- 22:12 IST: commit 7f04e74. Launched roti_e6, lecture_e6; rescoring e5 with fixed judge.
+- 22:30 IST: added st_text_stills (OCR from stills), scorer --frame-audit. Spend so far ~$0.57. Launched lecture_e7; frame-audit scoring roti_e6.
+- 22:45 IST: roti_e6 ($0.0431) 8/8 pauses; judge-flagged 17 claims/14 chronology, frame audit on stills: 1 contradicted, 5 uncertain, 14 supported. roti_e7 ($0.0698) regressed: Ultra cited wrong window ids, 7/8 dropped. Final roti = e6.
+- lecture_e7 ($0.0161): text_stills fixed flicker (4 readings corrected); 3 cues; still has timing errors ("until ten seconds", change is 15 s) and invented "left edge cropping". Final lecture = e7.
+- Next: Magnific TTS (voice 1076) for roti_e6 + lecture_e7, render into runs/ext/final/.

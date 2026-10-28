@@ -160,3 +160,17 @@ def test_round8c_extended_verify_samples_the_whole_cue_window():
     assert len(times) == 5 and times[-1] == 15.8 and all(.5 < x <= 15.8 for x in times)
     assert d.verify_times(3, 120.)[-1] == 119.7
     assert d.verify_times(1, .5) == [.3, .5]
+
+
+def test_round8c_on_screen_text_is_reread_from_stills(monkeypatch):
+    from narrate import extended_director as ed
+    d = ed.ExtendedDirector.__new__(ed.ExtendedDirector)
+    d.mock, d.duration, d.x, d.path, d.report = False, 30., {'pause_frame_batch': 6}, 'x.mp4', {'issues': []}
+    d.timeline = [{'id': 'e1', 't_start': 0., 't_end': 3., 'on_screen_text': 'SLIDE 1', 'what': "Slide shows 'SLIDE 1'."},
+                  {'id': 'e2', 't_start': 3., 't_end': 6., 'on_screen_text': 'SLIDE - 1',
+                   'what': "The slide text changes to 'SLIDE - 1'."}]
+    monkeypatch.setattr(ed, 'separate_frames', lambda path, times: [])
+    d.model = lambda *a, **k: {'frames': [{'t': 1.5, 'on_screen_text': ['SLIDE 1']}, {'t': 4.5, 'on_screen_text': ['SLIDE 1']}]}
+    assert '1 corrected' in d.st_text_stills()
+    assert d.timeline[1]['on_screen_text'] == 'SLIDE 1'
+    assert d.timeline[1]['what'] == "The slide still reads 'SLIDE 1'."

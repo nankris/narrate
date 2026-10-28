@@ -313,7 +313,8 @@ def _deterministic_metrics(pauses, speech, gt, duration):
             'words_per_cue_mean': round(sum(words) / len(words), 2) if words else 0.}
 
 
-def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None, client=None, budget_usd=.05):
+def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None, client=None, budget_usd=.05,
+                   frame_audit=False):
     run, gt_path = Path(run_dir), Path(groundtruth_path)
     plan = json.loads((run / 'pause_plan.json').read_text())
     gt = json.loads(gt_path.read_text())
@@ -331,7 +332,7 @@ def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None,
     cfg = resolve_provider(config or load_config(), provider)
     if not math.isfinite(float(budget_usd)) or float(budget_usd) < 0:
         raise ValueError('budget_usd must be finite and nonnegative')
-    budget_usd = min(.05, float(budget_usd))
+    budget_usd = min(.08 if frame_audit else .05, float(budget_usd))
     guard = SpendGuard(budget_usd)
     if client is None:
         if cfg['provider'] != 'mock' and not os.environ.get(cfg['key_env']):
@@ -365,6 +366,15 @@ def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None,
     judge = normalise_judge(raw, [e['id'] for e in key_events], [w['cue_id'] for w in windows],
                             [e['id'] for e in confusing], [e['id'] for e in action_steps], windows)
     aggregate = aggregate_score(deterministic, judge)
+    if client is not None and frame_audit:
+        audit = audit_flags_on_frames(client, run, windows, judge, duration)
+        usage = getattr(client, 'usage', [])[before:]
+        aggregate['judge_flagged_claims'] = aggregate['hallucinated_claims']
+        aggregate['judge_flagged_chronology'] = aggregate['chronology_errors']
+        aggregate['frame_contradicted_claims'] = sum(1 for x in audit if x['verdict'] == 'contradicted')
+        aggregate['frame_uncertain_claims'] = sum(1 for x in audit if x['verdict'] == 'uncertain')
+        aggregate['frame_supported_claims'] = sum(1 for x in audit if x['verdict'] == 'supported')
+        judge['frame_audit'] = audit
     result = {'run': str(run), 'groundtruth': str(gt_path), 'cue_windows': windows,
               'deterministic': deterministic, 'judge': judge, 'aggregate': aggregate,
               'usage': {'cost_usd': sum(x.get('cost_usd', 0.) for x in usage), 'budget_usd': budget_usd,
@@ -373,6 +383,48 @@ def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None,
     (run / 'score.json').write_text(json.dumps(result, ensure_ascii=False, indent=2))
     (run / 'score.md').write_text(score_markdown(result), encoding='utf-8')
     return result
+
+
+FRAME_AUDIT = '''A text judge flagged claims in an audio-description cue as unsupported or out of order. You see stills
+spread across that cue's source window (labelled with timestamps; the last is the frozen frame the cue is spoken over).
+For EACH flagged claim return {"claims":[{"claim":"","verdict":"supported|contradicted|uncertain","reason":""}]}.
+supported: the stills show it (an action counts if its start, middle or result is visible, in a plausible order).
+contradicted: the stills clearly show something else (wrong object, hand, count, text, action or order).
+uncertain: the stills cannot settle it. Use only the stills.'''
+
+
+def audit_flags_on_frames(client, run, windows, judge, duration, n_frames=5):
+    """Round 8c: second pass on stills for every judge-flagged claim. The text judge compares a cue with a sparse
+    ground truth, so a true detail the ground truth omits is 'unsupported'; stills separate real errors from that."""
+    from narrate.perception import separate_frames
+    source = json.loads((Path(run) / 'report.json').read_text())['input_path']
+    flagged = {}
+    for row in judge.get('cue_claims', []):
+        items = list(row.get('unsupported_claims', [])) + [c['claim'] for c in row.get('chronology_errors', [])]
+        items = list(dict.fromkeys(i for i in items if i))
+        if items:
+            flagged[row['cue_id']] = items
+    out = []
+    for window in windows:
+        items = flagged.get(window['cue_id'])
+        if not items:
+            continue
+        start, end = float(window['source_start']), min(float(window['source_end']), max(0., duration - .3))
+        times = sorted({round(start + (end - start) * (i + .5) / n_frames, 3) for i in range(n_frames - 1)} | {round(end, 3)})
+        try:
+            raw = client.call('perceive', {'cue_text': window.get('text', ''), 'flagged_claims': items,
+                                           '_system': FRAME_AUDIT, '_temperature': 0., '_max_tokens': 1500},
+                              separate_frames(source, times))
+        except Exception as exc:
+            raw = {'claims': [], 'error': str(exc)[:200]}
+        rows = raw.get('claims', []) if isinstance(raw, dict) and isinstance(raw.get('claims'), list) else []
+        by_claim = {str(r.get('claim', '')).strip().lower(): r for r in rows if isinstance(r, dict)}
+        for i, item in enumerate(items):
+            r = by_claim.get(item.strip().lower()) or (rows[i] if i < len(rows) and isinstance(rows[i], dict) else {})
+            out.append({'cue_id': window['cue_id'], 'claim': item, 'frame_times': times,
+                        'verdict': _choice(r.get('verdict'), ('supported', 'contradicted', 'uncertain'), 'uncertain'),
+                        'reason': str(r.get('reason') or '')[:300]})
+    return out
 
 
 def score_markdown(result):
@@ -387,7 +439,11 @@ def score_markdown(result):
              f"- Maximum source span without a pause: {d['max_undescribed_gap_s']:.3f} s",
              f"- Pauses inside speech: {d['pauses_inside_speech']}",
              f"- Pause at cut/speech boundary: {d['pause_at_cut_or_speech_boundary_percent']:.2f}%",
-             f"- Total added time: {d['total_added_seconds']:.3f} s", '', '## Cue windows', '']
+             f"- Total added time: {d['total_added_seconds']:.3f} s"]
+    if 'frame_contradicted_claims' in a:
+        lines += [f"- Frame audit of judge flags: {a['frame_contradicted_claims']} contradicted, "
+                  f"{a['frame_uncertain_claims']} uncertain, {a['frame_supported_claims']} supported on stills"]
+    lines += ['', '## Cue windows', '']
     claims = {x['cue_id']: x for x in judge.get('cue_claims', [])}
     fluency = {x['cue_id']: x for x in judge.get('fluency', [])}
     coverage = {'key_events': {}, 'action_steps': {}, 'confusing_parts': {}}
@@ -413,6 +469,9 @@ def score_markdown(result):
         chronology_text = '; '.join(f"{x['claim']} ({x['reason']})" if x.get('reason') else x['claim']
                                     for x in chronology)
         lines.append('Chronology errors: ' + (chronology_text or 'none'))
+        audited = [x for x in judge.get('frame_audit', []) if x['cue_id'] == cue_id]
+        if audited:
+            lines.append('Frame audit: ' + '; '.join(f"{x['verdict'].upper()}: {x['claim']} ({x['reason']})" for x in audited))
         cue_fluency = fluency.get(cue_id, {'score': 1, 'reason': 'judge omitted cue'})
         lines += [f"Fluency: {cue_fluency['score']}/5 — {cue_fluency['reason']}", '']
     return '\n'.join(lines).rstrip() + '\n'
@@ -423,8 +482,10 @@ def main(argv=None):
     parser.add_argument('run_dir')
     parser.add_argument('groundtruth')
     parser.add_argument('--provider', choices=['nebius', 'nvidia-dev', 'mock'], default='nebius')
+    parser.add_argument('--frame-audit', action='store_true', help='check every judge flag on window stills (Super VL)')
     args = parser.parse_args(argv)
-    result = score_extended(args.run_dir, args.groundtruth, args.provider)
+    result = score_extended(args.run_dir, args.groundtruth, args.provider, budget_usd=.08 if args.frame_audit else .05,
+                            frame_audit=args.frame_audit)
     print(json.dumps(result['aggregate'], indent=2))
 
 

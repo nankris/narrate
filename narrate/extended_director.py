@@ -588,6 +588,45 @@ class ExtendedDirector(Director):
         trace['stages'] = self.stage_log
         trace_path.write_text(json.dumps(trace, ensure_ascii=False, indent=2), encoding='utf-8')
 
+    def st_text_stills(self):
+        """Round 8c: the video-window pass misread static slides as changing ("CONTINUOUS - 1", "SLIDE - ROOM AD ROOM"),
+        and those flickers reached the narration. Re-read every event's on-screen text from one still at its midpoint;
+        the still reading replaces the window reading (empty still reading clears it)."""
+        events = [e for e in self.timeline if e.get('on_screen_text')]
+        if not events or self.mock:
+            return 'no on-screen text to re-read' if not events else 'mock: skipped'
+        batch, changed, read = int(self.x.get('pause_frame_batch', 6)), 0, 0
+        for offset in range(0, len(events), batch):
+            group = events[offset:offset + batch]
+            times = [round(min(max(0., (e['t_start'] + e['t_end']) / 2), max(0., self.duration - .3)), 3) for e in group]
+            data = {'frame_times': times, '_temperature': 0.,
+                    'task': 'Transcribe titles, labels and signs exactly as visible on each still (not subtitles).'}
+            try:
+                raw = self.model('text_stills', 'perceive', P.GROUNDTRUTH_FRAMES, data, separate_frames(self.path, times))
+            except (BudgetExceeded, TimeoutError):
+                raise
+            except Exception as exc:
+                self.report['issues'].append('On-screen text still re-read unavailable: ' + sanitize(exc))
+                continue
+            rows = normalise_pause_frames(raw, times)
+            for e, t in zip(group, times):
+                row = min(rows, key=lambda f: abs(f['t'] - t), default=None)
+                if row is None or abs(row['t'] - t) > .6:
+                    continue
+                read += 1
+                new = ' / '.join(row.get('on_screen_text') or [])[:120]
+                old = e['on_screen_text']
+                if new != old:
+                    changed += 1
+                    e['what'] = e['what'].replace(old, new) if new else e['what'].replace(f"'{old}'", 'text').replace(f'"{old}"', 'text')
+                    e['on_screen_text'] = new
+        prev = None
+        for e in self.timeline:
+            if e.get('on_screen_text') and e['on_screen_text'] == prev:
+                e['what'] = re.sub(r'\b(?:text )?changes to\b', 'still reads', e['what'])
+            prev = e.get('on_screen_text') or prev
+        return f'{read} on-screen text readings re-read from stills; {changed} corrected'
+
     def run(self):
         stop = None
         try:
@@ -596,6 +635,7 @@ class ExtendedDirector(Director):
             self.stage('shots', self.st_shots, 'ffmpeg scene cuts')
             self.stage('scene', self.st_scene, 'Super VL scene context')
             self.stage('timeline', self.st_timeline, 'Super VL whole-clip windows')
+            self.stage('text_stills', self.st_text_stills, 'Super VL re-reads on-screen text from stills')
             self.stage('bible', self.st_bible, 'Ultra scene/story bible')
             self.stage('pause_plan', self.st_plan_pauses, 'cuts + speech ends + key events + story beats')
             self.stage('pause_frames', self.st_pause_frames, 'Super VL current frames at pauses')
