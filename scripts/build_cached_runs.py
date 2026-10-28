@@ -1,6 +1,7 @@
 """Build compact, attributed cached demos. Real providers require explicit selection."""
 import argparse
 import json
+import re
 import shutil
 import sys
 from datetime import date
@@ -11,6 +12,12 @@ from narrate.director import run_director
 from narrate.config import load_config
 from narrate.media import ffmpeg
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def title_from_attribution(attribution):
+    """The quoted original title in a SOURCES.md attribution (“...”), used as UNVERIFIED director context."""
+    m = re.search(r'“([^”]+)”', attribution or '')
+    return m.group(1).strip() if m else None
 
 
 def main():
@@ -36,7 +43,7 @@ def main():
         cfg = load_config()
         cfg['tts']['backend'] = 'espeak'
         if args.mode == 'director':
-            run_director(source,out,provider=args.provider,config=cfg)
+            run_director(source,out,provider=args.provider,config=cfg,context=title_from_attribution(sources[name][2]))
         else:
             run_agent(source,out,provider=args.provider,config=cfg)
         for lang in ('en','hi'):

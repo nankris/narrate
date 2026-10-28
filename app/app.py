@@ -238,7 +238,7 @@ def build_app():
         folder, meta, original = cached[name]
         return str(original), str(folder/f'narrated_{lang}.mp4'), badge(meta), (folder/f'ad_{lang}.vtt').read_text(), trace_html(read_json(folder/'trace.json'), notes), results_html(read_json(folder/'report.json')), files_for(folder)
 
-    def live(path, langs, provider, orchestrator, session, notes):
+    def live(path, langs, provider, orchestrator, session, notes, context=''):
         spent = session["spent"]
         session["notes"] = notes
         if not RUN_LOCK.acquire(blocking=False):
@@ -267,7 +267,7 @@ def build_app():
                     if os.environ.get('NARRATE_UI_MODE', cfg.get('ui', {}).get('mode', 'agent')) == 'director':
                         # v2 (DESIGN_v2.md): bounded Ultra calls; the planner dropdown applies to agent mode only.
                         from narrate.director import run_director
-                        result['report'] = run_director(path, out, provider=provider, langs=langs, budget_usd=min(budget, cfg.get('director', {}).get('budget_usd', budget)), config=cfg, on_step=lambda step:q.put(step))
+                        result['report'] = run_director(path, out, provider=provider, langs=langs, budget_usd=min(budget, cfg.get('director', {}).get('budget_usd', budget)), config=cfg, context=(context or '').strip()[:200] or None, on_step=lambda step:q.put(step))
                     else:
                         result['report'] = run_agent(path, out, provider=provider, langs=langs, budget_usd=budget, max_steps=turns, config=cfg, orchestrator_model=orchestrator.lower(), on_step=lambda step:q.put(step))
                 except Exception:
@@ -335,6 +335,8 @@ def build_app():
                     languages = gr.CheckboxGroup([('English','en'),('Hindi','hi')],value=['en','hi'],label='Languages')
                     planner = gr.Radio(['Ultra','Super'], value='Ultra',label='Orchestrator')
                     provider = gr.Radio(providers(),value='mock',label='Provider')
+                    context = gr.Textbox(label='What is this video? (optional title)', max_lines=1, max_length=200,
+                                         placeholder='e.g. How to make soft layered roti. Context only: every description is still checked against the frames.')
             spending = gr.Markdown(f'Spent this session: $0.0000 / ${session_cap:.2f} · daily cap ${daily_cap:.2f} (IST)')
             start = gr.Button('Run agent',variant='primary')
             live_notes = gr.Checkbox(label='Only notes & corrections',value=False)
@@ -350,7 +352,7 @@ def build_app():
                 session['notes'] = enabled
                 return trace_html(session.get('trace', {}), enabled)
             live_notes.change(filter_live,[live_notes,spent],live_trace,queue=False)
-            start.click(live,[upload,languages,provider,planner,spent,live_notes],[live_trace,live_result,live_files,live_video,spent,spending],concurrency_limit=1,concurrency_id='agent',trigger_mode='once')
+            start.click(live,[upload,languages,provider,planner,spent,live_notes,context],[live_trace,live_result,live_files,live_video,spent,spending],concurrency_limit=1,concurrency_id='agent',trigger_mode='once')
         gr.HTML('<footer><a href="/docs/readme#how-it-works">How it works</a> · <a href="/docs/readme#limitations--published-failure-cases">Limitations</a> · <a href="/docs/sources">Sample clip sources & licenses</a></footer>')
     app.max_threads = 3
     return app.queue(default_concurrency_limit=1, max_size=16)
