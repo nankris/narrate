@@ -72,8 +72,8 @@ def test_groundtruth_sampling_normalisation_and_pause_snap():
                                 'what_to_explain': 'whose hand'}],
            'pause_points': [{'t': 4, 'why': 'explain the tip'}]}
     gt = normalise_groundtruth(raw, 'x.mp4', 10, [{'start': 3, 'end': 5}], [2, 6])
-    assert gt['pause_points'][0]['t'] == 3
-    assert gt['pause_points'][0]['snapped'] and gt['pause_points'][0]['snap_reason'] == 'nearest_speech_free_instant'
+    assert gt['pause_points'][0]['t'] == 5
+    assert gt['pause_points'][0]['snapped'] and gt['pause_points'][0]['snap_reason'] == 'forward_speech_end'
     assert gt['key_events'][0]['what'] == 'The bowl tips' and gt['confusing_parts'][0]['why'] == 'occluded'
 
 

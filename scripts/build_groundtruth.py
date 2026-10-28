@@ -15,8 +15,11 @@ def main(argv=None):
     p.add_argument('--provider', choices=['nebius', 'nvidia-dev', 'mock'], default='nebius')
     p.add_argument('--budget-usd', type=float, default=.4)
     p.add_argument('--fps', type=float, default=1.)
+    p.add_argument('--visual-change-threshold', type=float, default=.01,
+                   help='local low scene threshold used to add frames at slide/text changes')
     args = p.parse_args(argv)
-    result = build_groundtruth(args.clip, args.out, args.provider, args.budget_usd, args.fps)
+    result = build_groundtruth(args.clip, args.out, args.provider, args.budget_usd, args.fps,
+                               visual_change_threshold=args.visual_change_threshold)
     print(json.dumps({'clip': result['clip'], 'segments': len(result['segments']),
                       'key_events': len(result['key_events']), 'cost_usd': result['usage']['total_cost_usd']}, indent=2))
 
