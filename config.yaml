@@ -150,6 +150,20 @@ director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> on
   openings_max_share: 0.5       # one two-word opening may start at most half the cues; extra ones get a restyle repair
   openings_min_cues: 3
   hi_passive_share: 0.5         # Hindi: at most one passive per line, passive lines at most half the track (soft refit)
+extended:              # Round 8 WCAG 1.2.7 pause-the-video mode; English only
+  budget_usd: 0.25
+  speech_margin_s: 0.15
+  snap_max_s: 3.0
+  min_pause_spacing_s: 12.0
+  max_pauses_per_minute: 4.0
+  pad_before_s: 0.3
+  pad_after_s: 0.4
+  min_words: 20
+  max_words: 45
+  max_repair_rounds: 2
+  verify_batch: 4
+  temperature: 0.2
+  verify_temperature: 0.0
 ui:
   mode: director       # live runs: director (v2) or agent
   session_cap_usd: 0.25

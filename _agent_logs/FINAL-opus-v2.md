@@ -281,3 +281,16 @@ loss in r6b came from a check, not from a missing model skill:
 * The length fallback keeps cues up to 35 % over the 2.6 words/s human-narrator budget. They fit the rendered piper voice, but would be tight for a slower human narrator.
 * The broader verb heuristic lets a few plural-noun fragments through. It is soft, so the cost is style, not truth.
 * Soft-kept cues still pass still-frame verification.
+
+## Round 8 — extended AD + independent ground truth (2026-10-28)
+
+- Added an English-only WCAG 1.2.7 director path selected by `--ad-mode extended`; default in-gap behaviour and existing
+  Hindi remain unchanged. Pure pause planning snaps candidates out of speech, enforces safety margin/spacing/rate limits and
+  always schedules an establishing pause.
+- Added exact source/freeze output-timeline math, source-time mapping, freeze-frame ffmpeg rendering, output-timeline VTT,
+  audio-only output, transcript, pause plan and extended report statistics.
+- Added dense Nemotron ground-truth generation (1 fps + scene cuts, Super VL frame batches, one Ultra consolidation, two-still
+  claim verification), plus independent one-call Ultra scoring under separate SpendGuards.
+- Added an offline pre-rendered-TTS re-renderer with manifest stale-text checks, silence trim and loudness normalisation; it
+  makes no API calls and adapts freeze duration instead of speeding up speech.
+- Added offline Round 8 unit and mock end-to-end tests. No ground-truth artifact is read by the production writer.

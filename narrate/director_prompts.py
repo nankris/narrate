@@ -195,3 +195,58 @@ CALIBRATION = {
     'en': 'She presses the soft dough flat and turns it over on the board.',
     'hi': 'वह नरम आटे को बेलन से बेलती है और पलट देती है।',
 }
+
+EXTENDED_SCRIPT = '''You write the complete ENGLISH extended audio-description track (WCAG 1.2.7) for a blind viewer.
+The video will pause at each listed source timestamp, so narration never competes with programme speech.
+Return strict JSON {"cues":[{"pause_id":1,"text":"","evidence":["e1"]}]} with exactly one cue per pause.
+Each cue is 2-3 fluent, native English sentences and no more than max_words (normally 20-45 words):
+- At the first pause, and after a scene change, establish where we are and who or what is present.
+- Say exactly what has happened since previous_pause and what is visible at the pause now. Evidence is limited to the
+  supplied events in (previous_pause, pause] and current_frame_facts; cite their ids. Never anticipate a future event.
+- Explicitly resolve supplied confusing_parts in plain language. Use concrete visible facts, not inference.
+- Never read subtitle_text: subtitles are speech context. Real titles, labels and signs may be quoted.
+- Native spoken prose with finite verbs; no camera/edit language, "we see", sound description, repeated cue, clipped caption,
+  or "Screen shows". Do not invent names; use appearance/role descriptors unless a name is written on screen.
+Every narration word must be your own response; do not return placeholders or fallback instructions.'''
+
+EXTENDED_REPAIR = '''Repair the listed ENGLISH extended audio-description cues. Return strict JSON
+{"cues":[{"pause_id":1,"text":"","evidence":["e1"]}]}. Keep each cue 2-3 fluent spoken sentences and at most max_words.
+Apply every why_rejected item, changing only what is needed. A verifier's quoted wrong phrase must be removed or corrected
+using trusted evidence. Keep the place in the establishing cue. Use only events in (previous_pause, pause] and the current
+frame facts; never read subtitles, anticipate later events, invent facts, use camera/edit language or "we see". Preserve a
+supported original when the problem is only stylistic. Every returned narration word must be model-written.'''
+
+GROUNDTRUTH_FRAMES = '''You create dense visual ground truth for blind-viewer audio-description evaluation.
+Each attached frame is labelled with its exact timestamp. Return strict JSON
+{"frames":[{"t":0,"setting":"","present":[""],"objects":[""],"action":"","on_screen_text":[""],"subtitle_text":[""]}]}.
+For every frame describe: setting; every visible person/animal/object by appearance only (never infer a name unless written
+on screen); the action in progress; and verbatim visible text. Put titles, labels and signs in on_screen_text. Put burned-in
+subtitles that transcribe speech in subtitle_text; they are speech context and must never be narrated. Use no outside facts.'''
+
+GROUNDTRUTH_CONSOLIDATE = '''Merge dense frame observations into one ENGLISH visual ground-truth timeline for extended audio
+description. Speech intervals and subtitle_text are speech context, not narration. Return strict JSON:
+{"clip":"","duration":0,"setting":"","cast":[{"id":"","description":""}],"objects":[""],
+"segments":[{"id":"","t_start":0,"t_end":0,"setting":"","present":[""],"action_steps":[""],
+"on_screen_text":[""],"importance":1,"confusing":{"is_confusing":true,"why":"","what_to_explain":""},
+"recommendation":"pause_extended|in_gap_short|none","reason":""}],
+"key_events":[{"id":"","t":0,"what":"","importance":1}],
+"confusing_parts":[{"id":"","t":0,"what":"","why":"","what_to_explain":""}],
+"pause_points":[{"t":0,"why":""}]}.
+All text must be written in this response and grounded only in supplied observations. Track visible action step by step,
+including important events during speech. Recommend pause_extended where a blind viewer needs a fuller explanation or the
+visual is confusing. Proposed pause points should be scene cuts or speech-free instants; code may deterministically snap a
+point out of speech and record that snap. Do not turn subtitle speech into visual action or on-screen text.'''
+
+GROUNDTRUTH_VERIFY = '''Verify each supplied ENGLISH ground-truth claim against its two labelled still frames. Return strict
+JSON {"verdicts":[{"id":"","verdict":"supported|contradicted|uncertain","wrong":"","reason":""}]}.
+Supported means the visible claim is shown or consistent with the stills. Contradicted means a concrete visible detail is
+clearly false; quote the shortest false phrase in wrong. Uncertain means stills cannot establish it. Do not add facts.'''
+
+SCORE_EXTENDED = '''Judge an ENGLISH extended audio-description track against the supplied independent Nemotron ground truth.
+Use only supported ground-truth key events as targets. Return strict JSON:
+{"key_events":[{"id":"","coverage":"yes|partial|no","reason":""}],
+"cue_claims":[{"cue_id":1,"unsupported_claims":["exact quoted claim"]}],
+"confusing_parts":[{"id":"","explained":"yes|no","reason":""}],
+"fluency":[{"cue_id":1,"score":1,"reason":""}]}.
+For unsupported claims, quote only concrete narration claims absent from or contradicted by ground truth; do not penalise
+ordinary connective phrasing. Fluency is native spoken English from 1 (poor) to 5 (excellent). Temperature is zero.'''

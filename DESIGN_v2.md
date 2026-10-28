@@ -354,3 +354,63 @@ Round 7 changes the control policy. It adds no new style rules, and every narrat
 **Calls and cost.** The Ultra cap is unchanged at ≤ 6: bible, script, ≤ 2 repairs, Hindi and ≤ 1 refit. Soft-only failures never trigger repair round 2 on their own, so runs often use fewer calls. The final pass adds ≤ 4 Nano calls and ≤ 2 Super VL calls, about $0.002. The expected cost stays around $0.04–0.05 per clip.
 
 **Tests.** `tests/test_round7.py` has 17 offline tests with fake models. Two round-5/6 tests were updated to the new soft policy: restyle uses one repair, and the place check is soft.
+
+## 12. Round 8: extended AD + ground truth
+
+Round 8 adds WCAG 1.2.7 extended audio description without changing the default in-gap pipeline. `--ad-mode ingap` remains
+the default and keeps the Round 7 English/Hindi behaviour. `--ad-mode extended` is English-only: it pauses the programme,
+holds the frame, silences programme audio during the hold and speaks one fuller Nemotron-written description. A Hindi request
+in this mode emits a warning and runs English only.
+
+### Independent Nemotron ground truth
+
+`scripts/build_groundtruth.py` samples 640 px JPEGs at 1 fps plus one frame just after every ffmpeg scene cut. Super VL reads
+batches of six timestamp-labelled frames and separates titles/labels/signs from burned-in subtitles. One Ultra text call
+merges those observations with Silero VAD speech intervals, cuts and subtitle speech context into segments, key events,
+confusing parts and pause recommendations. Suggested pauses inside speech are deterministically moved to the end of that
+speech interval and retain `from_t`, `snap_seconds` and `snap_reason`. A second Super VL pass checks every key event and
+confusing-part claim on two stills; contradicted claims remain visible in the artifact but have `scoring_target: false`.
+The JSON and Markdown include per-stage calls, tokens and cost under a $0.40 default SpendGuard. The production writer never
+reads these files, preserving evaluation independence.
+
+### Pause planning
+
+`narrate.extended.plan_pauses` is pure and deterministic. Candidates are scene cuts, speech-end boundaries, importance 4–5
+timeline events and story beats. The first selection is an establishing pause after opening speech (or the earliest useful
+near-start boundary). A 0.15 s safety margin is kept from speech edges. A candidate in speech moves forward to that speech
+interval's end plus the margin only when the move is within `snap_max_s`; otherwise it is discarded. Candidates are ranked by
+semantic priority, deduplicated after snapping and then limited by `min_pause_spacing_s` (12 s) and
+`max_pauses_per_minute` (4). Thus a continuous-speech clip can use short inter-sentence silences that are too small for in-gap
+narration while never pausing inside speech.
+
+### Writing and verification
+
+The existing whole-clip Super VL timeline and Ultra scene bible remain the evidence board. Super VL also describes the frame
+at each selected pause. Ultra writes the complete extended track in one call: 2–3 native English sentences (20–45 words,
+hard cap 45) covering events in `(previous pause, current pause]`, the held frame and any visually confusing detail. The
+Round 7 bans still apply (camera/edit language, “we see”, subtitles, redundancy and unsupported evidence). Style-only failures
+get one repair attempt and may retain the verified original; hard failures and contradicted still-frame claims are repaired
+within two rounds and then dropped. There is no handwritten narration fallback.
+
+### Timeline math and rendering
+
+For source duration `D` and pauses `(tᵢ, nᵢ)`, each freeze lasts
+`fᵢ = pad_before + nᵢ + pad_after` and output duration is exactly `D + Σfᵢ`. The ordered timeline alternates source segments
+and zero-source-length freeze segments with contiguous `out_start/out_end` bounds. Source mapping is
+`out(t) = t + Σ fᵢ` for pauses where `tᵢ < t`; a freeze at exactly `t` starts at `out(t)`. Cue speech starts
+`pad_before` into its freeze. Rendering trims source video/audio at each pause, adds a cloned held frame and silent programme
+audio, places narration inside that silence, and applies 40 ms source-audio edge fades. Outputs are `extended_en.mp4`,
+`extended_en.m4a`, output-timeline VTT/transcript and an auditable `pause_plan.json`. The offline Magnific re-renderer trims
+silence and loudness-normalises pre-rendered clips but never uses atempo: freeze lengths adapt to measured clips.
+
+### Scoring
+
+`scripts/score_extended.py` first computes deterministic pause-inside-speech count (required zero), cut/speech-boundary rate,
+added time and words per cue. One temperature-zero Ultra call then scores only supported ground-truth key events as
+yes/partial/no, quotes unsupported cue claims, checks whether supported confusing parts were explained, and rates each cue's
+native-English fluency 1–5 with a reason. Aggregates are weighted key-event coverage (yes 1, partial 0.5), hallucinated-claim
+count, confusing-parts-explained percentage and mean fluency. The scoring SpendGuard is $0.05.
+
+`tests/test_round8.py` is fully offline and covers snapping, spacing, continuous-speech-like gaps, contiguous timeline math,
+source→output mapping, speech rejection, VTT output times, ground-truth normalisation, scorer aggregation, CLI language routing,
+and a mock end-to-end ffmpeg render whose video/audio duration equals source plus freezes within 0.1 s.

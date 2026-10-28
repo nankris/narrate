@@ -20,6 +20,8 @@ def main():
                    help='director (v2, default), agent (tool-calling loop) or pipeline (legacy one-shot; default for the pipeline command)')
     p.add_argument('--context', default=None, metavar='TITLE',
                    help='optional video title or one-line description (director mode); UNVERIFIED context for the writer, never evidence')
+    p.add_argument('--ad-mode', choices=['ingap', 'extended'], default='ingap',
+                   help='ingap (default, unchanged) or English-only extended AD with pause/freeze insertion')
     args = parser.parse_args()
     if not args.mock and args.provider != 'mock':
         import os
@@ -33,8 +35,16 @@ def main():
     try:
         mode = args.mode or ('pipeline' if args.command == 'pipeline' else 'director')
         if mode == 'director':
-            from .director import run_director
-            report = run_director(args.input, args.out, provider='mock' if args.mock else args.provider, langs=args.lang, budget_usd=args.budget_usd, context=args.context, on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or '', (e['note'] or '')[:160]))
+            if args.ad_mode == 'extended':
+                if any(lang.strip() == 'hi' for lang in args.lang.split(',')):
+                    print('WARNING: extended AD is English-only; running en only.')
+                from .extended_director import run_extended_director
+                report = run_extended_director(args.input, args.out, provider='mock' if args.mock else args.provider,
+                    langs='en', budget_usd=args.budget_usd, context=args.context,
+                    on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or '', (e['note'] or '')[:160]))
+            else:
+                from .director import run_director
+                report = run_director(args.input, args.out, provider='mock' if args.mock else args.provider, langs=args.lang, budget_usd=args.budget_usd, context=args.context, on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or '', (e['note'] or '')[:160]))
         elif mode == 'agent':
             from .agent import run_agent
             report = run_agent(args.input, args.out, provider='mock' if args.mock else args.provider, langs=args.lang, max_steps=args.max_steps, orchestrator_model=args.orchestrator, budget_usd=args.budget_usd, on_step=lambda e: print(e['step'], e['role'], e['tool_name'] or e['note']))
