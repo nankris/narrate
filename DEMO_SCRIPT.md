@@ -6,25 +6,21 @@ You record this yourself: a screen recording with your own voice-over. Each step
 
 ## 0. Before you record (about 10 min, not filmed)
 
-The repo already ships **real cached runs**: NVIDIA dev endpoint, final code, badged **NVIDIA DEV · development only**. Nothing has to run live on camera.
+The repo already ships **real cached Nebius Token Factory runs**, badged **Nebius Token Factory**. Nothing has to run live on camera and opening a cached sample has zero incremental cost.
 
 1. Open a terminal in the repo:
    ```bash
    cd narrate && source .venv/bin/activate      # or: python -m venv .venv && pip install -r requirements.txt
-   python -m pytest -q                           # 131 passed, fully offline
+   python -m pytest -q                           # fully offline
    ```
-2. *(Optional, recommended once your Token Factory key exists.)* Check the key, then rebuild the caches on Nebius so the badge reads **Nebius Token Factory**:
-   ```bash
-   export NEBIUS_API_KEY=...                     # type it into an off-screen terminal, never into a file
-   python scripts/smoke_provider.py              # must end with READY (~$0.01)
-   python scripts/build_cached_runs.py --provider nebius    # ~4 clips, ~$0.40, ~12 min
-   ```
-   If you rebuild, re-read the numbers in steps 5 and 7 from the new Results cards. A fresh run can differ.
-3. Start the UI with `python -m app.app`, then open http://127.0.0.1:7860.
-4. On the **Samples · zero cost** tab, check that:
-   - the badge never says MOCK;
-   - *Tears of Steel* shows **8 cues** and the trace has a **red "contradicted"** chip (step 29 with the shipped cache).
-5. Recording setup: 1920×1080, browser zoom 110%, close other tabs, mute notifications, headphones on, system audio captured.
+2. Start the UI with `python -m app.app`, then open http://127.0.0.1:7860.
+3. On the **Samples · zero cost** tab, choose **Tears of steel 0015-0155** in **Cached sample** and check that:
+   - the badge says **Nebius Token Factory**, not MOCK;
+   - **Results** shows **8 / 0** for **Cues committed / dropped**;
+   - the trace has a red **contradicted** chip at step 42, `verify_claim`.
+4. Recording setup: 1920×1080, browser zoom 110%, close other tabs, mute notifications, headphones on, system audio captured.
+
+Do not show or claim a subtitle-overlap metric: that appears in `narrate_opus` but is **not on main**. Main reports only **Overlaps with detected speech · target 0**, and the card warns that this does not prove zero dialogue overlap.
 
 Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 100 s):
 <!-- numbers:start -->
@@ -37,56 +33,53 @@ Numbers in the shipped caches, which you will say in step 7 (*Tears of Steel*, 1
 ---
 
 ## 1. 0:00–0:10: Eyes closed (original audio)
-- **Screen:** Samples tab, *Tears of Steel* selected, **Eyes closed** toggle ON (the video is hidden). Seek the **Original video** player to **0:45** and play about 9 s. You hear one line ("This is pretty freaky."), then music only. The scene is a cyborg leaning over a brain, then the film's title card.
+- **Screen:** **Samples · zero cost**, **Tears of steel 0015-0155** selected, **Eyes closed · hear audio only** checked. Seek **Original video** to about **0:47** and play about 9 s. The picture stays black while the original soundtrack plays.
 - **Say:** "Close your eyes. Something just happened on screen. Can you tell what?"
 
 ## 2. 0:10–0:28: Same seconds with Narrate ← KEY MOMENT
-- **Click:** with language **English** selected, seek the **Narrated video** player to **0:45** and play. The dialogue line stays untouched; right after it, under the ducked music, you hear: *"A cyborg examines a brain under an arc lamp; title card displays 'Tears of Steel'."*
-- Toggle **Eyes closed** OFF at about 0:22 so viewers see that the description matched.
+- **Click:** with **Narration language** set to **English**, seek **Narrated video** to about **0:47** and play. The shipped cue says *"Title: 'TEARS OF STEEL'."* Toggle **Eyes closed · hear audio only** off while the cue plays so viewers see the title card.
 - **Say:** "That's Narrate. An AI agent built on NVIDIA Nemotron watched the video and wrote audio description that fits only into the gaps where nobody is talking."
 
 ## 3. 0:28–0:40: The problem in one line
 - **Screen:** stay on the player, or show the README title.
-- **Say:** "Audio description is how blind and low-vision people follow video. It's a WCAG requirement, and almost no small creator or teacher can afford a human describer. Narrate does it for a two-minute clip in English and Hindi."
+- **Say:** "Audio description helps blind and low-vision people follow video and supports WCAG 2.x success criterion 1.2.5. Narrate drafts it for clips up to two minutes in English and Hindi; human review is still required."
 
 ## 4. 0:40–1:20: It's an agent, and here's which model does what
 - **Screen:** scroll to **Agent trace** for the same run. Point at the model chips while you speak:
   - **purple · Nemotron 3 Ultra**: the orchestrator. It plans, calls tools and reads the results ("observe"), and decides what to fix.
   - **blue · Nemotron 3.5 Super VL**: watches each short segment (video input) and later re-checks claims on still frames.
-  - **green · Nemotron 3 Nano** (Lightning on the dev endpoint): drafts every gap in one batched call, each to an exact word limit.
-  - **grey tools**: speech-gap detection (Silero VAD), TTS duration measurement, fit check, render, finalize.
-- Tick **Only notes & corrections** to make the reasoning readable, then scroll slowly. The top bar shows the turn count, tool calls, and cost per model.
-- **Say:** "Ultra runs a plan, act, observe loop. Super VL inspects each gap and writes what it saw on an evidence board. Nano drafts all lines in one call. A deterministic tool speaks each line with the real voice and measures it. If a line doesn't fit, the tool redrafts it, so the big model never counts words. Every step is logged in this trace."
+  - **green · Nemotron 3 Nano**: drafts descriptions to a word limit.
+  - **grey tools**: speech-gap detection (Silero VAD), measured TTS fit, verification and finalization.
+- Check **Only notes & corrections** to make the trace easier to scan, then scroll slowly. The summary shows turns, tool calls, corrections, verifications, total list-price cost and latency; the lines below break cost down by model.
+- **Say:** "Ultra runs a plan, act, observe loop. Super VL inspects segments and records evidence. Nano drafts to the available word budget. The cue tool synthesizes each line with the configured voice and measures whether it fits. Risky claims are checked on still frames, and every action is logged in this trace."
 
 ## 5. 1:20–1:45: Self-verification catches a hallucination
-- **Screen:** untick the filter and scroll to **step 29 `verify_claim`**, which has a red **contradicted** chip. The vision model had read a title "SIMULATION READY..." that is not in the film. Then show **step 42** (amber correction): the replacement line "A person with dreadlocks examines a realistic brain model". Step 58 verifies it as supported.
-- **Say:** "Here the vision model claimed there was on-screen text. Before anything with text, numbers or names gets spoken, the agent has to verify it, using a different modality: still frames instead of video. The claim was contradicted, so the line was pulled and replaced with one that checks out."
+- **Screen:** clear **Only notes & corrections**. At step 29, `propose_cue` contains the invented title *"SIMULATION READY"*. Step 42, `verify_claim`, has the red **contradicted** chip and uncommits that cue. Step 51 is the amber correction linked back to step 42; it commits *"The technician calibrates the sensor as bright light jumps from metal terminals."*
+- **Say:** "Here the draft invented on-screen text. Text, numbers, names and other risky claims must be verified on still frames before finalization. The verifier contradicted this title, so the cue was removed and replaced. Verification reduces errors, but it does not prove every cue is correct."
 
 ## 6. 1:45–2:00: Hindi
-- **Click:** language **Hindi** and play about 6 s of the Hindi narrated track with the Hindi cues visible.
+- **Click:** set **Narration language** to **Hindi**, open **VTT cues · timestamps**, and play about 6 s of **Narrated video** with the Hindi cues visible.
 - **Say:** "One click gives Hindi too. Ultra translates, and the timing is re-checked against the Hindi speech, because Hindi runs longer."
 
 ## 7. 2:00–2:15: Results card (real numbers only)
 - **Screen:** Results card.
-- **Say:** Read the current figures from the synced block above and the Results card, then explain: "Every narratable gap got a description, with zero overlaps with detected speech. Almost all of the estimated cost is the Ultra orchestrator, so the expensive model only plans. All the Nemotron models come through one OpenAI-compatible Token Factory API."
+- **Say:** "This 100-second cached run used 16 orchestrator turns and committed eight cues, with none dropped. English narration covers 50 percent of the narratable gap time. It reports zero overlaps with detected speech and costs about 13.4 cents, or 8 cents per minute, at Token Factory list prices. Most of that estimated cost is Ultra, while the Nemotron models share one OpenAI-compatible Token Factory API."
 
 ## 8. 2:15–2:35: Where it fails (be honest)
-- **Click:** sample *Failure continuous speech* → Results / trace.
+- **Click:** choose **Failure continuous speech** in **Cached sample** and point to **Limitations for this clip** in **Results**.
 - **Screen:** the issue line "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
-- **Say:** "Where it fails: a lecture with nonstop speech has no gaps, so Narrate refuses rather than talk over the speaker. Pausing the video for extended description is next. The vision model also still misreads on-screen text, and verification catches some of that, not all. Every failure we hit is published in the repo with its trace."
+- **Say:** "Where it fails: a lecture with nonstop speech has no usable gap, so Narrate commits zero cues rather than speak over the presenter. Pause-the-video extended description is not implemented. Vision can also misread on-screen text; verification catches some mistakes, not all."
 
 ## 9. 2:35–2:45: Close
-- **Screen:** the GitHub README (Apache-2.0 badge and quickstart visible).
-- **Say:** "Narrate is open source under Apache 2.0, and it has a mock mode that runs without a key. Audio description for every video."
+- **Screen:** the README quickstart and Apache-2.0 license text, either in the repository or through **How it works** in the app footer.
+- **Say:** "Narrate is open source under Apache 2.0, and it has a mock mode that runs without a key. Audio-description drafts with the evidence and limits visible."
 
 ---
 
 ## Recording checklist
 - [ ] Runtime under 3:00, with the key moment (step 2) finished by 0:30.
-- [ ] Every number you say is from a real run (NEBIUS or DEV ONLY badge). Never quote MOCK numbers.
+- [ ] Every number you say is from a shipped `report.json` and the selected sample has a **Nebius Token Factory** badge. Never quote MOCK numbers.
 - [ ] No key is visible in any terminal, `.env` or browser tab. Export the key in a terminal that's off-screen.
 - [ ] Credit Tears of Steel on screen or in the description: "Tears of Steel © Blender Foundation, CC BY 3.0, mango.blender.org".
-- [ ] Use no other music. Narration voices: espeak-ng or Piper (`en_US-ljspeech`, public domain). The Hindi Piper voice is CC BY-NC-SA, which is fine for a non-commercial demo.
-- [ ] Optional 5 s cutaway to a terminal showing `python scripts/smoke_provider.py` ending in `READY`. It prints model IDs and never the key.
-- [ ] Optional live run (only if you have time, never in the first 30 s): **Run · live** tab, upload `samples/sample_kitchen.mp4`. A real provider takes about 65 s and $0.05. It is capped hard at $0.25, 24 turns and 300 s, then the fallback ships what is verified. The `mock` provider is instant and free, but say it is synthetic.
-- [ ] If the badge says NVIDIA DEV, say "estimated at Token Factory list prices, measured on NVIDIA's dev endpoint".
+- [ ] Use no other music. The shipped Tears of Steel cache uses espeak-ng. Its soundtrack has a CC BY-ND 3.0 caveat; check before redistributing the narrated output.
+- [ ] Keep the recording on **Samples · zero cost**. **Run · live** exists, but provider availability and timing depend on server credentials; the default **mock** provider is offline and synthetic, not evidence of visual quality or cost.
