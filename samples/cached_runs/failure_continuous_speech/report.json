@@ -26,6 +26,7 @@
   "cues_committed": 0,
   "cues_dropped": 0,
   "dropped_gaps": {},
+  "gaps_skipped_no_new_info": [],
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
     "en": 0.0,
@@ -44,45 +45,36 @@
       "cached_tokens": 0,
       "stage": "orchestrate",
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 3206,
-      "output_tokens": 36,
-      "cost_usd": 0.003314,
-      "latency_s": 0.9990870950132376,
+      "input_tokens": 3217,
+      "output_tokens": 39,
+      "cost_usd": 0.003334,
+      "latency_s": 0.9940881670045201,
       "base_url_host": "api.tokenfactory.nebius.com"
     },
     {
       "cached_tokens": 0,
       "stage": "orchestrate",
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 3328,
-      "output_tokens": 35,
-      "cost_usd": 0.003433,
-      "latency_s": 0.9868442459992366,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 3455,
-      "output_tokens": 34,
-      "cost_usd": 0.003557,
-      "latency_s": 0.9916862259997288,
+      "input_tokens": 3342,
+      "output_tokens": 31,
+      "cost_usd": 0.003435,
+      "latency_s": 0.9766550230269786,
       "base_url_host": "api.tokenfactory.nebius.com"
     }
   ],
   "cost_by_role": {
-    "orchestrator": 0.010304,
+    "orchestrator": 0.006769000000000001,
+    "scene": 0,
     "perceive": 0,
     "verify": 0,
     "draft": 0,
     "translate": 0
   },
   "billed_to": "nebius token factory",
-  "cost_per_minute_usd": 0.020608,
+  "cost_per_minute_usd": 0.013538000000000001,
   "agent_stats": {
     "tool_calls": {
-      "detect_speech_gaps": 2,
+      "detect_speech_gaps": 1,
       "finalize": 1
     },
     "corrections": 0,
@@ -95,15 +87,15 @@
     "auto_redrafts": 0,
     "draft_overlimit": 0,
     "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 3,
+    "orchestrator_turns": 2,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.010303999999999999
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006769000000000001
     },
-    "total_latency_s": 4.673968197006616
+    "total_latency_s": 3.498359014018206
   },
-  "estimated_cost_usd": 0.010304,
-  "would_be_token_factory_cost_usd": 0.010304,
-  "reserved_spend_usd": 0.010303999999999999,
-  "cost_per_minute": 0.020608,
-  "latency_s": 4.673968197006616
+  "estimated_cost_usd": 0.006769000000000001,
+  "would_be_token_factory_cost_usd": 0.006769000000000001,
+  "reserved_spend_usd": 0.006769000000000001,
+  "cost_per_minute": 0.013538000000000001,
+  "latency_s": 3.498359014018206
 }

@@ -111,6 +111,8 @@ agent:
   verify_below: 0.75
   retry_attempts: 3
   hangover_s: 0.3
+  scene_context: true   # one Super VL pass over 6 frames: setting, people, ingredients, tools
+  scene_frames: 6
 ui:
   session_cap_usd: 0.25
   daily_cap_usd: 3.0

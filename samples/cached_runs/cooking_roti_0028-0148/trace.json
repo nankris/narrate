@@ -1,0 +1,5410 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 42,
+      "budget_usd": 0.5,
+      "max_inspections": 14,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 1.1698177570069674,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.1697092060057912,
+      "tokens_in": 3218,
+      "tokens_out": 37,
+      "cost_usd": 0.003329,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 2,
+      "t_wall": 5.90731989798951,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Indoor kitchen with white wooden table, flour mat, and rolling pin.",
+        "people": [
+          {
+            "description": "Person wearing striped shirt and black apron, hands and arms visible.",
+            "doing": "mixing, kneading, rolling, and shaping dough"
+          }
+        ],
+        "ingredients": [
+          "flour",
+          "water"
+        ],
+        "tools": [
+          "wooden bowl",
+          "rolling pin",
+          "flour mat",
+          "glass container",
+          "small bowl",
+          "spoon"
+        ],
+        "objects": [
+          "dough balls",
+          "clay bowl",
+          "plastic oil brush"
+        ],
+        "activity": "making dough balls and rolling them out",
+        "dish": "",
+        "visual_style": "Close-up cooking tutorial with top-down and table-level angles.",
+        "burned_in_subtitles": true,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 2.0308037619979586,
+      "tokens_in": 2606,
+      "tokens_out": 191,
+      "cost_usd": 0.0009536999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 3,
+      "t_wall": 5.9080082360014785,
+      "role": "tool",
+      "note": "Detect narratable gaps for audio description",
+      "tool_name": "detect_speech_gaps",
+      "args": {},
+      "result": {
+        "scene_context": "setting: Indoor kitchen with white wooden table, flour mat, and rolling pin. | people: Person wearing striped shirt and black apron, hands and arms visible., mixing, kneading, rolling, and shaping dou",
+        "gaps": [
+          {
+            "id": 0,
+            "start": 0.08,
+            "end": 1.25,
+            "max_words_en": 1,
+            "max_words_hi": 1,
+            "narratable": false,
+            "reason": "too short"
+          },
+          {
+            "id": 1,
+            "start": 6.17,
+            "end": 15.8,
+            "max_words_en": 17,
+            "max_words_hi": 19,
+            "narratable": true,
+            "parent_gap": 1
+          },
+          {
+            "id": 2,
+            "start": 15.8,
+            "end": 21.57,
+            "max_words_en": 10,
+            "max_words_hi": 12,
+            "narratable": true,
+            "parent_gap": 1
+          }
+        ],
+        "detector": "silero-onnx",
+        "speech_ratio": 0.37,
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 14,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.7381711390044075,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 4,
+      "t_wall": 7.286353475006763,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3775946420209948,
+      "tokens_in": 3963,
+      "tokens_out": 295,
+      "cost_usd": 0.004848,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 5,
+      "t_wall": 10.823425317998044,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 4.2,
+            "t_end": 7.5,
+            "what": "The person mixes flour and water in a wooden bowl using their bare hand, blending the ingredients into a crumbly dough.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 7.5,
+            "t_end": 10.3,
+            "what": "The person pours additional water from a glass measuring cup into the wooden bowl while continuing to stir the flour mixture with their hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 10.3,
+            "t_end": 11.6,
+            "what": "The person puts on a black glove on their right hand, preparing to knead the dough in the wooden bowl.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.5101215399918146,
+      "tokens_in": 2447,
+      "tokens_out": 249,
+      "cost_usd": 0.0009582000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 10.823547111998778,
+      "role": "tool",
+      "note": "Inspect first narratable gap area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 4.2,
+        "end": 15.8,
+        "focus": "Person mixing, kneading dough on floured surface"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 4.2,
+            "t_end": 7.5,
+            "what": "The person mixes flour and water in a wooden bowl using their bare hand, blending the ingredients into a crumbly dough.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 7.5,
+            "t_end": 10.3,
+            "what": "The person pours additional water from a glass measuring cup into the wooden bowl while continuing to stir the flour mixture with their hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          1
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 40,
+            "inspections": 13,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.5371753590006847,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 7,
+      "t_wall": 14.104992709995713,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 13.8,
+            "t_end": 16.5,
+            "what": "The person kneads the flour mixture inside the wooden bowl with a gloved right hand, gathering it into a cohesive dough.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 16.5,
+            "t_end": 19.5,
+            "what": "The person continues to press and fold the dough in the wooden bowl while holding the bowl steady with the left hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 19.5,
+            "t_end": 21.6,
+            "what": "The person lifts and turns the emerging dough mass in the wooden bowl to incorporate the remaining loose flour.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.493446178996237,
+      "tokens_in": 1811,
+      "tokens_out": 247,
+      "cost_usd": 0.0007656,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 14.105123325978639,
+      "role": "tool",
+      "note": "Inspect second narratable gap area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 13.8,
+        "end": 21.6,
+        "focus": "Person rolling, shaping dough on table"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 13.8,
+            "t_end": 16.5,
+            "what": "The person kneads the flour mixture inside the wooden bowl with a gloved right hand, gathering it into a cohesive dough.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 16.5,
+            "t_end": 19.5,
+            "what": "The person continues to press and fold the dough in the wooden bowl while holding the bowl steady with the left hand.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          1,
+          2
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 40,
+            "inspections": 12,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2815052179794293,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 9,
+      "t_wall": 17.295241048996104,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 23.6,
+            "t_end": 26.8,
+            "what": "The person pours oil from a small bowl into the dough in the wooden bowl using a spoon.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 26.8,
+            "t_end": 31.8,
+            "what": "The person kneads the dough inside the wooden bowl using a spatula.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.4306441170047037,
+      "tokens_in": 1810,
+      "tokens_out": 159,
+      "cost_usd": 0.0006861,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 17.295338519004872,
+      "role": "tool",
+      "note": "Inspect third narratable gap area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 23.6,
+        "end": 31.8,
+        "focus": "Person working with dough, shaping pieces"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 23.6,
+            "t_end": 26.8,
+            "what": "The person pours oil from a small bowl into the dough in the wooden bowl using a spoon.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 26.8,
+            "t_end": 31.8,
+            "what": "The person kneads the dough inside the wooden bowl using a spatula.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          3
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 40,
+            "inspections": 11,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.19014623601106,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 11,
+      "t_wall": 20.29168661800213,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 40.4,
+        "t_end": 44.3,
+        "what": "The person cuts a large piece of dough into smaller portions using a knife on the flour mat.",
+        "on_screen_text": "",
+        "importance": 5,
+        "confidence": 0.9
+      },
+      "ok": true,
+      "latency_s": 2.2330853440216742,
+      "tokens_in": 1823,
+      "tokens_out": 74,
+      "cost_usd": 0.0006135,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 20.291782760992646,
+      "role": "tool",
+      "note": "Inspect fourth narratable gap area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 40.4,
+        "end": 48.8,
+        "focus": "Person shaping dough pieces on table"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 40.4,
+            "t_end": 44.3,
+            "what": "The person cuts a large piece of dough into smaller portions using a knife on the flour mat.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          4
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 40,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.9964014579891227,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 13,
+      "t_wall": 22.07312975198147,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7809241479844786,
+      "tokens_in": 5289,
+      "tokens_out": 53,
+      "cost_usd": 0.005448,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 23.363770219002618,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "In an indoor kitchen with a white wooden table and flour mat, a striped-shirt person wearing a black apron and carrying visible arms begins mixing flour and water in a wooden bowl, then pours water from a glass cup, puts on a black glove and kneads the crumbly mixture into cohesive dough."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2882458590029273,
+      "tokens_in": 2462,
+      "tokens_out": 77,
+      "cost_usd": 0.0001662,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 25.484060783986934,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "In a kitchen with a white wooden table and flour mat, a person wearing a striped shirt and black apron mixes flour and water in a wooden bowl by hand."
+          },
+          {
+            "id": 2,
+            "text": "The person pours water into the bowl and adds it while stirring with their hand."
+          },
+          {
+            "id": 3,
+            "text": "A black glove is placed on the right hand before kneading the crumbly dough in the bowl."
+          },
+          {
+            "id": 4,
+            "text": "The dough is pressed and folded, then lifted and turned to incorporate remaining flour."
+          },
+          {
+            "id": 5,
+            "text": "Oil is poured into the dough using a spoon and the mixture is kneaded with a spatula."
+          },
+          {
+            "id": 6,
+            "text": "A large dough piece is cut into smaller portions on the flour mat using a knife."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.1200950180063955,
+      "tokens_in": 2525,
+      "tokens_out": 180,
+      "cost_usd": 0.0001947,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 25.484273451991612,
+      "role": "tool",
+      "note": "Draft cues for first four narratable gaps",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "In a kitchen with a white wooden table and flour mat, a person wearing a striped shirt.",
+            "max_words": 17
+          },
+          {
+            "id": 2,
+            "text": "The person pours water into the bowl and adds it.",
+            "max_words": 10
+          },
+          {
+            "id": 3,
+            "text": "A black glove is placed on the right hand before kneading.",
+            "max_words": 11
+          },
+          {
+            "id": 4,
+            "text": "The dough is pressed and folded, then lifted and turned to incorporate.",
+            "max_words": 12
+          }
+        ],
+        "state": {
+          "committed": [],
+          "remaining": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 39,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.4111319939838722,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 17,
+      "t_wall": 27.08886958399671,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6042720529949293,
+      "tokens_in": 5635,
+      "tokens_out": 282,
+      "cost_usd": 0.006481,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 27.16538330700132,
+      "role": "tool",
+      "note": "Propose cue for gap 1 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "The person mixes flour and water in a wooden bowl, then pours more water from a glass measuring cup."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 6.17,
+          "end": 15.8,
+          "duration": 9.63,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 21,
+          "word_budget_hi": 24,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "The person mixes flour and water in a wooden bowl, then pours more water from a glass measuring cup."
+        },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
+        "state": {
+          "committed": [
+            1
+          ],
+          "remaining": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1
+          ],
+          "budget": {
+            "turns": 38,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07649704400682822,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 19,
+      "t_wall": 27.239630544994725,
+      "role": "tool",
+      "note": "Propose cue for gap 2 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 2,
+        "text": "The person kneads and folds the dough inside the wooden bowl."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 2,
+          "start": 15.8,
+          "end": 21.57,
+          "duration": 5.77,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 12,
+          "word_budget_hi": 14,
+          "max_words_en": 10,
+          "max_words_hi": 12,
+          "en": "The person kneads and folds the dough inside the wooden bowl."
+        },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
+        "state": {
+          "committed": [
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 38,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07416906100115739,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 20,
+      "t_wall": 27.312692232982954,
+      "role": "tool",
+      "note": "Propose cue for gap 3 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "The person pours oil from a small bowl into the dough, then kneads with a spatula."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded (max 11 words)"
+        ],
+        "suggested_max_words": 11,
+        "seconds": 5.07,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[3], max_words=11) instead of hand-editing",
+        "state": {
+          "committed": [
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 38,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0730172419862356,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 21,
+      "t_wall": 27.389109940995695,
+      "role": "tool",
+      "note": "Propose cue for gap 4 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "The person cuts a large piece of dough into smaller portions on the flour mat."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded (max 12 words)"
+        ],
+        "suggested_max_words": 12,
+        "seconds": 4.68,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[4], max_words=12) instead of hand-editing",
+        "state": {
+          "committed": [
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 38,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07635039900196716,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 22,
+      "t_wall": 29.113541978003923,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7240966789831873,
+      "tokens_in": 6607,
+      "tokens_out": 56,
+      "cost_usd": 0.006775,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 29.934557177999523,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "The cook wrinkles the dough using a spatula."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.8171032649988774,
+      "tokens_in": 1831,
+      "tokens_out": 25,
+      "cost_usd": 0.00011586,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 29.934732358990004,
+      "role": "tool",
+      "note": "Redraft gap 3 within word budget",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          3
+        ],
+        "max_words": 11
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "The cook wrinkles the dough using a spatula.",
+            "max_words": 11
+          }
+        ],
+        "state": {
+          "committed": [
+            1,
+            2
+          ],
+          "remaining": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 37,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.8211697009974159,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 25,
+      "t_wall": 31.572371360001853,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.637306090007769,
+      "tokens_in": 6785,
+      "tokens_out": 138,
+      "cost_usd": 0.007199,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 33.341174006985966,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "The cook continues to press and fold the dough in the wooden bowl while holding it steady with the left hand."
+          },
+          {
+            "id": 3,
+            "text": "The cook lifts and turns the dough mass to incorporate the remaining loose flour."
+          },
+          {
+            "id": 3,
+            "text": "The cook pours oil into the dough using a spoon from a small bowl inside the wooden bowl."
+          },
+          {
+            "id": 3,
+            "text": "The cook kneads the dough inside the wooden bowl with a spatula."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.698593275010353,
+      "tokens_in": 1876,
+      "tokens_out": 147,
+      "cost_usd": 0.00014784,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 34.19554750598036,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 3,
+            "text": "The cook kneads dough with a spatula in a white kitchen while pouring oil into the mixture."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.8542291940248106,
+      "tokens_in": 1939,
+      "tokens_out": 47,
+      "cost_usd": 0.00012762,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 34.25912014397909,
+      "role": "tool",
+      "note": "Propose cue for gap 3 from evidence",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 3,
+        "text": "The person pours oil into the dough, then kneads it in the wooden bowl."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 3,
+          "start": 25.6,
+          "end": 31.81,
+          "duration": 6.22,
+          "narratable": true,
+          "word_budget_en": 13,
+          "word_budget_hi": 15,
+          "max_words_en": 11,
+          "max_words_hi": 13,
+          "en": "The cook kneads dough with a spatula in a white kitchen."
+        },
+        "auto_redrafted": true,
+        "state": {
+          "committed": [
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 36,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.6867356600123458,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 20
+    },
+    {
+      "step": 29,
+      "t_wall": 34.32223119400442,
+      "role": "tool",
+      "note": "Propose cue for gap 4 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 4,
+        "text": "The dough is pressed and folded, then lifted and turned to incorporate."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 4,
+          "start": 42.43,
+          "end": 48.8,
+          "duration": 6.37,
+          "narratable": true,
+          "parent_gap": 3,
+          "word_budget_en": 13,
+          "word_budget_hi": 15,
+          "max_words_en": 12,
+          "max_words_hi": 13,
+          "en": "The dough is pressed and folded, then lifted and turned to incorporate."
+        },
+        "state": {
+          "committed": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1,
+            2
+          ],
+          "budget": {
+            "turns": 36,
+            "inspections": 10,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06306948798010126,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 21
+    },
+    {
+      "step": 30,
+      "t_wall": 36.0618793600006,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7393487619992811,
+      "tokens_in": 7205,
+      "tokens_out": 133,
+      "cost_usd": 0.007604,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 37.68887686400558,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The person mixes flour in a wooden bowl by hand, but the glass measuring cup next to the bowl remains untouched and no water is poured from it in the frames shown."
+      },
+      "ok": true,
+      "latency_s": 1.253962632996263,
+      "tokens_in": 1146,
+      "tokens_out": 55,
+      "cost_usd": 0.0003933,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 37.689080854004715,
+      "role": "tool",
+      "note": "Verify committed cue 1 claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "The person mixes flour and water in a wooden bowl, then pours more water from a glass measuring cup."
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The person mixes flour in a wooden bowl by hand, but the glass measuring cup next to the bowl remains untouched and no water is poured from it in the frames shown.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "uncommitted": [
+          1
+        ],
+        "refuted_events": 2,
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            2
+          ],
+          "budget": {
+            "turns": 35,
+            "inspections": 10,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.6271876289974898,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 33,
+      "t_wall": 39.10018417600077,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person wearing a black glove is shown pressing and manipulating a mass of dough inside a wooden bowl, which matches kneading and folding."
+      },
+      "ok": true,
+      "latency_s": 1.1944925530115142,
+      "tokens_in": 1136,
+      "tokens_out": 42,
+      "cost_usd": 0.00037860000000000004,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 39.10030580399325,
+      "role": "tool",
+      "note": "Verify committed cue 2 claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 2,
+        "claim": "The person kneads and folds the dough inside the wooden bowl."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person wearing a black glove is shown pressing and manipulating a mass of dough inside a wooden bowl, which matches kneading and folding.",
+        "modality": "frames",
+        "gap_ids": [
+          2
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 35,
+            "inspections": 10,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.4111948380013928,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 35,
+      "t_wall": 41.27274429399404,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1721085000026505,
+      "tokens_in": 7448,
+      "tokens_out": 286,
+      "cost_usd": 0.008306,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 36,
+      "t_wall": 44.41238798099221,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 46.8,
+            "t_end": 50.0,
+            "what": "The person places a ball of dough on the flour mat and presses it flat with their hands.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 50.0,
+            "t_end": 54.4,
+            "what": "The person uses a wooden rolling pin to roll the dough into an oval shape on the flour mat.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.3584204579819925,
+      "tokens_in": 1811,
+      "tokens_out": 163,
+      "cost_usd": 0.00069,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 37,
+      "t_wall": 44.41253789199982,
+      "role": "tool",
+      "note": "Inspect gap 5 area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 46.8,
+        "end": 54.4,
+        "focus": "Person shaping dough pieces on flour mat"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 46.8,
+            "t_end": 50.0,
+            "what": "The person places a ball of dough on the flour mat and presses it flat with their hands.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 50.0,
+            "t_end": 54.4,
+            "what": "The person uses a wooden rolling pin to roll the dough into an oval shape on the flour mat.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 9,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.1397806129825767,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 38,
+      "t_wall": 46.999445174005814,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 65.2,
+            "t_end": 67.0,
+            "what": "The person sprinkles flour onto the dough and the mat with their hand.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 67.0,
+            "t_end": 70.1,
+            "what": "The person flattens the dough on the mat with their hands.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.955880259978585,
+      "tokens_in": 1507,
+      "tokens_out": 129,
+      "cost_usd": 0.0005681999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 39,
+      "t_wall": 46.99960042300518,
+      "role": "tool",
+      "note": "Inspect gap 6 area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 65.2,
+        "end": 71.4,
+        "focus": "Person working with dough on table"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 65.2,
+            "t_end": 67.0,
+            "what": "The person sprinkles flour onto the dough and the mat with their hand.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 67.0,
+            "t_end": 70.1,
+            "what": "The person flattens the dough on the mat with their hands.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          6
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 8,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.5870210220164154,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 40,
+      "t_wall": 49.523335234000115,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 73.6,
+            "t_end": 78.0,
+            "what": "A person shapes a piece of dough with both hands on a flour mat, then rolls it into a long cylinder using a rolling pin.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.983156227011932,
+      "tokens_in": 1190,
+      "tokens_out": 93,
+      "cost_usd": 0.0004407,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 49.523486553982366,
+      "role": "tool",
+      "note": "Inspect gap 7 area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 73.6,
+        "end": 78,
+        "focus": "Person shaping dough pieces"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 73.6,
+            "t_end": 78.0,
+            "what": "A person shapes a piece of dough with both hands on a flour mat, then rolls it into a long cylinder using a rolling pin.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          7
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 7,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.5238434310012963,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 42,
+      "t_wall": 52.599231570988195,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 78.8,
+        "t_end": 80.0,
+        "what": "A person rolls a strip of dough into a snail-shaped ball with their hands on the flour mat.",
+        "on_screen_text": "",
+        "importance": 3,
+        "confidence": 0.97
+      },
+      "ok": true,
+      "latency_s": 2.3084168669884093,
+      "tokens_in": 1982,
+      "tokens_out": 77,
+      "cost_usd": 0.0006638999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 43,
+      "t_wall": 52.599403725005686,
+      "role": "tool",
+      "note": "Inspect gap 8 area",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 78.8,
+        "end": 88,
+        "focus": "Person working with dough, possibly baking"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 78.8,
+            "t_end": 80.0,
+            "what": "A person rolls a strip of dough into a snail-shaped ball with their hands on the flour mat.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.97
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          8
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 34,
+            "inspections": 6,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.0758800269977655,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 44,
+      "t_wall": 54.3490590529982,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.749124967987882,
+      "tokens_in": 7708,
+      "tokens_out": 54,
+      "cost_usd": 0.00787,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 45,
+      "t_wall": 55.624012803978985,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "The cook presses a round ball of dough onto the flour mat and rolls it flat with a wooden pin creating an oval shape",
+            "on_screen_text": []
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2723049850028474,
+      "tokens_in": 1932,
+      "tokens_out": 44,
+      "cost_usd": 0.00012648,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 57.393891974992584,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "The hands cut a dough piece on flour mat and flatten it before rolling."
+          },
+          {
+            "id": 6,
+            "text": "The hands press dough gently into shape on flour mat."
+          },
+          {
+            "id": 7,
+            "text": "The hands shape dough, roll cylinder using rolling pin."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.7696396009996533,
+      "tokens_in": 1995,
+      "tokens_out": 96,
+      "cost_usd": 0.00014273999999999998,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 57.39418422800372,
+      "role": "tool",
+      "note": "Draft cues for gaps 5, 6, 7",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          5,
+          6,
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "The hands cut a dough piece on flour mat and.",
+            "max_words": 10
+          },
+          {
+            "id": 6,
+            "text": "The hands press dough gently into shape.",
+            "max_words": 7
+          },
+          {
+            "id": 7,
+            "text": "The hands shape.",
+            "max_words": 3
+          }
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 33,
+            "inspections": 6,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.0451125519757625,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 48,
+      "t_wall": 58.67899857700104,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2842721560155042,
+      "tokens_in": 7762,
+      "tokens_out": 71,
+      "cost_usd": 0.007975,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 49,
+      "t_wall": 58.7459386200062,
+      "role": "tool",
+      "note": "Propose corrected cue for gap 1",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "The person puts on a black glove and kneads the flour mixture in the wooden bowl."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 6.17,
+          "end": 15.8,
+          "duration": 9.63,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 21,
+          "word_budget_hi": 24,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "The person puts on a black glove and kneads the flour mixture in the wooden bowl."
+        },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            1
+          ],
+          "budget": {
+            "turns": 32,
+            "inspections": 6,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06692743202438578,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 32
+    },
+    {
+      "step": 50,
+      "t_wall": 59.812861968996,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.0664432119810954,
+      "tokens_in": 7240,
+      "tokens_out": 68,
+      "cost_usd": 0.007444,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 51,
+      "t_wall": 61.60068954099552,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The person is not wearing a black glove; their bare hand mixes the flour mixture in the wooden bowl."
+      },
+      "ok": true,
+      "latency_s": 1.4067859269853216,
+      "tokens_in": 1142,
+      "tokens_out": 39,
+      "cost_usd": 0.00037769999999999997,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 52,
+      "t_wall": 61.60086578200571,
+      "role": "tool",
+      "note": "Verify committed cue 1 claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "The person puts on a black glove and kneads the flour mixture in the wooden bowl."
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The person is not wearing a black glove; their bare hand mixes the flour mixture in the wooden bowl.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "uncommitted": [
+          1
+        ],
+        "refuted_events": 1,
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 31,
+            "inspections": 6,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.7879854539933149,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 53,
+      "t_wall": 63.303877750004176,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7024962669820525,
+      "tokens_in": 7385,
+      "tokens_out": 43,
+      "cost_usd": 0.007514,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 54,
+      "t_wall": 64.22115594398929,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "In a bright indoor kitchen, the person in a striped shirt and black apron gathers flour mixture into a cohesive dough inside a wooden bowl using a gloved right hand."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.9152246979938354,
+      "tokens_in": 1364,
+      "tokens_out": 50,
+      "cost_usd": 9.384000000000001e-05,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 55,
+      "t_wall": 65.0777237599832,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough from the wooden bowl using a gloved right hand."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.856441537005594,
+      "tokens_in": 1427,
+      "tokens_out": 46,
+      "cost_usd": 9.666e-05,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 65.07789696799591,
+      "role": "tool",
+      "note": "Redraft cue 1 from evidence",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          1
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 1,
+            "text": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.",
+            "max_words": 17
+          }
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4
+          ],
+          "remaining": [
+            1,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 30,
+            "inspections": 6,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7740076330082957,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 57,
+      "t_wall": 67.01444034298765,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.9360414800175931,
+      "tokens_in": 7204,
+      "tokens_out": 74,
+      "cost_usd": 0.007426,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 58,
+      "t_wall": 67.08418330299901,
+      "role": "tool",
+      "note": "Propose evidence-based cue 1",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 1,
+        "text": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 1,
+          "start": 6.17,
+          "end": 15.8,
+          "duration": 9.63,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 21,
+          "word_budget_hi": 24,
+          "max_words_en": 17,
+          "max_words_hi": 19,
+          "en": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 29,
+            "inspections": 6,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.06972972702351399,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 52
+    },
+    {
+      "step": 59,
+      "t_wall": 68.8588157639897,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7740723589959089,
+      "tokens_in": 7146,
+      "tokens_out": 71,
+      "cost_usd": 0.007359,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 60,
+      "t_wall": 70.72627609898336,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "The cook is indoors at a white wooden table with a bowl and measuring cup; they mix flour with a hand, but the mixture is still loose and powdery, and no cohesive dough is visible in the frames provided."
+      },
+      "ok": true,
+      "latency_s": 1.4551647369808052,
+      "tokens_in": 1146,
+      "tokens_out": 61,
+      "cost_usd": 0.0003987,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 61,
+      "t_wall": 70.72640546999173,
+      "role": "tool",
+      "note": "Verify committed cue 1",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough."
+      },
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "The cook is indoors at a white wooden table with a bowl and measuring cup; they mix flour with a hand, but the mixture is still loose and powdery, and no cohesive dough is visible in the frames provided.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 28,
+            "inspections": 6,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8675763890205417,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 62,
+      "t_wall": 72.7656360300025,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.038617862999672,
+      "tokens_in": 6598,
+      "tokens_out": 174,
+      "cost_usd": 0.00712,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 63,
+      "t_wall": 72.76729149700259,
+      "role": "tool",
+      "note": "Inspect gap 5 rolling dough",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 46.8,
+        "end": 54.4
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "see": "evidence board gap 4,5",
+        "next": "draft_description(gap_ids=[5])",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 6,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0016403920017182827,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 64,
+      "t_wall": 72.7687485019851,
+      "role": "tool",
+      "note": "Inspect gap 6 flattening dough",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 67.2,
+        "end": 71.4
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          6
+        ],
+        "see": "evidence board gap 6",
+        "next": "draft_description(gap_ids=[6])",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [5, 6, 7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014298199967015535,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 65,
+      "t_wall": 72.7702621280041,
+      "role": "tool",
+      "note": "Inspect gap 7 shaping dough",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 75.6,
+        "end": 78
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          7
+        ],
+        "see": "evidence board gap 7",
+        "next": "draft_description(gap_ids=[7])",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [5, 6, 7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014853580214548856,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 66,
+      "t_wall": 74.51958654698683,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7487450180051383,
+      "tokens_in": 7069,
+      "tokens_out": 27,
+      "cost_usd": 0.00715,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 67,
+      "t_wall": 75.22057944099652,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "A pair of hands places a dough ball on the flour mat and pushes it flat before rolling it with a wooden pin."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.698799556994345,
+      "tokens_in": 1681,
+      "tokens_out": 38,
+      "cost_usd": 0.00010998,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 68,
+      "t_wall": 75.93980866999482,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "The cook cuts dough portions, shapes a ball, and rolls it on the mat."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.7190627800009679,
+      "tokens_in": 1744,
+      "tokens_out": 44,
+      "cost_usd": 0.00011520000000000001,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 69,
+      "t_wall": 75.94017446498037,
+      "role": "tool",
+      "note": "draft description",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          5
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 5,
+            "text": "The cook cuts dough portions, shapes a ball, and rolls.",
+            "max_words": 10
+          }
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1
+          ],
+          "remaining": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 26,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [5, 6, 7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.4205708889930975,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 63
+    },
+    {
+      "step": 70,
+      "t_wall": 77.56307095900411,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6223013960116077,
+      "tokens_in": 7005,
+      "tokens_out": 63,
+      "cost_usd": 0.007194,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 71,
+      "t_wall": 77.64172393397894,
+      "role": "tool",
+      "note": "Propose gap 5",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 5,
+        "text": "The cook cuts dough portions, shapes a ball, and rolls."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 5,
+          "start": 48.8,
+          "end": 54.44,
+          "duration": 5.64,
+          "narratable": true,
+          "parent_gap": 3,
+          "word_budget_en": 11,
+          "word_budget_hi": 13,
+          "max_words_en": 10,
+          "max_words_hi": 12,
+          "en": "The cook cuts dough portions, shapes a ball, and rolls."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5
+          ],
+          "remaining": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 25,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [6, 7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0786378640041221,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 72,
+      "t_wall": 79.42241738497978,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7798567379941233,
+      "tokens_in": 7079,
+      "tokens_out": 58,
+      "cost_usd": 0.007253,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 73,
+      "t_wall": 79.53179291900597,
+      "role": "tool",
+      "note": "Propose gap 6",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 6,
+        "text": "The hands press dough gently into shape."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 6,
+          "start": 67.16,
+          "end": 71.43,
+          "duration": 4.26,
+          "narratable": true,
+          "word_budget_en": 8,
+          "word_budget_hi": 10,
+          "max_words_en": 7,
+          "max_words_hi": 8,
+          "en": "The hands press dough gently into shape."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 24,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.10934538999572396,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 74,
+      "t_wall": 81.43409556799452,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.901497702987399,
+      "tokens_in": 7190,
+      "tokens_out": 64,
+      "cost_usd": 0.007382,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 75,
+      "t_wall": 82.29215889598709,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 6,
+            "text": "The cook with a striped shirt and black apron gently presses the dough on the flour mat using both hands."
+          },
+          {
+            "id": 7,
+            "text": "The person shapes dough on the mat, then rolls it into a cylinder with a wooden rolling pin."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.8553785059775691,
+      "tokens_in": 1610,
+      "tokens_out": 86,
+      "cost_usd": 0.00011724,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 76,
+      "t_wall": 83.07580997498007,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 6,
+            "text": "Hands flatten dough gently on flour mat, creating a smooth surface."
+          },
+          {
+            "id": 7,
+            "text": "Person shapes a dough piece, then rolls it into a long cylinder using a rolling pin."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 0.7834684310073499,
+      "tokens_in": 1673,
+      "tokens_out": 65,
+      "cost_usd": 0.00011597999999999998,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 77,
+      "t_wall": 83.07637517398689,
+      "role": "tool",
+      "note": "Draft gaps 6-12",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 6,
+            "text": "Hands flatten dough gently on flour mat.",
+            "max_words": 7
+          },
+          {
+            "id": 7,
+            "text": "Person shapes a.",
+            "max_words": 3
+          }
+        ],
+        "needs_inspection_first": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6
+          ],
+          "remaining": [
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 23,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "propose_cue for gaps [7] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.6422636279894505,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 64
+    },
+    {
+      "step": 78,
+      "t_wall": 85.20003265299601,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.122826435981551,
+      "tokens_in": 7269,
+      "tokens_out": 58,
+      "cost_usd": 0.007443,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 79,
+      "t_wall": 85.28000052200514,
+      "role": "tool",
+      "note": "Propose gap 7 within 3 words",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "Person shapes dough."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 7,
+          "start": 75.61,
+          "end": 77.96,
+          "duration": 2.34,
+          "narratable": true,
+          "word_budget_en": 4,
+          "word_budget_hi": 5,
+          "max_words_en": 3,
+          "max_words_hi": 4,
+          "en": "Person shapes dough."
+        },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 22,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "inspect_video_segment gaps [8, 9, 10, 11, 12] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07995126800960861,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 80,
+      "t_wall": 87.35026475298218,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0696760889841244,
+      "tokens_in": 7436,
+      "tokens_out": 185,
+      "cost_usd": 0.007991,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 81,
+      "t_wall": 87.35258681399864,
+      "role": "tool",
+      "note": "Inspect gaps 7, 8, 9",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 74.4,
+        "end": 93.1
+      },
+      "result": {
+        "ok": false,
+        "error": "already inspected",
+        "evidence_gaps": [
+          7,
+          8,
+          9
+        ],
+        "see": "evidence board gap 7,8,9",
+        "next": "draft_description(gap_ids=[8, 9])",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 6,
+            "verifications": 4
+          },
+          "next_action": "inspect_video_segment gaps [8, 9, 10, 11, 12] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.00230586199904792,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 82,
+      "t_wall": 91.4775931549957,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 91.9,
+            "t_end": 94.1,
+            "what": "The person places a white plate upside down over the bowl of dough balls to cover them and let the dough rest.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 94.1,
+            "t_end": 97.0,
+            "what": "The person removes the plate and adjusts the dough balls in the bowl after the resting period.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 97.0,
+            "t_end": 98.3,
+            "what": "The person moves the bowl of dough balls out of the frame to the right.",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 98.3,
+            "t_end": 100.0,
+            "what": "The person pats the flour surface of the mat with both hands to prepare for rolling.",
+            "on_screen_text": "",
+            "importance": 2,
+            "confidence": 1.0
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.1129039260267746,
+      "tokens_in": 2294,
+      "tokens_out": 311,
+      "cost_usd": 0.0009681,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 83,
+      "t_wall": 91.47804337798152,
+      "role": "tool",
+      "note": "Inspect gaps 9, 10",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 91.9,
+        "end": 103.2
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 91.9,
+            "t_end": 94.1,
+            "what": "The person places a white plate upside down over the bowl of dough balls to cover them and let the dough rest.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 1.0
+          },
+          {
+            "t_start": 94.1,
+            "t_end": 97.0,
+            "what": "The person removes the plate and adjusts the dough balls in the bowl after the resting period.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 1.0
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          9,
+          10
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 5,
+            "verifications": 4
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10]) now (gaps already have evidence)"
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.1254088139976375,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 84,
+      "t_wall": 96.11480005900376,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 104.4,
+        "t_end": 109.7,
+        "what": "The person rolls a small dough ball into a flat circle using a wooden rolling pin on a flour-dusted mat, then flips the dough and continues rolling it into a larger, thinner round shape.",
+        "on_screen_text": "",
+        "importance": 5,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 3.0856542760157026,
+      "tokens_in": 2937,
+      "tokens_out": 98,
+      "cost_usd": 0.0009693000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 85,
+      "t_wall": 96.11522014500224,
+      "role": "tool",
+      "note": "Inspect gaps 11, 12",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 104.4,
+        "end": 119.8
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 104.4,
+            "t_end": 109.7,
+            "what": "The person rolls a small dough ball into a flat circle using a wooden rolling pin on a flour-dusted mat, then flips the dough and continues rolling it into a larger, thinner round shape.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          11,
+          12
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 4,
+            "verifications": 4
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10, 11]) now (gaps already have evidence)"
+        }
+      },
+      "ok": true,
+      "latency_s": 4.6370820829761215,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 86,
+      "t_wall": 97.75222234599642,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6363574730057735,
+      "tokens_in": 7934,
+      "tokens_out": 65,
+      "cost_usd": 0.008129,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 87,
+      "t_wall": 97.75463797300472,
+      "role": "tool",
+      "note": "Propose gap 5 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 5,
+        "text": "The cook cuts dough portions, shapes a ball, and rolls."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 5,
+          "start": 48.8,
+          "end": 54.44,
+          "duration": 5.64,
+          "narratable": true,
+          "parent_gap": 3,
+          "word_budget_en": 11,
+          "word_budget_hi": 13,
+          "max_words_en": 10,
+          "max_words_hi": 12,
+          "en": "The cook cuts dough portions, shapes a ball, and rolls."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 20,
+            "inspections": 4,
+            "verifications": 4
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10, 11]) now (gaps already have evidence)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0023992490023374557,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 88,
+      "t_wall": 99.57974977398408,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8244341610115953,
+      "tokens_in": 8074,
+      "tokens_out": 65,
+      "cost_usd": 0.008269,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 89,
+      "t_wall": 99.58201091299998,
+      "role": "tool",
+      "note": "Propose gap 6 from draft",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 6,
+        "text": "The cook cuts dough portions, shapes a ball, and rolls."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded (max 7 words)",
+          "cue too long for a single description; keep it under 3.8 s"
+        ],
+        "suggested_max_words": 7,
+        "seconds": 4.15,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[6], max_words=7) instead of hand-editing",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [
+            7
+          ],
+          "budget": {
+            "turns": 19,
+            "inspections": 4,
+            "verifications": 4
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10, 11]) now (gaps already have evidence)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002242300019133836,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 90,
+      "t_wall": 101.18408121500397,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6010974509990774,
+      "tokens_in": 8132,
+      "tokens_out": 53,
+      "cost_usd": 0.008291,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 91,
+      "t_wall": 102.77346574998228,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "The person uses both hands to roll and flatten a piece of dough into a long rope on the mat."
+      },
+      "ok": true,
+      "latency_s": 1.1930056989949662,
+      "tokens_in": 1152,
+      "tokens_out": 36,
+      "cost_usd": 0.0003779999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 92,
+      "t_wall": 102.77402194699971,
+      "role": "tool",
+      "note": "Verify committed cue 7",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "Person shapes dough."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The person uses both hands to roll and flatten a piece of dough into a long rope on the mat.",
+        "modality": "frames",
+        "gap_ids": [
+          7
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 18,
+            "inspections": 4,
+            "verifications": 3
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10, 11]) now (gaps already have evidence)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.589924700994743,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 93,
+      "t_wall": 104.61413884299691,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8390144779987168,
+      "tokens_in": 8155,
+      "tokens_out": 52,
+      "cost_usd": 0.008311,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 94,
+      "t_wall": 106.37145609298022,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "Hands are shown rolling and pressing a ball of dough on a floured mat."
+      },
+      "ok": true,
+      "latency_s": 1.3926171079801861,
+      "tokens_in": 1151,
+      "tokens_out": 32,
+      "cost_usd": 0.00037410000000000004,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 95,
+      "t_wall": 106.37178500799928,
+      "role": "tool",
+      "note": "Verify gap 8",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 8,
+        "claim": "Person shapes dough."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "Hands are shown rolling and pressing a ball of dough on a floured mat.",
+        "modality": "frames",
+        "gap_ids": [
+          8
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 17,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "STOP inspecting; call draft_description(gap_ids=[9, 10, 11]) now (gaps already have evidence)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.757622482982697,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 96,
+      "t_wall": 108.17845866098651,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8057581360044423,
+      "tokens_in": 8182,
+      "tokens_out": 47,
+      "cost_usd": 0.008323,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 97,
+      "t_wall": 109.64371924797888,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "People covering dough with a plate to let it rest."
+          },
+          {
+            "id": 10,
+            "text": "The individual lifts the plate off and moves the bowl of dough balls to the side before spreading flour on the work surface."
+          },
+          {
+            "id": 11,
+            "text": "The roll stretches and reshapes a dough circle into a larger thin disc with spattered flour on the surface."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4622214790142607,
+      "tokens_in": 2004,
+      "tokens_out": 89,
+      "cost_usd": 0.0001416,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 98,
+      "t_wall": 111.2750090759946,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "Person creates snail shaped dough balls on flour mat.",
+            "max_words": 5
+          },
+          {
+            "id": 10,
+            "text": "Person covers dough balls with plate for resting.",
+            "max_words": 5
+          },
+          {
+            "id": 11,
+            "text": "Person rolls small dough ball into thin round on flour mat.",
+            "max_words": 13
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.6310298299940769,
+      "tokens_in": 2067,
+      "tokens_out": 93,
+      "cost_usd": 0.00014634,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 99,
+      "t_wall": 111.27547738800058,
+      "role": "tool",
+      "note": "Draft committed gaps",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          9,
+          10,
+          11
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "Person creates snail shaped dough.",
+            "max_words": 5
+          },
+          {
+            "id": 10,
+            "text": "Person covers dough balls with.",
+            "max_words": 5
+          },
+          {
+            "id": 11,
+            "text": "Person rolls small dough ball into thin round on flour mat.",
+            "max_words": 13
+          }
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 16,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 10, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 3.0970047370065004,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 65
+    },
+    {
+      "step": 100,
+      "t_wall": 113.42933638600516,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.153238457016414,
+      "tokens_in": 8213,
+      "tokens_out": 54,
+      "cost_usd": 0.008375,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 101,
+      "t_wall": 113.43138299198472,
+      "role": "tool",
+      "note": "Propose gap 8",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "Person shapes dough."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "duplicate of gap 7"
+        ],
+        "suggested_max_words": 11,
+        "seconds": 1.66,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[8], max_words=11) instead of hand-editing",
+        "problem": "duplicate of gap 7",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 10, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.002033177006524056,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 102,
+      "t_wall": 115.26720228599152,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8350905749830417,
+      "tokens_in": 7860,
+      "tokens_out": 63,
+      "cost_usd": 0.008049,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 103,
+      "t_wall": 115.26906152200536,
+      "role": "tool",
+      "note": "Propose gap 8",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "The cook cuts dough portions, shapes a ball, and rolls."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "duplicate of gap 5"
+        ],
+        "suggested_max_words": 13,
+        "seconds": 4.15,
+        "overlap_seconds": 0,
+        "next": "call propose_cue/commit_cue to commit",
+        "problem": "duplicate of gap 5",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 14,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 10, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018460249993950129,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 104,
+      "t_wall": 117.12095548698562,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8512738899735268,
+      "tokens_in": 7912,
+      "tokens_out": 62,
+      "cost_usd": 0.008098,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 105,
+      "t_wall": 117.19269586799783,
+      "role": "tool",
+      "note": "Propose gap 9",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 9,
+        "text": "The cook places a white plate upside down over the dough."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "Word budget exceeded (max 5 words)",
+          "cue too long for a single description; keep it under 2.7 s"
+        ],
+        "suggested_max_words": 5,
+        "seconds": 3.64,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[9], max_words=5) instead of hand-editing",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 13,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 10, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07171771500725299,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 106,
+      "t_wall": 118.40669088999857,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2133060129999649,
+      "tokens_in": 8018,
+      "tokens_out": 47,
+      "cost_usd": 0.008159,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 107,
+      "t_wall": 119.92304368698387,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "The visible person shapes dough on a flour mat using gentle hand movements."
+          },
+          {
+            "id": 10,
+            "text": "They cover the bowl of dough balls with a white plate and later remove it to pat the flour surface."
+          },
+          {
+            "id": 11,
+            "text": "The visible person rolls a small dough ball with a wooden rolling pin on a flour‑dusty mat, flips it, and continues rolling into a larger, thin round."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.5141060930036474,
+      "tokens_in": 2004,
+      "tokens_out": 132,
+      "cost_usd": 0.00015192,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 108,
+      "t_wall": 128.36760277798749,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": [
+        {
+          "id": 9,
+          "text": "The chef's hands gently roll a strip of dough into a snail-shaped ball on the flour mat."
+        }
+      ],
+      "ok": true,
+      "latency_s": 8.444297011999879,
+      "tokens_in": 2067,
+      "tokens_out": 2000,
+      "cost_usd": 0.00060402,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 109,
+      "t_wall": 128.3680000799941,
+      "role": "tool",
+      "note": "Draft remaining gaps",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          9,
+          10,
+          11
+        ]
+      },
+      "result": {
+        "ok": false,
+        "error": "AttributeError",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 12,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 10, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 9.961289758008206,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 110,
+      "t_wall": 129.9645010170061,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5958122430020012,
+      "tokens_in": 8063,
+      "tokens_out": 57,
+      "cost_usd": 0.008234,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 111,
+      "t_wall": 130.04333115299232,
+      "role": "tool",
+      "note": "Propose gap 10",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 10,
+        "text": "Person covers dough balls."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 10,
+          "start": 99.93,
+          "end": 103.2,
+          "duration": 3.27,
+          "narratable": true,
+          "word_budget_en": 6,
+          "word_budget_hi": 7,
+          "max_words_en": 5,
+          "max_words_hi": 6,
+          "en": "Person covers dough balls."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10
+          ],
+          "remaining": [
+            8,
+            9,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 11,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07881092399475165,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 112,
+      "t_wall": 131.9156290209794,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8715831430163234,
+      "tokens_in": 8152,
+      "tokens_out": 54,
+      "cost_usd": 0.008314,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 113,
+      "t_wall": 131.98244718599017,
+      "role": "tool",
+      "note": "Propose gap 8",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "Shapes dough."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "repeats the previous cue (gap 7)"
+        ],
+        "suggested_max_words": 10,
+        "seconds": 1.19,
+        "overlap_seconds": 0,
+        "next": "drop_gap or move on",
+        "problem": "too similar to the previous cue: describe only what is new, or drop_gap if nothing new happens",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10
+          ],
+          "remaining": [
+            8,
+            9,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 10,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [9, 11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.06680226200842299,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 114,
+      "t_wall": 134.15115466798306,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1680706449842546,
+      "tokens_in": 8218,
+      "tokens_out": 57,
+      "cost_usd": 0.008389,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 115,
+      "t_wall": 134.22202074498637,
+      "role": "tool",
+      "note": "Propose gap 9",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 9,
+        "text": "Person creates snail shaped dough."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 9,
+          "start": 90.08,
+          "end": 93.06,
+          "duration": 2.98,
+          "narratable": true,
+          "word_budget_en": 5,
+          "word_budget_hi": 6,
+          "max_words_en": 5,
+          "max_words_hi": 5,
+          "en": "Person creates snail shaped dough."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9
+          ],
+          "remaining": [
+            8,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 9,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.0708504969952628,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 105
+    },
+    {
+      "step": 116,
+      "t_wall": 136.42775659100153,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.205103204003535,
+      "tokens_in": 8268,
+      "tokens_out": 57,
+      "cost_usd": 0.008439,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 117,
+      "t_wall": 136.42933715699473,
+      "role": "tool",
+      "note": "Propose gap 9",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 9,
+        "text": "Person creates snail shaped dough."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 9,
+          "start": 90.08,
+          "end": 93.06,
+          "duration": 2.98,
+          "narratable": true,
+          "word_budget_en": 5,
+          "word_budget_hi": 6,
+          "max_words_en": 5,
+          "max_words_hi": 5,
+          "en": "Person creates snail shaped dough."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9
+          ],
+          "remaining": [
+            8,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 8,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.001567405997775495,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 118,
+      "t_wall": 137.78902770997956,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.3591144349775277,
+      "tokens_in": 8358,
+      "tokens_out": 59,
+      "cost_usd": 0.008535,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 119,
+      "t_wall": 137.79048961799708,
+      "role": "tool",
+      "note": "Propose gap 8 unique",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 8,
+        "text": "Person presses dough into snail shape."
+      },
+      "result": {
+        "ok": false,
+        "error": "3 proposals for this gap already failed",
+        "problems": [
+          "too many failed proposals"
+        ],
+        "next": "drop_gap or move on",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9
+          ],
+          "remaining": [
+            8,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 7,
+            "inspections": 4,
+            "verifications": 2
+          },
+          "next_action": "propose_cue for gaps [11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0014507400046568364,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 120,
+      "t_wall": 140.01605500400183,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.2249930270190816,
+      "tokens_in": 8397,
+      "tokens_out": 57,
+      "cost_usd": 0.008568,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 121,
+      "t_wall": 141.66311747897998,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "In the frame at 80.83 seconds, the person's hands are visibly pressing and rolling a piece of dough on the mat into an elongated spiral or snail-like shape."
+      },
+      "ok": true,
+      "latency_s": 1.2967015409958549,
+      "tokens_in": 1155,
+      "tokens_out": 53,
+      "cost_usd": 0.0003942,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 122,
+      "t_wall": 141.6634579479869,
+      "role": "tool",
+      "note": "Verify gap 8 claim",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Person presses dough into snail shape.",
+        "gap_id": 8
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "In the frame at 80.83 seconds, the person's hands are visibly pressing and rolling a piece of dough on the mat into an elongated spiral or snail-like shape.",
+        "modality": "frames",
+        "gap_ids": [
+          8
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9
+          ],
+          "remaining": [
+            8,
+            11,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 6,
+            "inspections": 4,
+            "verifications": 1
+          },
+          "next_action": "propose_cue for gaps [11] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.647389038989786,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 123,
+      "t_wall": 143.77109388398821,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.107034515007399,
+      "tokens_in": 8511,
+      "tokens_out": 64,
+      "cost_usd": 0.008703,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 124,
+      "t_wall": 143.84118962299544,
+      "role": "tool",
+      "note": "Propose gap 11",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 11,
+        "text": "Person rolls small dough ball into thin round on flour mat."
+      },
+      "result": {
+        "ok": true,
+        "cue": {
+          "id": 11,
+          "start": 105.6,
+          "end": 112.72,
+          "duration": 7.12,
+          "narratable": true,
+          "parent_gap": 9,
+          "word_budget_en": 15,
+          "word_budget_hi": 17,
+          "max_words_en": 13,
+          "max_words_hi": 15,
+          "en": "Person rolls small dough ball into thin round on flour mat."
+        },
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9,
+            11
+          ],
+          "remaining": [
+            8,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 5,
+            "inspections": 4,
+            "verifications": 1
+          },
+          "next_action": "inspect_video_segment gaps [8, 12] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 0.07008310698438436,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 125,
+      "t_wall": 145.7143980760011,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8726064340153243,
+      "tokens_in": 8535,
+      "tokens_out": 56,
+      "cost_usd": 0.008703,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 126,
+      "t_wall": 147.35914223699365,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "In the frame at 80.8 seconds, the person's hands are shaping a long roll of dough into a spiral or snail shape on the mat, and by 87.9 seconds, several dough pieces formed into snail shapes are visible in a bowl."
+      },
+      "ok": true,
+      "latency_s": 1.2852423930016812,
+      "tokens_in": 1155,
+      "tokens_out": 71,
+      "cost_usd": 0.0004104,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 127,
+      "t_wall": 147.35946942598093,
+      "role": "tool",
+      "note": "Verify gap 8",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Person presses dough into snail shape.",
+        "gap_id": 8
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "In the frame at 80.8 seconds, the person's hands are shaping a long roll of dough into a spiral or snail shape on the mat, and by 87.9 seconds, several dough pieces formed into snail shapes are visible in a bowl.",
+        "modality": "frames",
+        "gap_ids": [
+          8
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9,
+            11
+          ],
+          "remaining": [
+            8,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 4,
+            "inspections": 4,
+            "verifications": 0
+          },
+          "next_action": "inspect_video_segment gaps [8, 12] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 1.6450485149980523,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 128,
+      "t_wall": 149.46298650899553,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1029019269917626,
+      "tokens_in": 8594,
+      "tokens_out": 56,
+      "cost_usd": 0.008762,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 129,
+      "t_wall": 149.46489216698683,
+      "role": "tool",
+      "note": "Verify gap 8",
+      "tool_name": "verify_claim",
+      "args": {
+        "claim": "Person presses dough into snail shape.",
+        "gap_id": 8
+      },
+      "result": {
+        "ok": false,
+        "error": "identical call repeated 3+ times; refused",
+        "next": "inspect_video_segment gaps [8, 12] (no evidence yet)",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9,
+            11
+          ],
+          "remaining": [
+            8,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 3,
+            "inspections": 4,
+            "verifications": 0
+          },
+          "next_action": "inspect_video_segment gaps [8, 12] (no evidence yet)"
+        }
+      },
+      "ok": false,
+      "latency_s": 0.0018935929983854294,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 130,
+      "t_wall": 151.50194580099196,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.0364213489810936,
+      "tokens_in": 8622,
+      "tokens_out": 27,
+      "cost_usd": 0.008703,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 131,
+      "t_wall": 153.0748990099819,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 2,
+            "hi": "व्यक्ति लकड़ी के कटोरे में आटा गूंथता और मोड़ता है।"
+          },
+          {
+            "id": 3,
+            "hi": "रसोइया सफेद रसोई में पलटे से आटा गूंथता है।"
+          },
+          {
+            "id": 4,
+            "hi": "आटा दबाया, मोड़ा, फिर उठाकर घुमाकर मिलाया जाता है।"
+          },
+          {
+            "id": 1,
+            "hi": "सफेद लकड़ी की मेज पर आटा चटाई और कटोरे के साथ रसोइया सुसंगत आटा बनाता है।"
+          },
+          {
+            "id": 5,
+            "hi": "रसोइया आटा काटता, गोला बनाता, और बेलता है।"
+          },
+          {
+            "id": 6,
+            "hi": "हाथ आटे को धीरे से आकार में दबाते हैं।"
+          },
+          {
+            "id": 7,
+            "hi": "व्यक्ति आटा आकार देता है।"
+          },
+          {
+            "id": 10,
+            "hi": "व्यक्ति आटे के गोलों को ढकता है।"
+          },
+          {
+            "id": 9,
+            "hi": "व्यक्ति घोंघे आकार का आटा बनाता है।"
+          },
+          {
+            "id": 11,
+            "hi": "व्यक्ति आटा चटाई पर छोटी गोली को पतले गोल में बेलता है।"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.5716361790255178,
+      "tokens_in": 1600,
+      "tokens_out": 324,
+      "cost_usd": 0.002572,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 132,
+      "t_wall": 153.76769981899997,
+      "role": "tool",
+      "note": "Translate committed",
+      "tool_name": "translate_hindi",
+      "args": {},
+      "result": {
+        "ok": true,
+        "cues": [
+          {
+            "id": 2,
+            "text": "व्यक्ति लकड़ी के कटोरे में आटा गूंथता और मोड़ता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 12,
+            "seconds": 3.81,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 3,
+            "text": "रसोइया सफेद रसोई में पलटे से आटा गूंथता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 13,
+            "seconds": 3.69,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 4,
+            "text": "आटा दबाया, मोड़ा, फिर उठाकर घुमाकर मिलाया जाता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 13,
+            "seconds": 4.29,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9,
+            11
+          ],
+          "remaining": [
+            8,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 2,
+            "inspections": 4,
+            "verifications": 0
+          },
+          "next_action": "inspect_video_segment gaps [8, 12] (no evidence yet)"
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.2657409719831776,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": true,
+      "corrects_step": 81
+    },
+    {
+      "step": 133,
+      "t_wall": 155.8104950709967,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.04193611300434,
+      "tokens_in": 8783,
+      "tokens_out": 26,
+      "cost_usd": 0.008861,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 134,
+      "t_wall": 162.45489120599814,
+      "role": "tool",
+      "note": "Finalize",
+      "tool_name": "finalize",
+      "args": {},
+      "result": {
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/cooking_roti_0028-0148",
+        "state": {
+          "committed": [
+            2,
+            3,
+            4,
+            1,
+            5,
+            6,
+            7,
+            10,
+            9,
+            11
+          ],
+          "remaining": [
+            8,
+            12
+          ],
+          "skipped_too_short": [
+            0
+          ],
+          "needs_verification": [],
+          "budget": {
+            "turns": 1,
+            "inspections": 4,
+            "verifications": 0
+          },
+          "next_action": "inspect_video_segment gaps [8, 12] (no evidence yet)"
+        }
+      },
+      "ok": true,
+      "latency_s": 6.64437855000142,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 14,
+      "draft_description": 8,
+      "propose_cue": 22,
+      "verify_claim": 9,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 9,
+    "verifications": {
+      "verified": 3,
+      "contradicted": 2,
+      "unverified": 0
+    },
+    "repeat_refusals": 6,
+    "auto_redrafts": 1,
+    "draft_overlimit": 13,
+    "orchestrator_authored_cues": 2,
+    "orchestrator_turns": 41,
+    "cost_by_model": {
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.31789800000000007,
+      "nvidia/Nemotron-3.5-Super-VL": 0.0113823,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00271422
+    },
+    "total_latency_s": 162.45590970400372
+  }
+}

@@ -259,7 +259,7 @@ def test_verification_cap_does_not_deadlock_and_fallback_marks_unverified(tmp_pa
     def broke(*x,**k): raise BudgetExceeded('cap')
     monkeypatch.setattr(b,'submodel',broke)
     b.fallback_finish('budget')
-    assert b.cues and any('unverified' in i for i in b.report['issues'])
+    assert not b.cues and any("unverified" in i for i in b.report["issues"])  # (e) fallback never ships unchecked risky text
     assert any(s['role']=='fallback' and 'unverified' in s['note'] for s in b.steps)
 
 

@@ -1,0 +1,1670 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 119.919433,
+  "fallback_finalize": false,
+  "issues": [],
+  "detector": "silero-onnx",
+  "speech_ratio": 0.3711825421989771,
+  "detector_fallback_reason": null,
+  "scene_context": {
+    "setting": "Indoor kitchen with white wooden table, flour mat, and rolling pin.",
+    "activity": "making dough balls and rolling them out",
+    "dish": "",
+    "visual_style": "Close-up cooking tutorial with top-down and table-level angles.",
+    "people": [
+      "Person wearing striped shirt and black apron, hands and arms visible., mixing, kneading, rolling, and shaping dough"
+    ],
+    "ingredients": [
+      "flour",
+      "water"
+    ],
+    "tools": [
+      "wooden bowl",
+      "rolling pin",
+      "flour mat",
+      "glass container",
+      "small bowl",
+      "spoon"
+    ],
+    "objects": [
+      "dough balls",
+      "clay bowl",
+      "plastic oil brush"
+    ],
+    "burned_in_subtitles": true,
+    "confidence": 0.95
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "start": 6.172,
+      "end": 15.8,
+      "duration": 9.628,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 21,
+      "word_budget_hi": 24,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "en": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.",
+      "hi": "सफेद लकड़ी की मेज पर आटा चटाई और कटोरे के साथ रसोइया सुसंगत आटा बनाता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 15.8,
+      "end": 21.572000000000003,
+      "duration": 5.772000000000002,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 12,
+      "word_budget_hi": 14,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "en": "The person kneads and folds the dough inside the wooden bowl.",
+      "hi": "व्यक्ति लकड़ी के कटोरे में आटा गूंथता और मोड़ता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 25.596,
+      "end": 31.812,
+      "duration": 6.216000000000001,
+      "narratable": true,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 11,
+      "max_words_hi": 13,
+      "en": "The cook kneads dough with a spatula in a white kitchen.",
+      "hi": "रसोइया सफेद रसोई में पलटे से आटा गूंथता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 42.428,
+      "end": 48.8,
+      "duration": 6.372,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 12,
+      "max_words_hi": 13,
+      "en": "The dough is pressed and folded, then lifted and turned to incorporate.",
+      "hi": "आटा दबाया, मोड़ा, फिर उठाकर घुमाकर मिलाया जाता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 5,
+      "start": 48.8,
+      "end": 54.43600000000001,
+      "duration": 5.63600000000001,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 11,
+      "word_budget_hi": 13,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "en": "The cook cuts dough portions, shapes a ball, and rolls.",
+      "hi": "रसोइया आटा काटता, गोला बनाता, और बेलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 6,
+      "start": 67.164,
+      "end": 71.42800000000001,
+      "duration": 4.26400000000001,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 10,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "en": "The hands press dough gently into shape.",
+      "hi": "हाथ आटे को धीरे से आकार में दबाते हैं।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 7,
+      "start": 75.612,
+      "end": 77.956,
+      "duration": 2.3440000000000083,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4,
+      "en": "Person shapes dough.",
+      "hi": "व्यक्ति आटा आकार देता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 9,
+      "start": 90.076,
+      "end": 93.06,
+      "duration": 2.984000000000009,
+      "narratable": true,
+      "word_budget_en": 5,
+      "word_budget_hi": 6,
+      "max_words_en": 5,
+      "max_words_hi": 5,
+      "en": "Person creates snail shaped dough.",
+      "hi": "व्यक्ति घोंघे आकार का आटा बनाता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 10,
+      "start": 99.932,
+      "end": 103.20400000000001,
+      "duration": 3.2720000000000056,
+      "narratable": true,
+      "word_budget_en": 6,
+      "word_budget_hi": 7,
+      "max_words_en": 5,
+      "max_words_hi": 6,
+      "en": "Person covers dough balls.",
+      "hi": "व्यक्ति आटे के गोलों को ढकता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    },
+    {
+      "id": 11,
+      "start": 105.59599999999999,
+      "end": 112.7177165,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "en": "Person rolls small dough ball into thin round on flour mat.",
+      "hi": "व्यक्ति आटा चटाई पर छोटी गोली को पतले गोल में बेलता है।",
+      "tts_backend": {
+        "en": "EspeakBackend",
+        "hi": "EspeakBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 1,
+        "start": 6.172,
+        "end": 12.400435,
+        "duration": 9.628,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 21,
+        "word_budget_hi": 24,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.",
+        "hi": "सफेद लकड़ी की मेज पर आटा चटाई और कटोरे के साथ रसोइया सुसंगत आटा बनाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 15.8,
+        "end": 19.929705000000002,
+        "duration": 5.772000000000002,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 12,
+        "word_budget_hi": 14,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "en": "The person kneads and folds the dough inside the wooden bowl.",
+        "hi": "व्यक्ति लकड़ी के कटोरे में आटा गूंथता और मोड़ता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 25.596,
+        "end": 28.831918,
+        "duration": 6.216000000000001,
+        "narratable": true,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 11,
+        "max_words_hi": 13,
+        "en": "The cook kneads dough with a spatula in a white kitchen.",
+        "hi": "रसोइया सफेद रसोई में पलटे से आटा गूंथता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 42.428,
+        "end": 47.245596,
+        "duration": 6.372,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 12,
+        "max_words_hi": 13,
+        "en": "The dough is pressed and folded, then lifted and turned to incorporate.",
+        "hi": "आटा दबाया, मोड़ा, फिर उठाकर घुमाकर मिलाया जाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 48.8,
+        "end": 52.952335999999995,
+        "duration": 5.63600000000001,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 11,
+        "word_budget_hi": 13,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "en": "The cook cuts dough portions, shapes a ball, and rolls.",
+        "hi": "रसोइया आटा काटता, गोला बनाता, और बेलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 67.164,
+        "end": 69.78527,
+        "duration": 4.26400000000001,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 10,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "The hands press dough gently into shape.",
+        "hi": "हाथ आटे को धीरे से आकार में दबाते हैं।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 75.612,
+        "end": 77.273905,
+        "duration": 2.3440000000000083,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 3,
+        "max_words_hi": 4,
+        "en": "Person shapes dough.",
+        "hi": "व्यक्ति आटा आकार देता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 9,
+        "start": 90.076,
+        "end": 92.687474,
+        "duration": 2.984000000000009,
+        "narratable": true,
+        "word_budget_en": 5,
+        "word_budget_hi": 6,
+        "max_words_en": 5,
+        "max_words_hi": 5,
+        "en": "Person creates snail shaped dough.",
+        "hi": "व्यक्ति घोंघे आकार का आटा बनाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 10,
+        "start": 99.932,
+        "end": 101.935855,
+        "duration": 3.2720000000000056,
+        "narratable": true,
+        "word_budget_en": 6,
+        "word_budget_hi": 7,
+        "max_words_en": 5,
+        "max_words_hi": 6,
+        "en": "Person covers dough balls.",
+        "hi": "व्यक्ति आटे के गोलों को ढकता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 11,
+        "start": 105.59599999999999,
+        "end": 109.45917499999999,
+        "duration": 7.121716500000005,
+        "narratable": true,
+        "parent_gap": 9,
+        "word_budget_en": 15,
+        "word_budget_hi": 17,
+        "max_words_en": 13,
+        "max_words_hi": 15,
+        "en": "Person rolls small dough ball into thin round on flour mat.",
+        "hi": "व्यक्ति आटा चटाई पर छोटी गोली को पतले गोल में बेलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ],
+    "hi": [
+      {
+        "id": 1,
+        "start": 6.172,
+        "end": 12.471319999999999,
+        "duration": 9.628,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 21,
+        "word_budget_hi": 24,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "en": "Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.",
+        "hi": "सफेद लकड़ी की मेज पर आटा चटाई और कटोरे के साथ रसोइया सुसंगत आटा बनाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 15.8,
+        "end": 19.611565,
+        "duration": 5.772000000000002,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 12,
+        "word_budget_hi": 14,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "en": "The person kneads and folds the dough inside the wooden bowl.",
+        "hi": "व्यक्ति लकड़ी के कटोरे में आटा गूंथता और मोड़ता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 25.596,
+        "end": 29.289651,
+        "duration": 6.216000000000001,
+        "narratable": true,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 11,
+        "max_words_hi": 13,
+        "en": "The cook kneads dough with a spatula in a white kitchen.",
+        "hi": "रसोइया सफेद रसोई में पलटे से आटा गूंथता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 42.428,
+        "end": 46.717116,
+        "duration": 6.372,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 12,
+        "max_words_hi": 13,
+        "en": "The dough is pressed and folded, then lifted and turned to incorporate.",
+        "hi": "आटा दबाया, मोड़ा, फिर उठाकर घुमाकर मिलाया जाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 48.8,
+        "end": 52.677777999999996,
+        "duration": 5.63600000000001,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 11,
+        "word_budget_hi": 13,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "en": "The cook cuts dough portions, shapes a ball, and rolls.",
+        "hi": "रसोइया आटा काटता, गोला बनाता, और बेलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 67.164,
+        "end": 70.350757,
+        "duration": 4.26400000000001,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 10,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "en": "The hands press dough gently into shape.",
+        "hi": "हाथ आटे को धीरे से आकार में दबाते हैं।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 75.612,
+        "end": 77.732816,
+        "duration": 2.3440000000000083,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 3,
+        "max_words_hi": 4,
+        "en": "Person shapes dough.",
+        "hi": "व्यक्ति आटा आकार देता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 9,
+        "start": 90.076,
+        "end": 92.93150999999999,
+        "duration": 2.984000000000009,
+        "narratable": true,
+        "word_budget_en": 5,
+        "word_budget_hi": 6,
+        "max_words_en": 5,
+        "max_words_hi": 5,
+        "en": "Person creates snail shaped dough.",
+        "hi": "व्यक्ति घोंघे आकार का आटा बनाता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 10,
+        "start": 99.932,
+        "end": 102.53073,
+        "duration": 3.2720000000000056,
+        "narratable": true,
+        "word_budget_en": 6,
+        "word_budget_hi": 7,
+        "max_words_en": 5,
+        "max_words_hi": 6,
+        "en": "Person covers dough balls.",
+        "hi": "व्यक्ति आटे के गोलों को ढकता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      },
+      {
+        "id": 11,
+        "start": 105.59599999999999,
+        "end": 110.31055799999999,
+        "duration": 7.121716500000005,
+        "narratable": true,
+        "parent_gap": 9,
+        "word_budget_en": 15,
+        "word_budget_hi": 17,
+        "max_words_en": 13,
+        "max_words_hi": 15,
+        "en": "Person rolls small dough ball into thin round on flour mat.",
+        "hi": "व्यक्ति आटा चटाई पर छोटी गोली को पतले गोल में बेलता है।",
+        "tts_backend": {
+          "en": "EspeakBackend",
+          "hi": "EspeakBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 1.2519999999999998,
+      "duration": 1.1719999999999997,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 2,
+      "max_words_en": 1,
+      "max_words_hi": 1
+    },
+    {
+      "id": 1,
+      "start": 6.172,
+      "end": 15.8,
+      "duration": 9.628,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 21,
+      "word_budget_hi": 24,
+      "max_words_en": 17,
+      "max_words_hi": 19
+    },
+    {
+      "id": 2,
+      "start": 15.8,
+      "end": 21.572000000000003,
+      "duration": 5.772000000000002,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 12,
+      "word_budget_hi": 14,
+      "max_words_en": 10,
+      "max_words_hi": 12
+    },
+    {
+      "id": 3,
+      "start": 25.596,
+      "end": 31.812,
+      "duration": 6.216000000000001,
+      "narratable": true,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 11,
+      "max_words_hi": 13
+    },
+    {
+      "id": 4,
+      "start": 42.428,
+      "end": 48.8,
+      "duration": 6.372,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 12,
+      "max_words_hi": 13
+    },
+    {
+      "id": 5,
+      "start": 48.8,
+      "end": 54.43600000000001,
+      "duration": 5.63600000000001,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 11,
+      "word_budget_hi": 13,
+      "max_words_en": 10,
+      "max_words_hi": 12
+    },
+    {
+      "id": 6,
+      "start": 67.164,
+      "end": 71.42800000000001,
+      "duration": 4.26400000000001,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 10,
+      "max_words_en": 7,
+      "max_words_hi": 8
+    },
+    {
+      "id": 7,
+      "start": 75.612,
+      "end": 77.956,
+      "duration": 2.3440000000000083,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4
+    },
+    {
+      "id": 8,
+      "start": 80.82799999999999,
+      "end": 88.036,
+      "duration": 7.208000000000013,
+      "narratable": true,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15
+    },
+    {
+      "id": 9,
+      "start": 90.076,
+      "end": 93.06,
+      "duration": 2.984000000000009,
+      "narratable": true,
+      "word_budget_en": 5,
+      "word_budget_hi": 6,
+      "max_words_en": 5,
+      "max_words_hi": 5
+    },
+    {
+      "id": 10,
+      "start": 99.932,
+      "end": 103.20400000000001,
+      "duration": 3.2720000000000056,
+      "narratable": true,
+      "word_budget_en": 6,
+      "word_budget_hi": 7,
+      "max_words_en": 5,
+      "max_words_hi": 6
+    },
+    {
+      "id": 11,
+      "start": 105.59599999999999,
+      "end": 112.7177165,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15
+    },
+    {
+      "id": 12,
+      "start": 112.7177165,
+      "end": 119.839433,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15
+    }
+  ],
+  "speech": [
+    {
+      "start": 1.3319999999999999,
+      "end": 6.092
+    },
+    {
+      "start": 21.652,
+      "end": 23.212
+    },
+    {
+      "start": 23.7,
+      "end": 25.516000000000002
+    },
+    {
+      "start": 31.892,
+      "end": 34.187999999999995
+    },
+    {
+      "start": 35.348000000000006,
+      "end": 38.54
+    },
+    {
+      "start": 39.604000000000006,
+      "end": 42.348
+    },
+    {
+      "start": 54.516000000000005,
+      "end": 58.412
+    },
+    {
+      "start": 58.772000000000006,
+      "end": 64.87599999999999
+    },
+    {
+      "start": 65.58800000000001,
+      "end": 67.084
+    },
+    {
+      "start": 71.50800000000001,
+      "end": 74.636
+    },
+    {
+      "start": 74.9,
+      "end": 75.532
+    },
+    {
+      "start": 78.036,
+      "end": 80.74799999999999
+    },
+    {
+      "start": 88.116,
+      "end": 89.996
+    },
+    {
+      "start": 93.14,
+      "end": 95.98
+    },
+    {
+      "start": 96.628,
+      "end": 99.852
+    },
+    {
+      "start": 103.284,
+      "end": 105.51599999999999
+    }
+  ],
+  "cues_committed": 10,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "gaps_skipped_no_new_info": [],
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 51.99582545824304,
+    "hi": 55.11938994250948
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+  },
+  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
+  "uncovered_events": [],
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3218,
+      "output_tokens": 37,
+      "cost_usd": 0.003329,
+      "latency_s": 0.7856505049858242,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2606,
+      "output_tokens": 191,
+      "cost_usd": 0.0009536999999999999,
+      "latency_s": 2.0247010989987757,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 3963,
+      "output_tokens": 295,
+      "cost_usd": 0.004848,
+      "latency_s": 1.3695165959943552,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2447,
+      "output_tokens": 249,
+      "cost_usd": 0.0009582000000000001,
+      "latency_s": 2.504662819992518,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1811,
+      "output_tokens": 247,
+      "cost_usd": 0.0007656,
+      "latency_s": 2.4878915949957445,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1810,
+      "output_tokens": 159,
+      "cost_usd": 0.0006861,
+      "latency_s": 2.425167131004855,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1823,
+      "output_tokens": 74,
+      "cost_usd": 0.0006135,
+      "latency_s": 2.2267612970026676,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5289,
+      "output_tokens": 53,
+      "cost_usd": 0.005448,
+      "latency_s": 1.7753006359853316,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2462,
+      "output_tokens": 77,
+      "cost_usd": 0.0001662,
+      "latency_s": 1.2830582890019286,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2525,
+      "output_tokens": 180,
+      "cost_usd": 0.0001947,
+      "latency_s": 2.1127282149973325,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 5635,
+      "output_tokens": 282,
+      "cost_usd": 0.006481,
+      "latency_s": 1.598734464001609,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6607,
+      "output_tokens": 56,
+      "cost_usd": 0.006775,
+      "latency_s": 1.7178469139907975,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1831,
+      "output_tokens": 25,
+      "cost_usd": 0.00011586,
+      "latency_s": 0.807911449985113,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6785,
+      "output_tokens": 138,
+      "cost_usd": 0.007199,
+      "latency_s": 1.6309050759882666,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1876,
+      "output_tokens": 147,
+      "cost_usd": 0.00014784,
+      "latency_s": 1.692611486010719,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1939,
+      "output_tokens": 47,
+      "cost_usd": 0.00012762,
+      "latency_s": 0.848592260008445,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7205,
+      "output_tokens": 133,
+      "cost_usd": 0.007604,
+      "latency_s": 1.7333160619891714,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1146,
+      "output_tokens": 55,
+      "cost_usd": 0.0003933,
+      "latency_s": 1.2483980339893606,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1136,
+      "output_tokens": 42,
+      "cost_usd": 0.00037860000000000004,
+      "latency_s": 1.1890973419940565,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7448,
+      "output_tokens": 286,
+      "cost_usd": 0.008306,
+      "latency_s": 2.1660960389999673,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1811,
+      "output_tokens": 163,
+      "cost_usd": 0.00069,
+      "latency_s": 2.3528961630072445,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1507,
+      "output_tokens": 129,
+      "cost_usd": 0.0005681999999999999,
+      "latency_s": 1.9497292689920869,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1190,
+      "output_tokens": 93,
+      "cost_usd": 0.0004407,
+      "latency_s": 1.9772875799972098,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1982,
+      "output_tokens": 77,
+      "cost_usd": 0.0006638999999999999,
+      "latency_s": 2.302678770007333,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7708,
+      "output_tokens": 54,
+      "cost_usd": 0.00787,
+      "latency_s": 1.7431672050151974,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1932,
+      "output_tokens": 44,
+      "cost_usd": 0.00012648,
+      "latency_s": 1.2662114590057172,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1995,
+      "output_tokens": 96,
+      "cost_usd": 0.00014273999999999998,
+      "latency_s": 1.7639377529849298,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7762,
+      "output_tokens": 71,
+      "cost_usd": 0.007975,
+      "latency_s": 1.2780963260156568,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7240,
+      "output_tokens": 68,
+      "cost_usd": 0.007444,
+      "latency_s": 1.060831901995698,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1142,
+      "output_tokens": 39,
+      "cost_usd": 0.00037769999999999997,
+      "latency_s": 1.398353272001259,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7385,
+      "output_tokens": 43,
+      "cost_usd": 0.007514,
+      "latency_s": 1.696256600000197,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1364,
+      "output_tokens": 50,
+      "cost_usd": 9.384000000000001e-05,
+      "latency_s": 0.9095993180235382,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1427,
+      "output_tokens": 46,
+      "cost_usd": 9.666e-05,
+      "latency_s": 0.8504315860045608,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7204,
+      "output_tokens": 74,
+      "cost_usd": 0.007426,
+      "latency_s": 1.930278814979829,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7146,
+      "output_tokens": 71,
+      "cost_usd": 0.007359,
+      "latency_s": 1.766949115000898,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1146,
+      "output_tokens": 61,
+      "cost_usd": 0.0003987,
+      "latency_s": 1.4460967339982744,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 6598,
+      "output_tokens": 174,
+      "cost_usd": 0.00712,
+      "latency_s": 2.0320037440105807,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7069,
+      "output_tokens": 27,
+      "cost_usd": 0.00715,
+      "latency_s": 1.7425279800081626,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1681,
+      "output_tokens": 38,
+      "cost_usd": 0.00010998,
+      "latency_s": 0.6923613399849273,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1744,
+      "output_tokens": 44,
+      "cost_usd": 0.00011520000000000001,
+      "latency_s": 0.7127782119787298,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7005,
+      "output_tokens": 63,
+      "cost_usd": 0.007194,
+      "latency_s": 1.615614629990887,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7079,
+      "output_tokens": 58,
+      "cost_usd": 0.007253,
+      "latency_s": 1.7721768589981366,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7190,
+      "output_tokens": 64,
+      "cost_usd": 0.007382,
+      "latency_s": 1.8919562619994394,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1610,
+      "output_tokens": 86,
+      "cost_usd": 0.00011724,
+      "latency_s": 0.8494584330182988,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1673,
+      "output_tokens": 65,
+      "cost_usd": 0.00011597999999999998,
+      "latency_s": 0.7777362499909941,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7269,
+      "output_tokens": 58,
+      "cost_usd": 0.007443,
+      "latency_s": 2.1145418469968718,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7436,
+      "output_tokens": 185,
+      "cost_usd": 0.007991,
+      "latency_s": 2.062303990998771,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2294,
+      "output_tokens": 311,
+      "cost_usd": 0.0009681,
+      "latency_s": 3.1071326690143906,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2937,
+      "output_tokens": 98,
+      "cost_usd": 0.0009693000000000001,
+      "latency_s": 3.0789208310015965,
+      "cost_role": "perceive"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7934,
+      "output_tokens": 65,
+      "cost_usd": 0.008129,
+      "latency_s": 1.630054362991359,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8074,
+      "output_tokens": 65,
+      "cost_usd": 0.008269,
+      "latency_s": 1.818434407003224,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8132,
+      "output_tokens": 53,
+      "cost_usd": 0.008291,
+      "latency_s": 1.5924443120020442,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1152,
+      "output_tokens": 36,
+      "cost_usd": 0.0003779999999999999,
+      "latency_s": 1.1869350860069972,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8155,
+      "output_tokens": 52,
+      "cost_usd": 0.008311,
+      "latency_s": 1.832939145999262,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1151,
+      "output_tokens": 32,
+      "cost_usd": 0.00037410000000000004,
+      "latency_s": 1.385872429003939,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8182,
+      "output_tokens": 47,
+      "cost_usd": 0.008323,
+      "latency_s": 1.799275427008979,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2004,
+      "output_tokens": 89,
+      "cost_usd": 0.0001416,
+      "latency_s": 1.4560205879970454,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2067,
+      "output_tokens": 93,
+      "cost_usd": 0.00014634,
+      "latency_s": 1.62505874899216,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8213,
+      "output_tokens": 54,
+      "cost_usd": 0.008375,
+      "latency_s": 2.147766023990698,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7860,
+      "output_tokens": 63,
+      "cost_usd": 0.008049,
+      "latency_s": 1.8288067880203016,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 7912,
+      "output_tokens": 62,
+      "cost_usd": 0.008098,
+      "latency_s": 1.8449833590129856,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8018,
+      "output_tokens": 47,
+      "cost_usd": 0.008159,
+      "latency_s": 1.2074258499778807,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2004,
+      "output_tokens": 132,
+      "cost_usd": 0.00015192,
+      "latency_s": 1.5084652779914904,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2067,
+      "output_tokens": 2000,
+      "cost_usd": 0.00060402,
+      "latency_s": 8.427684052992845,
+      "cost_role": "draft"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8063,
+      "output_tokens": 57,
+      "cost_usd": 0.008234,
+      "latency_s": 1.5895246699801646,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8152,
+      "output_tokens": 54,
+      "cost_usd": 0.008314,
+      "latency_s": 1.8654289479891304,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8218,
+      "output_tokens": 57,
+      "cost_usd": 0.008389,
+      "latency_s": 2.1625330360257067,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8268,
+      "output_tokens": 57,
+      "cost_usd": 0.008439,
+      "latency_s": 2.1991503780009225,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8358,
+      "output_tokens": 59,
+      "cost_usd": 0.008535,
+      "latency_s": 1.352933910995489,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8397,
+      "output_tokens": 57,
+      "cost_usd": 0.008568,
+      "latency_s": 2.219055433990434,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1155,
+      "output_tokens": 53,
+      "cost_usd": 0.0003942,
+      "latency_s": 1.2907445130113047,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8511,
+      "output_tokens": 64,
+      "cost_usd": 0.008703,
+      "latency_s": 2.1014579909970053,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8535,
+      "output_tokens": 56,
+      "cost_usd": 0.008703,
+      "latency_s": 1.8669385469984263,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1155,
+      "output_tokens": 71,
+      "cost_usd": 0.0004104,
+      "latency_s": 1.2797487929929048,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8594,
+      "output_tokens": 56,
+      "cost_usd": 0.008762,
+      "latency_s": 2.097398862009868,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8622,
+      "output_tokens": 27,
+      "cost_usd": 0.008703,
+      "latency_s": 2.0305820000066888,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1600,
+      "output_tokens": 324,
+      "cost_usd": 0.002572,
+      "latency_s": 1.5660718589788303,
+      "cost_role": "translate"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "orchestrate",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "input_tokens": 8783,
+      "output_tokens": 26,
+      "cost_usd": 0.008861,
+      "latency_s": 2.0359414129925426,
+      "base_url_host": "api.tokenfactory.nebius.com"
+    }
+  ],
+  "cost_by_role": {
+    "orchestrator": 0.315326,
+    "scene": 0.0009536999999999999,
+    "perceive": 0.0073235999999999996,
+    "verify": 0.003105,
+    "draft": 0.00271422,
+    "translate": 0.002572
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.16610878405337356,
+  "agent_stats": {
+    "tool_calls": {
+      "detect_speech_gaps": 1,
+      "inspect_video_segment": 14,
+      "draft_description": 8,
+      "propose_cue": 22,
+      "verify_claim": 9,
+      "translate_hindi": 1,
+      "finalize": 1
+    },
+    "corrections": 9,
+    "verifications": {
+      "verified": 3,
+      "contradicted": 2,
+      "unverified": 0
+    },
+    "repeat_refusals": 6,
+    "auto_redrafts": 1,
+    "draft_overlimit": 13,
+    "orchestrator_authored_cues": 2,
+    "orchestrator_turns": 41,
+    "cost_by_model": {
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.31789800000000007,
+      "nvidia/Nemotron-3.5-Super-VL": 0.0113823,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00271422
+    },
+    "total_latency_s": 162.45590970400372
+  },
+  "estimated_cost_usd": 0.33199452,
+  "would_be_token_factory_cost_usd": 0.33199452,
+  "reserved_spend_usd": 0.3319945200000002,
+  "cost_per_minute": 0.16610878405337356,
+  "latency_s": 162.45590970400372
+}

@@ -79,10 +79,10 @@ flowchart LR
     G & I & D & F & V & H & R -->|observations + state| U
 ```
 
-1. **Plan.** Ultra receives the video facts and a step, spend and time budget. It calls `detect_speech_gaps`: Silero VAD finds speech-free windows, gaps under 1.5 s are skipped, and long gaps are split into 6–12 s slots at scene cuts.
-2. **Act.** It inspects each slot with **Super VL**, which watches the actual video segment. What it sees goes onto a persistent **evidence board** that survives history compaction, and re-inspecting a covered slot is refused. Then it drafts all slots in one batched **Nano** call. Every gap has a single `max_words` limit, shared by the drafter and the checker. A draft over the limit is re-asked once and then cut deterministically, keeping any on-screen text first.
+1. **Plan.** Ultra receives the video facts and a step, spend and time budget. It calls `detect_speech_gaps`: Silero VAD finds speech-free windows, gaps under 1.5 s are skipped, and long gaps are split into 6–12 s slots at scene cuts. The same tool runs one **scene-context** pass: Super VL looks at 6 evenly spaced frames and returns the setting, who is visible (by appearance only), the ingredients, the tools, the activity and whether subtitles are burned in. Inspection, drafting and translation all receive this brief, so the first cue says where we are and who is there, and later cues can name the rolling pin or the wooden bowl instead of "an object".
+2. **Act.** It inspects each slot with **Super VL**, which watches the actual video segment. What it sees goes onto a persistent **evidence board** that survives history compaction, and re-inspecting a covered slot is refused. An event belongs to a slot only if its midpoint falls in the slot, or it overlaps the slot by at least max(1 s, half the event), or it covers half the slot. Events that only touch the edge of a slot no longer leak into its line. Then it drafts all slots in one batched **Nano** call. The drafter sees the two previous committed lines and may answer `SKIP` for an action slot with nothing new; that slot then stays silent. It never skips the establishing slot, and it is never asked to draft a slot that has no evidence of its own. Every gap has a single `max_words` limit, shared by the drafter and the checker. A draft over the limit is re-asked once and then cut deterministically, keeping any on-screen text first.
 3. **Observe.** `propose_cue` synthesises the line with the real TTS voice, measures how long it takes to speak, and checks four things: it fits the gap, it does not overlap speech, it is no longer than 8 s, and it is not a duplicate. Failures come back with reasons. On a second failure the tool redrafts the line itself, so the 550B model never counts words.
-4. **Reflect and self-verify.** `finalize` refuses to finish while any risky cue is unverified. Risky means it quotes on-screen text, numbers or names, came from low-confidence perception, or was written by the orchestrator itself. Those claims go to `verify_claim`, which uses a different modality (still frames rather than video). A contradicted claim is un-committed and redrafted.
+4. **Reflect and self-verify.** `finalize` refuses to finish while any risky cue is unverified. Risky means it quotes on-screen text, numbers or names, came from low-confidence perception, or was written by the orchestrator itself. Those claims go to `verify_claim`, which uses a different modality (still frames rather than video). A contradicted claim is un-committed and redrafted. The events it was based on are marked refuted and leave the evidence board, so the same hallucinated title cannot be drafted again.
 5. **Hindi.** Ultra translates the cues, then the Hindi lines are re-checked for timing. Hindi runs longer, so fit is measured on the Hindi TTS.
 6. **Finish.** The narration is mixed with the original audio ducked, and the tracks, transcripts, report and trace are written.
 
@@ -90,7 +90,8 @@ Safety rails:
 
 - step, spend and wall-clock budgets;
 - retries with backoff on HTTP 5xx, 429 and timeouts;
-- a deterministic **fallback finisher**: on any stop it commits the best fitting candidates, drafts missing slots in one batched call, verifies if the budget allows, and finalizes;
+- a deterministic **fallback finisher**: on any stop it commits the best fitting candidates, drafts missing slots in one batched call, verifies every risky cue (it may go past the orchestrator's verification cap, but not past the spend budget), **drops any risky cue it could not verify**, ignores drafts built on refuted evidence, and finalizes;
+- banned phrasing is enforced in code, not only in the prompt: "we see", camera directions ("Camera moves…", "the camera"), a literal `TITLE` label (write `Title: "…"`), cues that start with "Screen", and `SKIP`. Such a line fails `check_fit`, and the drafter is re-asked. A cue that is at least 50% the same as the previous cue is refused;
 - cue timestamps come only from detected gaps, so models cannot move narration over speech;
 - tool errors are explicit: `invalid arguments: …` or `unknown gap_id N; valid gap ids: […]`. In real runs, opaque errors (`ValidationError`, `StopIteration`) made Ultra retry blindly for 13–21 calls.
 
@@ -144,6 +145,16 @@ All figures are real runs on the **NVIDIA dev endpoint (dev only)**, with costs 
 
 † includes dev-endpoint HTTP 500/503 retries and a 139 s stall. The fallback finisher then finalized the 8 committed cues.
 
+
+**Nebius Token Factory rebuild (Oct 28, after the review fixes).** These are the runs now cached in the UI. All narration text comes from Nemotron: Ultra orchestrates and translates, Super VL handles scene context, inspection and verification, and Nano drafts.
+
+| Clip | Cues | Coverage EN / HI | Overlaps | Verified / contradicted | Ultra turns | Fallback | Cost |
+|---|---|---|---|---|---|---|---|
+| Cooking (roti), 120 s | 10 | 52% / 55% | 0 | 3 / 2 | 41 | no | $0.332 |
+| NASA harvest, 110 s | 10 | 53% / 67% | 0 | 4 / 1 | 22 | no | $0.178 |
+| Tears of Steel, 100 s | 8 | 50% / 58% | 0 | 4 / 1 | 16 | no | $0.134 |
+| Continuous speech (failure case) | 0 | 0% / 0% | 0 | 0 / 0 | 2 | no | $0.007 |
+
 **Ground truth, Tears of Steel vs its subtitles:** 41.7 s of the 75 s dialogue-free time was narrated (55.6%). **0.39 s** overlapped subtitled dialogue, from one VAD boundary that was the same in every version.
 
 **How we got here.** There were seven real-run rounds. Each one found a failure, which is published in `issues-found/` and `blog-assets/BLOG_NOTES.md`:
@@ -178,7 +189,7 @@ We publish failures. Each has evidence, a root cause and a status in [`issues-fo
 - **The speech detector is not ASR.** Silero misses some robotic or quiet speech, and music can mask gaps. On Tears of Steel, narration overlapped subtitled dialogue by **0.39 s** in one run (`blog-assets/12_*`), so "0 detected overlaps" does not mean 0 real overlaps.
 - **Coverage is a temporal proxy**, not a measure of semantic usefulness. Events during dialogue are listed as `events_in_speech_regions` and cannot be narrated without extended AD.
 - **Cost and latency.** A 100–110 s clip takes about 3–6 min and $0.14–0.17 on the dev endpoint with Ultra orchestrating (86–96% of cost). Free-tier errors and queueing added up to 139 s to a single call. `--orchestrator super` should cut orchestration cost about 3× on Token Factory, but that is untested.
-- **Voices.** The offline default is espeak-ng (or Piper if its models are present), and espeak-ng sounds robotic. The **shipped cached demo videos** (`samples/cached_runs/*/narrated_{en,hi}.mp4`) are instead voiced with pre-rendered **Magnific TTS (ElevenLabs `eleven_turbo_v2_5`)**: English *Grayson Sinclair* (Magnific voice 987), Hindi *Arjun Mehra* (Magnific voice 207). The clips, their Magnific creation ids and credits are committed in `samples/cached_runs/<run>/tts_prerendered/`; `python scripts/render_magnific_tts.py samples/cached_runs/<run>` re-fits them into the cue gaps (silence trim, loudness normalise, atempo ≤ 1.25×) and re-mixes with the same ducking as the pipeline, fully offline. Narrate never calls Magnific at runtime, and cue text/timings in `report.json` are unchanged; `tts_backend` in those reports and VTT end times still reflect the espeak run. Piper's `en_US-ljspeech` is public domain. Piper's `hi_IN-priyamvada` is **CC BY-NC-SA, non-commercial**, so use espeak for commercial use. Hindi (espeak, Piper or ElevenLabs) has not had native-speaker review. ElevenLabs/Magnific output is subject to Magnific's terms; it is not covered by this repo's Apache-2.0 license.
+- **Voices.** The offline default is espeak-ng (or Piper if its models are present), and espeak-ng sounds robotic. The **cooking demo** (`samples/cached_runs/cooking_roti_0028-0148/narrated_{en,hi}.mp4`) and the kitchen sample are instead voiced with pre-rendered **Magnific TTS (ElevenLabs `eleven_turbo_v2_5`)**: English *Grayson Sinclair* (Magnific voice 987), Hindi *Arjun Mehra* (Magnific voice 207). The clips, their Magnific creation ids and credits are committed in `samples/cached_runs/<run>/tts_prerendered/`; `python scripts/render_magnific_tts.py samples/cached_runs/<run>` re-fits them into the cue gaps (silence trim, loudness normalise, atempo ≤ 1.25×) and re-mixes with the same ducking as the pipeline, fully offline. Narrate never calls Magnific at runtime, and cue text/timings in `report.json` are unchanged; `tts_backend` in those reports and VTT end times still reflect the espeak run. The NASA and Tears of Steel caches were rebuilt on Nebius after the review fixes (Oct 28). Their old Magnific clips no longer matched the new cue text, so they were removed, and those two demos use espeak-ng until they are re-voiced. Piper's `en_US-ljspeech` is public domain. Piper's `hi_IN-priyamvada` is **CC BY-NC-SA, non-commercial**, so use espeak for commercial use. Hindi (espeak, Piper or ElevenLabs) has not had native-speaker review. ElevenLabs/Magnific output is subject to Magnific's terms; it is not covered by this repo's Apache-2.0 license.
 - **Licensing.** The Tears of Steel soundtrack is listed under CC BY-ND 3.0. Narrate only ducks it, but check before redistributing narrated outputs.
 - Only clips of 2 minutes or less, and English or Hindi.
 
@@ -200,6 +211,7 @@ We publish failures. Each has evidence, a root cause and a status in [`issues-fo
 | `sample_kitchen.mp4`, `failure_continuous_speech.mp4` | generated by `scripts/make_sample.py` | Apache-2.0 (ours) |
 | `tears_of_steel_0015-0155.mp4` + `.en.srt` | *Tears of Steel*, © Blender Foundation, mango.blender.org | CC BY 3.0 (soundtrack caveat above) |
 | `nasa_chile_harvest_0000-0150.mp4` | NASA Image and Video Library, `Plant_Habitat-04_Harvest` | NASA media guidelines; no endorsement implied |
+| `cooking_roti_0028-0148.mp4` | Maple Kitchen, *How To Make Soft Layered Roti - Paratha*, [YouTube FX3KAGdnKQk](https://www.youtube.com/watch?v=FX3KAGdnKQk), 0:28–2:28 | CC BY 3.0 (YouTube "Creative Commons Attribution license (reuse allowed)"); trimmed and re-encoded, audio description added; no endorsement implied |
 
 Details: [`samples/SOURCES.md`](samples/SOURCES.md). Silero VAD (MIT): [`narrate/assets/`](narrate/assets/README.md). espeak-ng and Piper (GPL-3.0) are run as external CLIs and are not vendored.
 

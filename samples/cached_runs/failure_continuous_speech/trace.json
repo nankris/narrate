@@ -26,33 +26,35 @@
       "history_turns": 6,
       "verify_below": 0.75,
       "retry_attempts": 3,
-      "hangover_s": 0.3
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
     },
     "mock_notice": null
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 1.0052086000068812,
+      "t_wall": 1.0001327610225417,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.0050892760045826,
-      "tokens_in": 3206,
-      "tokens_out": 36,
-      "cost_usd": 0.003314,
+      "latency_s": 1.0000394730013795,
+      "tokens_in": 3217,
+      "tokens_out": 39,
+      "cost_usd": 0.003334,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 2,
-      "t_wall": 1.2367022440012079,
+      "t_wall": 1.2188097280159127,
       "role": "tool",
-      "note": "Find speech-free gaps for audio description",
+      "note": "Detect speech gaps for 30s video",
       "tool_name": "detect_speech_gaps",
       "args": {},
       "result": {
@@ -72,7 +74,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.23148166900500655,
+      "latency_s": 0.21866490200045519,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -82,31 +84,32 @@
     },
     {
       "step": 3,
-      "t_wall": 2.229229082004167,
+      "t_wall": 2.2009047510218807,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 0.9924959080090048,
-      "tokens_in": 3328,
-      "tokens_out": 35,
-      "cost_usd": 0.003433,
+      "latency_s": 0.982063758012373,
+      "tokens_in": 3342,
+      "tokens_out": 31,
+      "cost_usd": 0.003435,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 4,
-      "t_wall": 2.2300601349998033,
+      "t_wall": 3.4983153920038603,
       "role": "tool",
-      "note": "Check for gaps with adjusted sensitivity",
-      "tool_name": "detect_speech_gaps",
+      "note": "No speech gaps found; continuous dialogue",
+      "tool_name": "finalize",
       "args": {},
       "result": {
-        "cached": true,
-        "reminder": "Use the gaps from the first detection. There are no narratable gaps: call finalize.",
+        "ok": true,
+        "warnings": [],
+        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/failure_continuous_speech",
         "state": {
           "committed": [],
           "remaining": [],
@@ -120,56 +123,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.0008209810039261356,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 5,
-      "t_wall": 3.227613092007232,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 0.997529444997781,
-      "tokens_in": 3455,
-      "tokens_out": 34,
-      "cost_usd": 0.003557,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 6,
-      "t_wall": 4.673914371000137,
-      "role": "tool",
-      "note": "No narratable gaps found, video has continuous speech",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": true,
-        "warnings": [],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/failure_continuous_speech",
-        "state": {
-          "committed": [],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 12,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.4462880950013641,
+      "latency_s": 1.2973983650153968,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -180,7 +134,7 @@
   ],
   "summary": {
     "tool_calls": {
-      "detect_speech_gaps": 2,
+      "detect_speech_gaps": 1,
       "finalize": 1
     },
     "corrections": 0,
@@ -193,10 +147,10 @@
     "auto_redrafts": 0,
     "draft_overlimit": 0,
     "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 3,
+    "orchestrator_turns": 2,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.010303999999999999
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006769000000000001
     },
-    "total_latency_s": 4.673968197006616
+    "total_latency_s": 3.498359014018206
   }
 }
