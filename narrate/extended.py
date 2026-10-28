@@ -346,7 +346,9 @@ def build_extended_timeline(source_duration, pauses, speech_intervals=(), pad_be
     if any(items[i]['t'] <= items[i - 1]['t'] + 1e-9 for i in range(1, len(items))):
         raise ValueError('Pause times must be unique and increasing')
     for p in items:
-        if pause_overlaps_speech(p['t'], speech_intervals):
+        # A closing pause at the clip end plays after the source has finished, so it cannot talk over speech
+        # (VAD intervals may end a few ms past the container duration, e.g. 30.0002 s on a 30.000 s clip).
+        if p['t'] < duration - .05 and pause_overlaps_speech(p['t'], speech_intervals):
             raise ValueError(f"Pause {p['t']:.3f} is inside speech")
 
     rows, src_cursor, out_cursor = [], 0., 0.
@@ -419,8 +421,9 @@ def render_extended(source, target_video, target_audio, timeline, narration_file
             else:
                 filters.append(f"anullsrc=r=48000:cl=stereo,atrim=duration={length:.6f}[{a}]")
         else:
-            frame_t = min(max(0., seg['src_start']), max(0., duration - .04))
-            filters.append(f"[0:v]trim=start={frame_t:.6f}:end={min(duration, frame_t+.04):.6f},setpts=PTS-STARTPTS,"
+            # >= 1 frame even at 10 fps and for a closing pause at the clip end (freeze the last frame).
+            frame_t = min(max(0., seg['src_start']), max(0., duration - .3))
+            filters.append(f"[0:v]trim=start={frame_t:.6f}:end={min(duration, frame_t+.12):.6f},setpts=PTS-STARTPTS,"
                            f"tpad=stop_mode=clone:stop_duration={length:.6f},trim=duration={length:.6f},fps=30,format=yuv420p[{v}]")
             p = pause_by_id[str(seg['cue_id'])]
             idx = input_index[str(seg['cue_id'])]

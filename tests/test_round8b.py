@@ -124,3 +124,39 @@ def test_dropped_pause_gets_model_written_rescue_retry():
     assert director.extended_cues[1]['text'] == model_entry['text']
     assert director.extended_cues[1]['rescued'] is True
     assert 1 not in director.ext_dropped
+
+
+def test_closing_pause_at_clip_end_is_allowed_even_if_vad_overruns_duration():
+    from narrate.extended import build_extended_timeline
+    tl = build_extended_timeline(30.0, [(3.1, 5.0), (30.0, 4.0)], [{'start': 0, 'end': 3.05}, {'start': 3.16, 'end': 30.0001875}])
+    assert abs(tl.total_duration - (30.0 + sum(s['out_end'] - s['out_start'] for s in tl if s['kind'] == 'freeze'))) < 1e-6
+    import pytest
+    with pytest.raises(ValueError):
+        build_extended_timeline(30.0, [(12.0, 5.0)], [{'start': 0, 'end': 30.0001875}])
+
+
+def test_frame_at_clip_end_falls_back_to_last_frame():
+    from narrate.perception import separate_frames
+    rows = separate_frames('samples/failure_continuous_speech.mp4', [30.0])
+    assert [r for r in rows if r['type'] == 'image_url'][0]['image_url']['url'].startswith('data:image/jpeg')
+
+
+def test_round8c_over_target_words_is_soft_and_camera_is_hard():
+    import re as _re
+    from narrate import extended_director as ed
+    src = open(ed.__file__).read()
+    assert "hard_max_words" in src and "camera direction: describe what is visible" in src
+    pattern = _re.compile(r'\bcamera\b|\b(?:zooms?|pans?) (?:in|out|to|across)\b|\bclose-?up\b|\bthe shot\b', _re.I)
+    assert pattern.search('The camera pulls back to reveal a child watching at the table.')
+    assert not pattern.search('The cook presses the dough flat on the floured mat.')
+
+
+def test_round8c_extended_verify_samples_the_whole_cue_window():
+    from narrate.extended_director import ExtendedDirector
+    d = ExtendedDirector.__new__(ExtendedDirector)
+    d.duration, d.x = 120., {'verify_window_frames': 5}
+    d.pause_rows = [{'id': 1, 't': .5}, {'id': 2, 't': 15.8}, {'id': 3, 't': 120.}]
+    times = d.verify_times(2, 15.8)
+    assert len(times) == 5 and times[-1] == 15.8 and all(.5 < x <= 15.8 for x in times)
+    assert d.verify_times(3, 120.)[-1] == 119.7
+    assert d.verify_times(1, .5) == [.3, .5]

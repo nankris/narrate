@@ -171,12 +171,16 @@ class ExtendedDirector(Director):
         if not self.pause_rows:
             return 'no pause frames'
         times = [p['t'] for p in self.pause_rows]
-        frame_times = [min(max(0., self.duration - .04), t) for t in times]
-        media = None if self.mock else separate_frames(self.path, frame_times)
-        raw = self.model('pause_frames', 'perceive', P.GROUNDTRUTH_FRAMES,
-                         {'duration': 0, 'timestamps': frame_times, 'pause_timestamps': times}, media,
-                         self.mock_pause_frames() if self.mock else None)
-        frames = normalise_pause_frames(raw, times)
+        frame_times = [min(max(0., self.duration - .3), t) for t in times]
+        # Super VL rejected 9 images in one request (HTTP 400 on roti_e3); 8 worked. Batch <= 6 frames per call.
+        frames, batch = [], int(self.x.get('pause_frame_batch', 6))
+        for i in range(0, len(times), batch):
+            ft, tt = frame_times[i:i + batch], times[i:i + batch]
+            media = None if self.mock else separate_frames(self.path, ft)
+            raw = self.model('pause_frames', 'perceive', P.GROUNDTRUTH_FRAMES,
+                             {'duration': 0, 'timestamps': ft, 'pause_timestamps': tt}, media,
+                             self.mock_pause_frames() if self.mock else None)
+            frames += normalise_pause_frames(raw, tt)
         for pause in self.pause_rows:
             self.pause_frames[pause['id']] = min(frames, key=lambda f: abs(f['t'] - pause['t']), default={})
         return f'{len(self.pause_frames)} current frames described by Super VL'
@@ -242,8 +246,13 @@ class ExtendedDirector(Director):
         allowed.add(f'frame-p{cue_id}')
         problems = []
         words = len(text.split())
-        if words > int(self.x['max_words']):
-            problems.append(f'over budget: {words} words, hard max {self.x["max_words"]}')
+        # Round 8c: the freeze length adapts to the narration, so the target word count is SOFT (roti_e4 lost the
+        # whole 70-120 s story to 48-63-word drafts against a hard 45). Only hard_max_words is a drop condition.
+        hard_max = int(self.x.get('hard_max_words', 65))
+        if words > hard_max:
+            problems.append(f'over budget: {words} words, hard max {hard_max}')
+        elif words > int(self.x['max_words']):
+            problems.append(f'Style: {words} words; tighten toward {self.x["min_words"]}-{self.x["max_words"]}')
         if words < int(self.x['min_words']):
             problems.append(f'Style: only {words} words; aim for {self.x["min_words"]}-{self.x["max_words"]}')
         if not has_finite_verb(text):
@@ -255,6 +264,9 @@ class ExtendedDirector(Director):
                                                    or re.search(r'\b(no one|nothing) else\b', text, re.I)):
             problems.append('unsupported global visibility claim from one establishing frame')
         problems += lint_with_hints(text)
+        if re.search(r'\bcamera\b|\b(?:zooms?|pans?) (?:in|out|to|across)\b|\bclose-?up\b|\bthe shot\b', text, re.I):
+            # roti_e4 shipped "The camera pulls back to reveal a child"; describe the scene, not the camera.
+            problems.append('camera direction: describe what is visible, never the camera or shot')
         subtitles = [e.get('subtitle_text', '') for e in self.timeline if e.get('subtitle_text')]
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
             if any(quoted.lower() in s.lower() for s in subtitles):
@@ -305,6 +317,20 @@ class ExtendedDirector(Director):
                          self.mock_script(payloads) if self.mock else None, ultra=True)
         return parse_extended_cues(raw)
 
+    def verify_times(self, cue_id, t):
+        """Round 8c: an extended cue narrates its whole (previous pause, pause] window, but roti_e5 was verified on two
+        stills at the pause only, so past-tense errors (glove hand, 'twisted' for 'rolled', plate called a bowl) passed.
+        Sample the window evenly plus the frozen frame."""
+        end = round(min(max(0., self.duration - .3), t), 3)
+        earlier = [p['t'] for p in self.pause_rows if p['t'] < t - .05]
+        start = max(earlier) if earlier else 0.
+        n = max(1, int(self.x.get('verify_window_frames', 5)))
+        if n == 1 or end - start < 1.:
+            return [round(max(0., t - .2), 3), end]
+        step = (end - start) / n
+        times = [round(start + step * (i + .5), 3) for i in range(n - 1)] + [end]
+        return sorted(set(times))
+
     def verify(self, entries):
         verdicts = {}
         ids = sorted(entries)
@@ -314,7 +340,7 @@ class ExtendedDirector(Director):
             media = []
             for cue_id in batch:
                 t = next(p['t'] for p in self.pause_rows if p['id'] == cue_id)
-                times = [round(max(0., t - .2), 3), round(min(max(0., self.duration - .001), t), 3)]
+                times = self.verify_times(cue_id, t)
                 data['cues'].append({'gap_id': cue_id, 'text': entries[cue_id]['text'], 'frame_times': times})
                 if not self.mock:
                     media.append({'type': 'text', 'text': f'Frames for cue gap_id {cue_id}:'})
@@ -495,8 +521,12 @@ class ExtendedDirector(Director):
                                             'max_source_gap_s': self.x['max_coverage_gap_s'],
                                             'missing_pause_ids': missing}
         if missing or largest_gap > float(self.x['max_coverage_gap_s']) + 1e-6:
-            raise RuntimeError('extended coverage guarantee failed after model rescue: '
-                               f'missing pauses {missing}; largest source gap {largest_gap:.2f} s')
+            # Never ship unverified text and never fail the whole run: render the verified pauses and report the hole.
+            self.report['extended_coverage']['guarantee_met'] = False
+            self.report['issues'].append('extended coverage guarantee not met after model rescue: '
+                                         f'missing pauses {missing}; largest source gap {largest_gap:.2f} s')
+        else:
+            self.report['extended_coverage']['guarantee_met'] = True
         narration_files, measured = {}, {}
         for cue_id, entry in sorted(self.extended_cues.items()):
             target = self.work / f'extended-en-p{cue_id}.wav'

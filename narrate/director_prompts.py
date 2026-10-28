@@ -121,7 +121,9 @@ Return JSON {"verdicts":[{"gap_id":0,"verdict":"supported|contradicted|uncertain
 - contradicted: a claim is clearly false in these frames (wrong object, person, count, text, or an event that is not there).
   wrong = the shortest false phrase quoted from the cue; reason = what the frames show instead.
 - uncertain: a claim cannot be checked from these frames.
-- supported: all claims are visible or consistent.'''
+- supported: all claims are visible or consistent.
+When a cue's frames span its whole window (several timestamps), check past-tense actions against the earlier frames and
+their order; a specific detail such as which hand, rolled versus twisted, plate versus bowl, or a count must match.'''
 
 REPAIR = '''You repair audio-description cues that failed checks. For each listed gap you get the rejected text, why it
 was rejected (a verifier looked at frames from inside the gap, or a rule failed; rule failures end with "Fix: ..." - apply
@@ -211,6 +213,8 @@ Each cue is 2-3 fluent, native English sentences and no more than max_words (nor
   or "Screen shows". Do not repeat or paraphrase an earlier cue in your response. Do not invent names; use appearance/role
   descriptors unless a name is written on screen. The first frozen frame establishes only that moment: never make global
   claims such as a person, object or body part being the only one visible throughout the clip.
+- Quote on-screen text once, as it stands on the frozen frame. Readings that flicker by a word or two between nearby events
+  and then revert are reading noise, not real changes: never narrate them. Omit left/right hand unless every event agrees.
 Every narration word must be your own response; do not return placeholders or fallback instructions.'''
 
 EXTENDED_REPAIR = '''Repair the listed ENGLISH extended audio-description cues. Return strict JSON

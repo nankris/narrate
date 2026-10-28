@@ -168,9 +168,11 @@ extended:              # Round 8b WCAG 1.2.7 pause-the-video mode; English only
   pad_after_s: 0.4
   min_words: 20
   max_words: 45
+  hard_max_words: 65   # Round 8c: only this is a drop condition; over max_words is soft
+  verify_window_frames: 5   # Round 8c: stills across (previous pause, pause], not only the frozen frame
   max_repair_rounds: 2
   rescue_rounds: 1
-  verify_batch: 4
+  verify_batch: 1       # Round 8c: 5 window stills per cue; Super VL 400s above ~8 images per call
   temperature: 0.2
   verify_temperature: 0.0
 ui:

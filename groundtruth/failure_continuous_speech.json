@@ -1,0 +1,501 @@
+{
+  "clip": "failure_continuous_speech.mp4",
+  "duration": 30.0,
+  "setting": "A solid teal background with white text in the upper left corner.",
+  "cast": [],
+  "objects": [],
+  "segments": [
+    {
+      "id": "seg1",
+      "t_start": 0.0,
+      "t_end": 15.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "action_steps": [
+        "Static title slide displayed reading 'CONTINUOUS SPEECH - SLIDE 1'."
+      ],
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "importance": 1,
+      "confusing": {
+        "is_confusing": false,
+        "why": "",
+        "what_to_explain": ""
+      },
+      "recommendation": "none",
+      "reason": "No visual changes occur; continuous speech leaves no gaps for description."
+    },
+    {
+      "id": "seg2",
+      "t_start": 15.0,
+      "t_end": 30.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "action_steps": [
+        "Slide changes to read 'SLIDE 2 - NO ROOM FOR AD'."
+      ],
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "importance": 1,
+      "confusing": {
+        "is_confusing": false,
+        "why": "",
+        "what_to_explain": ""
+      },
+      "recommendation": "none",
+      "reason": "Only a text change occurs; continuous speech leaves no gaps for description."
+    }
+  ],
+  "key_events": [
+    {
+      "id": "evt1",
+      "t": 15.0,
+      "what": "Slide text changes from 'CONTINUOUS SPEECH - SLIDE 1' to 'SLIDE 2 - NO ROOM FOR AD'.",
+      "importance": 1,
+      "verdict": "supported",
+      "wrong": "",
+      "verification_reason": "The first frame shows 'CONTINUOUS SPEECH - SLIDE 1' and the second shows 'SLIDE 2 - NO ROOM FOR AD', matching the claimed text change.",
+      "scoring_target": true
+    }
+  ],
+  "confusing_parts": [],
+  "pause_points": [
+    {
+      "t": 3.162,
+      "snapped": false,
+      "from_t": 3.162,
+      "snap_seconds": 0.0,
+      "snap_reason": "energy_micro_silence",
+      "why": "Speech-free boundary; however, visuals are static so no description needed."
+    },
+    {
+      "t": 10.684,
+      "snapped": false,
+      "from_t": 10.684,
+      "snap_seconds": 0.0,
+      "snap_reason": "energy_micro_silence",
+      "why": "Speech-free boundary; however, visuals are static so no description needed."
+    },
+    {
+      "t": 18.187,
+      "snapped": false,
+      "from_t": 18.187,
+      "snap_seconds": 0.0,
+      "snap_reason": "energy_micro_silence",
+      "why": "Speech-free boundary; however, visuals are static so no description needed."
+    },
+    {
+      "t": 25.702,
+      "snapped": false,
+      "from_t": 25.702,
+      "snap_seconds": 0.0,
+      "snap_reason": "energy_micro_silence",
+      "why": "Speech-free boundary; however, visuals are static so no description needed."
+    }
+  ],
+  "frame_descriptions": [
+    {
+      "t": 0.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 1.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 2.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 3.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 4.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 5.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 6.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 7.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 8.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 9.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 10.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 11.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 12.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 13.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 14.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 15.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 15.05,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 16.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 17.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 18.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 19.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 20.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 21.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 22.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 23.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 24.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 25.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 26.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 27.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 28.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 29.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    }
+  ],
+  "speech_intervals": [
+    {
+      "start": 0,
+      "end": 30.0001875
+    }
+  ],
+  "scene_cuts": [
+    15.0
+  ],
+  "visual_change_times": [
+    15.0
+  ],
+  "micro_silences": [
+    {
+      "start": 3.048,
+      "end": 3.162,
+      "duration": 0.114
+    },
+    {
+      "start": 10.57,
+      "end": 10.684,
+      "duration": 0.114
+    },
+    {
+      "start": 18.074,
+      "end": 18.187,
+      "duration": 0.113
+    },
+    {
+      "start": 25.588,
+      "end": 25.702,
+      "duration": 0.113
+    }
+  ],
+  "detector": "silero-onnx",
+  "fps": 1.0,
+  "usage": {
+    "stages": {
+      "frames": {
+        "calls": 6,
+        "tokens_in": 10647,
+        "tokens_out": 2057,
+        "cost_usd": 0.005045399999999999
+      },
+      "consolidate": {
+        "calls": 1,
+        "tokens_in": 2735,
+        "tokens_out": 650,
+        "cost_usd": 0.004685
+      },
+      "verify": {
+        "calls": 1,
+        "tokens_in": 819,
+        "tokens_out": 66,
+        "cost_usd": 0.0003051
+      }
+    },
+    "total_cost_usd": 0.0100355,
+    "budget_usd": 0.2
+  }
+}

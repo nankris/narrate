@@ -33,7 +33,26 @@ Rules:
 - For every supplied confusing part, explained is yes when the cue clearly resolves what_to_explain, partial when it only
   hints at the resolution, otherwise no. Judge it only in the cue at or after that visual ambiguity.
 - Fluency is native spoken-English fluency from 1 (poor) to 5 (excellent), independent of factual accuracy.
+- unsupported_claims and chronology_errors may ONLY quote words that appear in that cue's text. Never list a ground-truth
+  step there; a ground-truth step the cue does not mention is just coverage "no".
+- Static scene facts (setting, people, clothing, objects present) are supported when clip_ground_truth setting, cast or
+  objects, or any ground truth in this window, supports them. They are not chronology errors.
+- The cue is spoken while the video is frozen at source_end, so describing the frozen frame and events within tolerance_s
+  of source_end is current, not a chronology error.
 Do not use general world knowledge or ground truth assigned to any other cue. Do not omit supplied targets or cues.'''
+
+
+def _norm_words(text):
+    return re.findall(r"[a-z0-9']+", str(text or '').lower())
+
+
+def _quoted_from(claim, cue_words):
+    """Round 8c: keep a judge claim only if most of its words come from the cue (drops echoed ground-truth steps)."""
+    words = _norm_words(claim)
+    if not words:
+        return False
+    vocab = set(cue_words)
+    return sum(w in vocab for w in words) / len(words) >= .7
 
 
 def _choice(value, allowed, default):
@@ -144,6 +163,7 @@ def _reason(row, default=''):
 def normalise_judge(raw, event_ids=(), cue_ids=(), confusing_ids=(), action_step_ids=(), windows=None):
     """Constrain model verdicts to deterministic target/cue membership."""
     raw = raw if isinstance(raw, dict) else {}
+    cue_text = {_cue_id(w.get('cue_id')): w.get('text', '') for w in (windows or [])}
     cue_ids = [_cue_id(x) for x in cue_ids]
     cue_ids = [x for x in cue_ids if x is not None]
     expected = {'key_events': {}, 'action_steps': {}, 'confusing_parts': {}}
@@ -229,6 +249,9 @@ def normalise_judge(raw, event_ids=(), cue_ids=(), confusing_ids=(), action_step
                 chronology.append({'claim': item[:400], 'reason': ''})
             elif isinstance(item, dict) and str(item.get('claim') or '').strip():
                 chronology.append({'claim': str(item.get('claim'))[:400], 'reason': _reason(item)})
+        text = _norm_words(cue_text.get(cue_id, ''))
+        unsupported = [c for c in unsupported if not text or _quoted_from(c, text)]
+        chronology = [c for c in chronology if not text or _quoted_from(c['claim'], text)]
         claims[cue_id] = {'cue_id': cue_id, 'unsupported_claims': unsupported,
                           'chronology_errors': chronology}
     for cue_id in cue_ids:
@@ -328,7 +351,16 @@ def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None,
     else:
         client.guard, client.config = guard, cfg
         before = len(getattr(client, 'usage', []))
-        raw = client.call('orchestrate', data)
+        # Round 8c: one judge call per cue window. A single call over 8 roti windows hit the 5000-token output
+        # cap, the JSON was cut off, and every target scored 'judge omitted' (0% coverage, fluency 1.0).
+        raw = {'cues': []}
+        for window in windows:
+            part = client.call('orchestrate', {**data, 'cue_windows': [window], '_max_tokens': 3000})
+            rows = part.get('cues', []) if isinstance(part, dict) and isinstance(part.get('cues'), list) else []
+            for row in rows:
+                if isinstance(row, dict):
+                    row.setdefault('cue_id', window['cue_id'])
+                    raw['cues'].append(row)
         usage = getattr(client, 'usage', [])[before:]
     judge = normalise_judge(raw, [e['id'] for e in key_events], [w['cue_id'] for w in windows],
                             [e['id'] for e in confusing], [e['id'] for e in action_steps], windows)

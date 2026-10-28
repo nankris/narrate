@@ -26,11 +26,24 @@ def frame_grids(path, timestamps):
 
 
 
+def _frame_at(path, t):
+    """One JPEG at t; a time at/after the last frame (e.g. a closing pause at the clip end) falls back to the final frame."""
+    import subprocess
+    try:
+        raw = ffmpeg('-ss', t, '-i', path, '-frames:v', 1, '-vf', 'scale=640:-2', '-f', 'image2pipe', '-vcodec', 'mjpeg', '-').stdout
+    except subprocess.CalledProcessError:
+        raw = b''
+    if not raw:
+        raw = ffmpeg('-sseof', -0.5, '-i', path, '-update', 1, '-vf', 'scale=640:-2', '-f', 'image2pipe', '-vcodec', 'mjpeg', '-').stdout
+        raw = raw[raw.rfind(b'\xff\xd8'):] if b'\xff\xd8' in raw else raw
+    return raw
+
+
 def separate_frames(path, timestamps):
     selected = timestamps if len(timestamps) <= 16 else [timestamps[round(i*(len(timestamps)-1)/15)] for i in range(16)]
     result = []
     for t in selected:
-        raw = ffmpeg('-ss', t, '-i', path, '-frames:v', 1, '-vf', 'scale=640:-2', '-f', 'image2pipe', '-vcodec', 'mjpeg', '-').stdout
+        raw = _frame_at(path, t)
         result.extend([{'type':'text','text':f'Frame at {t} seconds'}, {'type':'image_url','image_url':{'url':data_url(raw, 'image/jpeg')}}])
     return result
 

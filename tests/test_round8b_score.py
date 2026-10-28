@@ -111,7 +111,7 @@ class _FakeJudge:
         return {'cues': cues}
 
 
-def test_score_extended_uses_one_strict_time_aware_call_and_writes_audit(tmp_path):
+def test_score_extended_uses_one_strict_time_aware_call_per_cue_and_writes_audit(tmp_path):
     run = tmp_path / 'run'
     run.mkdir()
     (run / 'pause_plan.json').write_text(json.dumps({
@@ -126,11 +126,13 @@ def test_score_extended_uses_one_strict_time_aware_call_and_writes_audit(tmp_pat
     gt_path.write_text(json.dumps(_groundtruth()))
     fake = _FakeJudge()
     result = score_extended(run, gt_path, provider='mock', config=load_config(), client=fake, budget_usd=1)
-    assert len(fake.calls) == 1 and fake.calls[0][0] == 'orchestrate'
+    # Round 8c: one call per cue window so long clips cannot truncate the judge JSON.
+    assert len(fake.calls) == 2 and all(c[0] == 'orchestrate' for c in fake.calls)
     payload = fake.calls[0][1]
     assert payload['_temperature'] == 0 and 'Return exactly one strict JSON object' in payload['_system']
-    assert [x['id'] for x in payload['cue_windows'][0]['key_events']] == ['k1']
-    assert [x['id'] for x in payload['cue_windows'][1]['key_events']] == ['k2']
+    assert [len(c[1]['cue_windows']) for c in fake.calls] == [1, 1]
+    assert [x['id'] for x in fake.calls[0][1]['cue_windows'][0]['key_events']] == ['k1']
+    assert [x['id'] for x in fake.calls[1][1]['cue_windows'][0]['key_events']] == ['k2']
     assert result['usage']['budget_usd'] == .05
     assert result['aggregate']['max_undescribed_gap_s'] == 70
     assert result['aggregate']['hallucinated_claims'] == 1
@@ -162,3 +164,17 @@ def test_forward_snap_micro_silence_parse_and_frame_text_change_detection():
     ]) == [15.]
     prompt = GROUNDTRUTH_VISUAL_CONSOLIDATE.lower()
     assert 'visual ambiguity' in prompt and 'never summarize' in prompt
+
+
+def test_round8c_judge_claims_must_quote_the_cue_not_echo_ground_truth():
+    from scripts.score_extended import normalise_judge
+    windows = [{'cue_id': 1, 'text': 'The cook pours oil over the dough balls.', 'key_events': [], 'action_steps': [],
+                'confusing_parts': []}]
+    raw = {'cues': [{'cue_id': 1, 'unsupported_claims': ['pours oil over the dough balls',
+                                                         'Person mixes flour in wooden bowl with right hand (0-1s)'],
+                     'chronology_errors': [{'claim': 'Person holds glass pitcher (2s)', 'reason': 'x'}],
+                     'fluency': {'score': 5}}]}
+    judge = normalise_judge(raw, [], [1], [], [], windows)
+    claims = judge['cue_claims'][0]
+    assert claims['unsupported_claims'] == ['pours oil over the dough balls']
+    assert claims['chronology_errors'] == []
