@@ -119,11 +119,13 @@ SCENE_LISTS=('ingredients','tools','objects')
 def clean_scene(raw):
     """Normalise a scene-context answer into short strings and lists; anything malformed is dropped."""
     raw=raw if isinstance(raw,dict) else {}
-    short=lambda v,n: ' '.join(str(v).split())[:n] if isinstance(v,(str,int,float)) and not isinstance(v,bool) else ''
+    def cut(t,n):
+        return t if len(t)<=n else t[:n].rsplit(' ',1)[0].rstrip(' ,;:')
+    short=lambda v,n: cut(' '.join(str(v).split()),n) if isinstance(v,(str,int,float)) and not isinstance(v,bool) else ''
     out={k:short(raw.get(k,''),200) for k in ('setting','activity','dish','visual_style')}
     people=raw.get('people',[])
     people=people if isinstance(people,list) else [people]
-    out['people']=[x for x in ([' '.join(f"{short(p.get('description',''),80)} {short(p.get('doing',''),60)}".split()) if isinstance(p,dict) else short(p,120) for p in people[:4]]) if x]
+    out['people']=[x for x in ([' '.join(', '.join(x for x in (short(p.get('description',''),100),short(p.get('doing',''),80)) if x).split()) if isinstance(p,dict) else short(p,120) for p in people[:4]]) if x]
     for k in SCENE_LISTS:
         v=raw.get(k,[])
         v=v if isinstance(v,list) else [v]
@@ -405,8 +407,13 @@ class Agent:
             clip=self.work/'inspection.mp4'
             ffmpeg('-ss',start,'-i',self.path,'-t',end-start,'-an','-vf','scale=640:360,fps=10','-c:v','libx264',clip)
             media=[{'type':'video_url','video_url':{'url':data_url(clip.read_bytes(),'video/mp4')}}]; modality='video'
+        def as_events(r):
+            # Real-run finding (cooking clip): Super VL sometimes returns ONE bare event object instead of {events:[...]}.
+            if isinstance(r,dict) and not r.get('events') and 't_start' in r and 't_end' in r: return {'events':[r]}
+            if isinstance(r,list): return {'events':r}
+            return r
         try:
-            result=self.submodel('perceive',data,media,{'events':self.mock_events(start,end)})
+            result=as_events(self.submodel('perceive',data,media,{'events':self.mock_events(start,end)}))
             if not result.get('events'):
                 raise ValueError('No events')
         except BudgetExceeded:
@@ -415,7 +422,7 @@ class Agent:
             if self.mock:
                 raise
             modality='frames-fallback'
-            result=self.submodel('perceive',data,separate_frames(self.path,[start,start+(end-start)/2,max(start,end-.1)]))
+            result=as_events(self.submodel('perceive',data,separate_frames(self.path,[start,start+(end-start)/2,max(start,end-.1)])))
         valid=[]; raw=result.get('events',[])
         if not self.mock:
             raw,base=absolute_times(raw,start,end)
@@ -600,6 +607,7 @@ class Agent:
             brief=scene_brief(self.scene_context)
             scene_rules=(' Use scene_context for concrete nouns: the kind of place, the visible person (by appearance, never a name), the ingredients and tools. '
                 'A gap with role "establishing" opens with where we are and who is there, then the action in this gap. Other gaps: who does what, to which ingredient or object, with which tool, and the visible result; do not repeat the setting. '
+                'Write each cue as one full present-tense sentence in the third person with a subject (e.g. "The cook rolls ..."); never imperatives or recipe instructions such as "Roll dough". '
                 'Write natural, fluent sentences (no semicolons, no "Label:" headings); vary sentence openings; after the first mention refer to the person briefly (e.g. by their role or one visible detail).') if brief else ''
             continuity=(' Only describe what is NEW compared with previous_lines and earlier gaps in this batch; never paraphrase them. '
                 'If nothing new and visually important happens in an action gap, return text "SKIP" for it (silence is better than repetition); never SKIP the establishing gap. '
@@ -609,9 +617,15 @@ class Agent:
             if not hard: self.inject_overbudget=False
             if len(todo)==1 and isinstance(result.get('text'),str): return {todo[0]['id']:result['text']}
             return {c['id']:c['text'] for c in result.get('cues',[]) if isinstance(c,dict) and isinstance(c.get('text'),str) and c.get('id') in limits}
+        # A gap with no evidence of its own is not drafted (and never SKIPped): it needs inspect_video_segment first.
+        blind=[g for g in gaps if not [e for e in self.gap_events(g,context_events) if 'context' not in e]]
+        if self.mock or len(blind)==len(gaps) and context_events: blind=[]
+        self.blind_drafts=[g['id'] for g in blind]
+        gaps=[g for g in gaps if g not in blind]
+        if not gaps: return {}
         texts=ask(gaps,False)
         skip={i for i,t in texts.items() if is_skip(t) and i!=self.establishing_gap()}
-        over=[g for g in gaps if g['id'] not in skip and (len(texts.get(g['id'],'').split())>limits[g['id']] or g['id'] not in texts or is_skip(texts.get(g['id'])))]
+        over=[g for g in gaps if g['id'] not in skip and (len(texts.get(g['id'],'').split())>limits[g['id']] or g['id'] not in texts or is_skip(texts.get(g['id'])) or lint(texts.get(g['id'],'')))]
         self.draft_overlimit+=sum(g['id'] in texts for g in over)
         if over:
             texts.update({i:t for i,t in ask(over,True).items() if t.strip() and not is_skip(t)})
@@ -622,7 +636,7 @@ class Agent:
                 self.skipped[g['id']]=True; self.drop_gap(g['id'],'no new visual information (drafter SKIP)')
                 continue
             t=texts.get(g['id'],'')
-            if is_skip(t): t=''
+            if is_skip(t) or lint(t): t=''
             if not t.strip() or len(t.split())>limits[g['id']]:
                 t=self.fallback_text(g,limits[g['id']],context_events,t)
             if not t: continue
@@ -637,6 +651,7 @@ class Agent:
             limits={g['id']:max(1,min(max_words or 99,self.max_words(g))) for g in usable}
             out=self.draft_batch(usable,limits,context_events) if usable else {}
             result={'cues':[{'id':i,'text':t,'max_words':limits[i]} for i,t in out.items()],
+                    **({'needs_inspection_first':self.blind_drafts} if getattr(self,'blind_drafts',None) else {}),
                     **({'skipped_no_new_info':[g['id'] for g in usable if g['id'] in self.skipped and g['id'] not in out]} if any(g['id'] in self.skipped and g['id'] not in out for g in usable) else {})}
             skipped=[g['id'] for g in gaps if not g.get('narratable',True)]
             return {**result,'skipped_too_short':skipped} if skipped else result
@@ -647,6 +662,7 @@ class Agent:
         out=self.draft_batch([g],{gap_id:limit},context_events,{gap_id:avoid_repeating})
         if gap_id in out: return {'text':out[gap_id],'max_words':limit}
         if gap_id in self.skipped: return {'ok':True,'skipped':True,'reason':'no new visual information; gap dropped (silence)'}
+        if gap_id in getattr(self,'blind_drafts',[]): return {'ok':False,'problems':['no evidence for this gap'],'next':f'call inspect_video_segment for gap {gap_id} first'}
         return {'ok':False,'problems':['no draft produced from the evidence']}
 
     def previous_lines(self,g,n=2):
@@ -722,7 +738,7 @@ class Agent:
             self.verified.pop(gap_id,None)
         self.translation_done=False
         self.cues[gap_id]={**g,'en':text}
-        self.dropped.pop(gap_id,None)
+        self.dropped.pop(gap_id,None); self.skipped.pop(gap_id,None)
         own=not self.grounded(gap_id,text)
         if own: self.authored[gap_id]=text
         else: self.authored.pop(gap_id,None)
@@ -955,6 +971,8 @@ class Agent:
                     note(f'Gap {gid}: committed best fitting candidate "{candidate}"','commit_cue',args={'gap_id':gid}); continue
                 note(f"Gap {gid}: candidate rejected ({'; '.join(result['problems'])})",'commit_cue',False)
             draft=self.drafts.get(gid)
+            if draft and not self.evidence_line(g) and any(e.get('refuted') and self.overlaps(e,g) for e in self.events):
+                draft=None; note(f'Gap {gid}: stale draft ignored, its evidence was refuted by verification','commit_cue',False)
             if draft and not any(similarity(draft,r)>=.8 for r in skip):
                 fit=self.check_fit(gid,draft,'en')
                 text=draft
@@ -967,19 +985,29 @@ class Agent:
                 note(f"Gap {gid}: shortened draft still unusable ({'; '.join(result['problems'])})",'commit_cue',False)
             self.drop_gap(gid,'Fallback: no fitting candidate or draft')
             note(f'Gap {gid}: dropped, no fitting candidate or draft','drop_gap',args={'gap_id':gid})
+        # The finisher may spend a few verifications beyond the orchestrator's cap: nothing risky ships unchecked.
+        self.cfg['agent']['max_verifications']=max(self.cfg['agent']['max_verifications'],self.counts['verifications']+len(self.needs_verification()))
         for gid in sorted(self.needs_verification()):
             if gid not in self.cues: continue
             try:
                 result=self.verify_claim(gap_id=gid,claim=self.cues[gid]['en'])
+            except BudgetExceeded:
+                note(f'Gap {gid}: unverified, budget exhausted','verify_claim',False); break
             except Exception as exc:
-                note(f'Gap {gid}: unverified, verification unavailable ({sanitize(exc)})','verify_claim',False); break
+                note(f'Gap {gid}: unverified, verification unavailable ({sanitize(exc)})','verify_claim',False); continue
             if result.get('ok') is False:
-                note(f"Gap {gid}: unverified, {result['error']}",'verify_claim',False); break
+                note(f"Gap {gid}: unverified, {result['error']}",'verify_claim',False); continue
             if result['verdict']=='contradicted':
                 self.drop_gap(gid,'Fallback: claim contradicted by verification')
                 note(f'Gap {gid}: contradicted by verification; dropped','verify_claim',False,result=compact(result))
             else:
                 note(f"Gap {gid}: verification {result['verdict']}",'verify_claim',result=compact(result))
+        for gid in sorted(self.needs_verification()):
+            if gid in self.cues:
+                # Review finding 8: a cue that needed verification but was never checked is not shipped by the fallback.
+                self.drop_gap(gid,'Fallback: verification required but not run')
+                self.report['issues'].append(f'Gap {gid}: unverified cue dropped by the fallback finisher')
+                note(f'Gap {gid}: dropped, verification required but not run (unverified)','drop_gap',False,args={'gap_id':gid})
         if 'hi' in self.langs and not self.translation_done:
             try:
                 self.translate_hindi(); note('Translated committed cues to Hindi','translate_hindi')

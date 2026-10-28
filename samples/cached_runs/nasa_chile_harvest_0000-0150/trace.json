@@ -26,36 +26,87 @@
       "history_turns": 6,
       "verify_below": 0.75,
       "retry_attempts": 3,
-      "hangover_s": 0.3
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
     },
     "mock_notice": null
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 1.0287139939900953,
+      "t_wall": 1.4120577999856323,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.028573787989444,
-      "tokens_in": 3207,
-      "tokens_out": 42,
-      "cost_usd": 0.003333,
+      "latency_s": 1.4119615170056932,
+      "tokens_in": 3218,
+      "tokens_out": 41,
+      "cost_usd": 0.003341,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 2,
-      "t_wall": 2.2384256449877284,
+      "t_wall": 5.34202751997509,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "International Space Station module with equipment panels, wiring, and bright lighting.",
+        "people": [
+          {
+            "description": "One person with gray hair wearing a black shirt and blue gloves.",
+            "doing": "Tending to green plants inside a growth chamber."
+          }
+        ],
+        "ingredients": [],
+        "tools": [
+          "blue nitrile gloves",
+          "black flat surface",
+          "yellow sticky note",
+          "growth chamber",
+          "camera"
+        ],
+        "objects": [
+          "green leafy plants",
+          "pink flowers",
+          "laptop",
+          "cables",
+          "storage bags",
+          "yellow lemon"
+        ],
+        "activity": "Astronauts tending to plants and examining a small item together inside a space station module.",
+        "dish": "",
+        "visual_style": "Handheld video footage inside a spacecraft, bright overhead lighting, confined modular environment.",
+        "burned_in_subtitles": false,
+        "confidence": 0.9,
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.0867446760239545,
+      "tokens_in": 2602,
+      "tokens_out": 302,
+      "cost_usd": 0.0010524,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 3,
+      "t_wall": 5.342359392991057,
       "role": "tool",
-      "note": "Find speech gaps in 110s video for audio description",
+      "note": "Detect speech-free gaps in 110s video",
       "tool_name": "detect_speech_gaps",
       "args": {},
       "result": {
+        "scene_context": "setting: International Space Station module with equipment panels, wiring, and bright lighting. | people: One person with gray hair wearing a black shirt and blue gloves., Tending to green plants insi",
         "gaps": [
           {
             "id": 0,
@@ -79,24 +130,6 @@
             "id": 2,
             "start": 22.68,
             "end": 33.98,
-            "max_words_en": 17,
-            "max_words_hi": 19,
-            "narratable": true,
-            "parent_gap": 0
-          },
-          {
-            "id": 3,
-            "start": 33.98,
-            "end": 45.28,
-            "max_words_en": 17,
-            "max_words_hi": 19,
-            "narratable": true,
-            "parent_gap": 0
-          },
-          {
-            "id": 4,
-            "start": 45.28,
-            "end": 56.57,
             "max_words_en": 17,
             "max_words_hi": 19,
             "narratable": true,
@@ -130,7 +163,7 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 1.2096958929905668,
+      "latency_s": 3.9302792329981457,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -139,101 +172,25 @@
       "corrects_step": null
     },
     {
-      "step": 3,
-      "t_wall": 4.004804994998267,
+      "step": 4,
+      "t_wall": 6.636829090974061,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.7661070120084332,
-      "tokens_in": 3942,
-      "tokens_out": 278,
-      "cost_usd": 0.004776,
+      "latency_s": 1.2941509430238511,
+      "tokens_in": 3899,
+      "tokens_out": 299,
+      "cost_usd": 0.004796,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 4,
-      "t_wall": 10.745726467997883,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "0.0-1.5": {
-          "t_start": 0.0,
-          "t_end": 1.5,
-          "what": "A close-up view of a pla",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        },
-        "1.5-3.0": {
-          "t_start": 1.5,
-          "t_end": 3.0,
-          "what": "An astronaut wearing a b",
-          "on_screen_text": "",
-          "importance": 5,
-          "confidence": 0.95
-        },
-        "3.0-4.5": {
-          "t_start": 3.0,
-          "t_end": 4.5,
-          "what": "The astronaut fully come",
-          "on_screen_text": "",
-          "importance": 5,
-          "confidence": 0.95
-        },
-        "4.5-6.0": {
-          "t_start": 4.5,
-          "t_end": 6.0,
-          "what": "The astronaut continues ",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        },
-        "6.0-8.0": {
-          "t_start": 6.0,
-          "t_end": 8.0,
-          "what": "The astronaut carefully ",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        },
-        "8.0-10.0": {
-          "t_start": 8.0,
-          "t_end": 10.0,
-          "what": "The astronaut remains fo",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        },
-        "10.0-11.5": {
-          "t_start": 10.0,
-          "t_end": 11.5,
-          "what": "The astronaut continues ",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 6.032520669992664,
-      "tokens_in": 2086,
-      "tokens_out": 599,
-      "cost_usd": 0.0011649000000000002,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
       "step": 5,
-      "t_wall": 13.452595513997949,
+      "t_wall": 9.78188434499316,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -242,27 +199,35 @@
         "events": [
           {
             "t_start": 0.0,
-            "t_end": 5.0,
-            "what": "A close-up view of a plant growth chamber in a laboratory or spacecraft setting, showing green leafy plants growing inside a windowed enclosure with blue lighting on the right side and various wires and equipment visible around the frame.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 5.0,
-            "t_end": 11.5,
-            "what": "A man with gray hair wearing a black shirt and glasses enters from the right side of the frame and reaches into the plant growth chamber to tend to the green plants.",
+            "t_end": 2.7,
+            "what": "An astronaut wearing blue gloves touches equipment panels next to a plant growth chamber containing green plants.",
             "on_screen_text": "",
             "importance": 4,
-            "confidence": 0.92
+            "confidence": 0.9
+          },
+          {
+            "t_start": 2.7,
+            "t_end": 7.0,
+            "what": "The astronaut reaches into the plant growth chamber with a gloved hand and tends to the green plants inside.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 7.0,
+            "t_end": 11.4,
+            "what": "The astronaut continues handling the green plants within the growth chamber while facing the equipment.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.3956433790008305,
-      "tokens_in": 1113,
-      "tokens_out": 198,
-      "cost_usd": 0.0005121,
+      "latency_s": 2.495792978996178,
+      "tokens_in": 2246,
+      "tokens_out": 228,
+      "cost_usd": 0.000879,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "perceive",
@@ -270,27 +235,35 @@
     },
     {
       "step": 6,
-      "t_wall": 13.45274235800025,
+      "t_wall": 9.782046100997832,
       "role": "tool",
-      "note": "Inspect gap 0 opening scene",
+      "note": "Inspect gap 0 for plant care activity",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 0,
-        "end": 11.5,
-        "focus": "visual content for audio description"
+        "end": 11.4,
+        "focus": "Person tending green plants in ISS module"
       },
       "result": {
         "events": [
           {
             "t_start": 0.0,
-            "t_end": 5.0,
-            "what": "A close-up view of a plant growth chamber in a laboratory or spacecraft setting, showing green leafy plants growing inside a windowed enclosure with blue lighting on the right side and various wires and equipment visible around the frame.",
+            "t_end": 2.7,
+            "what": "An astronaut wearing blue gloves touches equipment panels next to a plant growth chamber containing green plants.",
             "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.95
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 2.7,
+            "t_end": 7.0,
+            "what": "The astronaut reaches into the plant growth chamber with a gloved hand and tends to the green plants inside.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
           }
         ],
-        "modality": "frames-fallback",
+        "modality": "video",
         "time_base": "absolute",
         "evidence_gaps": [
           0,
@@ -321,7 +294,7 @@
         "truncated": true
       },
       "ok": true,
-      "latency_s": 9.447919971993542,
+      "latency_s": 3.145193232980091,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -331,24 +304,24 @@
     },
     {
       "step": 7,
-      "t_wall": 81.83815643499838,
+      "t_wall": 12.933299257972976,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
         "t_start": 11.4,
-        "t_end": 22.8,
-        "what": "A man in a black shirt and blue gloves tends to green leafy plants growing inside a lit chamber, then steps away as the camera pans to show more of the equipment and wiring",
+        "t_end": 22.7,
+        "what": "A person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, reaching toward the foliage through an open panel while equipment panels and wiring surround the module.",
         "on_screen_text": "",
         "importance": 5,
-        "confidence": 0.9
+        "confidence": 0.95
       },
       "ok": true,
-      "latency_s": 67.58374325199111,
-      "tokens_in": 1950,
-      "tokens_out": 92,
-      "cost_usd": 0.0006678,
+      "latency_s": 2.4201615180063527,
+      "tokens_in": 2269,
+      "tokens_out": 95,
+      "cost_usd": 0.0007662,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "perceive",
@@ -356,45 +329,27 @@
     },
     {
       "step": 8,
-      "t_wall": 83.67014687499614,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "11.4-22.8": {
-          "t_start": 11.4,
-          "t_end": 22.8,
-          "what": "An astronaut in a black shirt tends to green plants growing inside a illuminated unit with a transparent door, reaching in with gloved hands before moving out of frame.",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        }
-      },
-      "ok": true,
-      "latency_s": 1.4827170989883598,
-      "tokens_in": 1125,
-      "tokens_out": 102,
-      "cost_usd": 0.0004293,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 9,
-      "t_wall": 83.67022542298946,
+      "t_wall": 12.933379528985824,
       "role": "tool",
-      "note": "Inspect gap 1 scene",
+      "note": "Inspect gap 1 for plant care activity",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 11.4,
-        "end": 22.8,
-        "focus": "visual content for audio description"
+        "end": 22.7,
+        "focus": "Person tending green plants in ISS module"
       },
       "result": {
-        "events": [],
-        "modality": "frames-fallback",
+        "events": [
+          {
+            "t_start": 11.4,
+            "t_end": 22.7,
+            "what": "A person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, reaching toward the foliage through an open panel while equipment panels and wiring surround the module.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
         "time_base": "absolute",
         "evidence_gaps": [
           1,
@@ -424,7 +379,7 @@
         }
       },
       "ok": true,
-      "latency_s": 70.21740576899901,
+      "latency_s": 3.151249294023728,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -433,98 +388,58 @@
       "corrects_step": null
     },
     {
-      "step": 10,
-      "t_wall": 87.2319160449988,
+      "step": 9,
+      "t_wall": 15.861447287985357,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "22.7-34.1": {
-          "what": "A man with gray hair wearing a black shirt and blue gloves tends to green plants growing inside a specialized chamber with transparent panels, reaching into the enclosure to adjust or inspect the vegetation while equipment and cables surround the setup.",
-          "on_screen_text": "",
-          "importance": 4,
-          "confidence": 0.9
-        }
-      },
-      "ok": true,
-      "latency_s": 2.8371195459912997,
-      "tokens_in": 1964,
-      "tokens_out": 91,
-      "cost_usd": 0.0006710999999999999,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 11,
-      "t_wall": 89.79334912099876,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
+        "version": "1.0",
         "events": [
           {
             "t_start": 22.7,
-            "t_end": 30.5,
-            "what": "A person wearing blue gloves tends to green leafy plants growing inside a rectangular chamber.",
+            "t_end": 34.0,
+            "what": "A person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, using their hands to adjust or examine the foliage.",
             "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 30.5,
-            "t_end": 34.1,
-            "what": "A man in a black t-shirt and blue gloves reaches into the plant chamber to work with the plants.",
-            "on_screen_text": "",
-            "importance": 4,
+            "importance": 5,
             "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.250517280001077,
-      "tokens_in": 1139,
-      "tokens_out": 160,
-      "cost_usd": 0.0004857,
+      "latency_s": 2.2193808519805316,
+      "tokens_in": 2255,
+      "tokens_out": 107,
+      "cost_usd": 0.0007727999999999999,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
-      "step": 12,
-      "t_wall": 89.79343610699289,
+      "step": 10,
+      "t_wall": 15.861516564997146,
       "role": "tool",
-      "note": "Inspect gap 2 scene",
+      "note": "Inspect gap 2 for plant care activity",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 22.7,
-        "end": 34.1,
-        "focus": "visual content for audio description"
+        "end": 34,
+        "focus": "Person tending green plants in ISS module"
       },
       "result": {
         "events": [
           {
             "t_start": 22.7,
-            "t_end": 30.5,
-            "what": "A person wearing blue gloves tends to green leafy plants growing inside a rectangular chamber.",
+            "t_end": 34.0,
+            "what": "A person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, using their hands to adjust or examine the foliage.",
             "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 30.5,
-            "t_end": 34.1,
-            "what": "A man in a black t-shirt and blue gloves reaches into the plant chamber to work with the plants.",
-            "on_screen_text": "",
-            "importance": 4,
+            "importance": 5,
             "confidence": 0.9
           }
         ],
-        "modality": "frames-fallback",
+        "modality": "video",
         "time_base": "absolute",
         "evidence_gaps": [
           2,
@@ -554,7 +469,7 @@
         }
       },
       "ok": true,
-      "latency_s": 6.12318086400046,
+      "latency_s": 2.928088763001142,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -563,81 +478,98 @@
       "corrects_step": null
     },
     {
-      "step": 13,
-      "t_wall": 95.39880556399294,
+      "step": 11,
+      "t_wall": 18.81438045797404,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "events": [
+        "event": [
           {
             "t_start": 34.0,
-            "t_end": 37.0,
-            "what": "A man with short gray hair and glasses, wearing a black t-shirt and blue gloves, tends to green leafy plants inside a rectangular illuminated growth chamber mounted on equipment racks filled with cables.",
-            "on_screen_text": null,
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 37.0,
-            "t_end": 40.0,
-            "what": "The man reaches both gloved hands into the chamber to arrange or harvest the leafy plants while standing beside the machinery.",
-            "on_screen_text": null,
+            "t_end": 38.0,
+            "what": "The person with gray hair wearing a black shirt and blue gloves reaches into the growth chamber and tends to the green plants with both hands.",
+            "on_screen_text": "",
             "importance": 4,
             "confidence": 0.9
           },
           {
-            "t_start": 40.0,
-            "t_end": 45.4,
-            "what": "The man continues to adjust the green plants within the chamber, turning slightly as he works with both hands among the foliage.",
-            "on_screen_text": null,
+            "t_start": 38.0,
+            "t_end": 42.0,
+            "what": "The person with gray hair wearing a black shirt and blue gloves continues to handle and arrange the green plants inside the growth chamber.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 42.0,
+            "t_end": 45.3,
+            "what": "The person with gray hair wearing a black shirt and blue gloves works on the green plants within the illuminated growth chamber among equipment panels and wiring.",
+            "on_screen_text": "",
             "importance": 4,
             "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 5.024901333003072,
-      "tokens_in": 1958,
-      "tokens_out": 270,
-      "cost_usd": 0.0008304,
+      "latency_s": 2.344675054977415,
+      "tokens_in": 2263,
+      "tokens_out": 258,
+      "cost_usd": 0.0009111,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "perceive",
       "cached_tokens": 0
     },
     {
-      "step": 14,
-      "t_wall": 95.39892997499555,
+      "step": 12,
+      "t_wall": 20.702807637979276,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 34.0,
+        "t_end": 45.3,
+        "what": "A person with gray hair wearing a black shirt and blue gloves reaches into the ISS module growth chamber to tend green plants, adjusting leaves inside the panel while bright lighting illuminates the foliage.",
+        "on_screen_text": "",
+        "importance": 4,
+        "confidence": 0.9
+      },
+      "ok": true,
+      "latency_s": 1.5506451700057369,
+      "tokens_in": 1451,
+      "tokens_out": 93,
+      "cost_usd": 0.000519,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 20.7028880379803,
       "role": "tool",
-      "note": "Inspect gap 3 scene",
+      "note": "Inspect gap 3 for plant care activity",
       "tool_name": "inspect_video_segment",
       "args": {
         "start": 34,
-        "end": 45.4,
-        "focus": "visual content for audio description"
+        "end": 45.3,
+        "focus": "Person tending green plants in ISS module"
       },
       "result": {
         "events": [
           {
             "t_start": 34.0,
-            "t_end": 37.0,
-            "what": "A man with short gray hair and glasses, wearing a black t-shirt and blue gloves, tends to green leafy plants inside a rectangular illuminated growth chamber mounted on equipment racks filled with cables.",
-            "on_screen_text": null,
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 37.0,
-            "t_end": 40.0,
-            "what": "The man reaches both gloved hands into the chamber to arrange or harvest the leafy plants while standing beside the machinery.",
-            "on_screen_text": null,
+            "t_end": 45.3,
+            "what": "A person with gray hair wearing a black shirt and blue gloves reaches into the ISS module growth chamber to tend green plants, adjusting leaves inside the panel while bright lighting illuminates the foliage.",
+            "on_screen_text": "",
             "importance": 4,
             "confidence": 0.9
           }
         ],
-        "modality": "video",
+        "modality": "frames-fallback",
         "time_base": "absolute",
         "evidence_gaps": [
           3,
@@ -664,11 +596,10 @@
             "inspections": 8,
             "verifications": 8
           }
-        },
-        "truncated": true
+        }
       },
       "ok": true,
-      "latency_s": 5.605456346995197,
+      "latency_s": 4.841333093994763,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -677,25 +608,25 @@
       "corrects_step": null
     },
     {
-      "step": 15,
-      "t_wall": 96.99393269399297,
+      "step": 14,
+      "t_wall": 22.235884480993263,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.5946906600001967,
-      "tokens_in": 5215,
-      "tokens_out": 56,
-      "cost_usd": 0.005383,
+      "latency_s": 1.5326851870049722,
+      "tokens_in": 5046,
+      "tokens_out": 52,
+      "cost_usd": 0.005202,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 16,
-      "t_wall": 99.77468431399029,
+      "step": 15,
+      "t_wall": 25.96971518799546,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -704,31 +635,49 @@
         "cues": [
           {
             "id": 0,
-            "text": "A close-up of a plant growth chamber with green leaves and blue lighting. A man with gray hair and glasses enters from right and tends to the plants."
+            "text": "The astronaut in a black shirt and gray hair drifts in the ISS growth chamber beside glowing equipment panels while bright lighting outlines green foliage on a nearby space plant."
           },
           {
             "id": 1,
-            "text": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks."
+            "text": "The crewmate in blue examines the elderly space botanist's gloved hand adjusting a potted green plant near control panels revealing subtle signs of healthy growth within the lunar module ecosystem."
           },
           {
             "id": 2,
-            "text": "A man with short gray hair and glasses, wearing a black t-shirt and blue gloves, tends to green plants in a rectangular chamber."
-          },
+            "text": "The technician lifts a tiny seedling from a dark tray showing vibrant leaves gently brushing against a floating plastic container in the zero gravity botanical station setup alongside cables."
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.7312629119842313,
+      "tokens_in": 2042,
+      "tokens_out": 206,
+      "cost_usd": 0.00017195999999999997,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 27.086140002997126,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
           {
-            "id": 3,
-            "text": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery."
-          },
-          {
-            "id": 4,
-            "text": "He adjusts the green plants inside the chamber, turning slightly as he works with both hands among the foliage."
+            "id": 0,
+            "text": "In the ISS space station module an astronaut wearing gray hair a black shirt and blue gloves tends green plants inside a growth chamber."
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.7780690509971464,
-      "tokens_in": 1887,
-      "tokens_out": 211,
-      "cost_usd": 0.00016386000000000002,
+      "latency_s": 1.1162263400037773,
+      "tokens_in": 2105,
+      "tokens_out": 39,
+      "cost_usd": 0.00013565999999999999,
       "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
       "correction": false,
       "cost_role": "draft",
@@ -736,72 +685,38 @@
     },
     {
       "step": 17,
-      "t_wall": 101.37024932999338,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "text": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber."
-          },
-          {
-            "id": 2,
-            "text": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber."
-          },
-          {
-            "id": 4,
-            "text": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber."
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.595340820000274,
-      "tokens_in": 1181,
-      "tokens_out": 96,
-      "cost_usd": 9.39e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 18,
-      "t_wall": 101.37040951399831,
+      "t_wall": 27.08637000498129,
       "role": "tool",
-      "note": "Draft descriptions for gaps 0-4",
+      "note": "Draft descriptions for first 4 gaps",
       "tool_name": "draft_description",
       "args": {
         "gap_ids": [
           0,
           1,
           2,
-          3,
-          4
+          3
         ]
       },
       "result": {
         "cues": [
           {
             "id": 0,
-            "text": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber.",
+            "text": "In the ISS space station module an astronaut wearing gray hair a black shirt and blue gloves.",
             "max_words": 17
           },
           {
             "id": 1,
-            "text": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks.",
+            "text": "The crewmate in blue examines the elderly space botanist's gloved hand adjusting a potted green plant near.",
             "max_words": 17
           },
           {
             "id": 2,
-            "text": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber.",
+            "text": "The technician lifts a tiny seedling from a dark tray showing vibrant leaves gently brushing against a.",
             "max_words": 17
           },
           {
             "id": 3,
-            "text": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery.",
+            "text": "The astronaut adjusts a soft leaf cluster under a bright lamp reminding viewers why we cultivate life.",
             "max_words": 17
           }
         ],
@@ -826,11 +741,10 @@
             "inspections": 8,
             "verifications": 8
           }
-        },
-        "truncated": true
+        }
       },
       "ok": true,
-      "latency_s": 4.376460560000851,
+      "latency_s": 4.850473970989697,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -839,31 +753,31 @@
       "corrects_step": null
     },
     {
-      "step": 19,
-      "t_wall": 104.5188162879931,
+      "step": 18,
+      "t_wall": 29.412541832978604,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 3.147991245990852,
-      "tokens_in": 5609,
-      "tokens_out": 271,
-      "cost_usd": 0.006422,
+      "latency_s": 2.325935106986435,
+      "tokens_in": 5423,
+      "tokens_out": 276,
+      "cost_usd": 0.006251,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 20,
-      "t_wall": 104.61040785200021,
+      "step": 19,
+      "t_wall": 29.482409111980814,
       "role": "tool",
-      "note": "Commit cue for gap 0",
+      "note": "Propose cue for gap 0 from evidence",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 0,
-        "text": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber."
+        "text": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module."
       },
       "result": {
         "ok": true,
@@ -878,8 +792,12 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "Man with gray hair, glasses, black shirt tends green plants inside illuminated growth chamber."
+          "en": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module."
         },
+        "verify_required": [
+          "named entity"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0
@@ -896,7 +814,9 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [],
+          "needs_verification": [
+            0
+          ],
           "budget": {
             "turns": 32,
             "inspections": 8,
@@ -905,7 +825,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.09157825900183525,
+      "latency_s": 0.0698552209942136,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -914,14 +834,14 @@
       "corrects_step": null
     },
     {
-      "step": 21,
-      "t_wall": 104.68397539199213,
+      "step": 20,
+      "t_wall": 29.54964985497645,
       "role": "tool",
-      "note": "Commit cue for gap 1",
+      "note": "Propose cue for gap 1 from evidence",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 1,
-        "text": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks."
+        "text": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber."
       },
       "result": {
         "ok": true,
@@ -936,8 +856,13 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "A man in blue gloves continues tending to plants inside the illuminated growth chamber beside equipment racks."
+          "en": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber."
         },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
         "state": {
           "committed": [
             0,
@@ -954,7 +879,10 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [],
+          "needs_verification": [
+            0,
+            1
+          ],
           "budget": {
             "turns": 32,
             "inspections": 8,
@@ -963,7 +891,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.07351576100336388,
+      "latency_s": 0.06719535699812695,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -972,14 +900,14 @@
       "corrects_step": null
     },
     {
-      "step": 22,
-      "t_wall": 104.7523336000013,
+      "step": 21,
+      "t_wall": 29.622735152981477,
       "role": "tool",
-      "note": "Commit cue for gap 2",
+      "note": "Propose cue for gap 2 from evidence",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 2,
-        "text": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber."
+        "text": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray."
       },
       "result": {
         "ok": true,
@@ -994,8 +922,13 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "Person in glasses, blue glove arranges leaves, wearing black tee in growth chamber."
+          "en": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray."
         },
+        "verify_required": [
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
         "state": {
           "committed": [
             0,
@@ -1012,7 +945,11 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [],
+          "needs_verification": [
+            0,
+            1,
+            2
+          ],
           "budget": {
             "turns": 32,
             "inspections": 8,
@@ -1021,7 +958,7 @@
         }
       },
       "ok": true,
-      "latency_s": 0.06832277499779593,
+      "latency_s": 0.07304251898312941,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1030,14 +967,14 @@
       "corrects_step": null
     },
     {
-      "step": 23,
-      "t_wall": 104.8222915189981,
+      "step": 22,
+      "t_wall": 29.71307189599611,
       "role": "tool",
-      "note": "Commit cue for gap 3",
+      "note": "Propose cue for gap 3 from evidence",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 3,
-        "text": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery."
+        "text": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber."
       },
       "result": {
         "ok": true,
@@ -1052,8 +989,923 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "The man reaches both gloved hands into the chamber to arrange plants while standing beside the machinery."
+          "en": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber."
         },
+        "verify_required": [
+          "named entity",
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 32,
+            "inspections": 8,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 0.09029285301221535,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 23,
+      "t_wall": 31.849977295001736,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1366973100230098,
+      "tokens_in": 6500,
+      "tokens_out": 306,
+      "cost_usd": 0.007418,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 24,
+      "t_wall": 34.924966109974775,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 45.3,
+            "t_end": 52.0,
+            "what": "The person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, touching and adjusting the foliage with both hands.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 52.0,
+            "t_end": 56.6,
+            "what": "The person with gray hair wearing a black shirt and blue gloves removes one hand from the growth chamber and turns slightly away from the equipment panel.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.303178456000751,
+      "tokens_in": 2269,
+      "tokens_out": 182,
+      "cost_usd": 0.0008445,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 34.92528077898896,
+      "role": "tool",
+      "note": "Inspect gap 4 for plant care activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 45.3,
+        "end": 56.6,
+        "focus": "Person tending green plants in ISS module"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 45.3,
+            "t_end": 52.0,
+            "what": "The person with gray hair wearing a black shirt and blue gloves tends to green plants inside a growth chamber, touching and adjusting the foliage with both hands.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 52.0,
+            "t_end": 56.6,
+            "what": "The person with gray hair wearing a black shirt and blue gloves removes one hand from the growth chamber and turns slightly away from the equipment panel.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          4,
+          5
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 31,
+            "inspections": 7,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.075290766020771,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 26,
+      "t_wall": 38.008721272984985,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 56.6,
+            "t_end": 60.2,
+            "what": "A person with gray hair wearing a black shirt and blue gloves works at a growth chamber panel containing green plants.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 60.2,
+            "t_end": 64.2,
+            "what": "The person reaches toward a control panel beside the plant chamber and manipulates a switch or latch.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.8
+          },
+          {
+            "t_start": 64.2,
+            "t_end": 67.9,
+            "what": "The same person with blue gloved hands adjusts a red chili pepper lying on a black surface next to a small white card.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.4350168609817047,
+      "tokens_in": 2269,
+      "tokens_out": 212,
+      "cost_usd": 0.0008715,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 38.0089712109766,
+      "role": "tool",
+      "note": "Inspect gap 5 for plant care activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 56.6,
+        "end": 67.9,
+        "focus": "Person tending green plants in ISS module"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 56.6,
+            "t_end": 60.2,
+            "what": "A person with gray hair wearing a black shirt and blue gloves works at a growth chamber panel containing green plants.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 60.2,
+            "t_end": 64.2,
+            "what": "The person reaches toward a control panel beside the plant chamber and manipulates a switch or latch.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.8
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          5,
+          6
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 31,
+            "inspections": 6,
+            "verifications": 8
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.083643624006072,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 28,
+      "t_wall": 40.823188793990994,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 67.9,
+        "t_end": 75.9,
+        "what": "A person with gray hair wearing a black shirt and blue gloves holds a black camera and films a red chili pepper taped to a black surface.",
+        "on_screen_text": "",
+        "importance": 3,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 2.1216425279853866,
+      "tokens_in": 2269,
+      "tokens_out": 86,
+      "cost_usd": 0.0007580999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 40.82339124599821,
+      "role": "tool",
+      "note": "Inspect gap 6 for plant care activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 67.9,
+        "end": 79.2,
+        "focus": "Person tending green plants in ISS module"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 67.9,
+            "t_end": 75.9,
+            "what": "A person with gray hair wearing a black shirt and blue gloves holds a black camera and films a red chili pepper taped to a black surface.",
+            "on_screen_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          6
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 31,
+            "inspections": 5,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.8143505490152165,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 30,
+      "t_wall": 43.71113433397841,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "t_start": 84.1,
+        "t_end": 88.7,
+        "what": "Multiple people in blue, black, green, and dark shirts floating in an ISS module gather around and jointly hold a small plant or sample while another person photographs them with a camera.",
+        "on_screen_text": "",
+        "importance": 5,
+        "confidence": 0.9
+      },
+      "ok": true,
+      "latency_s": 2.333990671992069,
+      "tokens_in": 1936,
+      "tokens_out": 91,
+      "cost_usd": 0.0006626999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 43.71131676697405,
+      "role": "tool",
+      "note": "Inspect gap 7 for plant care activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 84.1,
+        "end": 92.7,
+        "focus": "Person tending green plants in ISS module"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 84.1,
+            "t_end": 88.7,
+            "what": "Multiple people in blue, black, green, and dark shirts floating in an ISS module gather around and jointly hold a small plant or sample while another person photographs them with a camera.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          7
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 31,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.8878922690055333,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 32,
+      "t_wall": 45.45984670097823,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.748246452974854,
+      "tokens_in": 7778,
+      "tokens_out": 53,
+      "cost_usd": 0.007937,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 48.24188028697972,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "The gray‑haired technician in a black shirt and blue gloves gently adjusts green foliage inside the luminous space‑station growth chamber."
+          },
+          {
+            "id": 5,
+            "text": "The same technician pauses her hand, turns slightly away from the equipment panel and then reaches toward a nearby control for a switch."
+          },
+          {
+            "id": 6,
+            "text": "She then retrieves a black camera and films a bright red chili pepper secured to a black surface beside a small white label."
+          },
+          {
+            "id": 7,
+            "text": "Multiple crew members in colorful shirts gather around a small sample, while another astronaut photographs the group with a handheld camera."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.7789931029838044,
+      "tokens_in": 2453,
+      "tokens_out": 178,
+      "cost_usd": 0.0001899,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 50.34448076499393,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside the space station growth chamber."
+          },
+          {
+            "id": 5,
+            "text": "The technician lifts a red chili pepper and places it beside a small white label."
+          },
+          {
+            "id": 6,
+            "text": "The technician films the chili pepper attached to a black surface using a handheld camera."
+          },
+          {
+            "id": 7,
+            "text": "Astronauts and technicians float around a plant while one person photographs it in the orbital laboratory."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.102292527008103,
+      "tokens_in": 2516,
+      "tokens_out": 120,
+      "cost_usd": 0.00017976,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 35,
+      "t_wall": 50.34483968297718,
+      "role": "tool",
+      "note": "Draft descriptions for gaps 4-7",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 4,
+            "text": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside.",
+            "max_words": 17
+          },
+          {
+            "id": 5,
+            "text": "The technician lifts a red chili pepper and places it beside a small white label.",
+            "max_words": 17
+          },
+          {
+            "id": 6,
+            "text": "The technician films the chili pepper attached to a black surface using a handheld camera.",
+            "max_words": 17
+          },
+          {
+            "id": 7,
+            "text": "Astronauts and technicians float around a plant while one person photographs it in the orbital laboratory.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 30,
+            "inspections": 4,
+            "verifications": 8
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 4.8849734539981,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 36,
+      "t_wall": 52.526877993979724,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.1816892359929625,
+      "tokens_in": 8152,
+      "tokens_out": 260,
+      "cost_usd": 0.008932,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 37,
+      "t_wall": 54.13000189198647,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person with gray hair wearing a black shirt and blue gloves is visible reaching toward green leafy plants inside a module with visible hardware and wiring."
+      },
+      "ok": true,
+      "latency_s": 1.3021538899920415,
+      "tokens_in": 1164,
+      "tokens_out": 44,
+      "cost_usd": 0.0003888,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 54.130160297994735,
+      "role": "tool",
+      "note": "Verify committed cue 0 content",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 0,
+        "claim": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A person with gray hair wearing a black shirt and blue gloves is visible reaching toward green leafy plants inside a module with visible hardware and wiring.",
+        "modality": "frames",
+        "gap_ids": [
+          0
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            1,
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 7
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.6032686159887817,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 39,
+      "t_wall": 55.84371630297392,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "A gray-haired man in a black shirt and blue gloves is seen with his hands inside a chamber containing green plants."
+      },
+      "ok": true,
+      "latency_s": 1.4290224900178146,
+      "tokens_in": 1180,
+      "tokens_out": 38,
+      "cost_usd": 0.0003882,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 55.84384802298155,
+      "role": "tool",
+      "note": "Verify committed cue 1 content",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "A gray-haired man in a black shirt and blue gloves is seen with his hands inside a chamber containing green plants.",
+        "modality": "frames",
+        "gap_ids": [
+          1
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            2,
+            3
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 6
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.7136527159891557,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 41,
+      "t_wall": 57.65377789599006,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frame shows a gray-haired man wearing a black shirt and blue gloves reaching into a bright, open tray unit containing green plants, with one gloved hand interacting with the foliage."
+      },
+      "ok": true,
+      "latency_s": 1.5179195220116526,
+      "tokens_in": 1177,
+      "tokens_out": 52,
+      "cost_usd": 0.00039989999999999996,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 42,
+      "t_wall": 57.653886557993246,
+      "role": "tool",
+      "note": "Verify committed cue 2 content",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 2,
+        "claim": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frame shows a gray-haired man wearing a black shirt and blue gloves reaching into a bright, open tray unit containing green plants, with one gloved hand interacting with the foliage.",
+        "modality": "frames",
+        "gap_ids": [
+          2
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "remaining": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            3
+          ],
+          "budget": {
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 5
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.8100057060073595,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 43,
+      "t_wall": 59.32270154598518,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "An astronaut wearing blue gloves is shown reaching into a plant growth chamber with illuminated green plants, but the specific action of adjusting a leaf cluster and confirmation that the setting is the ISS cannot be verified from these frames alone."
+      },
+      "ok": true,
+      "latency_s": 1.3910333079984412,
+      "tokens_in": 1175,
+      "tokens_out": 59,
+      "cost_usd": 0.00040560000000000005,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 44,
+      "t_wall": 59.32275004099938,
+      "role": "tool",
+      "note": "Verify committed cue 3 content",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 3,
+        "claim": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber."
+      },
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "An astronaut wearing blue gloves is shown reaching into a plant growth chamber with illuminated green plants, but the specific action of adjusting a leaf cluster and confirmation that the setting is the ISS cannot be verified from these frames alone.",
+        "modality": "frames",
+        "gap_ids": [
+          3
+        ],
         "state": {
           "committed": [
             0,
@@ -1072,14 +1924,14 @@
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 32,
-            "inspections": 8,
-            "verifications": 8
+            "turns": 29,
+            "inspections": 4,
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.06991904499591328,
+      "latency_s": 1.6688332850171719,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1088,31 +1940,31 @@
       "corrects_step": null
     },
     {
-      "step": 24,
-      "t_wall": 105.9080570590013,
+      "step": 45,
+      "t_wall": 60.96372063099989,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.0855432569951518,
-      "tokens_in": 6304,
-      "tokens_out": 68,
-      "cost_usd": 0.006508,
+      "latency_s": 1.6406058259890415,
+      "tokens_in": 8672,
+      "tokens_out": 284,
+      "cost_usd": 0.009524,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 25,
-      "t_wall": 105.98481575898768,
+      "step": 46,
+      "t_wall": 61.037884126999415,
       "role": "tool",
-      "note": "Commit cue for gap 4",
+      "note": "Propose cue for gap 4 from draft",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 4,
-        "text": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber."
+        "text": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside."
       },
       "result": {
         "ok": true,
@@ -1127,7 +1979,7 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "Gloved man adjusts foliage on equipment, harvesting leafy plants inside chamber."
+          "en": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside."
         },
         "state": {
           "committed": [
@@ -1147,504 +1999,14 @@
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 31,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.07674659100302961,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 26,
-      "t_wall": 107.48827955099114,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5032749210076872,
-      "tokens_in": 6515,
-      "tokens_out": 277,
-      "cost_usd": 0.007346,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 27,
-      "t_wall": 168.41700027999468,
-      "role": "system",
-      "note": "retry after APITimeoutError (attempt 2/3, backoff 1s)",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": false,
-      "latency_s": 0,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false
-    },
-    {
-      "step": 28,
-      "t_wall": 172.37959306899575,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "start_time": 56.5,
-        "events": [
-          {
-            "t_start": 56.5,
-            "t_end": 59.0,
-            "what": "A person in a black shirt reaches toward a panel on a wall inside the station, next to a window showing green plants.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 59.0,
-            "t_end": 62.0,
-            "what": "The camera pans across the station wall showing equipment and blue panels as the person moves out of frame.",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 62.0,
-            "t_end": 68.0,
-            "what": "A person wearing blue gloves places a small red chili pepper on a black board and tapes it down next to a handwritten note.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 64.23919528099941,
-      "tokens_in": 2095,
-      "tokens_out": 263,
-      "cost_usd": 0.0008652,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 29,
-      "t_wall": 172.3804604659963,
-      "role": "tool",
-      "note": "Inspect gap 5 scene",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 56.5,
-        "end": 68,
-        "focus": "visual content for audio description"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 56.5,
-            "t_end": 59.0,
-            "what": "A person in a black shirt reaches toward a panel on a wall inside the station, next to a window showing green plants.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 59.0,
-            "t_end": 62.0,
-            "what": "The camera pans across the station wall showing equipment and blue panels as the person moves out of frame.",
-            "on_screen_text": "",
-            "importance": 2,
-            "confidence": 0.9
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          4,
-          5,
-          6
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 30,
-            "inspections": 7,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 64.89215957200213,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 30,
-      "t_wall": 175.57216424899525,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 67.8,
-            "t_end": 79.3,
-            "what": "A person in a blue latex glove holds a handheld camera and photographs a red chili pepper taped to a black surface next to a label that reads MISSE-8.",
-            "on_screen_text": "MISSE-8",
-            "importance": 5,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 79.3,
-            "t_end": 84.8,
-            "what": "Two men in a space station module pose with an astronaut in a black shirt and cap, with the astronaut adjusting his cap while the others smile.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.4688189159933245,
-      "tokens_in": 2095,
-      "tokens_out": 194,
-      "cost_usd": 0.0008031000000000001,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 31,
-      "t_wall": 175.57241234400135,
-      "role": "tool",
-      "note": "Inspect gap 6 scene",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 67.8,
-        "end": 79.3,
-        "focus": "visual content for audio description"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 67.8,
-            "t_end": 79.3,
-            "what": "A person in a blue latex glove holds a handheld camera and photographs a red chili pepper taped to a black surface next to a label that reads MISSE-8.",
-            "on_screen_text": "MISSE-8",
-            "importance": 5,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 79.3,
-            "t_end": 84.8,
-            "what": "Two men in a space station module pose with an astronaut in a black shirt and cap, with the astronaut adjusting his cap while the others smile.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          }
-        ],
-        "modality": "video",
-        "time_base": "mixed",
-        "evidence_gaps": [
-          5,
-          6
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 30,
-            "inspections": 6,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 3.1918272850016365,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 32,
-      "t_wall": 178.70733526199183,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "event": [
-          {
-            "t_start": 0,
-            "t_end": 4,
-            "what": "Two men stand in the space station module and hand a bottle to someone seated in the foreground while another person watches from the lower right.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 4,
-            "t_end": 10,
-            "what": "A woman seated in a green shirt receives a cake as several crew members gather around and a man at the bottom right takes a picture with a camera.",
-            "on_screen_text": "",
-            "importance": 5,
-            "confidence": 0.9
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.4829974900058005,
-      "tokens_in": 1622,
-      "tokens_out": 168,
-      "cost_usd": 0.0006378,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 33,
-      "t_wall": 180.5927070639882,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 84.0,
-            "t_end": 94.0,
-            "what": "Astronauts in a space station module gather closely, reaching toward a central point as another person films them from the foreground.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.5936952589981956,
-      "tokens_in": 1114,
-      "tokens_out": 93,
-      "cost_usd": 0.00041789999999999997,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 34,
-      "t_wall": 180.59297055199568,
-      "role": "tool",
-      "note": "Inspect gap 7 scene",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 84,
-        "end": 93,
-        "focus": "visual content for audio description"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 84.0,
-            "t_end": 94.0,
-            "what": "Astronauts in a space station module gather closely, reaching toward a central point as another person films them from the foreground.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          }
-        ],
-        "modality": "frames-fallback",
-        "time_base": "mixed",
-        "evidence_gaps": [
-          7,
-          8
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 30,
-            "inspections": 5,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 5.020498711994151,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 35,
-      "t_wall": 183.71778959299263,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 92.7,
-            "t_end": 97.1,
-            "what": "A group of people inside a space station module pass a small green plant from one person to another while seated in microgravity.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 97.1,
-            "t_end": 101.5,
-            "what": "One person holds a camera and records the interaction as the plant is passed along among the group.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.92
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.469899785995949,
-      "tokens_in": 1631,
-      "tokens_out": 170,
-      "cost_usd": 0.0006422999999999999,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 36,
-      "t_wall": 183.71806766999362,
-      "role": "tool",
-      "note": "Inspect gap 8 scene",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 92.7,
-        "end": 101.5,
-        "focus": "visual content for audio description"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 92.7,
-            "t_end": 97.1,
-            "what": "A group of people inside a space station module pass a small green plant from one person to another while seated in microgravity.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 97.1,
-            "t_end": 101.5,
-            "what": "One person holds a camera and records the interaction as the plant is passed along among the group.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.92
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          7,
-          8,
-          9
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 30,
+            "turns": 28,
             "inspections": 4,
-            "verifications": 8
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 3.125046654997277,
+      "latency_s": 0.07415150399901904,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1653,165 +2015,14 @@
       "corrects_step": null
     },
     {
-      "step": 37,
-      "t_wall": 185.59656685199297,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.8780331710004248,
-      "tokens_in": 7935,
-      "tokens_out": 56,
-      "cost_usd": 0.008103,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 38,
-      "t_wall": 188.34513201199297,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": "MISSE-8"
-          },
-          {
-            "id": 6,
-            "text": "Two men pose with an astronaut in a black shirt, adjusting his cap while others smile."
-          },
-          {
-            "id": 7,
-            "text": "A person photographs a red chili pepper taped to a black surface near a MISSE-8 label."
-          },
-          {
-            "id": 8,
-            "text": "A group passes a small green plant in microgravity while one films the interaction."
-          },
-          {
-            "id": 9,
-            "text": "Astronauts reach toward a central point as someone films them in the station."
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.7455021450005006,
-      "tokens_in": 2187,
-      "tokens_out": 172,
-      "cost_usd": 0.0001725,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 39,
-      "t_wall": 188.34535653599596,
+      "step": 47,
+      "t_wall": 61.10869495998486,
       "role": "tool",
-      "note": "Draft cues for gaps 5-9",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": "MISSE-8",
-            "max_words": 17
-          },
-          {
-            "id": 6,
-            "text": "Two men pose with an astronaut in a black shirt, adjusting his cap while others smile.",
-            "max_words": 17
-          },
-          {
-            "id": 7,
-            "text": "A person photographs a red chili pepper taped to a black surface near a MISSE-8 label.",
-            "max_words": 16
-          },
-          {
-            "id": 8,
-            "text": "A group passes a small green plant in microgravity while one films the interaction.",
-            "max_words": 16
-          },
-          {
-            "id": 9,
-            "text": "Astronauts reach toward a central point as someone films them in the station.",
-            "max_words": 16
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 29,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 2.748771600992768,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 40,
-      "t_wall": 190.75210688999505,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.406345682000392,
-      "tokens_in": 8047,
-      "tokens_out": 330,
-      "cost_usd": 0.009037,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 41,
-      "t_wall": 190.84329774799698,
-      "role": "tool",
-      "note": "Commit cue for gap 5",
+      "note": "Propose cue for gap 5 from draft",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 5,
-        "text": "Gloved hand places red chili pepper on labeled surface, man operates camera nearby."
+        "text": "The technician lifts a red chili pepper and places it beside a small white label."
       },
       "result": {
         "ok": true,
@@ -1826,13 +2037,8 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "Gloved hand places red chili pepper on labeled surface, man operates camera nearby."
+          "en": "The technician lifts a red chili pepper and places it beside a small white label."
         },
-        "verify_required": [
-          "orchestrator-authored text"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
         "state": {
           "committed": [
             0,
@@ -1849,18 +2055,16 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            5
-          ],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 4,
-            "verifications": 8
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.09117556500132196,
+      "latency_s": 0.07077436099643819,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1869,14 +2073,14 @@
       "corrects_step": null
     },
     {
-      "step": 42,
-      "t_wall": 190.91380407699035,
+      "step": 48,
+      "t_wall": 61.17900579297566,
       "role": "tool",
-      "note": "Commit cue for gap 6",
+      "note": "Propose cue for gap 6 from draft",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 6,
-        "text": "Two men pose with astronaut in black shirt, adjusting his cap while others smile."
+        "text": "The technician films the chili pepper attached to a black surface using a handheld camera."
       },
       "result": {
         "ok": true,
@@ -1891,7 +2095,7 @@
           "word_budget_hi": 28,
           "max_words_en": 17,
           "max_words_hi": 19,
-          "en": "Two men pose with astronaut in black shirt, adjusting his cap while others smile."
+          "en": "The technician films the chili pepper attached to a black surface using a handheld camera."
         },
         "state": {
           "committed": [
@@ -1909,18 +2113,16 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            5
-          ],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 4,
-            "verifications": 8
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.07045701600145549,
+      "latency_s": 0.07027051100158133,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1929,14 +2131,14 @@
       "corrects_step": null
     },
     {
-      "step": 43,
-      "t_wall": 190.9840308540006,
+      "step": 49,
+      "t_wall": 61.24967067097896,
       "role": "tool",
-      "note": "Commit cue for gap 7",
+      "note": "Propose cue for gap 7 from draft",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 7,
-        "text": "Person photographs red chili pepper taped to black surface near MISSE-8 label."
+        "text": "Astronauts and technicians float around a plant while one person photographs it in the orbital laboratory."
       },
       "result": {
         "ok": true,
@@ -1951,13 +2153,8 @@
           "word_budget_hi": 21,
           "max_words_en": 16,
           "max_words_hi": 19,
-          "en": "Person photographs red chili pepper taped to black surface near MISSE-8 label."
+          "en": "Astronauts and technicians float around a plant while one person photographs it in the orbital laboratory."
         },
-        "verify_required": [
-          "number",
-          "named entity"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
         "state": {
           "committed": [
             0,
@@ -1974,19 +2171,16 @@
             9
           ],
           "skipped_too_short": [],
-          "needs_verification": [
-            5,
-            7
-          ],
+          "needs_verification": [],
           "budget": {
             "turns": 28,
             "inspections": 4,
-            "verifications": 8
+            "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 0.07016278599621728,
+      "latency_s": 0.07062443500035442,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -1995,14 +2189,244 @@
       "corrects_step": null
     },
     {
-      "step": 44,
-      "t_wall": 191.04871796499356,
+      "step": 50,
+      "t_wall": 63.610460829979274,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 2.360470016981708,
+      "tokens_in": 8674,
+      "tokens_out": 151,
+      "cost_usd": 0.009127,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 51,
+      "t_wall": 66.73235704097897,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 92.7,
+            "t_end": 98.8,
+            "what": "A group of astronauts floats together inside a cluttered ISS module, reaching hands toward a small green plant held in the center while one person films with a camera.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 98.8,
+            "t_end": 102.7,
+            "what": "The green-shirted astronaut hands the plant to the gray-haired astronaut in the black shirt, who holds it over a green cutting board.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.3973478699917905,
+      "tokens_in": 2093,
+      "tokens_out": 184,
+      "cost_usd": 0.0007935,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 52,
+      "t_wall": 66.73270693499944,
       "role": "tool",
-      "note": "Commit cue for gap 8",
+      "note": "Inspect gap 8 for ongoing activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 92.7,
+        "end": 102.7,
+        "focus": "Activity in ISS module after group photo"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 92.7,
+            "t_end": 98.8,
+            "what": "A group of astronauts floats together inside a cluttered ISS module, reaching hands toward a small green plant held in the center while one person films with a camera.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 98.8,
+            "t_end": 102.7,
+            "what": "The green-shirted astronaut hands the plant to the gray-haired astronaut in the black shirt, who holds it over a green cutting board.",
+            "on_screen_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          7,
+          8,
+          9
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 3,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.122233016008977,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 53,
+      "t_wall": 69.34008580198861,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 102.7,
+            "t_end": 109.0,
+            "what": "Multiple astronauts wearing blue, black, and green shirts are floating and gathering in an International Space Station module with equipment panels and wiring.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.98
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.970280951994937,
+      "tokens_in": 1633,
+      "tokens_out": 96,
+      "cost_usd": 0.0005763,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "perceive",
+      "cached_tokens": 0
+    },
+    {
+      "step": 54,
+      "t_wall": 69.34034221500042,
+      "role": "tool",
+      "note": "Inspect gap 9 for end of video activity",
+      "tool_name": "inspect_video_segment",
+      "args": {
+        "start": 102.7,
+        "end": 110,
+        "focus": "Final activity in ISS module"
+      },
+      "result": {
+        "events": [
+          {
+            "t_start": 102.7,
+            "t_end": 109.0,
+            "what": "Multiple astronauts wearing blue, black, and green shirts are floating and gathering in an International Space Station module with equipment panels and wiring.",
+            "on_screen_text": "",
+            "importance": 5,
+            "confidence": 0.98
+          }
+        ],
+        "modality": "video",
+        "time_base": "absolute",
+        "evidence_gaps": [
+          9
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "remaining": [
+            8,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 27,
+            "inspections": 2,
+            "verifications": 4
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.6075762970140204,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 55,
+      "t_wall": 70.97256155699142,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.6318802059977315,
+      "tokens_in": 9128,
+      "tokens_out": 76,
+      "cost_usd": 0.009356,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 56,
+      "t_wall": 71.05045009998139,
+      "role": "tool",
+      "note": "Propose cue for gap 8 from evidence",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 8,
-        "text": "Group passes small green plant in microgravity while one films the interaction."
+        "text": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films."
       },
       "result": {
         "ok": true,
@@ -2017,8 +2441,14 @@
           "word_budget_hi": 21,
           "max_words_en": 16,
           "max_words_hi": 19,
-          "en": "Group passes small green plant in microgravity while one films the interaction."
+          "en": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films."
         },
+        "verify_required": [
+          "named entity",
+          "orchestrator-authored text"
+        ],
+        "next": "call verify_claim(gap_id, claim) before finalize",
+        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim require",
         "state": {
           "committed": [
             0,
@@ -2036,755 +2466,45 @@
           ],
           "skipped_too_short": [],
           "needs_verification": [
-            5,
-            7
-          ],
-          "budget": {
-            "turns": 28,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.06464495699037798,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 45,
-      "t_wall": 191.118551380001,
-      "role": "tool",
-      "note": "Commit cue for gap 9",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 9,
-        "text": "Astronauts reach toward center point in station module as camera records group."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 9,
-          "start": 101.32,
-          "end": 109.92,
-          "duration": 8.6,
-          "narratable": true,
-          "parent_gap": 1,
-          "word_budget_en": 18,
-          "word_budget_hi": 21,
-          "max_words_en": 16,
-          "max_words_hi": 19,
-          "en": "Astronauts reach toward center point in station module as camera records group."
-        },
-        "verify_required": [
-          "orchestrator-authored text"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            5,
-            7,
-            9
-          ],
-          "budget": {
-            "turns": 28,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.06979410900385119,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 46,
-      "t_wall": 193.01152375599486,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.8926642739970703,
-      "tokens_in": 8343,
-      "tokens_out": 77,
-      "cost_usd": 0.008574,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 47,
-      "t_wall": 194.7503078209993,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "The label reads 'MISE-8' (not 'MISSE-8'), and a gloved hand places a red chili pepper on the labeled surface while a camera is positioned nearby."
-      },
-      "ok": true,
-      "latency_s": 1.4197076550044585,
-      "tokens_in": 1183,
-      "tokens_out": 57,
-      "cost_usd": 0.0004062,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 48,
-      "t_wall": 194.75062234399957,
-      "role": "tool",
-      "note": "Verify MISSE-8 label for gap 5",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 5,
-        "claim": "Gloved hand places red chili pepper on labeled surface MISSE-8, man operates camera nearby"
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "The label reads 'MISE-8' (not 'MISSE-8'), and a gloved hand places a red chili pepper on the labeled surface while a camera is positioned nearby.",
-        "modality": "frames",
-        "gap_ids": [
-          5
-        ],
-        "uncommitted": [
-          5
-        ],
-        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            7,
-            8,
-            9
-          ],
-          "remaining": [
-            5
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7,
-            9
-          ],
-          "budget": {
-            "turns": 27,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 1.7390838140127016,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 49,
-      "t_wall": 196.2902065909875,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5393019049952272,
-      "tokens_in": 8468,
-      "tokens_out": 44,
-      "cost_usd": 0.0086,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 50,
-      "t_wall": 197.72729284499655,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": ""
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.4348940030031372,
-      "tokens_in": 967,
-      "tokens_out": 15,
-      "cost_usd": 6.162e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 51,
-      "t_wall": 197.72764103199006,
-      "role": "tool",
-      "note": "Redraft gap 5 with correct label",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          5
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": "Title: \"MISSE-8\".",
-            "max_words": 17
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            7,
-            8,
-            9
-          ],
-          "remaining": [
-            5
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7,
-            9
+            8
           ],
           "budget": {
             "turns": 26,
-            "inspections": 4,
-            "verifications": 7
+            "inspections": 2,
+            "verifications": 4
           }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.4374234389979392,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 52,
-      "t_wall": 199.74842866900144,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 2.0205043079913594,
-      "tokens_in": 7958,
-      "tokens_out": 43,
-      "cost_usd": 0.008087,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 53,
-      "t_wall": 201.09519290699973,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": "A person photographs a red pepper labeled MISSE-8."
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.3444530790002318,
-      "tokens_in": 967,
-      "tokens_out": 27,
-      "cost_usd": 6.45e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 54,
-      "t_wall": 201.09549590799725,
-      "role": "tool",
-      "note": "Draft correct cue for gap 5",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          5
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 5,
-            "text": "A person photographs a red pepper labeled MISSE-8.",
-            "max_words": 17
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            7,
-            8,
-            9
-          ],
-          "remaining": [
-            5
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7,
-            9
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.3470559690031223,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 55,
-      "t_wall": 202.67239198599418,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5766151980060386,
-      "tokens_in": 7954,
-      "tokens_out": 65,
-      "cost_usd": 0.008149,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 56,
-      "t_wall": 202.74748484499287,
-      "role": "tool",
-      "note": "Commit corrected cue for gap 5",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 5,
-        "text": "A person photographs a red pepper labeled MISSE-8."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 5,
-          "start": 56.57,
-          "end": 67.87,
-          "duration": 11.3,
-          "narratable": true,
-          "parent_gap": 0,
-          "word_budget_en": 24,
-          "word_budget_hi": 28,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "A person photographs a red pepper labeled MISSE-8."
         },
-        "verify_required": [
-          "number",
-          "named entity"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            7,
-            8,
-            9,
-            5
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7,
-            9,
-            5
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 0.07508011900063138,
+      "latency_s": 0.07787481299601495,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": true,
-      "corrects_step": 48
+      "correction": false,
+      "corrects_step": null
     },
     {
       "step": 57,
-      "t_wall": 204.3869978099974,
+      "t_wall": 72.85279530700063,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.6392063630046323,
-      "tokens_in": 7276,
-      "tokens_out": 68,
-      "cost_usd": 0.00748,
+      "latency_s": 1.8020161039894447,
+      "tokens_in": 8451,
+      "tokens_out": 42,
+      "cost_usd": 0.008577,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 58,
-      "t_wall": 206.15895834799448,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "A camera photographs a red pepper on a dark board with a note labeled MISSE-8."
-      },
-      "ok": true,
-      "latency_s": 1.5054750260023866,
-      "tokens_in": 1174,
-      "tokens_out": 34,
-      "cost_usd": 0.00038280000000000003,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 59,
-      "t_wall": 206.1592471699987,
-      "role": "tool",
-      "note": "Verify MISSE-8 label for gap 5",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 5,
-        "claim": "A person photographs a red pepper labeled MISSE-8."
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "A camera photographs a red pepper on a dark board with a note labeled MISSE-8.",
-        "modality": "frames",
-        "gap_ids": [
-          5
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            7,
-            8,
-            9,
-            5
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7,
-            9
-          ],
-          "budget": {
-            "turns": 23,
-            "inspections": 4,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.7722378020116594,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 60,
-      "t_wall": 207.84388877698802,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.6843106870073825,
-      "tokens_in": 7240,
-      "tokens_out": 78,
-      "cost_usd": 0.007474,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 61,
-      "t_wall": 209.4681204429944,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "No red chili pepper, black surface, or MISSE-8 label is visible; multiple people are gathered around a camera in the station interior."
-      },
-      "ok": true,
-      "latency_s": 1.351308149009128,
-      "tokens_in": 1166,
-      "tokens_out": 49,
-      "cost_usd": 0.00039390000000000003,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 62,
-      "t_wall": 209.46840252100083,
-      "role": "tool",
-      "note": "Verify MISSE-8 label and red chili for gap 7",
-      "tool_name": "verify_claim",
-      "args": {
-        "claim": "Person photographs red chili pepper taped to black surface near MISSE-8 label.",
-        "gap_id": 7
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "No red chili pepper, black surface, or MISSE-8 label is visible; multiple people are gathered around a camera in the station interior.",
-        "modality": "frames",
-        "gap_ids": [
-          7
-        ],
-        "uncommitted": [
-          7
-        ],
-        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5
-          ],
-          "remaining": [
-            7
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            9
-          ],
-          "budget": {
-            "turns": 22,
-            "inspections": 4,
-            "verifications": 5
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 1.624500187986996,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 63,
-      "t_wall": 211.02397717798885,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.555179479997605,
-      "tokens_in": 6548,
-      "tokens_out": 64,
-      "cost_usd": 0.00674,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 64,
-      "t_wall": 213.02763181200135,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "Several individuals wearing shirts are positioned together inside a confined module filled with equipment, laptops, and cables, consistent with a space station interior."
-      },
-      "ok": true,
-      "latency_s": 1.6935355540044839,
-      "tokens_in": 1173,
-      "tokens_out": 43,
-      "cost_usd": 0.00039059999999999995,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 65,
-      "t_wall": 213.02788445599435,
-      "role": "tool",
-      "note": "Verify station module gathering for gap 9",
-      "tool_name": "verify_claim",
-      "args": {
-        "claim": "Astronauts in a space station module gather closely.",
-        "gap_id": 9
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "Several individuals wearing shirts are positioned together inside a confined module filled with equipment, laptops, and cables, consistent with a space station interior.",
-        "modality": "frames",
-        "gap_ids": [
-          9
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5
-          ],
-          "remaining": [
-            7
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 21,
-            "inspections": 4,
-            "verifications": 4
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 2.0038957100041443,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 66,
-      "t_wall": 214.7979957179923,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7697444720106432,
-      "tokens_in": 6575,
-      "tokens_out": 43,
-      "cost_usd": 0.006704,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 67,
-      "t_wall": 216.1363154110004,
+      "t_wall": 74.26890401198762,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -2792,37 +2512,62 @@
       "result": {
         "cues": [
           {
-            "id": 7,
-            "text": "People pass a small green plant while seated in microgravity inside a space station module."
+            "id": 9,
+            "text": "The gray-haired astronaut gently cradles the thriving green plant above the dark cutting board in the bustling modular habitat."
           }
         ]
       },
       "ok": true,
-      "latency_s": 1.3356964109989349,
-      "tokens_in": 986,
-      "tokens_out": 32,
-      "cost_usd": 6.684e-05,
+      "latency_s": 1.4136172239959706,
+      "tokens_in": 1753,
+      "tokens_out": 52,
+      "cost_usd": 0.00011766,
       "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
       "correction": false,
       "cost_role": "draft",
       "cached_tokens": 0
     },
     {
-      "step": 68,
-      "t_wall": 216.13656768099463,
+      "step": 59,
+      "t_wall": 75.67669142197701,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "The gray-haired astronaut in a black shirt holds a small green plant above a cutting board."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4076012170116883,
+      "tokens_in": 1816,
+      "tokens_out": 45,
+      "cost_usd": 0.00011975999999999999,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 60,
+      "t_wall": 75.67701356098405,
       "role": "tool",
-      "note": "Draft correct description for gap 7",
+      "note": "Draft description for gap 9",
       "tool_name": "draft_description",
       "args": {
         "gap_ids": [
-          7
+          9
         ]
       },
       "result": {
         "cues": [
           {
-            "id": 7,
-            "text": "People pass a small green plant while seated in microgravity inside a space station module.",
+            "id": 9,
+            "text": "The gray-haired astronaut in a black shirt holds a small green plant above a cutting board.",
             "max_words": 16
           }
         ],
@@ -2833,25 +2578,27 @@
             2,
             3,
             4,
+            5,
             6,
-            8,
-            9,
-            5
+            7,
+            8
           ],
           "remaining": [
-            7
+            9
           ],
           "skipped_too_short": [],
-          "needs_verification": [],
+          "needs_verification": [
+            8
+          ],
           "budget": {
-            "turns": 20,
-            "inspections": 4,
+            "turns": 25,
+            "inspections": 2,
             "verifications": 4
           }
         }
       },
       "ok": true,
-      "latency_s": 1.338547313993331,
+      "latency_s": 2.82419326499803,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -2860,31 +2607,535 @@
       "corrects_step": null
     },
     {
-      "step": 69,
-      "t_wall": 217.9474747409986,
+      "step": 61,
+      "t_wall": 76.84062672298751,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.8105153079959564,
-      "tokens_in": 6625,
-      "tokens_out": 64,
-      "cost_usd": 0.006817,
+      "latency_s": 1.163099396013422,
+      "tokens_in": 7802,
+      "tokens_out": 70,
+      "cost_usd": 0.008012,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
+      "step": 62,
+      "t_wall": 78.67232578198309,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The frames show people in an orbital laboratory, but they are standing or floating in place rather than floating around freely; a plant is present, but no one is visibly photographing it in the provided frames."
+      },
+      "ok": true,
+      "latency_s": 1.5398795540095307,
+      "tokens_in": 1167,
+      "tokens_out": 58,
+      "cost_usd": 0.00040229999999999997,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 63,
+      "t_wall": 78.6725780479901,
+      "role": "tool",
+      "note": "Verify committed cue 7 content",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "Astronauts and technicians float around a plant while one person photographs it in the orbital laboratory."
+      },
+      "result": {
+        "verdict": "contradicted",
+        "evidence": "The frames show people in an orbital laboratory, but they are standing or floating in place rather than floating around freely; a plant is present, but no one is visibly photographing it in the provided frames.",
+        "modality": "frames",
+        "gap_ids": [
+          7
+        ],
+        "uncommitted": [
+          7
+        ],
+        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 24,
+            "inspections": 2,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 1.8319386590155773,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 64,
+      "t_wall": 80.41703086998314,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.7440970509778708,
+      "tokens_in": 7867,
+      "tokens_out": 43,
+      "cost_usd": 0.007996,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 65,
+      "t_wall": 81.709567065991,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "The cook films a red chili pepper attached to a black surface."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2901652349974029,
+      "tokens_in": 1602,
+      "tokens_out": 41,
+      "cost_usd": 0.00010596,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 66,
+      "t_wall": 81.70985218198621,
+      "role": "tool",
+      "note": "Redraft gap 7 after contradiction",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "The cook films a red chili pepper attached to a black surface.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 23,
+            "inspections": 2,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 1.2928095560055226,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 67,
+      "t_wall": 83.27605632797349,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.5657749569800217,
+      "tokens_in": 7535,
+      "tokens_out": 44,
+      "cost_usd": 0.007667,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 68,
+      "t_wall": 84.9425213149807,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "The gray-haired astronaut in a black shirt gently cradles a vibrant green cutting board as they prepare it for the upcoming task."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.6633898819854949,
+      "tokens_in": 1750,
+      "tokens_out": 53,
+      "cost_usd": 0.00011772,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 69,
+      "t_wall": 86.30888789700111,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "The gray-haired astronaut tending plants offers a sample onto a cutting board."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.366229545994429,
+      "tokens_in": 1813,
+      "tokens_out": 42,
+      "cost_usd": 0.00011886,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
       "step": 70,
-      "t_wall": 218.0534348779911,
+      "t_wall": 86.30910654898616,
+      "role": "tool",
+      "note": "Draft gap 9 for re-proposal",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          9
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 9,
+            "text": "The gray-haired astronaut tending plants offers a sample onto a cutting board.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 22,
+            "inspections": 2,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 3.0330352970049717,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 71,
+      "t_wall": 87.34516969198012,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.03555813501589,
+      "tokens_in": 7008,
+      "tokens_out": 67,
+      "cost_usd": 0.007209,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 72,
+      "t_wall": 87.42293383099604,
       "role": "tool",
       "note": "Propose corrected cue for gap 7",
       "tool_name": "propose_cue",
       "args": {
         "gap_id": 7,
-        "text": "Two astronauts pose inside station module filled with equipment."
+        "text": "The cook films a red chili pepper attached to a black surface."
+      },
+      "result": {
+        "ok": false,
+        "problems": [
+          "repeats the previous cue (gap 6)"
+        ],
+        "suggested_max_words": 16,
+        "seconds": 3.87,
+        "overlap_seconds": 0,
+        "next": "call draft_description(gap_ids=[7], max_words=16) instead of hand-editing",
+        "problem": "too similar to the previous cue: describe only what is new, or drop_gap if nothing new happens",
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 21,
+            "inspections": 2,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": false,
+      "latency_s": 0.07774856701144017,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 73,
+      "t_wall": 88.93308294998133,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.509656703012297,
+      "tokens_in": 6839,
+      "tokens_out": 41,
+      "cost_usd": 0.006962,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 74,
+      "t_wall": 90.35691429500002,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "The gray-haired technician films the red pepper taped to a black surface as multiple colleagues gather to photograph a sample in the ISS plant chamber."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.421574313979363,
+      "tokens_in": 1602,
+      "tokens_out": 55,
+      "cost_usd": 0.00010931999999999999,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 75,
+      "t_wall": 91.61164298298536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "The crew member gathers a sample of green plants in the growth chamber and photographs them."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2545517639955506,
+      "tokens_in": 1665,
+      "tokens_out": 39,
+      "cost_usd": 0.00010926,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "draft",
+      "cached_tokens": 0
+    },
+    {
+      "step": 76,
+      "t_wall": 91.61201834899839,
+      "role": "tool",
+      "note": "Draft gap 7 fresh",
+      "tool_name": "draft_description",
+      "args": {
+        "gap_ids": [
+          7
+        ]
+      },
+      "result": {
+        "cues": [
+          {
+            "id": 7,
+            "text": "The crew member gathers a sample of green plants in the growth chamber and photographs them.",
+            "max_words": 16
+          }
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8
+          ],
+          "remaining": [
+            7,
+            9
+          ],
+          "skipped_too_short": [],
+          "needs_verification": [
+            8
+          ],
+          "budget": {
+            "turns": 20,
+            "inspections": 2,
+            "verifications": 3
+          }
+        }
+      },
+      "ok": true,
+      "latency_s": 2.6789162190107163,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 77,
+      "t_wall": 92.86094664898701,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.2481590310053434,
+      "tokens_in": 6763,
+      "tokens_out": 71,
+      "cost_usd": 0.006976,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 78,
+      "t_wall": 92.93719770899042,
+      "role": "tool",
+      "note": "Propose redrafted cue 7",
+      "tool_name": "propose_cue",
+      "args": {
+        "gap_id": 7,
+        "text": "The crew member gathers a sample of green plants in the growth chamber and photographs them."
       },
       "result": {
         "ok": true,
@@ -2899,13 +3150,8 @@
           "word_budget_hi": 21,
           "max_words_en": 16,
           "max_words_hi": 19,
-          "en": "Two astronauts pose inside station module filled with equipment."
+          "en": "The crew member gathers a sample of green plants in the growth chamber and photographs them."
         },
-        "verify_required": [
-          "orchestrator-authored text"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
         "state": {
           "committed": [
             0,
@@ -2913,424 +3159,67 @@
             2,
             3,
             4,
+            5,
             6,
             8,
-            9,
-            5,
             7
           ],
-          "remaining": [],
+          "remaining": [
+            9
+          ],
           "skipped_too_short": [],
           "needs_verification": [
-            7
+            8
           ],
           "budget": {
             "turns": 19,
-            "inspections": 4,
-            "verifications": 4
+            "inspections": 2,
+            "verifications": 3
           }
         }
       },
       "ok": true,
-      "latency_s": 0.10594321000098716,
+      "latency_s": 0.07623253099154681,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
       "correction": true,
-      "corrects_step": 62
-    },
-    {
-      "step": 71,
-      "t_wall": 219.84627025498776,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7924265449983068,
-      "tokens_in": 6736,
-      "tokens_out": 70,
-      "cost_usd": 0.006946,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 72,
-      "t_wall": 221.64789323299192,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "धूसर बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।"
-          },
-          {
-            "id": 1,
-            "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।"
-          },
-          {
-            "id": 2,
-            "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।"
-          },
-          {
-            "id": 3,
-            "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।"
-          },
-          {
-            "id": 4,
-            "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।"
-          },
-          {
-            "id": 5,
-            "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।"
-          },
-          {
-            "id": 6,
-            "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।"
-          }
-        ],
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.7996779999957653,
-      "tokens_in": 1710,
-      "tokens_out": 508,
-      "cost_usd": 0.003234,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 73,
-      "t_wall": 222.31371861298976,
-      "role": "tool",
-      "note": "Translate all committed cues to Hindi",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "धूसर बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.67,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.31,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5,
-            7
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7
-          ],
-          "budget": {
-            "turns": 18,
-            "inspections": 4,
-            "verifications": 4
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 2.4674257779988693,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 74,
-      "t_wall": 224.1983511360013,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.8840639060072135,
-      "tokens_in": 6865,
-      "tokens_out": 66,
-      "cost_usd": 0.007063,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 75,
-      "t_wall": 225.89226031399448,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।"
-          },
-          {
-            "id": 1,
-            "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।"
-          },
-          {
-            "id": 2,
-            "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।"
-          },
-          {
-            "id": 3,
-            "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।"
-          },
-          {
-            "id": 4,
-            "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।"
-          },
-          {
-            "id": 5,
-            "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।"
-          },
-          {
-            "id": 6,
-            "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।"
-          }
-        ],
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.692355310995481,
-      "tokens_in": 1906,
-      "tokens_out": 418,
-      "cost_usd": 0.00316,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 76,
-      "t_wall": 225.96751695100102,
-      "role": "tool",
-      "note": "Translate committed cues to Hindi",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          8,
-          9
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.76,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.31,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5,
-            7
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7
-          ],
-          "budget": {
-            "turns": 17,
-            "inspections": 4,
-            "verifications": 4
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.7691538119979668,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 77,
-      "t_wall": 227.64991728299356,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.6818237330007832,
-      "tokens_in": 7071,
-      "tokens_out": 31,
-      "cost_usd": 0.007164,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 78,
-      "t_wall": 227.65134131298691,
-      "role": "tool",
-      "note": "All cues committed and translated to Hindi",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": false,
-        "problems": [
-          "Cue 7 needs verification: orchestrator-authored text"
-        ],
-        "needs_verification": [
-          7
-        ],
-        "next": "call verify_claim(gap_id, claim) for each listed gap, then finalize",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5,
-            7
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [
-            7
-          ],
-          "budget": {
-            "turns": 16,
-            "inspections": 4,
-            "verifications": 4
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0014122940046945587,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
+      "corrects_step": 63
     },
     {
       "step": 79,
-      "t_wall": 229.41089606999594,
+      "t_wall": 94.71629089998896,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.7591868409945164,
-      "tokens_in": 7078,
-      "tokens_out": 63,
-      "cost_usd": 0.007267,
+      "latency_s": 1.7784432340122294,
+      "tokens_in": 6872,
+      "tokens_out": 72,
+      "cost_usd": 0.007088,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 80,
-      "t_wall": 231.0143185699999,
+      "t_wall": 96.66281209298177,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
         "verdict": "supported",
-        "evidence": "Two astronauts are visible inside a crowded station module, with one in a blue shirt and one in a dark shirt, surrounded by equipment and laptops."
+        "evidence": "Five people are in an ISS module, clustered around and reaching toward a central green plant, while a person in the foreground holds a camera filming them."
       },
       "ok": true,
-      "latency_s": 1.3129151590110268,
-      "tokens_in": 1158,
-      "tokens_out": 46,
-      "cost_usd": 0.00038879999999999996,
+      "latency_s": 1.5136033390008379,
+      "tokens_in": 1180,
+      "tokens_out": 44,
+      "cost_usd": 0.0003936,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "verify",
@@ -3338,20 +3227,20 @@
     },
     {
       "step": 81,
-      "t_wall": 231.01460592499643,
+      "t_wall": 96.6629984669853,
       "role": "tool",
-      "note": "Verify committed cue text for gap 7",
+      "note": "Verify committed cue 8 content",
       "tool_name": "verify_claim",
       "args": {
-        "gap_id": 7,
-        "claim": "Two astronauts pose inside station module filled with equipment."
+        "gap_id": 8,
+        "claim": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films."
       },
       "result": {
         "verdict": "supported",
-        "evidence": "Two astronauts are visible inside a crowded station module, with one in a blue shirt and one in a dark shirt, surrounded by equipment and laptops.",
+        "evidence": "Five people are in an ISS module, clustered around and reaching toward a central green plant, while a person in the foreground holds a camera filming them.",
         "modality": "frames",
         "gap_ids": [
-          7
+          8
         ],
         "state": {
           "committed": [
@@ -3360,24 +3249,25 @@
             2,
             3,
             4,
+            5,
             6,
             8,
-            9,
-            5,
             7
           ],
-          "remaining": [],
+          "remaining": [
+            9
+          ],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 15,
-            "inspections": 4,
-            "verifications": 3
+            "turns": 18,
+            "inspections": 2,
+            "verifications": 2
           }
         }
       },
       "ok": true,
-      "latency_s": 1.603694158999133,
+      "latency_s": 1.9466958850098308,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -3387,71 +3277,46 @@
     },
     {
       "step": 82,
-      "t_wall": 232.76665662499727,
+      "t_wall": 98.46554510798887,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.751647591998335,
-      "tokens_in": 7159,
-      "tokens_out": 44,
-      "cost_usd": 0.007291,
+      "latency_s": 1.8021712100016885,
+      "tokens_in": 6915,
+      "tokens_out": 67,
+      "cost_usd": 0.007116,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 83,
-      "t_wall": 233.61943405499915,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 7,
-            "hi": "दो अंतरिक्ष यात्री उपकरणों से भरे स्टेशन मॉड्यूल में पोज़ दे रहे हैं।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 0.8511266510031419,
-      "tokens_in": 351,
-      "tokens_out": 42,
-      "cost_usd": 0.000477,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 84,
-      "t_wall": 233.61976866598707,
+      "t_wall": 98.53973643798963,
       "role": "tool",
-      "note": "Translate committed cues 7 to Hindi",
-      "tool_name": "translate_hindi",
+      "note": "Propose draft for gap 9",
+      "tool_name": "propose_cue",
       "args": {
-        "cue_ids": [
-          7
-        ]
+        "gap_id": 9,
+        "text": "The gray-haired astronaut tending plants offers a sample onto a cutting board."
       },
       "result": {
         "ok": true,
-        "cues": [
-          {
-            "id": 7,
-            "text": "दो अंतरिक्ष यात्री उपकरणों से भरे स्टेशन मॉड्यूल में पोज़ दे रहे हैं।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 4.9,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
+        "cue": {
+          "id": 9,
+          "start": 101.32,
+          "end": 109.92,
+          "duration": 8.6,
+          "narratable": true,
+          "parent_gap": 1,
+          "word_budget_en": 18,
+          "word_budget_hi": 21,
+          "max_words_en": 16,
+          "max_words_hi": 19,
+          "en": "The gray-haired astronaut tending plants offers a sample onto a cutting board."
+        },
         "state": {
           "committed": [
             0,
@@ -3459,168 +3324,24 @@
             2,
             3,
             4,
+            5,
             6,
             8,
-            9,
-            5,
-            7
+            7,
+            9
           ],
           "remaining": [],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 14,
-            "inspections": 4,
-            "verifications": 3
+            "turns": 17,
+            "inspections": 2,
+            "verifications": 2
           }
         }
       },
       "ok": true,
-      "latency_s": 0.8530994790053228,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 78
-    },
-    {
-      "step": 85,
-      "t_wall": 235.50914493598975,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.8889513379981508,
-      "tokens_in": 7255,
-      "tokens_out": 70,
-      "cost_usd": 0.007465,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 86,
-      "t_wall": 237.33629943800042,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।"
-          },
-          {
-            "id": 1,
-            "hi": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।"
-          },
-          {
-            "id": 2,
-            "hi": "चश्मे, नीला दस्ताने वाला व्यक्ति काली टी-शर्ट में ग्रोथ चैंबर में पत्तियाँ व्यवस्थित करता है।"
-          },
-          {
-            "id": 3,
-            "hi": "आदमी मशीनरी के पास खड़े होकर दस्ताने वाले दोनों हाथ चैंबर में डालकर पौधे व्यवस्थित करता है।"
-          },
-          {
-            "id": 4,
-            "hi": "दस्ताने वाला आदमी उपकरणों पर पत्तियाँ समायोजित करता है, चैंबर में पत्तेदार पौधे काटता है।"
-          },
-          {
-            "id": 5,
-            "hi": "एक व्यक्ति MISSE-8 लेबल वाली लाल मिर्च की तस्वीर लेता है।"
-          },
-          {
-            "id": 6,
-            "hi": "दो आदमी काली शर्ट वाले अंतरिक्ष यात्री के साथ खड़े हैं, उसकी टोपी ठीक करते हुए, बाकी मुस्कुरा रहे हैं।"
-          }
-        ],
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.82435893699585,
-      "tokens_in": 2077,
-      "tokens_out": 508,
-      "cost_usd": 0.003601,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 87,
-      "t_wall": 237.3369845720008,
-      "role": "tool",
-      "note": "Translate all committed cues to Hindi",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "सफ़ेद बालों, चश्मे, काली शर्ट वाला आदमी रोशनी वाले चैंबर में हरे पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.76,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "नीले दस्ताने पहने आदमी उपकरण रैकों के पास रोशनी वाले चैंबर में पौधे संभालता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 6.31,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            6,
-            8,
-            9,
-            5,
-            7
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 13,
-            "inspections": 4,
-            "verifications": 3
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.8278253979951842,
+      "latency_s": 0.07417918599094264,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -3629,25 +3350,75 @@
       "corrects_step": null
     },
     {
-      "step": 88,
-      "t_wall": 239.210602577994,
+      "step": 84,
+      "t_wall": 100.37070454398054,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.8728727929992601,
-      "tokens_in": 7332,
+      "latency_s": 1.830504606012255,
+      "tokens_in": 6970,
       "tokens_out": 70,
-      "cost_usd": 0.007542,
+      "cost_usd": 0.00718,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
-      "step": 89,
-      "t_wall": 239.21363388899772,
+      "step": 85,
+      "t_wall": 102.24141890599276,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "id": 0,
+            "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने ISS मॉड्यूल में पौधों की देखभाल करता है।"
+          },
+          {
+            "id": 1,
+            "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने विकास कक्ष में हरे पौधों को समायोजित करता है।"
+          },
+          {
+            "id": 2,
+            "hi": "स्लेटी बालों वाला तकनीशियन काली शर्ट और नीले दस्ताने पहने अंधेरी ट्रे से पौध उठाता है।"
+          },
+          {
+            "id": 3,
+            "hi": "अंतरिक्ष यात्री चमकदार लैंप के नीचे ISS विकास कक्ष में पत्ती समूह को समायोजित करता है।"
+          },
+          {
+            "id": 4,
+            "hi": "स्लेटी बालों और नीले दस्ताने वाला तकनीशियन अंदर चमकदार लैंप के पास हरी पत्तियों को समायोजित करता है।"
+          },
+          {
+            "id": 5,
+            "hi": "तकनीशियन लाल मिर्च उठाता है और छोटे सफेद लेबल के बगल में रखता है।"
+          },
+          {
+            "id": 6,
+            "hi": "तकनीशियन काली सतह पर लगी लाल मिर्च को हाथ में लिए कैमरे से फ़िल्माता है।"
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.8690987130103167,
+      "tokens_in": 1879,
+      "tokens_out": 453,
+      "cost_usd": 0.003238,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "translate",
+      "cached_tokens": 0
+    },
+    {
+      "step": 86,
+      "t_wall": 102.99156628697529,
       "role": "tool",
       "note": "Translate all committed cues to Hindi",
       "tool_name": "translate_hindi",
@@ -3660,15 +3431,35 @@
           4,
           5,
           6,
-          7,
           8,
+          7,
           9
         ]
       },
       "result": {
-        "ok": false,
-        "error": "identical call repeated 3+ times; refused",
-        "next": "translate_hindi once, then finalize",
+        "ok": true,
+        "cues": [
+          {
+            "id": 0,
+            "text": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने ISS मॉड्यूल में पौधों की देखभाल करता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 19,
+            "seconds": 7.85,
+            "overlap_seconds": 0,
+            "retried": false
+          },
+          {
+            "id": 1,
+            "text": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने विकास कक्ष में हरे पौधों को समायोजित करता है।",
+            "ok": true,
+            "problems": [],
+            "suggested_max_words": 19,
+            "seconds": 8.09,
+            "overlap_seconds": 0,
+            "retried": false
+          }
+        ],
         "state": {
           "committed": [
             0,
@@ -3676,24 +3467,112 @@
             2,
             3,
             4,
+            5,
             6,
             8,
-            9,
-            5,
-            7
+            7,
+            9
           ],
           "remaining": [],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 12,
-            "inspections": 4,
-            "verifications": 3
+            "turns": 16,
+            "inspections": 2,
+            "verifications": 2
+          }
+        },
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.620847529004095,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false,
+      "corrects_step": null
+    },
+    {
+      "step": 87,
+      "t_wall": 104.88104974199086,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": true,
+      "latency_s": 1.8888677220093086,
+      "tokens_in": 7200,
+      "tokens_out": 71,
+      "cost_usd": 0.007413,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cached_tokens": 0
+    },
+    {
+      "step": 88,
+      "t_wall": 106.58827922097407,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "A red chili pepper is visible beside a small white label taped to a dark surface, but no technician is shown lifting the pepper or placing it beside the label."
+      },
+      "ok": true,
+      "latency_s": 1.4254078659869265,
+      "tokens_in": 1178,
+      "tokens_out": 51,
+      "cost_usd": 0.00039929999999999995,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 89,
+      "t_wall": 106.58846514098695,
+      "role": "tool",
+      "note": "Verify cue 5 for chili pepper and label",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 5,
+        "claim": "The technician lifts a red chili pepper and places it beside a small white label."
+      },
+      "result": {
+        "verdict": "uncertain",
+        "evidence": "A red chili pepper is visible beside a small white label taped to a dark surface, but no technician is shown lifting the pepper or placing it beside the label.",
+        "modality": "frames",
+        "gap_ids": [
+          5
+        ],
+        "state": {
+          "committed": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            8,
+            7,
+            9
+          ],
+          "remaining": [],
+          "skipped_too_short": [],
+          "needs_verification": [],
+          "budget": {
+            "turns": 15,
+            "inspections": 2,
+            "verifications": 1
           }
         }
       },
-      "ok": false,
-      "latency_s": 0.002998568001203239,
+      "ok": true,
+      "latency_s": 1.7074035360128619,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -3703,31 +3582,33 @@
     },
     {
       "step": 90,
-      "t_wall": 240.80897817399818,
+      "t_wall": 108.20256999100093,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": null,
       "ok": true,
-      "latency_s": 1.594863840000471,
-      "tokens_in": 7268,
+      "latency_s": 1.6137185220140964,
+      "tokens_in": 7260,
       "tokens_out": 32,
-      "cost_usd": 0.007364,
+      "cost_usd": 0.007356,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
       "cached_tokens": 0
     },
     {
       "step": 91,
-      "t_wall": 247.71156964499096,
+      "t_wall": 114.90074575098697,
       "role": "tool",
-      "note": "All cues committed, verified, and translated",
+      "note": "All cues committed and verified, translate done",
       "tool_name": "finalize",
       "args": {},
       "result": {
         "ok": true,
-        "warnings": [],
+        "warnings": [
+          "Cue 3: unverified"
+        ],
         "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/nasa_chile_harvest_0000-0150",
         "state": {
           "committed": [
@@ -3736,24 +3617,24 @@
             2,
             3,
             4,
+            5,
             6,
             8,
-            9,
-            5,
-            7
+            7,
+            9
           ],
           "remaining": [],
           "skipped_too_short": [],
           "needs_verification": [],
           "budget": {
-            "turns": 11,
-            "inspections": 4,
-            "verifications": 3
+            "turns": 14,
+            "inspections": 2,
+            "verifications": 1
           }
         }
       },
       "ok": true,
-      "latency_s": 6.902563223004108,
+      "latency_s": 6.69815681601176,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -3765,29 +3646,29 @@
   "summary": {
     "tool_calls": {
       "detect_speech_gaps": 1,
-      "inspect_video_segment": 8,
-      "draft_description": 5,
+      "inspect_video_segment": 10,
+      "draft_description": 6,
       "propose_cue": 12,
-      "verify_claim": 5,
-      "translate_hindi": 5,
-      "finalize": 2
+      "verify_claim": 7,
+      "translate_hindi": 1,
+      "finalize": 1
     },
-    "corrections": 3,
+    "corrections": 1,
     "verifications": {
-      "verified": 3,
-      "contradicted": 2,
-      "unverified": 0
+      "verified": 4,
+      "contradicted": 1,
+      "unverified": 1
     },
-    "repeat_refusals": 1,
+    "repeat_refusals": 0,
     "auto_redrafts": 0,
-    "draft_overlimit": 3,
-    "orchestrator_authored_cues": 2,
-    "orchestrator_turns": 25,
+    "draft_overlimit": 11,
+    "orchestrator_authored_cues": 4,
+    "orchestrator_turns": 22,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.18810699999999994,
-      "nvidia/Nemotron-3.5-Super-VL": 0.010089900000000002,
-      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00062322
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.16467400000000001,
+      "nvidia/Nemotron-3.5-Super-VL": 0.0121848,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.0014758199999999999
     },
-    "total_latency_s": 247.71204732099432
+    "total_latency_s": 114.90141830497305
   }
 }

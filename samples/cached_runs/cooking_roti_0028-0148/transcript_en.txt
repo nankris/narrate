@@ -1,12 +1,10 @@
-[00:00:06.172] Indoor kitchen: Person in black apron kneads dough in bowl; pours water, mixes into shaggy mass.
-[00:00:15.800] Person continues kneading dough until it forms cohesive ball.
-[00:00:25.596] Person adds oil to dough; kneads until ball forms.
-[00:00:42.428] Person divides dough; rolls portions into small balls.
-[00:00:48.800] Balls placed on baking mat beside unrolled dough portions.
-[00:01:07.164] Person adds flour; kneads dough on mat.
-[00:01:15.612] Rolls dough rope flat.
-[00:01:20.828] Rolling dough on mat, extending length flat
-[00:01:30.076] Person drizzles oil; coats dough.
-[00:01:39.932] Title: "to 35 minutes".
-[00:01:45.596] A person rolls dough using a wooden rolling pin on the mat.
-[00:01:52.718] Person lifts and flips dough piece.
+[00:00:06.172] Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.
+[00:00:15.800] The person kneads and folds the dough inside the wooden bowl.
+[00:00:25.596] The cook kneads dough with a spatula in a white kitchen.
+[00:00:42.428] The dough is pressed and folded, then lifted and turned to incorporate.
+[00:00:48.800] The cook cuts dough portions, shapes a ball, and rolls.
+[00:01:07.164] The hands press dough gently into shape.
+[00:01:15.612] Person shapes dough.
+[00:01:30.076] Person creates snail shaped dough.
+[00:01:39.932] Person covers dough balls.
+[00:01:45.596] Person rolls small dough ball into thin round on flour mat.
