@@ -110,70 +110,45 @@ API: `narrate.agent.run_agent(path, out_dir, provider, langs, max_steps, budget_
 
 All four run with reasoning disabled through `chat_template_kwargs.enable_thinking=false`. With thinking on, reasoning consumed the whole `max_tokens` budget and returned empty content. `/no_think` alone did not disable it.
 
-**Measured usage per model**, from the final cached runs: NVIDIA dev endpoint, final code, priced at Token Factory list prices. Super VL calls are split into perceive + verify.
+**Measured usage by model stage**, from the shipped Nebius Token Factory caches. Vision calls include scene context, perception and verification; edit calls are Hindi translation. Costs are the sums of the per-call `cost_usd` values in each report.
 
-| Clip | Ultra orchestrator | Super VL perceive + verify | Lightning draft (Nano on TF) | Ultra Hindi | Total |
+| Clip | Ultra orchestrator | Super VL | Nano draft | Ultra edit | Total |
 |---|---|---|---|---|---|
-| Kitchen (synthetic), 30 s | 8 calls, 41.7k in / 0.9k out, $0.045 | 4 + 4 calls, 15.6k in, $0.006 | 2 calls, $0.0002 | 1 call, $0.001 | **$0.052** |
-| Tears of Steel, 100 s | 14 calls, 103.2k / 5.5k, $0.120 | 6 + 5 calls, 22.0k, $0.008 | 7 calls, $0.0007 | 2 calls, $0.004 | **$0.171*** |
-| NASA harvest, 110 s | 16 calls, 116.6k / 3.7k, $0.124 | 8 + 3 calls, 25.4k, $0.010 | 5 calls, $0.0007 | 1 call, $0.003 | **$0.137** |
-| Continuous speech, 30 s | 3 calls, 9.9k / 0.1k, $0.010 | – | – | – | **$0.010** |
+| Cooking (roti), 120 s | 41 calls, 305.2k in / 3.4k out, $0.3153 | 19 calls, $0.0114 | 17 calls, $0.0027 | 1 call, $0.0026 | **$0.3320** |
+| NASA harvest, 110 s | 22 calls, 154.0k / 2.5k, $0.1614 | 19 calls, $0.0122 | 11 calls, $0.0015 | 1 call, $0.0032 | **$0.1783** |
+| Tears of Steel, 100 s | 16 calls, 111.0k / 2.2k, $0.1177 | 17 calls, $0.0104 | 3 calls, $0.0008 | 2 calls, $0.0051 | **$0.1339** |
+| Kitchen (synthetic), 30 s | 17 calls, 89.9k / 1.2k, $0.0934 | 7 calls, $0.0030 | 3 calls, $0.0002 | 3 calls, $0.0023 | **$0.0989** |
+| Continuous speech, 30 s | 2 calls, 6.6k / 70 out, $0.0068 | – | – | – | **$0.0068** |
 
-\* includes $0.038 charged conservatively for dev-endpoint calls that failed with HTTP 500/503 or stalled. The SpendGuard counts uncertain spend against the cap.
-
-Orchestration is 86–96% of the cost. Its input grows each turn, and the dev endpoint reported 0 cached tokens. That is why `--orchestrator super` exists (Super is $0.30/$0.90 per 1M tokens vs Ultra's $1/$3) and why prompt-prefix caching matters (see below).
+Orchestration is 88–95% of the cost in the four caches that produced cues. Its input grows each turn. Every shipped report records `cached_tokens: 0` for every call; no cache discount was observed. `--orchestrator super` is available as a lower-list-price alternative, but the shipped caches use Ultra.
 
 ## Where Token Factory helps
 
 - **One OpenAI-compatible API for the whole Nemotron family.** The orchestrator, vision, drafting and translation models are just different `model` strings on the same client and key. Per-role model choice is what makes the economics work: the expensive model only plans, and the cheap model writes.
 - **Price spread inside one provider.** Per 1M input/output tokens: Nano $0.06/$0.24, Super VL $0.30/$0.90, Ultra $1/$3. Narrate prices every call from reported usage and enforces per-run, per-session and per-day caps.
-- **Cached-input pricing** (Ultra $0.12 vs $1.00 per 1M) fits an agent loop, whose prompt prefix (system prompt, tools, state) repeats every turn. Narrate keeps that prefix stable on purpose. *To verify on Token Factory:* the dev endpoint reported 0 cached tokens.
+- **Cached-input pricing** is configured for the repeated prompt prefix, but every call in the shipped reports has `cached_tokens: 0`; the measured totals therefore received no cache discount.
 - **Model catalog and regional endpoints.** `/v1/models` and the per-model `base_url` in config cover regional data planes.
-
-**Not yet verified on Token Factory:** every real number in this README comes from the NVIDIA dev endpoint. A `NEBIUS_API_KEY` run is still pending. Video-input acceptance, JSON mode, tool calling, caching and latency may differ there, so treat the costs as *would-be list price*.
 
 ## Results card
 
-All figures are real runs on the **NVIDIA dev endpoint (dev only)**, with costs at Token Factory list prices. They are the runs cached in the UI (`samples/cached_runs/`, evidence in `blog-assets/18_*`). Overlaps are counted against Narrate's own speech detection; for Tears of Steel they are also checked against the film's subtitles.
+All figures below come from the real **Nebius Token Factory** runs in `samples/cached_runs/*/report.json`. Overlaps are measured against Narrate's speech detector.
 
-| Clip | Turns | Cues / narratable gaps | Gap coverage EN / HI | Detected overlaps | Verified / contradicted | Cost | Cost per min | Wall time |
+| Clip | Turns | Cues / narratable gaps | Gap coverage EN / HI | Detected overlaps | Verified / contradicted / unverified | Cost | Cost per min | Model latency |
 |---|---|---|---|---|---|---|---|---|
-| Kitchen (synthetic), 30 s | 8 | 4 / 4 | 74% / 76% | 0 | 3 / 0 | $0.052 | $0.10 | 65 s |
-| Tears of Steel, 100 s | 14 | 8 / 8 | 60% / 62% | 0 | 4 / 1 | $0.171 | $0.10 | 375 s † |
-| NASA harvest, 110 s | 16 | 10 / 10 | 43% / 53% | 0 | 1 / 1 | $0.137 | $0.07 | 174 s |
-| Continuous speech, 30 s | 3 | 0 / 0, refused by design | – | 0 | – | $0.010 | – | 27 s |
+| Cooking (roti), 120 s | 41 | 10 / 12 | 52% / 55% | 0 | 3 / 2 / 0 | $0.332 | $0.17 | 162 s |
+| NASA harvest, 110 s | 22 | 10 / 10 | 53% / 67% | 0 | 4 / 1 / 1 | $0.178 | $0.10 | 115 s |
+| Tears of Steel, 100 s | 16 | 8 / 8 | 50% / 58% | 0 | 4 / 1 / 0 | $0.134 | $0.08 | 83 s |
+| Kitchen (synthetic), 30 s | 17 | 3 / 4 | 32% / 42% | 0 | 2 / 0 / 0 | $0.099 | $0.20 | 171 s |
+| Continuous speech, 30 s | 2 | 0 / 0, refused by design | 0% / 0% | 0 | 0 / 0 / 0 | $0.007 | $0.01 | 3 s |
 
-† includes dev-endpoint HTTP 500/503 retries and a 139 s stall. The fallback finisher then finalized the 8 committed cues.
-
-
-**Nebius Token Factory rebuild (Oct 28, after the review fixes).** These are the runs now cached in the UI. All narration text comes from Nemotron: Ultra orchestrates and translates, Super VL handles scene context, inspection and verification, and Nano drafts.
-
-| Clip | Cues | Coverage EN / HI | Overlaps | Verified / contradicted | Ultra turns | Fallback | Cost |
-|---|---|---|---|---|---|---|---|
-| Cooking (roti), 120 s | 10 | 52% / 55% | 0 | 3 / 2 | 41 | no | $0.332 |
-| NASA harvest, 110 s | 10 | 53% / 67% | 0 | 4 / 1 | 22 | no | $0.178 |
-| Tears of Steel, 100 s | 8 | 50% / 58% | 0 | 4 / 1 | 16 | no | $0.134 |
-| Continuous speech (failure case) | 0 | 0% / 0% | 0 | 0 / 0 | 2 | no | $0.007 |
-
-**Ground truth, Tears of Steel vs its subtitles:** 41.7 s of the 75 s dialogue-free time was narrated (55.6%). **0.39 s** overlapped subtitled dialogue, from one VAD boundary that was the same in every version.
-
-**How we got here.** There were seven real-run rounds. Each one found a failure, which is published in `issues-found/` and `blog-assets/BLOG_NOTES.md`:
-
-| Version | Kitchen | Tears of Steel | NASA |
-|---|---|---|---|
-| v2: first agent | 8 turns, $0.050 | **0 cues** (HTTP 500 + never committed) | 2 cues |
-| v3: fix2 | 11 turns, $0.082 | 30 turns, $0.198, 4 cues | 2 cues, 29% |
-| v4: slots | 12 turns, $0.082 | 14 turns, $0.082, 4 cues | **36 turns, 2 cues, re-inspection loop** |
-| v5: evidence board | **30 turns, $0.237, 2 cues** (propose loop) | 30 turns, 5 cues | 36 turns, 7 cues |
-| v6: one word limit | 7 turns, $0.045 | 25 turns, 4 cues (**missing-note lockup**) | 36 turns, 8 cues |
-| v7: final | 8 turns, $0.052, 4 cues | 14 turns, 8 cues, 60% | 16 turns, 10 cues, $0.137 |
+All five reports have `provider: nebius`, `dev_only: false`, `fallback_finalize: false`, and `status: complete`. Narration uses Ultra for orchestration and translation, Super VL for vision, and Nano for drafting; the continuous-speech case needs only Ultra.
 
 ## Limitations and published failure cases
 
 We publish failures. Each has evidence, a root cause and a status in [`issues-found/`](issues-found/README.md), and the raw traces are in [`blog-assets/`](blog-assets/).
 
 - **Continuous speech means no safe gaps.** The lecture clip gets **0 cues, by design**. Narrate refuses rather than talk over the speaker. Real "extended" description that pauses the video is not implemented.
-- **The vision model hallucinates**, especially motion and on-screen text. On Tears of Steel, Super VL (video mode) claimed the on-screen texts "40 YEARS LATER" and "SIMULATION READY". The frame verifier contradicted both (`blog-assets/11_*`). The verifier is fallible too: it also rejected "PLAYBACK READY", text it had just reported itself. Verification reduces errors; it does not prove correctness.
+- **The vision model hallucinates**, especially motion and on-screen text. The shipped reports record four contradicted verifications and one unverified claim across the five caches. Verification reduces errors; it does not prove correctness.
 - **Verification has gaps.**
   - "MEMORY PLAYBACK GLOBAL" was marked supported although the verifier's own evidence read "REPLAY ATTACK - GLOBAL".
   - On the kitchen clip, a supported claim ("STEP 1 - chop onions, then Stir and serve") was committed as only its first half, so the cue is stale for most of its window.
@@ -186,9 +161,9 @@ We publish failures. Each has evidence, a root cause and a status in [`issues-fo
   - It retried 13–21 times after opaque tool errors.
 
   The guards are an evidence board, repeat refusal, one shared word limit, tool-side redrafting and explicit errors. Ultra still decides how many turns to spend, and 14–16 turns is typical for a 100 s clip.
-- **The speech detector is not ASR.** Silero misses some robotic or quiet speech, and music can mask gaps. On Tears of Steel, narration overlapped subtitled dialogue by **0.39 s** in one run (`blog-assets/12_*`), so "0 detected overlaps" does not mean 0 real overlaps.
+- **The speech detector is not ASR.** Silero can miss robotic or quiet speech, and music can mask gaps, so the reports' zero detected overlaps do not guarantee zero real overlaps.
 - **Coverage is a temporal proxy**, not a measure of semantic usefulness. Events during dialogue are listed as `events_in_speech_regions` and cannot be narrated without extended AD.
-- **Cost and latency.** A 100–110 s clip takes about 3–6 min and $0.14–0.17 on the dev endpoint with Ultra orchestrating (86–96% of cost). Free-tier errors and queueing added up to 139 s to a single call. `--orchestrator super` should cut orchestration cost about 3× on Token Factory, but that is untested.
+- **Cost and latency.** The shipped 100–110 s caches report $0.134–$0.178 and 83–115 s of summed model latency with Ultra orchestrating. End-to-end wall time can be higher. The Super orchestrator option is not represented in these caches.
 - **Voices.** The offline default is espeak-ng (or Piper if its models are present), and espeak-ng sounds robotic. The **cooking demo** (`samples/cached_runs/cooking_roti_0028-0148/narrated_{en,hi}.mp4`) and the kitchen sample are instead voiced with pre-rendered **Magnific TTS (ElevenLabs `eleven_turbo_v2_5`)**: English *Grayson Sinclair* (Magnific voice 987), Hindi *Arjun Mehra* (Magnific voice 207). The clips, their Magnific creation ids and credits are committed in `samples/cached_runs/<run>/tts_prerendered/`; `python scripts/render_magnific_tts.py samples/cached_runs/<run>` re-fits them into the cue gaps (silence trim, loudness normalise, atempo ≤ 1.25×) and re-mixes with the same ducking as the pipeline, fully offline. Narrate never calls Magnific at runtime, and cue text/timings in `report.json` are unchanged; `tts_backend` in those reports and VTT end times still reflect the espeak run. The NASA and Tears of Steel caches were rebuilt on Nebius after the review fixes (Oct 28). Their old Magnific clips no longer matched the new cue text, so they were removed, and those two demos use espeak-ng until they are re-voiced. Piper's `en_US-ljspeech` is public domain. Piper's `hi_IN-priyamvada` is **CC BY-NC-SA, non-commercial**, so use espeak for commercial use. Hindi (espeak, Piper or ElevenLabs) has not had native-speaker review. ElevenLabs/Magnific output is subject to Magnific's terms; it is not covered by this repo's Apache-2.0 license.
 - **Licensing.** The Tears of Steel soundtrack is listed under CC BY-ND 3.0. Narrate only ducks it, but check before redistributing narrated outputs.
 - Only clips of 2 minutes or less, and English or Hindi.
@@ -197,7 +172,7 @@ We publish failures. Each has evidence, a root cause and a status in [`issues-fo
 
 `python -m app.app` serves Gradio on 127.0.0.1:7860. It does not share by default.
 
-- **Samples tab (zero cost):** cached **real** runs (NVIDIA DEV badge) with the original vs narrated video, an EN/HI toggle, an **Eyes closed** toggle (audio only), the agent trace with model chips (Ultra purple, VL blue, Nano green, tools grey) and corrections highlighted, VTT cues, the results card and downloads. Each cache shows a MOCK, DEV ONLY or NEBIUS badge.
+- **Samples tab (zero incremental cost):** cached **real Nebius** runs with the original vs narrated video, an EN/HI toggle, an **Eyes closed** toggle (audio only), the agent trace with model chips (Ultra purple, VL blue, Nano green, tools grey) and corrections highlighted, VTT cues, the results card and downloads. Each cache shows a NEBIUS badge.
 - **Run tab:** upload a clip of up to 120 s and 50 MB, and watch the trace stream live.
   - Hard limits per live run: $0.25, 24 orchestrator turns and 300 s. When a limit is hit, the fallback finisher ships what is already committed. Set them with `NARRATE_UI_RUN_CAP`, `NARRATE_UI_MAX_TURNS` and `NARRATE_UI_TIMEOUT_S`.
   - Spending caps: $0.25 per session and $3.00 per IST day (stored in `runs/ui_spend.json`).
