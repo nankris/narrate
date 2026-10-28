@@ -64,6 +64,46 @@ export NVIDIA_DEV_API_KEY=...
 - `scripts/list_models.py --provider nebius` lists the Nemotron IDs your key can see.
 - Every run has a hard spend cap (SpendGuard). Real-mode raw responses are saved, truncated, with no headers. Keys are never logged.
 
+## Extended audio description (WCAG 1.2.7), `--ad-mode extended`
+
+In-gap mode (the default, `--ad-mode ingap`) only speaks where nobody else is speaking. Extended mode is for viewers who need
+more than that, and for videos with no gaps at all. At scene cuts, key moments and between-sentence silences, the video
+**freezes on the current frame**. A fuller description then plays (place, who is there, what just happened), and the video
+resumes. Original dialogue is never talked over or cut: a pause is never placed inside speech.
+
+```bash
+python -m narrate agent samples/cooking_roti_0028-0148.mp4 --out runs/ext/roti --provider nebius --ad-mode extended --lang en
+python scripts/render_magnific_extended.py runs/ext/roti --clips tts_prerendered   # re-render with pre-made Magnific clips
+python scripts/score_extended.py runs/ext/roti groundtruth/cooking_roti_0028-0148.json --provider nebius --frame-audit
+```
+
+The output is `extended_en.mp4` (freeze-frame video) and `extended_en.m4a` (audio-only: the original audio with the
+pauses inserted, plus the narration), along with `ad_extended_en.vtt` and `pause_plan.json`.
+
+**How pauses are chosen and checked**
+
+- Pause points come from ffmpeg scene cuts, Silero VAD speech ends, -30 dB micro-silences (for continuous speech), a
+  frame-difference detector, and key events. Two pauses are at most 25 s apart, and there is always a pause on the final frame.
+- Every cue is written by Nemotron Ultra and checked by deterministic lint (word budget, camera language, subtitles,
+  evidence window).
+- Super VL then verifies each cue against **5 stills spread across its window**, and failing cues are repaired or rescued.
+- On-screen text is re-read from stills, because the video-window pass misread static slides as changing.
+
+**Evaluation**
+
+`scripts/build_groundtruth.py` builds an independent ground truth: Super VL describes dense stills, and a second pass
+verifies each claim. The ground truth is saved to `groundtruth/`. A time-aware Ultra judge scores each cue against its own
+window. A Super VL frame audit then re-checks every claim the judge flagged.
+
+Final demo runs (Round 8c) are in `runs/ext/final/`:
+
+| Clip | Source | Output | Pauses |
+|---|---|---|---|
+| roti | 119.9 s | 223.3 s | 8 |
+| lecture | 30.0 s | 61.6 s | 3 |
+
+The lecture is the clip in-gap mode refuses.
+
 ## How the agent works
 
 ```mermaid
@@ -172,7 +212,7 @@ All figures are real runs on the **NVIDIA dev endpoint (dev only)**, with costs 
 
 We publish failures. Each has evidence, a root cause and a status in [`issues-found/`](issues-found/README.md), and the raw traces are in [`blog-assets/`](blog-assets/).
 
-- **Continuous speech means no safe gaps.** The lecture clip gets **0 cues, by design**. Narrate refuses rather than talk over the speaker. Real "extended" description that pauses the video is not implemented.
+- **Continuous speech means no safe gaps.** The lecture clip gets **0 cues, by design**. Narrate refuses rather than talk over the speaker. Extended mode (`--ad-mode extended`, above) pauses the video instead and describes it in 3 freezes.
 - **The vision model hallucinates**, especially motion and on-screen text. On Tears of Steel, Super VL (video mode) claimed the on-screen texts "40 YEARS LATER" and "SIMULATION READY". The frame verifier contradicted both (`blog-assets/11_*`). The verifier is fallible too: it also rejected "PLAYBACK READY", text it had just reported itself. Verification reduces errors; it does not prove correctness.
 - **Verification has gaps.**
   - "MEMORY PLAYBACK GLOBAL" was marked supported although the verifier's own evidence read "REPLAY ATTACK - GLOBAL".

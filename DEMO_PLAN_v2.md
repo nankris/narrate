@@ -1,5 +1,20 @@
 # Narrate demo plan v2
 
+## LEAD: extended audio description (Round 8c, English)
+
+Open with extended mode, the headline. Use the files in `runs/ext/final/`. Every cue text and time below is copied from
+`runs/ext/final/roti/ad_extended_en.vtt`.
+
+| Time | Screen | Action | Voice-over |
+|---|---|---|---|
+| 0:00-0:12 | `runs/ext/final/roti/extended_en.mp4`, picture hidden | Play from 0:00; the first freeze lands at 0:00.8 | "Close your eyes." Let the cue play: "A wooden mixing bowl holds flour on a white countertop..." |
+| 0:12-0:30 | Picture revealed, jump to 1:23.7 | Video freezes on the cut dough balls; the cue plays; the video resumes | "At every scene change the video pauses, explains, and resumes. Nobody is talked over." |
+| 0:30-0:45 | `runs/ext/final/lecture/extended_en.mp4` | Play from 0:25 | "In-gap mode refuses this lecture because there is no gap. Extended mode pauses at sentence breaks and reads the slide." |
+| 0:45-1:00 | `ad_extended_en.vtt` + score.md | Show the ground truth vs the score | "An independent Nemotron ground truth and a frame audit score every cue." |
+
+Then continue with the in-gap storyline below as "the default mode".
+
+
 Target: **2:45**, hard stop **2:50**. Record only after the new director-mode roti cache exists. Every spoken cue, timestamp, step number, cost, and result must be copied from that cache; placeholders below are intentional.
 
 ## Storyline

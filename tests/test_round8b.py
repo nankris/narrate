@@ -174,3 +174,20 @@ def test_round8c_on_screen_text_is_reread_from_stills(monkeypatch):
     assert '1 corrected' in d.st_text_stills()
     assert d.timeline[1]['on_screen_text'] == 'SLIDE 1'
     assert d.timeline[1]['what'] == "The slide still reads 'SLIDE 1'."
+
+
+def test_round8c_closing_freeze_is_in_the_video_stream(tmp_path):
+    import subprocess
+    from narrate.extended import build_extended_timeline, render_extended
+    src, wav = tmp_path / 'src.mp4', tmp_path / 'n.wav'
+    subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'testsrc=size=160x120:rate=30:duration=4',
+                    '-f', 'lavfi', '-i', 'sine=frequency=440:duration=4', '-shortest', '-c:v', 'libx264', '-c:a', 'aac',
+                    str(src)], check=True)
+    subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'lavfi', '-i', 'sine=frequency=880:duration=1.5',
+                    '-ar', '48000', '-ac', '2', str(wav)], check=True)
+    tl = build_extended_timeline(4., [{'cue_id': 1, 't': 2., 'cue_text': 'a', 'narration_seconds': 1.5},
+                                      {'cue_id': 2, 't': 4., 'cue_text': 'b', 'narration_seconds': 1.5}], [])
+    render_extended(src, tmp_path / 'o.mp4', tmp_path / 'o.m4a', tl, {'1': wav, '2': wav})
+    out = subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v', '-show_entries', 'stream=duration',
+                          '-of', 'csv=p=0', str(tmp_path / 'o.mp4')], capture_output=True, text=True, check=True).stdout
+    assert abs(float(out) - tl.total_duration) < .2
