@@ -50,7 +50,7 @@ def discover_cached(root=CACHE):
     return found
 
 
-def validate_upload(path, prober=probe):
+def validate_upload(path, prober=probe, max_duration=120):
     if not path:
         raise ValueError('Upload an MP4, MOV or WebM video first.')
     path = Path(path)
@@ -62,8 +62,8 @@ def validate_upload(path, prober=probe):
         duration, _ = prober(path)
     except Exception:
         raise ValueError('Cannot decode this video. Upload a valid MP4, MOV or WebM.') from None
-    if not math.isfinite(duration) or not 0 < duration <= 120:
-        raise ValueError('Video must be longer than 0 seconds and at most 120 seconds.')
+    if not math.isfinite(duration) or not 0 < duration <= max_duration:
+        raise ValueError(f'Video must be longer than 0 seconds and at most {max_duration:g} seconds.')
     return duration
 
 
@@ -224,7 +224,7 @@ h1 {font-size:25px!important;line-height:1.25!important} .subtitle {color:#47556
 '''
 
 
-def build_app():
+def build_app(include_live=True, max_clip_s=120):
     import gradio as gr
     cached = discover_cached()
     choices = [(m['title'], name) for name, (_,m,_) in cached.items()]
@@ -245,7 +245,7 @@ def build_app():
             raise gr.Error('A run is already active. Please wait for it to finish.')
         try:
             try:
-                duration = validate_upload(path)
+                duration = validate_upload(path, max_duration=max_clip_s)
                 if not langs:
                     raise ValueError('Select at least one narration language.')
                 if provider not in providers():
@@ -321,31 +321,32 @@ def build_app():
             for control in (select,lang,notes):
                 control.change(sample,[select,lang,notes],[original,narrated,mark,cues,trace,results,downloads])
             eyes.change(lambda enabled: gr.update(elem_classes=['eyes-closed'] if enabled else []),eyes,media,queue=False)
-        with gr.Tab('Run · live', id='run'):
-            spent = gr.State({'spent': 0.0})
-            gr.Markdown(f'Upload a short video (≤2 min). Mock is offline and synthetic. Real providers use server credentials and stop hard at ${run_cap:.2f} per run, {live_limits()[0]} orchestrator turns or {live_limits()[1]:.0f} s, then finish with what is verified.')
-            with gr.Row():
-                upload = gr.File(label='Video · MP4 / MOV / WebM · ≤120 seconds · ≤50 MB', file_types=['.mp4','.mov','.webm'], type='filepath')
-                with gr.Column():
-                    languages = gr.CheckboxGroup([('English','en'),('Hindi','hi')],value=['en','hi'],label='Languages')
-                    planner = gr.Radio(['Ultra','Super'], value='Ultra',label='Orchestrator')
-                    provider = gr.Radio(providers(),value='mock',label='Provider')
-            spending = gr.Markdown(f'Spent this session: $0.0000 / ${session_cap:.2f} · daily cap ${daily_cap:.2f} (IST)')
-            start = gr.Button('Run agent',variant='primary')
-            live_notes = gr.Checkbox(label='Only notes & corrections',value=False)
-            with gr.Row():
-                with gr.Column(scale=7):
-                    gr.Markdown('## Agent trace')
-                    live_trace = gr.HTML()
-                with gr.Column(scale=4):
-                    live_result = gr.HTML()
-                    live_video = gr.Video(label='Narrated result',interactive=False)
-                    live_files = gr.Files(label='Download results',interactive=False)
-            def filter_live(enabled, session):
-                session['notes'] = enabled
-                return trace_html(session.get('trace', {}), enabled)
-            live_notes.change(filter_live,[live_notes,spent],live_trace,queue=False)
-            start.click(live,[upload,languages,provider,planner,spent,live_notes],[live_trace,live_result,live_files,live_video,spent,spending],concurrency_limit=1,concurrency_id='agent',trigger_mode='once')
+        if include_live:
+            with gr.Tab('Run · live', id='run'):
+                spent = gr.State({'spent': 0.0})
+                gr.Markdown(f'Upload a short video (≤{max_clip_s:g} s). Mock is offline and synthetic. Real providers use server credentials and stop hard at ${run_cap:.2f} per run, {live_limits()[0]} orchestrator turns or {live_limits()[1]:.0f} s, then finish with what is verified.')
+                with gr.Row():
+                    upload = gr.File(label=f'Video · MP4 / MOV / WebM · ≤{max_clip_s:g} seconds · ≤50 MB', file_types=['.mp4','.mov','.webm'], type='filepath')
+                    with gr.Column():
+                        languages = gr.CheckboxGroup([('English','en'),('Hindi','hi')],value=['en','hi'],label='Languages')
+                        planner = gr.Radio(['Ultra','Super'], value='Ultra',label='Orchestrator')
+                        provider = gr.Radio(providers(),value='mock',label='Provider')
+                spending = gr.Markdown(f'Spent this session: $0.0000 / ${session_cap:.2f} · daily cap ${daily_cap:.2f} (IST)')
+                start = gr.Button('Run agent',variant='primary')
+                live_notes = gr.Checkbox(label='Only notes & corrections',value=False)
+                with gr.Row():
+                    with gr.Column(scale=7):
+                        gr.Markdown('## Agent trace')
+                        live_trace = gr.HTML()
+                    with gr.Column(scale=4):
+                        live_result = gr.HTML()
+                        live_video = gr.Video(label='Narrated result',interactive=False)
+                        live_files = gr.Files(label='Download results',interactive=False)
+                def filter_live(enabled, session):
+                    session['notes'] = enabled
+                    return trace_html(session.get('trace', {}), enabled)
+                live_notes.change(filter_live,[live_notes,spent],live_trace,queue=False)
+                start.click(live,[upload,languages,provider,planner,spent,live_notes],[live_trace,live_result,live_files,live_video,spent,spending],concurrency_limit=1,concurrency_id='agent',trigger_mode='once')
         gr.HTML('<footer><a href="/docs/readme#how-it-works">How it works</a> · <a href="/docs/readme#limitations--published-failure-cases">Limitations</a> · <a href="/docs/sources">Sample clip sources & licenses</a></footer>')
     app.max_threads = 3
     return app.queue(default_concurrency_limit=1, max_size=16)

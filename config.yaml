@@ -119,3 +119,7 @@ ui:
   per_run_cap_usd: 0.25
   max_turns: 24        # hard orchestrator-turn cap for live UI runs
   timeout_s: 300       # hard wall-clock cap for live UI runs
+space:
+  daily_cap_usd: 3.0
+  max_clip_s: 60
+  max_turns: 24
