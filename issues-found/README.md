@@ -1,40 +1,30 @@
-> Updated Task 3 evidence and fixes: [live probe findings](agent-probes.md).
-> Historical baseline notes below describe the earlier build.
-
 # Issues found
 
-| Group | Evidence / status |
-|---|---|
-| [Provider compatibility](provider.md) | No authorized real calls; schema, JSON mode, regions and billing to verify |
-| [Speech and scheduling](speech.md) | Short gap skipped; detector is not VAD; espeak quality limitations |
-| [Mock fidelity](mock.md) | Timestamp-driven mock is deterministic, not perception quality evidence |
+Status index verified against the code at `b90aca3` (2026-10-28). `fixed` means an
+in-repository commit or regression test demonstrates the fix. `documented` means
+the note records evidence or a known limitation but does not claim that the
+underlying behaviour is resolved.
 
-## Real-provider behaviour not yet verified - see smoke scripts
-
-All provider tests use fake clients; no real network requests were made. Video schema support, JSON rejection handling, reasoning controls, Hindi quality, model availability, rates and token estimates need authorized smoke runs. Use `scripts/smoke_video_input.py`, `scripts/smoke_text.py`, and `scripts/list_models.py` with `--provider`. Final/demo measurements must use Nebius.
-
-## First real run follow-up
-
-Individual `real-run-*.md` files record each observed failure and fixed/open status. Static-text motion hallucinations remain open; provider cost improvements require a new authorized run.
-
-## Second real-run fixes
-
-- [never-commit](real-run-never-commit.md): exploration tools never committed; fallback emitted zero cues - fixed.
-- [wrong-event-drafts](real-run-wrong-event-drafts.md): drafts described other parts of the video - fixed.
-- [verify-unused](real-run-verify-unused.md): verification never used - now enforced.
-
-Also fixed (see `tests/test_fix2.py`): transient 5xx/429/timeout retries, unsorted VTT, tiny-gap skipping, duplicate cues, dialogue events counted as uncovered, Lightning price.
-
-## Third real-run fixes
-
-- [long-gaps-one-cue](real-run-long-gaps-one-cue.md): long gaps got one cue (29% coverage); now split into 6-12 s slots, cues capped at 8 s - fixed offline.
-- [orchestrator-input-growth](real-run-orchestrator-input-growth.md): ultra input grew ~200 tokens/turn; old turns now summarised, turn budget scales with slots - mitigated offline.
-
-## Fourth real-run fixes
-
-- [reinspection-loop](real-run-reinspection-loop.md): ultra re-inspected all 10 slots twice (31 inspections, 36 turns, 0 drafts, 2 cues / 13 % coverage), wrote ungrounded cue text, fallback dropped 7 slots - evidence board, repeat refusals, grounded-text check and batched fallback drafting added offline.
-
-## Fourth real-run fixes (after fix4)
-
-- [fix4-propose-loop](real-run-fix4-propose-loop.md): 38 `propose_cue` calls / 30 turns on a 30 s clip (two limits, dropped on-screen text, hand-trimming) - fixed offline.
-- [missing-note-validation](real-run-missing-note-validation.md): a missing `note` arg + an opaque "ValidationError" disabled every tool for the last 16–21 calls of two real runs - fixed (fix6).
+| File | Status | Verification / remaining work |
+|---|---|---|
+| [agent-probes.md](agent-probes.md) | documented | Records externally supplied development-probe findings; Token Factory remains untested. |
+| [mock.md](mock.md) | documented | Mock output is intentionally deterministic orchestration evidence, not perception-quality evidence. |
+| [provider.md](provider.md) | open | Real media schema, model availability, token accounting, and cost still require an authorized provider run. |
+| [real-run-dev-cost-zero.md](real-run-dev-cost-zero.md) | fixed | `tests/test_agent.py::test_cost_report_is_list_cost` verifies list-cost and billing metadata reporting. |
+| [real-run-dotted-json-keys.md](real-run-dotted-json-keys.md) | fixed | `tests/test_agent.py::test_overlap_cache_and_normalized_verdict` covers normalized verdict keys and values. |
+| [real-run-empty-tool-notes.md](real-run-empty-tool-notes.md) | fixed | Commit `f64f963` made tool notes required and retained assistant content; covered by `tests/test_agent.py::test_required_notes_and_unicode`. |
+| [real-run-fix4-propose-loop.md](real-run-fix4-propose-loop.md) | fixed | `tests/test_fix5.py` covers effective limits, enforced drafts, auto-redrafting, and inspection deduplication. |
+| [real-run-hindi-word-budget.md](real-run-hindi-word-budget.md) | fixed | `tests/test_agent.py::test_hindi_duration_retry_and_warning` verifies measured-duration retry and missing-language warnings. |
+| [real-run-long-gaps-one-cue.md](real-run-long-gaps-one-cue.md) | fixed | `tests/test_fix3.py::test_detect_splits_long_gaps_into_slots` and `::test_overlong_cue_rejected` cover slotting and cue caps. |
+| [real-run-missing-note-validation.md](real-run-missing-note-validation.md) | fixed | `tests/test_fix6.py` covers missing notes, useful validation errors, unknown gap IDs, and no-gap inspection. |
+| [real-run-never-commit.md](real-run-never-commit.md) | fixed | `tests/test_fix2.py::test_fallback_commits_best_candidate_without_any_commit_call` covers fallback commit recovery. |
+| [real-run-orchestration-cost.md](real-run-orchestration-cost.md) | documented | Batching and compact state are implemented, but real cost reduction remains unmeasured. |
+| [real-run-orchestrator-input-growth.md](real-run-orchestrator-input-growth.md) | documented | `tests/test_fix3.py::test_orchestrator_input_bounded_over_25_mock_turns` proves offline mitigation; real token growth remains unmeasured. |
+| [real-run-reinspection-loop.md](real-run-reinspection-loop.md) | fixed | `tests/test_fix4.py` covers the evidence board, repeat refusals, grounded-text checks, and batched fallback drafting. |
+| [real-run-static-text-motion.md](real-run-static-text-motion.md) | open | Frame verification reduces risk but does not reliably distinguish static text from motion; broader evaluation is pending. |
+| [real-run-step-exhaustion.md](real-run-step-exhaustion.md) | fixed | Commit `f64f963` added turn-based limits, a completion nudge, and bounded fallback translation; `tests/test_agent.py::test_append_only_batch_turns_and_nudge` covers the loop behaviour. |
+| [real-run-unnarratable-coverage.md](real-run-unnarratable-coverage.md) | fixed | `tests/test_agent.py::test_narratable_coverage` verifies that coverage considers narratable windows only. |
+| [real-run-utf8-truncation.md](real-run-utf8-truncation.md) | fixed | Commit `f64f963` changed response truncation to character slicing; `tests/test_agent.py::test_required_notes_and_unicode` is the Unicode regression. |
+| [real-run-verify-unused.md](real-run-verify-unused.md) | fixed | Verification enforcement and contradiction handling are covered by `tests/test_fix2.py` verification tests. |
+| [real-run-wrong-event-drafts.md](real-run-wrong-event-drafts.md) | fixed | `tests/test_fix2.py::test_draft_context_limited_to_gap_window` and `::test_inspect_converts_relative_vl_times` cover event selection and timestamp normalization. |
+| [speech.md](speech.md) | open | VAD is not dialogue ground truth, short gaps remain unusable, and Hindi voice quality lacks a listening study. |
