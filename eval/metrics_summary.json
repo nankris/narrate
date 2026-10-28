@@ -1,0 +1,621 @@
+{
+  "source": "samples/cached_runs",
+  "thresholds": {
+    "repeat_jaccard": 0.5
+  },
+  "clip_count": 5,
+  "passed_clip_count": 2,
+  "clips": [
+    {
+      "clip": "cooking_roti_0028-0148",
+      "cue_count": 10,
+      "thresholds": {
+        "repeat_jaccard": 0.5
+      },
+      "repeat_flags": [],
+      "banned_phrase_flags": [],
+      "word_budgets": [
+        {
+          "cue_id": 1,
+          "language": "en",
+          "gap_seconds": 9.628,
+          "words": 17,
+          "budget": 21,
+          "within_budget": true
+        },
+        {
+          "cue_id": 1,
+          "language": "hi",
+          "gap_seconds": 9.628,
+          "words": 16,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "en",
+          "gap_seconds": 5.772,
+          "words": 11,
+          "budget": 12,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "hi",
+          "gap_seconds": 5.772,
+          "words": 10,
+          "budget": 14,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "en",
+          "gap_seconds": 6.216,
+          "words": 11,
+          "budget": 13,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "hi",
+          "gap_seconds": 6.216,
+          "words": 9,
+          "budget": 15,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "en",
+          "gap_seconds": 6.372,
+          "words": 12,
+          "budget": 13,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "hi",
+          "gap_seconds": 6.372,
+          "words": 9,
+          "budget": 15,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "en",
+          "gap_seconds": 5.636,
+          "words": 10,
+          "budget": 11,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "hi",
+          "gap_seconds": 5.636,
+          "words": 8,
+          "budget": 13,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "en",
+          "gap_seconds": 4.264,
+          "words": 7,
+          "budget": 8,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "hi",
+          "gap_seconds": 4.264,
+          "words": 9,
+          "budget": 10,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "en",
+          "gap_seconds": 2.344,
+          "words": 3,
+          "budget": 4,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "hi",
+          "gap_seconds": 2.344,
+          "words": 5,
+          "budget": 5,
+          "within_budget": true
+        },
+        {
+          "cue_id": 9,
+          "language": "en",
+          "gap_seconds": 2.984,
+          "words": 5,
+          "budget": 5,
+          "within_budget": true
+        },
+        {
+          "cue_id": 9,
+          "language": "hi",
+          "gap_seconds": 2.984,
+          "words": 7,
+          "budget": 6,
+          "within_budget": false
+        },
+        {
+          "cue_id": 10,
+          "language": "en",
+          "gap_seconds": 3.272,
+          "words": 4,
+          "budget": 6,
+          "within_budget": true
+        },
+        {
+          "cue_id": 10,
+          "language": "hi",
+          "gap_seconds": 3.272,
+          "words": 7,
+          "budget": 7,
+          "within_budget": true
+        },
+        {
+          "cue_id": 11,
+          "language": "en",
+          "gap_seconds": 7.122,
+          "words": 11,
+          "budget": 15,
+          "within_budget": true
+        },
+        {
+          "cue_id": 11,
+          "language": "hi",
+          "gap_seconds": 7.122,
+          "words": 12,
+          "budget": 17,
+          "within_budget": true
+        }
+      ],
+      "over_budget_flags": [
+        {
+          "cue_id": 9,
+          "language": "hi",
+          "gap_seconds": 2.984,
+          "words": 7,
+          "budget": 6,
+          "within_budget": false
+        }
+      ],
+      "language_count_parity": {
+        "en": 10,
+        "hi": 10,
+        "equal": true
+      },
+      "passed": false
+    },
+    {
+      "clip": "failure_continuous_speech",
+      "cue_count": 0,
+      "thresholds": {
+        "repeat_jaccard": 0.5
+      },
+      "repeat_flags": [],
+      "banned_phrase_flags": [],
+      "word_budgets": [],
+      "over_budget_flags": [],
+      "language_count_parity": {
+        "en": 0,
+        "hi": 0,
+        "equal": true
+      },
+      "passed": true
+    },
+    {
+      "clip": "nasa_chile_harvest_0000-0150",
+      "cue_count": 10,
+      "thresholds": {
+        "repeat_jaccard": 0.5
+      },
+      "repeat_flags": [],
+      "banned_phrase_flags": [
+        {
+          "cue_id": 6,
+          "language": "en",
+          "phrase": "camera"
+        }
+      ],
+      "word_budgets": [
+        {
+          "cue_id": 0,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 16,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 0,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 19,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 1,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 15,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 1,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 20,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 14,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 16,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 12,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 16,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 17,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 18,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 15,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 14,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "en",
+          "gap_seconds": 11.299,
+          "words": 15,
+          "budget": 24,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "hi",
+          "gap_seconds": 11.299,
+          "words": 15,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "en",
+          "gap_seconds": 8.599,
+          "words": 16,
+          "budget": 18,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "hi",
+          "gap_seconds": 8.599,
+          "words": 18,
+          "budget": 21,
+          "within_budget": true
+        },
+        {
+          "cue_id": 8,
+          "language": "en",
+          "gap_seconds": 8.599,
+          "words": 17,
+          "budget": 18,
+          "within_budget": true
+        },
+        {
+          "cue_id": 8,
+          "language": "hi",
+          "gap_seconds": 8.599,
+          "words": 21,
+          "budget": 21,
+          "within_budget": true
+        },
+        {
+          "cue_id": 9,
+          "language": "en",
+          "gap_seconds": 8.599,
+          "words": 12,
+          "budget": 18,
+          "within_budget": true
+        },
+        {
+          "cue_id": 9,
+          "language": "hi",
+          "gap_seconds": 8.599,
+          "words": 18,
+          "budget": 21,
+          "within_budget": true
+        }
+      ],
+      "over_budget_flags": [],
+      "language_count_parity": {
+        "en": 10,
+        "hi": 10,
+        "equal": true
+      },
+      "passed": false
+    },
+    {
+      "clip": "sample_kitchen",
+      "cue_count": 3,
+      "thresholds": {
+        "repeat_jaccard": 0.5
+      },
+      "repeat_flags": [],
+      "banned_phrase_flags": [],
+      "word_budgets": [
+        {
+          "cue_id": 0,
+          "language": "en",
+          "gap_seconds": 4.04,
+          "words": 5,
+          "budget": 8,
+          "within_budget": true
+        },
+        {
+          "cue_id": 0,
+          "language": "hi",
+          "gap_seconds": 4.04,
+          "words": 7,
+          "budget": 9,
+          "within_budget": true
+        },
+        {
+          "cue_id": 1,
+          "language": "en",
+          "gap_seconds": 4.744,
+          "words": 5,
+          "budget": 9,
+          "within_budget": true
+        },
+        {
+          "cue_id": 1,
+          "language": "hi",
+          "gap_seconds": 4.744,
+          "words": 5,
+          "budget": 11,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "en",
+          "gap_seconds": 4.776,
+          "words": 3,
+          "budget": 9,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "hi",
+          "gap_seconds": 4.776,
+          "words": 3,
+          "budget": 11,
+          "within_budget": true
+        }
+      ],
+      "over_budget_flags": [],
+      "language_count_parity": {
+        "en": 3,
+        "hi": 3,
+        "equal": true
+      },
+      "passed": true
+    },
+    {
+      "clip": "tears_of_steel_0015-0155",
+      "cue_count": 8,
+      "thresholds": {
+        "repeat_jaccard": 0.5
+      },
+      "repeat_flags": [],
+      "banned_phrase_flags": [
+        {
+          "cue_id": 0,
+          "language": "en",
+          "phrase": "literal TITLE"
+        },
+        {
+          "cue_id": 4,
+          "language": "en",
+          "phrase": "literal TITLE"
+        }
+      ],
+      "word_budgets": [
+        {
+          "cue_id": 0,
+          "language": "en",
+          "gap_seconds": 9.044,
+          "words": 10,
+          "budget": 19,
+          "within_budget": true
+        },
+        {
+          "cue_id": 0,
+          "language": "hi",
+          "gap_seconds": 9.044,
+          "words": 9,
+          "budget": 22,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "en",
+          "gap_seconds": 2.376,
+          "words": 3,
+          "budget": 4,
+          "within_budget": true
+        },
+        {
+          "cue_id": 2,
+          "language": "hi",
+          "gap_seconds": 2.376,
+          "words": 3,
+          "budget": 5,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "en",
+          "gap_seconds": 6.6,
+          "words": 12,
+          "budget": 14,
+          "within_budget": true
+        },
+        {
+          "cue_id": 3,
+          "language": "hi",
+          "gap_seconds": 6.6,
+          "words": 13,
+          "budget": 16,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "en",
+          "gap_seconds": 11.388,
+          "words": 4,
+          "budget": 25,
+          "within_budget": true
+        },
+        {
+          "cue_id": 4,
+          "language": "hi",
+          "gap_seconds": 11.388,
+          "words": 4,
+          "budget": 28,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "en",
+          "gap_seconds": 10.8,
+          "words": 5,
+          "budget": 23,
+          "within_budget": true
+        },
+        {
+          "cue_id": 5,
+          "language": "hi",
+          "gap_seconds": 10.8,
+          "words": 7,
+          "budget": 27,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "en",
+          "gap_seconds": 10.6,
+          "words": 15,
+          "budget": 23,
+          "within_budget": true
+        },
+        {
+          "cue_id": 6,
+          "language": "hi",
+          "gap_seconds": 10.6,
+          "words": 19,
+          "budget": 26,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "en",
+          "gap_seconds": 9.058,
+          "words": 16,
+          "budget": 19,
+          "within_budget": true
+        },
+        {
+          "cue_id": 7,
+          "language": "hi",
+          "gap_seconds": 9.058,
+          "words": 22,
+          "budget": 22,
+          "within_budget": true
+        },
+        {
+          "cue_id": 8,
+          "language": "en",
+          "gap_seconds": 10.462,
+          "words": 15,
+          "budget": 23,
+          "within_budget": true
+        },
+        {
+          "cue_id": 8,
+          "language": "hi",
+          "gap_seconds": 10.462,
+          "words": 19,
+          "budget": 26,
+          "within_budget": true
+        }
+      ],
+      "over_budget_flags": [],
+      "language_count_parity": {
+        "en": 8,
+        "hi": 8,
+        "equal": true
+      },
+      "passed": false
+    }
+  ]
+}
