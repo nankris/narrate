@@ -243,3 +243,15 @@ Round 3 keeps every narration line model-written and changes the bounded control
 - `report.json` and `trace.md` include narrated/narratable coverage, explicit reasons for every silence, and a 75% guard after
   excluding stated no-new-information silence.
 - `scripts/judge_rubric.md` defines the frame-grounded DCMP-style scoring used for later re-evaluation.
+
+## 8. Round 4 targeted quality fixes
+
+The third real runs reached good coverage and cost (`roti_v2_r3`: 10/12 gaps; `nasa_v2_r3`: 9/10 gaps; about $0.037 each),
+leaving small prose and verification issues. A conservative deterministic check now rejects clear bare-verb fragments such as
+“Unrolls and flattens it” and “Takes one ball,” while exempting likely noun subjects. With exactly one bible cast member, a
+second check rejects person nouns that drift from that cast descriptor. Both carry fix hints and therefore go to Ultra repair,
+never to Nano tightening. If a batched Super VL response omits a cue verdict, the omitted cues get one smaller retry before the
+existing unverified-drop policy applies. Script and repair guidance now prioritises distinctive reactions, results, new objects
+and state changes over repeated ongoing activity, requires exact bible cast descriptors or pronouns, and favours idiomatic
+establishing phrasing. Hindi guidance favours natural noun-focused speech over stiff passive chains. All narration remains
+Nemotron-written; these additions only guide, check, retry, or route it.

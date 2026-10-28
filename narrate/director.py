@@ -35,10 +35,12 @@ DIRECTOR_LINT = [
     (re.compile(r'\b(?:in|on) (?:the|this|that) (?:shot|frame|footage)\b|\bscreen shows\b|\b(?:is|are) filmed\b|\bclose-up\b', re.I),
      'film-making jargon. Fix: describe what is visible and what the people do, e.g. "a crewmate photographs the pepper"'),
     (re.compile(r';'), 'headline fragments (";"). Fix: write one or two complete sentences with a subject; join actions with "and" or "then"'),
-    # "Cuts dough...", "Gestures to bowl", "Flattens a ball": a verb with no subject (telegraphic headline style).
-    (re.compile(r'^\s*[A-Z][a-z]+s\s+(?:a|an|the|his|her|their|its|each|it|them|to|into|onto|on|over|with|up|down|off|out|back)\b'),
-     'no subject (headline style). Fix: start with who acts, e.g. "The cook flattens...", "She rolls..."'),
 ]
+PERSON_NOUNS = {'chef', 'chefs', 'cook', 'cooks', 'man', 'men', 'woman', 'women', 'person', 'people',
+                'astronaut', 'astronauts', 'crewmate', 'crewmates', 'photographer', 'photographers'}
+VERB_OPENER_NOUNS = {'hands', 'eyes', 'glasses', 'clothes', 'leaves', 'pieces', 'slices', 'dishes', 'faces', 'spaces'}
+VERB_OPENER_FOLLOWERS = {'a', 'an', 'the', 'one', 'each', 'this', 'that', 'these', 'those', 'his', 'her', 'their', 'its',
+                         'it', 'them', 'him', 'and', 'to', 'into', 'onto', 'on', 'over', 'with', 'up', 'down', 'off', 'out', 'back'}
 # Setting words too generic to establish WHERE a video takes place.
 GENERIC_PLACE = {'crowded', 'bright', 'brightly', 'small', 'large', 'big', 'white', 'black', 'blue', 'wooden', 'lit', 'indoor', 'indoors',
                  'outdoor', 'room', 'area', 'space', 'inside', 'interior', 'modern', 'clean', 'busy', 'narrow', 'wide', 'dimly', 'well'}
@@ -534,6 +536,22 @@ class Director(Agent):
             problems.append(f"over budget: {words} words, max {g['director_words_en']}. Fix: cut at least {words - g['director_words_en']} words "
                             '(keep the subject and the main action; drop a secondary action, colours or positions)')
         problems += lint_with_hints(text) + [f'Banned phrasing: {why}' for rx, why in DIRECTOR_LINT if rx.search(text)]
+        first = re.match(r'^\s*["“\']?([A-Za-z]+)\b(?:\s+)([A-Za-z]+)\b', text)
+        if first:
+            opener, following = first.group(1).lower(), first.group(2).lower()
+            descriptors = tokens(' '.join(c.get('descriptor', '') for c in self.bible.get('cast', [])))
+            objects = tokens(' '.join(str(o) for o in self.bible.get('objects', [])))
+            known_nouns = VERB_OPENER_NOUNS | PERSON_NOUNS | descriptors | objects
+            if opener.endswith(('s', 'es')) and following in VERB_OPENER_FOLLOWERS and opener not in known_nouns:
+                problems.append('Banned phrasing: no subject (headline-style bare verb opener). Fix: start with who acts, '
+                                'using the bible cast descriptor or a pronoun, and write a complete sentence')
+        cast = self.bible.get('cast') or []
+        if len(cast) == 1:
+            allowed = tokens(cast[0].get('descriptor', ''))
+            drift = sorted((tokens(text) & PERSON_NOUNS) - allowed)
+            if drift:
+                problems.append(f'Banned phrasing: person descriptor drift ({", ".join(drift)}). Fix: refer to this person '
+                                f'only as "{cast[0].get("descriptor", "the cast member")}" or with a pronoun')
         place_problem = []
         if self.is_establishing(gid):
             terms = place_terms(self.bible)
@@ -757,13 +775,16 @@ class Director(Agent):
         tally = Counter()
         for k in range(0, len(gids), max(1, self.d['verify_batch'])):
             batch = gids[k:k + self.d['verify_batch']]
-            data = {'duration': 0, 'cues': [{'gap_id': g, 'text': self.pending[g]['text'], 'frame_times': self.frame_times(g)} for g in batch]}
-            media = None
-            if not self.mock:
-                media = []
-                for g in batch:
-                    media.append({'type': 'text', 'text': f'Frames for cue gap_id {g}:'})
-                    media += separate_frames(self.path, self.frame_times(g))
+            def verify_payload(ids):
+                data = {'duration': 0, 'cues': [{'gap_id': g, 'text': self.pending[g]['text'], 'frame_times': self.frame_times(g)} for g in ids]}
+                media = None
+                if not self.mock:
+                    media = []
+                    for g in ids:
+                        media.append({'type': 'text', 'text': f'Frames for cue gap_id {g}:'})
+                        media += separate_frames(self.path, self.frame_times(g))
+                return data, media
+            data, media = verify_payload(batch)
             mock = {'verdicts': [{'gap_id': g, 'verdict': 'contradicted' if 'blue dot' in self.pending[g]['text'] else 'supported',
                                   'wrong': 'blue dot' if 'blue dot' in self.pending[g]['text'] else '', 'reason': 'MOCK verdict'} for g in batch]}
             try:
@@ -775,6 +796,24 @@ class Director(Agent):
                         verdicts[int(r.get('gap_id', r.get('id')))] = r
                     except (TypeError, ValueError, AttributeError):
                         pass
+                missing = [g for g in batch if g not in verdicts]
+                if missing:
+                    retry_data, retry_media = verify_payload(missing)
+                    retry_mock = {'verdicts': [r for r in mock['verdicts'] if r['gap_id'] in missing]}
+                    try:
+                        retry_raw = self.model('verify', 'perceive', P.VERIFY, retry_data, retry_media, retry_mock if self.mock else None)
+                        retry_rows = retry_raw.get('verdicts', retry_raw.get('cues', [])) if isinstance(retry_raw, dict) else retry_raw if isinstance(retry_raw, list) else []
+                        for r in retry_rows:
+                            try:
+                                rgid = int(r.get('gap_id', r.get('id')))
+                                if rgid in missing:
+                                    verdicts[rgid] = r
+                            except (TypeError, ValueError, AttributeError):
+                                pass
+                    except (BudgetExceeded, TimeoutError):
+                        raise
+                    except Exception as exc:
+                        self.report['issues'].append(f'Verification retry unavailable for gaps {missing}: {sanitize(exc)}')
             except (BudgetExceeded, TimeoutError):
                 raise
             except Exception as exc:

@@ -262,6 +262,19 @@ def test_failed_verification_commits_nothing(tmp_path, monkeypatch):
     assert all('never committed unverified' in report['dropped_gaps'][g] for g in (0, 1, 2))
 
 
+def test_missing_batched_verdict_is_retried_once_in_smaller_call(tmp_path, monkeypatch):
+    def verify(data, n):
+        ids = [c['gap_id'] for c in data['cues']]
+        if n == 1:
+            return {'verdicts': [{'gap_id': 0, 'verdict': 'supported'}, {'gap_id': 2, 'verdict': 'supported'}]}
+        assert ids == [1]
+        return {'verdicts': [{'gap_id': 1, 'verdict': 'supported', 'reason': 'visible on retry'}]}
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), verify=verify)
+    assert [c['id'] for c in report['cues']] == [0, 1, 2]
+    assert len(fake.role('verify')) == 2
+    assert [c['gap_id'] for c in fake.role('verify')[1]['data']['cues']] == [1]
+
+
 def test_ultra_cap_is_hard(tmp_path, monkeypatch):
     bad = {i: ('The camera pans across the table.', [e]) for i, e in ((0, 'e1'), (1, 'e3'), (2, 'e4'))}
     d, report, fake = run(tmp_path, monkeypatch, director={'max_ultra_calls': 3}, script=script(bad),
@@ -459,10 +472,23 @@ def test_camera_as_object_allowed_but_camera_direction_banned_with_fix_hint(tmp_
 def test_headline_fragments_rejected_full_sentences_pass(tmp_path, monkeypatch):
     d = postcheck_director(tmp_path, monkeypatch)
     d.pending[0] = {'text': 'In the kitchen, the cook pours water into flour.', 'evidence': ['e1']}
-    for frag in ('Cuts dough into portions; rolls each into a ball.', 'Gestures to the bowl and the flour.', 'Flattens a ball with her palms.'):
+    for frag in ('Cuts dough into portions; rolls each into a ball.', 'Gestures to the bowl and the flour.', 'Flattens a ball with her palms.',
+                 'Unrolls and flattens it.', 'Takes one ball onto the mat.'):
         assert any('Fix:' in p and ('headline' in p or 'subject' in p) for p in d.check_cue(1, frag, ['e3'])[1]), frag
     assert d.check_cue(1, 'Now she kneads the dough into a smooth ball.', ['e3'])[1] == []
+    assert d.check_cue(1, 'Flour dusts the mat.', ['e3'])[1] == []
+    assert d.check_cue(1, 'Hands press the dough flat.', ['e3'])[1] == []
     assert any('"continues"' in p for p in d.check_cue(1, 'They continue kneading the dough.', ['e3'])[1])
+
+
+def test_single_cast_descriptor_drift_goes_to_repair_with_hint(tmp_path, monkeypatch):
+    d = postcheck_director(tmp_path, monkeypatch)
+    d.pending[0] = {'text': 'In the kitchen, the cook pours water into flour.', 'evidence': ['e1']}
+    problems = d.check_cue(1, 'The chef kneads the dough into a ball.', ['e3'])[1]
+    assert any('descriptor drift (chef)' in p and '"the cook" or with a pronoun' in p for p in problems)
+    assert any('descriptor drift (chefs)' in p for p in d.check_cue(1, 'The chefs knead the dough.', ['e3'])[1])
+    assert d.check_cue(1, 'The cook kneads the dough into a ball.', ['e3'])[1] == []
+    assert d.check_cue(1, 'She kneads the dough into a ball.', ['e3'])[1] == []
 
 
 def test_establishing_cue_must_name_the_place(tmp_path, monkeypatch):
@@ -476,9 +502,9 @@ def test_establishing_cue_must_name_the_place(tmp_path, monkeypatch):
     # Bible `place` (e.g. from an unverified title the visuals agree with) counts too.
     d.bible = {**BIBLE, 'setting': 'a crowded spacecraft module with equipment panels', 'place': 'space station'}
     d.pending.clear()
-    assert d.check_cue(0, 'Aboard the space station, an astronaut adds water.', ['e1'])[1] == []
-    assert d.check_cue(0, 'Inside the module, an astronaut adds water.', ['e1'])[1] == []
-    assert d.check_cue(0, 'An astronaut pours water into a bowl.', ['e1'])[1]
+    assert d.check_cue(0, 'Aboard the space station, the cook adds water.', ['e1'])[1] == []
+    assert d.check_cue(0, 'Inside the module, the cook adds water.', ['e1'])[1] == []
+    assert d.check_cue(0, 'The cook pours water into a bowl.', ['e1'])[1]
 
 
 def test_script_payload_marks_establishing_gap_and_target_words(tmp_path, monkeypatch):

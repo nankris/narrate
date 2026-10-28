@@ -58,16 +58,20 @@ Style:
    dough into portions and rolls each piece into a smooth ball." No semicolons. Clear and factual, not purple prose: no
    metaphors, no opinions, no guessed emotions (visible laughs, smiles or grimaces are facts).
 2. Specific verbs and concrete nouns from the bible (what, who, where). Connect cues into a story: say what is NEW, the visible
-   result, and why it matters toward the goal ("Now...", "The dough is now...", "...the first pepper of the harvest").
+   result, and why it matters toward the goal ("Now...", "The dough is now...", "...the first pepper of the harvest"). Prefer
+   the gap's most distinctive visible moment: a reaction (such as covering the mouth or laughing), a result, a new object, or
+   a change of state, rather than routine ongoing activity. Never describe the same ongoing activity in two consecutive cues.
 3. Length: max_words is a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for target_words
    (a range, about 70-90 % of max_words): enough for who, the action and its result or link to the goal, with room to spare.
    Count the words of each cue before answering and put the count in "words". Short cues are only for gaps with little to
    say. Silence is fine: skip a gap when nothing new or important happens.
-4. The gap with "establish": true opens the track: fold the place (bible place) and who is there into one compact opening,
+4. The gap with "establish": true opens the track: fold the place (bible place) and who is there into one compact opening with idiomatic phrasing,
    then the action, all within max_words, e.g. "In a home kitchen, the cook mixes flour and water." Add the goal only if
-   words remain; shorten the action rather than exceed max_words. Never skip it.
-5. After the first mention use a pronoun or the short cast descriptor. Use he/she only when the bible notes make it visually
-   clear; otherwise the descriptor or "they". Never open with "Person" or "A person".
+   words remain; shorten the action rather than exceed max_words. For a spacecraft, natural phrasing such as "Aboard the space
+   station, ..." is preferable to "In a space station, ...". Never skip it.
+5. For every person, use exactly their bible cast descriptor or a pronoun; never substitute a near-synonym such as chef for
+   cook. Use he/she only when the bible notes make it visually clear; otherwise use the descriptor or "they". Never open with
+   "Person" or "A person".
 6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows", "on camera", "shot", "frame",
    "screen shows"). A person holding a camera is part of the scene: say what they do and why, e.g. "a crewmate photographs the
    pepper", not "it is filmed close-up".
@@ -95,6 +99,8 @@ Same style as the original script: native, idiomatic English as a professional d
 spoken sentences with a subject (no clipped fragments, no semicolons, no translationese), concrete verbs and nouns, never
 "Person" or "A person" as the subject, no camera-movement language ("we see", "the camera pans/shows", "on camera"; a person
 holding a camera is fine), never repeat the neighbouring cues, never read subtitles.
+Use exactly each bible cast descriptor (or a pronoun), and prioritise a distinctive reaction, result, new object or change of
+state over routine ongoing activity. Do not repeat the same ongoing activity as a neighbouring cue.
 Length: aim for target_words; max_words is a HARD limit (rejected_words = the rejected text's count). When the rejection is
 about length, cut at least rejected_words - max_words words: keep the subject, the main action and its result; drop a
 secondary action, colours or positions. Count the words and report them in "words".
@@ -118,8 +124,10 @@ The English cues are final and are never changed: return only the Hindi line ("h
 Write natural spoken Hindi in Devanagari as a native describer would say it: full, flowing sentences (never fragments or
 headline style), simple present tense, not a literal translation, no transliteration. Use everyday words; for a kitchen: आटा,
 लोई, बेलन, चकला (or मैट), तेल, कटोरा, तवा, परतदार रोटी / लच्छा पराठा. Use the bible for consistent references; add no new facts.
-Gender: follow cast_gender. If the person's gender is not visible, never guess it: use gender-neutral constructions, e.g. the
-passive "आटा गूँधा जा रहा है", "लोइयाँ बनाई जा रही हैं", or noun-focused sentences "हाथ आटे को गूँधते हैं"; never "रसोइया ... रहा है"
+Gender: follow cast_gender. If the person's gender is not visible, never guess it. Natural spoken Hindi comes first: when the
+subject is non-human or the action is already clear, avoid stiff chains of passive verbs and prefer noun-focused phrasing such
+as "रसोइए के हाथ आटा गूँधते हैं" or "हाथ आटे को गूँधते हैं"; use a passive such as "आटा गूँधा जा रहा है" only when it sounds
+natural. Never "रसोइया ... रहा है"
 or "...रही है" for that person. If the gender is clearly visible, make every verb agree correctly. Agreement with objects
 (आटा m., लोई f., रोटी f.) must always be correct.
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}, at most max_words words per cue.'''

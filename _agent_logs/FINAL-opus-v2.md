@@ -168,3 +168,18 @@ place check. Round 3 fixes those failure modes without adding hand-written narra
 - `scripts/judge_rubric.md` adds per-cue accuracy, story, redundancy, timing, English fluency and Hindi naturalness scoring.
 
 All Round-3 tests are offline and use fake clients; no provider calls are made.
+
+## Round 4
+
+Round-3 real runs reached 10/12 roti gaps and 9/10 NASA gaps at about $0.037 each. The remaining targeted fixes preserve the
+rule that every narration line is written by Nemotron:
+
+- Clear subject-less third-person verb openers now fail a conservative deterministic lint with an Ultra repair hint; noun-like
+  openers remain allowed.
+- With one bible cast member, person labels that do not occur in that descriptor are flagged for repair, preventing “cook” /
+  “chef” drift.
+- Missing verdicts from a batched Super VL verification receive one smaller retry before the cue is dropped unverified.
+- Script and repair prompts favour distinctive reactions, results, new objects, and state changes; avoid consecutive cues about
+  the same ongoing activity; use exact cast descriptors or pronouns; and use idiomatic establishing-place phrasing.
+- Hindi guidance puts natural spoken Hindi first and prefers noun-focused sentences to stiff passive chains when gender is
+  unknown and the action is clear.
