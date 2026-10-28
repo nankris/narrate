@@ -264,7 +264,12 @@ def build_app():
                     cfg = load_config()
                     cfg['agent']['timeout_s'] = min(cfg['agent']['timeout_s'], timeout)
                     # Hard caps: explicit max_steps disables turn-budget scaling; cost capped by `budget`.
-                    result['report'] = run_agent(path, out, provider=provider, langs=langs, budget_usd=budget, max_steps=turns, config=cfg, orchestrator_model=orchestrator.lower(), on_step=lambda step:q.put(step))
+                    if os.environ.get('NARRATE_UI_MODE', cfg.get('ui', {}).get('mode', 'agent')) == 'director':
+                        # v2 (DESIGN_v2.md): bounded Ultra calls; the planner dropdown applies to agent mode only.
+                        from narrate.director import run_director
+                        result['report'] = run_director(path, out, provider=provider, langs=langs, budget_usd=min(budget, cfg.get('director', {}).get('budget_usd', budget)), config=cfg, on_step=lambda step:q.put(step))
+                    else:
+                        result['report'] = run_agent(path, out, provider=provider, langs=langs, budget_usd=budget, max_steps=turns, config=cfg, orchestrator_model=orchestrator.lower(), on_step=lambda step:q.put(step))
                 except Exception:
                     result['error'] = True
                 finally:
