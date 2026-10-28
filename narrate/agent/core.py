@@ -145,16 +145,25 @@ def scene_brief(ctx,limit=420):
     return ' | '.join(p for p in parts if p)[:limit]
 
 
-BANNED=[(re.compile(r'\b(?:we|you)\s+(?:can\s+)?see\b',re.I),'"we see"'),
-    (re.compile(r'\b(?:the\s+)?camera\s+(?:moves|pans|zooms|tilts|cuts|records|follows|shows|focuses|captures|reveals)\b|\b(?:as|while)\s+(?:the\s+)?camera\b|\bthe camera\b',re.I),'camera direction'),
-    (re.compile(r'\bTITLE\b(?!:)'),'literal TITLE label (write Title: "...")'),
-    (re.compile(r'^\s*(?:the\s+)?screen\b',re.I),'cue starts with "Screen"'),
-    (re.compile(r'\bSKIP\b'),'SKIP marker is not narration')]
+CAMERA_DIRECTION=re.compile(r'\b(?:the\s+)?camera\s+(?:moves|pans|zooms|tilts|cuts|records|follows|shows|focuses|captures|reveals|lingers|switches|stays|returns)\b'
+    r'|\b(?:as|while)\s+the\s+camera\b|\bon\s+camera\b|\bcamera\s+(?:angle|view|work)\b|\bzooms?\s+(?:in|out)\b|^\s*cut\s+to\b',re.I)
+# (pattern, rule, fix hint). A camera held by someone in the video is a legitimate object ("a crewmate films with a camera");
+# only camera DIRECTION language (the camera pans/zooms/cuts/shows, "on camera") is banned.
+BANNED=[(re.compile(r'\b(?:we|you)\s+(?:can\s+)?see\b',re.I),'"we see"','state the action directly with its subject, e.g. "The cook rolls..."'),
+    (CAMERA_DIRECTION,'camera direction','describe what is visible, not camera movement; a person holding a camera is fine, e.g. "a crewmate films with a camera"'),
+    (re.compile(r'\bTITLE\b(?!:)'),'literal TITLE label (write Title: "...")','write Title: "..." with the exact on-screen words'),
+    (re.compile(r'^\s*(?:the\s+)?screen\b',re.I),'cue starts with "Screen"','open with who or what is visible'),
+    (re.compile(r'\bSKIP\b'),'SKIP marker is not narration','return {"skip": true} instead of text')]
 
 
 def lint(text):
     """Deterministic style rules the prompts state but models break (review finding 7)."""
-    return [f'Banned phrasing: {why}' for rx,why in BANNED if rx.search(text)]
+    return [f'Banned phrasing: {why}' for rx,why,_ in BANNED if rx.search(text)]
+
+
+def lint_with_hints(text):
+    """lint() plus a concrete fix for each rule, so a repair request says how to fix it, not only what is wrong."""
+    return [f'Banned phrasing: {why}. Fix: {hint}' for rx,why,hint in BANNED if rx.search(text)]
 
 
 def is_skip(text):
@@ -665,10 +674,10 @@ class Agent:
             problems.append('Text must be one nonempty line')
         if count>g['word_budget_'+lang] and lang!='hi':
             problems.append(f"Word budget exceeded (max {limit} words)")
-        if re.search(r'\b(we see|the camera)\b',text,re.I):
+        if re.search(r'\bwe see\b',text,re.I) or CAMERA_DIRECTION.search(text):
             problems.append('Banned phrase')
         if lang=='en':
-            problems+= [p for p in lint(text) if not (p.endswith('"we see"') or 'camera' in p and re.search(r'\bthe camera\b',text,re.I)) or 'Banned phrase' not in problems]
+            problems+= [p for p in lint(text) if not (p.endswith('"we see"') or p.endswith('camera direction')) or 'Banned phrase' not in problems]
         if lang=='hi' and not re.search('[\u0900-\u097f]',text):
             problems.append('Hindi must use Devanagari')
         seconds=self.measure_tts_duration(text,lang)['seconds']
