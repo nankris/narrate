@@ -127,7 +127,7 @@ def test_happy_path_one_script_call_and_compatible_outputs(tmp_path, monkeypatch
     assert report['status'] == 'complete' and report['mode'] == 'director'
     assert [c['en'] for c in report['cues']] == [GOOD[i][0] for i in range(3)]
     assert all(c['verdict'] == 'supported' and c['hi'] for c in report['cues'])
-    assert len(fake.role('script')) == 1 and len(fake.role('timeline')) == 2 and report['director_stats']['ultra_calls'] == 3
+    assert len(fake.role('script')) == 1 and len(fake.role('timeline')) == 3 and report['director_stats']['ultra_calls'] == 3
     # The script call sees the bible, the WHOLE timeline (incl. speech-region events) and every gap with measured budgets.
     data = fake.role('script')[0]['data']
     assert data['bible']['story'] == 'making roti' and [r['id'] for r in data['timeline']] == ['e1', 'e2', 'e3', 'e4']
@@ -150,7 +150,7 @@ def test_postchecks_reject_budget_lint_subtitle_similarity_and_foreign_evidence(
     Fake(timeline=windows, bible=BIBLE).install(monkeypatch)
     d = make(tmp_path, monkeypatch, langs=('en',))
     d.st_gaps(); d.st_shots(); d.st_timeline(); d.bible = BIBLE; d.st_assign()
-    ok, problems = d.check_cue(0, 'The cook pours water into a bowl of flour.', ['e1', 'e3'])
+    ok, problems = d.check_cue(0, 'In the kitchen, the cook pours water into flour.', ['e1', 'e3'])
     assert ok == ['e1'] and problems == [] and d.stats['evidence_stripped'] == 1
     assert any('over budget' in p for p in d.check_cue(0, 'word ' * 30, ['e1'])[1])
     assert any('camera' in p for p in d.check_cue(0, 'The camera pans over the flour.', ['e1'])[1])
@@ -211,7 +211,7 @@ def test_verify_contradiction_refutes_repairs_and_drops(tmp_path, monkeypatch):
 
 
 def test_uncertain_policy_depends_on_risky_detail(tmp_path, monkeypatch):
-    cues = {0: ('A sign reads "Fresh Roti".', ['e1']), 1: GOOD[1], 2: GOOD[2]}
+    cues = {0: ('In the kitchen, a sign reads "Fresh Roti".', ['e1']), 1: GOOD[1], 2: GOOD[2]}
     verify = lambda data, n: {'verdicts': [{'gap_id': c['gap_id'], 'verdict': 'uncertain', 'reason': 'cannot tell'} for c in data['cues']]}
     d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues), verify=verify,
                           repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'skip': True} for g in data['gaps']]})
@@ -244,9 +244,13 @@ def test_default_run_stays_within_six_ultra_calls(tmp_path, monkeypatch):
 
 
 def test_script_failure_falls_back_to_verified_timeline_text(tmp_path, monkeypatch):
-    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=lambda data, n: ValueError('No valid JSON response'))
+    fixed = 'In the kitchen, the cook pours water into flour.'
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=lambda data, n: ValueError('No valid JSON response'),
+                          repair=lambda data, n: {'cues': [{'gap_id': g['gap_id'], 'text': fixed, 'evidence': ['e1']} for g in data['gaps']]})
     assert len(fake.role('script')) == 2 and report['fallback_finalize'] and 'script call failed' in report['fallback_reason']
-    assert [c['en'] for c in report['cues']] == [EVENTS[0]['what'], EVENTS[2]['what'], EVENTS[3]['what']]
+    # Timeline text never names the place, so the first cue is repaired by Ultra under the establishing rule.
+    assert 'does not say where' in ' '.join(fake.role('repair')[0]['data']['gaps'][0]['why_rejected'])
+    assert [c['en'] for c in report['cues']] == [fixed, EVENTS[2]['what'], EVENTS[3]['what']]
     assert all(c['verdict'] == 'supported' for c in report['cues'])
 
 
@@ -332,7 +336,7 @@ def test_compare_runs_aligns_cues(tmp_path, capsys):
     from scripts.compare_runs import align, main
     old = {'cues': [{'start': 6.2, 'end': 12.9, 'en': 'Person kneads dough.'}, {'start': 15.8, 'end': 20, 'en': 'Person continues kneading.'}],
            'estimated_cost_usd': .33, 'agent_stats': {'orchestrator_turns': 42}}
-    new = {'cues': [{'start': 6.2, 'end': 12.9, 'en': 'In a home kitchen, the cook pours water into flour.'}, {'start': 42.4, 'end': 46, 'en': 'She divides the dough.'}],
+    new = {'cues': [{'start': 6.2, 'end': 12.9, 'en': 'In a home kitchen, the cook wets the flour.'}, {'start': 42.4, 'end': 46, 'en': 'She divides the dough.'}],
            'estimated_cost_usd': .07, 'agent_stats': {'orchestrator_turns': 4}, 'mode': 'director', 'gaps_skipped_no_new_info': [2]}
     rows = align(old['cues'], new['cues'])
     assert [(r[1] is not None, r[2] is not None) for r in rows] == [(True, True), (True, False), (False, True)]
@@ -353,7 +357,7 @@ class FakeTokenFactory:
         system = data['_system']
         role = next(r for key, r in (('You log every visible event', 'timeline'), ('Establish the scene', 'scene'), ('scene bible', 'bible'),
                                      ('WHOLE English', 'script'), ('still frames taken INSIDE', 'verify'), ('You repair', 'repair'),
-                                     ('Hindi audio-description track', 'hindi')) if key in system)
+                                     ('Hindi audio-description track', 'hindi'), ('You shorten', 'tighten')) if key in system)
         kinds = [m['type'] for m in media or []]
         self.requests.append((role, stage, kinds))
         if role == 'timeline' and 'video_url' in kinds and self.fail_video:
@@ -379,9 +383,9 @@ def test_provider_path_with_fake_client(tmp_path, monkeypatch, fail_video):
     assert len(report['cues']) == 3 and all(c['hi'] for c in report['cues'])
     timeline = [r for r in client.requests if r[0] == 'timeline']
     if fail_video:   # each window falls back to labelled stills
-        assert [k for _, _, k in timeline] == [['video_url'], ['text', 'image_url'] * 4] * 2
+        assert [k for _, _, k in timeline] == [['video_url'], ['text', 'image_url'] * 4] * 3   # 30 s clip -> 3 windows of ~10 s
     else:
-        assert [k for _, _, k in timeline] == [['video_url']] * 2
+        assert [k for _, _, k in timeline] == [['video_url']] * 3
     verify = next(k for r, _, k in client.requests if r == 'verify')
     assert verify.count('image_url') == 2 * 3                        # 2 stills inside each of the 3 gaps, one batched call
     assert sum(r[1] == 'edit' for r in client.requests) == report['director_stats']['ultra_calls'] == 3
@@ -390,3 +394,160 @@ def test_provider_path_with_fake_client(tmp_path, monkeypatch, fail_video):
     stages = {s['stage']: s for s in report['stages']}
     assert stages['script']['models'] == ['nvidia/Nemotron-3-Ultra-550b-a55b'] and stages['script']['tokens_in'] == 1000
     assert 'Nemotron-3-Ultra' in (tmp_path / 'trace.md').read_text()
+
+
+# ---------- round 2 (real-run findings) ----------
+def postcheck_director(tmp_path, monkeypatch, **director):
+    Fake(timeline=windows, bible=BIBLE).install(monkeypatch)
+    d = make(tmp_path, monkeypatch, langs=('en',), **director)
+    d.st_gaps(); d.st_shots(); d.st_timeline(); d.bible = BIBLE; d.st_assign()
+    return d
+
+
+def test_camera_as_object_allowed_but_camera_direction_banned_with_fix_hint(tmp_path, monkeypatch):
+    from narrate.agent.core import lint
+    d = postcheck_director(tmp_path, monkeypatch)
+    d.pending[0] = {'text': 'In the kitchen, the cook pours water into flour.', 'evidence': ['e1']}
+    # NASA gap 9: a crewmate who puts down a camera is part of the scene (burned 2 repairs in run nasa_v2_r1).
+    assert lint('A crewmate sets down the camera and joins the group.') == []
+    assert lint('A crewmate photographs the pepper with a camera.') == []
+    assert d.check_fit(1, 'She sets down the camera and kneads.', 'en')['ok']
+    for bad in ('The camera pans across the table.', 'As the camera follows her, she kneads.', 'She smiles on camera.', 'We see the dough.'):
+        problems = d.check_cue(1, bad, ['e3'])[1]
+        assert problems and all('Fix:' in p for p in problems if p.startswith('Banned')), (bad, problems)
+    assert any('a crewmate films with a camera' in p for p in d.check_cue(1, 'The camera pans over the dough.', ['e3'])[1])
+    assert any('film-making jargon' in p for p in d.check_cue(1, 'The dough is filmed close-up.', ['e3'])[1])
+    assert lint('The cook heats oil in a pan over the flame.') == []
+
+
+def test_headline_fragments_rejected_full_sentences_pass(tmp_path, monkeypatch):
+    d = postcheck_director(tmp_path, monkeypatch)
+    d.pending[0] = {'text': 'In the kitchen, the cook pours water into flour.', 'evidence': ['e1']}
+    for frag in ('Cuts dough into portions; rolls each into a ball.', 'Gestures to the bowl and the flour.', 'Flattens a ball with her palms.'):
+        assert any('Fix:' in p and ('headline' in p or 'subject' in p) for p in d.check_cue(1, frag, ['e3'])[1]), frag
+    assert d.check_cue(1, 'Now she kneads the dough into a smooth ball.', ['e3'])[1] == []
+    assert any('"continues"' in p for p in d.check_cue(1, 'They continue kneading the dough.', ['e3'])[1])
+
+
+def test_establishing_cue_must_name_the_place(tmp_path, monkeypatch):
+    d = postcheck_director(tmp_path, monkeypatch)
+    assert d.is_establishing(0)
+    problems = d.check_cue(0, 'The cook pours water into flour.', ['e1'])[1]
+    assert any('does not say where' in p and 'home kitchen' in p for p in problems)
+    assert d.check_cue(0, 'In a home kitchen, the cook wets the flour.', ['e1'])[1] == []
+    d.pending[0] = {'text': 'In a home kitchen, the cook wets the flour.', 'evidence': ['e1']}
+    assert not d.is_establishing(1) and d.check_cue(1, 'Now she kneads the dough into a smooth ball.', ['e3'])[1] == []
+    # Bible `place` (e.g. from an unverified title the visuals agree with) counts too.
+    d.bible = {**BIBLE, 'setting': 'a crowded spacecraft module with equipment panels', 'place': 'space station'}
+    d.pending.clear()
+    assert d.check_cue(0, 'Aboard the space station, an astronaut adds water.', ['e1'])[1] == []
+    assert d.check_cue(0, 'Inside the module, an astronaut adds water.', ['e1'])[1] == []
+    assert d.check_cue(0, 'An astronaut pours water into a bowl.', ['e1'])[1]
+
+
+def test_script_payload_marks_establishing_gap_and_target_words(tmp_path, monkeypatch):
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',))
+    gaps = fake.role('script')[0]['data']['gaps']
+    assert gaps[0].get('establish') is True and not any(g.get('establish') for g in gaps[1:])
+    assert all(4 <= g['target_words'] <= g['max_words'] for g in gaps)
+    assert 'HARD limit' in fake.role('script')[0]['system'] and 'count the words' in fake.role('script')[0]['system']
+
+
+def test_nano_tightens_over_budget_cue_before_any_ultra_repair(tmp_path, monkeypatch):
+    long = 'Now she kneads the soft dough firmly with both hands on the wooden table into a smooth round ball today.'
+    cues = {0: GOOD[0], 1: (long, ['e3']), 2: GOOD[2]}
+    tight = 'Now she kneads the dough into a smooth ball.'
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues),
+                          tighten=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'text': tight} for c in data['cues']]})
+    assert len(long.split()) > d.gap(1)['director_words_en']
+    assert len(fake.role('tighten')) == 1 and fake.role('tighten')[0]['stage'] == 'fit' and not fake.role('repair')
+    sent = fake.role('tighten')[0]['data']['cues']
+    assert [c['gap_id'] for c in sent] == [1] and sent[0]['max_words'] == d.gap(1)['director_words_en']
+    assert {c['id']: c['en'] for c in report['cues']}[1] == tight
+    assert report['director_stats']['ultra_calls'] == 2 and report['director_stats']['tightened'] == 1   # bible + script only
+    assert [h['step'] for h in report['cue_history']['1']][:2] == ['script', 'tighten']
+    assert 'tighten' in [s['stage'] for s in report['stages']] and report['cost_by_role']['tighten'] == pytest.approx(.001)
+
+
+def test_nano_tighten_that_invents_is_rejected_and_length_only_failure_skips_ultra(tmp_path, monkeypatch):
+    long = 'Now she kneads the soft dough firmly with both hands on the wooden table into a smooth round ball today.'
+    cues = {0: GOOD[0], 1: (long, ['e3']), 2: GOOD[2]}
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(cues),
+                          tighten=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'text': 'She adds sugar and purple berries.'} for c in data['cues']]})
+    assert len(fake.role('tighten')) == 2 and not fake.role('repair')          # never spend Ultra on a word count
+    assert 1 not in {c['id'] for c in report['cues']} and 'over budget after Nano tighten' in report['dropped_gaps'][1]
+    assert any('tighten added new words' in ' '.join(h.get('problems') or []) for h in report['cue_history']['1'])
+
+
+def test_context_title_is_unverified_context_for_bible_and_script(tmp_path, monkeypatch):
+    fake = Fake(timeline=windows, bible=BIBLE, script=script()).install(monkeypatch)
+    cfg = resolve_provider(load_config(), 'mock')
+    cfg['tts']['backend'] = 'silent'
+    monkeypatch.setattr('narrate.agent.core.detect', fake_detect(GAPS))
+    title = 'How To Make Soft Layered Roti - Paratha'
+    report = Director('samples/sample_kitchen.mp4', tmp_path, cfg, ['en'], SpendGuard(.5), context='  ' + title + '\n').run()
+    for role in ('bible', 'script'):
+        vt = fake.role(role)[0]['data']['video_title']
+        assert vt['text'] == title and 'UNVERIFIED' in vt['note'] and 'never evidence' in vt['note']
+    assert 'video_title' not in fake.role('timeline')[0]['data']       # perception never sees the title
+    assert 'UNVERIFIED' in fake.role('script')[0]['system'] and report['video_title'] == title
+    assert json.loads((tmp_path / 'report.json').read_text())['video_title'] == title
+    assert title in (tmp_path / 'trace.md').read_text()
+    d2, report2, fake2 = run(tmp_path / 'none', monkeypatch, langs=('en',))
+    assert 'video_title' not in fake2.role('script')[-1]['data'] and report2['video_title'] is None
+
+
+def test_context_reaches_run_director_from_cli_and_cache_builder(monkeypatch, tmp_path):
+    import narrate.__main__ as main
+    import narrate.director as director
+    from scripts.build_cached_runs import title_from_attribution
+    seen = {}
+    monkeypatch.setattr(director, 'run_director', lambda *a, **kw: seen.update(kw) or {'estimated_cost_usd': 0})
+    monkeypatch.setattr(sys, 'argv', ['narrate', 'agent', 'samples/sample_kitchen.mp4', '--out', str(tmp_path), '--mock', '--context', 'Harvest on the ISS'])
+    main.main()
+    assert seen['context'] == 'Harvest on the ISS'
+    rows = {}
+    for line in open('samples/SOURCES.md', encoding='utf-8'):
+        f = [x.strip() for x in line.split('|')]
+        if len(f) > 6 and f[1].endswith('.mp4'):
+            rows[f[1]] = title_from_attribution(f[4])
+    assert rows['nasa_chile_harvest_0000-0150.mp4'] == 'Astronauts harvest, eat first chile pepper crop on space station'
+    assert rows['cooking_roti_0028-0148.mp4'] == 'How To Make Soft Layered Roti - Paratha'
+    assert rows['sample_kitchen.mp4'] is None
+
+
+def test_shorter_windows_with_previous_events_and_climax_prompt(tmp_path, monkeypatch):
+    from narrate.media import split_slots
+    from narrate.director import DEFAULTS
+    from narrate import director_prompts as P
+    assert DEFAULTS['window_s'] == 12 and load_config()['director']['window_s'] == 12
+    wins = split_slots(0., 110., 12, [57.], 2, 6)                       # NASA clip length: ~10 windows (log estimate)
+    assert len(wins) == 10 and all(e - s <= 12 for s, e in wins)
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',))
+    calls = fake.role('timeline')
+    assert len(calls) == 3 and 'previous_events' not in calls[0]['data']
+    assert calls[1]['data']['previous_events'][-1]['what'] == EVENTS[0]['what']
+    for needle in ('eating, drinking', 'facial reactions', 'interactions between people', 'changes of state', 'NEW'):
+        assert needle in P.TIMELINE
+    assert 'est. Super VL timeline cost' in next(s for s in report['stages'] if s['stage'] == 'shots')['output']
+    ev, _ = normalise_events({'events': [{'t_start': 1, 't_end': 3, 'what': 'An astronaut bites the pepper', 'change': 'first taste'}]}, 0, 12, 30)
+    assert ev[0]['change'] == 'first taste'
+
+
+def test_hindi_gets_gender_neutral_instruction_when_gender_not_visible(tmp_path, monkeypatch):
+    bible = {**BIBLE, 'cast': [{'id': 'c1', 'descriptor': 'the cook', 'first_seen': 5, 'notes': 'striped sleeves; gender not visible'}]}
+    d, report, fake = run(tmp_path, monkeypatch, bible=bible, hindi=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'hi': 'आटा गूँधा जा रहा है।'} for c in data['cues']]})
+    call = fake.role('hindi')[0]
+    assert 'gender-neutral' in call['data']['cast_gender']['the cook'] and 'आटा गूँधा जा रहा है' in call['system']
+    d.bible = {**BIBLE, 'cast': [{'id': 'c1', 'descriptor': 'the cook', 'notes': 'a woman in a striped shirt'}]}
+    assert d.cast_gender() == {'the cook': 'feminine (visible)'}
+
+
+def test_trace_opens_with_run_summary(tmp_path, monkeypatch):
+    d, report, fake = run(tmp_path, monkeypatch, langs=('en',), script=script(skip=(1,)))
+    md = (tmp_path / 'trace.md').read_text().splitlines()
+    i = md.index('## Run summary')
+    assert i < 6 and md.index('## Stages') > i
+    summary = md[i + 2:i + 7]
+    assert [l.split(':**')[0] for l in summary] == ['- **Model calls', '- **Cost', '- **Cues', '- **Silent by choice', '- **Dropped']
+    assert 'Ultra 2/6' in summary[0] and 'gap 1' in summary[3] and summary[4].endswith('none')
