@@ -30,7 +30,7 @@ STOP = {'a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'with', 'into', 'at', '
 DIRECTOR_LINT = [
     (re.compile(r'^\s*(?:a|the|one)?\s*person\b', re.I), 'generic "Person" opener: use the cast descriptor or a pronoun'),
     (re.compile(r'\bcontinu(?:es|ing)\b', re.I), '"continues": say what is new or changed, or skip the gap'),
-    (re.compile(r'\b(?:shot|frame|footage|screen shows)\b', re.I), 'film-making jargon: describe what is visible'),
+    (re.compile(r'\b(?:in|on) (?:the|this|that) (?:shot|frame|footage)\b|\bscreen shows\b', re.I), 'film-making jargon: describe what is visible'),
 ]
 
 
@@ -307,7 +307,7 @@ class Director(Agent):
         else:
             try:
                 clip = self.work / f'window_{i}.mp4'
-                ffmpeg('-ss', start, '-i', self.path, '-t', end - start, '-an', '-vf', f"scale=640:360:force_original_aspect_ratio=decrease,fps={self.d['window_fps']}",
+                ffmpeg('-ss', start, '-i', self.path, '-t', end - start, '-an', '-vf', f"scale=-2:360,fps={self.d['window_fps']}",
                        '-c:v', 'libx264', '-crf', 30, clip)
                 raw = self.model('timeline', 'perceive', P.TIMELINE.format(**fmt), data, [{'type': 'video_url', 'video_url': {'url': data_url(clip.read_bytes(), 'video/mp4')}}])
                 if not normalise_events(raw, start, end, self.duration, burned)[0]:
@@ -530,7 +530,7 @@ class Director(Agent):
         for e in (self.event(i) for i in self.pending[gid]['evidence']):
             if e:
                 times.append(min(hi, max(lo, (e['t_start'] + e['t_end']) / 2)))
-        times.append((g['start'] + g['end']) / 2)
+        times += [g['start'] + f * (g['end'] - g['start']) for f in (.5, .25, .75)]   # spread samples when evidence is sparse
         out = []
         for t in times:
             if all(abs(t - x) >= .5 for x in out):

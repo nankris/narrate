@@ -340,3 +340,53 @@ def test_compare_runs_aligns_cues(tmp_path, capsys):
     main([str(tmp_path / 'old.json'), str(tmp_path / 'new.json'), '--width', '40'])
     out = capsys.readouterr().out
     assert 'Person continues kneading.' in out and 'She divides the dough.' in out and '$0.3300' in out and '42' in out
+
+
+class FakeTokenFactory:
+    """Stands in for llm.Client on the NON-mock path (real ffmpeg windows, stills, usage/cost accounting); no network."""
+    mock = False
+
+    def __init__(self, fail_video=False):
+        self.usage, self.requests, self.fail_video = [], [], fail_video
+
+    def call(self, stage, data, media=None):
+        system = data['_system']
+        role = next(r for key, r in (('You log every visible event', 'timeline'), ('Establish the scene', 'scene'), ('scene bible', 'bible'),
+                                     ('WHOLE English', 'script'), ('still frames taken INSIDE', 'verify'), ('You repair', 'repair'),
+                                     ('Hindi audio-description track', 'hindi')) if key in system)
+        kinds = [m['type'] for m in media or []]
+        self.requests.append((role, stage, kinds))
+        if role == 'timeline' and 'video_url' in kinds and self.fail_video:
+            raise RuntimeError('video rejected')
+        result = {'timeline': lambda: windows(data), 'scene': lambda: {'setting': 'home kitchen', 'burned_in_subtitles': True},
+                  'bible': lambda: BIBLE, 'script': lambda: script()(data, 1),
+                  'verify': lambda: {'verdicts': [{'gap_id': c['gap_id'], 'verdict': 'supported'} for c in data['cues']]},
+                  'hindi': lambda: {'cues': [{'gap_id': c['gap_id'], 'hi': 'रसोइया आटा गूँधती है।'} for c in data['cues']]}}[role]()
+        model = {'perceive': 'nvidia/Nemotron-3.5-Super-VL', 'edit': 'nvidia/Nemotron-3-Ultra-550b-a55b'}[stage]
+        self.usage.append({'stage': stage, 'model': model, 'base_url_host': 'api.tokenfactory.nebius.com', 'input_tokens': 1000,
+                           'output_tokens': 100, 'cost_usd': .002 if stage == 'edit' else .0005, 'latency_s': .01, 'cached_tokens': 0})
+        return result
+
+
+@pytest.mark.parametrize('fail_video', [False, True])
+def test_provider_path_with_fake_client(tmp_path, monkeypatch, fail_video):
+    monkeypatch.setattr('narrate.agent.core.detect', fake_detect(GAPS))
+    cfg = load_config()
+    cfg['tts']['backend'] = 'silent'
+    client = FakeTokenFactory(fail_video)
+    report = run_director('samples/sample_kitchen.mp4', tmp_path, provider='nebius', config=cfg, client=client)
+    assert report['status'] == 'complete' and not report['mock'] and report['billed_to'] == 'nebius token factory'
+    assert len(report['cues']) == 3 and all(c['hi'] for c in report['cues'])
+    timeline = [r for r in client.requests if r[0] == 'timeline']
+    if fail_video:   # each window falls back to labelled stills
+        assert [k for _, _, k in timeline] == [['video_url'], ['text', 'image_url'] * 4] * 2
+    else:
+        assert [k for _, _, k in timeline] == [['video_url']] * 2
+    verify = next(k for r, _, k in client.requests if r == 'verify')
+    assert verify.count('image_url') == 2 * 3                        # 2 stills inside each of the 3 gaps, one batched call
+    assert sum(r[1] == 'edit' for r in client.requests) == report['director_stats']['ultra_calls'] == 3
+    ultra = report['cost_by_role']['bible'] + report['cost_by_role']['script'] + report['cost_by_role']['hindi']
+    assert ultra == pytest.approx(.006) and report['estimated_cost_usd'] == pytest.approx(sum(u['cost_usd'] for u in client.usage))
+    stages = {s['stage']: s for s in report['stages']}
+    assert stages['script']['models'] == ['nvidia/Nemotron-3-Ultra-550b-a55b'] and stages['script']['tokens_in'] == 1000
+    assert 'Nemotron-3-Ultra' in (tmp_path / 'trace.md').read_text()

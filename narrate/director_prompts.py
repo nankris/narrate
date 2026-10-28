@@ -21,7 +21,8 @@ Return JSON {"setting":"","cast":[{"id":"c1","descriptor":"","first_seen":0,"not
 "beats":[{"t":0,"beat":""}],"on_screen_text":[{"t":0,"text":"","kind":"title|label|sign"}],"subtitles_present":false,"tone":""}
 - setting: what the place IS, concretely (under 15 words).
 - cast: each recurring person with a short, stable descriptor for narration (2-5 words, e.g. "the cook", "a grey-haired
-  astronaut"); never a name unless written on screen; notes = visible details for the first mention.
+  astronaut"); never a name unless written on screen; notes = visible details for the first mention,
+  and the apparent gender only if clearly visible (else "gender not visible").
 - objects: key objects, ingredients and tools by their everyday names.
 - story: the goal or arc in one sentence (what is being made or done, and how it ends).
 - beats: 4-10 turning points with times: new step, result, reveal, reaction. Not every event is a beat.
@@ -38,7 +39,8 @@ Rules:
 1. The first cue you write establishes the place and who is there (bible setting + cast descriptor), then the action.
 2. Later cues tell the story's progression: what is NEW in this gap, the visible result, and how it moves toward the goal.
    Never re-describe what an earlier cue already said. Silence is fine: skip a gap when nothing new or important happens.
-3. After the first mention use a pronoun or the short cast descriptor. Never open with "Person" or "A person".
+3. After the first mention use a pronoun or the short cast descriptor. Use he/she only when the bible notes make it
+   visually clear; otherwise the descriptor or "they". Never open with "Person" or "A person".
 4. Present tense, active voice, specific verbs and concrete nouns from the bible. Vary sentence openings. Factual, no opinions,
    no guessed emotions or identities. Never say "we see", "camera", "shot", "frame", "screen shows".
 5. Every fact must come from the cited evidence events of THIS gap (cite their ids). Bible and other events are context
@@ -69,6 +71,8 @@ English cue's meaning, the time window and a Hindi word limit measured with the 
 Write natural spoken Hindi in Devanagari as a native describer would say it: not a literal translation, no transliteration,
 correct gender and number agreement, simple present tense, everyday household words (for a kitchen: आटा, लोई, बेलन, तवा,
 कटोरा, तेल). Use the bible for consistent references to people and objects; add no new facts.
+Verb gender follows the cast entry only when it is visually clear; otherwise prefer neutral constructions (for example
+the passive "आटा गूँधा जा रहा है") instead of guessing.
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}, at most max_words words per cue.'''
 
 HINDI_REFIT = '''These Hindi audio-description lines are too long when spoken by the Hindi voice. Rewrite each in natural
