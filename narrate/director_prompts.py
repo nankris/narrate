@@ -19,6 +19,11 @@ Return JSON {{"events":[{{"t_start":0,"t_end":0,"what":"","change":"","on_screen
 - importance 1-5 (5 = essential to follow the story: a result, a reaction, the climax), confidence 0-1. Only what is visible;
   no guesses about identity or inner feelings (a visible laugh or grimace is visible).'''
 
+RELOOK = '''
+FOCUS: the story implies this moment here but the first pass logged nothing for it: "{what}". Watch mouths, hands and faces
+closely. Return only events that show it (or a visible reaction to it, e.g. someone biting, chewing, covering the mouth,
+grimacing, laughing at the taste), with importance 5. If it is not visible, return {{"events":[]}}; never invent it.'''
+
 TIMELINE_FRAMES = TIMELINE + '\nYou receive still frames from the window instead of video; each is labelled with its absolute time. Do not infer motion you cannot see.'
 
 VIDEO_TITLE_NOTE = ('UNVERIFIED user context (a title or one-line description supplied with the video). It may name the goal, '
@@ -28,7 +33,8 @@ BIBLE = '''You are the head audio describer preparing a "scene bible" before wri
 Input: a visual scene summary, the shot-change times, a timeline of events (ids, absolute times, what, change, on_screen_text,
 subtitle_text) covering the whole video, including parts where people speak, and optionally video_title (UNVERIFIED user context).
 Return JSON {"setting":"","place":"","cast":[{"id":"c1","descriptor":"","first_seen":0,"notes":""}],"objects":[],"goal":"","story":"",
-"beats":[{"t":0,"beat":""}],"on_screen_text":[{"t":0,"text":"","kind":"title|label|sign"}],"subtitles_present":false,"tone":""}
+"beats":[{"t":0,"beat":"","why":"","events":["e1"]}],"names":[{"name":"","aliases":[""],"from_t":0}],
+"look_for":[{"t_start":0,"t_end":0,"what":""}],"on_screen_text":[{"t":0,"text":"","kind":"title|label|sign"}],"subtitles_present":false,"tone":""}
 - setting: what the place IS, concretely (under 15 words).
 - place: the everyday name of the place in 1-3 words, the way a listener would say it (e.g. "home kitchen", "space station").
   video_title may name it when the visuals agree.
@@ -39,16 +45,27 @@ Return JSON {"setting":"","place":"","cast":[{"id":"c1","descriptor":"","first_s
 - objects: key objects, ingredients and tools by their everyday names.
 - goal: what is being made or achieved, in a few words (e.g. "layered roti"); video_title may name it. Empty if unknown.
 - story: the arc in one sentence (what is being made or done, and how it ends: the result, the climax, the reaction).
-- beats: 4-10 turning points with times, told by their STORY meaning, not filming mechanics (e.g. "a crewmate photographs
-  the first harvested pepper", not "the camera operator films"): new step, result, reveal, tasting, reaction.
+- beats: the story arc as 4-10 turning points with times, told by their STORY meaning, not filming mechanics (e.g. "a
+  crewmate photographs the first harvested pepper", not "the camera operator films"): new step, result, reveal, tasting,
+  reaction. events = the timeline ids that show the beat (the narration of those gaps tells this beat). why = what the step
+  does for the result, in a few words, only when the goal or video_title makes it plain (e.g. "the coil makes the layers",
+  "the dough rests so it rolls thin"); else "". Repeated ongoing activity is one beat, not several.
+- names: canonical object identity. When the timeline calls ONE object by different names (e.g. the harvested fruit still on
+  its stem logged later as "a small plant"), give the single everyday name narration must use (name), the timeline wordings
+  to avoid (aliases, the shortest form such as "plant") and from_t, the time from which the alias means that object. Only
+  when the events make the identity clear (the same object handed on, held up, photographed); else [].
+- look_for: at most 2 moments the goal, story or video_title implies but NO event shows (e.g. the crew tasting what they
+  harvested, someone eating the dish, the finished result shown), with the window (t_start, t_end, at most 12 s) where it
+  would most likely be and what to look for. [] when the timeline already shows every expected beat.
 - on_screen_text: only real titles, labels and signs. Subtitles transcribe speech: list none of them here and set subtitles_present.
 Use only the supplied facts; video_title is context, never proof that something is visible.'''
 
 SCRIPT = '''You are an expert audio describer (DCMP / WCAG 1.2.5 practice) writing the WHOLE English description track
 for a blind or low-vision viewer in one pass. Narration is spoken only inside the listed speech-free gaps.
-Input: bible (setting, place, cast descriptors, objects, goal, story, beats), video_title (optional, UNVERIFIED user context),
-timeline (every event with id and time; gap = which gap it belongs to, "speech" = happened while someone talked), gaps (id,
-start, end, max_words, target_words, evidence ids, establish, said_before/said_after = words spoken around the gap when known).
+Input: bible (setting, place, cast descriptors, objects, names, goal, story, beats), video_title (optional, UNVERIFIED user
+context), timeline (every event with id and time; gap = which gap it belongs to, "speech" = happened while someone talked), gaps
+(id, start, end, max_words, target_words, evidence ids, establish, beat = the story beat this gap shows, key_event = its most
+distinctive event, routine = its events repeat the previous gap's activity, said_before/said_after = words spoken nearby).
 Return JSON {"cues":[{"gap_id":0,"text":"","words":0,"evidence":["e1"]} or {"gap_id":0,"skip":true,"reason":""}]}, one entry per
 gap; "words" is your own count of the words in "text".
 Style:
@@ -61,6 +78,11 @@ Style:
    result, and why it matters toward the goal ("Now...", "The dough is now...", "...the first pepper of the harvest"). Prefer
    the gap's most distinctive visible moment: a reaction (such as covering the mouth or laughing), a result, a new object, or
    a change of state, rather than routine ongoing activity. Never describe the same ongoing activity in two consecutive cues.
+   Tell the story arc: a gap with a beat narrates that beat in story terms, with its why when given (e.g. "Now the cook coils
+   the strip into a tight spiral, which makes the layers."), not a generic "folds dough and rolls a ball". Lead with key_event.
+   Every cue must add at least one NEW concrete detail (an object, a result, a state, a count) that no earlier cue gave;
+   never a bare subject and verb ("The cook rolls."). A routine gap whose only news would repeat the previous cue: skip it
+   (the previous cue already covers it) unless you can add a genuinely new visible detail.
 3. Length: max_words is a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for target_words
    (a range, about 70-90 % of max_words): enough for who, the action and its result or link to the goal, with room to spare.
    Count the words of each cue before answering and put the count in "words". Short cues are only for gaps with little to
@@ -71,19 +93,27 @@ Style:
    station, ..." is preferable to "In a space station, ...". Never skip it.
 5. For every person, use exactly their bible cast descriptor or a pronoun; never substitute a near-synonym such as chef for
    cook. Use he/she only when the bible notes make it visually clear; otherwise use the descriptor or "they". Never open with
-   "Person" or "A person".
-6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows", "on camera", "shot", "frame",
-   "screen shows"). A person holding a camera is part of the scene: say what they do and why, e.g. "a crewmate photographs the
+   "Person" or "A person". Name objects by bible names (name, never its aliases from from_t on).
+   Vary the openings like a professional describer: after the first mention, do not start consecutive cues with the same
+   words, and never let one opening (e.g. "The cook ...") start more than half the cues. Alternate a pronoun ("They ..."),
+   the object or result first ("The dough ...", "Two balls now ..."), a time link ("Now ...", "Next ...") or a participial
+   opening ("Rolling the strip tight, they ...").
+6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows/lowers", any sentence with the
+   camera as its subject, "on camera", "shot", "frame", "screen shows"). A person holding a camera is part of the scene: say what they do and why, e.g. "a crewmate photographs the
    pepper", not "it is filmed close-up".
 7. Every visual fact must come from the cited evidence events of THIS gap (cite their ids). Bible, video_title and other events
    are context only: they may name the goal, place or dish, but never describe something before it happens or that no event shows.
 8. Do not repeat what was just said aloud (said_before/said_after); complement it with what can only be seen.
-9. Never read subtitles (they transcribe speech). Quote real on-screen titles, labels or signs only, e.g. A sign reads "...".'''
+9. Never read subtitles (they transcribe speech). Quote real on-screen titles, labels or signs only, e.g. A sign reads "...".
+10. Never describe sounds: the listener already hears applause, laughter, music and voices. Describe the visible action
+   instead ("the crew claps", "she laughs"), never "applause sounds" or "with laughter".'''
 
 VERIFY = '''You check audio-description cues against still frames taken INSIDE each cue's time window.
 For each cue: list its concrete visual claims (people, objects, actions, results, colours, counts, text) and compare with that
 cue's frames only. Stills cannot show motion: an action is consistent if the frames show its start, middle or result.
 Naming the place, the goal or the dish (e.g. "in a home kitchen", "to make roti") is context, not a visual claim.
+object_names (if given) map timeline wordings (aliases) to the name narration uses for the same object (e.g. a harvested
+fruit still on its stem): a cue using that name is consistent when the aliased object is shown.
 Return JSON {"verdicts":[{"gap_id":0,"verdict":"supported|contradicted|uncertain","wrong":"","reason":""}]}.
 - contradicted: a claim is clearly false in these frames (wrong object, person, count, text, or an event that is not there).
   wrong = the shortest false phrase quoted from the cue; reason = what the frames show instead.
@@ -99,8 +129,11 @@ Same style as the original script: native, idiomatic English as a professional d
 spoken sentences with a subject (no clipped fragments, no semicolons, no translationese), concrete verbs and nouns, never
 "Person" or "A person" as the subject, no camera-movement language ("we see", "the camera pans/shows", "on camera"; a person
 holding a camera is fine), never repeat the neighbouring cues, never read subtitles.
-Use exactly each bible cast descriptor (or a pronoun), and prioritise a distinctive reaction, result, new object or change of
-state over routine ongoing activity. Do not repeat the same ongoing activity as a neighbouring cue.
+Use exactly each bible cast descriptor (or a pronoun) and the bible object names, and prioritise a distinctive reaction,
+result, new object or change of state over routine ongoing activity; tell the gap's beat when given. Do not repeat the same
+ongoing activity as a neighbouring cue; every cue adds a new concrete detail (never a bare subject and verb). Never describe
+sounds (applause, laughter, music, voices) or make the camera the subject. When the rejection is "Style: ... vary the
+opening", keep the facts and change only how the sentence starts (avoid other_openings), or skip if it adds nothing new.
 Length: aim for target_words; max_words is a HARD limit (rejected_words = the rejected text's count). When the rejection is
 about length, cut at least rejected_words - max_words words: keep the subject, the main action and its result; drop a
 secondary action, colours or positions. Count the words and report them in "words".
@@ -124,17 +157,20 @@ The English cues are final and are never changed: return only the Hindi line ("h
 Write natural spoken Hindi in Devanagari as a native describer would say it: full, flowing sentences (never fragments or
 headline style), simple present tense, not a literal translation, no transliteration. Use everyday words; for a kitchen: आटा,
 लोई, बेलन, चकला (or मैट), तेल, कटोरा, तवा, परतदार रोटी / लच्छा पराठा. Use the bible for consistent references; add no new facts.
-Gender: follow cast_gender. If the person's gender is not visible, never guess it. Natural spoken Hindi comes first: when the
-subject is non-human or the action is already clear, avoid stiff chains of passive verbs and prefer noun-focused phrasing such
-as "रसोइए के हाथ आटा गूँधते हैं" or "हाथ आटे को गूँधते हैं"; use a passive such as "आटा गूँधा जा रहा है" only when it sounds
-natural. Never "रसोइया ... रहा है"
+Gender: follow cast_gender. If the person's gender is not visible, never guess it. Natural spoken Hindi comes first: write
+ACTIVE sentences with a noun subject - the hands ("हाथ आटे को गूँधते हैं", "रसोइए के हाथ लोई बेलते हैं"), the object or
+result ("लोई अब पतली और गोल है"), or a plural/group subject - instead of chains of passives ("... जाता है"). At most ONE
+passive such as "आटा गूँधा जा रहा है" per cue, and only a few in the whole track. Vary how lines start. Never "रसोइया ... रहा है"
 or "...रही है" for that person. If the gender is clearly visible, make every verb agree correctly. Agreement with objects
 (आटा m., लोई f., रोटी f.) must always be correct.
+Write on-screen English words (labels, signs) in Devanagari letters, e.g. a sign "OPEN" -> "ओपन"; never Latin letters.
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}, at most max_words words per cue.'''
 
-HINDI_REFIT = '''These Hindi audio-description lines are too long when spoken by the Hindi voice. Rewrite each in natural
-spoken Hindi (Devanagari) within max_words words so it fits allowed_seconds; keep the core meaning, a full sentence and
-correct agreement (gender-neutral constructions when cast_gender says the gender is not visible).
+HINDI_REFIT = '''These Hindi audio-description lines failed checks; "problem" lists why, each with a "Fix: ...". Rewrite each
+line in natural spoken Hindi so that EVERY problem is fixed: too long -> at most max_words words so it fits allowed_seconds
+(measured_seconds is the rejected line); Latin letters -> write the English words in Devanagari letters (e.g. "OPEN" -> "ओपन");
+passive chain -> active voice with a noun subject such as the hands ("हाथ ..."). Keep the meaning of "en", a full sentence and
+correct agreement (gender-neutral constructions when cast_gender says the gender is not visible). Devanagari only.
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}.'''
 
 # Calibration only (never narrated): measures the TTS voice's real speaking rate per language.

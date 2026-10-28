@@ -139,6 +139,11 @@ director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> on
   accept_uncertain: true        # 'uncertain' is accepted only for cues without quotes/numbers/names
   require_verification: true    # no verdict -> cue dropped, never committed unverified
   calibrate_tts: true           # word budgets from the measured speaking rate of the actual TTS voice
+  relook_max: 2                 # focused Super VL re-looks where the bible expects a beat no event shows (e.g. tasting)
+  min_detail_words: 2           # a cue needs >= 2 content words beyond who acts ("The cook rolls." fails)
+  openings_max_share: 0.5       # one two-word opening may start at most half the cues; extra ones get a restyle repair
+  openings_min_cues: 3
+  hi_passive_share: 0.5         # Hindi: at most one passive per line, passive lines at most half the track (soft refit)
 ui:
   mode: director       # live runs: director (v2) or agent
   session_cap_usd: 0.25

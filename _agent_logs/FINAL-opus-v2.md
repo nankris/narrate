@@ -183,3 +183,38 @@ rule that every narration line is written by Nemotron:
   the same ongoing activity; use exact cast descriptors or pronouns; and use idiomatic establishing-place phrasing.
 - Hindi guidance puts natural spoken Hindi first and prefers noun-focused sentences to stiff passive chains when gender is
   unknown and the action is clear.
+
+## Round 5
+
+**Inputs.** I read the real r4 runs, `runs/roti_v2_r4` (10/12 gaps) and `runs/nasa_v2_r4` (10/10), about $0.034 each, and compared them with r3 and `scripts/judge_rubric.md`. The cues were grammatical but not yet professional:
+- roti: "The cook …" ×9, "The cook rolls.", generic steps rather than the layered-roti story, and passive-chain Hindi;
+- NASA: five tending cues, "the plant" instead of the harvested pepper, "Applause sounds", "The camera lowers", the tasting never perceived in r4, and Hindi gap 5 missing.
+
+**Changes.** All narration is still Nemotron-written; full design in `DESIGN_v2.md §9`.
+- **Bible.** Beats now cite `events` and carry a `why`; `names` holds canonical object identity; `look_for` lists ≤ 2 expected but unseen beats.
+- **Re-look.** A `relook` stage makes ≤ 2 focused Super VL calls. Only new events are added, and they are verified like any other evidence.
+- **Script payload.** Each gap gets `beat`, `key_event` and `routine`. The prompt asks for the story arc, varied openings, one new concrete detail per cue, and no sounds.
+- **Lint.** New rules catch the camera as the subject of any verb, sound descriptions, bare subject+verb cues, and bible object-name aliases.
+- **Opening variety.** A track-level restyle is sent in the batched Ultra repair. It is soft: the verified original is kept if the rewrite fails.
+- **Hindi.** Lines should use active voice with a noun subject or "हाथ", with at most one passive per line, enforced by a soft deterministic refit. On-screen English goes into Devanagari.
+- **Hindi refit bug.** The "0 refit" was a Latin-letters rejection ("HATCH CHILE") that the refit prompt never mentioned. The refit now addresses each listed problem, and the stage reports failure kinds.
+- **Config.** New keys: `relook_max`, `min_detail_words`, `openings_max_share`, `openings_min_cues`, `hi_passive_share`.
+
+**Offline replay on r4 texts.** No API calls were made. The new checks flag:
+- roti: the opening monotone (9/10, so 4 cues are restyled), "The cook rolls.", and 9/10 passive Hindi lines;
+- NASA: "The camera lowers", "Applause sounds" and "with laughter".
+
+**Tests.** 14 new offline tests in `tests/test_round5.py`, run with `../narrate/.venv/bin/python -m pytest -q`.
+
+**Next real run.**
+```bash
+../narrate/.venv/bin/python -m narrate agent samples/nasa_chile_harvest_0000-0150.mp4 --out runs/nasa_v2_r5 --provider nebius \
+  --context "Astronauts harvest, eat first chile pepper crop on space station"
+../narrate/.venv/bin/python scripts/compare_runs.py runs/nasa_v2_r4 runs/nasa_v2_r5
+```
+
+**Risks.**
+- **Re-look depends on the bible.** If the bible does not list the tasting in `look_for`, nothing is re-looked. The re-look can also find nothing.
+- **Canonical names depend on Ultra's judgement.** A wrong identity would be enforced. The bible is told to fill `names` only when the events make it clear, and the verifier still checks frames.
+- **The sound lint is lexical.** "laughter" and "voices" are banned even when they are used visually; the hint asks for the visible verb instead.
+- **Restyling can spend one more Ultra repair and Super VL verification** on an otherwise clean track. It still stays within the 6-call cap, with one call kept for Hindi.

@@ -27,6 +27,7 @@ DEFAULTS = {
     'narrator_wps_en': 2.6, 'word_tolerance': .15, 'tighten_attempts': 2, 'tighten_max_tokens': 160, 'coverage_target': .75,
     'verify_batch': 4, 'verify_frames': 2, 'max_repair_rounds': 2,
     'accept_uncertain': True, 'require_verification': True, 'calibrate_tts': True,
+    'relook_max': 2, 'min_detail_words': 2, 'openings_max_share': .5, 'openings_min_cues': 3, 'hi_passive_share': .5,
 }
 STOP = {'a', 'an', 'the', 'and', 'of', 'to', 'in', 'on', 'with', 'into', 'at', 'is', 'are', 'it', 'its', 'her', 'his', 'their', 'then', 'as', 'by', 'from'}
 DIRECTOR_LINT = [
@@ -35,7 +36,17 @@ DIRECTOR_LINT = [
     (re.compile(r'\b(?:in|on) (?:the|this|that) (?:shot|frame|footage)\b|\bscreen shows\b|\b(?:is|are) filmed\b|\bclose-up\b', re.I),
      'film-making jargon. Fix: describe what is visible and what the people do, e.g. "a crewmate photographs the pepper"'),
     (re.compile(r';'), 'headline fragments (";"). Fix: write one or two complete sentences with a subject; join actions with "and" or "then"'),
+    # Round 5 (nasa_v2_r4 "The camera lowers from the board"): the camera as the SUBJECT of any verb is camera direction.
+    (re.compile(r'(?:^|[.!?]\s+|,\s*|\b(?:and|as|while|then|when|before|after|until)\s+)(?:the|a)\s+camera\s+(?:is\s+|was\s+)?[a-z]+(?:s|ed)\b', re.I),
+     'camera as the subject (camera direction). Fix: say what the people do (e.g. "the crewmate lowers the camera") or leave the camera out'),
+    # Round 5 ("Applause sounds as ..."): the listener already hears the programme audio.
+    (re.compile(r'\b(?:applause|sounds?|sounding|noises?|music|musical|audible|hears?|heard|laughter|voices?|beeps?)\b', re.I),
+     'describes sound the listener already hears. Fix: describe only what is visible (e.g. "the crew claps and laughs"), never applause, laughter, music or voices'),
 ]
+PRONOUNS = {'she', 'he', 'they', 'them', 'her', 'him', 'his', 'hers', 'their', 'theirs', 'it', 'its', 'this', 'that', 'now', 'then', 'again'}
+REACTION = re.compile(r'\b(?:eat|bite|bit|tast|chew|mouth|lick|sip|drink|laugh|grimac|winc|react|smil|cheer|clap|celebrat|rais|hug|high-five|show)', re.I)
+# A Hindi passive: perfective participle (…ा/…ी/…े) + जा- ("गूँधा जाता है", "बेली जा रही है"); compounds such as "ले जाता" excluded.
+HI_PASSIVE = re.compile(r'(?:^|(?<=\s))(?!(?:ले|चला|चली|चले)\s)\S*[\u093e\u0940\u0947]\s+(?:जा(?:ता|ती|ते)|जा\s+रह[\u093e\u0940\u0947])(?=[\s।,.!?]|$)')
 PERSON_NOUNS = {'chef', 'chefs', 'cook', 'cooks', 'man', 'men', 'woman', 'women', 'person', 'people',
                 'astronaut', 'astronauts', 'crewmate', 'crewmates', 'photographer', 'photographers'}
 VERB_OPENER_NOUNS = {'hands', 'eyes', 'glasses', 'clothes', 'leaves', 'pieces', 'slices', 'dishes', 'faces', 'spaces'}
@@ -44,6 +55,7 @@ VERB_OPENER_FOLLOWERS = {'a', 'an', 'the', 'one', 'each', 'this', 'that', 'these
 # Setting words too generic to establish WHERE a video takes place.
 GENERIC_PLACE = {'crowded', 'bright', 'brightly', 'small', 'large', 'big', 'white', 'black', 'blue', 'wooden', 'lit', 'indoor', 'indoors',
                  'outdoor', 'room', 'area', 'space', 'inside', 'interior', 'modern', 'clean', 'busy', 'narrow', 'wide', 'dimly', 'well'}
+NEUTRAL = 'not visible: use gender-neutral active constructions with a noun subject such as the hands ("हाथ ..."); at most one passive per line'
 BUDGET_PROBLEMS = ('over budget', 'Word budget exceeded', 'TTS duration exceeds', 'cue too long')
 PLACE_PROBLEM = 'establishing cue does not say where'
 
@@ -54,6 +66,15 @@ class UltraCapReached(RuntimeError):
 
 def content_tokens(text):
     return tokens(text) - STOP
+
+
+def opening(text):
+    """The first two words, lower-cased ("the cook"): the unit of the track-level opening-variety check."""
+    return ' '.join(re.findall(r"[a-z'-]+", str(text).lower())[:2])
+
+
+def hi_passives(text):
+    return len(HI_PASSIVE.findall(str(text or '')))
 
 
 def looks_like_subtitle(text, burned=False):
@@ -170,7 +191,15 @@ def clean_bible(raw, fallback):
     bible = {'setting': short(raw.get('setting', ''), 160), 'place': short(raw.get('place', ''), 40), 'cast': cast,
              'objects': list(dict.fromkeys(x for x in (short(o, 40) for o in items('objects')[:15]) if x)),
              'goal': short(raw.get('goal', ''), 80), 'story': short(raw.get('story', ''), 240),
-             'beats': [{'t': num(b.get('t')), 'beat': short(b.get('beat'), 120)} for b in items('beats')[:12] if isinstance(b, dict) and short(b.get('beat'), 120)],
+             'beats': [{'t': num(b.get('t')), 'beat': short(b.get('beat'), 120),
+                        **({'why': short(b.get('why'), 80)} if short(b.get('why'), 80) else {}),
+                        **({'events': [str(x) for x in b['events'][:6] if isinstance(x, (str, int))]} if isinstance(b.get('events'), list) else {})}
+                       for b in items('beats')[:12] if isinstance(b, dict) and short(b.get('beat'), 120)],
+             'names': [{'name': short(n.get('name'), 40), 'aliases': [a for a in (short(x, 30).lower() for x in n['aliases'][:4]) if a and a != short(n.get('name'), 40).lower()],
+                        'from_t': num(n.get('from_t'))}
+                       for n in items('names')[:6] if isinstance(n, dict) and short(n.get('name'), 40) and isinstance(n.get('aliases'), list)],
+             'look_for': [{'t_start': num(x.get('t_start')), 't_end': num(x.get('t_end')), 'what': short(x.get('what'), 120)}
+                          for x in items('look_for')[:2] if isinstance(x, dict) and short(x.get('what'), 120) and num(x.get('t_end')) > num(x.get('t_start'))],
              'on_screen_text': [{'t': num(x.get('t')), 'text': short(x.get('text'), 120), 'kind': short(x.get('kind', 'title'), 10)}
                                 for x in items('on_screen_text')[:10] if isinstance(x, dict) and short(x.get('text'), 120)],
              'subtitles_present': raw.get('subtitles_present') in (True, 'true', 'yes', 1), 'tone': short(raw.get('tone', ''), 60)}
@@ -178,6 +207,7 @@ def clean_bible(raw, fallback):
         if not bible[k]:
             bible[k] = fallback.get(k, bible[k])
     bible['subtitles_present'] = bible['subtitles_present'] or fallback.get('subtitles_present', False)
+    bible['names'] = [n for n in bible['names'] if n['aliases']]
     bible['source'] = 'model' if raw else 'fallback'
     return bible
 
@@ -238,6 +268,7 @@ class Director(Agent):
         self.timeline, self.shots, self.windows, self.bible = [], [], [], {}
         self.assignment, self.pending, self.failed, self.history = {}, {}, {}, {}
         self.establish_candidates = {}
+        self.gap_beats, self.restyle, self.restyle_keep, self.restyle_pair = {}, set(), {}, ''
         self.stage_log, self.ultra_calls, self.call_role, self.wps = [], 0, None, {}
         self.stats = Counter()
         self.speech_text = []
@@ -383,31 +414,32 @@ class Director(Agent):
         ctx = self.establish_scene()
         return scene_brief(ctx, 300) or 'scene pass unavailable'
 
-    def perceive_window(self, i, start, end, previous=()):
+    def perceive_window(self, i, start, end, previous=(), focus=None):
         burned = bool((self.scene_context or {}).get('burned_in_subtitles'))
-        data = {'window': [round(start, 2), round(end, 2)], 'duration': round(end - start, 2),
+        data = {'window': [round(start, 2), round(end, 2)], 'duration': round(end - start, 2), **({'look_for': focus} if focus else {}),
                 **({'scene_context': scene_brief(self.scene_context)} if scene_brief(self.scene_context) else {}),
                 **({'previous_events': [{'t': [round(e['t_start'], 1), round(e['t_end'], 1)], 'what': e['what']} for e in previous]} if previous else {})}
         fmt = dict(start=start, end=end, duration=self.duration)
+        extra = P.RELOOK.format(what=focus) if focus else ''
         mock = {'events': self.mock_events(start, end)} if self.mock else None
         modality = 'mock' if self.mock else 'video'
         if self.mock:
-            raw = self.model('timeline', 'perceive', P.TIMELINE.format(**fmt), data, None, mock)
+            raw = self.model('timeline', 'perceive', P.TIMELINE.format(**fmt) + extra, data, None, mock)
         else:
             try:
                 clip = self.work / f'window_{i}.mp4'
                 ffmpeg('-ss', start, '-i', self.path, '-t', end - start, '-an', '-vf', f"scale=-2:360,fps={self.d['window_fps']}",
                        '-c:v', 'libx264', '-crf', 30, clip)
-                raw = self.model('timeline', 'perceive', P.TIMELINE.format(**fmt), data, [{'type': 'video_url', 'video_url': {'url': data_url(clip.read_bytes(), 'video/mp4')}}])
-                if not normalise_events(raw, start, end, self.duration, burned)[0]:
-                    raise ValueError('no events')
+                raw = self.model('timeline', 'perceive', P.TIMELINE.format(**fmt) + extra, data, [{'type': 'video_url', 'video_url': {'url': data_url(clip.read_bytes(), 'video/mp4')}}])
+                if not focus and not normalise_events(raw, start, end, self.duration, burned)[0]:
+                    raise ValueError('no events')   # a focused re-look may legitimately find nothing
             except (BudgetExceeded, TimeoutError):
                 raise
             except Exception:
                 modality = 'frames'
                 n = max(2, int(self.d['window_fallback_frames']))
                 times = [round(start + (end - start) * (k + .5) / n, 2) for k in range(n)]
-                raw = self.model('timeline', 'perceive', P.TIMELINE_FRAMES.format(**fmt), {**data, 'duration': 0, 'timestamps': times}, separate_frames(self.path, times))
+                raw = self.model('timeline', 'perceive', P.TIMELINE_FRAMES.format(**fmt) + extra, {**data, 'duration': 0, 'timestamps': times}, separate_frames(self.path, times))
         events, base = normalise_events(raw, start, end, self.duration, burned)
         return events, base, modality
 
@@ -478,6 +510,42 @@ class Director(Agent):
         return (f"place: {self.bible['place']} | setting: {self.bible['setting']} | cast: {cast} | goal: {self.bible.get('goal') or '?'} | "
                 f"story: {self.bible['story']} | {len(self.bible['beats'])} beats")
 
+    # ---------- stage: relook (Super VL, only for beats the bible expects but no event shows) ----------
+    def st_relook(self):
+        """Round 5 (nasa_v2_r4 never logged the tasting at ~94-97 s): for each bible look_for item (<= director.relook_max)
+        one focused Super VL call on that window. Only new, non-duplicate events are added (ids continue after eN); they are
+        evidence like any other event and still pass verification on stills."""
+        added, asked = [], []
+        for k, item in enumerate((self.bible.get('look_for') or [])[:int(self.d['relook_max'])]):
+            s, e = max(0., item['t_start']), min(self.duration, item['t_end'])
+            if e - s < 4:   # at least 4 s around the expected moment
+                mid = (s + e) / 2
+                s, e = max(0., mid - 2), min(self.duration, mid + 2)
+            if e - s > self.d['window_s']:
+                mid = (s + e) / 2
+                s, e = mid - self.d['window_s'] / 2, mid + self.d['window_s'] / 2
+            if e - s < 1:
+                continue
+            asked.append(f"{s:.0f}-{e:.0f}s {item['what'][:60]}")
+            try:
+                events, _, _ = self.perceive_window(f'relook{k}', s, e, focus=item['what'])
+            except (BudgetExceeded, TimeoutError):
+                raise
+            except Exception as exc:
+                self.report['issues'].append(f'Re-look {s:.0f}-{e:.0f}s unavailable: {sanitize(exc)}')
+                continue
+            for ev in events:
+                if any(similarity(ev['what'], x['what']) >= .5 and ev['t_start'] <= x['t_end'] and ev['t_end'] >= x['t_start'] for x in self.timeline):
+                    continue
+                n = 1 + max((int(x['id'][1:]) for x in self.timeline if x['id'][1:].isdigit()), default=0)
+                ev = {'id': f'e{n}', **ev, 'importance': max(4, ev['importance']), 'relook': True}
+                self.timeline.append(ev)
+                added.append(ev['id'])
+        self.timeline.sort(key=lambda x: (x['t_start'], x['t_end']))
+        self.events = self.timeline
+        self.stats['relook_events'] += len(added)
+        return f"{len(asked)} focused re-looks ({'; '.join(asked) or 'none'}): {len(added)} new events {added}"
+
     def title_payload(self):
         return {'video_title': {'text': self.context, 'note': P.VIDEO_TITLE_NOTE}} if self.context else {}
 
@@ -489,8 +557,42 @@ class Director(Agent):
         for g in self.scriptable():
             if not self.evidence_for(g['id']):
                 self.skip_gap(g['id'], 'no events inside this gap')
+        self.gap_beats = self.map_beats()
         per = Counter(g for ids in self.assignment.values() for g in ids)
-        return f"{len(self.assignment)} of {len(self.timeline)} events inside narratable gaps; {len(self.timeline)-len(self.assignment)} in speech (context only); per gap {dict(sorted(per.items()))}"
+        return f"{len(self.gap_beats)} gaps carry a story beat; {len(self.assignment)} of {len(self.timeline)} events inside narratable gaps; {len(self.timeline)-len(self.assignment)} in speech (context only); per gap {dict(sorted(per.items()))}"
+
+    def map_beats(self):
+        """Story arc -> gaps: a beat belongs to the home gap of its cited events, else to the gap containing its time.
+        {gap_id: 'beat (why)'}; the script narrates that beat in story terms."""
+        out = {}
+        gaps = self.scriptable()
+        for b in self.bible.get('beats', []):
+            homes = [self.assignment[i][0] for i in b.get('events', []) if self.assignment.get(i)]
+            if not homes:
+                homes = [g['id'] for g in gaps if g['start'] - .5 <= b['t'] <= g['end'] + .5][:1]
+            text = b['beat'] + (f" ({b['why']})" if b.get('why') else '')
+            for gid in dict.fromkeys(homes):
+                out[gid] = (out[gid] + '; ' + text) if gid in out else text
+        return out
+
+    def key_event(self, gid):
+        """The gap's most distinctive event: importance, then a visible reaction/result, then a stated change."""
+        ev = self.evidence_for(gid)
+        best = max(ev, key=lambda e: (e['importance'], bool(REACTION.search(e['what'] + ' ' + e.get('change', ''))), bool(e.get('change'))), default=None)
+        return best['id'] if best else None
+
+    def is_routine(self, gid):
+        """Its events only repeat the previous scriptable gap's activity: no beat, no stated change, no reaction, <= 3."""
+        gaps = sorted(self.scriptable(), key=lambda g: g['start'])
+        i = next((k for k, g in enumerate(gaps) if g['id'] == gid), 0)
+        ev, prev = self.evidence_for(gid), self.evidence_for(gaps[i - 1]['id']) if i else []
+        if not ev or not prev or gid in self.gap_beats:
+            return False
+        if any(e['importance'] > 3 or e.get('change') or REACTION.search(e['what']) for e in ev):
+            return False
+        here = {stem(w) for e in ev for w in content_tokens(e['what'])}
+        there = {stem(w) for e in prev for w in content_tokens(e['what'])}
+        return len(here & there) / max(1, len(here | there)) >= .5
 
     def evidence_for(self, gid):
         return [e for e in self.live_events() if gid in self.assignment.get(e['id'], ())]
@@ -512,6 +614,8 @@ class Director(Agent):
         return {'gap_id': g['id'], 'start': round(g['start'], 2), 'end': round(g['end'], 2), 'max_words': g['director_words_en'],
                 'target_words': self.target_words(g), 'evidence': [e['id'] for e in self.evidence_for(g['id'])],
                 **({'establish': True} if (self.is_establishing(g['id']) if establish is None else establish) else {}),
+                **({'beat': self.gap_beats[g['id']]} if g['id'] in self.gap_beats else {}),
+                **({'key_event': k} if (k := self.key_event(g['id'])) else {}), **({'routine': True} if self.is_routine(g['id']) else {}),
                 **({'said_before': s} if (s := self.said_near(g, True)) else {}), **({'said_after': s} if (s := self.said_near(g, False)) else {})}
 
     # ---------- cue checks ----------
@@ -545,6 +649,16 @@ class Director(Agent):
             if opener.endswith(('s', 'es')) and following in VERB_OPENER_FOLLOWERS and opener not in known_nouns:
                 problems.append('Banned phrasing: no subject (headline-style bare verb opener). Fix: start with who acts, '
                                 'using the bible cast descriptor or a pronoun, and write a complete sentence')
+        # Round 5 ("The cook rolls."): a cue must carry a concrete detail beyond who and the verb.
+        cast_words = {stem(w) for w in tokens(' '.join(c.get('descriptor', '') for c in self.bible.get('cast', [])))}
+        detail = {stem(w) for w in content_tokens(text)} - cast_words - PRONOUNS - {stem(w) for w in PERSON_NOUNS}
+        if len(detail) < self.d['min_detail_words']:
+            problems.append('Banned phrasing: no concrete detail (bare subject and verb). Fix: add what is acted on and the visible '
+                            'result (the object, its new state), or skip the gap if nothing new is visible')
+        problems += self.identity_problems(g, text)
+        if gid in self.restyle and opening(text) == self.restyle_pair:
+            problems.append(f'Style: still opens with "{self.restyle_pair}". Fix: vary the opening (a pronoun, the object first, '
+                            '"Now ...", or a participial phrase), keeping the same facts')
         cast = self.bible.get('cast') or []
         if len(cast) == 1:
             allowed = tokens(cast[0].get('descriptor', ''))
@@ -582,6 +696,23 @@ class Director(Agent):
                 problems += [p if 'measured' in p or ('exceeds' not in p and 'too long' not in p) else f"{p} (measured {fit['seconds']:.1f} s)" for p in fit['problems']]
         # Last, so a place-only failure means every other check (incl. the measured fit) passed: see establish_fallback.
         return valid, problems + place_problem
+
+    def identity_problems(self, g, text):
+        """Bible object identity (Round 5, nasa_v2_r4 passed "the plant" around after the pepper harvest): from from_t on,
+        an alias's head noun without the canonical name is flagged with the name to use."""
+        out, words = [], {stem(w) for w in tokens(text)}
+        for n in self.bible.get('names', []):
+            if g['end'] < n['from_t']:
+                continue
+            head = [w for w in re.findall(r'\w+', n['name'].lower()) if w not in STOP][-1:]
+            canon = {stem(w) for w in head}
+            if not canon or canon & words:
+                continue
+            heads = sorted({stem(a.split()[-1]) for a in n['aliases'] if a.split()} - canon)
+            used = [h for h in heads if h in words]
+            if used:
+                out.append(f'Banned phrasing: object identity ("{used[0]}" is "{n["name"]}" in the bible). Fix: call it "{n["name"]}"')
+        return out
 
     def is_establishing(self, gid):
         """The first narrated cue: no earlier gap holds a pending, failed or committed cue."""
@@ -776,7 +907,8 @@ class Director(Agent):
         for k in range(0, len(gids), max(1, self.d['verify_batch'])):
             batch = gids[k:k + self.d['verify_batch']]
             def verify_payload(ids):
-                data = {'duration': 0, 'cues': [{'gap_id': g, 'text': self.pending[g]['text'], 'frame_times': self.frame_times(g)} for g in ids]}
+                data = {'duration': 0, 'cues': [{'gap_id': g, 'text': self.pending[g]['text'], 'frame_times': self.frame_times(g)} for g in ids],
+                        **({'object_names': self.bible['names']} if self.bible.get('names') else {})}
                 media = None
                 if not self.mock:
                     media = []
@@ -862,8 +994,9 @@ class Director(Agent):
         gids = sorted(self.failed, key=lambda i: self.gap(i)['start'])
         items = [{**self.gap_payload(self.gap(g)), 'rejected_text': self.failed[g]['text'], 'rejected_words': len(self.failed[g]['text'].split()),
                   'why_rejected': self.failed[g]['reasons'],
-                  'trusted_evidence': [r for r in self.timeline_rows() if g in self.assignment.get(r['id'], ())], **self.neighbours(g)} for g in gids]
-        bible = {k: self.bible.get(k) for k in ('setting', 'place', 'cast', 'objects', 'goal', 'story')}
+                  'trusted_evidence': [r for r in self.timeline_rows() if g in self.assignment.get(r['id'], ())], **self.neighbours(g),
+                  **({'other_openings': self.other_openings(g)} if g in self.restyle else {})} for g in gids]
+        bible = {k: self.bible.get(k) for k in ('setting', 'place', 'cast', 'objects', 'names', 'goal', 'story')}
         mock = {'cues': [{'gap_id': g, 'skip': True, 'reason': 'MOCK repair: nothing reliable'} for g in gids]}
         parsed = parse_cues(self.model('repair', self.d['ultra_stage'], P.REPAIR, {'bible': bible, **self.title_payload(), 'round': round_no, 'gaps': items}, None, mock if self.mock else None, ultra=True))
         outcome = Counter()
@@ -875,11 +1008,55 @@ class Director(Agent):
         self.stats['repair_rounds'] = round_no
         return f'round {round_no}: {len(gids)} failed cues sent to Ultra: {dict(outcome)}'
 
+    def other_openings(self, gid):
+        return [opening(t) for _, g, t in self.accepted_texts(gid)][:12]
+
+    def restyle_openings(self):
+        """Track-level opening variety (Round 5, roti_v2_r4: 9 of 10 cues began "The cook ..."). When one two-word opening
+        starts more than director.openings_max_share of the committed cues, every other later occurrence (the first is kept)
+        goes back to Ultra in the existing batched repair with a "vary the opening" hint. Soft: the verified original is
+        restored if the rewrite does not pass every check and verification. Returns the gap ids sent."""
+        cues = sorted(self.cues.values(), key=lambda c: c['start'])
+        if len(cues) < self.d['openings_min_cues']:
+            return []
+        pairs = [opening(c['en']) for c in cues]
+        pair, n = Counter(pairs).most_common(1)[0]
+        allowed = math.floor(len(cues) * self.d['openings_max_share'])
+        if not pair or n <= allowed:
+            return []
+        later = [c['id'] for c, p in zip(cues, pairs) if p == pair][1:]
+        pick = (later[::2] + later[1::2])[:n - allowed]
+        self.restyle_pair = pair
+        why = (f'Style: {n} of {len(cues)} cues open with "{pair}". Fix: vary the opening - a pronoun, the object or result first, '
+               '"Now ..." or a participial phrase; keep the same facts, or skip if the cue only repeats its neighbours')
+        for g in pick:
+            c = self.cues.pop(g)
+            self.restyle.add(g)
+            self.restyle_keep[g] = c
+            self.failed[g] = {'text': c['en'], 'evidence': c['evidence'], 'valid': c['evidence'], 'reasons': [why]}
+            self.log(g, step='restyle', text=c['en'], problems=[why])
+        self.stats['restyled'] += len(pick)
+        return pick
+
+    def restore_restyled(self, include_pending=False):
+        """A restyle that still fails keeps the verified original (style is never worth losing a verified cue)."""
+        for g in [g for g in (*self.failed, *(self.pending if include_pending else ())) if g in self.restyle_keep and g not in self.cues]:
+            self.failed.pop(g, None)
+            self.pending.pop(g, None)
+            self.cues[g] = self.restyle_keep[g]
+            self.dropped.pop(g, None)
+            self.log(g, step='restyle_kept', text=self.cues[g]['en'], reason='rewrite did not pass; verified original kept')
+            self.stats['restyle_kept'] += 1
+
     def verify_and_repair(self):
         todo = list(self.pending)
         for round_no in range(self.d['max_repair_rounds'] + 1):
             if todo:
                 self.stage('verify' if round_no == 0 else f'verify_{round_no}', lambda: self.st_verify(todo), f'{len(todo)} cues, {self.d["verify_frames"]} stills each')
+            # One Ultra call is kept for the Hindi track: a style-only repair must not starve it.
+            reserve = 1 if 'hi' in self.langs else 0
+            if round_no == 0 and self.d['max_repair_rounds'] and self.ultra_calls + 1 + reserve <= self.d['max_ultra_calls']:
+                self.restyle_openings()
             if not self.failed or round_no == self.d['max_repair_rounds']:
                 break
             # Length failures Nano could not fix ARE repairable: Ultra rewrites them with the word count and the Fix hint.
@@ -890,6 +1067,7 @@ class Director(Agent):
             self.stage(f'repair_{round_no+1}', lambda: self.st_repair(round_no + 1), f'{len(self.failed)} failed cues')
             self.maybe_tighten(f'tighten_{round_no+1}')
             todo = [g for g in self.pending if g not in before]
+        self.restore_restyled()
         self.establish_fallback()
         for g, f in list(self.failed.items()):
             prefix = 'dropped (still over budget after Nano tighten and Ultra repair): ' if self.budget_only(g) else 'dropped after repair: '
@@ -921,8 +1099,11 @@ class Director(Agent):
     def hi_problems(self, gid, text):
         if not isinstance(text, str) or not text.strip():
             return ['missing Hindi'], 0, None
-        if not re.search('[\u0900-\u097f]', text) or re.search('[A-Za-z]{3,}', text):
+        if not re.search('[\u0900-\u097f]', text):
             return ['Hindi must be Devanagari, no Latin words'], 0, None
+        latin = re.findall(r'[A-Za-z]{3,}(?:\s+[A-Za-z]+)*', text)
+        if latin:   # nasa_v2_r4 gap 5: an on-screen label ("HATCH CHILE") kept in Latin letters, mis-reported as over budget
+            return [f'Latin letters ("{latin[0].strip()}"). Fix: write these words in Devanagari letters (transliterate the label or sign)'], 0, None
         if '\n' in text or '-->' in text:
             return ['must be one line'], 0, None
         fit = self.check_fit(gid, text, 'hi')
@@ -945,23 +1126,31 @@ class Director(Agent):
         gender = self.cast_gender()
         got = self.model('hindi', self.d['ultra_stage'], P.HINDI, {'bible': bible, 'cast_gender': gender, 'cues': rows}, None, mock_hi(rows) if self.mock else None, ultra=True)
         texts = {g: v['text'] for g, v in parse_hi(got).items()}
-        failing = []
+        failing, kinds = [], Counter()
         for r in rows:
             problems, seconds, suggested = self.hi_problems(r['gap_id'], texts.get(r['gap_id']))
             if problems:
+                kinds.update(self.hi_kind(p) for p in problems)
                 failing.append({**r, 'hi_previous': texts.get(r['gap_id'], ''), 'problem': problems, 'measured_seconds': round(seconds, 2),
                                 'allowed_seconds': allowed(self.cues[r['gap_id']]), 'max_words': max(1, min(r['max_words'], suggested or r['max_words']))})
             else:
                 self.cues[r['gap_id']]['hi'] = texts[r['gap_id']]
+        style = self.hi_style_failures(cues)
+        kinds['passive'] += len(style)
+        failing += [{**r, 'hi_previous': self.cues[r['gap_id']]['hi'], 'problem': [style[r['gap_id']]], 'soft': True,
+                     'allowed_seconds': allowed(self.cues[r['gap_id']])} for r in rows if r['gap_id'] in style]
         refit = 0
         if failing:
             try:
-                got = self.model('hindi', self.d['ultra_stage'], P.HINDI_REFIT, {'cast_gender': gender, 'cues': failing}, None, mock_hi(failing) if self.mock else None, ultra=True)
+                send = [{k: v for k, v in r.items() if k != 'soft'} for r in failing]
+                got = self.model('hindi', self.d['ultra_stage'], P.HINDI_REFIT, {'bible': bible, 'cast_gender': gender, 'cues': send}, None, mock_hi(failing) if self.mock else None, ultra=True)
                 texts = {g: v['text'] for g, v in parse_hi(got).items()}
                 for r in failing:
-                    problems = self.hi_problems(r['gap_id'], texts.get(r['gap_id']))[0]
-                    if not problems:
-                        self.cues[r['gap_id']]['hi'] = texts[r['gap_id']]
+                    new = texts.get(r['gap_id'])
+                    problems = self.hi_problems(r['gap_id'], new)[0]
+                    # A soft (passive-chain) refit must also be less passive; otherwise the fitting original stays.
+                    if not problems and (not r.get('soft') or hi_passives(new) < hi_passives(r['hi_previous'])):
+                        self.cues[r['gap_id']]['hi'] = new
                         refit += 1
             except (BudgetExceeded, TimeoutError):
                 raise
@@ -971,7 +1160,28 @@ class Director(Agent):
         if missing:
             self.report['issues'].append(f'hi: no fitting Hindi for gaps {missing}; English kept')
         self.translation_done = True
-        return f'{len(cues)} cues written in Hindi in one call; {len(failing)} over budget -> {refit} refit; {len(missing)} without Hindi'
+        self.stats['hi_refit'] += refit
+        why = ', '.join(f'{k} {v}' for k, v in sorted(kinds.items()) if v) or 'none'
+        return f'{len(cues)} cues written in Hindi in one call; {len(failing)} failed checks ({why}) -> {refit} refit; {len(missing)} without Hindi'
+
+    @staticmethod
+    def hi_kind(problem):
+        p = problem.lower()
+        return 'latin' if 'latin' in p else 'missing' if 'missing' in p else 'over budget' if any(k in p for k in ('exceed', 'too long', 'budget', 'overlap')) else 'other'
+
+    def hi_style_failures(self, cues):
+        """Soft Hindi style (Round 5, roti_v2_r4 was ten passive lines): a line with more than one passive, and, when more
+        than director.hi_passive_share of the lines use a passive, every other further passive line. {gap_id: problem}."""
+        lines = [(c['id'], c['hi']) for c in cues if c.get('hi')]
+        fix = 'Fix: active voice with a noun subject - the hands ("हाथ ..."), the object or a group - at most one passive per line'
+        out = {g: f'passive chain ({hi_passives(t)} passives). {fix}' for g, t in lines if hi_passives(t) > 1}
+        passive = [g for g, t in lines if hi_passives(t)]
+        allowed = math.floor(len(lines) * self.d['hi_passive_share'])
+        if len(lines) >= 3 and len(passive) > allowed:
+            rest = [g for g in passive if g not in out]   # lines already flagged above count as being fixed
+            for g in (rest[1::2] + rest[::2])[:len(passive) - allowed - (len(passive) - len(rest))]:
+                out[g] = f'too many passive lines ({len(passive)} of {len(lines)}). {fix}'
+        return out
 
     def cast_gender(self):
         """Per cast member: the visible gender from the bible notes, or 'not visible -> gender-neutral Hindi'."""
@@ -980,8 +1190,8 @@ class Director(Agent):
             notes = (c.get('notes') or '').lower()
             m = None if re.search(r'not (?:clearly )?visible|unknown|unclear', notes) else re.search(r'\b(woman|female|girl|man|male|boy)\b', notes)
             out[c['descriptor']] = (('feminine' if m.group(1) in ('woman', 'female', 'girl') else 'masculine') + ' (visible)') if m else \
-                'not visible: use gender-neutral constructions (passive or noun-focused)'
-        return out or {'people': 'not visible: use gender-neutral constructions (passive or noun-focused)'}
+                NEUTRAL
+        return out or {'people': NEUTRAL}
 
     # ---------- stage: render + report ----------
     def st_render(self):
@@ -1056,6 +1266,8 @@ class Director(Agent):
                 self.stage('scene', self.st_scene, f"Super VL on {self.cfg['agent'].get('scene_frames', 6)} stills across the clip")
                 self.stage('timeline', self.st_timeline, 'Super VL video windows covering the whole clip')
                 self.stage('bible', self.st_bible, 'scene + shots + timeline')
+                if self.bible.get('look_for') and self.d['relook_max']:
+                    self.stage('relook', self.st_relook, 'Super VL on windows where the bible expects an unseen beat')
                 self.stage('assign', self.st_assign, 'midpoint / >=50% overlap; refuted excluded')
                 self.stage('script', self.st_script, 'bible + timeline + all gaps -> whole English track')
                 self.maybe_tighten('tighten')
@@ -1075,6 +1287,7 @@ class Director(Agent):
         if stop:
             self.report['issues'].append(stop + '; rendering verified cues only')
             self.report['stopped_reason'] = stop
+            self.restore_restyled(include_pending=True)
             for g in list(self.pending) + list(self.failed):
                 self.pending.pop(g, None)
                 self.failed.pop(g, None)
@@ -1140,7 +1353,11 @@ class Director(Agent):
         b = self.bible or {}
         L += ['', '## Scene bible', '', f"- **Place:** {b.get('place', '')} · **Goal:** {b.get('goal', '') or '—'}", f"- **Setting:** {b.get('setting', '')}", f"- **Cast:** " + '; '.join(f"{c['descriptor']} ({c.get('notes', '')})" for c in b.get('cast', [])),
               f"- **Story:** {b.get('story', '')}", f"- **Objects:** {', '.join(b.get('objects', []))}", f"- **Subtitles present (never read):** {b.get('subtitles_present', False)}",
-              '- **Beats:** ' + '; '.join(f"{x['t']:.0f}s {x['beat']}" for x in b.get('beats', []))]
+              '- **Beats:** ' + '; '.join(f"{x['t']:.0f}s {x['beat']}" + (f" ({x['why']})" if x.get('why') else '') + (f" [{', '.join(x['events'])}]" if x.get('events') else '')
+                                          for x in b.get('beats', [])),
+              '- **Object names:** ' + ('; '.join(f"{n['name']} (not {', '.join(n['aliases'])}; from {n['from_t']:.0f}s)" for n in b.get('names', [])) or '—'),
+              '- **Looked for again:** ' + ('; '.join(f"{x['t_start']:.0f}-{x['t_end']:.0f}s {x['what']}" for x in b.get('look_for', [])) or '—'),
+              '- **Beats per gap:** ' + ('; '.join(f'gap {g}: {t}' for g, t in sorted(self.gap_beats.items())) or '—')]
         L += ['', f'## Timeline ({len(self.timeline)} events; ~~refuted~~)', '', '| id | time | gap | what | on screen | said |', '|---|---|---|---|---|---|']
         for e in self.timeline:
             what = f"~~{cell(e['what'])}~~" if e.get('refuted') else cell(e['what'])
