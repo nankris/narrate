@@ -1,5 +1,4 @@
 from types import SimpleNamespace as NS
-import json
 import pytest
 from narrate.config import load_config, resolve_provider
 from narrate.llm import Client, RateLimiter, estimate_tokens

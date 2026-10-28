@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 import jsonschema
 from ..config import load_config, resolve_provider
-from ..llm import Client, SpendGuard, BudgetExceeded, SYSTEM as SUBSYSTEM, sanitize, normalize_json
+from ..llm import Client, SpendGuard, BudgetExceeded, sanitize, normalize_json
 from ..media import probe, ffmpeg, word_budget, write_texts, scene_cuts, split_slots
 from ..perception import data_url, separate_frames
 from ..tts import backend, mix

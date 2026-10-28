@@ -202,7 +202,20 @@ tests/           offline pytest      issues-found/   published failures and fixe
 blog-assets/     dated evidence + BLOG_NOTES.md      DEMO_SCRIPT.md   demo recording guide
 ```
 
-Development notes: the coding was delegated to Codex and Claude CLIs under human direction (see `_agent_logs/`). Every real-run number above was measured, not estimated.
+## Development
+
+Run the offline test suite and conservative static checks before submitting changes:
+
+```bash
+python -m pytest -q
+python -m ruff check narrate app scripts tests
+```
+
+If Ruff is not installed, run `python3 -m pyflakes narrate app scripts tests` as a fallback.
+
+Ruff checks Pyflakes correctness rules (including unused imports and undefined names) and rejects bare `except` blocks. Every real-run number above was measured, not estimated.
+
+Development notes: the coding was delegated to Codex and Claude CLIs under human direction (see `_agent_logs/`).
 
 ## License
 

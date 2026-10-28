@@ -6,7 +6,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from narrate.config import load_config, resolve_provider
-from narrate.llm import Client, sanitize
+from narrate.llm import Client, sanitize  # noqa: F401  # re-exported for smoke scripts
 
 
 def setup():

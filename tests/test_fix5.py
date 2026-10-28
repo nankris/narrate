@@ -1,7 +1,6 @@
 """Offline regressions for the fourth real-run propose loop (one limit, enforced drafts, auto-redraft, inspect dedup)."""
 import json
 import re
-import pytest
 from narrate.agent import run_agent
 from narrate.agent.core import Agent
 from narrate.config import load_config

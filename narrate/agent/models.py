@@ -2,7 +2,7 @@ import json
 import os
 import time
 from urllib.parse import urlparse
-from ..llm import Client, BudgetExceeded, cached_tokens, usage_cost, call_with_retry
+from ..llm import BudgetExceeded, cached_tokens, usage_cost, call_with_retry
 from .schema import TOOLS
 
 SYSTEM = '''You are a professional audio describer following WCAG 1.2.5 and DCMP-style guidelines.

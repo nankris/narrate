@@ -1,0 +1,7 @@
+target-version = "py313"
+
+[lint]
+# Keep the baseline focused on correctness: Pyflakes catches unused imports and
+# undefined names, while E722 rejects bare exceptions that can hide failures.
+select = ["F", "E722"]
+

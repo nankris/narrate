@@ -1,7 +1,6 @@
 import json
 import subprocess
 import sys
-from pathlib import Path
 
 from scripts.eval_metrics import evaluate_report, jaccard
 
