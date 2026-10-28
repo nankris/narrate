@@ -150,3 +150,21 @@ All tests use fake clients only; no real API calls were made.
 - **Establishing check.** It is lexical. A synonym of the place that is missing from bible `place` or `setting` (e.g. "ISS" vs "space station") needs a repair.
 - **Under-use of the word budget** is guided by the prompt and reported (budget use %), but not enforced, so as not to spend Ultra calls on it.
 - **Hindi gender-neutrality** is enforced only through the prompt; there is no deterministic check.
+
+## Round 3
+
+Round-2 real runs showed that Nano could return the wrong JSON shape, ramble to the output cap, or make cues longer. Roti
+dropped five length-only cues without spending available Ultra repairs, while NASA dropped its establishing cue on the lexical
+place check. Round 3 fixes those failure modes without adding hand-written narration:
+
+- Nano now shortens one cue per call, receives the current/exact target counts, is capped at 160 output tokens with thinking
+  disabled, accepts the observed bare-object response, and is rejected unless its model-written result is shorter and safe.
+- English word budgets use a conservative 2.6 words/s natural-narrator rate. A measured-fitting cue may run at most 15% over
+  the nominal count; measured seconds with `max_atempo` are decisive. Remaining length failures use bounded Ultra repair.
+- Place matching uses all content words in bible place/setting. The opening prompt folds place and person into a compact line;
+  an otherwise-valid establishing candidate is preserved, re-verified and retained with an issue if repairs cannot add place.
+- Script and repair responses include self-counted words (independently audited) and target 70-90% of the budget.
+- Reports explain every silent gap and enforce a 75% narrated/narratable guard after stated no-new-information skips.
+- `scripts/judge_rubric.md` adds per-cue accuracy, story, redundancy, timing, English fluency and Hindi naturalness scoring.
+
+All Round-3 tests are offline and use fake clients; no provider calls are made.

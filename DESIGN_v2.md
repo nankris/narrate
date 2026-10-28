@@ -223,3 +223,23 @@ First real Token Factory runs: `runs/roti_v2_r1` ($0.025, 5 Ultra calls, 11 cues
 | trace.md was long before it said what happened. | It now opens with a 5-line **Run summary**: model calls (Ultra / Super VL / Nano), cost split, cues and budget use, silent by choice, and dropped with reasons, plus the context title if one was given. |
 
 Ultra budget is unchanged (≤ 6 calls); Nano and the extra Super VL windows cost about $0.01 more per clip.
+
+## 7. Round 3 changes from second real runs
+
+The second roti and NASA runs exposed a coverage regression: Nano sometimes returned a bare JSON object, rambled to its token
+cap, or made a cue longer; length-only failures were then dropped without using the remaining Ultra repair budget. NASA also
+lost its establishing cue because a lexical place check rejected otherwise verified narration.
+
+Round 3 keeps every narration line model-written and changes the bounded control policy:
+
+- Nano receives one cue per call with its current count, exact maximum and required reduction. Thinking remains disabled, the
+  response is capped at 160 tokens, bare-object JSON is accepted, and only a shorter, non-inventing result can advance.
+- English budgets assume a conservative 2.6 words/s natural narrator (or a slower measured voice). Measured TTS seconds are
+  authoritative: a cue may exceed `max_words` by at most 15% only when it fits with the configured `max_atempo` speed-up.
+  Anything Nano cannot fit goes to Ultra repair, within the existing six-call cap, before it is dropped.
+- The place check accepts any content word from bible `place` or `setting`. A compact place-and-person opening is requested;
+  if repairs still cannot add the place, the best otherwise-valid Nemotron cue is verified and retained with a report issue.
+- The writer targets 70-90% of the maximum and returns a `words` self-count. Code independently counts and audits it.
+- `report.json` and `trace.md` include narrated/narratable coverage, explicit reasons for every silence, and a 75% guard after
+  excluding stated no-new-information silence.
+- `scripts/judge_rubric.md` defines the frame-grounded DCMP-style scoring used for later re-evaluation.
