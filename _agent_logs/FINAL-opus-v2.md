@@ -99,3 +99,54 @@ Read `runs/roti_v2/trace.md` first: the stage table shows Ultra calls and cost, 
 6. **Subtitle detection** (`looks_like_subtitle`) is heuristic. A lower-case on-screen label would be treated as speech and not read.
 7. **Latency.** Calls are sequential: about 5 timeline windows, 1 scene call, about 3 verify calls and ≤ 6 Ultra calls. That should fit the 300 s UI cap but is unmeasured; parallel windows would be the next optimisation.
 8. **The app's Ultra/Super planner dropdown** has no effect in director mode (by design). The UI text still describes "Nano drafts".
+
+## Round 2 (after the first real Token Factory runs)
+
+**Inputs.**
+- `runs/roti_v2_r1`: $0.025, 5 Ultra calls, 11 cues. The old agent cost $0.33 over 42 turns.
+- `runs/nasa_v2_r1`: $0.026, 5 Ultra calls, 7 cues. The old agent cost $0.20 over 25 turns.
+
+Cost and accuracy were fine. Quality was not: headline-style cues, no establishing *where*, a missed climax (eating and reacting), lint over-reach on "camera", Ultra repairs spent on 1–2-word overages, and masculine Hindi for a cook whose gender is not visible. Evidence and fixes are in `DESIGN_v2.md §6`.
+
+**Changes.** All cue text is still written by Nemotron.
+- **Style.** The script and repair prompts now ask for complete present-tense spoken sentences with a subject, story links, and `target_words` (70 % of max) to max_words. They state that max_words is a hard limit and that words must be counted.
+  - New lint, each with a `Fix:` hint: `;` fragments, subject-less verb openers, `continue`, "is filmed", "close-up".
+- **Establishing.** The bible gains `place` and `goal`. The first gap is flagged `establish`, and a post-check requires a place term in the first narrated cue; if it is missing, the cue goes to repair with a hint.
+- **Context.** `--context`, `run_director(context=)`, the app's live textbox "What is this video? (optional title)", and `build_cached_runs.py` (title from the `SOURCES.md` attribution). It is sent as `video_title` with an UNVERIFIED note to the bible, script and repair only. It is recorded in `report.video_title` and in the trace summary.
+- **Perception.** Windows are 12 s, snapped to cuts within 2 s, so 10 windows per 2-minute clip. The `shots` stage logs a cost estimate, an upper bound of about $0.03 from config prices.
+  - The prompt now covers hands, eating/tasting, facial reactions, interactions, state changes, and what is new.
+  - Each window gets the previous window's events, and each event a `change` field.
+- **Lint.** `core.BANNED` bans camera direction only. "Sets down the camera" and "films with a camera" are allowed. Lint failures in director repairs carry fix hints.
+- **Nano tighten.** Cues that fail only on length are shortened by `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` (stage `fit`), up to 2 batched calls, before any Ultra repair.
+  - A rewrite that adds new content words is rejected.
+  - Length-only failures never trigger an Ultra repair.
+  - `min_words` is now 4.
+- **Hindi.** `cast_gender` comes from the bible notes. When the gender is not visible, the prompt requires gender-neutral constructions (passive or noun-focused). It also asks for full sentences and natural kitchen words.
+- **Story meaning.** Cast and beats are described by story role ("a crewmate photographs the first pepper"), not by filming mechanics.
+- **Trace.** `trace.md` opens with a 5-line Run summary: calls (Ultra, Super VL, Nano), cost split, cues and average budget use, silent by choice, and drops with reasons. The context title is added when one was given. The script table shows words used/max.
+
+**Tests.** `../narrate/.venv/bin/python -m pytest -q` gives **169 passed**: 32 director tests, 11 of them new. The new tests cover:
+- camera as an object vs camera direction, with hints;
+- fragments;
+- the establishing check and payload;
+- Nano tighten before Ultra, plus rejecting an inventing tighten without spending Ultra;
+- context plumbing (bible/script/report/trace, CLI, the `SOURCES.md` titles);
+- 12 s windows and previous events;
+- the Hindi gender flag;
+- the run summary.
+
+All tests use fake clients only; no real API calls were made.
+
+**Next real run.**
+```bash
+../narrate/.venv/bin/python -m narrate agent samples/nasa_chile_harvest_0000-0150.mp4 --out runs/nasa_v2_r2 --provider nebius \
+  --context "Astronauts harvest, eat first chile pepper crop on space station"
+../narrate/.venv/bin/python scripts/compare_runs.py runs/nasa_v2_r1 runs/nasa_v2_r2
+```
+
+**Risks.**
+- **Perception cost.** 10 windows will cost somewhat more for Super VL; expect about $0.03–0.04 per clip in total.
+- **Verb-opener lint heuristic.** It could flag a plural-noun opener followed by a determiner (e.g. "Hands the bowl…"). This is rare, and the repair carries a hint.
+- **Establishing check.** It is lexical. A synonym of the place that is missing from bible `place` or `setting` (e.g. "ISS" vs "space station") needs a repair.
+- **Under-use of the word budget** is guided by the prompt and reported (budget use %), but not enforced, so as not to spend Ultra calls on it.
+- **Hindi gender-neutrality** is enforced only through the prompt; there is no deterministic check.
