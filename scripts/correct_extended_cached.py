@@ -8,6 +8,7 @@ left untouched and must not be represented as containing the corrected script.
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 import sys
 
@@ -50,6 +51,33 @@ def correct(name):
                      'out_end': pause['cue_out_end'], 'text': text})
     path.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     write_extended_texts(run, cues)
+
+    manifest_path = run / 'tts_prerendered' / 'manifest.json'
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+    needed = []
+    previous_sha256 = {}
+    for pause in plan['pauses']:
+        key = f"en-p{pause['cue_id']}"
+        entry = manifest.get(key, {})
+        if entry.get('text') != pause['cue_text']:
+            clip_path = run / 'tts_prerendered' / f'{key}.mp3'
+            if clip_path.is_file():
+                previous_sha256[key] = hashlib.sha256(clip_path.read_bytes()).hexdigest()
+            needed.append({
+                'key': key,
+                'cue_id': pause['cue_id'],
+                'text': pause['cue_text'],
+                'voice': 1076,
+                'model': 'eleven_turbo_v2_5',
+                'stability': 0.45,
+                'similarity': 0.85,
+                'speaker_boost': True,
+                'target_file': f'tts_prerendered/{key}.mp3',
+            })
+    (run / 'tts_needed.json').write_text(
+        json.dumps(needed, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    (run / 'tts_previous_sha256.json').write_text(
+        json.dumps(previous_sha256, indent=2) + '\n', encoding='utf-8')
 
 
 if __name__ == '__main__':

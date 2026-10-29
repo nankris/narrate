@@ -40,3 +40,23 @@
 
   Current result: both runs PASS; every cue follows all cited evidence.
 - Focused regressions: `29 passed` across the new timing/roti tests plus Round 8/8b tests.
+
+## Final corrected extended outputs (2026-10-29, offline)
+
+- Reapplied `scripts/correct_extended_cached.py` to both final cached runs and saved the deterministic audit output as
+  `runs/ext/final/{roti,lecture}/timing_check.txt`; both audits PASS.
+- Every corrected cue differs from its existing voice-1076 manifest entry, so final Magnific media is intentionally pending:
+  roti needs `en-p1` through `en-p8`, and lecture needs `en-p1` through `en-p3`. Requests are in each run's
+  `tts_needed.json`. No TTS service or network call was made.
+- Local-Piper previews (video and audio durations match):
+  - `runs/ext/final/roti/preview/preview_extended_en.mp4`: 183.827 s,
+    sha256 `909a56d10b7a3e651b48313f54cb3cd2e21e68b5c5837d3ad1de36a16637808e`.
+  - `runs/ext/final/roti/preview/preview_extended_en.m4a`: 183.827 s,
+    sha256 `8b2d9f4d9394fb9998e7f0311cb1931ab0442634a4b60efa66836641bb60f0dc`.
+  - `runs/ext/final/lecture/preview/preview_extended_en.mp4`: 48.877 s,
+    sha256 `d25fc478d1a8014f80b821f2d5821ababc472aca0d35880d0532bd4b08af79ce`.
+  - `runs/ext/final/lecture/preview/preview_extended_en.m4a`: 48.877 s,
+    sha256 `dc9245ae713c5c43a2c1ea251a2cae067d7d92e676018f189bee7a5b17a2ebca`.
+- After generating the requested MP3s offline and replacing their `target_file` paths, finalize with
+  `scripts/finalize_extended.sh roti` and `scripts/finalize_extended.sh lecture`. The helper rejects unchanged old MP3
+  bytes, updates the manifest, renders `extended_en.mp4` plus `extended_en.m4a`, and repeats the timing audit.
