@@ -1,0 +1,28 @@
+# Agent trace
+
+- 1 ✓ tool stage:speech: speech: 5 speech intervals; 100% speech; 4 between-sentence micro-silences
+- 2 ✓ tool stage:shots: shots: 0 scene cuts; 1 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074
+- 3 ✓ submodel : {"setting": "dark blue digital slide background with white text.", "people": [], "ingredients": [], "tools": [], "objects": [], "activity": "displaying presentation slides about continuous speech.", "dish": "", "visual_s
+- 4 ✓ tool stage:scene: scene: setting: dark blue digital slide background with white text. | activity: displaying presentation slides about continuous speech.
+- 5 ✓ submodel : {"events": [{"t_start": 0, "t_end": 3, "what": "A dark blue slide displays the white text 'CONTINUOUS SPEECH - SLIDE 1' in the upper left corner.", "change": "The slide is static with no movement or additional elements."
+- 6 ✓ submodel : {"events": [{"t_start": 10.0, "t_end": 12.0, "what": "A dark blue slide displays the white text 'SLIDE 2 - NO ROOM FOR AD' in the upper left corner.", "change": "The slide changes from 'CONTINUOUS SPEECH - SLIDE 1' to 'S
+- 7 ✓ submodel : {"events": [{"t_start": 20.0, "t_end": 22.0, "what": "A dark blue slide displays the white text 'SLIDE 2 - NO ROOM FOR AD' in the upper left corner.", "change": "The text remains static on the screen.", "on_screen_text":
+- 8 ✓ tool stage:timeline: timeline: 8 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)
+- 9 ✓ submodel : {"frames": [{"t": 1.5, "setting": "A solid teal background with white text in the upper left corner.", "present": [], "objects": [], "action": "No movement; a static title card is displayed.", "on_screen_text": ["CONTINU
+- 10 ✓ submodel : {"frames": [{"t": 26.5, "setting": "A solid teal background with white text in the upper left corner.", "present": [], "objects": [], "action": "No movement; a static title card is displayed.", "on_screen_text": ["SLIDE 
+- 11 ✓ tool stage:text_stills: text_stills: 8 on-screen text readings re-read from stills; 4 corrected
+- 12 ✓ orchestrator : {"setting": "dark blue digital slide background with white text", "place": "presentation slide", "cast": [], "objects": [], "goal": "show continuous speech slides", "story": "A presentation displays two slides about cont
+- 13 ✓ tool stage:bible: bible: place: presentation slide | setting: dark blue digital slide background with white text | cast: no recurring people | goal: show continuous speech slides | story: A presentation displays two slides ab
+- 14 ✓ tool stage:pause_plan: pause_plan: 3 pauses; largest source gap 15.03 s (hard max 25.0 s); final at 30.00 s
+- 15 ✓ submodel : {"frames": [{"t": 3.1, "setting": "A solid teal background with white text in the upper left corner.", "present": [], "objects": [], "action": "A static title slide is displayed.", "on_screen_text": ["CONTINUOUS SPEECH -
+- 16 ✓ tool stage:pause_frames: pause_frames: 3 current frames described by Super VL
+- 17 ✓ orchestrator : {"cues": [{"pause_id": 1, "text": "A dark blue slide displays the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner. The slide remains unchanged through the first three seconds.", "evidence": ["e1"]}, 
+- 18 ✓ tool stage:extended_write: extended_write: 3 of 3 pauses written in one Ultra call
+- 19 ✓ submodel : {"verdicts": [{"gap_id": 1, "verdict": "supported", "wrong": "", "reason": "All frames from 0.31 to 3.105 seconds show a dark blue slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left, unchanged a
+- 20 ✓ submodel : {"verdicts": [{"gap_id": 2, "verdict": "supported", "wrong": "", "reason": "The frames at 4.608, 7.613, 10.618, and 13.623 seconds all show the first slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" on a dark b
+- 21 ✓ submodel : {"verdicts": [{"gap_id": 3, "verdict": "contradicted", "wrong": "By twenty-five seconds the visible fragment reads \"ADROOM\", and by twenty-eight seconds the word \"SLIDE\" has also disappeared, leaving only the right p
+- 22 ✓ orchestrator : {"cues": [{"pause_id": 3, "text": "The second slide holds steady until twenty-two seconds, when its left edge begins cropping away. The title still reads \"SLIDE 2 - NO ROOM FOR AD\" as the cropping starts.", "evidence":
+- 23 ✓ submodel : {"verdicts": [{"gap_id": 3, "verdict": "supported", "wrong": "", "reason": "All frames from 19.288 to 29.7 seconds show the title \"SLIDE 2 - NO ROOM FOR AD\" on a teal background, and no left-edge cropping is visible wi
+- 24 ✓ tool stage:extended_check_verify: extended_check_verify: 3 verified extended cues; 0 dropped; 1 repair rounds
+- 25 ✓ tool stage:extended_rescue: extended_rescue: 0 pauses still missing; rescue not needed or disabled
+- 26 ✓ tool stage:render: render: 3 freezes rendered; +34.52 seconds

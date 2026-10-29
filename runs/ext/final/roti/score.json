@@ -1,0 +1,2124 @@
+{
+  "run": "runs/ext/roti_e6",
+  "groundtruth": "groundtruth/cooking_roti_0028-0148.json",
+  "cue_windows": [
+    {
+      "cue_id": 1,
+      "source_start": 0.0,
+      "source_end": 0.5,
+      "start_inclusive": true,
+      "tolerance_s": 2.0,
+      "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left.",
+      "key_events": [],
+      "action_steps": [
+        {
+          "id": "seg1.a1",
+          "segment_id": "seg1",
+          "t_start": 0.0,
+          "t_end": 1.0,
+          "what": "Person mixes flour in wooden bowl with right hand, steadying bowl with left hand (0-1s)."
+        },
+        {
+          "id": "seg1.a2",
+          "segment_id": "seg1",
+          "t_start": 2.0,
+          "t_end": 2.0,
+          "what": "Person holds glass pitcher of water above bowl, preparing to pour (2s)."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 2,
+      "source_start": 0.5,
+      "source_end": 23.362,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+      "key_events": [
+        {
+          "id": "evt1",
+          "t": 15.85,
+          "what": "Person puts on black glove on right hand",
+          "importance": 2,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The person is wearing a black glove on the right hand in both frames.",
+          "scoring_target": true
+        }
+      ],
+      "action_steps": [
+        {
+          "id": "seg1.a1",
+          "segment_id": "seg1",
+          "t_start": 0.0,
+          "t_end": 1.0,
+          "what": "Person mixes flour in wooden bowl with right hand, steadying bowl with left hand (0-1s)."
+        },
+        {
+          "id": "seg1.a2",
+          "segment_id": "seg1",
+          "t_start": 2.0,
+          "t_end": 2.0,
+          "what": "Person holds glass pitcher of water above bowl, preparing to pour (2s)."
+        },
+        {
+          "id": "seg1.a3",
+          "segment_id": "seg1",
+          "t_start": 3.0,
+          "t_end": 5.0,
+          "what": "Person pours water from pitcher into center of flour (3-5s)."
+        },
+        {
+          "id": "seg1.a4",
+          "segment_id": "seg1",
+          "t_start": 6.0,
+          "t_end": 11.0,
+          "what": "Person continues mixing flour and water in bowl (6-11s)."
+        },
+        {
+          "id": "seg1.a5",
+          "segment_id": "seg1",
+          "t_start": 12.0,
+          "t_end": 13.0,
+          "what": "Person pours liquid from glass measuring cup into bowl (12-13s)."
+        },
+        {
+          "id": "seg1.a6",
+          "segment_id": "seg1",
+          "t_start": 14.0,
+          "t_end": 15.0,
+          "what": "Person sets down empty measuring cup and mixes with right hand (14-15s)."
+        },
+        {
+          "id": "seg2.a1",
+          "segment_id": "seg2",
+          "t_start": 15.85,
+          "t_end": 15.85,
+          "what": "Person puts on black glove on right hand while holding left wrist (15.85s)."
+        },
+        {
+          "id": "seg2.a2",
+          "segment_id": "seg2",
+          "t_start": 16.0,
+          "t_end": 16.0,
+          "what": "Person adjusts black glove on right hand (16s)."
+        },
+        {
+          "id": "seg2.a3",
+          "segment_id": "seg2",
+          "t_start": 17.0,
+          "t_end": 17.0,
+          "what": "Person holds gloved hand over bowl, preparing to mix dough (17s)."
+        },
+        {
+          "id": "seg2.a4",
+          "segment_id": "seg2",
+          "t_start": 18.0,
+          "t_end": 22.0,
+          "what": "Person begins mixing/kneading dough in wooden bowl with gloved hand (18-22s)."
+        },
+        {
+          "id": "seg2.a5",
+          "segment_id": "seg2",
+          "t_start": 23.0,
+          "t_end": 23.0,
+          "what": "Child appears watching nearby (23s)."
+        },
+        {
+          "id": "seg2.a6",
+          "segment_id": "seg2",
+          "t_start": 24.0,
+          "t_end": 26.0,
+          "what": "Person pours liquid (oil) from spoon into wooden bowl containing dough (24-26s)."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 3,
+      "source_start": 23.362,
+      "source_end": 25.666,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook finishes kneading the dough into a smooth ball. A second person pours oil from a small bowl into a spoon held over the wooden bowl.",
+      "key_events": [],
+      "action_steps": [
+        {
+          "id": "seg2.a4",
+          "segment_id": "seg2",
+          "t_start": 18.0,
+          "t_end": 22.0,
+          "what": "Person begins mixing/kneading dough in wooden bowl with gloved hand (18-22s)."
+        },
+        {
+          "id": "seg2.a5",
+          "segment_id": "seg2",
+          "t_start": 23.0,
+          "t_end": 23.0,
+          "what": "Child appears watching nearby (23s)."
+        },
+        {
+          "id": "seg2.a6",
+          "segment_id": "seg2",
+          "t_start": 24.0,
+          "t_end": 26.0,
+          "what": "Person pours liquid (oil) from spoon into wooden bowl containing dough (24-26s)."
+        },
+        {
+          "id": "seg2.a7",
+          "segment_id": "seg2",
+          "t_start": 27.0,
+          "t_end": 33.0,
+          "what": "Person continues kneading dough in wooden bowl with gloved hand (27-33s)."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 4,
+      "source_start": 25.666,
+      "source_end": 48.8,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat.",
+      "key_events": [
+        {
+          "id": "evt2",
+          "t": 35.65,
+          "what": "OLINNO silicone mat with cm guides placed on counter",
+          "importance": 3,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The person holds up a silicone mat with circular cm guides and the brand name visible.",
+          "scoring_target": true
+        },
+        {
+          "id": "evt3",
+          "t": 41.0,
+          "what": "Person cuts flattened dough into smaller pieces with knife",
+          "importance": 3,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The person is cutting flattened dough into smaller pieces with a knife on the mat.",
+          "scoring_target": true
+        }
+      ],
+      "action_steps": [
+        {
+          "id": "seg2.a6",
+          "segment_id": "seg2",
+          "t_start": 24.0,
+          "t_end": 26.0,
+          "what": "Person pours liquid (oil) from spoon into wooden bowl containing dough (24-26s)."
+        },
+        {
+          "id": "seg2.a7",
+          "segment_id": "seg2",
+          "t_start": 27.0,
+          "t_end": 33.0,
+          "what": "Person continues kneading dough in wooden bowl with gloved hand (27-33s)."
+        },
+        {
+          "id": "seg2.a8",
+          "segment_id": "seg2",
+          "t_start": 33.0,
+          "t_end": 34.0,
+          "what": "Person shapes dough into round ball in wooden bowl (33-34s)."
+        },
+        {
+          "id": "seg2.a9",
+          "segment_id": "seg2",
+          "t_start": 35.0,
+          "t_end": 35.0,
+          "what": "Dough ball rests in wooden bowl, person stands nearby wearing black gloves (35s)."
+        },
+        {
+          "id": "seg3.a1",
+          "segment_id": "seg3",
+          "t_start": 35.65,
+          "t_end": 37.0,
+          "what": "Woman holds up large brown silicone baking mat with circular guides, places it flat on counter, smooths it down while girl watches (35.65-37s)."
+        },
+        {
+          "id": "seg3.a2",
+          "segment_id": "seg3",
+          "t_start": 38.05,
+          "t_end": 38.05,
+          "what": "Person sprinkles white powder (flour) from hand onto center of silicone mat (38.05s)."
+        },
+        {
+          "id": "seg3.a3",
+          "segment_id": "seg3",
+          "t_start": 38.05,
+          "t_end": 38.05,
+          "what": "Person continues sprinkling white powder across mat surface (38.05s)."
+        },
+        {
+          "id": "seg3.a4",
+          "segment_id": "seg3",
+          "t_start": 39.0,
+          "t_end": 39.0,
+          "what": "Woman presses and flattens ball of dough on floured silicone mat with both hands while girl watches (39.0s)."
+        },
+        {
+          "id": "seg3.a5",
+          "segment_id": "seg3",
+          "t_start": 40.0,
+          "t_end": 40.0,
+          "what": "Person continues pressing and shaping dough on mat (40s)."
+        },
+        {
+          "id": "seg3.a6",
+          "segment_id": "seg3",
+          "t_start": 41.0,
+          "t_end": 41.0,
+          "what": "Person uses knife to cut flattened dough into smaller pieces (41s)."
+        },
+        {
+          "id": "seg3.a7",
+          "segment_id": "seg3",
+          "t_start": 42.25,
+          "t_end": 42.25,
+          "what": "Person arranges cut dough pieces into rounded balls on mat (42.25s)."
+        },
+        {
+          "id": "seg3.a8",
+          "segment_id": "seg3",
+          "t_start": 42.25,
+          "t_end": 42.25,
+          "what": "Person picks up one dough ball and shapes it with both hands (42.25s)."
+        },
+        {
+          "id": "seg3.a9",
+          "segment_id": "seg3",
+          "t_start": 43.0,
+          "t_end": 43.0,
+          "what": "Person rolls dough between palms to form smooth ball, places it on mat with other shaped pieces (43s)."
+        },
+        {
+          "id": "seg3.a10",
+          "segment_id": "seg3",
+          "t_start": 45.0,
+          "t_end": 45.0,
+          "what": "Person continues rolling and shaping dough into round ball using both hands on mat (45s)."
+        },
+        {
+          "id": "seg3.a11",
+          "segment_id": "seg3",
+          "t_start": 46.0,
+          "t_end": 46.0,
+          "what": "Person finishes shaping dough ball and places it on left side of mat next to other formed balls (46s)."
+        },
+        {
+          "id": "seg3.a12",
+          "segment_id": "seg3",
+          "t_start": 47.0,
+          "t_end": 47.0,
+          "what": "Person picks up another piece of dough and rolls it between palms to form a ball (47s)."
+        },
+        {
+          "id": "seg3.a13",
+          "segment_id": "seg3",
+          "t_start": 48.0,
+          "t_end": 48.0,
+          "what": "Person places newly formed dough ball onto mat with others (48s)."
+        },
+        {
+          "id": "seg3.a14",
+          "segment_id": "seg3",
+          "t_start": 48.85,
+          "t_end": 48.85,
+          "what": "Person sprinkles flour onto mat while holding dough ball (48.85s)."
+        },
+        {
+          "id": "seg4.a1",
+          "segment_id": "seg4",
+          "t_start": 48.85,
+          "t_end": 52.25,
+          "what": "Person sprinkles flour onto mat while holding dough ball (48.85-52.25s, repeated cycles)."
+        },
+        {
+          "id": "seg4.a2",
+          "segment_id": "seg4",
+          "t_start": 50.0,
+          "t_end": 50.0,
+          "what": "Person places dough ball on center of floured mat (50s)."
+        }
+      ],
+      "confusing_parts": [
+        {
+          "id": "conf1",
+          "t": 35.65,
+          "what": "Sudden appearance of OLINNO mat with cm markings and child",
+          "why": "No transition shown from wooden bowl mixing to silicone mat rolling",
+          "what_to_explain": "Dough moved from wooden bowl to marked silicone mat for precise rolling; mat has size guides 24cm to 2cm",
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "Both frames show the OLINNO mat with cm markings and a child standing beside it.",
+          "scoring_target": true
+        }
+      ]
+    },
+    {
+      "cue_id": 5,
+      "source_start": 48.8,
+      "source_end": 70.0,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook places a dough ball on the floured silicone mat, presses it flat, and rolls it into a long thin oval with a wooden pin. More flour is sprinkled from a small dish over the flattened dough.",
+      "key_events": [],
+      "action_steps": [
+        {
+          "id": "seg3.a12",
+          "segment_id": "seg3",
+          "t_start": 47.0,
+          "t_end": 47.0,
+          "what": "Person picks up another piece of dough and rolls it between palms to form a ball (47s)."
+        },
+        {
+          "id": "seg3.a13",
+          "segment_id": "seg3",
+          "t_start": 48.0,
+          "t_end": 48.0,
+          "what": "Person places newly formed dough ball onto mat with others (48s)."
+        },
+        {
+          "id": "seg3.a14",
+          "segment_id": "seg3",
+          "t_start": 48.85,
+          "t_end": 48.85,
+          "what": "Person sprinkles flour onto mat while holding dough ball (48.85s)."
+        },
+        {
+          "id": "seg4.a1",
+          "segment_id": "seg4",
+          "t_start": 48.85,
+          "t_end": 52.25,
+          "what": "Person sprinkles flour onto mat while holding dough ball (48.85-52.25s, repeated cycles)."
+        },
+        {
+          "id": "seg4.a2",
+          "segment_id": "seg4",
+          "t_start": 50.0,
+          "t_end": 50.0,
+          "what": "Person places dough ball on center of floured mat (50s)."
+        },
+        {
+          "id": "seg4.a3",
+          "segment_id": "seg4",
+          "t_start": 51.0,
+          "t_end": 51.0,
+          "what": "Person presses dough ball flat with both hands (51s)."
+        },
+        {
+          "id": "seg4.a4",
+          "segment_id": "seg4",
+          "t_start": 52.0,
+          "t_end": 52.0,
+          "what": "Person flattens dough ball on mat with both hands (52s)."
+        },
+        {
+          "id": "seg4.a5",
+          "segment_id": "seg4",
+          "t_start": 52.25,
+          "t_end": 52.25,
+          "what": "Person uses wooden rolling pin to roll out flattened dough on mat (52.25s)."
+        },
+        {
+          "id": "seg4.a6",
+          "segment_id": "seg4",
+          "t_start": 53.0,
+          "t_end": 54.0,
+          "what": "Person rolls dough ball flat with rolling pin on floured mat, four additional dough balls waiting to left (53-54s)."
+        },
+        {
+          "id": "seg4.a7",
+          "segment_id": "seg4",
+          "t_start": 55.0,
+          "t_end": 55.0,
+          "what": "Person continues rolling dough into longer, thinner oval shape (55s)."
+        },
+        {
+          "id": "seg4.a8",
+          "segment_id": "seg4",
+          "t_start": 55.0,
+          "t_end": 58.0,
+          "what": "Person rolls dough back and forth to elongate further (55-58s)."
+        },
+        {
+          "id": "seg4.a9",
+          "segment_id": "seg4",
+          "t_start": 59.0,
+          "t_end": 59.0,
+          "what": "Person holds pastry brush over bowl of liquid, preparing to apply to dough sheet (59s)."
+        },
+        {
+          "id": "seg4.a10",
+          "segment_id": "seg4",
+          "t_start": 60.0,
+          "t_end": 60.0,
+          "what": "Person moves brush away from bowl after dipping (60s)."
+        },
+        {
+          "id": "seg4.a11",
+          "segment_id": "seg4",
+          "t_start": 61.0,
+          "t_end": 64.0,
+          "what": "Person uses pastry brush to spread liquid (oil) across surface of dough sheet (61-64s)."
+        },
+        {
+          "id": "seg4.a12",
+          "segment_id": "seg4",
+          "t_start": 65.0,
+          "t_end": 65.0,
+          "what": "Person uses wooden-handled brush to apply liquid to long dough sheet, sets brush down (65s)."
+        },
+        {
+          "id": "seg4.a13",
+          "segment_id": "seg4",
+          "t_start": 66.0,
+          "t_end": 66.0,
+          "what": "Person sprinkles flour from above onto dough sheet and surrounding mat (66s)."
+        },
+        {
+          "id": "seg4.a14",
+          "segment_id": "seg4",
+          "t_start": 67.0,
+          "t_end": 67.0,
+          "what": "Person reaches right hand into glass flour container, scoops handful (67s)."
+        },
+        {
+          "id": "seg4.a15",
+          "segment_id": "seg4",
+          "t_start": 68.0,
+          "t_end": 68.0,
+          "what": "Person sprinkles flour over dough sheet from hand (68s)."
+        },
+        {
+          "id": "seg4.a16",
+          "segment_id": "seg4",
+          "t_start": 69.0,
+          "t_end": 69.0,
+          "what": "Person places both hands flat on long dough sheet, presses down gently to flatten (69s)."
+        },
+        {
+          "id": "seg4.a17",
+          "segment_id": "seg4",
+          "t_start": 70.0,
+          "t_end": 70.0,
+          "what": "Person continues pressing and smoothing dough sheet with both hands, folding top edge slightly (70s)."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 6,
+      "source_start": 70.0,
+      "source_end": 83.94,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape.",
+      "key_events": [
+        {
+          "id": "evt5",
+          "t": 80.0,
+          "what": "Person rolls dough rope into spiral (cinnamon roll style)",
+          "importance": 3,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The person is rolling a long dough rope into a spiral, consistent with cinnamon roll style, in both frames.",
+          "scoring_target": true
+        }
+      ],
+      "action_steps": [
+        {
+          "id": "seg4.a15",
+          "segment_id": "seg4",
+          "t_start": 68.0,
+          "t_end": 68.0,
+          "what": "Person sprinkles flour over dough sheet from hand (68s)."
+        },
+        {
+          "id": "seg4.a16",
+          "segment_id": "seg4",
+          "t_start": 69.0,
+          "t_end": 69.0,
+          "what": "Person places both hands flat on long dough sheet, presses down gently to flatten (69s)."
+        },
+        {
+          "id": "seg4.a17",
+          "segment_id": "seg4",
+          "t_start": 70.0,
+          "t_end": 70.0,
+          "what": "Person continues pressing and smoothing dough sheet with both hands, folding top edge slightly (70s)."
+        },
+        {
+          "id": "seg5.a1",
+          "segment_id": "seg5",
+          "t_start": 75.0,
+          "t_end": 75.0,
+          "what": "Person rolls piece of dough into long, thin rope on baking mat using hands (75s)."
+        },
+        {
+          "id": "seg5.a2",
+          "segment_id": "seg5",
+          "t_start": 77.0,
+          "t_end": 77.0,
+          "what": "Person continues rolling dough into long, thin rope on mat (77s)."
+        },
+        {
+          "id": "seg5.a3",
+          "segment_id": "seg5",
+          "t_start": 78.0,
+          "t_end": 78.0,
+          "what": "Person shapes rolled dough rope, pressing and folding with fingers (78s)."
+        },
+        {
+          "id": "seg5.a4",
+          "segment_id": "seg5",
+          "t_start": 79.0,
+          "t_end": 79.0,
+          "what": "Person continues manipulating long dough rope, folding and pressing (79s)."
+        },
+        {
+          "id": "seg5.a5",
+          "segment_id": "seg5",
+          "t_start": 80.0,
+          "t_end": 80.0,
+          "what": "Person rolls dough rope up from one end, similar to rolling a cinnamon roll (80s)."
+        },
+        {
+          "id": "seg5.a6",
+          "segment_id": "seg5",
+          "t_start": 81.0,
+          "t_end": 81.0,
+          "what": "Person continues rolling dough into spiral shape (81s)."
+        },
+        {
+          "id": "seg6.a1",
+          "segment_id": "seg6",
+          "t_start": 82.0,
+          "t_end": 82.0,
+          "what": "Person rolls piece of dough into smooth ball between palms on floured mat; word 'roll' appears in yellow text at bottom right (82s)."
+        },
+        {
+          "id": "seg6.a2",
+          "segment_id": "seg6",
+          "t_start": 83.0,
+          "t_end": 83.0,
+          "what": "Person continues shaping dough, pressing and rolling between both hands to form round ball (83s)."
+        },
+        {
+          "id": "seg6.a3",
+          "segment_id": "seg6",
+          "t_start": 84.0,
+          "t_end": 84.0,
+          "what": "Person finishes shaping dough into smooth round ball and places it on center of mat (84s)."
+        },
+        {
+          "id": "seg6.a4",
+          "segment_id": "seg6",
+          "t_start": 85.0,
+          "t_end": 85.0,
+          "what": "Person places newly formed dough ball onto mat next to other four balls, lifts hands away (85s)."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 7,
+      "source_start": 83.94,
+      "source_end": 107.927,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin.",
+      "key_events": [
+        {
+          "id": "evt6",
+          "t": 89.0,
+          "what": "Person pours oil over dough balls in bowl",
+          "importance": 3,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "Oil is being poured over the dough balls in the bowl, as shown by the stream and caption.",
+          "scoring_target": true
+        },
+        {
+          "id": "evt7",
+          "t": 94.0,
+          "what": "Person covers bowl with white plate for resting",
+          "importance": 2,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The person places a white plate over the bowl to cover it for resting.",
+          "scoring_target": true
+        }
+      ],
+      "action_steps": [
+        {
+          "id": "seg6.a1",
+          "segment_id": "seg6",
+          "t_start": 82.0,
+          "t_end": 82.0,
+          "what": "Person rolls piece of dough into smooth ball between palms on floured mat; word 'roll' appears in yellow text at bottom right (82s)."
+        },
+        {
+          "id": "seg6.a2",
+          "segment_id": "seg6",
+          "t_start": 83.0,
+          "t_end": 83.0,
+          "what": "Person continues shaping dough, pressing and rolling between both hands to form round ball (83s)."
+        },
+        {
+          "id": "seg6.a3",
+          "segment_id": "seg6",
+          "t_start": 84.0,
+          "t_end": 84.0,
+          "what": "Person finishes shaping dough into smooth round ball and places it on center of mat (84s)."
+        },
+        {
+          "id": "seg6.a4",
+          "segment_id": "seg6",
+          "t_start": 85.0,
+          "t_end": 85.0,
+          "what": "Person places newly formed dough ball onto mat next to other four balls, lifts hands away (85s)."
+        },
+        {
+          "id": "seg6.a5",
+          "segment_id": "seg6",
+          "t_start": 86.0,
+          "t_end": 86.0,
+          "what": "Person reaches toward dough balls on mat, preparing to flatten one (86s)."
+        },
+        {
+          "id": "seg6.a6",
+          "segment_id": "seg6",
+          "t_start": 87.0,
+          "t_end": 87.0,
+          "what": "Person presses one dough ball flat with fingers, beginning to shape into disc (87s)."
+        },
+        {
+          "id": "seg6.a7",
+          "segment_id": "seg6",
+          "t_start": 88.05,
+          "t_end": 88.05,
+          "what": "Six shaped dough balls rest in brown bowl on floured mat (88.05s)."
+        },
+        {
+          "id": "seg6.a8",
+          "segment_id": "seg6",
+          "t_start": 89.0,
+          "t_end": 89.0,
+          "what": "Person pours oil over dough balls in bowl (89s)."
+        },
+        {
+          "id": "seg6.a9",
+          "segment_id": "seg6",
+          "t_start": 90.0,
+          "t_end": 90.0,
+          "what": "Person finishes pouring oil over dough balls (90s)."
+        },
+        {
+          "id": "seg6.a10",
+          "segment_id": "seg6",
+          "t_start": 91.0,
+          "t_end": 91.0,
+          "what": "Person presses down on dough balls with left hand while holding bowl with right (91s)."
+        },
+        {
+          "id": "seg7.a1",
+          "segment_id": "seg7",
+          "t_start": 92.0,
+          "t_end": 92.0,
+          "what": "Person continues pressing dough balls flat in bowl (92s)."
+        },
+        {
+          "id": "seg7.a2",
+          "segment_id": "seg7",
+          "t_start": 93.0,
+          "t_end": 93.0,
+          "what": "Bowl containing several smooth pale dough rolls sits centered on mat while person stands behind it (93s)."
+        },
+        {
+          "id": "seg7.a3",
+          "segment_id": "seg7",
+          "t_start": 94.0,
+          "t_end": 94.0,
+          "what": "Person places white plate upside down over bowl of dough to cover it (94s)."
+        },
+        {
+          "id": "seg7.a4",
+          "segment_id": "seg7",
+          "t_start": 95.0,
+          "t_end": 95.0,
+          "what": "Person holds white plate steady over bowl (95s)."
+        },
+        {
+          "id": "seg7.a5",
+          "segment_id": "seg7",
+          "t_start": 96.05,
+          "t_end": 96.05,
+          "what": "Person continues holding plate over bowl (96.05s)."
+        },
+        {
+          "id": "seg7.a6",
+          "segment_id": "seg7",
+          "t_start": 97.0,
+          "t_end": 97.0,
+          "what": "Bowl of dough rests uncovered on mat while decorative plate held above it (97s)."
+        },
+        {
+          "id": "seg7.a7",
+          "segment_id": "seg7",
+          "t_start": 98.0,
+          "t_end": 98.0,
+          "what": "Person adjusts dough balls inside bowl with one hand (98s)."
+        },
+        {
+          "id": "seg7.a8",
+          "segment_id": "seg7",
+          "t_start": 99.0,
+          "t_end": 101.0,
+          "what": "Person holds bowl with both hands, presenting dough balls (99-101s)."
+        },
+        {
+          "id": "seg8.a1",
+          "segment_id": "seg8",
+          "t_start": 101.0,
+          "t_end": 102.0,
+          "what": "Person reaches toward glass flour container (101-102s)."
+        },
+        {
+          "id": "seg8.a2",
+          "segment_id": "seg8",
+          "t_start": 102.0,
+          "t_end": 102.0,
+          "what": "Person dips right hand into flour container (102s)."
+        },
+        {
+          "id": "seg8.a3",
+          "segment_id": "seg8",
+          "t_start": 103.0,
+          "t_end": 103.0,
+          "what": "Person lifts flour-dusted right hand away (103s)."
+        },
+        {
+          "id": "seg8.a4",
+          "segment_id": "seg8",
+          "t_start": 104.0,
+          "t_end": 104.0,
+          "what": "Person places dough ball onto center of baking mat (104s)."
+        },
+        {
+          "id": "seg8.a5",
+          "segment_id": "seg8",
+          "t_start": 105.0,
+          "t_end": 105.0,
+          "what": "Person presses dough ball flat with fingers on mat (105s)."
+        },
+        {
+          "id": "seg8.a6",
+          "segment_id": "seg8",
+          "t_start": 105.65,
+          "t_end": 105.65,
+          "what": "Person rolls dough back and forth with rolling pin to flatten (105.65s)."
+        },
+        {
+          "id": "seg8.a7",
+          "segment_id": "seg8",
+          "t_start": 106.0,
+          "t_end": 106.0,
+          "what": "Person continues rolling dough flat on mat (106s)."
+        },
+        {
+          "id": "seg8.a8",
+          "segment_id": "seg8",
+          "t_start": 107.0,
+          "t_end": 107.0,
+          "what": "Person lifts rolling pin and repositions dough on mat (107s)."
+        },
+        {
+          "id": "seg8.a9",
+          "segment_id": "seg8",
+          "t_start": 108.0,
+          "t_end": 108.0,
+          "what": "Person rolls dough flat again on mat (108s)."
+        },
+        {
+          "id": "seg8.a10",
+          "segment_id": "seg8",
+          "t_start": 109.0,
+          "t_end": 110.0,
+          "what": "Person rolls dough into thin circle on mat with cm guides (109-110s)."
+        }
+      ],
+      "confusing_parts": [
+        {
+          "id": "conf4",
+          "t": 88.05,
+          "what": "Mat branding changes from OLINNO to LUMINUO; dough balls moved from mat to bowl",
+          "why": "Mat may be double-sided or replaced; workflow shifts to oil bath in bowl",
+          "what_to_explain": "Spiral ropes cut into balls, placed in bowl, coated with oil to prevent drying; mat flipped to LUMINUO side",
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "Both frames show the mat branding as LUMINUO and dough balls in a bowl on the mat.",
+          "scoring_target": true
+        }
+      ]
+    },
+    {
+      "cue_id": 8,
+      "source_start": 107.927,
+      "source_end": 119.919,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The cook rolls the dough back and forth into a larger round disc, lifts and flips it over, then continues rolling it thinner and more circular. The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\".",
+      "key_events": [],
+      "action_steps": [
+        {
+          "id": "seg8.a7",
+          "segment_id": "seg8",
+          "t_start": 106.0,
+          "t_end": 106.0,
+          "what": "Person continues rolling dough flat on mat (106s)."
+        },
+        {
+          "id": "seg8.a8",
+          "segment_id": "seg8",
+          "t_start": 107.0,
+          "t_end": 107.0,
+          "what": "Person lifts rolling pin and repositions dough on mat (107s)."
+        },
+        {
+          "id": "seg8.a9",
+          "segment_id": "seg8",
+          "t_start": 108.0,
+          "t_end": 108.0,
+          "what": "Person rolls dough flat again on mat (108s)."
+        },
+        {
+          "id": "seg8.a10",
+          "segment_id": "seg8",
+          "t_start": 109.0,
+          "t_end": 110.0,
+          "what": "Person rolls dough into thin circle on mat with cm guides (109-110s)."
+        },
+        {
+          "id": "seg8.a11",
+          "segment_id": "seg8",
+          "t_start": 111.0,
+          "t_end": 111.0,
+          "what": "Person lifts rolling pin, uses left hand to pick up and flip dough over (111s)."
+        },
+        {
+          "id": "seg8.a12",
+          "segment_id": "seg8",
+          "t_start": 112.0,
+          "t_end": 112.0,
+          "what": "Person places rolling pin back on flipped dough, rolls to flatten other side (112s)."
+        },
+        {
+          "id": "seg8.a13",
+          "segment_id": "seg8",
+          "t_start": 113.0,
+          "t_end": 113.0,
+          "what": "Person rolls pin back and forth, continuing to flatten into larger circle (113s)."
+        },
+        {
+          "id": "seg8.a14",
+          "segment_id": "seg8",
+          "t_start": 114.0,
+          "t_end": 114.0,
+          "what": "Person continues rolling dough with pin, expanding diameter across mat (114s)."
+        }
+      ],
+      "confusing_parts": []
+    }
+  ],
+  "deterministic": {
+    "pauses_inside_speech": 0,
+    "pause_ids_inside_speech": [],
+    "pause_at_cut_or_speech_boundary_percent": 50.0,
+    "max_undescribed_gap_s": 23.987,
+    "total_added_seconds": 109.137,
+    "words_per_cue": [
+      33,
+      52,
+      27,
+      58,
+      38,
+      34,
+      53,
+      45
+    ],
+    "words_per_cue_mean": 42.5
+  },
+  "judge": {
+    "key_events": [
+      {
+        "id": "evt1",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms the person puts on a black glove on the right hand at 15.85s, matching the cue's key event exactly."
+      },
+      {
+        "id": "evt2",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The ground truth shows the person holds up the OLINNO silicone mat with circular cm guides and places it on the counter at 35.65s, matching the key event."
+      },
+      {
+        "id": "evt3",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The ground truth shows the person uses a knife to cut flattened dough into smaller pieces at 41s, matching the key event."
+      },
+      {
+        "id": "evt5",
+        "cue_id": 6,
+        "coverage": "yes",
+        "reason": "The cue window ground truth shows the person rolling the dough rope into a spiral at 80s (seg5.a5) and continuing at 81s (seg5.a6), matching the key event description of rolling dough rope into a spiral (cinnamon roll style)."
+      },
+      {
+        "id": "evt6",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states oil is applied with a spoon; ground truth shows oil poured over dough balls in bowl at 89s (seg6.a8) and finished at 90s (seg6.a9), matching the action and object."
+      },
+      {
+        "id": "evt7",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states bowl is covered with a white plate for resting; ground truth shows person places white plate upside down over bowl at 94s (seg7.a3) and holds it steady at 95s (seg7.a4), matching the action and object."
+      }
+    ],
+    "action_steps": [
+      {
+        "id": "seg1.a1",
+        "cue_id": 1,
+        "coverage": "no",
+        "reason": "Ground truth shows a brown silicone baking mat on a white wooden table, not a wooden mixing bowl on a white countertop. The person wears a striped long-sleeve shirt, not a checkered shirt. No mixing action is visible at 0-0.5s; the bowl and mixing appear later."
+      },
+      {
+        "id": "seg1.a2",
+        "cue_id": 1,
+        "coverage": "no",
+        "reason": "No glass pitcher of water is present or held at 2s in this window (source_end 0.5s, tolerance 2.0s covers up to 2.5s). The ground truth lists a glass flour container, not a water pitcher, and no pouring action occurs."
+      },
+      {
+        "id": "seg1.a1",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth shows mixing in a glass flour container on a table, not a wooden bowl, and the cue window starts at 0.5s, missing the 0-1s action."
+      },
+      {
+        "id": "seg1.a2",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth does not show a glass pitcher of water being held above a bowl at 2s; the water source is a glass flour container, not a pitcher."
+      },
+      {
+        "id": "seg1.a3",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth does not show water being poured from a pitcher into flour in a bowl at 3-5s; the setting shows a glass flour container on a table, not a pitcher pouring into a bowl."
+      },
+      {
+        "id": "seg1.a4",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth does not show mixing flour and water in a bowl at 6-11s; the visible action involves dough on a silicone mat, not a bowl."
+      },
+      {
+        "id": "seg1.a5",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth does not show a glass measuring cup pouring liquid into a bowl at 12-13s; no measuring cup is present in the setting."
+      },
+      {
+        "id": "seg1.a6",
+        "cue_id": 2,
+        "coverage": "no",
+        "reason": "The ground truth does not show setting down a measuring cup and mixing with the right hand at 14-15s; the person puts on a glove at 15.85s, not mixing in a bowl."
+      },
+      {
+        "id": "seg2.a1",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms the person puts on a black glove on the right hand at 15.85s, matching the action step exactly."
+      },
+      {
+        "id": "seg2.a2",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth supports the person adjusting the black glove on the right hand at 16s, consistent with the glove being put on at 15.85s."
+      },
+      {
+        "id": "seg2.a3",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth shows the person with a gloved hand over the dough/bowl area at 17s, preparing to mix, matching the description."
+      },
+      {
+        "id": "seg2.a4",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms the person mixes/kneads dough with a gloved hand from 18-22s, matching the action step."
+      },
+      {
+        "id": "seg2.a5",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms a child appears watching nearby at 23s, matching the action step."
+      },
+      {
+        "id": "seg2.a6",
+        "cue_id": 2,
+        "coverage": "partial",
+        "reason": "The ground truth shows oil being poured from a spoon into a wooden bowl containing dough at 24-26s, but the cue window ends at 23.362s, so this action occurs after the window and is only partially covered by the cue's anticipation."
+      },
+      {
+        "id": "seg2.a4",
+        "cue_id": 3,
+        "coverage": "no",
+        "reason": "Cue window (23.362-25.666s) does not include the 18-22s kneading period; cue text does not mention this earlier kneading."
+      },
+      {
+        "id": "seg2.a5",
+        "cue_id": 3,
+        "coverage": "yes",
+        "reason": "Child appears at 23s per ground truth; cue window starts at 23.362s with 2s tolerance, so child watching is within window. Cue text does not explicitly mention child, but ground truth confirms presence."
+      },
+      {
+        "id": "seg2.a6",
+        "cue_id": 3,
+        "coverage": "partial",
+        "reason": "Cue text says 'pours oil from a small bowl into a spoon held over the wooden bowl' while ground truth says 'pours liquid (oil) from spoon into wooden bowl containing dough'. Direction and vessels differ: cue describes pouring from bowl to spoon over bowl; ground truth shows pouring from spoon into bowl."
+      },
+      {
+        "id": "seg2.a7",
+        "cue_id": 3,
+        "coverage": "no",
+        "reason": "Cue window ends at 25.666s (+2s tolerance = 27.666s); seg2.a7 starts at 27s and runs to 33s, so only the very beginning might overlap, but cue text describes finishing kneading into a smooth ball, not continuing kneading at 27s onward."
+      },
+      {
+        "id": "seg2.a6",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 24-26s, which is before the cue window (25.666-48.8s). The cue does not mention pouring oil from a spoon into a wooden bowl."
+      },
+      {
+        "id": "seg2.a7",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 27-33s, before the cue window. The cue does not mention kneading dough in a wooden bowl with a gloved hand."
+      },
+      {
+        "id": "seg2.a8",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 33-34s, before the cue window. The cue does not mention shaping dough into a round ball in a wooden bowl."
+      },
+      {
+        "id": "seg2.a9",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 35s, before the cue window start (25.666s, start_inclusive=false). The cue does not mention a dough ball resting in a wooden bowl."
+      },
+      {
+        "id": "seg3.a1",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'Flour is sprinkled on the silicone mat' and describes the mat being placed; the ground truth shows the woman holds up the mat, places it flat on the counter, and smooths it down at 35.65-37s."
+      },
+      {
+        "id": "seg3.a2",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'Flour is sprinkled on the silicone mat'; the ground truth shows the person sprinkles white powder (flour) from hand onto the center of the silicone mat at 38.05s."
+      },
+      {
+        "id": "seg3.a3",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'Flour is sprinkled on the silicone mat'; the ground truth shows the person continues sprinkling white powder across the mat surface at 38.05s."
+      },
+      {
+        "id": "seg3.a4",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'the dough is pressed flat'; the ground truth shows the woman presses and flattens ball of dough on floured silicone mat with both hands at 39s."
+      },
+      {
+        "id": "seg3.a5",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'the dough is pressed flat'; the ground truth shows the person continues pressing and shaping dough on mat at 40s."
+      },
+      {
+        "id": "seg3.a6",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'cut into portions with a knife'; the ground truth shows the person uses knife to cut flattened dough into smaller pieces at 41s."
+      },
+      {
+        "id": "seg3.a7",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball and lined up on the mat'; the ground truth shows the person arranges cut dough pieces into rounded balls on mat at 42.25s."
+      },
+      {
+        "id": "seg3.a8",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball'; the ground truth shows the person picks up one dough ball and shapes it with both hands at 42.25s."
+      },
+      {
+        "id": "seg3.a9",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball and lined up on the mat'; the ground truth shows the person rolls dough between palms to form smooth ball, places it on mat with other shaped pieces at 43s."
+      },
+      {
+        "id": "seg3.a10",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball'; the ground truth shows the person continues rolling and shaping dough into round ball using both hands on mat at 45s."
+      },
+      {
+        "id": "seg3.a11",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball and lined up on the mat'; the ground truth shows the person finishes shaping dough ball and places it on left side of mat next to other formed balls at 46s."
+      },
+      {
+        "id": "seg3.a12",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball'; the ground truth shows the person picks up another piece of dough and rolls it between palms to form a ball at 47s."
+      },
+      {
+        "id": "seg3.a13",
+        "cue_id": 4,
+        "coverage": "yes",
+        "reason": "The cue says 'each piece is rolled into a ball and lined up on the mat'; the ground truth shows the person places newly formed dough ball onto mat with others at 48s."
+      },
+      {
+        "id": "seg3.a14",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 48.85s, which is after the cue window end (48.8s). The cue does not mention sprinkling flour while holding a dough ball."
+      },
+      {
+        "id": "seg4.a1",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 48.85-52.25s, after the cue window. The cue does not mention repeated cycles of sprinkling flour."
+      },
+      {
+        "id": "seg4.a2",
+        "cue_id": 4,
+        "coverage": "no",
+        "reason": "This step occurs at 50s, after the cue window. The cue does not mention placing dough ball on center of floured mat."
+      },
+      {
+        "id": "seg3.a12",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Cue window starts at 48.8s; this action occurs at 47s, before the window."
+      },
+      {
+        "id": "seg3.a13",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Cue window starts at 48.8s; this action occurs at 48s, before the window."
+      },
+      {
+        "id": "seg3.a14",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 48.85s, within the cue window (48.8-70.0s). Matches 'More flour is sprinkled from a small dish over the flattened dough' (though cue says 'small dish', ground truth says 'holding dough ball', but action of sprinkling flour is present)."
+      },
+      {
+        "id": "seg4.a1",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs 48.85-52.25s, within window. Repeated sprinkling of flour while holding dough ball matches 'More flour is sprinkled'."
+      },
+      {
+        "id": "seg4.a2",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 50s, within window. Person places dough ball on center of floured mat matches 'places a dough ball on the floured silicone mat'."
+      },
+      {
+        "id": "seg4.a3",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 51s, within window. Person presses dough ball flat with both hands matches 'presses it flat'."
+      },
+      {
+        "id": "seg4.a4",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 52s, within window. Person flattens dough ball on mat with both hands matches 'presses it flat' (continuation)."
+      },
+      {
+        "id": "seg4.a5",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 52.25s, within window. Person uses wooden rolling pin to roll out flattened dough matches 'rolls it into a long thin oval with a wooden pin'."
+      },
+      {
+        "id": "seg4.a6",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs 53-54s, within window. Person rolls dough ball flat with rolling pin on floured mat matches 'rolls it into a long thin oval with a wooden pin'."
+      },
+      {
+        "id": "seg4.a7",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 55s, within window. Person continues rolling dough into longer, thinner oval shape matches 'rolls it into a long thin oval'."
+      },
+      {
+        "id": "seg4.a8",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs 55-58s, within window. Person rolls dough back and forth to elongate further matches 'rolls it into a long thin oval'."
+      },
+      {
+        "id": "seg4.a9",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs at 59s, within window, but cue does not mention pastry brush, bowl of liquid, or preparing to apply oil. This action is not described in cue."
+      },
+      {
+        "id": "seg4.a10",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs at 60s, within window, but cue does not mention moving brush away from bowl. Not described in cue."
+      },
+      {
+        "id": "seg4.a11",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs 61-64s, within window, but cue does not mention spreading oil with pastry brush. Not described in cue."
+      },
+      {
+        "id": "seg4.a12",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs at 65s, within window, but cue does not mention applying liquid with brush or setting brush down. Not described in cue."
+      },
+      {
+        "id": "seg4.a13",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 66s, within window. Person sprinkles flour from above onto dough sheet and surrounding mat matches 'More flour is sprinkled from a small dish over the flattened dough' (though 'small dish' vs 'from above', action of sprinkling flour is present)."
+      },
+      {
+        "id": "seg4.a14",
+        "cue_id": 5,
+        "coverage": "partial",
+        "reason": "Occurs at 67s, within window. Person reaches into glass flour container and scoops handful. Cue says 'from a small dish'; ground truth shows glass container, not a small dish. Action of getting flour is related but source differs."
+      },
+      {
+        "id": "seg4.a15",
+        "cue_id": 5,
+        "coverage": "yes",
+        "reason": "Occurs at 68s, within window. Person sprinkles flour over dough sheet from hand matches 'More flour is sprinkled ... over the flattened dough'."
+      },
+      {
+        "id": "seg4.a16",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs at 69s, within window, but cue does not mention pressing and smoothing dough sheet with both hands or folding top edge. Not described in cue."
+      },
+      {
+        "id": "seg4.a17",
+        "cue_id": 5,
+        "coverage": "no",
+        "reason": "Occurs at 70s, at window end (tolerance 2s), but cue does not mention continuing pressing, smoothing, or folding edge. Not described in cue."
+      },
+      {
+        "id": "seg4.a15",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Sprinkling flour over dough sheet at 68s occurs before the cue window (70-83.94s) and is not described in the cue."
+      },
+      {
+        "id": "seg4.a16",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Placing hands flat on dough sheet at 69s occurs before the cue window and is not described."
+      },
+      {
+        "id": "seg4.a17",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Pressing and smoothing dough sheet with folding at 70s occurs at window start but the cue describes folding a dough strip and rolling into a rope, not pressing a sheet."
+      },
+      {
+        "id": "seg5.a1",
+        "cue_id": 6,
+        "coverage": "partial",
+        "reason": "Rolling dough into long thin rope at 75s is in the window; the cue mentions rolling dough strip into a thin rope but does not specify this exact 75s occurrence."
+      },
+      {
+        "id": "seg5.a2",
+        "cue_id": 6,
+        "coverage": "partial",
+        "reason": "Continuing to roll dough rope at 77s is in the window; the cue describes rolling into a thin rope generally but not this specific continuation."
+      },
+      {
+        "id": "seg5.a3",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Shaping rolled dough rope, pressing and folding with fingers at 78s is not described; the cue says fold dough strip in half then roll into rope, not shape an already rolled rope."
+      },
+      {
+        "id": "seg5.a4",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Continuing manipulating dough rope, folding and pressing at 79s is not described in the cue."
+      },
+      {
+        "id": "seg5.a5",
+        "cue_id": 6,
+        "coverage": "yes",
+        "reason": "Rolling dough rope up from one end into a spiral at 80s matches the cue's 'rolls it into a thin rope... pinch and twist it tightly into a coiled spiral' (the spiral rolling action)."
+      },
+      {
+        "id": "seg5.a6",
+        "cue_id": 6,
+        "coverage": "yes",
+        "reason": "Continuing rolling dough into spiral shape at 81s matches the cue's description of twisting into a coiled spiral."
+      },
+      {
+        "id": "seg6.a1",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Rolling dough into smooth ball between palms at 82s occurs in window but the cue describes making a spiral, not a ball."
+      },
+      {
+        "id": "seg6.a2",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Continuing shaping dough into round ball at 83s is not described; cue describes spiral, not ball."
+      },
+      {
+        "id": "seg6.a3",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Finishing dough ball and placing on mat at 84s is after window end (83.94s) and not described."
+      },
+      {
+        "id": "seg6.a4",
+        "cue_id": 6,
+        "coverage": "no",
+        "reason": "Placing dough ball next to other balls at 85s is after window end and not described."
+      },
+      {
+        "id": "seg6.a1",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention rolling dough into a ball between palms on the floured mat at 82s."
+      },
+      {
+        "id": "seg6.a2",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention continuing to shape dough by pressing and rolling between hands at 83s."
+      },
+      {
+        "id": "seg6.a3",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention finishing shaping dough into a smooth round ball and placing it on the mat at 84s."
+      },
+      {
+        "id": "seg6.a4",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention placing a newly formed dough ball onto the mat next to other balls at 85s."
+      },
+      {
+        "id": "seg6.a5",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention reaching toward dough balls on the mat to flatten one at 86s."
+      },
+      {
+        "id": "seg6.a6",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention pressing a dough ball flat with fingers to begin shaping a disc at 87s."
+      },
+      {
+        "id": "seg6.a7",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states twisted dough balls are placed in a brown bowl; ground truth shows six shaped dough balls rest in brown bowl on floured mat at 88.05s."
+      },
+      {
+        "id": "seg6.a8",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states dough balls are oiled with a spoon; ground truth shows person pours oil over dough balls in bowl at 89s."
+      },
+      {
+        "id": "seg6.a9",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states dough balls are oiled; ground truth shows person finishes pouring oil over dough balls at 90s."
+      },
+      {
+        "id": "seg6.a10",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention pressing down on dough balls with left hand while holding bowl with right at 91s."
+      },
+      {
+        "id": "seg7.a1",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention continuing to press dough balls flat in bowl at 92s."
+      },
+      {
+        "id": "seg7.a2",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention bowl of dough rolls sitting centered on mat while person stands behind it at 93s."
+      },
+      {
+        "id": "seg7.a3",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states covered with an inverted white bowl; ground truth shows person places white plate upside down over bowl of dough to cover it at 94s."
+      },
+      {
+        "id": "seg7.a4",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states covered for resting; ground truth shows person holds white plate steady over bowl at 95s."
+      },
+      {
+        "id": "seg7.a5",
+        "cue_id": 7,
+        "coverage": "partial",
+        "reason": "Cue mentions resting for 35 minutes; ground truth shows person continues holding plate over bowl at 96.05s, indicating the resting period has begun but the 35-minute duration is not visible."
+      },
+      {
+        "id": "seg7.a6",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention bowl of dough resting uncovered on mat while decorative plate held above it at 97s."
+      },
+      {
+        "id": "seg7.a7",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention adjusting dough balls inside bowl with one hand at 98s."
+      },
+      {
+        "id": "seg7.a8",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention holding bowl with both hands to present dough balls at 99-101s."
+      },
+      {
+        "id": "seg8.a1",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention reaching toward glass flour container at 101-102s."
+      },
+      {
+        "id": "seg8.a2",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention dipping right hand into flour container at 102s."
+      },
+      {
+        "id": "seg8.a3",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention lifting flour-dusted right hand away at 103s."
+      },
+      {
+        "id": "seg8.a4",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states one ball is taken to the floured mat; ground truth shows person places dough ball onto center of baking mat at 104s."
+      },
+      {
+        "id": "seg8.a5",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states rolled into a round disc; ground truth shows person presses dough ball flat with fingers on mat at 105s, the first step in forming the disc."
+      },
+      {
+        "id": "seg8.a6",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states rolled with a wooden pin; ground truth shows person rolls dough back and forth with rolling pin to flatten at 105.65s."
+      },
+      {
+        "id": "seg8.a7",
+        "cue_id": 7,
+        "coverage": "yes",
+        "reason": "Cue states rolled into a round disc with a wooden pin; ground truth shows person continues rolling dough flat on mat at 106s."
+      },
+      {
+        "id": "seg8.a8",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention lifting rolling pin and repositioning dough on mat at 107s."
+      },
+      {
+        "id": "seg8.a9",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention rolling dough flat again on mat at 108s."
+      },
+      {
+        "id": "seg8.a10",
+        "cue_id": 7,
+        "coverage": "no",
+        "reason": "Cue does not mention rolling dough into thin circle on mat with cm guides at 109-110s."
+      },
+      {
+        "id": "seg8.a7",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 106s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a8",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 107s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a9",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 108s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a10",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 109-110s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a11",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 111s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a12",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 112s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a13",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 113s is before the cue window (107.927-119.919s)."
+      },
+      {
+        "id": "seg8.a14",
+        "cue_id": 8,
+        "coverage": "no",
+        "reason": "Action at 114s is before the cue window (107.927-119.919s)."
+      }
+    ],
+    "confusing_parts": [
+      {
+        "id": "conf1",
+        "cue_id": 4,
+        "explained": "yes",
+        "reason": "The cue explicitly states 'Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat,' which explains the transition from the wooden bowl to the marked silicone mat for precise rolling with size guides."
+      },
+      {
+        "id": "conf4",
+        "cue_id": 7,
+        "explained": "partial",
+        "reason": "Cue mentions dough balls moved from mat to bowl and covered with oil, which addresses the workflow shift, but does not explain the mat branding change from OLINNO to LUMINUO."
+      }
+    ],
+    "cue_claims": [
+      {
+        "cue_id": 1,
+        "unsupported_claims": [
+          "A wooden mixing bowl holds flour on a white countertop",
+          "The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left"
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left",
+            "reason": "Mixing flour in a wooden bowl occurs later in the video (around 15-20s), not at 0-0.5s. The shirt is striped, not checkered."
+          }
+        ]
+      },
+      {
+        "cue_id": 2,
+        "unsupported_claims": [
+          "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again.",
+          "Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms."
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again.",
+            "reason": "This describes actions from an earlier segment (seg1, 0-15s) not visible in the current cue window (0.5-23.362s), which shows dough already formed on a silicone mat."
+          },
+          {
+            "claim": "Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+            "reason": "The oil pouring (seg2.a6) occurs at 24-26s, after the cue window ends at 23.362s; the kneading (seg2.a4) occurs at 18-22s, before the oil, not after as the cue implies."
+          }
+        ]
+      },
+      {
+        "cue_id": 3,
+        "unsupported_claims": [
+          "The cook finishes kneading the dough into a smooth ball",
+          "A second person pours oil from a small bowl into a spoon held over the wooden bowl"
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook finishes kneading the dough into a smooth ball",
+            "reason": "Finishing kneading into a smooth ball occurs earlier (18-22s per seg2.a4) or later (27-33s per seg2.a7), not in the 23.362-25.666s window where oil pouring happens."
+          },
+          {
+            "claim": "A second person pours oil from a small bowl into a spoon held over the wooden bowl",
+            "reason": "Ground truth shows the same person (not a second person) pours oil from a spoon into the wooden bowl at 24-26s; cue misstates direction, vessel, and actor."
+          }
+        ]
+      },
+      {
+        "cue_id": 4,
+        "unsupported_claims": [
+          "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball",
+          "then lifts it onto the white wooden countertop"
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball",
+            "reason": "This action (pouring oil, kneading in bowl) occurs in segment 2 at 24-34s, before the current cue window (25.666-48.8s). The cue narrates it as current."
+          },
+          {
+            "claim": "then lifts it onto the white wooden countertop",
+            "reason": "The dough ball is moved from the wooden bowl to the silicone mat on the counter at 35.65s (seg3.a1), not lifted onto the countertop as a separate action after kneading. The cue places this after the kneading claim, but the mat placement is the transition."
+          }
+        ]
+      },
+      {
+        "cue_id": 5,
+        "unsupported_claims": [
+          "from a small dish"
+        ],
+        "chronology_errors": []
+      },
+      {
+        "cue_id": 6,
+        "unsupported_claims": [
+          "The cook folds the dough strip in half",
+          "pinch and twist it tightly into a coiled spiral",
+          "pressing the end down to secure the shape"
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape.",
+            "reason": "In the source window (70-83.94s), the dough is already a long rope by 75s (seg5.a1); folding a strip in half occurs earlier (seg4.a17 at 70s shows folding top edge of sheet). The spiral rolling occurs at 80-81s (seg5.a5-6), not after a fold-then-roll sequence within this window. Pressing the end down to secure is not visible; at 82s the person starts rolling a ball (seg6.a1)."
+          }
+        ]
+      },
+      {
+        "cue_id": 7,
+        "unsupported_claims": [
+          "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin."
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cover is lifted to reveal six rested balls.",
+            "reason": "Ground truth shows the cover is placed at 94s and held through 96.05s within this window; the cover is not lifted until after 107.927s."
+          },
+          {
+            "claim": "rest for 35 minutes",
+            "reason": "The 35-minute rest is not shown within this window (83.94-107.927s); the cover remains on the bowl through the window's end."
+          }
+        ]
+      },
+      {
+        "cue_id": 8,
+        "unsupported_claims": [
+          "The cook rolls the dough back and forth into a larger round disc",
+          "lifts and flips it over",
+          "then continues rolling it thinner and more circular",
+          "The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\""
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The cook rolls the dough back and forth into a larger round disc",
+            "reason": "This action (rolling back and forth into larger disc) occurs at 113-114s (seg8.a13, seg8.a14), before the cue window."
+          },
+          {
+            "claim": "lifts and flips it over",
+            "reason": "This action (lift and flip) occurs at 111s (seg8.a11), before the cue window."
+          },
+          {
+            "claim": "then continues rolling it thinner and more circular",
+            "reason": "This action (continuing to roll thinner) occurs at 112-114s (seg8.a12, seg8.a13, seg8.a14), before the cue window."
+          },
+          {
+            "claim": "The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\"",
+            "reason": "The finished roti on the mat is the state resulting from actions completed by 114s (seg8.a14), before the cue window."
+          }
+        ]
+      }
+    ],
+    "fluency": [
+      {
+        "cue_id": 1,
+        "score": 4,
+        "reason": "The cue is grammatically correct and flows naturally as spoken English, with clear sentence structure and appropriate vocabulary, despite factual inaccuracies."
+      },
+      {
+        "cue_id": 2,
+        "score": 4,
+        "reason": "The cue is well-structured and uses natural spoken English with clear sequencing, but contains factual inaccuracies relative to the visual evidence."
+      },
+      {
+        "cue_id": 3,
+        "score": 4,
+        "reason": "Grammatically correct and coherent narration, but contains factual inaccuracies and misdescriptions of actions."
+      },
+      {
+        "cue_id": 4,
+        "score": 5,
+        "reason": "The cue is well-structured, uses natural spoken English flow, varied vocabulary, and clear temporal sequencing with no disfluencies."
+      },
+      {
+        "cue_id": 5,
+        "score": 5,
+        "reason": "The cue is grammatically correct, flows naturally, and uses appropriate vocabulary for describing a cooking process. No disfluencies or awkward phrasing."
+      },
+      {
+        "cue_id": 6,
+        "score": 5,
+        "reason": "The cue is grammatically correct, flows naturally, and uses precise culinary language (folds, rolls, pinch, twist, coiled spiral, secure the shape) with native-like fluency."
+      },
+      {
+        "cue_id": 7,
+        "score": 5,
+        "reason": "The cue is well-structured, uses precise culinary vocabulary (twisted dough balls, floured mat, wooden pin), and flows naturally as spoken English narration."
+      },
+      {
+        "cue_id": 8,
+        "score": 5,
+        "reason": "The cue text is grammatically correct, flows naturally, and uses appropriate vocabulary for describing a cooking process."
+      }
+    ],
+    "frame_audit": [
+      {
+        "cue_id": 1,
+        "claim": "A wooden mixing bowl holds flour on a white countertop",
+        "frame_times": [
+          0.05,
+          0.15,
+          0.25,
+          0.35,
+          0.5
+        ],
+        "verdict": "supported",
+        "reason": "The stills show a wooden bowl containing white flour on a white, distressed countertop."
+      },
+      {
+        "cue_id": 1,
+        "claim": "The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left",
+        "frame_times": [
+          0.05,
+          0.15,
+          0.25,
+          0.35,
+          0.5
+        ],
+        "verdict": "supported",
+        "reason": "The stills show a person in a checkered shirt and black apron using their right hand to mix flour in the bowl while their left hand holds the bowl steady."
+      },
+      {
+        "cue_id": 2,
+        "claim": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again.",
+        "frame_times": [
+          2.786,
+          7.359,
+          11.931,
+          16.503,
+          23.362
+        ],
+        "verdict": "supported",
+        "reason": "The stills show water being poured from a clear glass pitcher into a bowl of flour, the cook mixing by hand, then pouring more water from the pitcher and continuing to mix by hand."
+      },
+      {
+        "cue_id": 2,
+        "claim": "Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+        "frame_times": [
+          2.786,
+          7.359,
+          11.931,
+          16.503,
+          23.362
+        ],
+        "verdict": "contradicted",
+        "reason": "The stills show the dough being kneaded with a gloved right hand and forming a cohesive ball, but no oil is poured from a small white bowl; the small white bowl on the table appears to contain a spoon and is not shown being poured."
+      },
+      {
+        "cue_id": 3,
+        "claim": "The cook finishes kneading the dough into a smooth ball",
+        "frame_times": [
+          23.592,
+          24.053,
+          24.514,
+          24.975,
+          25.666
+        ],
+        "verdict": "supported",
+        "reason": "The first still shows the cook kneading dough in the wooden bowl, and the second still shows the dough as a smooth ball in the bowl, indicating the kneading is finished."
+      },
+      {
+        "cue_id": 3,
+        "claim": "A second person pours oil from a small bowl into a spoon held over the wooden bowl",
+        "frame_times": [
+          23.592,
+          24.053,
+          24.514,
+          24.975,
+          25.666
+        ],
+        "verdict": "supported",
+        "reason": "The stills show a second person holding a small bowl of oil and pouring it into a spoon held over the wooden bowl containing the dough."
+      },
+      {
+        "cue_id": 4,
+        "claim": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball",
+        "frame_times": [
+          27.979,
+          32.606,
+          37.233,
+          41.86,
+          48.8
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills show the cook kneading dough in a wooden bowl, but no glass bowl or oil-pouring action is visible in the provided frames."
+      },
+      {
+        "cue_id": 4,
+        "claim": "then lifts it onto the white wooden countertop",
+        "frame_times": [
+          27.979,
+          32.606,
+          37.233,
+          41.86,
+          48.8
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the dough being kneaded in a bowl on the white wooden countertop, and subsequent frames show the dough being worked on the countertop surface, consistent with it being placed there."
+      },
+      {
+        "cue_id": 5,
+        "claim": "from a small dish",
+        "frame_times": [
+          50.92,
+          55.16,
+          59.4,
+          63.64,
+          70.0
+        ],
+        "verdict": "supported",
+        "reason": "A small glass dish containing flour is visible on the mat next to the dough balls, consistent with flour being sprinkled from a small dish."
+      },
+      {
+        "cue_id": 6,
+        "claim": "The cook folds the dough strip in half",
+        "frame_times": [
+          71.394,
+          74.182,
+          76.97,
+          79.758,
+          83.94
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the cook handling a long dough strip and folding it over itself."
+      },
+      {
+        "cue_id": 6,
+        "claim": "pinch and twist it tightly into a coiled spiral",
+        "frame_times": [
+          71.394,
+          74.182,
+          76.97,
+          79.758,
+          83.94
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the cook pinching and twisting the dough into a spiral shape."
+      },
+      {
+        "cue_id": 6,
+        "claim": "pressing the end down to secure the shape",
+        "frame_times": [
+          71.394,
+          74.182,
+          76.97,
+          79.758,
+          83.94
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the cook pressing the end of the twisted dough down onto the mat."
+      },
+      {
+        "cue_id": 6,
+        "claim": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape.",
+        "frame_times": [
+          71.394,
+          74.182,
+          76.97,
+          79.758,
+          83.94
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the full sequence: folding, rolling into a rope, twisting into a spiral, and pressing the end down."
+      },
+      {
+        "cue_id": 7,
+        "claim": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin.",
+        "frame_times": [
+          86.339,
+          91.136,
+          95.934,
+          100.731,
+          107.927
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills show dough balls in a brown bowl, an inverted white bowl being placed, and dough being rolled with a wooden pin, but the oiling with a spoon, the 35-minute rest duration, the count of six balls, and the lifting of the cover are not visible in the provided frames."
+      },
+      {
+        "cue_id": 7,
+        "claim": "The cover is lifted to reveal six rested balls.",
+        "frame_times": [
+          86.339,
+          91.136,
+          95.934,
+          100.731,
+          107.927
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills show an inverted white bowl being placed over the dough and later dough balls in the brown bowl, but the lifting of the cover and the exact count of six balls are not shown."
+      },
+      {
+        "cue_id": 7,
+        "claim": "rest for 35 minutes",
+        "frame_times": [
+          86.339,
+          91.136,
+          95.934,
+          100.731,
+          107.927
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills show a white bowl covering the dough with an on-screen caption reading \"an hour,\" not 35 minutes, and no timing information confirms 35 minutes."
+      },
+      {
+        "cue_id": 8,
+        "claim": "The cook rolls the dough back and forth into a larger round disc",
+        "frame_times": [
+          109.096,
+          111.435,
+          113.773,
+          116.111,
+          119.619
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the rolling pin moving over the dough and the dough becoming a larger round disc on the mat."
+      },
+      {
+        "cue_id": 8,
+        "claim": "lifts and flips it over",
+        "frame_times": [
+          109.096,
+          111.435,
+          113.773,
+          116.111,
+          119.619
+        ],
+        "verdict": "supported",
+        "reason": "A still shows the cook's hand lifting and turning the dough over on the mat."
+      },
+      {
+        "cue_id": 8,
+        "claim": "then continues rolling it thinner and more circular",
+        "frame_times": [
+          109.096,
+          111.435,
+          113.773,
+          116.111,
+          119.619
+        ],
+        "verdict": "supported",
+        "reason": "The stills show the dough being rolled again and appearing thinner and more circular."
+      },
+      {
+        "cue_id": 8,
+        "claim": "The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\"",
+        "frame_times": [
+          109.096,
+          111.435,
+          113.773,
+          116.111,
+          119.619
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills show the mat with measurement circles, but the title \"Roll the rotis\" is not visible in any still."
+      }
+    ]
+  },
+  "aggregate": {
+    "pauses_inside_speech": 0,
+    "pause_ids_inside_speech": [],
+    "pause_at_cut_or_speech_boundary_percent": 50.0,
+    "max_undescribed_gap_s": 23.987,
+    "total_added_seconds": 109.137,
+    "words_per_cue": [
+      33,
+      52,
+      27,
+      58,
+      38,
+      34,
+      53,
+      45
+    ],
+    "words_per_cue_mean": 42.5,
+    "key_event_coverage_percent": 100.0,
+    "action_step_coverage_percent": 50.6,
+    "hallucinated_claims": 17,
+    "chronology_errors": 14,
+    "confusing_explained_percent": 75.0,
+    "fluency_mean": 4.62,
+    "judge_flagged_claims": 17,
+    "judge_flagged_chronology": 14,
+    "frame_contradicted_claims": 1,
+    "frame_uncertain_claims": 5,
+    "frame_supported_claims": 14
+  },
+  "usage": {
+    "cost_usd": 0.0453247,
+    "budget_usd": 0.08,
+    "input_tokens": 29488,
+    "output_tokens": 9537
+  }
+}

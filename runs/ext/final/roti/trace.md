@@ -1,0 +1,38 @@
+# Agent trace
+
+- 1 ✓ tool stage:speech: speech: 16 speech intervals; 37% speech; 0 between-sentence micro-silences
+- 2 ✓ tool stage:shots: shots: 11 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0283
+- 3 ✓ submodel : {"setting": "Indoor kitchen counter with white wooden surface and natural lighting.", "people": [{"description": "Person in striped shirt and black apron, hands visible only.", "doing": "Mixing, kneading, and rolling dou
+- 4 ✓ tool stage:scene: scene: setting: Indoor kitchen counter with white wooden surface and natural lighting. | people: Person in striped shirt and black apron, hands visible only., Mixing, kneading, and rolling dough. | activity:
+- 5 ✓ submodel : {"events": [{"t_start": 0.0, "t_end": 1.99, "what": "A person in a striped shirt and black apron mixes white flour inside a large wooden bowl with their right hand while holding the bowl steady with their left hand.", "c
+- 6 ✓ submodel : {"events": [{"t_start": 11.99, "t_end": 14.99, "what": "The person pours oil from a small white bowl onto the dough in the wooden bowl while the dough is nearly done.", "change": "Oil is added to the dough mixture.", "on
+- 7 ✓ submodel : {"events": [{"t_start": 23.98, "t_end": 27.98, "what": "The person pours oil from a small glass bowl onto the dough in the wooden bowl, then sets the empty bowl aside.", "change": "Oil is added to the dough, a new ingred
+- 8 ✓ submodel : {"events": [{"t_start": 35.98, "t_end": 39.0, "what": "The person sprinkles flour from both hands onto the silicone mat, then places a large dough ball in the center and presses it down with both palms.", "change": "Flou
+- 9 ✓ submodel : {"events": [{"t_start": 47.97, "t_end": 50.96, "what": "The person places a dough ball in the center of the floured mat and presses it flat with their palm.", "change": "A new dough ball is selected and flattened by hand
+- 10 ✓ submodel : {"events": [{"t_start": 59.96, "t_end": 63.0, "what": "The person rolls the flattened dough with a wooden rolling pin on a silicone mat, making it longer and thinner.", "change": "The dough becomes more elongated as roll
+- 11 ✓ submodel : {"events": [{"t_start": 71.95, "t_end": 74.95, "what": "The person rolls a long strip of dough back and forth on the floured silicone mat with both hands, stretching it into a thin rope.", "change": "The dough is being e
+- 12 ✓ submodel : {"events": [{"t_start": 83.94, "t_end": 86.94, "what": "The person places the twisted dough balls into a brown bowl on the silicone mat.", "change": "The dough moves from the mat into a bowl.", "on_screen_text": "", "sub
+- 13 ✓ submodel : {"events": [{"t_start": 95.94, "t_end": 98.94, "what": "The person lifts a white bowl off a brown bowl to reveal six round dough balls inside.", "change": "The covering bowl is removed, exposing the rested dough.", "on_s
+- 14 ✓ submodel : {"events": [{"t_start": 107.93, "t_end": 111.0, "what": "The person rolls the dough back and forth with a wooden rolling pin on a floured silicone mat, expanding it into a larger round disc.", "change": "The dough become
+- 15 ✓ tool stage:timeline: timeline: 37 events from 10 windows ({'video': 10, 'absolute': 10}); 26 with subtitles (speech, never read)
+- 16 ✓ orchestrator : {"setting": "Indoor kitchen counter with white wooden surface and natural lighting", "place": "home kitchen", "cast": [{"id": "c1", "descriptor": "the cook", "first_seen": 0, "notes": "wearing a striped shirt "}], "objec
+- 17 ✓ tool stage:bible: bible: place: home kitchen | setting: Indoor kitchen counter with white wooden surface and natural lighting | cast: the cook | goal: soft layered roti (paratha) | story: The cook mixes flour, water, and oil 
+- 18 ✓ tool stage:pause_plan: pause_plan: 8 pauses; largest source gap 23.99 s (hard max 25.0 s); final at 119.92 s
+- 19 ✓ submodel : {"frames": [{"t": 0.5, "setting": "A kitchen workspace with a white distressed wooden table, a glass measuring cup of water, a small bowl, a wooden mixing bowl, a white pitcher, a small glass jar, and a metal bowl with l
+- 20 ✓ submodel : {"frames": [{"t": 107.93, "setting": "A kitchen workspace with a wooden table and a dark silicone baking mat marked with measurement circles and text.", "present": ["A person wearing a black apron over a yellow-and-white
+- 21 ✓ tool stage:pause_frames: pause_frames: 8 current frames described by Super VL
+- 22 ✓ orchestrator : {"cues": [{"pause_id": 1, "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, a small white bowl, a small glass jar, a metal bowl with liquid, and a rolling pin. The cook, wearing a s
+- 23 ✓ tool stage:extended_write: extended_write: 8 of 8 pauses written in one Ultra call
+- 24 ✓ orchestrator : {"cues": [{"pause_id": 1, "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their 
+- 25 ✓ submodel : {"verdicts": [{"gap_id": 3, "verdict": "supported", "wrong": "", "reason": "The frames show the dough as a smooth ball in the wooden bowl, and a second person holding a small bowl while a spoon is used to pour oil into t
+- 26 ✓ submodel : {"verdicts": [{"gap_id": 5, "verdict": "supported", "wrong": "", "reason": "The frames show the cook holding a dough ball over the floured mat, then the dough rolled into a long thin oval with a wooden pin, and flour in 
+- 27 ✓ submodel : {"verdicts": [{"gap_id": 8, "verdict": "supported", "wrong": "", "reason": "The frames show the cook rolling dough back and forth with a rolling pin on a mat marked with measurement circles, lifting and flipping the doug
+- 28 ✓ orchestrator : {"cues": [{"pause_id": 1, "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left.",
+- 29 ✓ submodel : {"verdicts": [{"gap_id": 2, "verdict": "supported", "wrong": "", "reason": "The frames show water being poured from a clear pitcher into a bowl of flour, then mixed by hand; more water is added and mixed; a gloved right 
+- 30 ✓ submodel : {"verdicts": [{"gap_id": 4, "verdict": "supported", "wrong": "", "reason": "The frames show the cook kneading dough in a wooden bowl, then flour being sprinkled on a silicone mat, dough portions cut with a knife, and sev
+- 31 ✓ submodel : {"verdicts": [{"gap_id": 6, "verdict": "supported", "wrong": "", "reason": "The frames show the cook rolling a dough strip into a thin rope, then pinching and twisting it into a coiled spiral and pressing the end down to
+- 32 ✓ submodel : {"verdicts": [{"gap_id": 7, "verdict": "supported", "wrong": "", "reason": "The frames show twisted dough balls in a brown bowl, an inverted white bowl used as a cover, the cover lifted to reveal six rested balls, one ba
+- 33 ✓ submodel : {"verdicts": [{"gap_id": 1, "verdict": "supported", "wrong": "", "reason": "The frames show a wooden mixing bowl with flour on a white countertop, and a cook in a checkered shirt and black apron mixing the flour with the
+- 34 ✓ tool stage:extended_check_verify: extended_check_verify: 8 verified extended cues; 0 dropped; 2 repair rounds
+- 35 ✓ tool stage:extended_rescue: extended_rescue: 0 pauses still missing; rescue not needed or disabled
+- 36 ✓ tool stage:render: render: 8 freezes rendered; +109.14 seconds

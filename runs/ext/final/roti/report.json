@@ -1,0 +1,1732 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 119.919433,
+  "fallback_finalize": false,
+  "issues": [],
+  "mode": "director",
+  "video_title": "How To Make Soft Layered Roti - Paratha",
+  "ad_mode": "extended",
+  "input_path": "/workspace/hackathons/nebius-nvidia/narrate_opus/samples/cooking_roti_0028-0148.mp4",
+  "detector": "silero-onnx",
+  "speech_ratio": 0.3711825421989771,
+  "detector_fallback_reason": null,
+  "micro_silences": [],
+  "scene_context": {
+    "setting": "Indoor kitchen counter with white wooden surface and natural lighting.",
+    "activity": "Preparing dough by mixing, dividing into balls, flattening, and rolling out.",
+    "dish": "",
+    "visual_style": "Close-up cooking video with overhead and eye-level shots.",
+    "people": [
+      "Person in striped shirt and black apron, hands visible only., Mixing, kneading, and rolling dough."
+    ],
+    "ingredients": [
+      "flour",
+      "dough balls",
+      "oil"
+    ],
+    "tools": [
+      "wooden bowl",
+      "rolling pin",
+      "silicone mat",
+      "glass container",
+      "small dish with spoon"
+    ],
+    "objects": [
+      "dough balls in brown bowl",
+      "floured mat",
+      "wooden board"
+    ],
+    "burned_in_subtitles": true,
+    "confidence": 0.95
+  },
+  "extended_coverage": {
+    "planned": 8,
+    "described": 8,
+    "largest_source_gap_s": 23.987,
+    "max_source_gap_s": 25.0,
+    "missing_pause_ids": [],
+    "guarantee_met": true
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "source_t": 0.5,
+      "out_start": 0.8,
+      "out_end": 10.83102,
+      "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left."
+    },
+    {
+      "id": 2,
+      "source_t": 23.362,
+      "out_start": 34.39302,
+      "out_end": 50.879188,
+      "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms."
+    },
+    {
+      "id": 3,
+      "source_t": 25.666,
+      "out_start": 53.883188,
+      "out_end": 62.265592,
+      "text": "The cook finishes kneading the dough into a smooth ball. A second person pours oil from a small bowl into a spoon held over the wooden bowl."
+    },
+    {
+      "id": 4,
+      "source_t": 48.8,
+      "out_start": 86.099592,
+      "out_end": 103.119819,
+      "text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat."
+    },
+    {
+      "id": 5,
+      "source_t": 70.0,
+      "out_start": 125.019819,
+      "out_end": 136.200227,
+      "text": "The cook places a dough ball on the floured silicone mat, presses it flat, and rolls it into a long thin oval with a wooden pin. More flour is sprinkled from a small dish over the flattened dough."
+    },
+    {
+      "id": 6,
+      "source_t": 83.94,
+      "out_start": 150.840227,
+      "out_end": 160.070159,
+      "text": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape."
+    },
+    {
+      "id": 7,
+      "source_t": 107.927,
+      "out_start": 184.757159,
+      "out_end": 201.162057,
+      "text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin."
+    },
+    {
+      "id": 8,
+      "source_t": 119.919,
+      "out_start": 213.854057,
+      "out_end": 228.656778,
+      "text": "The cook rolls the dough back and forth into a larger round disc, lifts and flips it over, then continues rolling it thinner and more circular. The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\"."
+    }
+  ],
+  "pauses": [
+    {
+      "t": 0.5,
+      "snapped": false,
+      "from_t": 0.5,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 0.5,
+      "reason": "establishing pause near the start",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left.",
+      "narration_seconds": 10.031,
+      "freeze_seconds": 10.731,
+      "out_start": 0.5,
+      "out_end": 11.23102,
+      "cue_out_start": 0.8,
+      "cue_out_end": 10.83102,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a wooden mixing bowl with flour on a white countertop, and a cook in a checkered shirt and black apron mixing the flour with their right hand while steadying the bowl with their left."
+      }
+    },
+    {
+      "t": 23.362,
+      "snapped": false,
+      "from_t": 23.362,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 23.362,
+      "reason": "speech-end boundary",
+      "source": "speech_end",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+      "narration_seconds": 16.486,
+      "freeze_seconds": 17.186,
+      "out_start": 34.09302,
+      "out_end": 51.279188,
+      "cue_out_start": 34.39302,
+      "cue_out_end": 50.879188,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show water being poured from a clear pitcher into a bowl of flour, then mixed by hand; more water is added and mixed; a gloved right hand kneads the dough into a cohesive ball. The oil step is not shown in these frames, but no cl"
+      }
+    },
+    {
+      "t": 25.666,
+      "snapped": true,
+      "from_t": 23.98,
+      "snap_seconds": 1.686,
+      "snap_reason": "forward_to_speech_end",
+      "candidate_t": 25.666,
+      "reason": "high-importance event e8; speech-end boundary; story beat",
+      "source": "timeline_event",
+      "detail": "The person finishes kneading the dough, which now forms a cohesive ball in the wooden bowl.",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The cook finishes kneading the dough into a smooth ball. A second person pours oil from a small bowl into a spoon held over the wooden bowl.",
+      "narration_seconds": 8.382,
+      "freeze_seconds": 9.082,
+      "out_start": 53.583188,
+      "out_end": 62.665592,
+      "cue_out_start": 53.883188,
+      "cue_out_end": 62.265592,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the dough as a smooth ball in the wooden bowl, and a second person holding a small bowl while a spoon is used to pour oil into the wooden bowl, matching the cue's claims."
+      }
+    },
+    {
+      "t": 48.8,
+      "snapped": true,
+      "from_t": 47.968,
+      "snap_seconds": 0.832,
+      "snap_reason": "forward_to_scene_cut",
+      "candidate_t": 48.8,
+      "reason": "high-importance event e14; scene cut; story beat",
+      "source": "timeline_event",
+      "detail": "The person picks up each small dough piece, rolls it between their palms into a smooth ball, and places the finished balls in a line on the left side of the mat",
+      "id": 4,
+      "cue_id": 4,
+      "cue_text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat.",
+      "narration_seconds": 17.02,
+      "freeze_seconds": 17.72,
+      "out_start": 85.799592,
+      "out_end": 103.519819,
+      "cue_out_start": 86.099592,
+      "cue_out_end": 103.119819,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook kneading dough in a wooden bowl, then flour being sprinkled on a silicone mat, dough portions cut with a knife, and several dough balls lined up on the mat. The oil-pouring and lifting onto the countertop are not sh"
+      }
+    },
+    {
+      "t": 70.0,
+      "snapped": false,
+      "from_t": 70.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 70.0,
+      "reason": "scene cut",
+      "source": "scene_cut",
+      "id": 5,
+      "cue_id": 5,
+      "cue_text": "The cook places a dough ball on the floured silicone mat, presses it flat, and rolls it into a long thin oval with a wooden pin. More flour is sprinkled from a small dish over the flattened dough.",
+      "narration_seconds": 11.18,
+      "freeze_seconds": 11.88,
+      "out_start": 124.719819,
+      "out_end": 136.600227,
+      "cue_out_start": 125.019819,
+      "cue_out_end": 136.200227,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook holding a dough ball over the floured mat, then the dough rolled into a long thin oval with a wooden pin, and flour in a glass dish on the mat. The exact moment of placing the ball and pressing it flat is not shown,"
+      }
+    },
+    {
+      "t": 83.94,
+      "snapped": false,
+      "from_t": 83.94,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 83.94,
+      "reason": "high-importance event e25",
+      "source": "timeline_event",
+      "detail": "The person finishes twisting the dough into a tight spiral and presses the end down to secure the shape.",
+      "id": 6,
+      "cue_id": 6,
+      "cue_text": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape.",
+      "narration_seconds": 9.23,
+      "freeze_seconds": 9.93,
+      "out_start": 150.540227,
+      "out_end": 160.470159,
+      "cue_out_start": 150.840227,
+      "cue_out_end": 160.070159,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling a dough strip into a thin rope, then pinching and twisting it into a coiled spiral and pressing the end down to secure it, matching the cue's claims."
+      }
+    },
+    {
+      "t": 107.927,
+      "snapped": false,
+      "from_t": 107.927,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 107.927,
+      "reason": "high-importance event e33",
+      "source": "timeline_event",
+      "detail": "The person uses a wooden rolling pin to flatten the dough ball into a round disc on the mat.",
+      "id": 7,
+      "cue_id": 7,
+      "cue_text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin.",
+      "narration_seconds": 16.405,
+      "freeze_seconds": 17.105,
+      "out_start": 184.457159,
+      "out_end": 201.562057,
+      "cue_out_start": 184.757159,
+      "cue_out_end": 201.162057,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show twisted dough balls in a brown bowl, an inverted white bowl used as a cover, the cover lifted to reveal six rested balls, one ball taken to the floured mat, and it being rolled into a round disc with a wooden pin. All claims"
+      }
+    },
+    {
+      "t": 119.919,
+      "snapped": false,
+      "from_t": 119.919,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 119.919,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 8,
+      "cue_id": 8,
+      "cue_text": "The cook rolls the dough back and forth into a larger round disc, lifts and flips it over, then continues rolling it thinner and more circular. The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\".",
+      "narration_seconds": 14.803,
+      "freeze_seconds": 15.503,
+      "out_start": 213.554057,
+      "out_end": 229.056778,
+      "cue_out_start": 213.854057,
+      "cue_out_end": 228.656778,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling dough back and forth with a rolling pin on a mat marked with measurement circles, lifting and flipping the dough, and continuing to roll it into a larger, thinner, more circular round. The final frame shows "
+      }
+    }
+  ],
+  "speech": [
+    {
+      "start": 1.3319999999999999,
+      "end": 6.092
+    },
+    {
+      "start": 21.652,
+      "end": 23.212
+    },
+    {
+      "start": 23.7,
+      "end": 25.516000000000002
+    },
+    {
+      "start": 31.892,
+      "end": 34.187999999999995
+    },
+    {
+      "start": 35.348000000000006,
+      "end": 38.54
+    },
+    {
+      "start": 39.604000000000006,
+      "end": 42.348
+    },
+    {
+      "start": 54.516000000000005,
+      "end": 58.412
+    },
+    {
+      "start": 58.772000000000006,
+      "end": 64.87599999999999
+    },
+    {
+      "start": 65.58800000000001,
+      "end": 67.084
+    },
+    {
+      "start": 71.50800000000001,
+      "end": 74.636
+    },
+    {
+      "start": 74.9,
+      "end": 75.532
+    },
+    {
+      "start": 78.036,
+      "end": 80.74799999999999
+    },
+    {
+      "start": 88.116,
+      "end": 89.996
+    },
+    {
+      "start": 93.14,
+      "end": 95.98
+    },
+    {
+      "start": 96.628,
+      "end": 99.852
+    },
+    {
+      "start": 103.284,
+      "end": 105.51599999999999
+    }
+  ],
+  "cues_committed": 8,
+  "cues_dropped": 0,
+  "dropped_cues": {},
+  "overlaps_with_speech": 0,
+  "total_added_seconds": 109.138,
+  "output_duration_s": 229.057211,
+  "extended_stats": {
+    "pauses": 8,
+    "total_added_seconds": 109.138,
+    "overlaps_with_speech": 0
+  },
+  "bible": {
+    "setting": "Indoor kitchen counter with white wooden surface and natural lighting",
+    "place": "home kitchen",
+    "cast": [
+      {
+        "id": "c1",
+        "descriptor": "the cook",
+        "first_seen": 0.0,
+        "notes": "wearing a striped shirt and black apron; hands visible only; gender not visible"
+      }
+    ],
+    "objects": [
+      "flour",
+      "lukewarm water",
+      "oil",
+      "large wooden bowl",
+      "glass pitcher",
+      "small white bowl",
+      "small glass bowl",
+      "silicone mat",
+      "wooden rolling pin",
+      "knife",
+      "small dish with spoon",
+      "brown bowl",
+      "white bowl"
+    ],
+    "goal": "soft layered roti (paratha)",
+    "story": "The cook mixes flour, water, and oil into a dough, divides and shapes it into balls, rolls and folds one into a spiral, rests the pieces, then rolls a rested ball into a thin round roti.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "mixing flour and water into a dough",
+        "why": "forms the base dough",
+        "events": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ]
+      },
+      {
+        "t": 12.0,
+        "beat": "adding oil and kneading to a cohesive ball",
+        "why": "incorporates fat for softness",
+        "events": [
+          "e5",
+          "e6",
+          "e7",
+          "e8"
+        ]
+      },
+      {
+        "t": 24.0,
+        "beat": "second oiling and kneading until dough is ready",
+        "why": "further enriches the dough",
+        "events": [
+          "e9",
+          "e10"
+        ]
+      },
+      {
+        "t": 33.0,
+        "beat": "dividing dough and shaping into small balls",
+        "why": "prepares portions for layering",
+        "events": [
+          "e11",
+          "e12",
+          "e13",
+          "e14"
+        ]
+      },
+      {
+        "t": 48.0,
+        "beat": "rolling, folding, and twisting one ball into a spiral",
+        "why": "creates the layered structure",
+        "events": [
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20"
+        ]
+      },
+      {
+        "t": 83.9,
+        "beat": "oiling spirals and resting covered for 35 minutes",
+        "why": "relaxes gluten for easier final rolling",
+        "events": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31"
+        ]
+      },
+      {
+        "t": 101.9,
+        "beat": "rolling a rested ball into a thin round roti",
+        "why": "forms the final flatbread ready to cook",
+        "events": [
+          "e32",
+          "e33",
+          "e34",
+          "e35",
+          "e36",
+          "e37"
+        ]
+      }
+    ],
+    "names": [
+      {
+        "name": "silicone mat",
+        "aliases": [
+          "floured mat"
+        ],
+        "from_t": 36.0
+      },
+      {
+        "name": "white wooden countertop",
+        "aliases": [
+          "counter",
+          "white wooden counter"
+        ],
+        "from_t": 33.0
+      },
+      {
+        "name": "large wooden bowl",
+        "aliases": [
+          "wooden bowl",
+          "bowl"
+        ],
+        "from_t": 0.0
+      },
+      {
+        "name": "brown bowl",
+        "aliases": [
+          "bowl"
+        ],
+        "from_t": 83.9
+      },
+      {
+        "name": "white bowl",
+        "aliases": [
+          "bowl",
+          "covering bowl"
+        ],
+        "from_t": 89.9
+      }
+    ],
+    "look_for": [
+      {
+        "t_start": 117.0,
+        "t_end": 119.9,
+        "what": "the finished thin round roti shown clearly on the mat"
+      }
+    ],
+    "on_screen_text": [
+      {
+        "t": 117.0,
+        "text": "Roll the rotis",
+        "kind": "title"
+      }
+    ],
+    "subtitles_present": true,
+    "tone": "instructional and calm",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 1.99,
+      "what": "A person in a striped shirt and black apron mixes white flour inside a large wooden bowl with their right hand while holding the bowl steady with their left hand.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person begins mixing the flour in the bowl."
+    },
+    {
+      "id": "e2",
+      "t_start": 2.0,
+      "t_end": 5.99,
+      "what": "The person pours lukewarm water from a clear glass pitcher into the flour in the wooden bowl, adding just enough as needed.",
+      "on_screen_text": "",
+      "subtitle_text": "Use lukewarm water and add it just as much as you need",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "Water is introduced to the flour mixture."
+    },
+    {
+      "id": "e3",
+      "t_start": 6.0,
+      "t_end": 8.99,
+      "what": "The person uses their right hand to mix the water into the flour inside the wooden bowl, combining the ingredients.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The flour and water are being combined by hand."
+    },
+    {
+      "id": "e4",
+      "t_start": 9.0,
+      "t_end": 11.99,
+      "what": "The person pours more water from the glass pitcher into the bowl and continues mixing the flour and water together with their hand.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Additional water is added and the mixture is stirred further."
+    },
+    {
+      "id": "e5",
+      "t_start": 11.992,
+      "t_end": 14.99,
+      "what": "The person pours oil from a small white bowl onto the dough in the wooden bowl while the dough is nearly done.",
+      "on_screen_text": "",
+      "subtitle_text": "nearly done,",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Oil is added to the dough mixture."
+    },
+    {
+      "id": "e6",
+      "t_start": 14.99,
+      "t_end": 17.99,
+      "what": "The person kneads the dough with gloved hands inside the wooden bowl, incorporating the oil into the mixture.",
+      "on_screen_text": "",
+      "subtitle_text": "add the oil,",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is being kneaded after oil is added."
+    },
+    {
+      "id": "e7",
+      "t_start": 17.99,
+      "t_end": 20.99,
+      "what": "The person continues to knead the dough, pressing and folding it within the wooden bowl.",
+      "on_screen_text": "",
+      "subtitle_text": "and knead the dough.",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The kneading process continues with the oil incorporated."
+    },
+    {
+      "id": "e8",
+      "t_start": 20.99,
+      "t_end": 23.98,
+      "what": "The person finishes kneading the dough, which now forms a cohesive ball in the wooden bowl.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough has been fully kneaded into a single mass."
+    },
+    {
+      "id": "e9",
+      "t_start": 23.984,
+      "t_end": 27.98,
+      "what": "The person pours oil from a small glass bowl onto the dough in the wooden bowl, then sets the empty bowl aside.",
+      "on_screen_text": "",
+      "subtitle_text": "teadough of oil",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Oil is added to the dough, a new ingredient introduced in this window."
+    },
+    {
+      "id": "e10",
+      "t_start": 27.98,
+      "t_end": 32.98,
+      "what": "The person kneads the oiled dough inside the wooden bowl, pressing and folding it with a gloved hand until it forms a smooth ball.",
+      "on_screen_text": "",
+      "subtitle_text": "Our dough is ready now",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough is worked into a cohesive ball after the oil is incorporated."
+    },
+    {
+      "id": "e11",
+      "t_start": 32.98,
+      "t_end": 35.976,
+      "what": "The person lifts the finished dough ball out of the wooden bowl and places it on the white wooden countertop.",
+      "on_screen_text": "",
+      "subtitle_text": "I'm using a",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is removed from the bowl and set on the counter, ready for the next step."
+    },
+    {
+      "id": "e12",
+      "t_start": 35.98,
+      "t_end": 39.0,
+      "what": "The person sprinkles flour from both hands onto the silicone mat, then places a large dough ball in the center and presses it down with both palms.",
+      "on_screen_text": "",
+      "subtitle_text": "sprinkling some flour on it",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "Flour is added to the mat and the dough ball is set down and flattened."
+    },
+    {
+      "id": "e13",
+      "t_start": 39.0,
+      "t_end": 43.0,
+      "what": "The person uses a knife to cut the flattened dough into several smaller portions and arranges them in a row on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "I'll divide the dough into smaller balls",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The single dough ball is divided into multiple smaller pieces."
+    },
+    {
+      "id": "e14",
+      "t_start": 43.0,
+      "t_end": 47.968,
+      "what": "The person picks up each small dough piece, rolls it between their palms into a smooth ball, and places the finished balls in a line on the left side of the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "into smaller balls",
+      "importance": 4,
+      "confidence": 0.95,
+      "change": "Each cut portion is shaped into a round ball and lined up."
+    },
+    {
+      "id": "e15",
+      "t_start": 47.97,
+      "t_end": 50.96,
+      "what": "The person places a dough ball in the center of the floured mat and presses it flat with their palm.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "A new dough ball is selected and flattened by hand."
+    },
+    {
+      "id": "e16",
+      "t_start": 50.96,
+      "t_end": 54.96,
+      "what": "The person uses a wooden rolling pin to roll the flattened dough into a long oval shape.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is rolled out with a rolling pin instead of being pressed by hand."
+    },
+    {
+      "id": "e17",
+      "t_start": 54.96,
+      "t_end": 59.96,
+      "what": "The person continues rolling the dough into a thin, elongated oval while subtitles appear.",
+      "on_screen_text": "",
+      "subtitle_text": "Roll the dough into rotis as thin as possible",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough becomes thinner and more elongated as rolling continues."
+    },
+    {
+      "id": "e18",
+      "t_start": 59.96,
+      "t_end": 63.0,
+      "what": "The person rolls the flattened dough with a wooden rolling pin on a silicone mat, making it longer and thinner.",
+      "on_screen_text": "",
+      "subtitle_text": "You can use oil of your choice,",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough becomes more elongated as rolling continues."
+    },
+    {
+      "id": "e19",
+      "t_start": 63.0,
+      "t_end": 66.0,
+      "what": "The person continues rolling the dough back and forth with the rolling pin.",
+      "on_screen_text": "",
+      "subtitle_text": "or even butter if you like",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is stretched further into a thin oval shape."
+    },
+    {
+      "id": "e20",
+      "t_start": 66.0,
+      "t_end": 69.0,
+      "what": "The person stops rolling and sprinkles more flour over the dough from a small dish.",
+      "on_screen_text": "",
+      "subtitle_text": "more flour",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Fresh flour is added to the surface of the dough."
+    },
+    {
+      "id": "e21",
+      "t_start": 69.0,
+      "t_end": 71.95,
+      "what": "The person folds the dough in half lengthwise with both hands and begins to roll it again.",
+      "on_screen_text": "",
+      "subtitle_text": "Just roll",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough is folded over before being rolled once more."
+    },
+    {
+      "id": "e22",
+      "t_start": 71.952,
+      "t_end": 74.95,
+      "what": "The person rolls a long strip of dough back and forth on the floured silicone mat with both hands, stretching it into a thin rope.",
+      "on_screen_text": "",
+      "subtitle_text": "As shown",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is being elongated into a rope shape."
+    },
+    {
+      "id": "e23",
+      "t_start": 74.95,
+      "t_end": 77.95,
+      "what": "The person stops rolling and uses both hands to pinch and fold the dough strip, beginning to twist it into a spiral shape.",
+      "on_screen_text": "",
+      "subtitle_text": "Now I'll",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The rolling stops and twisting begins."
+    },
+    {
+      "id": "e24",
+      "t_start": 77.95,
+      "t_end": 80.95,
+      "what": "The person continues to twist the dough strip tightly with both hands, forming a coiled spiral shape on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "like a cinnamon roll",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is being twisted into a spiral."
+    },
+    {
+      "id": "e25",
+      "t_start": 80.95,
+      "t_end": 83.94,
+      "what": "The person finishes twisting the dough into a tight spiral and presses the end down to secure the shape.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The spiral shape is completed and secured."
+    },
+    {
+      "id": "e26",
+      "t_start": 83.944,
+      "t_end": 86.94,
+      "what": "The person places the twisted dough balls into a brown bowl on the silicone mat.",
+      "on_screen_text": "",
+      "subtitle_text": "Add a little",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough moves from the mat into a bowl."
+    },
+    {
+      "id": "e27",
+      "t_start": 86.94,
+      "t_end": 89.94,
+      "what": "The person pours oil from a spoon over the dough balls in the bowl and pats them down with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "oil on top",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Oil is added to the dough and the balls are pressed flat."
+    },
+    {
+      "id": "e28",
+      "t_start": 89.94,
+      "t_end": 92.94,
+      "what": "The person places a white bowl upside down over the brown bowl to cover the dough.",
+      "on_screen_text": "",
+      "subtitle_text": "Cover it and let it rest",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is covered with a bowl."
+    },
+    {
+      "id": "e29",
+      "t_start": 92.94,
+      "t_end": 95.936,
+      "what": "The person keeps their hands on the white bowl, holding it in place over the dough.",
+      "on_screen_text": "",
+      "subtitle_text": "for half",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The covered dough is left to rest."
+    },
+    {
+      "id": "e30",
+      "t_start": 95.94,
+      "t_end": 98.94,
+      "what": "The person lifts a white bowl off a brown bowl to reveal six round dough balls inside.",
+      "on_screen_text": "",
+      "subtitle_text": "an hour",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The covering bowl is removed, exposing the rested dough."
+    },
+    {
+      "id": "e31",
+      "t_start": 98.94,
+      "t_end": 101.94,
+      "what": "The person gestures over the bowl of dough balls with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "I let it rest to 35 minutes",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The dough balls are now fully visible and the person indicates them."
+    },
+    {
+      "id": "e32",
+      "t_start": 101.94,
+      "t_end": 104.94,
+      "what": "The person takes one dough ball from the bowl and places it on the floured silicone mat.",
+      "on_screen_text": "",
+      "subtitle_text": "Now we'll make",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "A single dough ball is moved from the bowl to the work surface."
+    },
+    {
+      "id": "e33",
+      "t_start": 104.94,
+      "t_end": 107.927,
+      "what": "The person uses a wooden rolling pin to flatten the dough ball into a round disc on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "the rotis",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough ball is being rolled out into a flat shape."
+    },
+    {
+      "id": "e34",
+      "t_start": 107.93,
+      "t_end": 111.0,
+      "what": "The person rolls the dough back and forth with a wooden rolling pin on a floured silicone mat, expanding it into a larger round disc.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The dough becomes visibly larger and flatter as rolling continues."
+    },
+    {
+      "id": "e35",
+      "t_start": 111.0,
+      "t_end": 114.0,
+      "what": "The person lifts the dough with both hands, flips it over, and places it back on the mat before resuming rolling.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough is turned over to ensure even flattening on both sides."
+    },
+    {
+      "id": "e36",
+      "t_start": 114.0,
+      "t_end": 117.0,
+      "what": "The person continues rolling the dough with the wooden pin, pressing down to make it thinner and more circular.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The dough spreads further outward and becomes more uniform in thickness."
+    },
+    {
+      "id": "e37",
+      "t_start": 117.0,
+      "t_end": 119.919,
+      "what": "The person finishes rolling the dough into a thin, wide round shape on the mat.",
+      "on_screen_text": "Roll the rotis",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.95,
+      "change": "The rolling step is complete and the dough is now a large flat disc."
+    }
+  ],
+  "shots": [
+    15.8,
+    35.6,
+    36.8,
+    38.0,
+    42.2,
+    48.8,
+    52.2,
+    70.0,
+    88.0,
+    96.0,
+    105.6
+  ],
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.291,
+      "input": "Silero VAD speech intervals",
+      "output": "16 speech intervals; 37% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.504,
+      "input": "ffmpeg scene cuts",
+      "output": "11 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0283"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2359,
+      "tokens_out": 183,
+      "cost_usd": 0.0008724,
+      "latency_s": 2.972,
+      "input": "Super VL scene context",
+      "output": "setting: Indoor kitchen counter with white wooden surface and natural lighting. | people: Person in striped shirt and black apron, hands visible only., Mixing, kneading, and rolling dough. | activity: Preparing dough by mixing, dividing into balls, flattening, and rolling out. | ingredients: flour, "
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 25870,
+      "tokens_out": 3504,
+      "cost_usd": 0.0109146,
+      "latency_s": 30.974,
+      "input": "Super VL whole-clip windows",
+      "output": "37 events from 10 windows ({'video': 10, 'absolute': 10}); 26 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 4134,
+      "tokens_out": 1019,
+      "cost_usd": 0.007191,
+      "latency_s": 4.292,
+      "input": "Ultra scene/story bible",
+      "output": "place: home kitchen | setting: Indoor kitchen counter with white wooden surface and natural lighting | cast: the cook | goal: soft layered roti (paratha) | story: The cook mixes flour, water, and oil into a dough, divides and shapes it into balls, rolls and folds one into a spiral, rests the pieces, then rolls a rested ball into a thin round roti. | 7 beats"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.001,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "8 pauses; largest source gap 23.99 s (hard max 25.0 s); final at 119.92 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 2914,
+      "tokens_out": 1189,
+      "cost_usd": 0.0019443,
+      "latency_s": 6.274,
+      "input": "Super VL current frames at pauses",
+      "output": "8 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6395,
+      "tokens_out": 737,
+      "cost_usd": 0.008606,
+      "latency_s": 3.551,
+      "input": "one Ultra call for every pause",
+      "output": "8 of 8 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 2,
+      "tokens_in": 21869,
+      "tokens_out": 1176,
+      "cost_usd": 0.0135985,
+      "latency_s": 20.387,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "8 verified extended cues; 0 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 pauses still missing; rescue not needed or disabled"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 40.532,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "8 freezes rendered; +109.14 seconds"
+    }
+  ],
+  "cue_history": {
+    "1": [
+      {
+        "step": "check",
+        "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, a small white bowl, a small glass jar, a metal bowl with liquid, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their right hand.",
+        "evidence": [],
+        "problems": [
+          "Style: 50 words; tighten toward 20-45",
+          "no cited evidence in (previous pause, this pause]"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their right hand."
+      },
+      {
+        "step": "check",
+        "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their right hand.",
+        "evidence": [],
+        "problems": [
+          "no cited evidence in (previous pause, this pause]"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left."
+      },
+      {
+        "step": "check",
+        "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left.",
+        "evidence": [
+          "frame-p1"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a wooden mixing bowl with flour on a white countertop, and a cook in a checkered shirt and black apron mixing the flour with their right hand while steadying the bowl with their left."
+      }
+    ],
+    "2": [
+      {
+        "step": "check",
+        "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from the small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms in the wooden bowl.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5",
+          "e6",
+          "e7"
+        ],
+        "problems": [
+          "Style: 56 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms."
+      },
+      {
+        "step": "check",
+        "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5",
+          "e6",
+          "e7"
+        ],
+        "problems": [
+          "Style: 52 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show water being poured from a clear pitcher into a bowl of flour, then mixed by hand; more water is added and mixed; a gloved right hand kneads the dough into a cohesive ball. The oil step is not shown in these frames, but no cl"
+      }
+    ],
+    "3": [
+      {
+        "step": "check",
+        "text": "The cook finishes kneading the dough into a smooth ball. A second person pours oil from a small bowl into a spoon held over the wooden bowl.",
+        "evidence": [
+          "e8"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the dough as a smooth ball in the wooden bowl, and a second person holding a small bowl while a spoon is used to pour oil into the wooden bowl, matching the cue's claims."
+      }
+    ],
+    "4": [
+      {
+        "step": "check",
+        "text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14"
+        ],
+        "problems": [
+          "Style: 58 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat."
+      },
+      {
+        "step": "check",
+        "text": "The cook pours oil from a glass bowl onto the dough and kneads it into a smooth ball, then lifts it onto the white wooden countertop. Flour is sprinkled on the silicone mat, the dough is pressed flat, cut into portions with a knife, and each piece is rolled into a ball and lined up on the mat.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14"
+        ],
+        "problems": [
+          "Style: 58 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook kneading dough in a wooden bowl, then flour being sprinkled on a silicone mat, dough portions cut with a knife, and several dough balls lined up on the mat. The oil-pouring and lifting onto the countertop are not sh"
+      }
+    ],
+    "5": [
+      {
+        "step": "check",
+        "text": "The cook places a dough ball on the floured silicone mat, presses it flat, and rolls it into a long thin oval with a wooden pin. More flour is sprinkled from a small dish over the flattened dough.",
+        "evidence": [
+          "e15",
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook holding a dough ball over the floured mat, then the dough rolled into a long thin oval with a wooden pin, and flour in a glass dish on the mat. The exact moment of placing the ball and pressing it flat is not shown,"
+      }
+    ],
+    "6": [
+      {
+        "step": "check",
+        "text": "The cook folds the dough strip in half, rolls it into a thin rope, then pinches and twists it tightly into a coiled spiral, pressing the end down to secure it.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24",
+          "e25"
+        ],
+        "problems": [
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape."
+      },
+      {
+        "step": "check",
+        "text": "The cook folds the dough strip in half and rolls it into a thin rope. They then pinch and twist it tightly into a coiled spiral, pressing the end down to secure the shape.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24",
+          "e25"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling a dough strip into a thin rope, then pinching and twisting it into a coiled spiral and pressing the end down to secure it, matching the cue's claims."
+      }
+    ],
+    "7": [
+      {
+        "step": "check",
+        "text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32",
+          "e33"
+        ],
+        "problems": [
+          "Style: 53 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin."
+      },
+      {
+        "step": "check",
+        "text": "The twisted dough balls are placed in a brown bowl, oiled with a spoon, and covered with an inverted white bowl to rest for 35 minutes. The cover is lifted to reveal six rested balls. One ball is taken to the floured mat and rolled into a round disc with a wooden pin.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32",
+          "e33"
+        ],
+        "problems": [
+          "Style: 53 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show twisted dough balls in a brown bowl, an inverted white bowl used as a cover, the cover lifted to reveal six rested balls, one ball taken to the floured mat, and it being rolled into a round disc with a wooden pin. All claims"
+      }
+    ],
+    "8": [
+      {
+        "step": "check",
+        "text": "The cook rolls the dough back and forth into a larger round disc, lifts and flips it over, then continues rolling it thinner and more circular. The finished thin round roti lies on the mat marked with measurement circles and the title \"Roll the rotis\".",
+        "evidence": [
+          "e34",
+          "e35",
+          "e36",
+          "e37"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling dough back and forth with a rolling pin on a mat marked with measurement circles, lifting and flipping the dough, and continuing to roll it into a larger, thinner, more circular round. The final frame shows "
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 4,
+    "max_ultra_calls": 6
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2359,
+      "output_tokens": 183,
+      "cost_usd": 0.0008724,
+      "latency_s": 2.074669706998975,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2504,
+      "output_tokens": 386,
+      "cost_usd": 0.0010986,
+      "latency_s": 2.967497825000464,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2597,
+      "output_tokens": 375,
+      "cost_usd": 0.0011166,
+      "latency_s": 2.8238338839983044,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2590,
+      "output_tokens": 319,
+      "cost_usd": 0.0010641,
+      "latency_s": 2.425204818999191,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2604,
+      "output_tokens": 296,
+      "cost_usd": 0.0010475999999999999,
+      "latency_s": 2.678754549997393,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2613,
+      "output_tokens": 283,
+      "cost_usd": 0.0010386,
+      "latency_s": 2.069812211997487,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2588,
+      "output_tokens": 370,
+      "cost_usd": 0.0011094000000000002,
+      "latency_s": 2.261236987000302,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2589,
+      "output_tokens": 376,
+      "cost_usd": 0.0011151,
+      "latency_s": 2.281787934000022,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2595,
+      "output_tokens": 368,
+      "cost_usd": 0.0011097000000000001,
+      "latency_s": 2.2196177110017743,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2590,
+      "output_tokens": 381,
+      "cost_usd": 0.0011199,
+      "latency_s": 2.3896365290020185,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2600,
+      "output_tokens": 350,
+      "cost_usd": 0.001095,
+      "latency_s": 2.3898899070009065,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 4134,
+      "output_tokens": 1019,
+      "cost_usd": 0.007191,
+      "latency_s": 4.284562614000606,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2079,
+      "output_tokens": 846,
+      "cost_usd": 0.0013851,
+      "latency_s": 3.636464896000689,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 835,
+      "output_tokens": 343,
+      "cost_usd": 0.0005592,
+      "latency_s": 1.678930998998112,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6395,
+      "output_tokens": 737,
+      "cost_usd": 0.008606,
+      "latency_s": 3.539502628998889,
+      "cost_role": "extended_write"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 5524,
+      "output_tokens": 447,
+      "cost_usd": 0.006865,
+      "latency_s": 2.4528879829995276,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1959,
+      "output_tokens": 65,
+      "cost_usd": 0.0006461999999999999,
+      "latency_s": 1.6040337429985811,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1958,
+      "output_tokens": 104,
+      "cost_usd": 0.000681,
+      "latency_s": 1.621979855997779,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1993,
+      "output_tokens": 89,
+      "cost_usd": 0.000678,
+      "latency_s": 1.8068206770003599,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1482,
+      "output_tokens": 65,
+      "cost_usd": 0.001677,
+      "latency_s": 1.2767450379978982,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1986,
+      "output_tokens": 90,
+      "cost_usd": 0.0006768,
+      "latency_s": 1.4211827580002137,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1991,
+      "output_tokens": 97,
+      "cost_usd": 0.0006845999999999999,
+      "latency_s": 1.4981007480018889,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1961,
+      "output_tokens": 70,
+      "cost_usd": 0.0006513,
+      "latency_s": 1.4761231260017667,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1994,
+      "output_tokens": 82,
+      "cost_usd": 0.0006719999999999999,
+      "latency_s": 1.7409795710009348,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1021,
+      "output_tokens": 67,
+      "cost_usd": 0.0003666,
+      "latency_s": 1.04851729299844,
+      "cost_role": "verify"
+    }
+  ],
+  "cost_by_role": {
+    "bible": 0.007191,
+    "extended_repair": 0.008542,
+    "extended_write": 0.008606,
+    "pause_frames": 0.0019443,
+    "scene": 0.0008724,
+    "timeline": 0.0109146,
+    "verify": 0.005056499999999999
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.021577887213659525,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 4,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0187878,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.024339000000000003
+    },
+    "total_latency_s": 114.68170487699899
+  },
+  "estimated_cost_usd": 0.0431268,
+  "would_be_token_factory_cost_usd": 0.0431268,
+  "reserved_spend_usd": 0.04312679999999999,
+  "cost_per_minute": 0.021577887213659525,
+  "latency_s": 114.68170487699899
+}

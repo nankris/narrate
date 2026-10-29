@@ -1,0 +1,22 @@
+{
+  "source_duration": 30.0,
+  "output_duration": 61.618,
+  "total_added_seconds": 31.618,
+  "clips": {
+    "en-p1": {
+      "raw_s": 10.057,
+      "spoken_s": 9.007,
+      "speed": 1.0
+    },
+    "en-p2": {
+      "raw_s": 12.774,
+      "spoken_s": 12.083,
+      "speed": 1.0
+    },
+    "en-p3": {
+      "raw_s": 9.143,
+      "spoken_s": 8.428,
+      "speed": 1.0
+    }
+  }
+}

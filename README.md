@@ -2,6 +2,9 @@
 
 **Narrate pauses video at safe boundaries, describes what has already happened, and resumes without speaking over dialogue.** This extended audio-description mode is designed for videos where ordinary in-gap description has too little room. Narrate also ships its original in-gap English/Hindi agent.
 
+> **Status (2026-10-29):** this branch (`nebius-final`) is the hackathon submission: the timing-fixed extended audio-description pipeline plus the submission docs and offline bundle. Offline test suite on this branch: 278 passed, 0 failed (`.venv/bin/python -m pytest -q`). The cached extended-mode reports behind the numbers in this README are in `runs/ext/final/{roti,lecture}/` (`report.json`, `score.json`, `trace.json`); `scripts/check_doc_numbers.py` checks the documented numbers against them.
+> A broader "generic clip" pass (removing clip-specific assumptions) is **unfinished** and lives only on branch [`codex/generic`](https://github.com/nankris/narrate/tree/codex/generic); it was stopped mid-way and 2 of its tests still fail, so it is not merged here.
+
 - WebVTT description tracks (`ad_en.vtt`, `ad_hi.vtt`) and plain-text transcripts;
 - narrated MP4s with the original audio ducked under each description;
 - `trace.json` / `trace.md`, the full agent trace (every tool call, model, token count, cost and correction);

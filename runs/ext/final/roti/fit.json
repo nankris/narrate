@@ -1,0 +1,47 @@
+{
+  "source_duration": 119.919433,
+  "output_duration": 223.291433,
+  "total_added_seconds": 103.372,
+  "clips": {
+    "en-p1": {
+      "raw_s": 10.214,
+      "spoken_s": 9.586,
+      "speed": 1.0
+    },
+    "en-p2": {
+      "raw_s": 16.797,
+      "spoken_s": 15.722,
+      "speed": 1.0
+    },
+    "en-p3": {
+      "raw_s": 7.889,
+      "spoken_s": 7.182,
+      "speed": 1.0
+    },
+    "en-p4": {
+      "raw_s": 15.778,
+      "spoken_s": 14.834,
+      "speed": 1.0
+    },
+    "en-p5": {
+      "raw_s": 12.565,
+      "spoken_s": 11.752,
+      "speed": 1.0
+    },
+    "en-p6": {
+      "raw_s": 9.561,
+      "spoken_s": 8.336,
+      "speed": 1.0
+    },
+    "en-p7": {
+      "raw_s": 16.614,
+      "spoken_s": 15.654,
+      "speed": 1.0
+    },
+    "en-p8": {
+      "raw_s": 15.543,
+      "spoken_s": 14.706,
+      "speed": 1.0
+    }
+  }
+}

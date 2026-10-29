@@ -1,0 +1,1440 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.1,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null,
+    "mode": "director",
+    "ad_mode": "extended"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 4.192867599998863,
+      "role": "tool",
+      "note": "speech: 16 speech intervals; 37% speech; 0 between-sentence micro-silences",
+      "tool_name": "stage:speech",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 2.291,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 5.696508539000206,
+      "role": "tool",
+      "note": "shots: 11 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0283",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 1.504,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 8.668640918000165,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Indoor kitchen counter with white wooden surface and natural lighting.",
+        "people": [
+          {
+            "description": "Person in striped shirt and black apron, hands visible only.",
+            "doing": "Mixing, kneading, and rolling dough."
+          }
+        ],
+        "ingredients": [
+          "flour",
+          "dough balls",
+          "oil"
+        ],
+        "tools": [
+          "wooden bowl",
+          "rolling pin",
+          "silicone mat",
+          "glass container",
+          "small dish with spoon"
+        ],
+        "objects": [
+          "dough balls in brown bowl",
+          "floured mat",
+          "wooden board"
+        ],
+        "activity": "Preparing dough by mixing, dividing into balls, flattening, and rolling out.",
+        "dish": "",
+        "visual_style": "Close-up cooking video with overhead and eye-level shots.",
+        "burned_in_subtitles": true,
+        "confidence": 0.95
+      },
+      "ok": true,
+      "latency_s": 2.4148299349981244,
+      "tokens_in": 2359,
+      "tokens_out": 183,
+      "cost_usd": 0.0008724,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 8.668714804000047,
+      "role": "tool",
+      "note": "scene: setting: Indoor kitchen counter with white wooden surface and natural lighting. | people: Person in striped shirt and black apron, hands visible only., Mixing, kneading, and rolling dough. | activity:",
+      "tool_name": "stage:scene",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2359,
+        "tokens_out": 183,
+        "cost_usd": 0.0008724
+      },
+      "ok": true,
+      "latency_s": 2.972,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 12.225996352000948,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 1.99,
+            "what": "A person in a striped shirt and black apron mixes white flour inside a large wooden bowl with their right hand while holding the bowl steady with their left hand.",
+            "change": "The person begins mixing the flour in the bowl.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 2.0,
+            "t_end": 5.99,
+            "what": "The person pours lukewarm water from a clear glass pitcher into the flour in the wooden bowl, adding just enough as needed.",
+            "change": "Water is introduced to the flour mixture.",
+            "on_screen_text": "",
+            "subtitle_text": "Use lukewarm water and add it just as much as you need",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.9735592889992404,
+      "tokens_in": 2504,
+      "tokens_out": 386,
+      "cost_usd": 0.0010986,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 15.721591749999789,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 11.99,
+            "t_end": 14.99,
+            "what": "The person pours oil from a small white bowl onto the dough in the wooden bowl while the dough is nearly done.",
+            "change": "Oil is added to the dough mixture.",
+            "on_screen_text": "",
+            "subtitle_text": "nearly done,",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 14.99,
+            "t_end": 17.99,
+            "what": "The person kneads the dough with gloved hands inside the wooden bowl, incorporating the oil into the mixture.",
+            "change": "The dough is being kneaded after oil is added.",
+            "on_screen_text": "",
+            "subtitle_text": "add the oil,",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.829522565003572,
+      "tokens_in": 2597,
+      "tokens_out": 375,
+      "cost_usd": 0.0011166,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 18.775628389001213,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 23.98,
+            "t_end": 27.98,
+            "what": "The person pours oil from a small glass bowl onto the dough in the wooden bowl, then sets the empty bowl aside.",
+            "change": "Oil is added to the dough, a new ingredient introduced in this window.",
+            "on_screen_text": "",
+            "subtitle_text": "teadough of oil",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 27.98,
+            "t_end": 32.98,
+            "what": "The person kneads the oiled dough inside the wooden bowl, pressing and folding it with a gloved hand until it forms a smooth ball.",
+            "change": "The dough is worked into a cohesive ball after the oil is incorporated.",
+            "on_screen_text": "",
+            "subtitle_text": "Our dough is ready now",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.4312820909981383,
+      "tokens_in": 2590,
+      "tokens_out": 319,
+      "cost_usd": 0.0010641,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 22.051303408999956,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 35.98,
+            "t_end": 39.0,
+            "what": "The person sprinkles flour from both hands onto the silicone mat, then places a large dough ball in the center and presses it down with both palms.",
+            "change": "Flour is added to the mat and the dough ball is set down and flattened.",
+            "on_screen_text": "",
+            "subtitle_text": "sprinkling some flour on it",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 39.0,
+            "t_end": 43.0,
+            "what": "The person uses a knife to cut the flattened dough into several smaller portions and arranges them in a row on the mat.",
+            "change": "The single dough ball is divided into multiple smaller pieces.",
+            "on_screen_text": "",
+            "subtitle_text": "I'll divide the dough into smaller balls",
+            "importance": 3,
+            "confidence": 0.95
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.6851885260002746,
+      "tokens_in": 2604,
+      "tokens_out": 296,
+      "cost_usd": 0.0010475999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 24.838737409001624,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 47.97,
+            "t_end": 50.96,
+            "what": "The person places a dough ball in the center of the floured mat and presses it flat with their palm.",
+            "change": "A new dough ball is selected and flattened by hand.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 50.96,
+            "t_end": 54.96,
+            "what": "The person uses a wooden rolling pin to roll the flattened dough into a long oval shape.",
+            "change": "The dough is rolled out with a rolling pin instead of being pressed by hand.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.075776609002787,
+      "tokens_in": 2613,
+      "tokens_out": 283,
+      "cost_usd": 0.0010386,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 27.76782239900058,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 59.96,
+            "t_end": 63.0,
+            "what": "The person rolls the flattened dough with a wooden rolling pin on a silicone mat, making it longer and thinner.",
+            "change": "The dough becomes more elongated as rolling continues.",
+            "on_screen_text": "",
+            "subtitle_text": "You can use oil of your choice,",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 63.0,
+            "t_end": 66.0,
+            "what": "The person continues rolling the dough back and forth with the rolling pin.",
+            "change": "The dough is stretched further into a thin oval shape.",
+            "on_screen_text": "",
+            "subtitle_text": "or even butter if you like",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.267241711000679,
+      "tokens_in": 2588,
+      "tokens_out": 370,
+      "cost_usd": 0.0011094000000000002,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 30.698167270998965,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 71.95,
+            "t_end": 74.95,
+            "what": "The person rolls a long strip of dough back and forth on the floured silicone mat with both hands, stretching it into a thin rope.",
+            "change": "The dough is being elongated into a rope shape.",
+            "on_screen_text": "",
+            "subtitle_text": "As shown",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 74.95,
+            "t_end": 77.95,
+            "what": "The person stops rolling and uses both hands to pinch and fold the dough strip, beginning to twist it into a spiral shape.",
+            "change": "The rolling stops and twisting begins.",
+            "on_screen_text": "",
+            "subtitle_text": "Now I'll",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.2911513689978165,
+      "tokens_in": 2589,
+      "tokens_out": 376,
+      "cost_usd": 0.0011151,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 33.610929908998514,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 83.94,
+            "t_end": 86.94,
+            "what": "The person places the twisted dough balls into a brown bowl on the silicone mat.",
+            "change": "The dough moves from the mat into a bowl.",
+            "on_screen_text": "",
+            "subtitle_text": "Add a little",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 86.94,
+            "t_end": 89.94,
+            "what": "The person pours oil from a spoon over the dough balls in the bowl and pats them down with both hands.",
+            "change": "Oil is added to the dough and the balls are pressed flat.",
+            "on_screen_text": "",
+            "subtitle_text": "oil on top",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.225558592002926,
+      "tokens_in": 2595,
+      "tokens_out": 368,
+      "cost_usd": 0.0011097000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 36.59738168400145,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 95.94,
+            "t_end": 98.94,
+            "what": "The person lifts a white bowl off a brown bowl to reveal six round dough balls inside.",
+            "change": "The covering bowl is removed, exposing the rested dough.",
+            "on_screen_text": "",
+            "subtitle_text": "an hour",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 98.94,
+            "t_end": 101.94,
+            "what": "The person gestures over the bowl of dough balls with both hands.",
+            "change": "The dough balls are now fully visible and the person indicates them.",
+            "on_screen_text": "",
+            "subtitle_text": "I let it rest to 35 minutes",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.3988419300003443,
+      "tokens_in": 2590,
+      "tokens_out": 381,
+      "cost_usd": 0.0011199,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 39.641540914999496,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 107.93,
+            "t_end": 111.0,
+            "what": "The person rolls the dough back and forth with a wooden rolling pin on a floured silicone mat, expanding it into a larger round disc.",
+            "change": "The dough becomes visibly larger and flatter as rolling continues.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.95
+          },
+          {
+            "t_start": 111.0,
+            "t_end": 114.0,
+            "what": "The person lifts the dough with both hands, flips it over, and places it back on the mat before resuming rolling.",
+            "change": "The dough is turned over to ensure even flattening on both sides.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.396469152998179,
+      "tokens_in": 2600,
+      "tokens_out": 350,
+      "cost_usd": 0.001095,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 39.64317612599916,
+      "role": "tool",
+      "note": "timeline: 37 events from 10 windows ({'video': 10, 'absolute': 10}); 26 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 10,
+        "tokens_in": 25870,
+        "tokens_out": 3504,
+        "cost_usd": 0.0109146
+      },
+      "ok": true,
+      "latency_s": 30.974,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 16,
+      "t_wall": 43.93478114699974,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Indoor kitchen counter with white wooden surface and natural lighting",
+        "place": "home kitchen",
+        "cast": [
+          {
+            "id": "c1",
+            "descriptor": "the cook",
+            "first_seen": 0,
+            "notes": "wearing a striped shirt "
+          }
+        ],
+        "objects": [
+          "flour",
+          "lukewarm water",
+          "oil",
+          "large wooden bowl",
+          "glass pitcher",
+          "small white bowl"
+        ],
+        "goal": "soft layered roti (paratha)",
+        "story": "The cook mixes flour, water, and oil into a do",
+        "beats": [
+          {
+            "t": 0,
+            "beat": "mixing flour and water i",
+            "why": "forms the base dough",
+            "events": [
+              "e1",
+              "e2"
+            ]
+          }
+        ],
+        "names": [
+          {
+            "name": "silicone mat",
+            "aliases": [
+              "floured mat"
+            ],
+            "from_t": 36
+          }
+        ],
+        "look_for": [
+          {
+            "t_start": 117,
+            "t_end": 119.9,
+            "what": "the finished thin round ro"
+          }
+        ],
+        "on_screen_text": [
+          {
+            "t": 117,
+            "text": "Roll the rotis",
+            "kind": "title"
+          }
+        ],
+        "subtitles_present": true,
+        "tone": "instructional and calm",
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.290640945000632,
+      "tokens_in": 4134,
+      "tokens_out": 1019,
+      "cost_usd": 0.007191,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "bible",
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 43.93494285300039,
+      "role": "tool",
+      "note": "bible: place: home kitchen | setting: Indoor kitchen counter with white wooden surface and natural lighting | cast: the cook | goal: soft layered roti (paratha) | story: The cook mixes flour, water, and oil ",
+      "tool_name": "stage:bible",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 4134,
+        "tokens_out": 1019,
+        "cost_usd": 0.007191
+      },
+      "ok": true,
+      "latency_s": 4.292,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 18,
+      "t_wall": 43.93594279399986,
+      "role": "tool",
+      "note": "pause_plan: 8 pauses; largest source gap 23.99 s (hard max 25.0 s); final at 119.92 s",
+      "tool_name": "stage:pause_plan",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.001,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 19,
+      "t_wall": 48.271818878001795,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 0.5,
+            "setting": "A kitchen workspace with a white distressed wooden table, a glass measuring cup of water, a small bowl, a wooden mixing bowl, a white pitcher, a small glass jar, and a metal bowl with liquid.",
+            "present": [
+              "A person wearing a black apron over a checkered long-sleeve shirt, with a bracelet on the left wrist and a ring on the right hand."
+            ],
+            "objects": [
+              "wooden mixing bowl",
+              "flour",
+              "glass measuring cup",
+              "small bowl",
+              "white pitcher",
+              "small glass jar",
+              "metal bowl",
+              "rolling pin",
+              "wooden board"
+            ],
+            "action": "The person mixes white flour inside a large wooden bowl with their right hand while steadying the bowl with their left hand.",
+            "on_screen_text": [],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.642578842001967,
+      "tokens_in": 2079,
+      "tokens_out": 846,
+      "cost_usd": 0.0013851,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 50.210287187001086,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 107.93,
+            "setting": "A kitchen workspace with a wooden table and a dark silicone baking mat marked with measurement circles and text.",
+            "present": [
+              "A person wearing a black apron over a yellow-and-white striped long-sleeve shirt, with only their torso and arms visible."
+            ],
+            "objects": [
+              "A wooden rolling pin",
+              "A round piece of pale dough",
+              "A clear glass bowl containing white flour",
+              "A small bowl with liquid on the left edge",
+              "A wooden cutting board on the right edge"
+            ],
+            "action": "The person rolls the dough back and forth with a rolling pin, flattening it into a circular shape on the mat.",
+            "on_screen_text": [
+              "LINO",
+              "10 Inches",
+              "12 Inches",
+              "14 Inches",
+              "16 Inches",
+              "18 Inches"
+            ],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.6859718069972587,
+      "tokens_in": 835,
+      "tokens_out": 343,
+      "cost_usd": 0.0005592,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 50.21038492799926,
+      "role": "tool",
+      "note": "pause_frames: 8 current frames described by Super VL",
+      "tool_name": "stage:pause_frames",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 2914,
+        "tokens_out": 1189,
+        "cost_usd": 0.0019443
+      },
+      "ok": true,
+      "latency_s": 6.274,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 22,
+      "t_wall": 53.76095811399864,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, a small white bowl, a small glass jar, a metal bowl with liquid, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their right hand.",
+            "evidence": []
+          },
+          {
+            "pause_id": 2,
+            "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from the small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms in the wooden bowl.",
+            "evidence": [
+              "e1",
+              "e2",
+              "e3",
+              "e4",
+              "e5",
+              "e6",
+              "e7"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.550198974000523,
+      "tokens_in": 6395,
+      "tokens_out": 737,
+      "cost_usd": 0.008606,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_write",
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 53.76166916099828,
+      "role": "tool",
+      "note": "extended_write: 8 of 8 pauses written in one Ultra call",
+      "tool_name": "stage:extended_write",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 6395,
+        "tokens_out": 737,
+        "cost_usd": 0.008606
+      },
+      "ok": true,
+      "latency_s": 3.551,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 24,
+      "t_wall": 56.223068670999055,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A kitchen counter holds a large wooden bowl of flour, a glass pitcher of water, and a rolling pin. The cook, wearing a striped shirt and black apron, mixes flour in the bowl with their right hand.",
+            "evidence": []
+          },
+          {
+            "pause_id": 2,
+            "text": "The cook pours lukewarm water from the glass pitcher into the flour and mixes it by hand, adding more water and mixing again. Then oil is poured from a small white bowl onto the nearly formed dough, and the cook kneads it with a gloved right hand until a cohesive ball forms.",
+            "evidence": [
+              "e1",
+              "e2",
+              "e3",
+              "e4",
+              "e5",
+              "e6",
+              "e7"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.45926140300071,
+      "tokens_in": 5524,
+      "tokens_out": 447,
+      "cost_usd": 0.006865,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 58.46243006000077,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the dough as a smooth ball in the wooden bowl, and a second person holding a small bowl while a spoon is used to pour oil into the wooden bowl, matching the cue's claims."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.6103289970014885,
+      "tokens_in": 1959,
+      "tokens_out": 65,
+      "cost_usd": 0.0006461999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 26,
+      "t_wall": 60.675746070999594,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 5,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the cook holding a dough ball over the floured mat, then the dough rolled into a long thin oval with a wooden pin, and flour in a glass dish on the mat. The exact moment of placing the ball and pressing it flat is not shown, but the result is consistent; the sprinkling of more flour is not visible, though the mat and dish of flour are present."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.6279746359978162,
+      "tokens_in": 1958,
+      "tokens_out": 104,
+      "cost_usd": 0.000681,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 63.18511555399891,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 8,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the cook rolling dough back and forth with a rolling pin on a mat marked with measurement circles, lifting and flipping the dough, and continuing to roll it into a larger, thinner, more circular round. The final frame shows the finished thin round roti on the mat. All visual claims match the frames."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.8126226199965458,
+      "tokens_in": 1993,
+      "tokens_out": 89,
+      "cost_usd": 0.000678,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 64.46874613399996,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A wooden mixing bowl holds flour on a white countertop. The cook, in a checkered shirt and black apron, mixes the flour with their right hand while steadying the bowl with their left.",
+            "evidence": [
+              "frame-p1"
+            ]
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2822694859969488,
+      "tokens_in": 1482,
+      "tokens_out": 65,
+      "cost_usd": 0.001677,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 66.49194583099961,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show water being poured from a clear pitcher into a bowl of flour, then mixed by hand; more water is added and mixed; a gloved right hand kneads the dough into a cohesive ball. The oil step is not shown in these frames, but no claim is contradicted."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4286377309981617,
+      "tokens_in": 1986,
+      "tokens_out": 90,
+      "cost_usd": 0.0006768,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 68.54170586500186,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 4,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the cook kneading dough in a wooden bowl, then flour being sprinkled on a silicone mat, dough portions cut with a knife, and several dough balls lined up on the mat. The oil-pouring and lifting onto the countertop are not shown in these stills, but nothing contradicts them; the remaining claims match the visible frames."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.5039789549991838,
+      "tokens_in": 1991,
+      "tokens_out": 97,
+      "cost_usd": 0.0006845999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 70.69631094500073,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 6,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the cook rolling a dough strip into a thin rope, then pinching and twisting it into a coiled spiral and pressing the end down to secure it, matching the cue's claims."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.481877505000739,
+      "tokens_in": 1961,
+      "tokens_out": 70,
+      "cost_usd": 0.0006513,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 72.92629301700072,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 7,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show twisted dough balls in a brown bowl, an inverted white bowl used as a cover, the cover lifted to reveal six rested balls, one ball taken to the floured mat, and it being rolled into a round disc with a wooden pin. All claims match the visual evidence."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.747054281000601,
+      "tokens_in": 1994,
+      "tokens_out": 82,
+      "cost_usd": 0.0006719999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 74.14877123000042,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a wooden mixing bowl with flour on a white countertop, and a cook in a checkered shirt and black apron mixing the flour with their right hand while steadying the bowl with their left."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.0541754340010812,
+      "tokens_in": 1021,
+      "tokens_out": 67,
+      "cost_usd": 0.0003666,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 74.14886339200166,
+      "role": "tool",
+      "note": "extended_check_verify: 8 verified extended cues; 0 dropped; 2 repair rounds",
+      "tool_name": "stage:extended_check_verify",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 10,
+        "tokens_in": 21869,
+        "tokens_out": 1176,
+        "cost_usd": 0.0135985
+      },
+      "ok": true,
+      "latency_s": 20.387,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 35,
+      "t_wall": 74.14888326200162,
+      "role": "tool",
+      "note": "extended_rescue: 0 pauses still missing; rescue not needed or disabled",
+      "tool_name": "stage:extended_rescue",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 36,
+      "t_wall": 114.68115314800161,
+      "role": "tool",
+      "note": "render: 8 freezes rendered; +109.14 seconds",
+      "tool_name": "stage:render",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 40.532,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 4,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0187878,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.024339000000000003
+    },
+    "total_latency_s": 114.68170487699899
+  },
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.291,
+      "input": "Silero VAD speech intervals",
+      "output": "16 speech intervals; 37% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.504,
+      "input": "ffmpeg scene cuts",
+      "output": "11 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0283"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2359,
+      "tokens_out": 183,
+      "cost_usd": 0.0008724,
+      "latency_s": 2.972,
+      "input": "Super VL scene context",
+      "output": "setting: Indoor kitchen counter with white wooden surface and natural lighting. | people: Person in striped shirt and black apron, hands visible only., Mixing, kneading, and rolling dough. | activity: Preparing dough by mixing, dividing into balls, flattening, and rolling out. | ingredients: flour, "
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 25870,
+      "tokens_out": 3504,
+      "cost_usd": 0.0109146,
+      "latency_s": 30.974,
+      "input": "Super VL whole-clip windows",
+      "output": "37 events from 10 windows ({'video': 10, 'absolute': 10}); 26 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 4134,
+      "tokens_out": 1019,
+      "cost_usd": 0.007191,
+      "latency_s": 4.292,
+      "input": "Ultra scene/story bible",
+      "output": "place: home kitchen | setting: Indoor kitchen counter with white wooden surface and natural lighting | cast: the cook | goal: soft layered roti (paratha) | story: The cook mixes flour, water, and oil into a dough, divides and shapes it into balls, rolls and folds one into a spiral, rests the pieces, then rolls a rested ball into a thin round roti. | 7 beats"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.001,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "8 pauses; largest source gap 23.99 s (hard max 25.0 s); final at 119.92 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 2914,
+      "tokens_out": 1189,
+      "cost_usd": 0.0019443,
+      "latency_s": 6.274,
+      "input": "Super VL current frames at pauses",
+      "output": "8 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6395,
+      "tokens_out": 737,
+      "cost_usd": 0.008606,
+      "latency_s": 3.551,
+      "input": "one Ultra call for every pause",
+      "output": "8 of 8 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 2,
+      "tokens_in": 21869,
+      "tokens_out": 1176,
+      "cost_usd": 0.0135985,
+      "latency_s": 20.387,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "8 verified extended cues; 0 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 pauses still missing; rescue not needed or disabled"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 40.532,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "8 freezes rendered; +109.14 seconds"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "run": "runs/ext/lecture_e7",
+  "groundtruth": "groundtruth/failure_continuous_speech.json",
+  "cue_windows": [
+    {
+      "cue_id": 1,
+      "source_start": 0.0,
+      "source_end": 3.105,
+      "start_inclusive": true,
+      "tolerance_s": 2.0,
+      "text": "A dark blue slide displays the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner. The slide remains unchanged through the first three seconds.",
+      "key_events": [],
+      "action_steps": [],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 2,
+      "source_start": 3.105,
+      "source_end": 18.131,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The first slide persists until ten seconds, then a new dark blue slide appears with the white title \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner. That second title is now frozen on screen.",
+      "key_events": [
+        {
+          "id": "evt1",
+          "t": 15.0,
+          "what": "Slide text changes from 'CONTINUOUS SPEECH - SLIDE 1' to 'SLIDE 2 - NO ROOM FOR AD'.",
+          "importance": 1,
+          "verdict": "supported",
+          "wrong": "",
+          "verification_reason": "The first frame shows 'CONTINUOUS SPEECH - SLIDE 1' and the second shows 'SLIDE 2 - NO ROOM FOR AD', matching the claimed text change.",
+          "scoring_target": true
+        }
+      ],
+      "action_steps": [
+        {
+          "id": "seg1.a1",
+          "segment_id": "seg1",
+          "t_start": 7.5,
+          "t_end": 7.5,
+          "what": "Static title slide displayed reading 'CONTINUOUS SPEECH - SLIDE 1'."
+        }
+      ],
+      "confusing_parts": []
+    },
+    {
+      "cue_id": 3,
+      "source_start": 18.131,
+      "source_end": 30.0,
+      "start_inclusive": false,
+      "tolerance_s": 2.0,
+      "text": "The second slide holds steady until twenty-two seconds, when its left edge begins cropping away. The title still reads \"SLIDE 2 - NO ROOM FOR AD\" as the cropping starts.",
+      "key_events": [],
+      "action_steps": [
+        {
+          "id": "seg2.a1",
+          "segment_id": "seg2",
+          "t_start": 22.5,
+          "t_end": 22.5,
+          "what": "Slide changes to read 'SLIDE 2 - NO ROOM FOR AD'."
+        }
+      ],
+      "confusing_parts": []
+    }
+  ],
+  "deterministic": {
+    "pauses_inside_speech": 1,
+    "pause_ids_inside_speech": [
+      3
+    ],
+    "pause_at_cut_or_speech_boundary_percent": 100.0,
+    "max_undescribed_gap_s": 15.026,
+    "total_added_seconds": 34.514,
+    "words_per_cue": [
+      27,
+      38,
+      30
+    ],
+    "words_per_cue_mean": 31.67
+  },
+  "judge": {
+    "key_events": [
+      {
+        "id": "evt1",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms the slide text changes from 'CONTINUOUS SPEECH - SLIDE 1' to 'SLIDE 2 - NO ROOM FOR AD' at t=15.0, which matches the cue's claim exactly."
+      }
+    ],
+    "action_steps": [
+      {
+        "id": "seg1.a1",
+        "cue_id": 2,
+        "coverage": "yes",
+        "reason": "The ground truth confirms a static title slide reading 'CONTINUOUS SPEECH - SLIDE 1' is displayed at t=7.5, matching the cue's description of the first slide persisting."
+      },
+      {
+        "id": "seg2.a1",
+        "cue_id": 3,
+        "coverage": "no",
+        "reason": "The ground truth for this window describes a static teal background with white text in the upper left corner and no slide transition. The cue claims a slide change occurs at 22 seconds, but the source window shows no such event."
+      }
+    ],
+    "confusing_parts": [],
+    "cue_claims": [
+      {
+        "cue_id": 1,
+        "unsupported_claims": [
+          "dark blue slide",
+          "white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner",
+          "The slide remains unchanged through the first three seconds"
+        ],
+        "chronology_errors": []
+      },
+      {
+        "cue_id": 2,
+        "unsupported_claims": [
+          "a new dark blue slide appears",
+          "white title \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner",
+          "That second title is now frozen on screen"
+        ],
+        "chronology_errors": []
+      },
+      {
+        "cue_id": 3,
+        "unsupported_claims": [
+          "The second slide holds steady until twenty-two seconds, when its left edge begins cropping away.",
+          "The title still reads \"SLIDE 2 - NO ROOM FOR AD\" as the cropping starts."
+        ],
+        "chronology_errors": [
+          {
+            "claim": "The second slide holds steady until twenty-two seconds, when its left edge begins cropping away.",
+            "reason": "The ground truth for this window (18.131s to 30.0s) shows a static teal background with white text; no slide transition or cropping occurs in this window."
+          },
+          {
+            "claim": "The title still reads \"SLIDE 2 - NO ROOM FOR AD\" as the cropping starts.",
+            "reason": "The ground truth for this window does not show a slide with this title or any cropping animation; it describes a static background."
+          }
+        ]
+      }
+    ],
+    "fluency": [
+      {
+        "cue_id": 1,
+        "score": 5,
+        "reason": "The cue is grammatically correct, flows naturally, and uses clear spoken English."
+      },
+      {
+        "cue_id": 2,
+        "score": 5,
+        "reason": "The cue is grammatically correct, flows naturally, and uses precise language appropriate for a professional narration."
+      },
+      {
+        "cue_id": 3,
+        "score": 4,
+        "reason": "The cue is grammatically correct and flows naturally as spoken English, with clear temporal markers and descriptive language."
+      }
+    ],
+    "frame_audit": [
+      {
+        "cue_id": 1,
+        "claim": "dark blue slide",
+        "frame_times": [
+          0.31,
+          0.931,
+          1.552,
+          2.173,
+          3.105
+        ],
+        "verdict": "supported",
+        "reason": "The stills show a dark blue/teal background."
+      },
+      {
+        "cue_id": 1,
+        "claim": "white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner",
+        "frame_times": [
+          0.31,
+          0.931,
+          1.552,
+          2.173,
+          3.105
+        ],
+        "verdict": "supported",
+        "reason": "The white text appears in the upper left area of the slide in all stills."
+      },
+      {
+        "cue_id": 1,
+        "claim": "The slide remains unchanged through the first three seconds",
+        "frame_times": [
+          0.31,
+          0.931,
+          1.552,
+          2.173,
+          3.105
+        ],
+        "verdict": "supported",
+        "reason": "The stills from 0.31s to 3.10s show the identical slide with no changes."
+      },
+      {
+        "cue_id": 2,
+        "claim": "a new dark blue slide appears",
+        "frame_times": [
+          4.608,
+          7.613,
+          10.618,
+          13.623,
+          18.131
+        ],
+        "verdict": "supported",
+        "reason": "The still at 18.131 seconds shows a new dark blue slide after the first slide persisted through 13.623 seconds."
+      },
+      {
+        "cue_id": 2,
+        "claim": "white title \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner",
+        "frame_times": [
+          4.608,
+          7.613,
+          10.618,
+          13.623,
+          18.131
+        ],
+        "verdict": "supported",
+        "reason": "The still at 18.131 seconds shows the white title \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner."
+      },
+      {
+        "cue_id": 2,
+        "claim": "That second title is now frozen on screen",
+        "frame_times": [
+          4.608,
+          7.613,
+          10.618,
+          13.623,
+          18.131
+        ],
+        "verdict": "supported",
+        "reason": "The last still is the frozen frame the cue is spoken over and it shows the second title on screen."
+      },
+      {
+        "cue_id": 3,
+        "claim": "The second slide holds steady until twenty-two seconds, when its left edge begins cropping away.",
+        "frame_times": [
+          19.288,
+          21.602,
+          23.916,
+          26.229,
+          29.7
+        ],
+        "verdict": "uncertain",
+        "reason": "The stills at 19.288, 21.602, 23.916, 26.229, and 29.7 seconds all show the full slide with the same title and no visible cropping, so the start of cropping at 22 seconds cannot be confirmed from the provided frames."
+      },
+      {
+        "cue_id": 3,
+        "claim": "The title still reads \"SLIDE 2 - NO ROOM FOR AD\" as the cropping starts.",
+        "frame_times": [
+          19.288,
+          21.602,
+          23.916,
+          26.229,
+          29.7
+        ],
+        "verdict": "uncertain",
+        "reason": "The title is clearly visible in the stills before 22 seconds, but no still shows the moment cropping starts, so whether the title remains readable at that exact moment cannot be determined."
+      }
+    ]
+  },
+  "aggregate": {
+    "pauses_inside_speech": 1,
+    "pause_ids_inside_speech": [
+      3
+    ],
+    "pause_at_cut_or_speech_boundary_percent": 100.0,
+    "max_undescribed_gap_s": 15.026,
+    "total_added_seconds": 34.514,
+    "words_per_cue": [
+      27,
+      38,
+      30
+    ],
+    "words_per_cue_mean": 31.67,
+    "key_event_coverage_percent": 100.0,
+    "action_step_coverage_percent": 50.0,
+    "hallucinated_claims": 8,
+    "chronology_errors": 2,
+    "confusing_explained_percent": 100.0,
+    "fluency_mean": 4.67,
+    "judge_flagged_claims": 8,
+    "judge_flagged_chronology": 2,
+    "frame_contradicted_claims": 0,
+    "frame_uncertain_claims": 2,
+    "frame_supported_claims": 6
+  },
+  "usage": {
+    "cost_usd": 0.0068121,
+    "budget_usd": 0.08,
+    "input_tokens": 7821,
+    "output_tokens": 1252
+  }
+}
