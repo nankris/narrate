@@ -3,7 +3,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p voices
 base=https://huggingface.co/rhasspy/piper-voices/resolve/main
-for spec in en/en_US/ljspeech hi/hi_IN/priyamvada; do
+# English only. The Hindi Piper voice (hi_IN-priyamvada) is CC BY-NC-SA (non-commercial) and is not used.
+for spec in en/en_US/ljspeech; do
   IFS=/ read -r lang locale name <<< "$spec"
   for suffix in onnx onnx.json; do
     file="$locale-$name-medium.$suffix"
