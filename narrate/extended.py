@@ -93,12 +93,20 @@ def snap_pause_time(t, speech_intervals, duration, margin=.15, max_snap=3.):
 
 
 def _event_time(event):
+    """Return the first instant at which an event is safe to describe.
+
+    Extended AD is retrospective: the picture pauses only after the referenced
+    action has finished.  Some perception rows also carry a generic ``t`` (often
+    the start or midpoint), so an explicit end must always win.
+    """
     if not isinstance(event, dict):
         return 0.
-    if 't' in event:
-        return _number(event['t'])
     if 't_end' in event:
         return _number(event['t_end'])
+    if 'end' in event:
+        return _number(event['end'])
+    if 't' in event:
+        return _number(event['t'])
     return _number(event.get('t_start'))
 
 
