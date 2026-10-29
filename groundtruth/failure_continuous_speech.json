@@ -1,0 +1,481 @@
+{
+  "clip": "failure_continuous_speech.mp4",
+  "duration": 30.0,
+  "setting": "A solid teal background with white text in the upper left corner.",
+  "cast": [],
+  "objects": [],
+  "segments": [
+    {
+      "id": "seg_0_15",
+      "t_start": 0.0,
+      "t_end": 15.0,
+      "setting": "A solid teal background with white text in the upper left corner reading 'CONTINUOUS SPEECH - SLIDE 1'.",
+      "present": [],
+      "action_steps": [
+        "Static title slide 'CONTINUOUS SPEECH - SLIDE 1' displayed on teal background."
+      ],
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "importance": 1,
+      "confusing": {
+        "is_confusing": true,
+        "why": "Continuous speech plays over a completely static slide for 15 seconds with no visual changes to illustrate the content.",
+        "what_to_explain": "The audio content during this static slide is not visually represented; a blind viewer cannot access the spoken information."
+      },
+      "recommendation": "pause_extended",
+      "reason": "Extended pause needed at segment start (0.0s) to convey the spoken content that has no visual correlate during this 15-second static slide."
+    },
+    {
+      "id": "seg_15_30",
+      "t_start": 15.0,
+      "t_end": 30.0,
+      "setting": "A solid teal background with white text in the upper left corner reading 'SLIDE 2 - NO ROOM FOR AD'.",
+      "present": [],
+      "action_steps": [
+        "Slide changes to 'SLIDE 2 - NO ROOM FOR AD' on teal background.",
+        "Static title slide displayed for remainder of clip."
+      ],
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "importance": 1,
+      "confusing": {
+        "is_confusing": true,
+        "why": "Continuous speech continues over a second static slide for 15 seconds with no visual changes; the slide text 'NO ROOM FOR AD' may reference audio description constraints not visible on screen.",
+        "what_to_explain": "The audio content during this second static slide is not visually represented; the on-screen text 'NO ROOM FOR AD' suggests a meta-commentary on audio description that a blind viewer cannot resolve without hearing the speech."
+      },
+      "recommendation": "pause_extended",
+      "reason": "Extended pause needed at slide change (15.0s) to convey the spoken content and explain the significance of the new slide text 'NO ROOM FOR AD' which has no visual explanation."
+    }
+  ],
+  "key_events": [
+    {
+      "id": "evt_slide1",
+      "t": 0.0,
+      "what": "First static slide 'CONTINUOUS SPEECH - SLIDE 1' appears; continuous speech begins.",
+      "importance": 2,
+      "verdict": "supported",
+      "wrong": "",
+      "verification_reason": "Both frames at 0.0 and 0.12 show the static slide 'CONTINUOUS SPEECH - SLIDE 1'.",
+      "scoring_target": true
+    },
+    {
+      "id": "evt_slide2",
+      "t": 15.0,
+      "what": "Slide changes to 'SLIDE 2 - NO ROOM FOR AD'; continuous speech continues.",
+      "importance": 2,
+      "verdict": "supported",
+      "wrong": "",
+      "verification_reason": "The frame at 15.12 shows the slide changed to 'SLIDE 2 - NO ROOM FOR AD', while 14.88 still shows slide 1, consistent with a change at 15.0.",
+      "scoring_target": true
+    }
+  ],
+  "confusing_parts": [
+    {
+      "id": "conf_static_speech_1",
+      "t": 0.0,
+      "what": "15 seconds of continuous speech over unchanging slide 'CONTINUOUS SPEECH - SLIDE 1'.",
+      "why": "No visual information conveys the speech content; blind viewer misses all spoken information during this period.",
+      "what_to_explain": "Summarize or convey the speech content delivered during 0-15s.",
+      "verdict": "supported",
+      "wrong": "",
+      "verification_reason": "The two frames at 0.0 and 0.12 both show the same unchanging slide 'CONTINUOUS SPEECH - SLIDE 1'.",
+      "scoring_target": true
+    },
+    {
+      "id": "conf_static_speech_2",
+      "t": 15.0,
+      "what": "15 seconds of continuous speech over unchanging slide 'SLIDE 2 - NO ROOM FOR AD'.",
+      "why": "No visual information conveys the speech content; slide text 'NO ROOM FOR AD' is cryptic without audio context.",
+      "what_to_explain": "Summarize or convey the speech content delivered during 15-30s; explain the meaning of 'NO ROOM FOR AD' in context.",
+      "verdict": "contradicted",
+      "wrong": "unchanging slide 'SLIDE 2 - NO ROOM FOR AD'",
+      "verification_reason": "The frames at 14.88 and 15.12 are not unchanging: 14.88 still shows 'CONTINUOUS SPEECH - SLIDE 1' while 15.12 shows 'SLIDE 2 - NO ROOM FOR AD'.",
+      "scoring_target": false
+    }
+  ],
+  "pause_points": [
+    {
+      "t": 0.0,
+      "snapped": false,
+      "from_t": 0.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "why": "Clip start: static slide with continuous speech begins; immediate extended pause needed to describe slide and convey speech content."
+    },
+    {
+      "t": 0.0,
+      "snapped": true,
+      "from_t": 15.0,
+      "snap_seconds": -15.0,
+      "snap_reason": "nearest_speech_free_instant",
+      "why": "Slide change to 'SLIDE 2 - NO ROOM FOR AD' during continuous speech; scene cut / visual change point ideal for extended pause to describe new slide and convey ongoing speech content."
+    }
+  ],
+  "frame_descriptions": [
+    {
+      "t": 0.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 1.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 2.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 3.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 4.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 5.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "No movement; a static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 6.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 7.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 8.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 9.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 10.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 11.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 12.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 13.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 14.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "CONTINUOUS SPEECH - SLIDE 1"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 15.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 16.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 17.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title slide is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 18.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 19.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 20.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 21.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 22.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 23.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 24.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 25.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 26.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 27.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 28.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    },
+    {
+      "t": 29.0,
+      "setting": "A solid teal background with white text in the upper left corner.",
+      "present": [],
+      "objects": [],
+      "action": "A static title card is displayed.",
+      "on_screen_text": [
+        "SLIDE 2 - NO ROOM FOR AD"
+      ],
+      "subtitle_text": []
+    }
+  ],
+  "speech_intervals": [
+    {
+      "start": 0,
+      "end": 30.0001875
+    }
+  ],
+  "scene_cuts": [],
+  "detector": "silero-onnx",
+  "fps": 1.0,
+  "usage": {
+    "stages": {
+      "frames": {
+        "calls": 5,
+        "tokens_in": 10155,
+        "tokens_out": 1983,
+        "cost_usd": 0.0048312
+      },
+      "consolidate": {
+        "calls": 1,
+        "tokens_in": 2531,
+        "tokens_out": 1112,
+        "cost_usd": 0.005867
+      },
+      "verify": {
+        "calls": 1,
+        "tokens_in": 2845,
+        "tokens_out": 322,
+        "cost_usd": 0.0011432999999999999
+      }
+    },
+    "total_cost_usd": 0.0118415,
+    "budget_usd": 0.2
+  }
+}
