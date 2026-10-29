@@ -1,0 +1,510 @@
+{
+  "source_duration": 119.919433,
+  "output_duration": 229.057211,
+  "speech_intervals": [
+    {
+      "start": 1.3319999999999999,
+      "end": 6.092
+    },
+    {
+      "start": 21.652,
+      "end": 23.212
+    },
+    {
+      "start": 23.7,
+      "end": 25.516000000000002
+    },
+    {
+      "start": 31.892,
+      "end": 34.187999999999995
+    },
+    {
+      "start": 35.348000000000006,
+      "end": 38.54
+    },
+    {
+      "start": 39.604000000000006,
+      "end": 42.348
+    },
+    {
+      "start": 54.516000000000005,
+      "end": 58.412
+    },
+    {
+      "start": 58.772000000000006,
+      "end": 64.87599999999999
+    },
+    {
+      "start": 65.58800000000001,
+      "end": 67.084
+    },
+    {
+      "start": 71.50800000000001,
+      "end": 74.636
+    },
+    {
+      "start": 74.9,
+      "end": 75.532
+    },
+    {
+      "start": 78.036,
+      "end": 80.74799999999999
+    },
+    {
+      "start": 88.116,
+      "end": 89.996
+    },
+    {
+      "start": 93.14,
+      "end": 95.98
+    },
+    {
+      "start": 96.628,
+      "end": 99.852
+    },
+    {
+      "start": 103.284,
+      "end": 105.51599999999999
+    }
+  ],
+  "pad_before": 0.3,
+  "pad_after": 0.4,
+  "pauses": [
+    {
+      "t": 0.5,
+      "snapped": false,
+      "from_t": 0.5,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 0.5,
+      "reason": "establishing pause near the start",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "A wooden mixing bowl holds flour on a white countertop. A cook in a striped shirt and black apron stands behind it.",
+      "narration_seconds": 10.031,
+      "freeze_seconds": 10.731,
+      "out_start": 0.5,
+      "out_end": 11.23102,
+      "cue_out_start": 0.8,
+      "cue_out_end": 10.83102,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a wooden mixing bowl with flour on a white countertop, and a cook in a checkered shirt and black apron mixing the flour with their right hand while steadying the bowl with their left."
+      },
+      "evidence": [
+        "frame-p1"
+      ],
+      "evidence_times": [
+        {
+          "id": "frame-p1",
+          "t_end": 0.5
+        }
+      ]
+    },
+    {
+      "t": 23.362,
+      "snapped": false,
+      "from_t": 23.362,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 23.362,
+      "reason": "speech-end boundary",
+      "source": "speech_end",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "The cook poured water from a glass pitcher into the flour, mixed it by hand, and kneaded the mixture with a gloved hand.",
+      "narration_seconds": 16.486,
+      "freeze_seconds": 17.186,
+      "out_start": 34.09302,
+      "out_end": 51.279188,
+      "cue_out_start": 34.39302,
+      "cue_out_end": 50.879188,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show water being poured from a clear pitcher into a bowl of flour, then mixed by hand; more water is added and mixed; a gloved right hand kneads the dough into a cohesive ball. The oil step is not shown in these frames, but no cl"
+      },
+      "evidence": [
+        "e2",
+        "e7"
+      ],
+      "evidence_times": [
+        {
+          "id": "e2",
+          "t_end": 5.99
+        },
+        {
+          "id": "e7",
+          "t_end": 20.99
+        }
+      ]
+    },
+    {
+      "t": 25.666,
+      "snapped": true,
+      "from_t": 23.98,
+      "snap_seconds": 1.686,
+      "snap_reason": "forward_to_speech_end",
+      "candidate_t": 25.666,
+      "reason": "high-importance event e8; speech-end boundary; story beat",
+      "source": "timeline_event",
+      "detail": "The person finishes kneading the dough, which now forms a cohesive ball in the wooden bowl.",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "A second person holds a small white dish and a spoon above the wooden mixing bowl.",
+      "narration_seconds": 8.382,
+      "freeze_seconds": 9.082,
+      "out_start": 53.583188,
+      "out_end": 62.665592,
+      "cue_out_start": 53.883188,
+      "cue_out_end": 62.265592,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the dough as a smooth ball in the wooden bowl, and a second person holding a small bowl while a spoon is used to pour oil into the wooden bowl, matching the cue's claims."
+      },
+      "evidence": [
+        "frame-p3"
+      ],
+      "evidence_times": [
+        {
+          "id": "frame-p3",
+          "t_end": 25.666
+        }
+      ]
+    },
+    {
+      "t": 48.8,
+      "snapped": true,
+      "from_t": 47.968,
+      "snap_seconds": 0.832,
+      "snap_reason": "forward_to_scene_cut",
+      "candidate_t": 48.8,
+      "reason": "high-importance event e14; scene cut; story beat",
+      "source": "timeline_event",
+      "detail": "The person picks up each small dough piece, rolls it between their palms into a smooth ball, and places the finished balls in a line on the left side of the mat",
+      "id": 4,
+      "cue_id": 4,
+      "cue_text": "The cook kneaded the dough smooth, moved it to a floured silicone mat, divided it with a knife, and rolled the portions into balls.",
+      "narration_seconds": 17.02,
+      "freeze_seconds": 17.72,
+      "out_start": 85.799592,
+      "out_end": 103.519819,
+      "cue_out_start": 86.099592,
+      "cue_out_end": 103.119819,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook kneading dough in a wooden bowl, then flour being sprinkled on a silicone mat, dough portions cut with a knife, and several dough balls lined up on the mat. The oil-pouring and lifting onto the countertop are not sh"
+      },
+      "evidence": [
+        "e10",
+        "e14"
+      ],
+      "evidence_times": [
+        {
+          "id": "e10",
+          "t_end": 32.98
+        },
+        {
+          "id": "e14",
+          "t_end": 47.968
+        }
+      ]
+    },
+    {
+      "t": 70.0,
+      "snapped": false,
+      "from_t": 70.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 70.0,
+      "reason": "scene cut",
+      "source": "scene_cut",
+      "id": 5,
+      "cue_id": 5,
+      "cue_text": "The cook pressed a dough ball flat and rolled it into a long, thin oval with a wooden pin. More flour was spread over the dough.",
+      "narration_seconds": 11.18,
+      "freeze_seconds": 11.88,
+      "out_start": 124.719819,
+      "out_end": 136.600227,
+      "cue_out_start": 125.019819,
+      "cue_out_end": 136.200227,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook holding a dough ball over the floured mat, then the dough rolled into a long thin oval with a wooden pin, and flour in a glass dish on the mat. The exact moment of placing the ball and pressing it flat is not shown,"
+      },
+      "evidence": [
+        "e15",
+        "e19"
+      ],
+      "evidence_times": [
+        {
+          "id": "e15",
+          "t_end": 50.96
+        },
+        {
+          "id": "e19",
+          "t_end": 66.0
+        }
+      ]
+    },
+    {
+      "t": 83.94,
+      "snapped": false,
+      "from_t": 83.94,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 83.94,
+      "reason": "high-importance event e25",
+      "source": "timeline_event",
+      "detail": "The person finishes twisting the dough into a tight spiral and presses the end down to secure the shape.",
+      "id": 6,
+      "cue_id": 6,
+      "cue_text": "The cook rolled the long strip into a thin rope, then coiled it into a spiral and pressed the end down.",
+      "narration_seconds": 9.23,
+      "freeze_seconds": 9.93,
+      "out_start": 150.540227,
+      "out_end": 160.470159,
+      "cue_out_start": 150.840227,
+      "cue_out_end": 160.070159,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling a dough strip into a thin rope, then pinching and twisting it into a coiled spiral and pressing the end down to secure it, matching the cue's claims."
+      },
+      "evidence": [
+        "e21",
+        "e25"
+      ],
+      "evidence_times": [
+        {
+          "id": "e21",
+          "t_end": 71.95
+        },
+        {
+          "id": "e25",
+          "t_end": 83.94
+        }
+      ]
+    },
+    {
+      "t": 107.927,
+      "snapped": false,
+      "from_t": 107.927,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 107.927,
+      "reason": "high-importance event e33",
+      "source": "timeline_event",
+      "detail": "The person uses a wooden rolling pin to flatten the dough ball into a round disc on the mat.",
+      "id": 7,
+      "cue_id": 7,
+      "cue_text": "The dough coils were placed in a brown bowl and covered with a white plate to rest. The plate was lifted, and one coil was placed on the floured mat and rolled into a disc.",
+      "narration_seconds": 16.405,
+      "freeze_seconds": 17.105,
+      "out_start": 184.457159,
+      "out_end": 201.562057,
+      "cue_out_start": 184.757159,
+      "cue_out_end": 201.162057,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show twisted dough balls in a brown bowl, an inverted white bowl used as a cover, the cover lifted to reveal six rested balls, one ball taken to the floured mat, and it being rolled into a round disc with a wooden pin. All claims"
+      },
+      "evidence": [
+        "e26",
+        "e33"
+      ],
+      "evidence_times": [
+        {
+          "id": "e26",
+          "t_end": 86.94
+        },
+        {
+          "id": "e33",
+          "t_end": 107.927
+        }
+      ]
+    },
+    {
+      "t": 119.919,
+      "snapped": false,
+      "from_t": 119.919,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 119.919,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 8,
+      "cue_id": 8,
+      "cue_text": "The cook rolled the dough back and forth into a larger round, flipped it over, and continued rolling it thinner. The clip ends while the dough is still being rolled.",
+      "narration_seconds": 14.803,
+      "freeze_seconds": 15.503,
+      "out_start": 213.554057,
+      "out_end": 229.056778,
+      "cue_out_start": 213.854057,
+      "cue_out_end": 228.656778,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the cook rolling dough back and forth with a rolling pin on a mat marked with measurement circles, lifting and flipping the dough, and continuing to roll it into a larger, thinner, more circular round. The final frame shows "
+      },
+      "evidence": [
+        "e34",
+        "e37"
+      ],
+      "evidence_times": [
+        {
+          "id": "e34",
+          "t_end": 111.0
+        },
+        {
+          "id": "e37",
+          "t_end": 119.919
+        }
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "kind": "source",
+      "src_start": 0.0,
+      "src_end": 0.5,
+      "out_start": 0.0,
+      "out_end": 0.5,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 0.5,
+      "src_end": 0.5,
+      "out_start": 0.5,
+      "out_end": 11.23102,
+      "cue_id": 1
+    },
+    {
+      "kind": "source",
+      "src_start": 0.5,
+      "src_end": 23.362,
+      "out_start": 11.23102,
+      "out_end": 34.09302,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 23.362,
+      "src_end": 23.362,
+      "out_start": 34.09302,
+      "out_end": 51.279188,
+      "cue_id": 2
+    },
+    {
+      "kind": "source",
+      "src_start": 23.362,
+      "src_end": 25.666,
+      "out_start": 51.279188,
+      "out_end": 53.583188,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 25.666,
+      "src_end": 25.666,
+      "out_start": 53.583188,
+      "out_end": 62.665592,
+      "cue_id": 3
+    },
+    {
+      "kind": "source",
+      "src_start": 25.666,
+      "src_end": 48.8,
+      "out_start": 62.665592,
+      "out_end": 85.799592,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 48.8,
+      "src_end": 48.8,
+      "out_start": 85.799592,
+      "out_end": 103.519819,
+      "cue_id": 4
+    },
+    {
+      "kind": "source",
+      "src_start": 48.8,
+      "src_end": 70.0,
+      "out_start": 103.519819,
+      "out_end": 124.719819,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 70.0,
+      "src_end": 70.0,
+      "out_start": 124.719819,
+      "out_end": 136.600227,
+      "cue_id": 5
+    },
+    {
+      "kind": "source",
+      "src_start": 70.0,
+      "src_end": 83.94,
+      "out_start": 136.600227,
+      "out_end": 150.540227,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 83.94,
+      "src_end": 83.94,
+      "out_start": 150.540227,
+      "out_end": 160.470159,
+      "cue_id": 6
+    },
+    {
+      "kind": "source",
+      "src_start": 83.94,
+      "src_end": 107.927,
+      "out_start": 160.470159,
+      "out_end": 184.457159,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 107.927,
+      "src_end": 107.927,
+      "out_start": 184.457159,
+      "out_end": 201.562057,
+      "cue_id": 7
+    },
+    {
+      "kind": "source",
+      "src_start": 107.927,
+      "src_end": 119.919,
+      "out_start": 201.562057,
+      "out_end": 213.554057,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 119.919,
+      "src_end": 119.919,
+      "out_start": 213.554057,
+      "out_end": 229.056778,
+      "cue_id": 8
+    },
+    {
+      "kind": "source",
+      "src_start": 119.919,
+      "src_end": 119.919433,
+      "out_start": 229.056778,
+      "out_end": 229.057211,
+      "cue_id": null
+    }
+  ]
+}

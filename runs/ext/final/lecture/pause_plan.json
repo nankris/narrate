@@ -1,0 +1,179 @@
+{
+  "source_duration": 30.0,
+  "output_duration": 64.515056,
+  "speech_intervals": [
+    {
+      "start": 0.0,
+      "end": 3.048073
+    },
+    {
+      "start": 3.161723,
+      "end": 10.569841
+    },
+    {
+      "start": 10.683628,
+      "end": 18.073878
+    },
+    {
+      "start": 18.187347,
+      "end": 25.588209
+    },
+    {
+      "start": 25.701542,
+      "end": 30.0001875
+    }
+  ],
+  "pad_before": 0.3,
+  "pad_after": 0.4,
+  "pauses": [
+    {
+      "t": 3.105,
+      "snapped": false,
+      "from_t": 3.105,
+      "snap_seconds": 0.0,
+      "snap_reason": "confirmed_micro_silence",
+      "candidate_t": 3.105,
+      "reason": "establishing pause at a between-sentence micro-silence",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "A dark blue slide displays the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left.",
+      "narration_seconds": 9.485,
+      "freeze_seconds": 10.185,
+      "out_start": 3.105,
+      "out_end": 13.290351,
+      "cue_out_start": 3.405,
+      "cue_out_end": 12.890351,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "All frames from 0.31 to 3.105 seconds show a dark blue slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left, unchanged across the window."
+      },
+      "evidence": [
+        "e1"
+      ],
+      "evidence_times": [
+        {
+          "id": "e1",
+          "t_end": 3.0
+        }
+      ]
+    },
+    {
+      "t": 18.131,
+      "snapped": true,
+      "from_t": 15.0,
+      "snap_seconds": 3.131,
+      "snap_reason": "forward_to_micro_silence",
+      "candidate_t": 18.131,
+      "reason": "visual change; first between-sentence boundary after it; between-sentence micro-silence",
+      "source": "visual_change",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "A second dark blue slide now displays the white title \"SLIDE 2 - NO ROOM FOR AD\" in the upper left.",
+      "narration_seconds": 12.376,
+      "freeze_seconds": 13.076,
+      "out_start": 28.316351,
+      "out_end": 41.392587,
+      "cue_out_start": 28.616351,
+      "cue_out_end": 40.992587,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames at 4.608, 7.613, 10.618, and 13.623 seconds all show the first slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" on a dark blue background, confirming it persists until ten seconds. The frame at 18.131 seconds shows the ne"
+      },
+      "evidence": [
+        "frame-p2"
+      ],
+      "evidence_times": [
+        {
+          "id": "frame-p2",
+          "t_end": 18.131
+        }
+      ]
+    },
+    {
+      "t": 30.0,
+      "snapped": false,
+      "from_t": 30.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 30.0,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The second slide remains on screen with the full title \"SLIDE 2 - NO ROOM FOR AD\".",
+      "narration_seconds": 10.553,
+      "freeze_seconds": 11.253,
+      "out_start": 53.261587,
+      "out_end": 64.515056,
+      "cue_out_start": 53.561587,
+      "cue_out_end": 64.115056,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "All frames from 19.288 to 29.7 seconds show the title \"SLIDE 2 - NO ROOM FOR AD\" on a teal background, and no left-edge cropping is visible within this window."
+      },
+      "evidence": [
+        "frame-p3"
+      ],
+      "evidence_times": [
+        {
+          "id": "frame-p3",
+          "t_end": 30.0
+        }
+      ]
+    }
+  ],
+  "segments": [
+    {
+      "kind": "source",
+      "src_start": 0.0,
+      "src_end": 3.105,
+      "out_start": 0.0,
+      "out_end": 3.105,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 3.105,
+      "src_end": 3.105,
+      "out_start": 3.105,
+      "out_end": 13.290351,
+      "cue_id": 1
+    },
+    {
+      "kind": "source",
+      "src_start": 3.105,
+      "src_end": 18.131,
+      "out_start": 13.290351,
+      "out_end": 28.316351,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 18.131,
+      "src_end": 18.131,
+      "out_start": 28.316351,
+      "out_end": 41.392587,
+      "cue_id": 2
+    },
+    {
+      "kind": "source",
+      "src_start": 18.131,
+      "src_end": 30.0,
+      "out_start": 41.392587,
+      "out_end": 53.261587,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 30.0,
+      "src_end": 30.0,
+      "out_start": 53.261587,
+      "out_end": 64.515056,
+      "cue_id": 3
+    }
+  ]
+}
