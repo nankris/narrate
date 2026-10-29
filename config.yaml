@@ -88,6 +88,12 @@ word_margin: 1
 max_duration: 120
 tts:
   backend: auto
+  reviewed_voice:
+    voice: 1076
+    model: eleven_turbo_v2_5
+    stability: 0.45
+    similarity: 0.85
+    speaker_boost: true
   voices:
     en: en
     hi: hi
@@ -111,7 +117,7 @@ agent:
   verify_below: 0.75
   retry_attempts: 3
   hangover_s: 0.3
-  scene_context: true   # one Super VL pass over 6 frames: setting, people, ingredients, tools
+  scene_context: true   # one visual pass over sampled frames: setting, people, objects and materials
   scene_frames: 6
 director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> one-shot script -> verify/repair -> Hindi
   max_silent_run_s: 20 # rescue one informative writer-skipped gap when consecutive narratable silence exceeds this
@@ -145,8 +151,8 @@ director:              # v2 default mode (DESIGN_v2.md): timeline -> bible -> on
   accept_uncertain: true        # 'uncertain' is accepted only for cues without quotes/numbers/names
   require_verification: true    # no verdict -> cue dropped, never committed unverified
   calibrate_tts: true           # word budgets from the measured speaking rate of the actual TTS voice
-  relook_max: 2                 # focused Super VL re-looks where the bible expects a beat no event shows (e.g. tasting)
-  min_detail_words: 2           # a cue needs >= 2 content words beyond who acts ("The cook rolls." fails)
+  relook_max: 2                 # focused visual re-looks where the bible expects a beat no event shows
+  min_detail_words: 2           # a cue needs at least two content words beyond who acts
   openings_max_share: 0.5       # one two-word opening may start at most half the cues; extra ones get a restyle repair
   openings_min_cues: 3
   hi_passive_share: 0.5         # Hindi: at most one passive per line, passive lines at most half the track (soft refit)

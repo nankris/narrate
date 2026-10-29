@@ -24,7 +24,7 @@ source window. Return exactly one strict JSON object with this shape:
 "fluency":{"score":1,"reason":""}}]}.
 Rules:
 - Assess every supplied key event and action step for that cue. "yes" requires the SAME visible action and SAME object;
-  shared clothing, setting, ingredient, or a different occurrence of a similar action is not coverage. Use "partial" only
+  shared clothing, setting, material, or a different occurrence of a similar action is not coverage. Use "partial" only
   when the cue names the correct action/object vaguely or incompletely. Otherwise use "no".
 - A target can be covered only in a cue window where it is supplied. Never use a cue from another window to cover it.
 - Quote every concrete cue claim not supported by that cue window's ground truth in unsupported_claims. Ordinary connective
@@ -352,8 +352,7 @@ def score_extended(run_dir, groundtruth_path, provider='nebius', *, config=None,
     else:
         client.guard, client.config = guard, cfg
         before = len(getattr(client, 'usage', []))
-        # Round 8c: one judge call per cue window. A single call over 8 roti windows hit the 5000-token output
-        # cap, the JSON was cut off, and every target scored 'judge omitted' (0% coverage, fluency 1.0).
+        # One judge call per cue window avoids truncating large multi-window responses.
         raw = {'cues': []}
         for window in windows:
             part = client.call('orchestrate', {**data, 'cue_windows': [window], '_max_tokens': 3000})

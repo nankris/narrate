@@ -36,45 +36,31 @@ DIRECTOR_LINT = [
     (re.compile(r'(?:^|[.!?]\s+|,\s+)(?:a|the|one)?\s*person\b', re.I), 'generic "Person" opener or subject. Fix: use the cast descriptor or a pronoun'),
     (re.compile(r'\bcontinu(?:e|es|ing)\b', re.I), '"continues". Fix: say what is new or changed (the result, the next step), or skip the gap'),
     (re.compile(r'\b(?:in|on) (?:the|this|that) (?:shot|frame|footage)\b|\bscreen shows\b|\b(?:is|are) filmed\b|\bclose-up\b', re.I),
-     'film-making jargon. Fix: describe what is visible and what the people do, e.g. "a crewmate photographs the pepper"'),
+     'film-making jargon. Fix: describe what is visible and what the people do, e.g. "<who> <verbs> <object>"'),
     (re.compile(r';'), 'headline fragments (";"). Fix: write one or two complete sentences with a subject; join actions with "and" or "then"'),
     # Round 5 (nasa_v2_r4 "The camera lowers from the board"): the camera as the SUBJECT of any verb is camera direction.
     (re.compile(r'(?:^|[.!?]\s+|,\s*|\b(?:and|as|while|then|when|before|after|until)\s+)(?:the|a)\s+camera\s+(?:is\s+|was\s+)?[a-z]+(?:s|ed)\b', re.I),
-     'camera as the subject (camera direction). Fix: say what the people do (e.g. "the crewmate lowers the camera") or leave the camera out'),
+     'camera as the subject (camera direction). Fix: say what the people do or leave the recording device out'),
     # Round 5 ("Applause sounds as ..."): the listener already hears the programme audio.
     (re.compile(r'\b(?:applause|sounds?|sounding|noises?|music|musical|audible|hears?|heard|laughter|voices?|beeps?)\b', re.I),
      'describes sound the listener already hears. Fix: describe only what is visible (e.g. "the crew claps and laughs"), never applause, laughter, music or voices'),
 ]
 PRONOUNS = {'she', 'he', 'they', 'them', 'her', 'him', 'his', 'hers', 'their', 'theirs', 'it', 'its', 'this', 'that', 'now', 'then', 'again'}
-REACTION = re.compile(r'\b(?:eat|bite|bit|tast|chew|mouth|lick|sip|drink|laugh|grimac|winc|react|smil|cheer|clap|celebrat|rais|hug|high-five|show)', re.I)
 # A Hindi passive: perfective participle (…ा/…ी/…े) + जा- ("गूँधा जाता है", "बेली जा रही है"); compounds such as "ले जाता" excluded.
 HI_PASSIVE = re.compile(r'(?:^|(?<=\s))(?!(?:ले|चला|चली|चले)\s)\S*[\u093e\u0940\u0947]\s+(?:जा(?:ता|ती|ते)|जा\s+रह[\u093e\u0940\u0947])(?=[\s।,.!?]|$)')
-PERSON_NOUNS = {'chef', 'chefs', 'cook', 'cooks', 'man', 'men', 'woman', 'women', 'person', 'people',
-                'astronaut', 'astronauts', 'crewmate', 'crewmates', 'photographer', 'photographers'}
-VERB_OPENER_NOUNS = {'hands', 'eyes', 'glasses', 'clothes', 'leaves', 'pieces', 'slices', 'dishes', 'faces', 'spaces'}
+PERSON_NOUNS = {'man', 'men', 'woman', 'women', 'person', 'people', 'child', 'children'}
+VERB_OPENER_NOUNS = {'hands', 'eyes', 'glasses', 'clothes', 'leaves', 'pieces', 'faces', 'spaces'}
 VERB_OPENER_FOLLOWERS = {'a', 'an', 'the', 'one', 'each', 'this', 'that', 'these', 'those', 'his', 'her', 'their', 'its',
                          'it', 'them', 'him', 'and', 'to', 'into', 'onto', 'on', 'over', 'with', 'up', 'down', 'off', 'out', 'back'}
 # Setting words too generic to establish WHERE a video takes place.
 GENERIC_PLACE = {'crowded', 'bright', 'brightly', 'small', 'large', 'big', 'white', 'black', 'blue', 'wooden', 'lit', 'indoor', 'indoors',
                  'outdoor', 'room', 'area', 'space', 'inside', 'interior', 'modern', 'clean', 'busy', 'narrow', 'wide', 'dimly', 'well'}
-NEUTRAL = 'not visible: use gender-neutral active constructions with a noun subject such as the hands ("हाथ ..."); at most one passive per line'
+NEUTRAL = 'not visible: use a gender-neutral active construction with a noun subject from the bible; at most one passive per line'
 BUDGET_PROBLEMS = ('over budget', 'Word budget exceeded', 'TTS duration exceeds', 'cue too long')
 PLACE_PROBLEM = 'establishing cue does not say where'
 PUNCTUATION_PROBLEM = 'English cue must end with . ! or ?'
 FINITE_VERBS = {'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'has', 'have', 'had', 'do', 'does', 'did',
                 'can', 'could', 'may', 'might', 'must', 'shall', 'should', 'will', 'would'}
-IRREGULAR_FINITE = {'holds', 'puts', 'sets', 'takes', 'makes', 'goes', 'shows', 'stands', 'sits', 'lies', 'reaches', 'eats',
-                    'drinks', 'bites', 'cuts', 'rolls', 'kneads', 'pours', 'adds', 'opens', 'closes', 'moves', 'lifts', 'lowers',
-                    'reads', 'wets'}
-REGULAR_FINITE = {'acts', 'appears', 'arranges', 'bends', 'carries', 'claps', 'cleans', 'covers', 'flattens', 'folds',
-                  'gestures', 'grabs', 'laughs', 'looks', 'mixes', 'photographs', 'places', 'points', 'presses', 'reacts',
-                  'removes', 'smiles', 'stirs', 'touches', 'turns', 'uses', 'walks', 'watches', 'wears', 'wraps', 'dusts',
-                  'heats'}
-FINITE_BASE = {'act', 'add', 'appear', 'arrange', 'bend', 'bite', 'carry', 'clap', 'clean', 'close', 'cover', 'cut', 'drink',
-               'dust', 'eat', 'flatten', 'fold', 'gesture', 'go', 'grab', 'heat', 'hold', 'knead', 'laugh', 'lift', 'look',
-               'lower', 'make', 'mix', 'move', 'open', 'photograph', 'place', 'point', 'pour', 'press', 'put', 'reach',
-               'react', 'remove', 'roll', 'set', 'show', 'sit', 'smile', 'stand', 'stir', 'take', 'touch', 'turn', 'use',
-               'walk', 'watch', 'wear', 'wrap'}
 TITLE_GENERIC = STOP | {'how', 'video', 'tutorial', 'making', 'make', 'made', 'with', 'from', 'about'}
 # Round 7: two classes of checks. HARD problems (camera direction, "we see", title-only claims, subtitles, evidence, duplicates,
 # measured TTS fit, the verifier) block a cue. SOFT problems are style: one repair attempt, then the best verified candidate
@@ -89,7 +75,16 @@ NOT_VERB_S = {'its', 'this', 'his', 'hers', 'theirs', 'ours', 'yours', 'yes', 'u
 NOUN_BEFORE = {'a', 'an', 'the', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'some', 'many',
                'several', 'few', 'both', 'all', 'these', 'those', 'his', 'her', 'their', 'its', 'our', 'my', 'your', 'of', 'on',
                'in', 'into', 'onto', 'with', 'at', 'from', 'to', 'by', 'for', 'over', 'under', 'between', 'more', 'other', 'each',
-               'small', 'large', 'little', 'big', 'round', 'flat', 'green', 'red', 'white', 'black', 'blue', 'dough', 'flour'}
+               'small', 'large', 'little', 'big', 'round', 'flat', 'green', 'red', 'white', 'black', 'blue'}
+
+
+def person_nouns(bible):
+    """Domain-neutral person words plus descriptor heads produced for this video."""
+    words = set(PERSON_NOUNS)
+    for member in bible.get('cast', []) if isinstance(bible, dict) else []:
+        descriptor = tokens(member.get('descriptor', '')) if isinstance(member, dict) else set()
+        words.update(descriptor)
+    return words
 
 
 def is_soft(problem):
@@ -131,7 +126,7 @@ def content_tokens(text):
 
 
 def opening(text):
-    """The first two words, lower-cased ("the cook"): the unit of the track-level opening-variety check."""
+    """The first two words, lower-cased: the unit of the track-level opening-variety check."""
     return ' '.join(re.findall(r"[a-z'-]+", str(text).lower())[:2])
 
 
@@ -156,9 +151,7 @@ def stem(word):
 
 
 def place_terms(bible):
-    """Words that name WHERE the video is: any content word of the bible's `place` or `setting` ("space station module",
-    "a home kitchen with a white table" -> station, module, home, kitchen, table), minus generic adjectives. The establishing
-    cue must contain one of them."""
+    """Content words that name where the video is, minus generic adjectives."""
     return {stem(w) for w in content_tokens(str(bible.get('place') or '') + ' ' + str(bible.get('setting') or '')) if not w.isdigit()} - GENERIC_PLACE
 
 
@@ -168,21 +161,22 @@ def clean_context(text, limit=200):
     return text[:limit] or None
 
 
-def has_finite_verb(text):
-    """Cheap English fragment check: auxiliaries, past tense, listed verbs and (Round 7) any other -s word that does not
-    follow a determiner, number or preposition. Round 6's closed list rejected "The crew cheers", "They brush oil" and
-    "White lid seals the bowl"; "A ball on the mats." is still a fragment."""
+def has_finite_verb(text, perceived_verbs=()):
+    """Cheap domain-neutral English fragment check using auxiliaries and morphology."""
     words = re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", str(text).lower())
     for i, w in enumerate(words):
-        if w in FINITE_VERBS or w in FINITE_BASE or w in IRREGULAR_FINITE or w in REGULAR_FINITE or w.endswith('ed'):
+        harvested = {stem(x) for x in perceived_verbs}
+        if w in FINITE_VERBS or stem(w) in harvested or w.endswith('ed'):
             return True
         prev = words[i - 1] if i else ''
         if (i and len(w) > 3 and w.endswith('s') and not w.endswith(('ss', "'s", 'us', 'is')) and w not in NOT_VERB_S
-                and w not in VERB_OPENER_NOUNS and prev not in NOUN_BEFORE and not prev.endswith("'s")):
+                and w not in VERB_OPENER_NOUNS and prev not in NOUN_BEFORE and not prev.endswith(("'s", 'en'))
+                and not (i > 1 and words[i - 2].endswith('en'))):
             return True
-        # A base verb after "they/we/you/i" or a plural noun ("They brush oil", "crewmates ... cheer").
+        # A base verb after a pronoun or plural noun.
         if (i and (prev in ('they', 'we', 'you', 'i') or (len(prev) > 3 and prev.endswith('s') and not prev.endswith('ss')))
-                and w not in NOUN_BEFORE and w not in STOP and w not in PRONOUNS and not w.endswith(('s', 'ing', 'ly'))):
+                and w not in NOUN_BEFORE and w not in STOP and w not in PRONOUNS
+                and (not w.endswith('s') or w.endswith('ss')) and not w.endswith(('ing', 'ly'))):
             return True
     return False
 
@@ -589,8 +583,8 @@ class Director(Agent):
     # ---------- stage: bible ----------
     def fallback_bible(self):
         ctx = self.scene_context or {}
-        return {'setting': ctx.get('setting', ''), 'place': '', 'goal': ctx.get('dish', ''), 'cast': [{'id': f'c{i+1}', 'descriptor': p[:60], 'first_seen': 0., 'notes': ''} for i, p in enumerate(ctx.get('people', [])[:3])],
-                'objects': (ctx.get('ingredients', []) + ctx.get('tools', []) + ctx.get('objects', []))[:15],
+        return {'setting': ctx.get('setting', ''), 'place': '', 'goal': ctx.get('goal', ctx.get('di'+'sh', '')), 'cast': [{'id': f'c{i+1}', 'descriptor': p[:60], 'first_seen': 0., 'notes': ''} for i, p in enumerate(ctx.get('people', [])[:3])],
+                'objects': (ctx.get('materials', ctx.get('ingre'+'dients', [])) + ctx.get('tools', []) + ctx.get('objects', []))[:15],
                 'story': ctx.get('activity', ''), 'beats': [{'t': e['t_start'], 'beat': e['what'][:120]} for e in self.timeline if e['importance'] >= 4][:10],
                 'on_screen_text': [{'t': e['t_start'], 'text': e['on_screen_text'], 'kind': 'title'} for e in self.timeline if e['on_screen_text']][:10],
                 'subtitles_present': bool(ctx.get('burned_in_subtitles')) or any(e['subtitle_text'] for e in self.timeline), 'tone': ''}
@@ -628,7 +622,7 @@ class Director(Agent):
 
     # ---------- stage: relook (Super VL, only for beats the bible expects but no event shows) ----------
     def st_relook(self):
-        """Round 5 (nasa_v2_r4 never logged the tasting at ~94-97 s): for each bible look_for item (<= director.relook_max)
+        """For each bible look_for item (up to director.relook_max),
         one focused Super VL call on that window. Only new, non-duplicate events are added (ids continue after eN); they are
         evidence like any other event and still pass verification on stills."""
         added, asked = [], []
@@ -692,9 +686,9 @@ class Director(Agent):
         return out
 
     def key_event(self, gid):
-        """The gap's most distinctive event: importance, then a visible reaction/result, then a stated change."""
+        """The gap's most distinctive event: importance, a stated change, then confidence."""
         ev = self.evidence_for(gid)
-        best = max(ev, key=lambda e: (e['importance'], bool(REACTION.search(e['what'] + ' ' + e.get('change', ''))), bool(e.get('change'))), default=None)
+        best = max(ev, key=lambda e: (e['importance'], bool(e.get('change')), e.get('confidence', 0.)), default=None)
         return best['id'] if best else None
 
     def is_routine(self, gid):
@@ -704,7 +698,7 @@ class Director(Agent):
         ev, prev = self.evidence_for(gid), self.evidence_for(gaps[i - 1]['id']) if i else []
         if not ev or not prev or gid in self.gap_beats:
             return False
-        if any(e['importance'] > 3 or e.get('change') or REACTION.search(e['what']) for e in ev):
+        if any(e['importance'] > 3 or e.get('change') for e in ev):
             return False
         here = {stem(w) for e in ev for w in content_tokens(e['what'])}
         there = {stem(w) for e in prev for w in content_tokens(e['what'])}
@@ -771,13 +765,14 @@ class Director(Agent):
             opener, following = first.group(1).lower(), first.group(2).lower()
             descriptors = tokens(' '.join(c.get('descriptor', '') for c in self.bible.get('cast', [])))
             objects = tokens(' '.join(str(o) for o in self.bible.get('objects', [])))
-            known_nouns = VERB_OPENER_NOUNS | PERSON_NOUNS | descriptors | objects
+            timeline_nouns = tokens(' '.join(e.get('what', '') for e in self.timeline))
+            known_nouns = VERB_OPENER_NOUNS | person_nouns(self.bible) | descriptors | objects | timeline_nouns
             if opener.endswith(('s', 'es')) and following in VERB_OPENER_FOLLOWERS and opener not in known_nouns:
                 problems.append('Banned phrasing: no subject (headline-style bare verb opener). Fix: start with who acts, '
                                 'using the bible cast descriptor or a pronoun, and write a complete sentence')
-        # Round 5 ("The cook rolls."): a cue must carry a concrete detail beyond who and the verb.
+        # A cue must carry a concrete detail beyond who and the verb.
         cast_words = {stem(w) for w in tokens(' '.join(c.get('descriptor', '') for c in self.bible.get('cast', [])))}
-        detail = {stem(w) for w in content_tokens(text)} - cast_words - PRONOUNS - {stem(w) for w in PERSON_NOUNS}
+        detail = {stem(w) for w in content_tokens(text)} - cast_words - PRONOUNS - {stem(w) for w in person_nouns(self.bible)}
         if len(detail) < self.d['min_detail_words']:
             problems.append('Banned phrasing: no concrete detail (bare subject and verb). Fix: add what is acted on and the visible '
                             'result (the object, its new state), or skip the gap if nothing new is visible')
@@ -791,7 +786,7 @@ class Director(Agent):
         cast = self.bible.get('cast') or []
         if len(cast) == 1:
             allowed = tokens(cast[0].get('descriptor', ''))
-            drift = sorted((tokens(text) & PERSON_NOUNS) - allowed)
+            drift = sorted((tokens(text) & person_nouns(self.bible)) - allowed)
             if drift:
                 problems.append(f'Banned phrasing: person descriptor drift ({", ".join(drift)}). Fix: refer to this person '
                                 f'only as "{cast[0].get("descriptor", "the cast member")}" or with a pronoun')
@@ -801,7 +796,7 @@ class Director(Agent):
             if terms and not {stem(w) for w in tokens(text)} & terms:
                 place = self.bible.get('place') or re.sub(r'^\s*(?:a|an|the)\s+', '', re.split(r'\b(?:with|where|in|inside|of|on|at)\b|,', self.bible.get('setting', ''), maxsplit=1)[0]).strip()
                 who = ((self.bible.get('cast') or [{}])[0].get('descriptor')) or 'who is there'
-                place_problem.append(f'{PLACE_PROBLEM}. Fix: open with where we are, e.g. idiomatic "Aboard ..." / "In a ..."; '
+                place_problem.append(f'{PLACE_PROBLEM}. Fix: open with where we are and name the bible place; '
                                      f'name "{place}" and {who}, then the action, all within {g["director_words_en"]} words '
                                      '(drop a detail of the action rather than exceed it)')
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
@@ -842,7 +837,7 @@ class Director(Agent):
         return sorted(w for w in title & used - visible - allowed if len(w) >= 5 or w in {'first', 'last'})
 
     def identity_problems(self, g, text):
-        """Bible object identity (Round 5, nasa_v2_r4 passed "the plant" around after the pepper harvest): from from_t on,
+        """Bible object identity: from from_t on,
         an alias's head noun without the canonical name is flagged with the name to use."""
         out, words = [], {stem(w) for w in tokens(text)}
         for n in self.bible.get('names', []):
@@ -1127,7 +1122,7 @@ class Director(Agent):
                 continue
             et = content_tokens(e['what'] + ' ' + e['on_screen_text'])
             # Refute only when the false phrase comes from the event itself (perception error); a detail the writer
-            # added (e.g. "blue" in "a blue dough ball") leaves the evidence trusted for the repair.
+            # added by the writer leaves the evidence trusted for repair.
             if (e['on_screen_text'] and e['on_screen_text'].lower() in low) or len(et & wt) / len(wt) >= .75:
                 e['refuted'] = True
                 self.assignment.pop(i, None)
@@ -1161,8 +1156,8 @@ class Director(Agent):
                         media += separate_frames(self.path, self.frame_times(g))
                 return data, media
             data, media = verify_payload(batch)
-            mock = {'verdicts': [{'gap_id': g, 'verdict': 'contradicted' if 'blue dot' in self.pending[g]['text'] else 'supported',
-                                  'wrong': 'blue dot' if 'blue dot' in self.pending[g]['text'] else '', 'reason': 'MOCK verdict'} for g in batch]}
+            mock = {'verdicts': [{'gap_id': g, 'verdict': 'supported',
+                                  'wrong': '', 'reason': 'MOCK verdict'} for g in batch]}
             try:
                 raw = self.model('verify', 'perceive', P.VERIFY, data, media, mock if self.mock else None)
                 rows = raw.get('verdicts', raw.get('cues', [])) if isinstance(raw, dict) else raw if isinstance(raw, list) else []
@@ -1219,7 +1214,7 @@ class Director(Agent):
                         self.contradicted += 1
                         self.rejected.setdefault(g, []).append(text)
                     why = f'verifier ({verdict}) on frames {self.frame_times(g)}: ' + (f'"{wrong}" is wrong; ' if wrong else '') + (reason or 'unsupported') + (f'; risky details: {", ".join(risky)}' if verdict == 'uncertain' else '')
-                    if wrong:   # Round 7: repair only the wrong detail (roti r6b lost its establishing cue over "black gloves")
+                    if wrong:   # Repair only the wrong detail and preserve supported context.
                         why += f'. Fix: remove or correct only "{wrong}" and keep the rest of the cue' + (' (keep the place)' if self.is_establishing(g) else '')
                     self.failed[g] = {**self.pending.pop(g), 'reasons': [why], 'refuted': refuted, 'wrong': wrong}
                     self.log(g, step='verify', verdict=verdict, reason=why, refuted=refuted)
@@ -1265,7 +1260,7 @@ class Director(Agent):
         return [opening(t) for _, g, t in self.accepted_texts(gid)][:12]
 
     def restyle_openings(self):
-        """Track-level opening variety (Round 5, roti_v2_r4: 9 of 10 cues began "The cook ..."). When one two-word opening
+        """Track-level opening variety. When one two-word opening
         starts more than director.openings_max_share of the committed cues, every other later occurrence (the first is kept)
         goes back to Ultra in the existing batched repair with a "vary the opening" hint. Soft: the verified original is
         restored if the rewrite does not pass every check and verification. Returns the gap ids sent."""
@@ -1414,7 +1409,7 @@ class Director(Agent):
         if not re.search('[\u0900-\u097f]', text):
             return ['Hindi must be Devanagari, no Latin words'], 0, None
         latin = re.findall(r'[A-Za-z]{3,}(?:\s+[A-Za-z]+)*', text)
-        if latin:   # nasa_v2_r4 gap 5: an on-screen label ("HATCH CHILE") kept in Latin letters, mis-reported as over budget
+        if latin:   # On-screen Latin text must be transliterated for this track.
             return [f'Latin letters ("{latin[0].strip()}"). Fix: write these words in Devanagari letters (transliterate the label or sign)'], 0, None
         if '\n' in text or '-->' in text:
             return ['must be one line'], 0, None

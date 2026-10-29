@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -ne 1 || ! "$1" =~ ^(roti|lecture)$ ]]; then
-  echo "usage: scripts/finalize_extended.sh <roti|lecture>" >&2
+if [[ $# -ne 1 ]]; then
+  echo "usage: scripts/finalize_extended.sh <run-name>" >&2
   exit 2
 fi
 

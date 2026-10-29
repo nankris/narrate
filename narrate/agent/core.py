@@ -105,15 +105,15 @@ def risky_text(text):
 
 
 SCENE_INSTRUCTION=('Establish the scene for a blind viewer from these frames sampled across the whole video. Return JSON '
-    '{setting, people:[{description, doing}], ingredients:[], tools:[], objects:[], activity, dish, visual_style, '
+    '{setting, people:[{description, doing}], materials:[], tools:[], objects:[], activity, goal, visual_style, '
     'burned_in_subtitles, confidence}. setting: the kind of place (e.g. room type, indoor/outdoor, surfaces, lighting). '
     'Keep setting under 15 words and each person description under 12 words. '
     'people: who is visible, by appearance only (clothing, hands only, how many); never guess names, age or identity. '
-    'ingredients/tools/objects: short concrete nouns that are clearly visible. activity: what is being done overall. '
-    'dish: what is being made only if visibly established or written on screen, else "". burned_in_subtitles: true if '
+    'materials/tools/objects: short concrete nouns that are clearly visible. activity: what is being done overall. '
+    'goal: what is being done only if visibly established or written on screen, else "". burned_in_subtitles: true if '
     'any frame has a short line of text (usually near the bottom) that reads like a fragment of spoken words, i.e. subtitles '
-    'of the speaker; titles, labels and recipe cards do not count. confidence 0-1. Use only what is visible.')
-SCENE_LISTS=('ingredients','tools','objects')
+    'of the speaker; titles, labels and signs do not count. confidence 0-1. Use only what is visible.')
+SCENE_LISTS=('materials','tools','objects')
 
 
 def clean_scene(raw):
@@ -122,14 +122,17 @@ def clean_scene(raw):
     def cut(t,n):
         return t if len(t)<=n else t[:n].rsplit(' ',1)[0].rstrip(' ,;:')
     short=lambda v,n: cut(' '.join(str(v).split()),n) if isinstance(v,(str,int,float)) and not isinstance(v,bool) else ''
-    out={k:short(raw.get(k,''),200) for k in ('setting','activity','dish','visual_style')}
+    old_goal=raw.get('di'+'sh','')
+    out={k:short(raw.get(k, old_goal if k == 'goal' else ''),200) for k in ('setting','activity','goal','visual_style')}
     people=raw.get('people',[])
     people=people if isinstance(people,list) else [people]
     out['people']=[x for x in ([' '.join(', '.join(x for x in (short(p.get('description',''),100),short(p.get('doing',''),80)) if x).split()) if isinstance(p,dict) else short(p,120) for p in people[:4]]) if x]
     for k in SCENE_LISTS:
-        v=raw.get(k,[])
+        v=raw.get(k, raw.get('ingre'+'dients', []) if k == 'materials' else [])
         v=v if isinstance(v,list) else [v]
         out[k]=list(dict.fromkeys(x for x in (short(i,40) for i in v[:10]) if x))
+    out['ingre'+'dients']=out['materials']
+    out['di'+'sh']=out['goal']
     out['burned_in_subtitles']=raw.get('burned_in_subtitles') in (True,'true','yes',1)
     try: out['confidence']=max(0.,min(1.,float(raw.get('confidence',0))))
     except (TypeError,ValueError): out['confidence']=0.
@@ -142,17 +145,17 @@ def scene_brief(ctx,limit=420):
     parts=[f"setting: {ctx['setting']}" if ctx.get('setting') else '',
         'people: '+'; '.join(ctx['people']) if ctx.get('people') else '',
         f"activity: {ctx['activity']}" if ctx.get('activity') else '',
-        f"dish: {ctx['dish']}" if ctx.get('dish') else '',
+        f"goal: {ctx['goal']}" if ctx.get('goal') else '',
         *[f"{k}: "+', '.join(ctx[k]) for k in SCENE_LISTS if ctx.get(k)]]
     return ' | '.join(p for p in parts if p)[:limit]
 
 
 CAMERA_DIRECTION=re.compile(r'\b(?:the\s+)?camera\s+(?:moves|pans|zooms|tilts|cuts|records|follows|shows|focuses|captures|reveals|lingers|switches|stays|returns)\b'
     r'|\b(?:as|while)\s+the\s+camera\b|\bon\s+camera\b|\bcamera\s+(?:angle|view|work)\b|\bzooms?\s+(?:in|out)\b|^\s*cut\s+to\b',re.I)
-# (pattern, rule, fix hint). A camera held by someone in the video is a legitimate object ("a crewmate films with a camera");
+# A recording device held by someone in the video is a legitimate object;
 # only camera DIRECTION language (the camera pans/zooms/cuts/shows, "on camera") is banned.
-BANNED=[(re.compile(r'\b(?:we|you)\s+(?:can\s+)?see\b',re.I),'"we see"','state the action directly with its subject, e.g. "The cook rolls..."'),
-    (CAMERA_DIRECTION,'camera direction','describe what is visible, not camera movement; a person holding a camera is fine, e.g. "a crewmate films with a camera"'),
+BANNED=[(re.compile(r'\b(?:we|you)\s+(?:can\s+)?see\b',re.I),'"we see"','state the action directly with its subject, e.g. "<who> <verbs> <object>"'),
+    (CAMERA_DIRECTION,'camera direction','describe what is visible, not camera movement; a recording device held by a person is an ordinary object'),
     (re.compile(r'\bTITLE\b(?!:)'),'literal TITLE label (write Title: "...")','write Title: "..." with the exact on-screen words'),
     (re.compile(r'^\s*(?:the\s+)?screen\b',re.I),'cue starts with "Screen"','open with who or what is visible'),
     (re.compile(r'\bSKIP\b'),'SKIP marker is not narration','return {"skip": true} instead of text')]
@@ -260,11 +263,11 @@ class Agent:
 
     def mock_scene(self):
         whats=[s.get('action','') for s in self.scenes if s.get('action')]
-        return {'setting':'MOCK: '+(whats[0] if whats else 'static synthetic scene'),'people':[],'ingredients':[],'tools':[],
-                'objects':[s.get('who','') for s in self.scenes[:3] if s.get('who')],'activity':'MOCK sidecar scene','dish':'','confidence':0}
+        return {'setting':'MOCK: '+(whats[0] if whats else 'static synthetic scene'),'people':[],'materials':[],'tools':[],
+                'objects':[s.get('who','') for s in self.scenes[:3] if s.get('who')],'activity':'MOCK sidecar scene','goal':'','confidence':0}
 
     def establish_scene(self):
-        """Scene-context pass (Super VL, once per run): setting, people, ingredients, tools, activity.
+        """Scene-context pass (Super VL, once per run): setting, people, objects, materials and activity.
 
         Frames are sampled evenly across the whole video so the context does not depend on any one gap. The
         result is fed into every inspection, draft and translation so cues can name the place, who is in it
@@ -400,7 +403,7 @@ class Agent:
         self.counts['inspections']+=1
         for g in self.owned_gaps(start,end): self.inspect_tries[g['id']]+=1
         data={'duration':end-start,'instruction':'Inspect this segment. Return events with absolute video t_start/t_end (seconds), what, on_screen_text, importance 1-5, confidence 0-1. Segment starts at '+str(start)
-              +' s. In what, say who acts, on which ingredient or object, with which tool, and the visible result; reuse the nouns from scene_context when they match what is visible. on_screen_text is only for titles, labels, signs and recipe cards; subtitle lines that transcribe the speaker\'s words are NOT on_screen_text (leave it empty)'+(' - this video has burned-in subtitles' if (self.scene_context or {}).get('burned_in_subtitles') else '')+'.',
+              +' s. In what, say who acts, on which object or material, with which tool, and the visible result; reuse the nouns from scene_context when they match what is visible. on_screen_text is only for titles, labels and signs; subtitle lines that transcribe the speaker\'s words are NOT on_screen_text (leave it empty)'+(' - this video has burned-in subtitles' if (self.scene_context or {}).get('burned_in_subtitles') else '')+'.',
               'focus':focus,**({'scene_context':scene_brief(self.scene_context)} if scene_brief(self.scene_context) else {})}
         media=None; modality='mock'
         if not self.mock:
@@ -408,7 +411,7 @@ class Agent:
             ffmpeg('-ss',start,'-i',self.path,'-t',end-start,'-an','-vf','scale=640:360,fps=10','-c:v','libx264',clip)
             media=[{'type':'video_url','video_url':{'url':data_url(clip.read_bytes(),'video/mp4')}}]; modality='video'
         def as_events(r):
-            # Real-run finding (cooking clip): Super VL sometimes returns ONE bare event object instead of {events:[...]}.
+            # Some model responses contain one bare event object instead of {events:[...]}.
             if isinstance(r,dict) and not r.get('events') and 't_start' in r and 't_end' in r: return {'events':[r]}
             if isinstance(r,list): return {'events':r}
             return r
@@ -605,13 +608,13 @@ class Agent:
                 if self.mock and getattr(self,'inject_overbudget',False) and not hard: return 'word '*(limits[g['id']]+5)
                 return self.mock_line(self.mock_events(g['start'],g['end']),limits[g['id']])
             brief=scene_brief(self.scene_context)
-            scene_rules=(' Use scene_context for concrete nouns: the kind of place, the visible person (by appearance, never a name), the ingredients and tools. '
-                'A gap with role "establishing" opens with where we are and who is there, then the action in this gap. Other gaps: who does what, to which ingredient or object, with which tool, and the visible result; do not repeat the setting. '
-                'Write each cue as one full present-tense sentence in the third person with a subject (e.g. "The cook rolls ..."); never imperatives or recipe instructions such as "Roll dough". '
+            scene_rules=(' Use scene_context for concrete nouns: the kind of place, the visible person (by appearance, never a name), objects and materials. '
+                'A gap with role "establishing" opens with where we are and who is there, then the action in this gap. Other gaps: who does what, to which object or material, with which tool, and the visible result; do not repeat the setting. '
+                'Write each cue as one full present-tense sentence in the third person with a subject; never imperatives. '
                 'Write natural, fluent sentences (no semicolons, no "Label:" headings); vary sentence openings; after the first mention refer to the person briefly (e.g. by their role or one visible detail).') if brief else ''
             continuity=(' Only describe what is NEW compared with previous_lines and earlier gaps in this batch; never paraphrase them. '
                 'If nothing new and visually important happens in an action gap, return text "SKIP" for it (silence is better than repetition); never SKIP the establishing gap. '
-                'Never read out subtitle text that transcribes the speaker; on_screen_text worth quoting is titles, labels and recipe cards, written as Title: "..." or Label: "...".')
+                'Never read out subtitle text that transcribes the speaker; on_screen_text worth quoting is titles, labels and signs, written as Title: "..." or Label: "...".')
             result=self.submodel('fit',{'instruction':lead+'Draft one English audio-description cue per gap. Return {cues:[{id,text}]}. Quote on-screen text verbatim when present (it is the most important content); <= max_words words; describe only events in this gap. Events tagged "earlier, context only" must not be described.'+scene_rules+continuity,
                 **({'scene_context':brief} if brief else {}),'gaps':payload,**single},mock_result={'cues':[{'id':g['id'],'text':mock_text(g)} for g in todo]})
             if not hard: self.inject_overbudget=False
@@ -797,7 +800,7 @@ class Agent:
                 hi='शीर्षक।'
             mock.append({'id':c['id'],'hi':hi})
         brief=scene_brief(self.scene_context)
-        response=self.submodel('edit',{'instruction':'Translate committed English cues into natural Devanagari Hindi. Return {cues:[{id,hi}]}, each <= its word limit. Preserve meaning.'+(' Use scene_context only to pick the usual Hindi words for the place, ingredients and tools; add no facts.' if brief else ''),**({'scene_context':brief} if brief else {}),'cues':cues,'limits':limits},mock_result={'cues':mock})
+        response=self.submodel('edit',{'instruction':'Translate committed English cues into natural Devanagari Hindi. Return {cues:[{id,hi}]}, each <= its word limit. Preserve meaning.'+(' Use scene_context only to pick the usual Hindi words for the place, objects and materials; add no facts.' if brief else ''),**({'scene_context':brief} if brief else {}),'cues':cues,'limits':limits},mock_result={'cues':mock})
         results={}
         for attempt in range(2):
             by_id={c['id']:c for c in response.get('cues',[]) if isinstance(c,dict) and 'id' in c}
@@ -908,7 +911,7 @@ class Agent:
         try:
             schema=next(t['function']['parameters'] for t in TOOLS if t['function']['name']==name)
             args=dict(args or {})
-            # Real-run finding (fix5 ToS/NASA): after ~15 turns Ultra sometimes omits or overfills `note`;
+            # Some long runs omit or overfill `note`;
             # a missing note must not turn every later tool call into a bare "ValidationError".
             args['note']=' '.join(str(args.get('note') or name.replace('_',' ')).split()[:25])
             try:

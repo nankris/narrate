@@ -54,5 +54,5 @@ def test_establishing_hint_is_idiomatic_and_setting_word_passes(tmp_path, monkey
     d.bible = {**d.bible, 'setting': 'a space station', 'place': 'space station',
                'cast': [{**d.bible['cast'][0], 'descriptor': 'the astronaut'}]}
     problems = d.check_cue(0, 'The astronaut reaches into the growth chamber.', ['e1'])[1]
-    assert any('Aboard ...' in p and 'In a ...' in p for p in problems)
+    assert any('name the bible place' in p for p in problems)
     assert d.check_cue(0, 'Aboard the space station, the astronaut reaches into the chamber.', ['e1'])[1] == []

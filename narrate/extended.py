@@ -430,8 +430,7 @@ def render_extended(source, target_video, target_audio, timeline, narration_file
                 filters.append(f"anullsrc=r=48000:cl=stereo,atrim=duration={length:.6f}[{a}]")
         else:
             # >= 1 frame even at 10 fps and for a closing pause at the clip end (freeze the last frame).
-            # Round 8c: tpad=stop_mode=clone dropped the closing freeze (roti video stream ended 15.3 s before the audio);
-            # loop one decoded frame instead, which holds for any position including the last frame.
+            # Loop one decoded frame, which holds for any position including the last frame.
             frame_t = min(max(0., seg['src_start']), max(0., duration - .3))
             filters.append(f"[0:v]trim=start={frame_t:.6f}:end={min(duration, frame_t+.12):.6f},setpts=PTS-STARTPTS,"
                            f"loop=loop=-1:size=1:start=0,setpts=N/30/TB,trim=duration={length:.6f},format=yuv420p[{v}]")

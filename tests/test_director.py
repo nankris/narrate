@@ -318,7 +318,7 @@ def test_hindi_native_call_refit_and_omission(tmp_path, monkeypatch):
         return {'cues': [{'gap_id': c['gap_id'], 'hi': 'वह लोई गूँधती है।' if c['gap_id'] == 1 else 'still English'} for c in data['cues']]}
     d, report, fake = run(tmp_path, monkeypatch, hindi=hindi_role)
     first = fake.role('hindi')[0]
-    assert len(first['data']['cues']) == 3 and 'आटा' in first['system'] and 'not a literal translation' in first['system']
+    assert len(first['data']['cues']) == 3 and 'object-gender agreement' in first['system'] and 'not a literal translation' in first['system']
     assert all(c['max_words'] >= 1 and c['en'] for c in first['data']['cues'])
     assert len(refit) == 1 and {c['gap_id'] for c in refit[0]['cues']} == {1, 2}
     over = next(c for c in refit[0]['cues'] if c['gap_id'] == 1)
@@ -467,7 +467,7 @@ def test_camera_as_object_allowed_but_camera_direction_banned_with_fix_hint(tmp_
     for bad in ('The camera pans across the table.', 'As the camera follows her, she kneads.', 'She smiles on camera.', 'We see the dough.'):
         problems = d.check_cue(1, bad, ['e3'])[1]
         assert problems and all('Fix:' in p for p in problems if p.startswith('Banned')), (bad, problems)
-    assert any('a crewmate films with a camera' in p for p in d.check_cue(1, 'The camera pans over the dough.', ['e3'])[1])
+    assert any('recording device' in p for p in d.check_cue(1, 'The camera pans over the dough.', ['e3'])[1])
     assert any('film-making jargon' in p for p in d.check_cue(1, 'The dough is filmed close-up.', ['e3'])[1])
     assert lint('The cook heats oil in a pan over the flame.') == []
 
@@ -487,8 +487,8 @@ def test_headline_fragments_rejected_full_sentences_pass(tmp_path, monkeypatch):
 def test_single_cast_descriptor_drift_goes_to_repair_with_hint(tmp_path, monkeypatch):
     d = postcheck_director(tmp_path, monkeypatch)
     d.pending[0] = {'text': 'In the kitchen, the cook pours water into flour.', 'evidence': ['e1']}
-    problems = d.check_cue(1, 'The chef kneads the dough into a ball.', ['e3'])[1]
-    assert any('descriptor drift (chef)' in p and '"the cook" or with a pronoun' in p for p in problems)
+    problems = d.check_cue(1, 'The woman kneads the dough into a ball.', ['e3'])[1]
+    assert any('descriptor drift (woman)' in p and '"the cook" or with a pronoun' in p for p in problems)
     assert any('descriptor drift (chefs)' in p for p in d.check_cue(1, 'The chefs knead the dough.', ['e3'])[1])
     assert d.check_cue(1, 'The cook kneads the dough into a ball.', ['e3'])[1] == []
     assert d.check_cue(1, 'She kneads the dough into a ball.', ['e3'])[1] == []
@@ -588,7 +588,7 @@ def test_missing_place_establishing_cue_gets_one_repair_then_is_kept(tmp_path, m
     assert any('does not name the place' in i for i in report['issues'])
     assert report['director_stats']['soft_kept'] == 1
     repair = fake.role('repair')[0]['data']['gaps'][0]['why_rejected']
-    assert any('Aboard ...' in reason and 'In a ...' in reason for reason in repair)
+    assert any('name the bible place' in reason for reason in repair)
     assert 'module' in __import__('narrate.director', fromlist=['place_terms']).place_terms(
         {**BIBLE, 'place': 'space station', 'setting': 'a crowded spacecraft module with equipment panels'})
 
@@ -650,7 +650,7 @@ def test_shorter_windows_with_previous_events_and_climax_prompt(tmp_path, monkey
     calls = fake.role('timeline')
     assert len(calls) == 3 and 'previous_events' not in calls[0]['data']
     assert calls[1]['data']['previous_events'][-1]['what'] == EVENTS[0]['what']
-    for needle in ('eating, drinking', 'facial reactions', 'interactions between people', 'changes of state', 'NEW'):
+    for needle in ('visible actor', 'visible result', 'changes of state', 'NEW'):
         assert needle in P.TIMELINE
     assert 'est. Super VL timeline cost' in next(s for s in report['stages'] if s['stage'] == 'shots')['output']
     ev, _ = normalise_events({'events': [{'t_start': 1, 't_end': 3, 'what': 'An astronaut bites the pepper', 'change': 'first taste'}]}, 0, 12, 30)
@@ -661,7 +661,7 @@ def test_hindi_gets_gender_neutral_instruction_when_gender_not_visible(tmp_path,
     bible = {**BIBLE, 'cast': [{'id': 'c1', 'descriptor': 'the cook', 'first_seen': 5, 'notes': 'striped sleeves; gender not visible'}]}
     d, report, fake = run(tmp_path, monkeypatch, bible=bible, hindi=lambda data, n: {'cues': [{'gap_id': c['gap_id'], 'hi': 'आटा गूँधा जा रहा है।'} for c in data['cues']]})
     call = fake.role('hindi')[0]
-    assert 'gender-neutral' in call['data']['cast_gender']['the cook'] and 'आटा गूँधा जा रहा है' in call['system']
+    assert 'gender-neutral' in call['data']['cast_gender']['the cook'] and 'noun subject from the bible' in call['system']
     d.bible = {**BIBLE, 'cast': [{'id': 'c1', 'descriptor': 'the cook', 'notes': 'a woman in a striped shirt'}]}
     assert d.cast_gender() == {'the cook': 'feminine (visible)'}
 

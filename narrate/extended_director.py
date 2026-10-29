@@ -9,7 +9,8 @@ from pathlib import Path
 from .agent.core import Agent, lint_with_hints, risky_text, similarity
 from .agent.vad import detect
 from .config import load_config, resolve_provider
-from .director import Director, UltraCapReached, normalise_en, has_finite_verb
+from .director import Director, UltraCapReached, normalise_en, has_finite_verb, content_tokens, stem
+from .extended_audit import audit_extended_plan
 from .llm import SpendGuard, BudgetExceeded, sanitize
 from .media import (micro_silences, probe, scene_cuts, sensitive_visual_changes,
                     split_slots)
@@ -95,6 +96,45 @@ def parse_extended_cues(raw):
 
 def _sentences(text):
     return len([s for s in re.split(r'(?<=[.!?])\s+', text.strip()) if s])
+
+
+def grounding_vocabulary(events, bible, frame):
+    """Runtime vocabulary supplied by perception; no domain vocabulary is embedded here."""
+    chunks = [e.get('what', '') + ' ' + e.get('change', '') for e in events]
+    chunks += [str(bible.get('place', '')), str(bible.get('setting', '')),
+               ' '.join(str(x) for x in bible.get('objects', [])),
+               ' '.join(str(x.get('descriptor', '')) for x in bible.get('cast', []) if isinstance(x, dict))]
+    chunks += [str(frame.get('setting', '')), str(frame.get('action', '')),
+               ' '.join(str(x) for x in frame.get('present', [])),
+               ' '.join(str(x) for x in frame.get('objects', []))]
+    return {stem(w) for w in content_tokens(' '.join(chunks))}
+
+
+def unsupported_terms(text, events, bible, frame):
+    """Return cue content terms absent from all evidence available for its window."""
+    grounded = grounding_vocabulary(events, bible, frame)
+    return sorted({stem(w) for w in content_tokens(text) if len(w) > 2 and stem(w) not in grounded})
+
+
+def duplicate_evidence(entry, accepted, timeline, threshold=.72):
+    """Find prior cues backed by the same or strongly overlapping, similar events."""
+    known = {e['id']: e for e in timeline}
+    cited = {x for x in entry.get('evidence', []) if x in known}
+    out = []
+    for cue_id, prior in (accepted or {}).items():
+        prior_ids = {x for x in prior.get('evidence', []) if x in known}
+        if cited & prior_ids:
+            out.append(cue_id)
+            continue
+        for left in (known[x] for x in cited):
+            for right in (known[x] for x in prior_ids):
+                overlaps = left['t_start'] <= right['t_end'] and right['t_start'] <= left['t_end']
+                if overlaps and similarity(left.get('what', ''), right.get('what', '')) >= threshold:
+                    out.append(cue_id)
+                    break
+            if cue_id in out:
+                break
+    return out
 
 
 class ExtendedDirector(Director):
@@ -267,12 +307,6 @@ class ExtendedDirector(Director):
         if re.search(r'\bcamera\b|\b(?:zooms?|pans?) (?:in|out|to|across)\b|\bclose-?up\b|\bthe shot\b', text, re.I):
             # roti_e4 shipped "The camera pulls back to reveal a child"; describe the scene, not the camera.
             problems.append('camera direction: describe what is visible, never the camera or shot')
-        if re.search(r'\b(?:twist(?:s|ed|ing)?|twisted)\b', text, re.I) and re.search(
-                r'\b(?:dough|roll|rope|spiral|coil)\b', text, re.I):
-            problems.append('action terminology: describe dough as rolled up or coiled, not twisted')
-        if re.search(r'\b(?:white\s+)?bowl\b', text, re.I) and re.search(
-                r'\b(?:cover(?:s|ed|ing)?|inverted|lid|rest)\b', text, re.I):
-            problems.append('object terminology: the flat cover must be called a plate, not a bowl')
         subtitles = [e.get('subtitle_text', '') for e in self.timeline if e.get('subtitle_text')]
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
             if any(quoted.lower() in s.lower() for s in subtitles):
@@ -292,6 +326,10 @@ class ExtendedDirector(Director):
             problems.append('unknown evidence ids: ' + ', '.join(unknown))
         if not valid:
             problems.append('no cited evidence in (previous pause, this pause]')
+        events = self.events_between(previous, pause['t'])
+        frame = self.pause_frames.get(cue_id, {})
+        for term in unsupported_terms(text, events, getattr(self, 'bible', {}), frame):
+            problems.append(f'Style: unsupported term: {term}')
         if accepted:
             prior_ids = [i for i in accepted if i < cue_id]
             previous_entry = accepted[max(prior_ids)] if prior_ids else None
@@ -301,10 +339,9 @@ class ExtendedDirector(Director):
                               similarity(text, other['text']) >= .65), None)
             if duplicate:
                 problems.append('duplicate or redundant with another extended cue')
-            oil_pour = re.search(r'\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b.{0,45}\boil\b|\boil\b.{0,45}\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b', text, re.I)
-            if oil_pour and any(re.search(r'\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b.{0,45}\boil\b|\boil\b.{0,45}\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b',
-                                      other['text'], re.I) for other in accepted.values()):
-                problems.append('duplicate oil-pour event already described by another extended cue')
+            duplicates = duplicate_evidence(entry, accepted, self.timeline)
+            if duplicates:
+                problems.append('duplicate event evidence already described by cue ' + ', '.join(map(str, duplicates)))
         return valid, problems
 
     @staticmethod
@@ -328,9 +365,7 @@ class ExtendedDirector(Director):
         return parse_extended_cues(raw)
 
     def verify_times(self, cue_id, t):
-        """Round 8c: an extended cue narrates its whole (previous pause, pause] window, but roti_e5 was verified on two
-        stills at the pause only, so past-tense errors (glove hand, 'twisted' for 'rolled', plate called a bowl) passed.
-        Sample the window evenly plus the frozen frame."""
+        """An extended cue narrates its whole (previous pause, pause] window. Sample that window evenly plus the frozen frame."""
         end = round(min(max(0., self.duration - .3), t), 3)
         earlier = [p['t'] for p in self.pause_rows if p['t'] < t - .05]
         start = max(earlier) if earlier else 0.
@@ -576,6 +611,11 @@ class ExtendedDirector(Director):
                     'output_duration': timeline.total_duration, 'speech_intervals': self.speech,
                     'pad_before': self.x['pad_before_s'], 'pad_after': self.x['pad_after_s'],
                     'pauses': plan, 'segments': list(timeline)}, ensure_ascii=False, indent=2), encoding='utf-8')
+        plan_data = json.loads((self.out / 'pause_plan.json').read_text(encoding='utf-8'))
+        violations = audit_extended_plan(plan_data)
+        (self.out / 'timing_check.txt').write_text(
+            ('PASS: every cue follows all cited evidence.\n' if not violations else
+             'FAIL\n' + '\n'.join(json.dumps(v, sort_keys=True) for v in violations) + '\n'), encoding='utf-8')
         self.report.update(status='complete', cues=cues, pauses=plan, speech=self.speech,
                            cues_committed=len(cues), cues_dropped=len(self.ext_dropped), dropped_cues=self.ext_dropped,
                            overlaps_with_speech=0, total_added_seconds=round(timeline.total_duration - self.duration, 3),

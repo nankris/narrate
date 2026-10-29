@@ -6,28 +6,23 @@ The clip you receive is the window [{start:.2f} s, {end:.2f} s] of a {duration:.
 last events logged just before this window: do not repeat them, say what is NEW.
 Return JSON {{"events":[{{"t_start":0,"t_end":0,"what":"","change":"","on_screen_text":"","subtitle_text":"","importance":3,"confidence":0.9}}]}}.
 - t_start/t_end: ABSOLUTE seconds in the full video (window start + time inside the clip). 2-6 events, in time order, covering the whole window.
-- what: one concrete sentence: who acts (by appearance or role, never a name unless written on screen), what their hands hold
-  and do to it, on what object or ingredient, with which tool, and the visible RESULT. Look closely for:
-  * eating, drinking, biting, tasting or smelling something (say exactly what goes to the mouth);
-  * facial reactions: laughing, smiling, grimacing, wincing, fanning or covering the mouth, eyes watering;
-  * interactions between people: handing over, sharing, pointing, high-fives, photographing or filming each other;
-  * changes of state of objects (e.g. flour -> dough -> ball -> spiral -> flat round; a fruit cut, bitten or held up).
+- what: one concrete sentence naming the visible actor, action, target (if any), and visible result. Use the most specific
+  words supported by the frames and record changes of state without inferring intent.
 - change: what is NEW compared with the previous moment (a new step, person, object or state; a reaction). Empty if nothing changes.
-- on_screen_text: verbatim titles, labels, signs, recipe cards or captions that are NOT speech. Empty if none.
+- on_screen_text: verbatim titles, labels, signs or captions that are NOT speech. Empty if none.
 - subtitle_text: burned-in subtitles that transcribe what someone SAYS (usually a short line near the bottom, often a
   sentence fragment). Put them here, never in on_screen_text.
 - importance 1-5 (5 = essential to follow the story: a result, a reaction, the climax), confidence 0-1. Only what is visible;
   no guesses about identity or inner feelings (a visible laugh or grimace is visible).'''
 
 RELOOK = '''
-FOCUS: the story implies this moment here but the first pass logged nothing for it: "{what}". Watch mouths, hands and faces
-closely. Return only events that show it (or a visible reaction to it, e.g. someone biting, chewing, covering the mouth,
-grimacing, laughing at the taste), with importance 5. If it is not visible, return {{"events":[]}}; never invent it.'''
+FOCUS: the story implies this moment here but the first pass logged nothing for it: "{what}". Return only events that show
+this specific event or its visible result, with importance 5. If it is not visible, return {{"events":[]}}; never invent it.'''
 
 TIMELINE_FRAMES = TIMELINE + '\nYou receive still frames from the window instead of video; each is labelled with its absolute time. Do not infer motion you cannot see.'
 
 VIDEO_TITLE_NOTE = ('UNVERIFIED user context (a title or one-line description supplied with the video). It may name the goal, '
-                    'place or dish; it is never evidence that something is visible. Every visual claim must still come from the events.')
+                    'place, goal or topic; it is never evidence that something is visible. Every visual claim must still come from the events.')
 
 BIBLE = '''You are the head audio describer preparing a "scene bible" before writing description for blind and low-vision viewers.
 Input: a visual scene summary, the shot-change times, a timeline of events (ids, absolute times, what, change, on_screen_text,
@@ -36,26 +31,23 @@ Return JSON {"setting":"","place":"","cast":[{"id":"c1","descriptor":"","first_s
 "beats":[{"t":0,"beat":"","why":"","events":["e1"]}],"names":[{"name":"","aliases":[""],"from_t":0}],
 "look_for":[{"t_start":0,"t_end":0,"what":""}],"on_screen_text":[{"t":0,"text":"","kind":"title|label|sign"}],"subtitles_present":false,"tone":""}
 - setting: what the place IS, concretely (under 15 words).
-- place: the everyday name of the place in 1-3 words, the way a listener would say it (e.g. "home kitchen", "space station").
+- place: the everyday name of the place in 1-3 words, the way a listener would say it.
   video_title may name it when the visuals agree.
 - cast: each recurring person with a short, stable descriptor for narration (2-5 words) based on their role in the story
-  (e.g. "the cook", "a grey-haired astronaut", "a crewmate with a camera"; not "the camera operator"); never a name unless
+  (for example, "the guide" or "a person in a striped jacket"); never a name unless
   written on screen; notes = visible details for the first mention, and the apparent gender only if clearly visible
   (else "gender not visible").
-- objects: key objects, ingredients and tools by their everyday names.
-- goal: what is being made or achieved, in a few words (e.g. "layered roti"); video_title may name it. Empty if unknown.
+- objects: key objects or materials by their everyday names.
+- goal: what is being done or achieved, in a few words; video_title may name it. Empty if unknown.
 - story: the arc in one sentence (what is being made or done, and how it ends: the result, the climax, the reaction).
 - beats: the story arc as 4-10 turning points with times, told by their STORY meaning, not filming mechanics (e.g. "a
-  crewmate photographs the first harvested pepper", not "the camera operator films"): new step, result, reveal, tasting,
-  reaction. events = the timeline ids that show the beat (the narration of those gaps tells this beat). why = what the step
-  does for the result, in a few words, only when the goal or video_title makes it plain (e.g. "the coil makes the layers",
-  "the dough rests so it rolls thin"); else "". Repeated ongoing activity is one beat, not several.
-- names: canonical object identity. When the timeline calls ONE object by different names (e.g. the harvested fruit still on
-  its stem logged later as "a small plant"), give the single everyday name narration must use (name), the timeline wordings
+  participant repairs a bicycle chain", not "the camera moves"): new step, result or reveal. events = the timeline ids that
+  show the beat. why = what the step does for the result, only when the goal or video_title makes it plain; else "".
+  Repeated ongoing activity is one beat, not several.
+- names: canonical object identity. When the timeline calls ONE object by different names, give the single everyday name narration must use (name), the timeline wordings
   to avoid (aliases, the shortest form such as "plant") and from_t, the time from which the alias means that object. Only
   when the events make the identity clear (the same object handed on, held up, photographed); else [].
-- look_for: at most 2 moments the goal, story or video_title implies but NO event shows (e.g. the crew tasting what they
-  harvested, someone eating the dish, the finished result shown), with the window (t_start, t_end, at most 12 s) where it
+- look_for: at most 2 moments the goal, story or video_title implies but NO event shows, with the window (t_start, t_end, at most 12 s) where it
   would most likely be and what to look for. [] when the timeline already shows every expected beat.
 - on_screen_text: only real titles, labels and signs. Subtitles transcribe speech: list none of them here and set subtitles_present.
 Use only the supplied facts; video_title is context, never proof that something is visible.'''
@@ -72,40 +64,36 @@ Style:
 0. Every English cue ends with . ! or ? and contains a finite verb; never return a verbless caption fragment.
 1. Write native, idiomatic English as a professional audio describer would say it aloud (fluent and natural, never
    clipped captions, never stiff or translated-sounding phrasing). Complete, natural spoken sentences: a subject (cast descriptor, pronoun or object) and a present-tense verb, one or two
-   flowing sentences per cue. Never headline fragments: not "Cuts dough; rolls each into a ball." but "Now the cook cuts the
-   dough into portions and rolls each piece into a smooth ball." No semicolons. Clear and factual, not purple prose: no
+   flowing sentences per cue. Never headline fragments: use "<the person> <verbs> <the object>" as a complete sentence.
+   No semicolons. Clear and factual, not purple prose: no
    metaphors, no opinions, no guessed emotions (visible laughs, smiles or grimaces are facts).
 2. Specific verbs and concrete nouns from the bible (what, who, where). Connect cues into a story: say what is NEW, the visible
-   result, and why it matters toward the goal ("Now...", "The dough is now...", "...the first pepper of the harvest"). Prefer
-   the gap's most distinctive visible moment: a reaction (such as covering the mouth or laughing), a result, a new object, or
+   result, and why it matters toward the goal. Prefer
+   the gap's most distinctive visible moment: a result, a new object, or
    a change of state, rather than routine ongoing activity. Never describe the same ongoing activity in two consecutive cues.
-   Tell the story arc: a gap with a beat narrates that beat in story terms, with its why when given (e.g. "Now the cook coils
-   the strip into a tight spiral, which makes the layers."), not a generic "folds dough and rolls a ball". Lead with key_event.
+   Tell the story arc: a gap with a beat narrates that beat in story terms, with its why when given. Lead with key_event.
    Every cue must add at least one NEW concrete detail (an object, a result, a state, a count) that no earlier cue gave;
-   never a bare subject and verb ("The cook rolls."). A routine gap whose only news would repeat the previous cue: skip it
+   never a bare subject and verb. A routine gap whose only news would repeat the previous cue: skip it
    (the previous cue already covers it) unless you can add a genuinely new visible detail.
 3. Length: WORDS ARE THE MOST COMMON REASON A CUE IS LOST. Before writing each cue, read its line in WORD_LIMITS. max_words is
    a HARD limit, sized for a natural human narrator; a cue over it is rejected. Aim for the range (about 70-90 % of max_words):
    enough for who, the action and its result or link to the goal, with room to spare. One gap, one main action: never chain
-   three actions. Small gaps need small sentences: for max_words 4-6 write one short complete sentence such as "She covers the
-   bowl." or "The lid comes off." Count the words of each cue before answering and put the count in "words"; if it is over
+   three actions. Small gaps need one short complete sentence. Count the words of each cue before answering and put the count in "words"; if it is over
    max_words, cut a detail and count again. Silence is fine: skip a gap when nothing new or important happens.
 4. The gap with "establish": true opens the track: fold the place (bible place) and who is there into one compact opening with idiomatic phrasing,
-   then the action, all within max_words, e.g. "In a home kitchen, the cook mixes flour and water." Add the goal only if
-   words remain; shorten the action rather than exceed max_words. For a spacecraft, natural phrasing such as "Aboard the space
-   station, ..." is preferable to "In a space station, ...". Never skip it.
-5. For every person, use exactly their bible cast descriptor or a pronoun; never substitute a near-synonym such as chef for
-   cook. Use he/she only when the bible notes make it visually clear; otherwise use the descriptor or "they". Never open with
+   then the action, all within max_words, using "In the <place>, <who> <verbs> <object>." Add the goal only if
+   words remain; shorten the action rather than exceed max_words. Never skip it.
+5. For every person, use exactly their bible cast descriptor or a pronoun; never substitute a near-synonym.
+   Use he/she only when the bible notes make it visually clear; otherwise use the descriptor or "they". Never open with
    "Person" or "A person". Name objects by bible names (name, never its aliases from from_t on).
    Vary the openings like a professional describer: after the first mention, do not start consecutive cues with the same
-   words, and never let one opening (e.g. "The cook ...") start more than half the cues. Alternate a pronoun ("They ..."),
-   the object or result first ("The dough ...", "Two balls now ..."), a time link ("Now ...", "Next ...") or a participial
-   opening ("Rolling the strip tight, they ...").
+   words, and never let one opening start more than half the cues. Alternate a pronoun, the object or result first, a time
+   link, or a participial opening.
 6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows/lowers", any sentence with the
-   camera as its subject, "on camera", "shot", "frame", "screen shows"). A person holding a camera is part of the scene: say what they do and why, e.g. "a crewmate photographs the
-   pepper", not "it is filmed close-up".
+   camera as its subject, "on camera", "shot", "frame", "screen shows"). A recording device held by someone may be described
+   as an object when the evidence supports it.
 7. Every visual fact must come from the cited evidence events of THIS gap (cite their ids). Bible, video_title and other events
-   are context only: they may name the goal, place or dish, but never describe something before it happens or that no event shows.
+   are context only: they may name the goal, place or topic, but never describe something before it happens or that no event shows.
 8. Do not repeat what was just said aloud (said_before/said_after); complement it with what can only be seen.
 9. Never read subtitles (they transcribe speech). Quote real on-screen titles, labels or signs only, e.g. A sign reads "...".
 10. Never describe sounds: the listener already hears applause, laughter, music and voices. Describe the visible action
@@ -114,16 +102,15 @@ Style:
 VERIFY = '''You check audio-description cues against still frames taken INSIDE each cue's time window.
 For each cue: list its concrete visual claims (people, objects, actions, results, colours, counts, text) and compare with that
 cue's frames only. Stills cannot show motion: an action is consistent if the frames show its start, middle or result.
-Naming the place, the goal or the dish (e.g. "in a home kitchen", "to make roti") is context, not a visual claim.
-object_names (if given) map timeline wordings (aliases) to the name narration uses for the same object (e.g. a harvested
-fruit still on its stem): a cue using that name is consistent when the aliased object is shown.
+Naming the place, goal or topic is context, not a visual claim.
+object_names (if given) map timeline wordings (aliases) to the name narration uses for the same object.
 Return JSON {"verdicts":[{"gap_id":0,"verdict":"supported|contradicted|uncertain","wrong":"","reason":""}]}.
 - contradicted: a claim is clearly false in these frames (wrong object, person, count, text, or an event that is not there).
   wrong = the shortest false phrase quoted from the cue; reason = what the frames show instead.
 - uncertain: a claim cannot be checked from these frames.
 - supported: all claims are visible or consistent.
-When a cue's frames span its whole window (several timestamps), check past-tense actions against the earlier frames and
-their order; a specific detail such as which hand, rolled versus twisted, plate versus bowl, or a count must match.'''
+When a cue's frames span its whole window, check every action verb, object noun, count and hand against the frames in order.
+For every contradiction, wrong must quote the specific shortest false phrase from the cue so it can be removed or repaired.'''
 
 REPAIR = '''You repair audio-description cues that failed checks. For each listed gap you get the rejected text, why it
 was rejected (a verifier looked at frames from inside the gap, or a rule failed; rule failures end with "Fix: ..." - apply
@@ -141,8 +128,8 @@ sounds (applause, laughter, music, voices) or make the camera the subject. When 
 opening", keep the facts and change only how the sentence starts (avoid other_openings), or skip if it adds nothing new.
 Length: WORD_LIMITS gives each gap's range and HARD maximum; aim for the range (rejected_words = the rejected text's count).
 When the rejection is about length, cut at least rejected_words - max_words words: keep the subject, the main action and its
-result; drop a secondary action, colours or positions. One main action per cue; for max_words 4-6 one short sentence ("She
-covers the bowl."). Count the words and report them in "words".
+result; drop a secondary action, colours or positions. One main action per cue; for max_words 4-6 use one short sentence.
+Count the words and report them in "words".
 When the verifier quotes a wrong detail, remove or correct only that detail and keep the rest (for the establishing cue, keep
 the place). When the rejection is only a style point (an opening, a fragment, an object name), change only that.
 If "establish" is true, fold the place and who is there into one compact opening ("In the <place>, <who> ..."), then the
@@ -172,14 +159,12 @@ HINDI = '''You write the Hindi audio-description track for blind and low-vision 
 English cue's meaning, the time window and a Hindi word limit measured with the Hindi voice.
 The English cues are final and are never changed: return only the Hindi line ("hi"), never English text.
 Write natural spoken Hindi in Devanagari as a native describer would say it: full, flowing sentences (never fragments or
-headline style), simple present tense, not a literal translation, no transliteration. Use everyday words; for a kitchen: आटा,
-लोई, बेलन, चकला (or मैट), तेल, कटोरा, तवा, परतदार रोटी / लच्छा पराठा. Use the bible for consistent references; add no new facts.
+headline style), simple present tense, not a literal translation, no transliteration. Use everyday words for only what the
+perception timeline shows. Use the bible for consistent references; add no new facts.
 Gender: follow cast_gender. If the person's gender is not visible, never guess it. Natural spoken Hindi comes first: write
-ACTIVE sentences with a noun subject - the hands ("हाथ आटे को गूँधते हैं", "रसोइए के हाथ लोई बेलते हैं"), the object or
-result ("लोई अब पतली और गोल है"), or a plural/group subject - instead of chains of passives ("... जाता है"). At most ONE
-passive such as "आटा गूँधा जा रहा है" per cue, and only a few in the whole track. Vary how lines start. Never "रसोइया ... रहा है"
-or "...रही है" for that person. If the gender is clearly visible, make every verb agree correctly. Agreement with objects
-(आटा m., लोई f., रोटी f.) must always be correct.
+ACTIVE sentences with a noun subject from the bible: a cast descriptor, an object, a result or a group, rather than chains
+of passives. At most ONE passive per cue, and only a few in the whole track. Vary how lines start. If gender is clearly
+visible, make every verb agree correctly; object-gender agreement must always be correct.
 Write on-screen English words (labels, signs) in Devanagari letters, e.g. a sign "OPEN" -> "ओपन"; never Latin letters.
 End every Hindi cue with the danda "।".
 Return JSON {"cues":[{"gap_id":0,"hi":""}]}, at most max_words words per cue.'''
@@ -194,8 +179,8 @@ Return JSON {"cues":[{"gap_id":0,"hi":""}]}.'''
 
 # Calibration only (never narrated): measures the TTS voice's real speaking rate per language.
 CALIBRATION = {
-    'en': 'She presses the soft dough flat and turns it over on the board.',
-    'hi': 'वह नरम आटे को बेलन से बेलती है और पलट देती है।',
+    'en': 'A cyclist tightens the loose chain and checks the rear wheel.',
+    'hi': 'साइकिल सवार ढीली चेन कसकर पिछला पहिया जाँचता है।',
 }
 
 EXTENDED_SCRIPT = '''You write the complete ENGLISH extended audio-description track (WCAG 1.2.7) for a blind viewer.
@@ -208,8 +193,7 @@ Each cue is 2-3 fluent, native English sentences and no more than max_words (nor
   frame now. Cite every event used. Never cite or anticipate an event ending after inclusive_end, or pull an earlier event
   forward from before exclusive_start.
 - A frozen frame may establish static setting, people and objects, but do not describe an action still in progress there.
-  Every action must cite an event whose t_end is at or before the pause. Describe dough being rolled up or coiled as
-  "rolled" or "coiled", never "twisted". A flat cover over a bowl is a plate, not another bowl.
+  Every action must cite an event whose t_end is at or before the pause.
 - Explicitly resolve supplied confusing_parts in plain language. Use concrete visible facts, not inference.
 - Never read subtitle_text: subtitles are speech context. Real titles, labels and signs may be quoted.
 - Native spoken prose with finite verbs; no camera/edit language, "we see", sound description, repeated cue, clipped caption,

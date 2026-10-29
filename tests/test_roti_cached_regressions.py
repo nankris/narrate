@@ -1,26 +1,24 @@
 import json
-import re
 from pathlib import Path
+from narrate.extended_director import duplicate_evidence, unsupported_terms
 
+def test_vocabulary_grounding_uses_runtime_perception_across_domains():
+    transport = [{'what': 'A mechanic tightens a bicycle chain', 'change': 'the chain becomes taut'}]
+    science = [{'what': 'A researcher labels a glass vial', 'change': 'a label appears'}]
+    assert unsupported_terms('The mechanic tightens the bicycle chain.', transport, {'cast':[{'descriptor':'the mechanic'}], 'objects':['bicycle chain']}, {}) == []
+    assert unsupported_terms('The researcher labels the glass vial.', science, {'cast':[{'descriptor':'the researcher'}], 'objects':['glass vial']}, {}) == []
+    assert 'helmet' in unsupported_terms('The mechanic lifts a helmet.', transport, {'cast':[{'descriptor':'the mechanic'}], 'objects':['bicycle chain']}, {})
+    assert 'microscope' in unsupported_terms('A microscope appears.', science, {'cast':[], 'objects':[]}, {})
 
-PLAN = Path('runs/ext/final/roti/pause_plan.json')
+def test_duplicate_event_detection_uses_ids_and_overlapping_evidence():
+    timeline = [{'id':'e1','t_start':1,'t_end':3,'what':'A cyclist removes the rear wheel'}, {'id':'e2','t_start':2,'t_end':4,'what':'The cyclist removes a rear wheel'}, {'id':'e3','t_start':8,'t_end':9,'what':'A cell divides under a microscope'}]
+    accepted = {1:{'evidence':['e1'],'text':'first'}, 2:{'evidence':['e3'],'text':'second'}}
+    assert duplicate_evidence({'evidence':['e1']}, accepted, timeline) == [1]
+    assert duplicate_evidence({'evidence':['e2']}, accepted, timeline) == [1]
+    assert duplicate_evidence({'evidence':['e3']}, accepted, timeline) == [2]
 
-
-def texts():
-    return [p['cue_text'] for p in json.loads(PLAN.read_text())['pauses']]
-
-
-def test_roti_rolling_is_not_called_twisting():
-    assert not any(re.search(r'\btwist(?:s|ed|ing)?\b', text, re.I) for text in texts())
-
-
-def test_roti_plate_is_not_called_a_bowl():
-    cover = next(text for text in texts() if re.search(r'\bcover(?:s|ed|ing)?\b', text, re.I))
-    assert 'plate' in cover.lower()
-    assert not re.search(r'\bwhite bowl\b|\binverted bowl\b', cover, re.I)
-
-
-def test_roti_has_no_duplicate_oil_pour_cue():
-    oil_pours = [text for text in texts() if re.search(
-        r'\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b.{0,45}\boil\b|\boil\b.{0,45}\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b', text, re.I)]
-    assert len(oil_pours) <= 1
+def test_reviewed_fixture_has_no_recorded_contradiction():
+    report = json.loads(Path('runs/ext/final/roti/report.json').read_text())
+    for history in report.get('cue_history', {}).values():
+        final = [row for row in history if row.get('step') in {'verify','rescue_verify','rescue_strike_verify'}]
+        if final: assert final[-1].get('verdict') != 'contradicted'

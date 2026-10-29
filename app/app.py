@@ -228,7 +228,8 @@ def build_app():
     import gradio as gr
     cached = discover_cached()
     choices = [(m['title'], name) for name, (_,m,_) in cached.items()]
-    first = 'sample_kitchen' if 'sample_kitchen' in cached else next(iter(cached), None)
+    configured = load_config().get('ui', {}).get('default_sample')
+    first = configured if configured in cached else next(iter(sorted(cached)), None)
     session_cap, daily_cap, run_cap = caps()
     ledger = SpendLedger(ROOT / 'runs/ui_spend.json', daily_cap)
 
@@ -336,7 +337,7 @@ def build_app():
                     planner = gr.Radio(['Ultra','Super'], value='Ultra',label='Orchestrator')
                     provider = gr.Radio(providers(),value='mock',label='Provider')
                     context = gr.Textbox(label='What is this video? (optional title)', max_lines=1, max_length=200,
-                                         placeholder='e.g. How to make soft layered roti. Context only: every description is still checked against the frames.')
+                                         placeholder='e.g. A one-line title. Context only: every description is still checked against the frames.')
             spending = gr.Markdown(f'Spent this session: $0.0000 / ${session_cap:.2f} · daily cap ${daily_cap:.2f} (IST)')
             start = gr.Button('Run agent',variant='primary')
             live_notes = gr.Checkbox(label='Only notes & corrections',value=False)

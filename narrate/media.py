@@ -75,7 +75,7 @@ def micro_silences(path, duration=None, noise_db=-30, minimum=.08, timeout=60):
     """Return brief, confirmed acoustic silences suitable for extended-AD pauses.
 
     This deliberately uses ffmpeg's energy detector rather than VAD: a VAD may
-    merge an entire lecture into one speech interval even though sentence-final
+    merge an entire continuous-speech segment even though sentence-final
     breaths leave a safe tenth of a second in which the picture can be paused.
     """
     try:
