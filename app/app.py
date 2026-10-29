@@ -4,7 +4,11 @@ os.environ['GRADIO_ANALYTICS_ENABLED'] = 'False'
 os.environ.setdefault('OMP_NUM_THREADS', '1')
 os.environ.setdefault('OPENBLAS_NUM_THREADS', '1')
 import argparse
-import fcntl
+try:
+    import fcntl
+except ImportError:  # Windows
+    import msvcrt
+    fcntl = None
 import html
 import json
 import math
@@ -36,7 +40,7 @@ def discover_cached(root=CACHE):
     for folder in sorted(root.iterdir()):
         if not folder.is_dir() or folder.is_symlink():
             continue
-        required = ['meta.json', 'trace.json', 'report.json', 'ad_en.vtt', 'ad_hi.vtt', 'narrated_en.mp4', 'narrated_hi.mp4']
+        required = ['meta.json', 'trace.json', 'report.json', 'ad_en.vtt', 'narrated_en.mp4']
         if not all((folder / f).is_file() and not (folder / f).is_symlink() for f in required):
             continue
         try:
@@ -82,7 +86,11 @@ class SpendLedger:
     def transact(self, change):
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.path.with_suffix('.lock').open('a') as lock:
-            fcntl.flock(lock, fcntl.LOCK_EX)
+            if fcntl:
+                fcntl.flock(lock, fcntl.LOCK_EX)
+            else:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_LOCK, 1)
             data = read_json(self.path) if self.path.exists() else {}
             result = change(data)
             temporary = self.path.with_suffix('.tmp')
@@ -180,7 +188,7 @@ def trace_html(trace, notes_only=False):
 
 def results_html(report):
     coverage = report.get('gap_coverage_percent', {})
-    metrics = [('Gap coverage EN / HI', ' / '.join(f'{coverage[l]:.1f}%' if l in coverage else '—' for l in ('en','hi'))),
+    metrics = [('Gap coverage (English)', f"{coverage['en']:.1f}%" if 'en' in coverage else '—'),
         ('Cues committed / dropped', f'{report.get("cues_committed",0)} / {report.get("cues_dropped",0)}'),
         ('Overlaps with detected speech · target 0', report.get('overlaps_with_speech','—')),
         ('Narratable important events covered', f'{report.get("high_importance_covered_percent",0):.1f}%'),
@@ -306,7 +314,7 @@ def build_app():
         with gr.Tab('Samples · zero cost', id='samples'):
             with gr.Row():
                 select = gr.Dropdown(choices, value=first, label='Cached sample', scale=3)
-                lang = gr.Radio([('English','en'),('Hindi','hi')], value='en', label='Narration language')
+                lang = gr.Radio([('English','en')], value='en', label='Narration language')
                 eyes = gr.Checkbox(label='Eyes closed · hear audio only')
             values = sample(first, 'en', False)
             mark = gr.HTML(values[2])
@@ -332,7 +340,7 @@ def build_app():
             with gr.Row():
                 upload = gr.File(label='Video · MP4 / MOV / WebM · ≤120 seconds · ≤50 MB', file_types=['.mp4','.mov','.webm'], type='filepath')
                 with gr.Column():
-                    languages = gr.CheckboxGroup([('English','en'),('Hindi','hi')],value=['en','hi'],label='Languages')
+                    languages = gr.CheckboxGroup([('English','en')],value=['en'],label='Languages')
                     planner = gr.Radio(['Ultra','Super'], value='Ultra',label='Orchestrator')
                     provider = gr.Radio(providers(),value='mock',label='Provider')
                     context = gr.Textbox(label='What is this video? (optional title)', max_lines=1, max_length=200,

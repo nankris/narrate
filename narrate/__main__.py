@@ -9,7 +9,7 @@ def main():
     p = sub.add_parser('pipeline', aliases=['run', 'agent'])
     p.add_argument('input')
     p.add_argument('--out', required=True)
-    p.add_argument('--lang', default='en,hi')
+    p.add_argument('--lang', default='en')
     p.add_argument('--provider', choices=['nebius','nvidia-dev','mock'])
     p.add_argument('--max-steps', type=int, default=None)
     p.add_argument('--orchestrator', choices=['ultra','super'], default='ultra')

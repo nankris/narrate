@@ -333,7 +333,7 @@ def test_trace_stages_and_markdown(tmp_path, monkeypatch):
     d, report, fake = run(tmp_path, monkeypatch)
     trace = json.loads((tmp_path / 'trace.json').read_text())
     names = [s['stage'] for s in trace['stages']]
-    assert names == ['gaps', 'shots', 'scene', 'timeline', 'bible', 'assign', 'script', 'verify', 'hindi', 'render']
+    assert names == ['gaps', 'shots', 'scene', 'timeline', 'zoom', 'bible', 'cast_look', 'assign', 'script', 'verify', 'hindi', 'render']
     for s in trace['stages']:
         assert {'models', 'calls', 'tokens_in', 'tokens_out', 'cost_usd', 'latency_s', 'input', 'output'} <= set(s)
     script_stage = next(s for s in trace['stages'] if s['stage'] == 'script')

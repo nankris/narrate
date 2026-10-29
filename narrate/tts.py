@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess
 import sys
-from .media import command, ffmpeg, probe, atempo_decision
+from .media import command, ffmpeg, probe, atempo_decision, filter_has_option
 
 
 class SpeechBackend:
@@ -25,8 +25,11 @@ class SilentBackend(SpeechBackend):
 class PiperBackend(SpeechBackend):
     def __init__(self, cfg):
         self.models = cfg['piper_models']
+        self.fallback = EspeakBackend(cfg)  # languages without a Piper model (e.g. Hindi) use espeak-ng
 
     def render(self, text, lang, target):
+        if lang not in self.models:
+            return self.fallback.render(text, lang, target)
         model = Path(self.models[lang])
         if not model.is_file():
             raise ValueError('Piper voice model missing')
@@ -36,7 +39,7 @@ class PiperBackend(SpeechBackend):
 def backend(cfg):
     cfg=dict(cfg)
     if cfg['backend']=='auto':
-        cfg['backend']='piper' if all(Path(cfg.get('piper_models',{}).get(l,'missing')).is_file() and Path(cfg['piper_models'][l]+'.json').is_file() for l in ('en','hi')) else 'espeak'
+        cfg['backend']='piper' if cfg.get('piper_models') and all(Path(cfg.get('piper_models',{}).get(l,'missing')).is_file() and Path(cfg['piper_models'][l]+'.json').is_file() for l in cfg.get('piper_models',{})) else 'espeak'
     return {'espeak': EspeakBackend, 'silent': lambda _: SilentBackend(), 'piper': PiperBackend}[cfg['backend']](cfg)
 
 
@@ -64,5 +67,6 @@ def mix(path, target, duration, has_audio, cues, wavs, duck):
     for i, cue in enumerate(cues):
         filters.append(f'[{i+1}:a]adelay={round(cue["start"]*1000)}:all=1[a{i}]')
         labels.append(f'[a{i}]')
-    filters.append(''.join(labels) + f'amix=inputs={len(labels)}:duration=first:normalize=0,alimiter=limit=0.95:latency=1[out]')
+    limiter_latency = ':latency=1' if filter_has_option('alimiter', 'latency') else ''
+    filters.append(''.join(labels) + f'amix=inputs={len(labels)}:duration=first:dropout_transition=1000000,volume={len(labels)},alimiter=limit=0.95{limiter_latency}[out]')
     ffmpeg(*args, '-filter_complex', ';'.join(filters), '-map', '0:v:0', '-map', '[out]', '-c:v', 'copy', '-c:a', 'aac', '-threads', 2, '-t', duration, '-movflags', '+faststart', target)

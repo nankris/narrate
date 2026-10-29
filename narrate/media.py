@@ -1,3 +1,4 @@
+import functools
 import json
 import math
 import re
@@ -8,6 +9,18 @@ import numpy as np
 
 def command(args):
     return subprocess.run(args, check=True, capture_output=True)
+
+
+@functools.lru_cache(maxsize=None)
+def filter_has_option(name, option):
+    # Older ffmpeg builds (e.g. 4.3) lack newer filter options such as alimiter's latency.
+    return option in command(['ffmpeg', '-hide_banner', '-h', f'filter={name}']).stdout.decode(errors='replace')
+
+
+def drawtext_font():
+    # ffmpeg drawtext has no default font on Windows (no fontconfig); point it at a system font.
+    font = Path('C:/Windows/Fonts/arial.ttf')
+    return r":fontfile='C\:/Windows/Fonts/arial.ttf'" if font.is_file() else ''
 
 
 def ffmpeg(*args):

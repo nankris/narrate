@@ -17,7 +17,7 @@ from .agent.core import Agent, absolute_times, lint_with_hints, is_skip, similar
 from .config import load_config, resolve_provider
 from .llm import SpendGuard, BudgetExceeded, sanitize
 from .media import ffmpeg, scene_cuts, split_slots, write_texts, word_budget
-from .perception import data_url, separate_frames
+from .perception import data_url, separate_frames, crop_frames
 from . import director_prompts as P
 
 DEFAULTS = {
@@ -27,7 +27,7 @@ DEFAULTS = {
     'narrator_wps_en': 2.6, 'word_tolerance': .15, 'tighten_attempts': 2, 'tighten_max_tokens': 240, 'coverage_target': .75,
     'verify_batch': 4, 'verify_frames': 2, 'max_repair_rounds': 2,
     'accept_uncertain': True, 'require_verification': True, 'calibrate_tts': True,
-    'relook_max': 2, 'min_detail_words': 2, 'openings_max_share': .5, 'openings_min_cues': 3, 'hi_passive_share': .5,
+    'relook_max': 2, 'zoom_max': 3, 'zoom_frames': 5, 'cast_look_frames': 6, 'min_detail_words': 2, 'openings_max_share': .5, 'openings_min_cues': 3, 'hi_passive_share': .5,
     'max_silent_run_s': 20,
     'temperature': .2, 'verify_temperature': 0., 'fallback_word_tolerance': .35, 'rescue_strike_max': 4, 'rescue_verify_rounds': 2,
 }
@@ -661,6 +661,109 @@ class Director(Agent):
         self.events = self.timeline
         self.stats['relook_events'] += len(added)
         return f"{len(asked)} focused re-looks ({'; '.join(asked) or 'none'}): {len(added)} new events {added}"
+
+    # ---------- stage: zoom (Super VL; small hand actions that a wide shot hides, e.g. a chili being cut) ----------
+    ZOOM_CANDIDATE = re.compile(r'\b(pass\w*|handing|inspect\w*|examin\w*|gather\w*|object|item|bag|container|thing|together)\b', re.I)
+
+    def zoom_windows(self):
+        """Up to zoom_max windows (<= window_s) where an event describes vague handling of an object, most important first."""
+        picks = [e for e in self.timeline if e.get('importance', 0) >= 3 and self.ZOOM_CANDIDATE.search(e['what'])
+                 and not e.get('zoom') and not e.get('relook')]
+        windows = []
+        for e in sorted(picks, key=lambda x: x['t_start']):
+            if windows and e['t_start'] - windows[-1][1] <= 3 and e['t_end'] - windows[-1][0] <= self.d['window_s']:
+                windows[-1][1] = max(windows[-1][1], e['t_end'])
+                windows[-1][2] = max(windows[-1][2], e.get('importance', 0))
+            else:
+                windows.append([e['t_start'], e['t_end'], e.get('importance', 0)])
+        windows.sort(key=lambda w: (-w[2], w[0]))
+        return sorted((w[0], min(w[1], w[0] + self.d['window_s'])) for w in windows[:int(self.d['zoom_max'])] if w[1] - w[0] >= 1)
+
+    def st_zoom(self):
+        """Two Super VL calls per window: locate the hand-and-object activity, then re-look at frames cropped to it. The result is
+        added as ordinary events (importance >= 4) and still passes the same verification on stills as every other claim."""
+        if self.mock or not self.d['zoom_max']:
+            return 'skipped'
+        burned = bool((self.scene_context or {}).get('burned_in_subtitles'))
+        added, notes = [], []
+        for s, e in self.zoom_windows():
+            n = max(2, int(self.d['zoom_frames']))
+            times = [round(s + (e - s) * (i + .5) / n, 2) for i in range(n)]
+            what = ''
+            try:
+                located = self.model('timeline', 'perceive', P.ZOOM_LOCATE, {'duration': 0, 'timestamps': times[::2][:3]},
+                                     separate_frames(self.path, times[::2][:3]))
+                box = located.get('box') if isinstance(located, dict) else None
+                what = str(located.get('what', ''))[:80] if isinstance(located, dict) else ''
+                if not (isinstance(box, list) and len(box) == 4 and all(isinstance(v, (int, float)) for v in box)):
+                    notes.append(f'{s:.0f}-{e:.0f}s no hand activity located')
+                    continue
+                raw = self.model('timeline', 'perceive', P.ZOOM_LOOK.format(start=s, end=e, duration=self.duration),
+                                 {'window': [round(s, 2), round(e, 2)], 'duration': 0, 'timestamps': times},
+                                 crop_frames(self.path, times, box))
+                events, _ = normalise_events(raw, s, e, self.duration, burned)
+            except (BudgetExceeded, TimeoutError):
+                raise
+            except Exception as exc:
+                self.report['issues'].append(f'Zoom {s:.0f}-{e:.0f}s unavailable: {sanitize(exc)}')
+                continue
+            for ev in events:
+                if any(similarity(ev['what'], x['what']) >= .6 and ev['t_start'] <= x['t_end'] and ev['t_end'] >= x['t_start'] for x in self.timeline):
+                    continue
+                num = 1 + max((int(x['id'][1:]) for x in self.timeline if x['id'][1:].isdigit()), default=0)
+                self.timeline.append({'id': f'e{num}', **ev, 'importance': max(4, ev['importance']), 'zoom': True})
+                added.append(f'e{num}')
+            notes.append(f'{s:.0f}-{e:.0f}s {what[:40]}')
+        self.timeline.sort(key=lambda x: (x['t_start'], x['t_end']))
+        self.events = self.timeline
+        self.stats['zoom_events'] += len(added)
+        return f"{len(notes)} zoom looks ({'; '.join(notes) or 'none'}): {len(added)} new events {added}"
+
+    # ---------- stage: cast_look (Super VL; apparent gender from frames, only when clearly visible) ----------
+    def st_cast_look(self):
+        """The bible is written from text events, which rarely say who is a woman or a man. Ask Super VL, on frames spread over the
+        clip (and at each person's first appearance), for each cast member's apparent gender, only when clearly visible. The cast
+        notes are rewritten so the writer uses she/he when it is clear and keeps they otherwise (cast_gender reads these notes)."""
+        cast = self.bible.get('cast') or []
+        if self.mock or not cast or not self.d['cast_look_frames']:
+            return 'skipped'
+        n = int(self.d['cast_look_frames'])
+        # One frame per shot: a person is often identifiable in a single wide or medium shot among close-ups of hands.
+        edges = [0.] + [t for t in self.shots if 0 < t < self.duration] + [self.duration]
+        mids = [round((a + b) / 2, 2) for a, b in zip(edges, edges[1:]) if b - a >= .5]
+        firsts = [round(min(self.duration - .3, max(0., float(c.get('first_seen') or 0.))), 2) for c in cast]
+        times = sorted({t for t in firsts if all(abs(t - m) > .5 for m in mids)} | set(mids))
+        cap = 2 * n
+        if len(times) > cap:
+            times = [times[round(i * (len(times) - 1) / (cap - 1))] for i in range(cap)]
+        people = [{k: c.get(k) for k in ('id', 'descriptor', 'notes', 'first_seen')} for c in cast]
+        found = {}   # id -> decided answers over all batches of frames
+        for b in range(0, len(times), n):
+            batch = times[b:b + n]
+            try:
+                raw = self.model('scene', 'perceive', P.CAST_LOOK, {'cast': people, 'duration': 0, 'timestamps': batch},
+                                 separate_frames(self.path, batch))
+            except (BudgetExceeded, TimeoutError):
+                raise
+            except Exception as exc:   # gender stays "not visible" (they / the descriptor); never fail the run for this
+                self.report['issues'].append(f'Cast look unavailable for frames {batch[0]:.0f}-{batch[-1]:.0f}s: {sanitize(exc)}')
+                continue
+            for r in ((raw.get('cast') if isinstance(raw, dict) else None) or []):
+                if isinstance(r, dict) and str(r.get('gender', '')).strip().lower() in ('woman', 'man') and str(r.get('evidence', '')).strip():
+                    found.setdefault(str(r.get('id')), []).append(r)
+        out = []
+        for c in cast:
+            answers = found.get(str(c.get('id'))) or []
+            genders = {str(r['gender']).strip().lower() for r in answers}
+            if len(genders) != 1:   # nothing clear, or the frames disagree: keep gender-neutral wording
+                out.append(f"{c['descriptor']}: unclear" + (' (frames disagree)' if genders else ''))
+                continue
+            r, gender = answers[0], genders.pop()
+            notes = re.sub(r';?\s*gender (?:is )?not (?:clearly )?visible\.?', '', c.get('notes') or '', flags=re.I).strip(' ;.')
+            seen = f"clearly visible at {float(r.get('t') or 0):.0f} s: {str(r['evidence'])[:60]}"
+            c['notes'] = f"{notes}; apparent gender: {gender} ({seen})".lstrip('; ')
+            out.append(f"{c['descriptor']}: {gender}")
+        return '; '.join(out)
 
     def title_payload(self):
         return {'video_title': {'text': self.context, 'note': P.VIDEO_TITLE_NOTE}} if self.context else {}
@@ -1585,7 +1688,9 @@ class Director(Agent):
                 self.stage('shots', self.st_shots, 'ffmpeg scene-change detection')
                 self.stage('scene', self.st_scene, f"Super VL on {self.cfg['agent'].get('scene_frames', 6)} stills across the clip")
                 self.stage('timeline', self.st_timeline, 'Super VL video windows covering the whole clip')
+                self.stage('zoom', self.st_zoom, 'Super VL crops to hand-and-object activity where the wide shot is vague')
                 self.stage('bible', self.st_bible, 'scene + shots + timeline')
+                self.stage('cast_look', self.st_cast_look, 'Super VL apparent gender per cast member, only when clearly visible')
                 if self.bible.get('look_for') and self.d['relook_max']:
                     self.stage('relook', self.st_relook, 'Super VL on windows where the bible expects an unseen beat')
                 self.stage('assign', self.st_assign, 'midpoint / >=50% overlap; refuted excluded')

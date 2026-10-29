@@ -93,7 +93,6 @@ tts:
     hi: hi
   piper_models:
     en: voices/en_US-ljspeech-medium.onnx
-    hi: voices/hi_IN-priyamvada-medium.onnx
 ducking_level: 0.18
 budget_usd: 0.25
 agent:

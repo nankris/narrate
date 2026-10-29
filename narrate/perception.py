@@ -39,6 +39,22 @@ def _frame_at(path, t):
     return raw
 
 
+def crop_frames(path, timestamps, box, margin=.08, min_frac=.4):
+    """Frames cropped to box=[x0,y0,x1,y1] (0-1000 grid or 0-1 fractions), widened by margin and to at least min_frac of each side, then enlarged."""
+    x0, y0, x1, y1 = (float(v) for v in box)
+    if max(x0, y0, x1, y1) > 1:   # models answer on a 0-1000 grid; plain fractions (<= 1) are accepted too
+        x0, y0, x1, y1 = (min(1000., max(0., v)) / 1000 for v in (x0, y0, x1, y1))
+    x0, x1, y0, y1 = min(x0, x1), max(x0, x1), min(y0, y1), max(y0, y1)
+    w, h = min(1., max(min_frac, x1 - x0 + 2 * margin)), min(1., max(min_frac, y1 - y0 + 2 * margin))
+    x, y = min(1. - w, max(0., (x0 + x1) / 2 - w / 2)), min(1. - h, max(0., (y0 + y1) / 2 - h / 2))
+    vf = f"crop=iw*{w:.4f}:ih*{h:.4f}:iw*{x:.4f}:ih*{y:.4f},scale='min(640,iw*2)':-2"
+    result = []
+    for t in timestamps:
+        raw = ffmpeg('-ss', t, '-i', path, '-frames:v', 1, '-vf', vf, '-f', 'image2pipe', '-vcodec', 'mjpeg', '-q:v', 5, '-').stdout
+        result.extend([{'type': 'text', 'text': f'Frame at {t} seconds'}, {'type': 'image_url', 'image_url': {'url': data_url(raw, 'image/jpeg')}}])
+    return result
+
+
 def separate_frames(path, timestamps):
     selected = timestamps if len(timestamps) <= 16 else [timestamps[round(i*(len(timestamps)-1)/15)] for i in range(16)]
     result = []

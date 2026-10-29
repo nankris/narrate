@@ -11,7 +11,7 @@ class ExternalNetworkBlocked(OSError):
 
 
 def _is_loopback(address, family):
-    if family == socket.AF_UNIX:
+    if family == getattr(socket, "AF_UNIX", None):
         return True
     if not isinstance(address, tuple) or not address:
         return False

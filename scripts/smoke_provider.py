@@ -77,12 +77,13 @@ def main():
         record('orchestrate_tool_call', False, error=sanitize(exc).replace(key, '[KEY]'))
     # 4. Super VL
     if not args.skip_video:
-        from narrate.media import ffmpeg
+        from narrate.media import ffmpeg, drawtext_font
         from narrate.perception import data_url, frame_grids
         with tempfile.TemporaryDirectory() as td:
             clip = Path(td) / 'tiny.mp4'
-            vf = ("drawtext=text='RED SQUARE':x=30:y=30:fontsize=40:fontcolor=white:enable='lt(t,2)',"
-                  "drawtext=text='BLUE CIRCLE':x=30:y=30:fontsize=40:fontcolor=white:enable='gte(t,2)'")
+            font = drawtext_font()
+            vf = (f"drawtext=text='RED SQUARE'{font}:x=30:y=30:fontsize=40:fontcolor=white:enable='lt(t,2)',"
+                  f"drawtext=text='BLUE CIRCLE'{font}:x=30:y=30:fontsize=40:fontcolor=white:enable='gte(t,2)'")
             ffmpeg('-f', 'lavfi', '-i', 'color=teal:s=640x360:r=4:d=4', '-vf', vf, '-an', '-c:v', 'libx264', clip)
             for name, media, required in (
                     ('perceive_video_url', [{'type': 'video_url', 'video_url': {'url': data_url(clip.read_bytes(), 'video/mp4')}}], False),

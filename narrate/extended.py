@@ -7,6 +7,7 @@ exactly ``t`` but does include every earlier freeze.
 from __future__ import annotations
 
 import math
+import tempfile
 from pathlib import Path
 
 from .media import ffmpeg, probe, timestamp
@@ -405,47 +406,61 @@ def write_extended_texts(out, cues):
 
 
 def render_extended(source, target_video, target_audio, timeline, narration_files, *, fade_s=.04):
-    """Render one extended timeline. Original programme audio exists only in source segments."""
+    """Render one extended timeline. Original programme audio exists only in source segments.
+
+    Each segment is rendered on its own (cost is linear in the number of pauses; one filter graph that
+    trims the same input 2n+1 times makes ffmpeg buffer every unread branch and does not scale), then
+    video and PCM audio are concatenated and muxed once, so audio is encoded a single time with no
+    per-segment AAC padding drift.
+    """
     source, target_video, target_audio = Path(source), Path(target_video), Path(target_audio)
     duration, has_audio = probe(source)
     files = {str(k): Path(v) for k, v in narration_files.items()}
-    args = ['-i', source]
-    input_index = {}
-    for cue_id in sorted(files, key=str):
-        input_index[cue_id] = len(input_index) + 1
-        args += ['-i', files[cue_id]]
-    filters, video_labels, audio_labels = [], [], []
     pause_by_id = {str(p['cue_id']): p for p in timeline.pauses}
-    for i, seg in enumerate(timeline):
-        v, a = f'v{i}', f'a{i}'
-        length = seg['out_end'] - seg['out_start']
-        if seg['kind'] == 'source':
-            filters.append(f"[0:v]trim=start={seg['src_start']:.6f}:end={seg['src_end']:.6f},setpts=PTS-STARTPTS,fps=30,format=yuv420p[{v}]")
-            if has_audio:
-                fade = min(fade_s, max(0., length / 3))
-                filters.append(f"[0:a]atrim=start={seg['src_start']:.6f}:end={seg['src_end']:.6f},asetpts=PTS-STARTPTS,"
-                               f"aformat=sample_rates=48000:channel_layouts=stereo,afade=t=in:st=0:d={fade:.4f},"
-                               f"afade=t=out:st={max(0., length-fade):.6f}:d={fade:.4f}[{a}]")
+    x264 = ['-c:v', 'libx264', '-crf', 23, '-preset', 'veryfast', '-pix_fmt', 'yuv420p', '-an']
+    stereo = 'aformat=sample_rates=48000:channel_layouts=stereo'
+    with tempfile.TemporaryDirectory(dir=target_video.parent) as td:
+        work = Path(td)
+        video_parts, audio_parts = [], []
+        for i, seg in enumerate(timeline):
+            length = seg['out_end'] - seg['out_start']
+            if length <= 1 / 60:
+                continue
+            video, audio = work / f'v{i}.mp4', work / f'a{i}.wav'
+            if seg['kind'] == 'source':
+                ffmpeg('-ss', f"{seg['src_start']:.6f}", '-i', source, '-t', f'{length:.6f}',
+                       '-vf', 'fps=30,format=yuv420p', *x264, video)
+                if has_audio:
+                    fade = min(fade_s, max(0., length / 3))
+                    ffmpeg('-ss', f"{seg['src_start']:.6f}", '-i', source, '-t', f'{length:.6f}', '-vn',
+                           '-af', f'{stereo},afade=t=in:st=0:d={fade:.4f},'
+                                  f'afade=t=out:st={max(0., length-fade):.6f}:d={fade:.4f},apad,atrim=duration={length:.6f}',
+                           '-c:a', 'pcm_s16le', audio)
+                else:
+                    ffmpeg('-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-t', f'{length:.6f}', '-c:a', 'pcm_s16le', audio)
             else:
-                filters.append(f"anullsrc=r=48000:cl=stereo,atrim=duration={length:.6f}[{a}]")
-        else:
-            # >= 1 frame even at 10 fps and for a closing pause at the clip end (freeze the last frame).
-            # Round 8c: tpad=stop_mode=clone dropped the closing freeze (roti video stream ended 15.3 s before the audio);
-            # loop one decoded frame instead, which holds for any position including the last frame.
-            frame_t = min(max(0., seg['src_start']), max(0., duration - .3))
-            filters.append(f"[0:v]trim=start={frame_t:.6f}:end={min(duration, frame_t+.12):.6f},setpts=PTS-STARTPTS,"
-                           f"loop=loop=-1:size=1:start=0,setpts=N/30/TB,trim=duration={length:.6f},format=yuv420p[{v}]")
-            p = pause_by_id[str(seg['cue_id'])]
-            idx = input_index[str(seg['cue_id'])]
-            delay = max(0, round((p['cue_start'] - p['out_start']) * 1000))
-            filters.append(f"[{idx}:a]aformat=sample_rates=48000:channel_layouts=stereo,adelay={delay}:all=1,"
-                           f"apad,atrim=duration={length:.6f},asetpts=PTS-STARTPTS[{a}]")
-        video_labels.append(f'[{v}]')
-        audio_labels.append(f'[{a}]')
-    n = len(timeline)
-    filters.append(''.join(x + y for x, y in zip(video_labels, audio_labels)) + f'concat=n={n}:v=1:a=1[vout][aout]')
-    ffmpeg(*args, '-filter_complex', ';'.join(filters), '-map', '[vout]', '-map', '[aout]',
-           '-c:v', 'libx264', '-crf', 23, '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k',
-           '-movflags', '+faststart', '-t', timeline.total_duration, target_video)
-    ffmpeg('-i', target_video, '-vn', '-c:a', 'aac', '-b:a', '128k', '-t', timeline.total_duration, target_audio)
+                # Freeze: hold one decoded frame (>= 1 frame even at 10 fps, and valid at the very last frame).
+                frame = work / f'f{i}.png'
+                frame_t = min(max(0., seg['src_start']), max(0., duration - .3))
+                ffmpeg('-ss', f'{frame_t:.6f}', '-i', source, '-frames:v', 1, frame)
+                ffmpeg('-loop', 1, '-framerate', 30, '-i', frame, '-t', f'{length:.6f}', '-vf', 'format=yuv420p', *x264, video)
+                p = pause_by_id[str(seg['cue_id'])]
+                delay = max(0, round((p['cue_start'] - p['out_start']) * 1000))
+                ffmpeg('-i', files[str(seg['cue_id'])],
+                       '-af', f'{stereo},adelay={delay}:all=1,apad,atrim=duration={length:.6f}',
+                       '-c:a', 'pcm_s16le', audio)
+            video_parts.append(video)
+            audio_parts.append(audio)
+
+        def concat(parts, name):
+            listing = work / f'{name}.txt'
+            listing.write_text(''.join(f"file '{part.as_posix()}'\n" for part in parts), encoding='utf-8')
+            merged = work / name
+            ffmpeg('-f', 'concat', '-safe', 0, '-i', listing, '-c', 'copy', merged)
+            return merged
+
+        all_video, all_audio = concat(video_parts, 'all.mp4'), concat(audio_parts, 'all.wav')
+        ffmpeg('-i', all_video, '-i', all_audio, '-map', '0:v:0', '-map', '1:a:0', '-c:v', 'copy',
+               '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-t', timeline.total_duration, target_video)
+        ffmpeg('-i', all_audio, '-c:a', 'aac', '-b:a', '128k', '-t', timeline.total_duration, target_audio)
     return timeline.total_duration

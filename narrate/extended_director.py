@@ -174,13 +174,24 @@ class ExtendedDirector(Director):
         frame_times = [min(max(0., self.duration - .3), t) for t in times]
         # Super VL rejected 9 images in one request (HTTP 400 on roti_e3); 8 worked. Batch <= 6 frames per call.
         frames, batch = [], int(self.x.get('pause_frame_batch', 6))
-        for i in range(0, len(times), batch):
-            ft, tt = frame_times[i:i + batch], times[i:i + batch]
+        limit = int(self.x.get('pause_frame_max_tokens', 6000))  # six dense frame descriptions overflow the default limit
+
+        def describe(ft, tt):
             media = None if self.mock else separate_frames(self.path, ft)
             raw = self.model('pause_frames', 'perceive', P.GROUNDTRUTH_FRAMES,
-                             {'duration': 0, 'timestamps': ft, 'pause_timestamps': tt}, media,
+                             {'duration': 0, 'timestamps': ft, 'pause_timestamps': tt, '_max_tokens': limit}, media,
                              self.mock_pause_frames() if self.mock else None)
-            frames += normalise_pause_frames(raw, tt)
+            return normalise_pause_frames(raw, tt)
+
+        for i in range(0, len(times), batch):
+            ft, tt = frame_times[i:i + batch], times[i:i + batch]
+            got = describe(ft, tt)
+            if not self.mock:
+                # A truncated reply silently loses frames, and a pause without frame facts is later dropped: re-ask for them.
+                missing = [(f, t) for f, t in zip(ft, tt) if not any(abs(g['t'] - t) < 1. for g in got)]
+                for j in range(0, len(missing), 2):
+                    got += describe([f for f, _ in missing[j:j + 2]], [t for _, t in missing[j:j + 2]])
+            frames += got
         for pause in self.pause_rows:
             self.pause_frames[pause['id']] = min(frames, key=lambda f: abs(f['t'] - pause['t']), default={})
         return f'{len(self.pause_frames)} current frames described by Super VL'
@@ -651,7 +662,9 @@ class ExtendedDirector(Director):
             self.stage('scene', self.st_scene, 'Super VL scene context')
             self.stage('timeline', self.st_timeline, 'Super VL whole-clip windows')
             self.stage('text_stills', self.st_text_stills, 'Super VL re-reads on-screen text from stills')
+            self.stage('zoom', self.st_zoom, 'Super VL crops to hand-and-object activity where the wide shot is vague')
             self.stage('bible', self.st_bible, 'Ultra scene/story bible')
+            self.stage('cast_look', self.st_cast_look, 'Super VL apparent gender per cast member, only when clearly visible')
             self.stage('pause_plan', self.st_plan_pauses, 'cuts + speech ends + key events + story beats')
             self.stage('pause_frames', self.st_pause_frames, 'Super VL current frames at pauses')
             self.stage('extended_write', self.st_write, 'one Ultra call for every pause')

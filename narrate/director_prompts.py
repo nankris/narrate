@@ -24,6 +24,33 @@ FOCUS: the story implies this moment here but the first pass logged nothing for 
 closely. Return only events that show it (or a visible reaction to it, e.g. someone biting, chewing, covering the mouth,
 grimacing, laughing at the taste), with importance 5. If it is not visible, return {{"events":[]}}; never invent it.'''
 
+ZOOM_LOCATE = """Find where the hands touch or handle objects. You receive still frames from one short window, each labelled with its time.
+Return strict JSON {"box":[x0,y0,x1,y1],"what":""}: box is the smallest rectangle (integers 0-1000 of the frame width and height, origin top-left) that
+contains the main hand-and-object activity across the frames (hands, the object handled and any tool), "what" is a few words
+naming it. If no hands are handling anything visible, return {"box":null,"what":""}."""
+
+ZOOM_LOOK = """You inspect close-up crops of the main hand-and-object activity in the window [{start:.2f} s, {end:.2f} s] of a {duration:.1f} s
+video, for an audio describer. Each frame is labelled with its ABSOLUTE time. The crops show hands and objects larger than the wide
+shot does, so small actions are visible. Answer these from the crops, then log what you see:
+1. Is any object being cut or sliced, and with what tool (a knife, scissors)?
+2. Is anything broken or torn into pieces, peeled, opened or poured?
+3. Is anything handed over, shared, bitten or eaten?
+Return JSON {{"checks":{{"cut_or_sliced":"","broken_peeled_opened_poured":"","handed_bitten_eaten":""}},"events":[{{"t_start":0,"t_end":0,"what":"","change":"","on_screen_text":"","subtitle_text":"","importance":4,"confidence":0.9}}]}}
+Fill "checks" first: answer each question from the crops with "yes" plus who, what and the tool, or "no". Your events must agree with
+your checks: a "yes" must appear as its own event. Then log 1-4 events in time order. what = one concrete sentence: who (by clothes or appearance), the exact action, the object, the tool
+and the visible result, for example "The woman in the red top slices an apple with a knife and a piece comes away". Only what is
+visible in the crops; if none of the actions above is visible, log only the plainly visible handling and never mention cutting.
+Never invent a tool or an action."""
+
+CAST_LOOK = """You decide the apparent gender of each person in a cast list from still frames of one video, each labelled with its time.
+Input {"cast":[{"id","descriptor","notes","first_seen"}]}. Return strict JSON
+{"cast":[{"id":"c1","gender":"woman|man|unclear","t":0,"evidence":""}]} with one row per cast member.
+- Say woman or man only when a face, hair or body in at least one frame makes it clearly visible AND you are confident that
+  person is the cast member (same clothes, same role). t = the time of that frame; evidence = what is visible, in a few words.
+- Hands, arms or a torso crop alone do not decide it. Never infer gender from clothing alone (an apron, a shirt), from the
+  activity (cooking, tending plants) or from the descriptor. A child is "unclear" unless clearly visible.
+- If the frames disagree or the person is not clearly visible, answer unclear. Never guess."""
+
 TIMELINE_FRAMES = TIMELINE + '\nYou receive still frames from the window instead of video; each is labelled with its absolute time. Do not infer motion you cannot see.'
 
 VIDEO_TITLE_NOTE = ('UNVERIFIED user context (a title or one-line description supplied with the video). It may name the goal, '
@@ -98,9 +125,9 @@ Style:
    cook. Use he/she only when the bible notes make it visually clear; otherwise use the descriptor or "they". Never open with
    "Person" or "A person". Name objects by bible names (name, never its aliases from from_t on).
    Vary the openings like a professional describer: after the first mention, do not start consecutive cues with the same
-   words, and never let one opening (e.g. "The cook ...") start more than half the cues. Alternate a pronoun ("They ..."),
+   words, and never let one opening (e.g. "The cook ...") start more than half the cues. Alternate a pronoun (she/he as the bible cast notes say; "They ..." only when the notes say gender is not visible),
    the object or result first ("The dough ...", "Two balls now ..."), a time link ("Now ...", "Next ...") or a participial
-   opening ("Rolling the strip tight, they ...").
+   opening ("Rolling the strip tight, she ...", with he, she or they chosen from the cast notes).
 6. Never describe the camera's movement or the edit ("we see", "the camera pans/zooms/shows/lowers", any sentence with the
    camera as its subject, "on camera", "shot", "frame", "screen shows"). A person holding a camera is part of the scene: say what they do and why, e.g. "a crewmate photographs the
    pepper", not "it is filmed close-up".
@@ -216,6 +243,10 @@ Each cue is 2-3 fluent, native English sentences and no more than max_words (nor
   or "Screen shows". Do not repeat or paraphrase an earlier cue in your response. Do not invent names; use appearance/role
   descriptors unless a name is written on screen. The first frozen frame establishes only that moment: never make global
   claims such as a person, object or body part being the only one visible throughout the clip.
+- Pronouns follow the bible cast notes: when a person's notes say "apparent gender: woman" use she/her, for "man" use he/him;
+  when the notes do not say, use the cast descriptor or "they". Never guess a gender.
+- Never mention how the video was analysed: no "interval", "frame", "sample", "static intervals" or counts of them. A listener
+  should hear only the scene; for an unchanged scene say it stays the same, with no tally.
 - Quote on-screen text once, as it stands on the frozen frame. Readings that flicker by a word or two between nearby events
   and then revert are reading noise, not real changes: never narrate them. Omit left/right hand unless every event agrees.
 Every narration word must be your own response; do not return placeholders or fallback instructions.'''

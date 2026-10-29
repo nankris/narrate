@@ -21,16 +21,23 @@ def discover() -> dict[str, Path]:
     }
 
 
-def sample(name: str, lang: str):
+MODES = {
+    "extended": ("Extended: video pauses while it is described", "extended_en.mp4", "ad_extended_en.vtt", "extended_report.json", "extended_trace.json"),
+    "ingap": ("In-gap: described only in natural silences", "narrated_en.mp4", "ad_en.vtt", "report.json", "trace.json"),
+}
+
+
+def sample(name: str, mode: str):
+    """(original video, narrated video, WebVTT cues, evidence files) for one cached run and mode."""
     folder = discover()[name]
     meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
     original = ROOT / meta["input_path"]
+    _, video, cues, report, trace = MODES[mode]
     return (
         str(original),
-        str(folder / f"narrated_{lang}.mp4"),
-        (folder / f"ad_{lang}.vtt").read_text(encoding="utf-8"),
-        str(folder / "report.json"),
-        str(folder / "trace.json"),
+        str(folder / video),
+        (folder / cues).read_text(encoding="utf-8"),
+        [str(folder / report), str(folder / trace)],
     )
 
 
@@ -39,19 +46,19 @@ def build_app():
 
     runs = discover()
     first = "cooking_roti_0028-0148" if "cooking_roti_0028-0148" in runs else next(iter(runs))
-    initial = sample(first, "en")
+    initial = sample(first, "extended")
     with gr.Blocks(title="Narrate · cached samples", analytics_enabled=False) as demo:
-        gr.Markdown("# Narrate · cached samples\nLocal playback only. No API key, inference, upload, or network call.")
+        gr.Markdown("# Narrate · cached samples\nLocal playback only. No API key, inference, upload, or network call. English narration.")
         with gr.Row():
             run = gr.Dropdown(list(runs), value=first, label="Cached run")
-            lang = gr.Radio([("English", "en"), ("Hindi", "hi")], value="en", label="Language")
+            mode = gr.Radio([(label, key) for key, (label, *_) in MODES.items()], value="extended", label="Description mode")
         with gr.Row():
             original = gr.Video(initial[0], label="Original", interactive=False)
-            narrated = gr.Video(initial[1], label="Narrated", interactive=False)
+            narrated = gr.Video(initial[1], label="With audio description", interactive=False)
         cues = gr.Textbox(initial[2], label="WebVTT cues", lines=10, interactive=False)
-        files = gr.Files(initial[3:], label="Evidence", interactive=False)
-        for control in (run, lang):
-            control.change(sample, [run, lang], [original, narrated, cues, files])
+        files = gr.Files(initial[3], label="Evidence", interactive=False)
+        for control in (run, mode):
+            control.change(sample, [run, mode], [original, narrated, cues, files])
     return demo
 
 
