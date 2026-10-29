@@ -207,6 +207,9 @@ Each cue is 2-3 fluent, native English sentences and no more than max_words (nor
   finished inside that (exclusive_start, inclusive_end] window, in the supplied order, plus what is visible on the frozen
   frame now. Cite every event used. Never cite or anticipate an event ending after inclusive_end, or pull an earlier event
   forward from before exclusive_start.
+- A frozen frame may establish static setting, people and objects, but do not describe an action still in progress there.
+  Every action must cite an event whose t_end is at or before the pause. Describe dough being rolled up or coiled as
+  "rolled" or "coiled", never "twisted". A flat cover over a bowl is a plate, not another bowl.
 - Explicitly resolve supplied confusing_parts in plain language. Use concrete visible facts, not inference.
 - Never read subtitle_text: subtitles are speech context. Real titles, labels and signs may be quoted.
 - Native spoken prose with finite verbs; no camera/edit language, "we see", sound description, repeated cue, clipped caption,

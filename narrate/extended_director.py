@@ -267,6 +267,12 @@ class ExtendedDirector(Director):
         if re.search(r'\bcamera\b|\b(?:zooms?|pans?) (?:in|out|to|across)\b|\bclose-?up\b|\bthe shot\b', text, re.I):
             # roti_e4 shipped "The camera pulls back to reveal a child"; describe the scene, not the camera.
             problems.append('camera direction: describe what is visible, never the camera or shot')
+        if re.search(r'\b(?:twist(?:s|ed|ing)?|twisted)\b', text, re.I) and re.search(
+                r'\b(?:dough|roll|rope|spiral|coil)\b', text, re.I):
+            problems.append('action terminology: describe dough as rolled up or coiled, not twisted')
+        if re.search(r'\b(?:white\s+)?bowl\b', text, re.I) and re.search(
+                r'\b(?:cover(?:s|ed|ing)?|inverted|lid|rest)\b', text, re.I):
+            problems.append('object terminology: the flat cover must be called a plate, not a bowl')
         subtitles = [e.get('subtitle_text', '') for e in self.timeline if e.get('subtitle_text')]
         for quoted in re.findall(r'["“]([^"”]+)["”]', text):
             if any(quoted.lower() in s.lower() for s in subtitles):
@@ -295,6 +301,10 @@ class ExtendedDirector(Director):
                               similarity(text, other['text']) >= .65), None)
             if duplicate:
                 problems.append('duplicate or redundant with another extended cue')
+            oil_pour = re.search(r'\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b.{0,45}\boil\b|\boil\b.{0,45}\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b', text, re.I)
+            if oil_pour and any(re.search(r'\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b.{0,45}\boil\b|\boil\b.{0,45}\b(?:pour(?:s|ed|ing)?|spoon(?:s|ed|ing)?)\b',
+                                      other['text'], re.I) for other in accepted.values()):
+                problems.append('duplicate oil-pour event already described by another extended cue')
         return valid, problems
 
     @staticmethod
@@ -551,6 +561,11 @@ class ExtendedDirector(Director):
             cues.append({'id': cue_id, 'source_t': pause['t'], 'out_start': timing['cue_start'],
                          'out_end': timing['cue_end'], 'text': entry['text']})
             plan.append({**pause, 'cue_id': cue_id, 'cue_text': entry['text'],
+                         'evidence': list(entry.get('evidence', [])),
+                         'evidence_times': [{'id': evidence_id,
+                                             't_end': next((float(e['t_end']) for e in self.timeline
+                                                            if e.get('id') == evidence_id), pause['t'])}
+                                            for evidence_id in entry.get('evidence', [])],
                          'narration_seconds': round(timing['narration_seconds'], 3),
                          'freeze_seconds': round(timing['freeze_seconds'], 3),
                          'out_start': timing['out_start'], 'out_end': timing['out_end'],

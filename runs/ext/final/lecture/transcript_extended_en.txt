@@ -1,0 +1,3 @@
+[00:00:03.405] A dark blue slide displays the white title "CONTINUOUS SPEECH - SLIDE 1" in the upper left.
+[00:00:28.616] A second dark blue slide now displays the white title "SLIDE 2 - NO ROOM FOR AD" in the upper left.
+[00:00:53.562] The second slide remains on screen with the full title "SLIDE 2 - NO ROOM FOR AD".
