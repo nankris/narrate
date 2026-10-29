@@ -1,6 +1,6 @@
-# Narrate: an agent that writes audio description
+# Narrate: extended audio description for videos that do not pause
 
-**Upload a video of up to 2 minutes. Narrate returns an audio-description track for blind and low-vision viewers, in English and Hindi.** It writes descriptions only into the moments when nobody is speaking, checks its own claims before it speaks them, and outputs:
+**Narrate pauses video at safe boundaries, describes what has already happened, and resumes without speaking over dialogue.** This extended audio-description mode is designed for videos where ordinary in-gap description has too little room. Narrate also ships its original in-gap English/Hindi agent.
 
 - WebVTT description tracks (`ad_en.vtt`, `ad_hi.vtt`) and plain-text transcripts;
 - narrated MP4s with the original audio ducked under each description;
@@ -15,17 +15,13 @@ Narrate is a **tool-calling agent built on NVIDIA Nemotron**, designed to run on
 
 ---
 
-## Quickstart (offline, no key, about 2 min)
+## Quickstart (offline, no key)
 
 You need Python 3.13 (tested), `ffmpeg`/`ffprobe`, and `espeak-ng` (with `en` and `hi` voices).
 
 ```bash
-git clone <this repo> narrate && cd narrate
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/pip install silero-vad --no-deps          # MIT Silero VAD ONNX model, no torch
-.venv/bin/python -m pytest -q                       # fully offline
-.venv/bin/python -m app.app                         # web UI → http://127.0.0.1:7860 (cached real runs, zero cost)
+.venv/bin/python -m pytest -q
+.venv/bin/python scripts/serve_cached_demo.py
 .venv/bin/python -m narrate agent samples/sample_kitchen.mp4 --out runs/demo --provider mock
 ```
 
@@ -64,12 +60,12 @@ export NVIDIA_DEV_API_KEY=...
 - `scripts/list_models.py --provider nebius` lists the Nemotron IDs your key can see.
 - Every run has a hard spend cap (SpendGuard). Real-mode raw responses are saved, truncated, with no headers. Keys are never logged.
 
-## Extended audio description (WCAG 1.2.7), `--ad-mode extended`
+## Extended audio description (headline feature), `--ad-mode extended`
 
-In-gap mode (the default, `--ad-mode ingap`) only speaks where nobody else is speaking. Extended mode is for viewers who need
-more than that, and for videos with no gaps at all. At scene cuts, key moments and between-sentence silences, the video
-**freezes on the current frame**. A fuller description then plays (place, who is there, what just happened), and the video
-resumes. Original dialogue is never talked over or cut: a pause is never placed inside speech.
+In-gap mode (the default, `--ad-mode ingap`) only speaks where nobody else is speaking. Extended mode is for videos with too
+little room, including continuous speech. At a safe boundary the video **freezes on the current frame**, a fuller description
+plays, and the video resumes. The intended timing contract is strict: pause only after an event ends and describe only events
+that have already happened. That chronology rule is under active repair and must be human-reviewed before publication.
 
 ```bash
 python -m narrate agent samples/cooking_roti_0028-0148.mp4 --out runs/ext/roti --provider nebius --ad-mode extended --lang en
@@ -99,10 +95,11 @@ Final demo runs (Round 8c) are in `runs/ext/final/`:
 
 | Clip | Source | Output | Pauses |
 |---|---|---|---|
-| roti | 119.9 s | 223.3 s | 8 |
-| lecture | 30.0 s | 61.6 s | 3 |
+| roti | 119.9 s | 229.1 s | 8 |
+| lecture | 30.0 s | 64.5 s | 3 |
 
-The lecture is the clip in-gap mode refuses.
+Both cached reports record zero overlaps with Narrate's detected speech regions. This is not a human accessibility
+certification. The lecture is the clip that in-gap mode refuses.
 
 ## How the agent works
 

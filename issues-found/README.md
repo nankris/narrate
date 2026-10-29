@@ -3,6 +3,8 @@
 
 # Issues found
 
+See the complete one-line catalog in [INDEX.md](INDEX.md).
+
 | Group | Evidence / status |
 |---|---|
 | [Provider compatibility](provider.md) | No authorized real calls; schema, JSON mode, regions and billing to verify |
