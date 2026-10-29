@@ -1,0 +1,204 @@
+{
+  "source_duration": 30.0,
+  "output_duration": 64.654376,
+  "speech_intervals": [
+    {
+      "start": 0.0,
+      "end": 3.048073
+    },
+    {
+      "start": 3.161723,
+      "end": 10.569841
+    },
+    {
+      "start": 10.683628,
+      "end": 18.073878
+    },
+    {
+      "start": 18.187347,
+      "end": 25.588209
+    },
+    {
+      "start": 25.701542,
+      "end": 30.0
+    }
+  ],
+  "pad_before": 0.3,
+  "pad_after": 0.4,
+  "pauses": [
+    {
+      "t": 3.105,
+      "snapped": false,
+      "from_t": 3.105,
+      "snap_seconds": 0.0,
+      "snap_reason": "confirmed_micro_silence",
+      "candidate_t": 3.105,
+      "reason": "establishing pause at a between-sentence micro-silence",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "A teal presentation slide displays the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner on a solid background. The slide remains unchanged.",
+      "evidence": [
+        "e1"
+      ],
+      "evidence_times": [
+        {
+          "id": "e1",
+          "t_end": 3.0
+        }
+      ],
+      "narration_seconds": 9.764,
+      "freeze_seconds": 10.464,
+      "out_start": 3.105,
+      "out_end": 13.568991,
+      "cue_out_start": 3.405,
+      "cue_out_end": 13.168991,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "All frames show a teal slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left on a solid background, unchanged across the window."
+      }
+    },
+    {
+      "t": 18.131,
+      "snapped": true,
+      "from_t": 15.0,
+      "snap_seconds": 3.131,
+      "snap_reason": "forward_to_micro_silence",
+      "candidate_t": 18.131,
+      "reason": "visual change; first between-sentence boundary after it; between-sentence micro-silence",
+      "source": "visual_change",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "The slide continues showing \"CONTINUOUS SPEECH - SLIDE 1\" on the teal background. At ten seconds the slide changes to display \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner. The new slide is now frozen.",
+      "evidence": [
+        "e2",
+        "e3",
+        "e4"
+      ],
+      "evidence_times": [
+        {
+          "id": "e2",
+          "t_end": 6.0
+        },
+        {
+          "id": "e3",
+          "t_end": 10.0
+        },
+        {
+          "id": "e4",
+          "t_end": 12.0
+        }
+      ],
+      "narration_seconds": 13.247,
+      "freeze_seconds": 13.947,
+      "out_start": 28.594991,
+      "out_end": 42.541975,
+      "cue_out_start": 28.894991,
+      "cue_out_end": 42.141975,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "Frames at 4.608, 7.613, 10.618, and 13.623 seconds show the teal slide with \"CONTINUOUS SPEECH - SLIDE 1\"; the frame at 18.131 seconds shows the changed slide \"SLIDE 2 - NO ROOM FOR AD\" in the upper left, matching the cue's sequence and tex"
+      }
+    },
+    {
+      "t": 30.0,
+      "snapped": false,
+      "from_t": 30.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 30.0,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The slide continues to show \"SLIDE 2 - NO ROOM FOR AD\" on the plain teal background with no further visual changes. The presentation remains on this final slide.",
+      "evidence": [
+        "e5",
+        "e6",
+        "e7",
+        "e8"
+      ],
+      "evidence_times": [
+        {
+          "id": "e5",
+          "t_end": 20.0
+        },
+        {
+          "id": "e6",
+          "t_end": 22.0
+        },
+        {
+          "id": "e7",
+          "t_end": 25.0
+        },
+        {
+          "id": "e8",
+          "t_end": 30.0
+        }
+      ],
+      "narration_seconds": 9.543,
+      "freeze_seconds": 10.243,
+      "out_start": 54.410975,
+      "out_end": 64.654376,
+      "cue_out_start": 54.710975,
+      "cue_out_end": 64.254376,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "All frames from 19.288 to 29.7 seconds show the same plain teal background with the text \"SLIDE 2 - NO ROOM FOR AD\" and no further visual changes, matching the cue."
+      }
+    }
+  ],
+  "segments": [
+    {
+      "kind": "source",
+      "src_start": 0.0,
+      "src_end": 3.105,
+      "out_start": 0.0,
+      "out_end": 3.105,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 3.105,
+      "src_end": 3.105,
+      "out_start": 3.105,
+      "out_end": 13.568991,
+      "cue_id": 1
+    },
+    {
+      "kind": "source",
+      "src_start": 3.105,
+      "src_end": 18.131,
+      "out_start": 13.568991,
+      "out_end": 28.594991,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 18.131,
+      "src_end": 18.131,
+      "out_start": 28.594991,
+      "out_end": 42.541975,
+      "cue_id": 2
+    },
+    {
+      "kind": "source",
+      "src_start": 18.131,
+      "src_end": 30.0,
+      "out_start": 42.541975,
+      "out_end": 54.410975,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 30.0,
+      "src_end": 30.0,
+      "out_start": 54.410975,
+      "out_end": 64.654376,
+      "cue_id": 3
+    }
+  ]
+}

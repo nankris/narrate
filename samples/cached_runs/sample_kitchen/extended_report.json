@@ -1,0 +1,820 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "mode": "director",
+  "video_title": null,
+  "ad_mode": "extended",
+  "input_path": "C:\\Users\\Nandigam.Krishna\\narrate\\samples\\sample_kitchen.mp4",
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "micro_silences": [],
+  "scene_context": {
+    "setting": "Interior title-card sequence, no actual room or surface shown.",
+    "activity": "Text instructions describing kitchen actions appear on screen.",
+    "dish": "",
+    "visual_style": "Minimalist title cards with colored backgrounds and moving yellow box.",
+    "people": [],
+    "ingredients": [
+      "onions"
+    ],
+    "tools": [],
+    "objects": [
+      "yellow rectangular border"
+    ],
+    "burned_in_subtitles": false,
+    "confidence": 0.9
+  },
+  "extended_coverage": {
+    "planned": 3,
+    "described": 3,
+    "largest_source_gap_s": 15.264,
+    "max_source_gap_s": 25.0,
+    "missing_pause_ids": [],
+    "guarantee_met": true
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "source_t": 4.738,
+      "out_start": 5.038,
+      "out_end": 17.507116,
+      "text": "White text reading \"A person enters a kitchen\" appears at the top left of a teal background. A yellow rectangular border sits at the bottom left. The text then disappears, leaving only the border on the teal screen."
+    },
+    {
+      "id": 2,
+      "source_t": 20.002,
+      "out_start": 33.471116,
+      "out_end": 43.664676,
+      "text": "The yellow rectangular border moves from the left side toward the center, then continues rightward until it reaches the far right edge and stops. It remains stationary there."
+    },
+    {
+      "id": 3,
+      "source_t": 30.0,
+      "out_start": 54.362676,
+      "out_end": 68.074059,
+      "text": "The text \"Stir and serve\" appears in the upper left while the yellow border stays at the right edge. The border then moves leftward across the teal background until it reaches the far left edge and stops. The text remains visible throughout."
+    }
+  ],
+  "pauses": [
+    {
+      "t": 4.738,
+      "snapped": false,
+      "from_t": 4.738,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 4.738,
+      "reason": "establishing pause near the start; speech-end boundary; story beat",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "White text reading \"A person enters a kitchen\" appears at the top left of a teal background. A yellow rectangular border sits at the bottom left. The text then disappears, leaving only the border on the teal screen.",
+      "evidence": [
+        "e1",
+        "e2"
+      ],
+      "evidence_times": [
+        {
+          "id": "e1",
+          "t_end": 1.0
+        },
+        {
+          "id": "e2",
+          "t_end": 3.0
+        }
+      ],
+      "narration_seconds": 12.469,
+      "freeze_seconds": 13.169,
+      "out_start": 4.738,
+      "out_end": 17.907116,
+      "cue_out_start": 5.038,
+      "cue_out_end": 17.507116,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show white text \"A person enters a kitchen\" at the top left on a teal background, with a yellow rectangular border at the bottom left, matching the cue."
+      }
+    },
+    {
+      "t": 20.002,
+      "snapped": true,
+      "from_t": 20.0,
+      "snap_seconds": 0.002,
+      "snap_reason": "forward_to_speech_end",
+      "candidate_t": 20.002,
+      "reason": "story beat; speech-end boundary",
+      "source": "story_beat",
+      "detail": "Second instruction appears: 'Stir and serve'",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "The yellow rectangular border moves from the left side toward the center, then continues rightward until it reaches the far right edge and stops. It remains stationary there.",
+      "evidence": [
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7"
+      ],
+      "evidence_times": [
+        {
+          "id": "e3",
+          "t_end": 6.0
+        },
+        {
+          "id": "e4",
+          "t_end": 10.0
+        },
+        {
+          "id": "e5",
+          "t_end": 12.0
+        },
+        {
+          "id": "e6",
+          "t_end": 14.0
+        },
+        {
+          "id": "e7",
+          "t_end": 20.0
+        }
+      ],
+      "narration_seconds": 10.194,
+      "freeze_seconds": 10.894,
+      "out_start": 33.171116,
+      "out_end": 44.064676,
+      "cue_out_start": 33.471116,
+      "cue_out_end": 43.664676,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The yellow rectangular border is visible in all five frames. It starts left of center at 6.264s, remains left of center at 9.317s, moves to the center at 12.37s and 15.423s, and reaches the far right edge at 20.002s, matching the described "
+      }
+    },
+    {
+      "t": 30.0,
+      "snapped": false,
+      "from_t": 30.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 30.0,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The text \"Stir and serve\" appears in the upper left while the yellow border stays at the right edge. The border then moves leftward across the teal background until it reaches the far left edge and stops. The text remains visible throughout.",
+      "evidence": [
+        "e8",
+        "e9",
+        "e10"
+      ],
+      "evidence_times": [
+        {
+          "id": "e8",
+          "t_end": 22.0
+        },
+        {
+          "id": "e9",
+          "t_end": 28.0
+        },
+        {
+          "id": "e10",
+          "t_end": 30.0
+        }
+      ],
+      "narration_seconds": 13.711,
+      "freeze_seconds": 14.411,
+      "out_start": 54.062676,
+      "out_end": 68.474059,
+      "cue_out_start": 54.362676,
+      "cue_out_end": 68.074059,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The text \"Stir and serve\" is visible in the upper left in all frames. The yellow border starts at the right edge in the first four frames and is at the far left edge in the final frame, consistent with moving leftward and stopping. The back"
+      }
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 3,
+  "cues_dropped": 0,
+  "dropped_cues": {},
+  "overlaps_with_speech": 0,
+  "total_added_seconds": 38.474,
+  "output_duration_s": 68.474059,
+  "extended_stats": {
+    "pauses": 3,
+    "total_added_seconds": 38.474,
+    "overlaps_with_speech": 0
+  },
+  "bible": {
+    "setting": "Minimalist title-card sequence on solid teal background with moving yellow box",
+    "place": "title cards",
+    "cast": [],
+    "objects": [
+      "yellow rectangular border"
+    ],
+    "goal": "show text instructions for kitchen actions",
+    "story": "A title card sequence displays the instruction 'A person enters a kitchen' then later 'Stir and serve' while a yellow rectangular border moves across the teal background from left to right, pauses, then returns left.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "Opening instruction appears: 'A person enters a kitchen'",
+        "why": "sets up the kitchen scenario",
+        "events": [
+          "e1"
+        ]
+      },
+      {
+        "t": 3.0,
+        "beat": "Yellow border begins moving rightward across the screen",
+        "why": "visual progression between instruction cards",
+        "events": [
+          "e3",
+          "e4",
+          "e5",
+          "e6"
+        ]
+      },
+      {
+        "t": 14.0,
+        "beat": "Border pauses at right edge",
+        "why": "holds position before next instruction",
+        "events": [
+          "e7"
+        ]
+      },
+      {
+        "t": 20.0,
+        "beat": "Second instruction appears: 'Stir and serve'",
+        "why": "advances the kitchen action sequence",
+        "events": [
+          "e8"
+        ]
+      },
+      {
+        "t": 22.0,
+        "beat": "Border moves leftward back across the screen",
+        "why": "returns to starting position as sequence concludes",
+        "events": [
+          "e9",
+          "e10"
+        ]
+      }
+    ],
+    "names": [],
+    "look_for": [],
+    "on_screen_text": [
+      {
+        "t": 0.0,
+        "text": "A person enters a kitchen",
+        "kind": "title"
+      },
+      {
+        "t": 20.0,
+        "text": "Stir and serve",
+        "kind": "title"
+      }
+    ],
+    "subtitles_present": false,
+    "tone": "instructional, minimalist",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 1.0,
+      "what": "White text reading 'A person enters a kitchen' appears at the top left of a teal background, while a yellow rectangular border sits at the bottom left.",
+      "on_screen_text": "A person enters a kitchen",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The opening title card and border are introduced."
+    },
+    {
+      "id": "e2",
+      "t_start": 1.0,
+      "t_end": 3.0,
+      "what": "The white text disappears, leaving only the yellow rectangular border on the teal background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The instructional text is removed from the screen."
+    },
+    {
+      "id": "e3",
+      "t_start": 3.0,
+      "t_end": 6.0,
+      "what": "The yellow rectangular border shifts from the left side toward the center of the screen.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The border moves horizontally across the background."
+    },
+    {
+      "id": "e4",
+      "t_start": 6.0,
+      "t_end": 10.0,
+      "what": "The yellow rectangular border continues moving toward the center of the teal background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The border keeps shifting rightward toward the middle of the frame."
+    },
+    {
+      "id": "e5",
+      "t_start": 10.0,
+      "t_end": 12.0,
+      "what": "The yellow rectangular border continues moving toward the right side of the screen against a solid teal background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The border shifts further right compared to the previous window."
+    },
+    {
+      "id": "e6",
+      "t_start": 12.0,
+      "t_end": 14.0,
+      "what": "The yellow rectangular border reaches the far right edge of the screen and stops moving.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The border arrives at the right edge, ending its horizontal travel."
+    },
+    {
+      "id": "e7",
+      "t_start": 14.0,
+      "t_end": 20.0,
+      "what": "The yellow rectangular border remains stationary at the right edge of the teal background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 1,
+      "confidence": 0.9,
+      "change": "No movement occurs; the border holds its position."
+    },
+    {
+      "id": "e8",
+      "t_start": 20.0,
+      "t_end": 22.0,
+      "what": "The text 'Stir and serve' appears in the upper left corner while the yellow rectangular border remains stationary at the right edge of the teal background.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "New text appears on screen."
+    },
+    {
+      "id": "e9",
+      "t_start": 22.0,
+      "t_end": 28.0,
+      "what": "The yellow rectangular border begins moving leftward across the teal background while the text 'Stir and serve' remains visible.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The border starts moving left."
+    },
+    {
+      "id": "e10",
+      "t_start": 28.0,
+      "t_end": 30.0,
+      "what": "The yellow rectangular border reaches the far left edge of the screen and stops moving while the text 'Stir and serve' remains visible.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The border reaches the left edge and stops."
+    }
+  ],
+  "shots": [],
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.437,
+      "input": "Silero VAD speech intervals",
+      "output": "4 speech intervals; 42% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.391,
+      "input": "ffmpeg scene cuts",
+      "output": "0 scene cuts; 3 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2343,
+      "tokens_out": 108,
+      "cost_usd": 0.0008001,
+      "latency_s": 3.609,
+      "input": "Super VL scene context",
+      "output": "setting: Interior title-card sequence, no actual room or surface shown. | activity: Text instructions describing kitchen actions appear on screen. | ingredients: onions | objects: yellow rectangular border"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 6528,
+      "tokens_out": 1095,
+      "cost_usd": 0.0029438999999999997,
+      "latency_s": 7.031,
+      "input": "Super VL whole-clip windows",
+      "output": "10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1424,
+      "tokens_out": 297,
+      "cost_usd": 0.0006945,
+      "latency_s": 2.719,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "4 on-screen text readings re-read from stills; 0 corrected"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1710,
+      "tokens_out": 476,
+      "cost_usd": 0.003138,
+      "latency_s": 2.156,
+      "input": "Ultra scene/story bible",
+      "output": "place: title cards | setting: Minimalist title-card sequence on solid teal background with moving yellow box | cast: no recurring people | goal: show text instructions for kitchen actions | story: A title card sequence displays the instruction 'A person enters a kitchen' then later 'Stir and serve' while a yellow rectangular border moves across the teal background from left to right, pauses, then "
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "3 pauses; largest source gap 15.26 s (hard max 25.0 s); final at 30.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1134,
+      "tokens_out": 189,
+      "cost_usd": 0.0005103,
+      "latency_s": 2.36,
+      "input": "Super VL current frames at pauses",
+      "output": "3 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 2267,
+      "tokens_out": 207,
+      "cost_usd": 0.002888,
+      "latency_s": 3.0,
+      "input": "one Ultra call for every pause",
+      "output": "3 of 3 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 5892,
+      "tokens_out": 254,
+      "cost_usd": 0.0019961999999999996,
+      "latency_s": 6.609,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "3 verified extended cues; 0 dropped; 0 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 pauses still missing; rescue not needed or disabled"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 27.219,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "3 freezes rendered; +38.47 seconds"
+    }
+  ],
+  "cue_history": {
+    "1": [
+      {
+        "step": "check",
+        "text": "White text reading \"A person enters a kitchen\" appears at the top left of a teal background. A yellow rectangular border sits at the bottom left. The text then disappears, leaving only the border on the teal screen.",
+        "evidence": [
+          "e1",
+          "e2"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show white text \"A person enters a kitchen\" at the top left on a teal background, with a yellow rectangular border at the bottom left, matching the cue."
+      }
+    ],
+    "2": [
+      {
+        "step": "check",
+        "text": "The yellow rectangular border moves from the left side toward the center, then continues rightward until it reaches the far right edge and stops. It remains stationary there.",
+        "evidence": [
+          "e3",
+          "e4",
+          "e5",
+          "e6",
+          "e7"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The yellow rectangular border is visible in all five frames. It starts left of center at 6.264s, remains left of center at 9.317s, moves to the center at 12.37s and 15.423s, and reaches the far right edge at 20.002s, matching the described "
+      }
+    ],
+    "3": [
+      {
+        "step": "check",
+        "text": "The text \"Stir and serve\" appears in the upper left while the yellow border stays at the right edge. The border then moves leftward across the teal background until it reaches the far left edge and stops. The text remains visible throughout.",
+        "evidence": [
+          "e8",
+          "e9",
+          "e10"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The text \"Stir and serve\" is visible in the upper left in all frames. The yellow border starts at the right edge in the first four frames and is at the far left edge in the final frame, consistent with moving leftward and stopping. The back"
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 2,
+    "max_ultra_calls": 6
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2343,
+      "output_tokens": 108,
+      "cost_usd": 0.0008001,
+      "latency_s": 3.062000000005355,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2124,
+      "output_tokens": 295,
+      "cost_usd": 0.0009026999999999999,
+      "latency_s": 2.3439999999973224,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2200,
+      "output_tokens": 417,
+      "cost_usd": 0.0010352999999999998,
+      "latency_s": 2.047000000005937,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2204,
+      "output_tokens": 383,
+      "cost_usd": 0.0010059,
+      "latency_s": 2.1560000000026776,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1424,
+      "output_tokens": 297,
+      "cost_usd": 0.0006945,
+      "latency_s": 2.375,
+      "cost_role": "text_stills"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1710,
+      "output_tokens": 476,
+      "cost_usd": 0.003138,
+      "latency_s": 2.1560000000026776,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1134,
+      "output_tokens": 189,
+      "cost_usd": 0.0005103,
+      "latency_s": 2.0939999999973224,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2267,
+      "output_tokens": 207,
+      "cost_usd": 0.002888,
+      "latency_s": 3.0,
+      "cost_role": "extended_write"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1964,
+      "output_tokens": 60,
+      "cost_usd": 0.0006431999999999999,
+      "latency_s": 2.375,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1954,
+      "output_tokens": 112,
+      "cost_usd": 0.0006869999999999999,
+      "latency_s": 1.9680000000080327,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1974,
+      "output_tokens": 82,
+      "cost_usd": 0.0006659999999999999,
+      "latency_s": 1.375,
+      "cost_role": "verify"
+    }
+  ],
+  "cost_by_role": {
+    "bible": 0.003138,
+    "extended_write": 0.002888,
+    "pause_frames": 0.0005103,
+    "scene": 0.0008001,
+    "text_stills": 0.0006945,
+    "timeline": 0.0029438999999999997,
+    "verify": 0.0019961999999999996
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.025942,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 2,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.006945,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006026
+    },
+    "total_latency_s": 61.96899999999732
+  },
+  "estimated_cost_usd": 0.012971,
+  "would_be_token_factory_cost_usd": 0.012971,
+  "reserved_spend_usd": 0.012970999999999996,
+  "cost_per_minute": 0.025942,
+  "latency_s": 61.96899999999732
+}

@@ -1,0 +1,139 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [
+    "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps.",
+    "Cannot narrate safely without extended AD (pause-the-video): no usable speech-free gaps."
+  ],
+  "mode": "director",
+  "video_title": null,
+  "detector": "silero-onnx",
+  "speech_ratio": 1.0,
+  "detector_fallback_reason": null,
+  "tts_wps_measured": {
+    "en": 3.695,
+    "hi": 5.2
+  },
+  "coverage": {
+    "narratable": 0,
+    "narrated": 0,
+    "silent_by_choice": 0,
+    "dropped": 0,
+    "too_short": 0,
+    "percent_of_narratable": 100,
+    "percent_excluding_silent_by_choice": 100,
+    "target_percent": 75,
+    "meets_target": true,
+    "silent": {}
+  },
+  "status": "complete",
+  "cues": [],
+  "tracks": {
+    "en": []
+  },
+  "gaps": [],
+  "speech": [
+    {
+      "start": 0,
+      "end": 30.0
+    }
+  ],
+  "cues_committed": 0,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "gaps_skipped_no_new_info": [],
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 0.0
+  },
+  "high_importance_covered_percent": 100,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: important events while someone speaks; known to the writer as story context, may need extended AD"
+  },
+  "coverage_method": "event->gap assignment (midpoint / >=50% overlap); writer may skip gaps with nothing new",
+  "uncovered_events": [],
+  "bible": {},
+  "timeline": [],
+  "shots": [],
+  "windows": [],
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.688,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "0 narratable slots of 0, 0 long enough; detector silero-onnx; speech 100%; measured voice wps en 3.695 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.625,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "0 cues rendered (en: 0); 0 gaps silent by choice"
+    }
+  ],
+  "cue_history": {},
+  "director_stats": {
+    "ultra_calls": 0,
+    "max_ultra_calls": 6,
+    "budget_use_percent": 0,
+    "verdicts": {},
+    "contradicted": 0,
+    "events": 0,
+    "events_refuted": 0
+  },
+  "usage": [],
+  "cost_by_role": {
+    "scene": 0,
+    "timeline": 0,
+    "bible": 0,
+    "script": 0,
+    "tighten": 0,
+    "verify": 0,
+    "repair": 0,
+    "hindi": 0
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.0,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:gaps": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 0,
+    "cost_by_model": {},
+    "total_latency_s": 7.702999999994063
+  },
+  "estimated_cost_usd": 0,
+  "would_be_token_factory_cost_usd": 0,
+  "reserved_spend_usd": 0.0,
+  "cost_per_minute": 0.0,
+  "latency_s": 7.702999999994063
+}

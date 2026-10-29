@@ -1,0 +1,970 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null,
+    "mode": "director",
+    "ad_mode": "extended"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 6.875,
+      "role": "tool",
+      "note": "speech: 4 speech intervals; 42% speech; 0 between-sentence micro-silences",
+      "tool_name": "stage:speech",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.437,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 7.26600000000326,
+      "role": "tool",
+      "note": "shots: 0 scene cuts; 3 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.391,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 10.875,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Interior title-card sequence, no actual room or surface shown.",
+        "people": [],
+        "ingredients": [
+          "onions"
+        ],
+        "tools": [],
+        "objects": [
+          "yellow rectangular border"
+        ],
+        "activity": "Text instructions describing kitchen actions appear on screen.",
+        "dish": "",
+        "visual_style": "Minimalist title cards with colored backgrounds and moving yellow box.",
+        "burned_in_subtitles": false,
+        "confidence": 0.9
+      },
+      "ok": true,
+      "latency_s": 3.062000000005355,
+      "tokens_in": 2343,
+      "tokens_out": 108,
+      "cost_usd": 0.0008001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 10.875,
+      "role": "tool",
+      "note": "scene: setting: Interior title-card sequence, no actual room or surface shown. | activity: Text instructions describing kitchen actions appear on screen. | ingredients: onions | objects: yellow rectangular b",
+      "tool_name": "stage:scene",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2343,
+        "tokens_out": 108,
+        "cost_usd": 0.0008001
+      },
+      "ok": true,
+      "latency_s": 3.609,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 13.360000000000582,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 1,
+            "what": "White text reading 'A person enters a kitchen' appears at the top left of a teal background, while a yellow rectangular border sits at the bottom left.",
+            "change": "The opening title card and border are introduced.",
+            "on_screen_text": "A person enters a kitchen",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 1,
+            "t_end": 3,
+            "what": "The white text disappears, leaving only the yellow rectangular border on the teal background.",
+            "change": "The instructional text is removed from the screen.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.3439999999973224,
+      "tokens_in": 2124,
+      "tokens_out": 295,
+      "cost_usd": 0.0009026999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 15.547000000005937,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10.0,
+            "t_end": 12.0,
+            "what": "The yellow rectangular border continues moving toward the right side of the screen against a solid teal background.",
+            "change": "The border shifts further right compared to the previous window.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 12.0,
+            "t_end": 14.0,
+            "what": "The yellow rectangular border reaches the far right edge of the screen and stops moving.",
+            "change": "The border arrives at the right edge, ending its horizontal travel.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.047000000005937,
+      "tokens_in": 2200,
+      "tokens_out": 417,
+      "cost_usd": 0.0010352999999999998,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 17.906000000002678,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 20.0,
+            "t_end": 22.0,
+            "what": "The text 'Stir and serve' appears in the upper left corner while the yellow rectangular border remains stationary at the right edge of the teal background.",
+            "change": "New text appears on screen.",
+            "on_screen_text": "Stir and serve",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 22.0,
+            "t_end": 25.0,
+            "what": "The yellow rectangular border begins moving leftward across the teal background while the text 'Stir and serve' remains visible.",
+            "change": "The border starts moving left.",
+            "on_screen_text": "Stir and serve",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.1560000000026776,
+      "tokens_in": 2204,
+      "tokens_out": 383,
+      "cost_usd": 0.0010059,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 17.906000000002678,
+      "role": "tool",
+      "note": "timeline: 10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 3,
+        "tokens_in": 6528,
+        "tokens_out": 1095,
+        "cost_usd": 0.0029438999999999997
+      },
+      "ok": true,
+      "latency_s": 7.031,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 9,
+      "t_wall": 20.625,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 0.5,
+            "setting": "A solid teal background with white text in the upper left and a yellow rectangular outline in the lower left.",
+            "present": [],
+            "objects": [
+              "yellow rectangle"
+            ],
+            "action": "No movement; a static title card is displayed.",
+            "on_screen_text": [
+              "A person enters a kitchen"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 21.0,
+            "setting": "A solid teal background with white text in the upper left and a yellow rectangular outline on the right side.",
+            "present": [],
+            "objects": [
+              "yellow rectangle"
+            ],
+            "action": "No movement; a static title card is displayed.",
+            "on_screen_text": [
+              "Stir and serve"
+            ],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.375,
+      "tokens_in": 1424,
+      "tokens_out": 297,
+      "cost_usd": 0.0006945,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "text_stills",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 20.625,
+      "role": "tool",
+      "note": "text_stills: 4 on-screen text readings re-read from stills; 0 corrected",
+      "tool_name": "stage:text_stills",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 1424,
+        "tokens_out": 297,
+        "cost_usd": 0.0006945
+      },
+      "ok": true,
+      "latency_s": 2.719,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 11,
+      "t_wall": 22.781000000002678,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Minimalist title-card sequence on solid teal background with moving yellow box",
+        "place": "title cards",
+        "cast": [],
+        "objects": [
+          "yellow rectangular border"
+        ],
+        "goal": "show text instructions for kitchen actions",
+        "story": "A title card sequence displays the instruction 'A person enters a kitchen' then later 'Stir and serve' while",
+        "beats": [
+          {
+            "t": 0.0,
+            "beat": "Opening instruction appears: 'A person enters a kitchen'",
+            "why": "sets up the kitchen scenario",
+            "events": [
+              "e1"
+            ]
+          }
+        ],
+        "names": [],
+        "look_for": [],
+        "on_screen_text": [
+          {
+            "t": 0.0,
+            "text": "A person enters a kitchen",
+            "kind": "title"
+          },
+          {
+            "t": 20.0,
+            "text": "Stir and serve",
+            "kind": "title"
+          }
+        ],
+        "subtitles_present": false,
+        "tone": "instructional, minimalist",
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.1560000000026776,
+      "tokens_in": 1710,
+      "tokens_out": 476,
+      "cost_usd": 0.003138,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "bible",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 22.781000000002678,
+      "role": "tool",
+      "note": "bible: place: title cards | setting: Minimalist title-card sequence on solid teal background with moving yellow box | cast: no recurring people | goal: show text instructions for kitchen actions | story: A t",
+      "tool_name": "stage:bible",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 1710,
+        "tokens_out": 476,
+        "cost_usd": 0.003138
+      },
+      "ok": true,
+      "latency_s": 2.156,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 13,
+      "t_wall": 22.781000000002678,
+      "role": "tool",
+      "note": "pause_plan: 3 pauses; largest source gap 15.26 s (hard max 25.0 s); final at 30.00 s",
+      "tool_name": "stage:pause_plan",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 14,
+      "t_wall": 25.14100000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 4.74,
+            "setting": "dark teal background with white text and a yellow rectangular outline",
+            "present": [
+              "yellow rectangle"
+            ],
+            "objects": [
+              "yellow rectangle"
+            ],
+            "action": "static title card displayed",
+            "on_screen_text": [
+              "A person enters a kitchen"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 20.0,
+            "setting": "dark teal background with white text and a yellow rectangular outline",
+            "present": [
+              "yellow rectangle"
+            ],
+            "objects": [
+              "yellow rectangle"
+            ],
+            "action": "static title card displayed",
+            "on_screen_text": [
+              "Stir and serve"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 29.7,
+            "setting": "dark teal background with white text and a yellow rectangular outline",
+            "present": [
+              "yellow rectangle"
+            ],
+            "objects": [
+              "yellow rectangle"
+            ],
+            "action": "static title card displayed",
+            "on_screen_text": [
+              "Stir and serve"
+            ],
+            "subtitle_text": []
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.0939999999973224,
+      "tokens_in": 1134,
+      "tokens_out": 189,
+      "cost_usd": 0.0005103,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 25.14100000000326,
+      "role": "tool",
+      "note": "pause_frames: 3 current frames described by Super VL",
+      "tool_name": "stage:pause_frames",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 1134,
+        "tokens_out": 189,
+        "cost_usd": 0.0005103
+      },
+      "ok": true,
+      "latency_s": 2.36,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 16,
+      "t_wall": 28.14100000000326,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "White text reading \"A person enters a kitchen\" appears at the top left of a teal background. A yellow rectangular border sits at the bottom left. The text then disappears, leaving only the border on the teal screen.",
+            "evidence": [
+              "e1",
+              "e2"
+            ]
+          },
+          {
+            "pause_id": 2,
+            "text": "The yellow rectangular border moves from the left side toward the center, then continues rightward until it reaches the far right edge and stops. It remains stationary there.",
+            "evidence": [
+              "e3",
+              "e4",
+              "e5",
+              "e6",
+              "e7"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.0,
+      "tokens_in": 2267,
+      "tokens_out": 207,
+      "cost_usd": 0.002888,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_write",
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 28.14100000000326,
+      "role": "tool",
+      "note": "extended_write: 3 of 3 pauses written in one Ultra call",
+      "tool_name": "stage:extended_write",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 2267,
+        "tokens_out": 207,
+        "cost_usd": 0.002888
+      },
+      "ok": true,
+      "latency_s": 3.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 18,
+      "t_wall": 30.76600000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show white text \"A person enters a kitchen\" at the top left on a teal background, with a yellow rectangular border at the bottom left, matching the cue."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.375,
+      "tokens_in": 1964,
+      "tokens_out": 60,
+      "cost_usd": 0.0006431999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 33.03100000000268,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The yellow rectangular border is visible in all five frames. It starts left of center at 6.264s, remains left of center at 9.317s, moves to the center at 12.37s and 15.423s, and reaches the far right edge at 20.002s, matching the described left-to-right movement and final stationary position."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.9680000000080327,
+      "tokens_in": 1954,
+      "tokens_out": 112,
+      "cost_usd": 0.0006869999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 34.75,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The text \"Stir and serve\" is visible in the upper left in all frames. The yellow border starts at the right edge in the first four frames and is at the far left edge in the final frame, consistent with moving leftward and stopping. The background is teal throughout."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.375,
+      "tokens_in": 1974,
+      "tokens_out": 82,
+      "cost_usd": 0.0006659999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 34.75,
+      "role": "tool",
+      "note": "extended_check_verify: 3 verified extended cues; 0 dropped; 0 repair rounds",
+      "tool_name": "stage:extended_check_verify",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 3,
+        "tokens_in": 5892,
+        "tokens_out": 254,
+        "cost_usd": 0.0019961999999999996
+      },
+      "ok": true,
+      "latency_s": 6.609,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 22,
+      "t_wall": 34.75,
+      "role": "tool",
+      "note": "extended_rescue: 0 pauses still missing; rescue not needed or disabled",
+      "tool_name": "stage:extended_rescue",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 23,
+      "t_wall": 61.96899999999732,
+      "role": "tool",
+      "note": "render: 3 freezes rendered; +38.47 seconds",
+      "tool_name": "stage:render",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 27.219,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 2,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.006945,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006026
+    },
+    "total_latency_s": 61.96899999999732
+  },
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.437,
+      "input": "Silero VAD speech intervals",
+      "output": "4 speech intervals; 42% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.391,
+      "input": "ffmpeg scene cuts",
+      "output": "0 scene cuts; 3 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2343,
+      "tokens_out": 108,
+      "cost_usd": 0.0008001,
+      "latency_s": 3.609,
+      "input": "Super VL scene context",
+      "output": "setting: Interior title-card sequence, no actual room or surface shown. | activity: Text instructions describing kitchen actions appear on screen. | ingredients: onions | objects: yellow rectangular border"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 6528,
+      "tokens_out": 1095,
+      "cost_usd": 0.0029438999999999997,
+      "latency_s": 7.031,
+      "input": "Super VL whole-clip windows",
+      "output": "10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1424,
+      "tokens_out": 297,
+      "cost_usd": 0.0006945,
+      "latency_s": 2.719,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "4 on-screen text readings re-read from stills; 0 corrected"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1710,
+      "tokens_out": 476,
+      "cost_usd": 0.003138,
+      "latency_s": 2.156,
+      "input": "Ultra scene/story bible",
+      "output": "place: title cards | setting: Minimalist title-card sequence on solid teal background with moving yellow box | cast: no recurring people | goal: show text instructions for kitchen actions | story: A title card sequence displays the instruction 'A person enters a kitchen' then later 'Stir and serve' while a yellow rectangular border moves across the teal background from left to right, pauses, then "
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "3 pauses; largest source gap 15.26 s (hard max 25.0 s); final at 30.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1134,
+      "tokens_out": 189,
+      "cost_usd": 0.0005103,
+      "latency_s": 2.36,
+      "input": "Super VL current frames at pauses",
+      "output": "3 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 2267,
+      "tokens_out": 207,
+      "cost_usd": 0.002888,
+      "latency_s": 3.0,
+      "input": "one Ultra call for every pause",
+      "output": "3 of 3 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 5892,
+      "tokens_out": 254,
+      "cost_usd": 0.0019961999999999996,
+      "latency_s": 6.609,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "3 verified extended cues; 0 dropped; 0 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 pauses still missing; rescue not needed or disabled"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 27.219,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "3 freezes rendered; +38.47 seconds"
+    }
+  ]
+}

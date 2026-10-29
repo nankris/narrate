@@ -1,0 +1,160 @@
+{
+  "source_duration": 100.0,
+  "output_duration": 128.230657,
+  "speech_intervals": [
+    {
+      "start": 9.203999999999999,
+      "end": 19.51288
+    },
+    {
+      "start": 19.605714,
+      "end": 20.998934
+    },
+    {
+      "start": 21.237846,
+      "end": 21.237937
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "pad_before": 0.3,
+  "pad_after": 0.4,
+  "pauses": [
+    {
+      "t": 3.4,
+      "snapped": false,
+      "from_t": 3.4,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 3.4,
+      "reason": "establishing pause near the start; scene cut; story beat",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky.",
+      "evidence": [
+        "e1"
+      ],
+      "evidence_times": [
+        {
+          "id": "e1",
+          "t_end": 3.0
+        }
+      ],
+      "narration_seconds": 11.064,
+      "freeze_seconds": 11.764,
+      "out_start": 3.4,
+      "out_end": 15.164308,
+      "cue_out_start": 3.7,
+      "cue_out_end": 14.764308,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show bright white light and steam pouring from large industrial pipes and machinery, filling the frame, and a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+      }
+    },
+    {
+      "t": 32.61,
+      "snapped": true,
+      "from_t": 31.0,
+      "snap_seconds": 1.61,
+      "snap_reason": "forward_to_speech_end",
+      "candidate_t": 32.61,
+      "reason": "high-importance event e7; speech-end boundary",
+      "source": "timeline_event",
+      "detail": "The text \"40 YEARS LATER\" appears in white capital letters over the industrial scene as the wireframe figures remain visible.",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other. White capital letters appear over the scene reading: 40 YEARS LATER. Pink energy rings surround the holographic figures.",
+      "evidence": [
+        "e6",
+        "e7"
+      ],
+      "evidence_times": [
+        {
+          "id": "e6",
+          "t_end": 28.0
+        },
+        {
+          "id": "e7",
+          "t_end": 31.0
+        }
+      ],
+      "narration_seconds": 15.766,
+      "freeze_seconds": 16.466,
+      "out_start": 44.374308,
+      "out_end": 60.840657,
+      "cue_out_start": 44.674308,
+      "cue_out_end": 60.440657,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a dark industrial interior with an orange wireframe figure and a blue wireframe figure facing each other, white capital letters reading '40 YEARS LATER', and pink energy rings surrounding the holographic figures."
+      }
+    }
+  ],
+  "segments": [
+    {
+      "kind": "source",
+      "src_start": 0.0,
+      "src_end": 3.4,
+      "out_start": 0.0,
+      "out_end": 3.4,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 3.4,
+      "src_end": 3.4,
+      "out_start": 3.4,
+      "out_end": 15.164308,
+      "cue_id": 1
+    },
+    {
+      "kind": "source",
+      "src_start": 3.4,
+      "src_end": 32.61,
+      "out_start": 15.164308,
+      "out_end": 44.374308,
+      "cue_id": null
+    },
+    {
+      "kind": "freeze",
+      "src_start": 32.61,
+      "src_end": 32.61,
+      "out_start": 44.374308,
+      "out_end": 60.840657,
+      "cue_id": 3
+    },
+    {
+      "kind": "source",
+      "src_start": 32.61,
+      "src_end": 100.0,
+      "out_start": 60.840657,
+      "out_end": 128.230657,
+      "cue_id": null
+    }
+  ]
+}

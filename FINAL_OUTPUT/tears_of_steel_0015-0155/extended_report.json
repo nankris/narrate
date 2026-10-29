@@ -1,0 +1,1755 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 100.0,
+  "fallback_finalize": false,
+  "issues": [
+    "extended coverage guarantee not met after model rescue: missing pauses [2, 4, 5, 6, 7]; largest source gap 67.39 s"
+  ],
+  "mode": "director",
+  "video_title": null,
+  "ad_mode": "extended",
+  "input_path": "C:\\Users\\Nandigam.Krishna\\narrate\\samples\\tears_of_steel_0015-0155.mp4",
+  "detector": "silero-onnx",
+  "speech_ratio": 0.2650399999999999,
+  "detector_fallback_reason": null,
+  "micro_silences": [
+    {
+      "start": 19.51288,
+      "end": 19.605714,
+      "duration": 0.092834,
+      "midpoint": 19.559297
+    },
+    {
+      "start": 20.998934,
+      "end": 21.237846,
+      "duration": 0.238912,
+      "midpoint": 21.11839
+    },
+    {
+      "start": 21.237937,
+      "end": 21.33068,
+      "duration": 0.092743,
+      "midpoint": 21.284309
+    }
+  ],
+  "scene_context": {
+    "setting": "Industrial platforms, outdoor bridge, foggy city skyline viewed through a round window.",
+    "activity": "Two people converse on a bridge while scenes of industrial machinery, a brain display, and a flying vehicle over a city are shown.",
+    "dish": "",
+    "visual_style": "Cinematic film clips with natural daylight and moody, foggy atmospheric lighting.",
+    "people": [
+      "Man in dark jacket and light shirt., gesturing with both hands while standing on a bridge.",
+      "Person in blue jacket, dark vest, and striped pants., standing on the bridge holding a mechanical arm device."
+    ],
+    "ingredients": [],
+    "tools": [],
+    "objects": [
+      "industrial towers",
+      "bridge railing",
+      "brain model in glass case",
+      "pink geometric machinery",
+      "city skyline with smoke",
+      "flying machine with lights",
+      "round porthole window"
+    ],
+    "burned_in_subtitles": false,
+    "confidence": 0.9
+  },
+  "extended_coverage": {
+    "planned": 7,
+    "described": 2,
+    "largest_source_gap_s": 67.39,
+    "max_source_gap_s": 25.0,
+    "missing_pause_ids": [
+      2,
+      4,
+      5,
+      6,
+      7
+    ],
+    "guarantee_met": false
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "source_t": 3.4,
+      "out_start": 3.7,
+      "out_end": 14.764308,
+      "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+    },
+    {
+      "id": 3,
+      "source_t": 32.61,
+      "out_start": 44.674308,
+      "out_end": 60.440657,
+      "text": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other. White capital letters appear over the scene reading: 40 YEARS LATER. Pink energy rings surround the holographic figures."
+    }
+  ],
+  "pauses": [
+    {
+      "t": 3.4,
+      "snapped": false,
+      "from_t": 3.4,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 3.4,
+      "reason": "establishing pause near the start; scene cut; story beat",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky.",
+      "evidence": [
+        "e1"
+      ],
+      "evidence_times": [
+        {
+          "id": "e1",
+          "t_end": 3.0
+        }
+      ],
+      "narration_seconds": 11.064,
+      "freeze_seconds": 11.764,
+      "out_start": 3.4,
+      "out_end": 15.164308,
+      "cue_out_start": 3.7,
+      "cue_out_end": 14.764308,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show bright white light and steam pouring from large industrial pipes and machinery, filling the frame, and a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+      }
+    },
+    {
+      "t": 32.61,
+      "snapped": true,
+      "from_t": 31.0,
+      "snap_seconds": 1.61,
+      "snap_reason": "forward_to_speech_end",
+      "candidate_t": 32.61,
+      "reason": "high-importance event e7; speech-end boundary",
+      "source": "timeline_event",
+      "detail": "The text \"40 YEARS LATER\" appears in white capital letters over the industrial scene as the wireframe figures remain visible.",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other. White capital letters appear over the scene reading: 40 YEARS LATER. Pink energy rings surround the holographic figures.",
+      "evidence": [
+        "e6",
+        "e7"
+      ],
+      "evidence_times": [
+        {
+          "id": "e6",
+          "t_end": 28.0
+        },
+        {
+          "id": "e7",
+          "t_end": 31.0
+        }
+      ],
+      "narration_seconds": 15.766,
+      "freeze_seconds": 16.466,
+      "out_start": 44.374308,
+      "out_end": 60.840657,
+      "cue_out_start": 44.674308,
+      "cue_out_end": 60.440657,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a dark industrial interior with an orange wireframe figure and a blue wireframe figure facing each other, white capital letters reading '40 YEARS LATER', and pink energy rings surrounding the holographic figures."
+      }
+    }
+  ],
+  "speech": [
+    {
+      "start": 9.203999999999999,
+      "end": 19.51288
+    },
+    {
+      "start": 19.605714,
+      "end": 20.998934
+    },
+    {
+      "start": 21.237846,
+      "end": 21.237937
+    },
+    {
+      "start": 22.355999999999998,
+      "end": 28.844
+    },
+    {
+      "start": 29.044,
+      "end": 30.444
+    },
+    {
+      "start": 31.731999999999996,
+      "end": 32.459999999999994
+    },
+    {
+      "start": 34.996,
+      "end": 38.028
+    },
+    {
+      "start": 38.036,
+      "end": 38.891999999999996
+    },
+    {
+      "start": 45.652,
+      "end": 47.532
+    }
+  ],
+  "cues_committed": 2,
+  "cues_dropped": 5,
+  "dropped_cues": {
+    "2": "over budget: 71 words, hard max 65; camera direction: describe what is visible, never the camera or shot",
+    "4": "over budget: 84 words, hard max 65; cue must be 2-3 fluent sentences",
+    "5": "cue must be 2-3 fluent sentences; camera direction: describe what is visible, never the camera or shot",
+    "6": "over budget: 70 words, hard max 65; cue must be 2-3 fluent sentences; camera direction: describe what is visible, never the camera or shot",
+    "7": "cue must be 2-3 fluent sentences"
+  },
+  "overlaps_with_speech": 0,
+  "total_added_seconds": 28.231,
+  "output_duration_s": 128.230657,
+  "extended_stats": {
+    "pauses": 2,
+    "total_added_seconds": 28.231,
+    "overlaps_with_speech": 0
+  },
+  "bible": {
+    "setting": "Industrial cityscape, bridge, dark interior with holograms, control room, brain lab, title card, foggy city with airship, interior with sniper and bed",
+    "place": "futuristic city",
+    "cast": [
+      {
+        "id": "c1",
+        "descriptor": "person in blue jacket with mechanical arm",
+        "first_seen": 10.0,
+        "notes": "blue jacket, dark vest, striped pants, holds a mechanical arm device; gender not visible"
+      },
+      {
+        "id": "c2",
+        "descriptor": "man in dark jacket and light shirt",
+        "first_seen": 10.0,
+        "notes": "dark jacket, light shirt, leans on bridge railing; gender not visible"
+      },
+      {
+        "id": "c3",
+        "descriptor": "person with glasses and curly hair",
+        "first_seen": 35.0,
+        "notes": "glasses, curly hair, stands in room with glowing equipment; gender not visible"
+      },
+      {
+        "id": "c4",
+        "descriptor": "person with long hair and purple jacket",
+        "first_seen": 43.0,
+        "notes": "long hair, purple jacket, looks down at brain model; gender not visible"
+      },
+      {
+        "id": "c5",
+        "descriptor": "man with mechanical eye",
+        "first_seen": 44.4,
+        "notes": "mechanical eye, peers at brain model; male"
+      },
+      {
+        "id": "c6",
+        "descriptor": "two people in white hoodies",
+        "first_seen": 37.0,
+        "notes": "white hoodies, work at console with green screens; gender not visible"
+      }
+    ],
+    "objects": [
+      "industrial pipes and machinery",
+      "smokestacks and buildings",
+      "bridge railing",
+      "mechanical arm device",
+      "wireframe figures (orange and blue)",
+      "control panel with green displays and pi",
+      "glowing green and pink equipment",
+      "console with green screens",
+      "brain model on rotating platform",
+      "pink energy rings and electrodes",
+      "glass dome",
+      "title card \"TEARS OF STEEL\"",
+      "foggy city skyline with tall tower",
+      "flying platform / airship",
+      "round window with crosshair reticle"
+    ],
+    "goal": "",
+    "story": "A conversation on a bridge leads into a time jump to a high-tech facility where a brain is studied, then to a foggy city where an airship descends toward rooftops while a sniper aims from a balcony and a tactical figure watches an older per",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "Opening on glowing industrial machinery",
+        "why": "Establishes the industrial, steam-powered world",
+        "events": [
+          "e1"
+        ]
+      },
+      {
+        "t": 3.0,
+        "beat": "Reveal of sprawling industrial cityscape with funding credit",
+        "why": "Shows the scale of the setting",
+        "events": [
+          "e2"
+        ]
+      },
+      {
+        "t": 10.0,
+        "beat": "Two figures converse on a bridge, one gesturing with a mechanical arm",
+        "why": "Introduces the central characters and a key device",
+        "events": [
+          "e4"
+        ]
+      },
+      {
+        "t": 25.0,
+        "beat": "Cut to dark interior with holographic wireframe figures facing off",
+        "why": "Shifts to a simulated or virtual confrontation",
+        "events": [
+          "e6"
+        ]
+      },
+      {
+        "t": 28.0,
+        "beat": "Caption \"40 YEARS LATER\" appears over the scene",
+        "why": "Marks a major time jump in the narrative",
+        "events": [
+          "e7"
+        ]
+      },
+      {
+        "t": 33.3,
+        "beat": "Close-up of control panel being operated",
+        "why": "Shows hands-on activation of technology",
+        "events": [
+          "e9"
+        ]
+      },
+      {
+        "t": 35.0,
+        "beat": "Operator with glasses and curly hair revealed at the panel",
+        "why": "Introduces a technician character",
+        "events": [
+          "e10"
+        ]
+      },
+      {
+        "t": 37.0,
+        "beat": "Two hooded figures work together at a console",
+        "why": "Expands the team preparing the simulation",
+        "events": [
+          "e11"
+        ]
+      },
+      {
+        "t": 39.0,
+        "beat": "Text \"SIMULATION READY\" flashes on screen",
+        "why": "Signals the system is primed for the brain experiment",
+        "events": [
+          "e12"
+        ]
+      },
+      {
+        "t": 41.0,
+        "beat": "Realistic brain model displayed in a glass dome with pink energy rings",
+        "why": "Reveals the core object of the simulation",
+        "events": [
+          "e13"
+        ]
+      },
+      {
+        "t": 43.0,
+        "beat": "Observer in purple jacket watches the brain intently",
+        "why": "Highlights human scrutiny of the artificial mind",
+        "events": [
+          "e14"
+        ]
+      },
+      {
+        "t": 44.4,
+        "beat": "Man with a mechanical eye peers at the brain, face lit by pink glow",
+        "why": "Merges human and machine perception on the brain",
+        "events": [
+          "e15"
+        ]
+      }
+    ],
+    "names": [
+      {
+        "name": "airship",
+        "aliases": [
+          "flying platform",
+          "flying machine",
+          "massive dark airship",
+          "large mechanical airship"
+        ],
+        "from_t": 55.0
+      },
+      {
+        "name": "brain model",
+        "aliases": [
+          "realistic brain model",
+          "brain in a glass dome",
+          "brain model on rotating platfo"
+        ],
+        "from_t": 41.0
+      },
+      {
+        "name": "mechanical arm device",
+        "aliases": [
+          "mechanical arm"
+        ],
+        "from_t": 10.0
+      },
+      {
+        "name": "sniper rifle",
+        "aliases": [
+          "large sniper rifle",
+          "large detailed rifle",
+          "rifle with scope"
+        ],
+        "from_t": 66.7
+      },
+      {
+        "name": "round window",
+        "aliases": [
+          "round porthole window",
+          "circular window",
+          "window with crosshair reticle"
+        ],
+        "from_t": 70.0
+      }
+    ],
+    "look_for": [
+      {
+        "t_start": 98.0,
+        "t_end": 100.0,
+        "what": "Impact or landing of the airship on the rooftops, debris, explosion, or the moment the window frame shatters"
+      },
+      {
+        "t_start": 86.0,
+        "t_end": 92.0,
+        "what": "Reaction of the older person in bed after opening eyes — speech, movement, or recognition of the shooter"
+      }
+    ],
+    "on_screen_text": [
+      {
+        "t": 3.0,
+        "text": "This film is supported by the Netherlands Film Fund",
+        "kind": "label"
+      },
+      {
+        "t": 28.0,
+        "text": "40 YEARS LATER",
+        "kind": "title"
+      },
+      {
+        "t": 39.0,
+        "text": "SIMULATION READY",
+        "kind": "label"
+      },
+      {
+        "t": 48.0,
+        "text": "TEARS OF STEEL",
+        "kind": "title"
+      },
+      {
+        "t": 63.0,
+        "text": "De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS",
+        "kind": "sign"
+      }
+    ],
+    "subtitles_present": false,
+    "tone": "Gritty, atmospheric, tense; industrial sci-fi with noir ligh",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 3.0,
+      "what": "A close-up view of large industrial pipes and machinery emits bright white light and steam from their openings, filling the frame with intense illumination.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The scene opens with glowing industrial equipment before transitioning to a wider view."
+    },
+    {
+      "id": "e2",
+      "t_start": 3.0,
+      "t_end": 6.0,
+      "what": "The camera pulls back to reveal a sprawling industrial cityscape with tall smokestacks and buildings under a cloudy sky, while white text appears at the bottom left.",
+      "on_screen_text": "This film is supported by the Netherlands Film Fund",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The view shifts from close-up machinery to a wide city skyline with funding credit text."
+    },
+    {
+      "id": "e3",
+      "t_start": 6.0,
+      "t_end": 10.0,
+      "what": "The industrial skyline remains visible as the bright light in the center dims and the funding text disappears from the screen.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The on-screen text fades out, leaving only the atmospheric city view."
+    },
+    {
+      "id": "e4",
+      "t_start": 10.0,
+      "t_end": 12.22,
+      "what": "A person in a blue jacket and striped pants stands on a bridge holding a mechanical arm device, gesturing with it toward a man in a dark jacket and light shirt who is leaning on the railing.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person in blue raises the mechanical arm and points it at the man, initiating a new interaction."
+    },
+    {
+      "id": "e5",
+      "t_start": 22.222,
+      "t_end": 25.0,
+      "what": "A man in a dark jacket and light shirt stands on a bridge leaning on the railing while a person in a blue jacket and striped pants holds a mechanical arm device and gestures toward him.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The conversation on the bridge continues with the mechanical arm device being held up."
+    },
+    {
+      "id": "e6",
+      "t_start": 25.0,
+      "t_end": 28.0,
+      "what": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The setting shifts from the outdoor bridge to a dark industrial space with holographic figures."
+    },
+    {
+      "id": "e7",
+      "t_start": 28.0,
+      "t_end": 31.0,
+      "what": "The text \"40 YEARS LATER\" appears in white capital letters over the industrial scene as the wireframe figures remain visible.",
+      "on_screen_text": "40 YEARS LATER",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "A time jump caption is introduced over the industrial setting."
+    },
+    {
+      "id": "e8",
+      "t_start": 31.0,
+      "t_end": 33.33,
+      "what": "The wireframe figures continue to stand in the industrial space with the text text still displayed.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The scene holds on the industrial interior with the time caption remaining on screen."
+    },
+    {
+      "id": "e9",
+      "t_start": 33.333,
+      "t_end": 35.0,
+      "what": "A hand presses buttons on a control panel with green digital displays and pink wiring.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "New scene shifts from wireframe figures to a close-up of a control panel."
+    },
+    {
+      "id": "e10",
+      "t_start": 35.0,
+      "t_end": 37.0,
+      "what": "A person with glasses and curly hair looks forward while standing in a room filled with glowing green and pink equipment.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The camera reveals the person operating the panel."
+    },
+    {
+      "id": "e11",
+      "t_start": 37.0,
+      "t_end": 39.0,
+      "what": "Two people in white hoodies stand at a console with green screens and pink lighting.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The view widens to show two figures working together at the station."
+    },
+    {
+      "id": "e12",
+      "t_start": 39.0,
+      "t_end": 41.0,
+      "what": "The words \"SIMULATION READY\" appear in large white letters above the two people at the console.",
+      "on_screen_text": "SIMULATION READY",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "Text overlay appears indicating the system status."
+    },
+    {
+      "id": "e13",
+      "t_start": 41.0,
+      "t_end": 43.0,
+      "what": "A realistic brain model sits on a rotating platform surrounded by pink energy rings and electrodes.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The scene cuts to a close-up of the brain in a glass dome."
+    },
+    {
+      "id": "e14",
+      "t_start": 43.0,
+      "t_end": 44.44,
+      "what": "A person with long hair and a purple jacket looks down at the brain model with a focused expression.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The camera pulls back to show the observer watching the brain."
+    },
+    {
+      "id": "e15",
+      "t_start": 44.444,
+      "t_end": 48.0,
+      "what": "A man with a mechanical eye peers intensely at a realistic brain model surrounded by pink energy rings and electrodes, his face illuminated by the pink glow.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.7
+    },
+    {
+      "id": "e16",
+      "t_start": 48.0,
+      "t_end": 51.0,
+      "what": "The screen cuts to black as the title \"TEARS OF STEEL\" fades in with a metallic, textured font.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.7
+    },
+    {
+      "id": "e17",
+      "t_start": 51.0,
+      "t_end": 55.0,
+      "what": "The title \"TEARS OF STEEL\" remains centered on the black background, fully visible and static.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.7
+    },
+    {
+      "id": "e18",
+      "t_start": 55.0,
+      "t_end": 59.0,
+      "what": "A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above the rooftops.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The scene transitions from the title card to an establishing shot of the city."
+    },
+    {
+      "id": "e19",
+      "t_start": 59.0,
+      "t_end": 63.0,
+      "what": "The camera looks through a dark, cluttered interior space toward a balcony where two figures stand in the distance.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.8,
+      "change": "The view shifts from the exterior cityscape to an interior perspective looking outward."
+    },
+    {
+      "id": "e20",
+      "t_start": 63.0,
+      "t_end": 66.667,
+      "what": "A close-up shows a person's head wrapped in a newspaper with the headline \"ROBOTICIST KILLER ROBOTS\" as a hand holds the paper in place.",
+      "on_screen_text": "De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The scene cuts to a close-up of the newspaper-wrapped head, revealing the headline text."
+    },
+    {
+      "id": "e21",
+      "t_start": 66.67,
+      "t_end": 70.0,
+      "what": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony, looking through the sight.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The scene cuts from the newspaper-wrapped head to the man with the rifle."
+    },
+    {
+      "id": "e22",
+      "t_start": 70.0,
+      "t_end": 74.0,
+      "what": "The view shifts to a round window showing a massive, dark airship with multiple engines and platforms floating in fog.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The camera moves from the sniper to the airship seen through the window."
+    },
+    {
+      "id": "e23",
+      "t_start": 74.0,
+      "t_end": 77.4,
+      "what": "The airship drifts forward through the fog, revealing a city with red-roofed buildings below as it passes over them.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The airship moves closer and the city skyline becomes visible beneath it."
+    },
+    {
+      "id": "e24",
+      "t_start": 77.4,
+      "t_end": 80.0,
+      "what": "A close-up shows a person aiming a large, detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The scene cuts from the airship to a first-person perspective of someone aiming a weapon."
+    },
+    {
+      "id": "e25",
+      "t_start": 80.0,
+      "t_end": 83.0,
+      "what": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, its engines glowing brightly.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The view switches back to the airship seen through the circular window."
+    },
+    {
+      "id": "e26",
+      "t_start": 83.0,
+      "t_end": 86.0,
+      "what": "A person in tactical gear kneels on a platform aiming a rifle, while an older person lies on a bed nearby with candles burning in the background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The camera pulls back to reveal the shooter and the person lying down in the same room."
+    },
+    {
+      "id": "e27",
+      "t_start": 86.0,
+      "t_end": 88.889,
+      "what": "The older person lying on the bed opens their eyes and looks upward while the shooter remains in position aiming the rifle.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person on the bed becomes alert and opens their eyes."
+    },
+    {
+      "id": "e28",
+      "t_start": 88.89,
+      "t_end": 92.0,
+      "what": "A large, dark mechanical airship hovers above a foggy city skyline, viewed through a round window with a crosshair reticle, as bright lights glow from its underside and smaller mechanical figures cling to its sides.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The scene shifts from the bridge conversation to a view of the airship through the window."
+    },
+    {
+      "id": "e29",
+      "t_start": 92.0,
+      "t_end": 95.0,
+      "what": "The airship tilts and begins to descend toward the rooftops below, with smoke or steam billowing from its structure as it moves closer to the city.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The airship changes orientation and lowers its altitude."
+    },
+    {
+      "id": "e30",
+      "t_start": 95.0,
+      "t_end": 98.0,
+      "what": "The airship continues its downward trajectory, angling sharply as it approaches the dense cluster of buildings and rooftops beneath it.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The airship gets progressively closer to the city below."
+    },
+    {
+      "id": "e31",
+      "t_start": 98.0,
+      "t_end": 100.0,
+      "what": "The airship is now very low over the rooftops, appearing to crash or land among the buildings as the view remains framed by the round window.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The airship reaches the lowest point of its descent near the rooftops."
+    }
+  ],
+  "shots": [
+    3.4,
+    10.0,
+    25.2,
+    27.0,
+    30.6,
+    34.8,
+    38.6,
+    41.6,
+    49.4,
+    55.0,
+    59.0,
+    64.4,
+    67.2,
+    69.8,
+    77.4,
+    80.4,
+    83.2,
+    87.4
+  ],
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 3.437,
+      "input": "Silero VAD speech intervals",
+      "output": "9 speech intervals; 27% speech; 3 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.157,
+      "input": "ffmpeg scene cuts",
+      "output": "18 scene cuts; 0 sensitive visual changes; 9 perception windows; est. Super VL timeline cost $0.0241"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2287,
+      "tokens_out": 253,
+      "cost_usd": 0.0009138000000000001,
+      "latency_s": 3.562,
+      "input": "Super VL scene context",
+      "output": "setting: Industrial platforms, outdoor bridge, foggy city skyline viewed through a round window. | people: Man in dark jacket and light shirt., gesturing with both hands while standing on a bridge.; Person in blue jacket, dark vest, and striped pants., standing on the bridge holding a mechanical arm"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 9,
+      "ultra_calls": 0,
+      "tokens_in": 22107,
+      "tokens_out": 2950,
+      "cost_usd": 0.0092871,
+      "latency_s": 153.11,
+      "input": "Super VL whole-clip windows",
+      "output": "31 events from 9 windows ({'video': 9, 'absolute': 9}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1685,
+      "tokens_out": 433,
+      "cost_usd": 0.0008952000000000001,
+      "latency_s": 4.546,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "5 on-screen text readings re-read from stills; 2 corrected"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 3697,
+      "tokens_out": 3012,
+      "cost_usd": 0.012733,
+      "latency_s": 13.5,
+      "input": "Ultra scene/story bible",
+      "output": "place: futuristic city | setting: Industrial cityscape, bridge, dark interior with holograms, control room, brain lab, title card, foggy city with airship, interior with sniper and bed | cast: person in blue jacket with mechanical arm, man in dark jacket and light shirt, person with glasses and curly hair, person with long hair and purple jacket, man with mechanical eye, two people in white hoodie"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "7 pauses; largest source gap 19.60 s (hard max 25.0 s); final at 100.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 2489,
+      "tokens_out": 607,
+      "cost_usd": 0.0012929999999999999,
+      "latency_s": 5.204,
+      "input": "Super VL current frames at pauses",
+      "output": "7 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6042,
+      "tokens_out": 888,
+      "cost_usd": 0.008706,
+      "latency_s": 3.718,
+      "input": "one Ultra call for every pause",
+      "output": "7 of 7 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 5,
+      "ultra_calls": 2,
+      "tokens_in": 18982,
+      "tokens_out": 1466,
+      "cost_usd": 0.0187411,
+      "latency_s": 12.125,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "2 verified extended cues; 5 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6145,
+      "tokens_out": 614,
+      "cost_usd": 0.007987,
+      "latency_s": 3.938,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 of 5 missing planned pauses rescued with model-written text"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 34.422,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "2 freezes rendered; +28.23 seconds"
+    }
+  ],
+  "cue_history": {
+    "1": [
+      {
+        "step": "check",
+        "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The view pulls back to reveal a sprawling industrial cityscape with tall smokestacks and buildings under a cloudy sky. White text at the bottom left reads: This film is supported by the Netherlands Film Fund.",
+        "evidence": [
+          "e1",
+          "e2"
+        ],
+        "problems": [
+          "Style: 50 words; tighten toward 20-45",
+          "future event evidence outside this window: e2"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame."
+      },
+      {
+        "step": "check",
+        "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame.",
+        "evidence": [
+          "e1"
+        ],
+        "problems": [
+          "Style: only 15 words; aim for 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+      },
+      {
+        "step": "check",
+        "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky.",
+        "evidence": [
+          "e1"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show bright white light and steam pouring from large industrial pipes and machinery, filling the frame, and a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+      }
+    ],
+    "2": [
+      {
+        "step": "check",
+        "text": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing. Brick buildings and trees sit behind them.",
+        "evidence": [
+          "e3",
+          "e4"
+        ],
+        "problems": [
+          "Style: 52 words; tighten toward 20-45"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing."
+      },
+      {
+        "step": "check",
+        "text": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing.",
+        "evidence": [
+          "e3",
+          "e4"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "contradicted",
+        "wrong": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, ge",
+        "reason": "The first frames show an industrial skyline with a bright central light and funding text, not a bridge; the bridge frames show a person in a blue jacket and striped pants holding a mechanical arm device and gesturing toward a man in a dark "
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "verification contradicted: The first frames show an industrial skyline with a bright central light and funding text, not a bridge; the bridge frames show a person in a blue jacket and striped pants holding a mechanical arm device and gesturing toward a man in a dark ",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "The camera pulls back to reveal a sprawling industrial cityscape of tall smokestacks and buildings under a cloudy sky, with funding text at the bottom left. The bright central light dims and the text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing.",
+        "problems": [
+          "over budget: 71 words, hard max 65",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      }
+    ],
+    "3": [
+      {
+        "step": "check",
+        "text": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other. White capital letters appear over the scene reading: 40 YEARS LATER. Pink energy rings surround the holographic figures.",
+        "evidence": [
+          "e6",
+          "e7"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a dark industrial interior with an orange wireframe figure and a blue wireframe figure facing each other, white capital letters reading '40 YEARS LATER', and pink energy rings surrounding the holographic figures."
+      }
+    ],
+    "4": [
+      {
+        "step": "check",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing green and pink equipment. Two people in white hoodies work at a console with green screens. Text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings and electrodes. A person with long hair and a purple jacket looks down at the brain. A man with a mechanical eye peers at the brain, his face lit by the pink glow.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ],
+        "problems": [
+          "over budget: 95 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing green and pink equipment. Two people in white hoodies work at a console with green screens. Text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings and electrodes. A person with long hair and a purple jacket looks down at the brain. A man with a mechanical eye peers at the brain, his face lit by the pink glow."
+      },
+      {
+        "step": "check",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing green and pink equipment. Two people in white hoodies work at a console with green screens. Text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings and electrodes. A person with long hair and a purple jacket looks down at the brain. A man with a mechanical eye peers at the brain, his face lit by the pink glow.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ],
+        "problems": [
+          "over budget: 95 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing equipment. Two people in white hoodies work at a console as text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings. A person in a purple jacket looks down at the brain. A man with a mechanical eye peers at it, his face lit by the pink glow."
+      },
+      {
+        "step": "check",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing equipment. Two people in white hoodies work at a console as text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings. A person in a purple jacket looks down at the brain. A man with a mechanical eye peers at it, his face lit by the pink glow.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ],
+        "problems": [
+          "over budget: 84 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "check",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing equipment. Two people in white hoodies work at a console as text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings. A person in a purple jacket looks down at the brain. A man with a mechanical eye peers at it, his face lit by the pink glow.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ],
+        "problems": [
+          "over budget: 84 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "over budget: 84 words, hard max 65; cue must be 2-3 fluent sentences",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing equipment. Two people in white hoodies work at a console as text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings. A person in a purple jacket looks down at the brain. A man with a mechanical eye peers at it, his face lit by the pink glow.",
+        "problems": [
+          "over budget: 84 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      }
+    ],
+    "5": [
+      {
+        "step": "check",
+        "text": "The screen cuts to black as the title TEARS OF STEEL fades in with a metallic, textured font and remains centered. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand.",
+        "evidence": [
+          "e16",
+          "e18",
+          "e19",
+          "e20"
+        ],
+        "problems": [
+          "over budget: 71 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "Banned phrasing: cue starts with \"Screen\". Fix: open with who or what is visible",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The screen cuts to black as the title TEARS OF STEEL fades in with a metallic, textured font. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand."
+      },
+      {
+        "step": "check",
+        "text": "The screen cuts to black as the title TEARS OF STEEL fades in with a metallic, textured font. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand.",
+        "evidence": [
+          "e16",
+          "e18",
+          "e19",
+          "e20"
+        ],
+        "problems": [
+          "over budget: 68 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "Banned phrasing: cue starts with \"Screen\". Fix: open with who or what is visible",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "The title TEARS OF STEEL fades in with a metallic font on black. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand."
+      },
+      {
+        "step": "check",
+        "text": "The title TEARS OF STEEL fades in with a metallic font on black. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand.",
+        "evidence": [
+          "e16",
+          "e18",
+          "e19",
+          "e20"
+        ],
+        "problems": [
+          "Style: 63 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "check",
+        "text": "The title TEARS OF STEEL fades in with a metallic font on black. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand.",
+        "evidence": [
+          "e16",
+          "e18",
+          "e19",
+          "e20"
+        ],
+        "problems": [
+          "Style: 63 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "cue must be 2-3 fluent sentences; camera direction: describe what is visible, never the camera or shot",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "The title TEARS OF STEEL fades in with a metallic font on black. A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above rooftops. The view shifts through a dark interior toward a distant balcony. A close-up shows a newspaper headline reading: De Amsterdammer / ROBOTICIST CLAIMS KILLER ROBOTS, held in place by a hand.",
+        "problems": [
+          "Style: 63 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      }
+    ],
+    "6": [
+      {
+        "step": "check",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony, looking through the sight. The view shifts to a round window showing a massive dark airship with multiple engines and platforms floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, eye pressed to the sight, holding the weapon steady.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24"
+        ],
+        "problems": [
+          "over budget: 74 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines and platforms floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady."
+      },
+      {
+        "step": "check",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines and platforms floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24"
+        ],
+        "problems": [
+          "over budget: 72 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady."
+      },
+      {
+        "step": "check",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24"
+        ],
+        "problems": [
+          "over budget: 70 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "check",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+        "evidence": [
+          "e21",
+          "e22",
+          "e23",
+          "e24"
+        ],
+        "problems": [
+          "over budget: 70 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "over budget: 70 words, hard max 65; cue must be 2-3 fluent sentences; camera direction: describe what is visible, never the camera or shot",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony. The view shifts to a round window showing a massive dark airship with multiple engines floating in fog. The airship drifts forward, revealing a city with red-roofed buildings below. A close-up shows a person aiming a large detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+        "problems": [
+          "over budget: 70 words, hard max 65",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      }
+    ],
+    "7": [
+      {
+        "step": "check",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing. It angles sharply closer to the dense buildings. Now very low over the rooftops, the airship appears to crash or land among them, framed by the round window.",
+        "evidence": [
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e30",
+          "e31"
+        ],
+        "problems": [
+          "over budget: 89 words, hard max 65",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing."
+      },
+      {
+        "step": "check",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing.",
+        "evidence": [
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29"
+        ],
+        "problems": [
+          "Style: 61 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing."
+      },
+      {
+        "step": "check",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing.",
+        "evidence": [
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29"
+        ],
+        "problems": [
+          "Style: 61 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "check",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing.",
+        "evidence": [
+          "e25",
+          "e26",
+          "e27",
+          "e28",
+          "e29"
+        ],
+        "problems": [
+          "Style: 61 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "cue must be 2-3 fluent sentences",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, engines glowing. A person in tactical gear kneels on a platform aiming a rifle while an older person lies on a bed nearby with candles burning. The older person opens their eyes and looks upward. The airship tilts and descends toward the rooftops with smoke billowing.",
+        "problems": [
+          "Style: 61 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 5,
+    "max_ultra_calls": 6
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2287,
+      "output_tokens": 253,
+      "cost_usd": 0.0009138000000000001,
+      "latency_s": 3.014999999999418,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2175,
+      "output_tokens": 271,
+      "cost_usd": 0.0008964,
+      "latency_s": 4.0939999999973224,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2602,
+      "output_tokens": 124,
+      "cost_usd": 0.0008922,
+      "latency_s": 3.327999999994063,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2451,
+      "output_tokens": 422,
+      "cost_usd": 0.0011151,
+      "latency_s": 4.5310000000026776,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2440,
+      "output_tokens": 534,
+      "cost_usd": 0.0012125999999999999,
+      "latency_s": 7.422000000005937,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2408,
+      "output_tokens": 160,
+      "cost_usd": 0.0008664,
+      "latency_s": 2.077999999994063,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2580,
+      "output_tokens": 322,
+      "cost_usd": 0.0010638,
+      "latency_s": 47.01599999998871,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2431,
+      "output_tokens": 292,
+      "cost_usd": 0.0009920999999999999,
+      "latency_s": 72.18799999999464,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2580,
+      "output_tokens": 398,
+      "cost_usd": 0.0011322,
+      "latency_s": 3.125,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2440,
+      "output_tokens": 427,
+      "cost_usd": 0.0011163,
+      "latency_s": 3.2189999999973224,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1685,
+      "output_tokens": 433,
+      "cost_usd": 0.0008952000000000001,
+      "latency_s": 4.014999999999418,
+      "cost_role": "text_stills"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3697,
+      "output_tokens": 3012,
+      "cost_usd": 0.012733,
+      "latency_s": 13.485000000000582,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2007,
+      "output_tokens": 505,
+      "cost_usd": 0.0010566,
+      "latency_s": 3.2969999999913853,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 482,
+      "output_tokens": 102,
+      "cost_usd": 0.00023639999999999997,
+      "latency_s": 1.4689999999973224,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6042,
+      "output_tokens": 888,
+      "cost_usd": 0.008706,
+      "latency_s": 3.702999999994063,
+      "cost_role": "extended_write"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6996,
+      "output_tokens": 619,
+      "cost_usd": 0.008853,
+      "latency_s": 2.8280000000086147,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1925,
+      "output_tokens": 71,
+      "cost_usd": 0.0006414,
+      "latency_s": 1.937999999994645,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6253,
+      "output_tokens": 549,
+      "cost_usd": 0.0079,
+      "latency_s": 2.2339999999967404,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1919,
+      "output_tokens": 155,
+      "cost_usd": 0.0007151999999999999,
+      "latency_s": 2.0780000000086147,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1889,
+      "output_tokens": 72,
+      "cost_usd": 0.0006314999999999999,
+      "latency_s": 1.8589999999967404,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6145,
+      "output_tokens": 614,
+      "cost_usd": 0.007987,
+      "latency_s": 3.922000000005937,
+      "cost_role": "extended_repair"
+    }
+  ],
+  "cost_by_role": {
+    "bible": 0.012733,
+    "extended_repair": 0.024739999999999998,
+    "extended_write": 0.008706,
+    "pause_frames": 0.0012929999999999999,
+    "scene": 0.0009138000000000001,
+    "text_stills": 0.0008952000000000001,
+    "timeline": 0.0092871,
+    "verify": 0.0019880999999999996
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.03633372,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 5,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0143772,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.046179000000000005
+    },
+    "total_latency_s": 246.45299999999406
+  },
+  "estimated_cost_usd": 0.0605562,
+  "would_be_token_factory_cost_usd": 0.0605562,
+  "reserved_spend_usd": 0.0654573,
+  "cost_per_minute": 0.03633372,
+  "latency_s": 246.45299999999406
+}

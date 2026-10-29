@@ -1,10 +1,10 @@
-[00:00:06.172] Indoors, at a white wooden table with a flour mat and bowl, the cook forms cohesive dough.
-[00:00:15.800] The person kneads and folds the dough inside the wooden bowl.
-[00:00:25.596] The cook kneads dough with a spatula in a white kitchen.
-[00:00:42.428] The dough is pressed and folded, then lifted and turned to incorporate.
-[00:00:48.800] The cook cuts dough portions, shapes a ball, and rolls.
-[00:01:07.164] The hands press dough gently into shape.
-[00:01:15.612] Person shapes dough.
-[00:01:30.076] Person creates snail shaped dough.
-[00:01:39.932] Person covers dough balls.
-[00:01:45.596] Person rolls small dough ball into thin round on flour mat.
+[00:00:06.172] In a home kitchen, the cook mixes flour and lukewarm water in a wooden bowl, then pours in oil.
+[00:00:15.800] She kneads the dough with both hands until it forms a smooth ball.
+[00:00:25.596] A second splash of oil is pressed and folded into the dough.
+[00:00:42.428] The cook cuts the dough into pieces and rolls each into a ball.
+[00:00:48.800] A ball is pressed flat and rolled into a long thin oval.
+[00:01:07.164] The cook folds the strip into a spiral.
+[00:01:20.828] Another strip is rolled long and coiled into a spiral.
+[00:01:30.076] The cook covers the bowl.
+[00:01:45.596] A floured ball is rolled out into a thin round disc.
+[00:01:52.718] The dough is flipped and rolled into a final even circle.

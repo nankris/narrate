@@ -1,0 +1,2584 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 119.919433,
+  "fallback_finalize": false,
+  "issues": [],
+  "mode": "director",
+  "video_title": "How To Make Soft Layered Roti - Paratha",
+  "detector": "silero-onnx",
+  "speech_ratio": 0.3711825421989771,
+  "detector_fallback_reason": null,
+  "tts_wps_measured": {
+    "en": 3.683,
+    "hi": 5.2
+  },
+  "scene_context": {
+    "setting": "Indoor kitchen with white painted table, natural lighting, flour on surface.",
+    "activity": "Preparing dough and rolling flatbreads",
+    "dish": "",
+    "visual_style": "Top-down cooking tutorial style",
+    "people": [
+      "Person wearing striped shirt and black apron, hands visible., Mixing dough, rolling flatbreads, placing oil on shaped buns."
+    ],
+    "ingredients": [
+      "flour",
+      "dough",
+      "oil"
+    ],
+    "tools": [
+      "wooden bowl",
+      "black glove",
+      "rolling pin",
+      "silicone mat",
+      "glass container"
+    ],
+    "objects": [
+      "spoon",
+      "small bowl",
+      "cutting board"
+    ],
+    "burned_in_subtitles": true,
+    "confidence": 0.9
+  },
+  "coverage": {
+    "narratable": 12,
+    "narrated": 12,
+    "silent_by_choice": 0,
+    "dropped": 0,
+    "too_short": 0,
+    "percent_of_narratable": 100,
+    "percent_excluding_silent_by_choice": 100,
+    "target_percent": 75,
+    "meets_target": true,
+    "silent": {}
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "start": 6.172,
+      "end": 15.8,
+      "duration": 9.628,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 21,
+      "word_budget_hi": 24,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "In a home kitchen, the cook mixes flour and water into a shaggy dough, then kneads it into a smooth ball.",
+      "evidence": [
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 15.8,
+      "end": 21.572000000000003,
+      "duration": 5.772000000000002,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 12,
+      "word_budget_hi": 14,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "director_words_en": 12,
+      "director_words_hi": 12,
+      "en": "They lift the dough ball onto a plate and pour oil over it.",
+      "evidence": [
+        "e6",
+        "e7"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 25.596,
+      "end": 31.812,
+      "duration": 6.216000000000001,
+      "narratable": true,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 11,
+      "max_words_hi": 13,
+      "director_words_en": 13,
+      "director_words_hi": 13,
+      "en": "The cook kneads oil into the dough inside the wooden bowl.",
+      "evidence": [
+        "e10"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 4,
+      "start": 42.428,
+      "end": 48.8,
+      "duration": 6.372,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 12,
+      "max_words_hi": 13,
+      "director_words_en": 13,
+      "director_words_hi": 13,
+      "en": "They roll each cut piece between their palms into round balls.",
+      "evidence": [
+        "e14",
+        "e15"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 5,
+      "start": 48.8,
+      "end": 54.43600000000001,
+      "duration": 5.63600000000001,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 11,
+      "word_budget_hi": 13,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "director_words_en": 12,
+      "director_words_hi": 12,
+      "en": "The cook flattens a dough ball and rolls it into an oval.",
+      "evidence": [
+        "e16",
+        "e17"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 6,
+      "start": 67.164,
+      "end": 71.42800000000001,
+      "duration": 4.26400000000001,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 10,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "director_words_en": 8,
+      "director_words_hi": 8,
+      "en": "They fold the sheet into a tight cylinder.",
+      "evidence": [
+        "e22",
+        "e23"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 7,
+      "start": 75.612,
+      "end": 77.956,
+      "duration": 2.3440000000000083,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4,
+      "director_words_en": 4,
+      "director_words_hi": 4,
+      "en": "The cook rolls dough.",
+      "evidence": [
+        "e25"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 8,
+      "start": 80.82799999999999,
+      "end": 88.036,
+      "duration": 7.208000000000013,
+      "narratable": true,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15,
+      "en": "The cook coils dough ball into bun.",
+      "evidence": [
+        "e27"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 9,
+      "start": 90.076,
+      "end": 93.06,
+      "duration": 2.984000000000009,
+      "narratable": true,
+      "word_budget_en": 5,
+      "word_budget_hi": 6,
+      "max_words_en": 5,
+      "max_words_hi": 5,
+      "director_words_en": 5,
+      "director_words_hi": 5,
+      "en": "The press seals the bowl.",
+      "evidence": [
+        "e30"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 10,
+      "start": 99.932,
+      "end": 103.20400000000001,
+      "duration": 3.2720000000000056,
+      "narratable": true,
+      "word_budget_en": 6,
+      "word_budget_hi": 7,
+      "max_words_en": 5,
+      "max_words_hi": 6,
+      "director_words_en": 6,
+      "director_words_hi": 6,
+      "en": "The cook dusts a ball.",
+      "evidence": [
+        "e32"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 11,
+      "start": 105.59599999999999,
+      "end": 112.7177165,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15,
+      "en": "They roll the floured ball into a thin round flatbread, then flip it over.",
+      "evidence": [
+        "e34",
+        "e35",
+        "e36"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 12,
+      "start": 112.7177165,
+      "end": 119.839433,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15,
+      "en": "The cook rolls the flipped flatbread thinner until it is a thin, even round roti.",
+      "evidence": [
+        "e37",
+        "e39",
+        "e38"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 1,
+        "start": 6.172,
+        "end": 13.184425999999998,
+        "duration": 9.628,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 21,
+        "word_budget_hi": 24,
+        "max_words_en": 17,
+        "max_words_hi": 19,
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "In a home kitchen, the cook mixes flour and water into a shaggy dough, then kneads it into a smooth ball.",
+        "evidence": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 15.8,
+        "end": 19.271383,
+        "duration": 5.772000000000002,
+        "narratable": true,
+        "parent_gap": 1,
+        "word_budget_en": 12,
+        "word_budget_hi": 14,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "director_words_en": 12,
+        "director_words_hi": 12,
+        "en": "They lift the dough ball onto a plate and pour oil over it.",
+        "evidence": [
+          "e6",
+          "e7"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 25.596,
+        "end": 28.904844,
+        "duration": 6.216000000000001,
+        "narratable": true,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 11,
+        "max_words_hi": 13,
+        "director_words_en": 13,
+        "director_words_hi": 13,
+        "en": "The cook kneads oil into the dough inside the wooden bowl.",
+        "evidence": [
+          "e10"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 4,
+        "start": 42.428,
+        "end": 46.503102,
+        "duration": 6.372,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 13,
+        "word_budget_hi": 15,
+        "max_words_en": 12,
+        "max_words_hi": 13,
+        "director_words_en": 13,
+        "director_words_hi": 13,
+        "en": "They roll each cut piece between their palms into round balls.",
+        "evidence": [
+          "e14",
+          "e15"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 5,
+        "start": 48.8,
+        "end": 52.132062999999995,
+        "duration": 5.63600000000001,
+        "narratable": true,
+        "parent_gap": 3,
+        "word_budget_en": 11,
+        "word_budget_hi": 13,
+        "max_words_en": 10,
+        "max_words_hi": 12,
+        "director_words_en": 12,
+        "director_words_hi": 12,
+        "en": "The cook flattens a dough ball and rolls it into an oval.",
+        "evidence": [
+          "e16",
+          "e17"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 6,
+        "start": 67.164,
+        "end": 69.427946,
+        "duration": 4.26400000000001,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 10,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "director_words_en": 8,
+        "director_words_hi": 8,
+        "en": "They fold the sheet into a tight cylinder.",
+        "evidence": [
+          "e22",
+          "e23"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 7,
+        "start": 75.612,
+        "end": 76.865878,
+        "duration": 2.3440000000000083,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 3,
+        "max_words_hi": 4,
+        "director_words_en": 4,
+        "director_words_hi": 4,
+        "en": "The cook rolls dough.",
+        "evidence": [
+          "e25"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 8,
+        "start": 80.82799999999999,
+        "end": 83.06872599999998,
+        "duration": 7.208000000000013,
+        "narratable": true,
+        "word_budget_en": 15,
+        "word_budget_hi": 17,
+        "max_words_en": 13,
+        "max_words_hi": 15,
+        "director_words_en": 15,
+        "director_words_hi": 15,
+        "en": "The cook coils dough ball into bun.",
+        "evidence": [
+          "e27"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 9,
+        "start": 90.076,
+        "end": 91.445977,
+        "duration": 2.984000000000009,
+        "narratable": true,
+        "word_budget_en": 5,
+        "word_budget_hi": 6,
+        "max_words_en": 5,
+        "max_words_hi": 5,
+        "director_words_en": 5,
+        "director_words_hi": 5,
+        "en": "The press seals the bowl.",
+        "evidence": [
+          "e30"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 10,
+        "start": 99.932,
+        "end": 101.429687,
+        "duration": 3.2720000000000056,
+        "narratable": true,
+        "word_budget_en": 6,
+        "word_budget_hi": 7,
+        "max_words_en": 5,
+        "max_words_hi": 6,
+        "director_words_en": 6,
+        "director_words_hi": 6,
+        "en": "The cook dusts a ball.",
+        "evidence": [
+          "e32"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 11,
+        "start": 105.59599999999999,
+        "end": 110.35609099999999,
+        "duration": 7.121716500000005,
+        "narratable": true,
+        "parent_gap": 9,
+        "word_budget_en": 15,
+        "word_budget_hi": 17,
+        "max_words_en": 13,
+        "max_words_hi": 15,
+        "director_words_en": 15,
+        "director_words_hi": 15,
+        "en": "They roll the floured ball into a thin round flatbread, then flip it over.",
+        "evidence": [
+          "e34",
+          "e35",
+          "e36"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 12,
+        "start": 112.7177165,
+        "end": 117.8261065,
+        "duration": 7.121716500000005,
+        "narratable": true,
+        "parent_gap": 9,
+        "word_budget_en": 15,
+        "word_budget_hi": 17,
+        "max_words_en": 13,
+        "max_words_hi": 15,
+        "director_words_en": 15,
+        "director_words_hi": 15,
+        "en": "The cook rolls the flipped flatbread thinner until it is a thin, even round roti.",
+        "evidence": [
+          "e37",
+          "e39",
+          "e38"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 0.08,
+      "end": 1.2519999999999998,
+      "duration": 1.1719999999999997,
+      "narratable": false,
+      "reason": "too short",
+      "word_budget_en": 1,
+      "word_budget_hi": 2,
+      "max_words_en": 1,
+      "max_words_hi": 1
+    },
+    {
+      "id": 1,
+      "start": 6.172,
+      "end": 15.8,
+      "duration": 9.628,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 21,
+      "word_budget_hi": 24,
+      "max_words_en": 17,
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
+    },
+    {
+      "id": 2,
+      "start": 15.8,
+      "end": 21.572000000000003,
+      "duration": 5.772000000000002,
+      "narratable": true,
+      "parent_gap": 1,
+      "word_budget_en": 12,
+      "word_budget_hi": 14,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "director_words_en": 12,
+      "director_words_hi": 12
+    },
+    {
+      "id": 3,
+      "start": 25.596,
+      "end": 31.812,
+      "duration": 6.216000000000001,
+      "narratable": true,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 11,
+      "max_words_hi": 13,
+      "director_words_en": 13,
+      "director_words_hi": 13
+    },
+    {
+      "id": 4,
+      "start": 42.428,
+      "end": 48.8,
+      "duration": 6.372,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 13,
+      "word_budget_hi": 15,
+      "max_words_en": 12,
+      "max_words_hi": 13,
+      "director_words_en": 13,
+      "director_words_hi": 13
+    },
+    {
+      "id": 5,
+      "start": 48.8,
+      "end": 54.43600000000001,
+      "duration": 5.63600000000001,
+      "narratable": true,
+      "parent_gap": 3,
+      "word_budget_en": 11,
+      "word_budget_hi": 13,
+      "max_words_en": 10,
+      "max_words_hi": 12,
+      "director_words_en": 12,
+      "director_words_hi": 12
+    },
+    {
+      "id": 6,
+      "start": 67.164,
+      "end": 71.42800000000001,
+      "duration": 4.26400000000001,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 10,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "director_words_en": 8,
+      "director_words_hi": 8
+    },
+    {
+      "id": 7,
+      "start": 75.612,
+      "end": 77.956,
+      "duration": 2.3440000000000083,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 3,
+      "max_words_hi": 4,
+      "director_words_en": 4,
+      "director_words_hi": 4
+    },
+    {
+      "id": 8,
+      "start": 80.82799999999999,
+      "end": 88.036,
+      "duration": 7.208000000000013,
+      "narratable": true,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15
+    },
+    {
+      "id": 9,
+      "start": 90.076,
+      "end": 93.06,
+      "duration": 2.984000000000009,
+      "narratable": true,
+      "word_budget_en": 5,
+      "word_budget_hi": 6,
+      "max_words_en": 5,
+      "max_words_hi": 5,
+      "director_words_en": 5,
+      "director_words_hi": 5
+    },
+    {
+      "id": 10,
+      "start": 99.932,
+      "end": 103.20400000000001,
+      "duration": 3.2720000000000056,
+      "narratable": true,
+      "word_budget_en": 6,
+      "word_budget_hi": 7,
+      "max_words_en": 5,
+      "max_words_hi": 6,
+      "director_words_en": 6,
+      "director_words_hi": 6
+    },
+    {
+      "id": 11,
+      "start": 105.59599999999999,
+      "end": 112.7177165,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15
+    },
+    {
+      "id": 12,
+      "start": 112.7177165,
+      "end": 119.839433,
+      "duration": 7.121716500000005,
+      "narratable": true,
+      "parent_gap": 9,
+      "word_budget_en": 15,
+      "word_budget_hi": 17,
+      "max_words_en": 13,
+      "max_words_hi": 15,
+      "director_words_en": 15,
+      "director_words_hi": 15
+    }
+  ],
+  "speech": [
+    {
+      "start": 1.3319999999999999,
+      "end": 6.092
+    },
+    {
+      "start": 21.652,
+      "end": 23.212
+    },
+    {
+      "start": 23.7,
+      "end": 25.516000000000002
+    },
+    {
+      "start": 31.892,
+      "end": 34.187999999999995
+    },
+    {
+      "start": 35.348000000000006,
+      "end": 38.54
+    },
+    {
+      "start": 39.604000000000006,
+      "end": 42.348
+    },
+    {
+      "start": 54.516000000000005,
+      "end": 58.412
+    },
+    {
+      "start": 58.772000000000006,
+      "end": 64.87599999999999
+    },
+    {
+      "start": 65.58800000000001,
+      "end": 67.084
+    },
+    {
+      "start": 71.50800000000001,
+      "end": 74.636
+    },
+    {
+      "start": 74.9,
+      "end": 75.532
+    },
+    {
+      "start": 78.036,
+      "end": 80.74799999999999
+    },
+    {
+      "start": 88.116,
+      "end": 89.996
+    },
+    {
+      "start": 93.14,
+      "end": 95.98
+    },
+    {
+      "start": 96.628,
+      "end": 99.852
+    },
+    {
+      "start": 103.284,
+      "end": 105.51599999999999
+    }
+  ],
+  "cues_committed": 12,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "gaps_skipped_no_new_info": [],
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 58.4263236344642
+  },
+  "high_importance_covered_percent": 100.0,
+  "events_in_speech_regions": {
+    "count": 3,
+    "events": [
+      {
+        "id": "e2",
+        "t_start": 2.0,
+        "t_end": 6.0,
+        "what": "The person picks up a clear glass pitcher and pours lukewarm water into the flour while continuing to stir with their right hand.",
+        "on_screen_text": "",
+        "subtitle_text": "Use lukewarm water and add it just as much as you need",
+        "importance": 4,
+        "confidence": 0.95,
+        "change": "Water is introduced to the flour mixture.",
+        "gap_ids": []
+      },
+      {
+        "id": "e8",
+        "t_start": 20.99,
+        "t_end": 23.98,
+        "what": "The person picks up a small white bowl containing oil and pours it over the dough ball on the plate.",
+        "on_screen_text": "",
+        "subtitle_text": "let it rest.",
+        "importance": 4,
+        "confidence": 0.95,
+        "change": "Oil is added to the dough ball after it has been removed from the mixing bowl.",
+        "gap_ids": []
+      },
+      {
+        "id": "e11",
+        "t_start": 30.98,
+        "t_end": 35.976,
+        "what": "The person finishes kneading the dough into a smooth ball in the wooden bowl, then the camera cuts to a wider shot showing the person and a child standing at the table with the dough ready.",
+        "on_screen_text": "",
+        "subtitle_text": "Our dough is ready now I'm using a",
+        "importance": 4,
+        "confidence": 0.9,
+        "change": "The dough is now smooth and ready, and the scene widens to include a child.",
+        "gap_ids": []
+      }
+    ],
+    "note": "informational: important events while someone speaks; known to the writer as story context, may need extended AD"
+  },
+  "coverage_method": "event->gap assignment (midpoint / >=50% overlap); writer may skip gaps with nothing new",
+  "uncovered_events": [],
+  "bible": {
+    "setting": "Home kitchen with white table, flour-dusted silicone mat, wooden bowl, and natural light",
+    "place": "home kitchen",
+    "cast": [
+      {
+        "id": "c1",
+        "descriptor": "the cook",
+        "first_seen": 0.0,
+        "notes": "wearing a striped shirt and black apron; uses a black glove on one hand for kneading and oiling; gender not visible"
+      },
+      {
+        "id": "c2",
+        "descriptor": "a child watching",
+        "first_seen": 31.0,
+        "notes": "stands at the table on the right side, observing; gender not visible"
+      }
+    ],
+    "objects": [
+      "flour",
+      "lukewarm water",
+      "oil",
+      "large wooden mixing bowl",
+      "small white bowl (for oil)",
+      "glass pitcher",
+      "small plate",
+      "silicone mat",
+      "wooden rolling pin",
+      "knife",
+      "spoon",
+      "glass flour container",
+      "brown bowl",
+      "white plate (lid)"
+    ],
+    "goal": "soft layered roti (paratha)",
+    "story": "The cook mixes flour and water into a dough, kneads in oil, rests it, portions and shapes it into coiled buns, rests them again, then rolls one bun into a thin round flatbread ready for cooking.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "mixing flour and water into a shaggy dough",
+        "why": "hydrates the flour to form gluten",
+        "events": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ]
+      },
+      {
+        "t": 12.0,
+        "beat": "kneading the dough to a smooth ball",
+        "why": "develops elasticity for later layering",
+        "events": [
+          "e5",
+          "e6"
+        ]
+      },
+      {
+        "t": 18.0,
+        "beat": "first rest with oil on the dough ball",
+        "why": "relaxes gluten and coats the surface",
+        "events": [
+          "e7",
+          "e8"
+        ]
+      },
+      {
+        "t": 24.0,
+        "beat": "kneading more oil into the dough in the bowl",
+        "why": "enriches the dough and keeps it supple",
+        "events": [
+          "e9",
+          "e10",
+          "e11"
+        ]
+      },
+      {
+        "t": 36.0,
+        "beat": "cutting the dough log into portions and rolling them into balls",
+        "why": "creates even pieces for uniform flatbreads",
+        "events": [
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ]
+      },
+      {
+        "t": 48.0,
+        "beat": "rolling a ball into an oval, then a thin sheet, coiling it into a spiral bun",
+        "why": "the coil creates the signature flaky layers",
+        "events": [
+          "e16",
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21"
+        ]
+      },
+      {
+        "t": 83.9,
+        "beat": "oiling the buns and resting them covered",
+        "why": "prevents drying and lets layers relax before final roll",
+        "events": [
+          "e28",
+          "e29",
+          "e30",
+          "e31"
+        ]
+      },
+      {
+        "t": 98.9,
+        "beat": "flouring one rested bun and rolling it into a thin round roti",
+        "why": "final shaping before the pan",
+        "events": [
+          "e32",
+          "e33",
+          "e34",
+          "e35",
+          "e36",
+          "e37"
+        ]
+      }
+    ],
+    "names": [
+      {
+        "name": "dough ball",
+        "aliases": [
+          "dough log",
+          "dough piece",
+          "dough rope",
+          "braided dough"
+        ],
+        "from_t": 18.0
+      },
+      {
+        "name": "silicone mat",
+        "aliases": [
+          "floured mat",
+          "mat"
+        ],
+        "from_t": 36.0
+      },
+      {
+        "name": "white plate",
+        "aliases": [
+          "plate",
+          "lid"
+        ],
+        "from_t": 86.9
+      }
+    ],
+    "look_for": [
+      {
+        "t_start": 116.9,
+        "t_end": 119.9,
+        "what": "the finished roti held up or shown clearly before cooking"
+      }
+    ],
+    "on_screen_text": [
+      {
+        "t": 86.9,
+        "text": "Cover it",
+        "kind": "label"
+      },
+      {
+        "t": 116.9,
+        "text": "Roll the rotis",
+        "kind": "label"
+      }
+    ],
+    "subtitles_present": true,
+    "tone": "calm instructional",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 2.0,
+      "what": "A person wearing a striped shirt and black apron mixes white flour inside a large wooden bowl with their bare right hand while holding the bowl steady with their left hand.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The scene opens with the person already mixing flour in the bowl.",
+      "gap_ids": []
+    },
+    {
+      "id": "e2",
+      "t_start": 2.0,
+      "t_end": 6.0,
+      "what": "The person picks up a clear glass pitcher and pours lukewarm water into the flour while continuing to stir with their right hand.",
+      "on_screen_text": "",
+      "subtitle_text": "Use lukewarm water and add it just as much as you need",
+      "importance": 4,
+      "confidence": 0.95,
+      "change": "Water is introduced to the flour mixture.",
+      "gap_ids": []
+    },
+    {
+      "id": "e3",
+      "t_start": 6.0,
+      "t_end": 9.0,
+      "what": "The person continues to mix the flour and water together in the wooden bowl with their right hand, forming a crumbly dough.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The flour and water are being combined into a dough.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e4",
+      "t_start": 9.0,
+      "t_end": 11.992,
+      "what": "The person pours more water from the glass pitcher into the bowl and mixes it into the dough with their right hand.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "Additional water is added to the mixture.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e5",
+      "t_start": 11.992,
+      "t_end": 14.99,
+      "what": "The person kneads the dough in the wooden bowl with a black-gloved hand, folding and pressing it into a cohesive ball.",
+      "on_screen_text": "",
+      "subtitle_text": "Once the dough",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The dough transitions from loose crumbs to a smooth, unified ball.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e6",
+      "t_start": 14.99,
+      "t_end": 17.99,
+      "what": "The person continues kneading the dough ball in the bowl, pressing it down and folding it over repeatedly.",
+      "on_screen_text": "",
+      "subtitle_text": "nearly done,",
+      "importance": 3,
+      "confidence": 0.95,
+      "change": "The kneading motion continues, further developing the dough's texture.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e7",
+      "t_start": 17.99,
+      "t_end": 20.99,
+      "what": "The person lifts the finished dough ball out of the bowl with the gloved hand and places it onto a small plate on the table.",
+      "on_screen_text": "",
+      "subtitle_text": "I'm going to",
+      "importance": 4,
+      "confidence": 0.95,
+      "change": "The dough is removed from the bowl and set aside on a plate.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e8",
+      "t_start": 20.99,
+      "t_end": 23.98,
+      "what": "The person picks up a small white bowl containing oil and pours it over the dough ball on the plate.",
+      "on_screen_text": "",
+      "subtitle_text": "let it rest.",
+      "importance": 4,
+      "confidence": 0.95,
+      "change": "Oil is added to the dough ball after it has been removed from the mixing bowl.",
+      "gap_ids": []
+    },
+    {
+      "id": "e9",
+      "t_start": 23.984,
+      "t_end": 26.98,
+      "what": "The person holds a small white bowl of oil over a wooden bowl containing dough and pours the oil onto the dough while a spoon rests in the bowl.",
+      "on_screen_text": "",
+      "subtitle_text": "teaspoon of oil",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Oil is being added to the dough in the wooden bowl.",
+      "gap_ids": []
+    },
+    {
+      "id": "e10",
+      "t_start": 26.98,
+      "t_end": 30.98,
+      "what": "The person uses a black-gloved hand to knead the oil into the dough inside the wooden bowl, folding and pressing the dough repeatedly.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The oil is being incorporated into the dough by hand.",
+      "gap_ids": [
+        3
+      ]
+    },
+    {
+      "id": "e11",
+      "t_start": 30.98,
+      "t_end": 35.976,
+      "what": "The person finishes kneading the dough into a smooth ball in the wooden bowl, then the camera cuts to a wider shot showing the person and a child standing at the table with the dough ready.",
+      "on_screen_text": "",
+      "subtitle_text": "Our dough is ready now I'm using a",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough is now smooth and ready, and the scene widens to include a child.",
+      "gap_ids": []
+    },
+    {
+      "id": "e12",
+      "t_start": 35.98,
+      "t_end": 38.98,
+      "what": "The person places a large dough log on a floured silicone mat and cuts it into smaller pieces with a knife, while a child watches from the right.",
+      "on_screen_text": "",
+      "subtitle_text": "on it",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "New step: cutting the dough log into portions.",
+      "gap_ids": []
+    },
+    {
+      "id": "e13",
+      "t_start": 38.98,
+      "t_end": 41.98,
+      "what": "The person arranges the cut dough pieces into a row on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "divide",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The dough pieces are now lined up in a row.",
+      "gap_ids": []
+    },
+    {
+      "id": "e14",
+      "t_start": 41.98,
+      "t_end": 44.98,
+      "what": "The person rolls each dough piece between their palms to form small round balls and places them on the left side of the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "into smaller balls",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The cut pieces are being shaped into balls.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e15",
+      "t_start": 44.98,
+      "t_end": 47.968,
+      "what": "The person continues rolling the remaining dough pieces into balls, gathering them into a cluster on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "balls",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "More dough balls are added to the growing pile.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e16",
+      "t_start": 47.97,
+      "t_end": 50.0,
+      "what": "The person places a dough ball in the center of the floured mat and presses it flat with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "A new dough ball is introduced and flattened by hand.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e17",
+      "t_start": 50.0,
+      "t_end": 54.0,
+      "what": "The person uses a wooden rolling pin to roll the flattened dough into an elongated oval shape.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The rolling pin is used to transform the flat dough into an oval.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e18",
+      "t_start": 54.0,
+      "t_end": 57.0,
+      "what": "The person continues rolling the dough back and forth, stretching it into a longer oval.",
+      "on_screen_text": "",
+      "subtitle_text": "Roll the dough",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough becomes longer and thinner under the rolling pin.",
+      "gap_ids": []
+    },
+    {
+      "id": "e19",
+      "t_start": 57.0,
+      "t_end": 59.96,
+      "what": "The person finishes rolling the dough into a long oval and sets the rolling pin aside.",
+      "on_screen_text": "",
+      "subtitle_text": "into rotis as possible",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The rolling action is completed and the tool is removed.",
+      "gap_ids": []
+    },
+    {
+      "id": "e20",
+      "t_start": 59.96,
+      "t_end": 63.0,
+      "what": "The person uses a wooden rolling pin to flatten the long oval dough on the silicone mat, rolling back and forth to spread it evenly.",
+      "on_screen_text": "",
+      "subtitle_text": "You can use of your choice,",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The rolling pin is picked up and used again after being set aside.",
+      "gap_ids": []
+    },
+    {
+      "id": "e21",
+      "t_start": 63.0,
+      "t_end": 66.0,
+      "what": "The person continues rolling the dough, making it thinner and wider across the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "if you like",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough becomes visibly flatter and more elongated.",
+      "gap_ids": []
+    },
+    {
+      "id": "e22",
+      "t_start": 66.0,
+      "t_end": 69.0,
+      "what": "The person sets the rolling pin aside and uses both hands to press and fold the flattened dough over itself.",
+      "on_screen_text": "",
+      "subtitle_text": "more flour",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The tool is replaced by hand manipulation of the dough.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e23",
+      "t_start": 69.0,
+      "t_end": 71.95,
+      "what": "The person rolls the dough into a tight cylinder shape using their palms on the floured mat.",
+      "on_screen_text": "",
+      "subtitle_text": "Just roll",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough transforms from a flat sheet into a rolled log.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e24",
+      "t_start": 71.952,
+      "t_end": 75.0,
+      "what": "The person twists the long dough cylinder into a spiral shape on the floured mat, pressing the ends together to seal it.",
+      "on_screen_text": "",
+      "subtitle_text": "As shown",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough transitions from a straight cylinder to a twisted spiral form.",
+      "gap_ids": []
+    },
+    {
+      "id": "e25",
+      "t_start": 75.0,
+      "t_end": 78.0,
+      "what": "The person rolls the twisted spiral dough back and forth with both hands to smooth and elongate it into a uniform rope.",
+      "on_screen_text": "",
+      "subtitle_text": "Now I'll",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The spiral is flattened and rolled into a consistent cylindrical rope.",
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e26",
+      "t_start": 78.0,
+      "t_end": 81.0,
+      "what": "The person folds the rolled dough rope in half and twists the two strands around each other to create a braided shape.",
+      "on_screen_text": "",
+      "subtitle_text": "like a cinnamon roll",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The single rope is folded and twisted into a braided configuration.",
+      "gap_ids": []
+    },
+    {
+      "id": "e27",
+      "t_start": 81.0,
+      "t_end": 83.94,
+      "what": "The person coils the braided dough into a tight round bun, tucking the end underneath to secure the shape.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The braided rope is transformed into a finished round bun ready for the next step.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e28",
+      "t_start": 83.944,
+      "t_end": 86.94,
+      "what": "The person places the coiled dough buns into a brown bowl and pours oil over them from a spoon, then rubs the oil onto the dough with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "Add a little oil on top",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough buns are gathered into a bowl and coated with oil.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e29",
+      "t_start": 86.94,
+      "t_end": 90.94,
+      "what": "The person places a white plate upside down over the bowl to cover the dough buns.",
+      "on_screen_text": "Cover it",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The bowl is covered with a plate.",
+      "gap_ids": []
+    },
+    {
+      "id": "e30",
+      "t_start": 90.94,
+      "t_end": 95.936,
+      "what": "The person presses down on the plate covering the bowl to keep the dough buns enclosed.",
+      "on_screen_text": "",
+      "subtitle_text": "and let it rest for half",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The covered bowl is left to rest.",
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e31",
+      "t_start": 95.94,
+      "t_end": 98.94,
+      "what": "The person lifts the white plate off the bowl, revealing six round dough balls inside, then sets the plate aside.",
+      "on_screen_text": "",
+      "subtitle_text": "an hour",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The covered bowl is uncovered to show the rested dough buns.",
+      "gap_ids": []
+    },
+    {
+      "id": "e32",
+      "t_start": 98.94,
+      "t_end": 101.94,
+      "what": "The person gestures over the bowl of dough balls with both hands, then reaches toward a glass container of flour.",
+      "on_screen_text": "",
+      "subtitle_text": "I let it rest to 30 minutes",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough balls are now exposed and the person prepares to take one out.",
+      "gap_ids": [
+        10
+      ]
+    },
+    {
+      "id": "e33",
+      "t_start": 101.94,
+      "t_end": 104.94,
+      "what": "The person takes one dough ball from the bowl, places it on the floured mat, and dusts it with flour from the container.",
+      "on_screen_text": "",
+      "subtitle_text": "Now we'll make",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "A single dough ball is removed from the bowl and coated in flour.",
+      "gap_ids": []
+    },
+    {
+      "id": "e34",
+      "t_start": 104.94,
+      "t_end": 107.927,
+      "what": "The person uses a wooden rolling pin to flatten the dough ball into a thin, round flatbread on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "the rotis",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The dough ball is transformed into a flat, circular shape through rolling.",
+      "gap_ids": [
+        11
+      ]
+    },
+    {
+      "id": "e35",
+      "t_start": 107.93,
+      "t_end": 110.93,
+      "what": "The person continues rolling the dough ball with a wooden rolling pin on the floured mat, flattening it into a larger round flatbread.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The dough expands outward as the rolling pin moves back and forth.",
+      "gap_ids": [
+        11
+      ]
+    },
+    {
+      "id": "e36",
+      "t_start": 110.93,
+      "t_end": 113.93,
+      "what": "The person lifts the rolled flatbread with both hands and flips it over on the mat.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The flatbread is turned to its other side after being rolled.",
+      "gap_ids": [
+        11
+      ]
+    },
+    {
+      "id": "e37",
+      "t_start": 113.93,
+      "t_end": 116.93,
+      "what": "The person resumes rolling the flipped flatbread with the wooden rolling pin, pressing it thinner.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Rolling continues on the opposite side of the dough.",
+      "gap_ids": [
+        12
+      ]
+    },
+    {
+      "id": "e39",
+      "t_start": 116.4,
+      "t_end": 119.919,
+      "what": "A person wearing a striped shirt and black apron uses a wooden rolling pin to flatten a ball of dough on a dark silicone mat, rolling it back and forth until it becomes a thin, round flatbread.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The dough transitions from a small mound to a large, thin circular sheet under the rolling pin.",
+      "relook": true,
+      "gap_ids": [
+        12
+      ]
+    },
+    {
+      "id": "e38",
+      "t_start": 116.93,
+      "t_end": 119.919,
+      "what": "The person finishes rolling the flatbread into a thin, even round shape on the mat.",
+      "on_screen_text": "Roll the rotis",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The flatbread is now fully rolled and flat.",
+      "gap_ids": [
+        12
+      ]
+    }
+  ],
+  "shots": [
+    15.8,
+    35.6,
+    36.8,
+    38.0,
+    42.2,
+    48.8,
+    52.2,
+    70.0,
+    88.0,
+    96.0,
+    105.6
+  ],
+  "windows": [
+    [
+      0.0,
+      11.991943299999999
+    ],
+    [
+      11.991943299999999,
+      23.983886599999998
+    ],
+    [
+      23.983886599999998,
+      35.975829899999994
+    ],
+    [
+      35.975829899999994,
+      47.967773199999996
+    ],
+    [
+      47.967773199999996,
+      59.9597165
+    ],
+    [
+      59.9597165,
+      71.95165979999999
+    ],
+    [
+      71.95165979999999,
+      83.94360309999999
+    ],
+    [
+      83.94360309999999,
+      95.93554639999999
+    ],
+    [
+      95.93554639999999,
+      107.9274897
+    ],
+    [
+      107.9274897,
+      119.919433
+    ]
+  ],
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 3.766,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "12 narratable slots of 13, 12 long enough; detector silero-onnx; speech 37%; measured voice wps en 3.683 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.047,
+      "input": "ffmpeg scene-change detection",
+      "output": "11 shot cuts; 10 perception windows of ~12 s 0-12s, 12-24s, 24-36s, 36-48s, 48-60s, 60-72s, 72-84s, 84-96s, 96-108s, 108-120s; est. Super VL timeline cost $0.0283 (upper bound from config prices)"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2359,
+      "tokens_out": 207,
+      "cost_usd": 0.000894,
+      "latency_s": 4.718,
+      "input": "Super VL on 6 stills across the clip",
+      "output": "setting: Indoor kitchen with white painted table, natural lighting, flour on surface. | people: Person wearing striped shirt and black apron, hands visible., Mixing dough, rolling flatbreads, placing oil on shaped buns. | activity: Preparing dough and rolling flatbreads | ingredients: flour, dough, "
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 25909,
+      "tokens_out": 3691,
+      "cost_usd": 0.0110946,
+      "latency_s": 47.954,
+      "input": "Super VL video windows covering the whole clip",
+      "output": "38 events from 10 windows ({'video': 10, 'absolute': 10}); 26 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 4268,
+      "tokens_out": 1164,
+      "cost_usd": 0.00776,
+      "latency_s": 4.781,
+      "input": "scene + shots + timeline",
+      "output": "place: home kitchen | setting: Home kitchen with white table, flour-dusted silicone mat, wooden bowl, and natural light | cast: the cook, a child watching | goal: soft layered roti (paratha) | story: The cook mixes flour and water into a dough, kneads in oil, rests it, portions and shapes it into coiled buns, rests them again, then rolls one bun into a thin round flatbread ready for cooking. | 8 b"
+    },
+    {
+      "stage": "relook",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1345,
+      "tokens_out": 126,
+      "cost_usd": 0.0005168999999999999,
+      "latency_s": 5.219,
+      "input": "Super VL on windows where the bible expects an unseen beat",
+      "output": "1 focused re-looks (116-120s the finished roti held up or shown clearly before cooking): 1 new events ['e39']"
+    },
+    {
+      "stage": "assign",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.015,
+      "input": "midpoint / >=50% overlap; refuted excluded",
+      "output": "10 gaps carry a story beat; 23 of 39 events inside narratable gaps; 16 in speech (context only); per gap {1: 3, 2: 2, 3: 1, 4: 2, 5: 2, 6: 2, 7: 1, 8: 2, 9: 1, 10: 1, 11: 3, 12: 3}"
+    },
+    {
+      "stage": "script",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 7953,
+      "tokens_out": 585,
+      "cost_usd": 0.009708,
+      "latency_s": 95.016,
+      "input": "bible + timeline + all gaps -> whole English track",
+      "output": "12 gaps scripted in one call: {'pending': 7, 'failed': 5}"
+    },
+    {
+      "stage": "tighten",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+      ],
+      "calls": 7,
+      "ultra_calls": 0,
+      "tokens_in": 2542,
+      "tokens_out": 402,
+      "cost_usd": 0.000249,
+      "latency_s": 106.953,
+      "input": "5 cues over budget only -> Nemotron Nano (no Ultra)",
+      "output": "over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 4, 'still_over': 1}"
+    },
+    {
+      "stage": "verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 8586,
+      "tokens_out": 655,
+      "cost_usd": 0.0031653000000000002,
+      "latency_s": 23.937,
+      "input": "11 cues, 2 stills each",
+      "output": "11 cues checked on stills inside their gaps: {'supported': 10, 'contradicted': 1}"
+    },
+    {
+      "stage": "repair_1",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1976,
+      "tokens_out": 95,
+      "cost_usd": 0.002261,
+      "latency_s": 21.016,
+      "input": "2 failed cues",
+      "output": "round 1: 2 failed cues sent to Ultra: {'failed': 1, 'pending': 1}"
+    },
+    {
+      "stage": "tighten_1",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 358,
+      "tokens_out": 46,
+      "cost_usd": 3.2519999999999994e-05,
+      "latency_s": 17.891,
+      "input": "1 cues over budget only -> Nemotron Nano (no Ultra)",
+      "output": "over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}"
+    },
+    {
+      "stage": "verify_1",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1745,
+      "tokens_out": 104,
+      "cost_usd": 0.0006171,
+      "latency_s": 3.75,
+      "input": "2 cues, 2 stills each",
+      "output": "2 cues checked on stills inside their gaps: {'supported': 2}"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 4.109,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "12 cues rendered (en: 12); 0 gaps silent by choice"
+    }
+  ],
+  "cue_history": {
+    "1": [
+      {
+        "step": "script",
+        "text": "In a home kitchen, the cook mixes flour and water into a shaggy dough, then kneads it into a smooth ball.",
+        "evidence": [
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "problems": [],
+        "words": 21,
+        "words_claimed": 19
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "Frames 7.5 and 10.5 show the cook mixing flour and water in a wooden bowl, consistent with forming a shaggy dough; the smooth ball result is not yet shown but the mixing action is visible."
+      }
+    ],
+    "2": [
+      {
+        "step": "script",
+        "text": "They lift the dough ball onto a plate and pour oil over it.",
+        "evidence": [
+          "e6",
+          "e7"
+        ],
+        "problems": [],
+        "words": 13,
+        "words_claimed": 12
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "Frames 16.49 and 19.49 show the dough ball in the wooden bowl and the cook handling it, consistent with lifting the dough ball; oil pouring is not visible in these stills but the dough ball on/in the "
+      }
+    ],
+    "3": [
+      {
+        "step": "script",
+        "text": "The cook kneads oil into the dough inside the wooden bowl.",
+        "evidence": [
+          "e10"
+        ],
+        "problems": [],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "Frames 27.15 and 28.98 show the cook kneading the dough inside the wooden bowl with a gloved hand, consistent with kneading oil into the dough."
+      }
+    ],
+    "4": [
+      {
+        "step": "script",
+        "text": "They roll each cut piece between their palms into round balls.",
+        "evidence": [
+          "e14",
+          "e15"
+        ],
+        "problems": [],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "Frames 43.48 and 46.47 show the cook rolling cut dough pieces between their palms into round balls on a silicone mat, matching the cue."
+      }
+    ],
+    "5": [
+      {
+        "step": "script",
+        "text": "The cook presses a dough ball flat, then rolls it into a long oval with the pin.",
+        "evidence": [
+          "e16",
+          "e17"
+        ],
+        "problems": [
+          "over budget: 17 words, max 12. Fix: cut at least 5 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 17,
+        "words_claimed": 12
+      },
+      {
+        "step": "tighten",
+        "text": "The cook flattens dough and rolls it into an oval shape.",
+        "problems": [
+          "tighten added new words ['flatten', 'shape']; rejected"
+        ]
+      },
+      {
+        "step": "tighten",
+        "text": "The cook flattens a dough ball and rolls it into an oval.",
+        "evidence": [
+          "e16",
+          "e17"
+        ],
+        "problems": [],
+        "words": 12
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook flattening a dough ball on the mat and beginning to roll it; the oval result is consistent with the rolling shown."
+      }
+    ],
+    "6": [
+      {
+        "step": "script",
+        "text": "They fold the sheet over itself and roll it into a tight cylinder.",
+        "evidence": [
+          "e22",
+          "e23"
+        ],
+        "problems": [
+          "over budget: 13 words, max 8. Fix: cut at least 5 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 13,
+        "words_claimed": 11
+      },
+      {
+        "step": "tighten",
+        "text": "They fold the sheet into a tight cylinder.",
+        "evidence": [
+          "e22",
+          "e23"
+        ],
+        "problems": [],
+        "words": 8
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook folding the flattened dough sheet over itself, consistent with folding it into a tight cylinder."
+      }
+    ],
+    "7": [
+      {
+        "step": "script",
+        "text": "The cook twists the rope into a braided spiral.",
+        "evidence": [
+          "e25"
+        ],
+        "problems": [
+          "over budget: 9 words, max 4. Fix: cut at least 5 words (keep the subject and the main action; drop a secondary action, colours or positions)",
+          "Banned phrasing: object identity (\"rope\" is \"dough ball\" in the bible). Fix: call it \"dough ball\"",
+          "cue too long: measured 2.7 s, allowed 2.6 s"
+        ],
+        "words": 9,
+        "words_claimed": 8
+      },
+      {
+        "step": "tighten",
+        "text": "The cook braids the rope into a spiral.",
+        "evidence": [
+          "e25"
+        ],
+        "problems": [
+          "over budget: 8 words, max 4. Fix: cut at least 4 words (keep the subject and the main action; drop a secondary action, colours or positions)",
+          "Banned phrasing: object identity (\"rope\" is \"dough ball\" in the bible). Fix: call it \"dough ball\""
+        ],
+        "words": 8
+      },
+      {
+        "step": "tighten",
+        "text": "The cook braids a rope into a spiral.",
+        "problems": [
+          "not shorter (8 words, was 8); rejected"
+        ]
+      },
+      {
+        "step": "tighten",
+        "text": "The cook braids rope into a spiral.",
+        "evidence": [
+          "e25"
+        ],
+        "problems": [
+          "over budget: 7 words, max 4. Fix: cut at least 3 words (keep the subject and the main action; drop a secondary action, colours or positions)",
+          "Banned phrasing: object identity (\"rope\" is \"dough ball\" in the bible). Fix: call it \"dough ball\""
+        ],
+        "words": 7
+      },
+      {
+        "step": "repair_1",
+        "text": "The cook rolls dough ball into rope.",
+        "evidence": [
+          "e25"
+        ],
+        "problems": [
+          "over budget: 7 words, max 4. Fix: cut at least 3 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 7,
+        "words_claimed": 7
+      },
+      {
+        "step": "tighten_1",
+        "text": "The cook rolls dough into a rope.",
+        "problems": [
+          "not shorter (7 words, was 7); rejected"
+        ]
+      },
+      {
+        "step": "tighten_1",
+        "text": "The cook rolls dough.",
+        "evidence": [
+          "e25"
+        ],
+        "problems": [],
+        "words": 4
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook rolling a piece of dough into a long rope on the mat, consistent with rolling dough."
+      }
+    ],
+    "8": [
+      {
+        "step": "script",
+        "text": "They place the coiled buns in a bowl, pour oil over them, and cover with a plate.",
+        "evidence": [
+          "e27",
+          "e28"
+        ],
+        "problems": [],
+        "words": 17,
+        "words_claimed": 14
+      },
+      {
+        "step": "verify",
+        "verdict": "contradicted",
+        "reason": "verifier (contradicted) on frames [82.47, 85.44]: \"They place the coiled buns in a bowl, pour oil over them, and cover with a plate.\" is wrong; The frames show the cook rolling a dough piece into a ball on a floured mat; no bowl, oil, or plate is visible.. Fix: remove or correct only \"They place the coiled buns in a bowl, pour oil over them, and cover with a plate.\" and keep the rest of the cue",
+        "refuted": []
+      },
+      {
+        "step": "repair_1",
+        "text": "The cook coils dough ball into bun.",
+        "evidence": [
+          "e27"
+        ],
+        "problems": [],
+        "words": 7,
+        "words_claimed": 8
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook's hands shaping a dough ball into a rounded bun on the mat, consistent with coiling into a bun."
+      }
+    ],
+    "9": [
+      {
+        "step": "script",
+        "text": "The plate presses down to seal the bowl.",
+        "evidence": [
+          "e30"
+        ],
+        "problems": [
+          "over budget: 8 words, max 5. Fix: cut at least 3 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 8,
+        "words_claimed": 7
+      },
+      {
+        "step": "tighten",
+        "text": "The press seals the bowl.",
+        "evidence": [
+          "e30"
+        ],
+        "problems": [],
+        "words": 5
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook pressing down on dough balls inside a bowl, consistent with the press sealing the bowl."
+      }
+    ],
+    "10": [
+      {
+        "step": "script",
+        "text": "The cook takes one rested ball and dusts it with flour.",
+        "evidence": [
+          "e32"
+        ],
+        "problems": [
+          "over budget: 11 words, max 6. Fix: cut at least 5 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 11,
+        "words_claimed": 10
+      },
+      {
+        "step": "tighten",
+        "text": "The cook dusts a rested ball with flour.",
+        "evidence": [
+          "e32"
+        ],
+        "problems": [
+          "over budget: 8 words, max 6. Fix: cut at least 2 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 8
+      },
+      {
+        "step": "tighten",
+        "text": "The cook dusts a rested ball with flour.",
+        "problems": [
+          "not shorter (8 words, was 8); rejected"
+        ]
+      },
+      {
+        "step": "tighten",
+        "text": "The cook dusts a ball.",
+        "evidence": [
+          "e32"
+        ],
+        "problems": [],
+        "words": 5
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook dusting a dough ball with flour from a container, consistent with the cue."
+      }
+    ],
+    "11": [
+      {
+        "step": "script",
+        "text": "They roll the floured ball into a thin round flatbread, then flip it over.",
+        "evidence": [
+          "e34",
+          "e35",
+          "e36"
+        ],
+        "problems": [],
+        "words": 14,
+        "words_claimed": 13
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the cook rolling a floured ball into a thin round flatbread with a rolling pin; the flip itself is not shown but the rolling action is consistent."
+      }
+    ],
+    "12": [
+      {
+        "step": "script",
+        "text": "The cook rolls the flipped flatbread thinner until it is a thin, even round roti.",
+        "evidence": [
+          "e37",
+          "e39",
+          "e38"
+        ],
+        "problems": [],
+        "words": 15,
+        "words_claimed": 13
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the flipped flatbread being rolled thinner into an even round roti."
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 3,
+    "max_ultra_calls": 6,
+    "relook_events": 1,
+    "self_count_mismatch": 11,
+    "accepted_within_tolerance": 3,
+    "postcheck_failures": 9,
+    "length_failures": 8,
+    "hard_failures": 1,
+    "tightened": 5,
+    "repair_rounds": 1,
+    "budget_use_percent": 93,
+    "verdicts": {
+      "supported": 12
+    },
+    "contradicted": 1,
+    "events": 39,
+    "events_refuted": 0
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2359,
+      "output_tokens": 207,
+      "cost_usd": 0.000894,
+      "latency_s": 2.437000000005355,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2504,
+      "output_tokens": 338,
+      "cost_usd": 0.0010554,
+      "latency_s": 4.577999999994063,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2600,
+      "output_tokens": 411,
+      "cost_usd": 0.0011499000000000001,
+      "latency_s": 6.187999999994645,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2602,
+      "output_tokens": 333,
+      "cost_usd": 0.0010803,
+      "latency_s": 3.0939999999973224,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2620,
+      "output_tokens": 378,
+      "cost_usd": 0.0011262,
+      "latency_s": 3.686999999990803,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2598,
+      "output_tokens": 365,
+      "cost_usd": 0.0011079,
+      "latency_s": 4.4689999999973224,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2587,
+      "output_tokens": 382,
+      "cost_usd": 0.0011199,
+      "latency_s": 3.2030000000086147,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2593,
+      "output_tokens": 400,
+      "cost_usd": 0.0011379,
+      "latency_s": 3.312999999994645,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2602,
+      "output_tokens": 294,
+      "cost_usd": 0.0010452,
+      "latency_s": 3.827999999994063,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2591,
+      "output_tokens": 413,
+      "cost_usd": 0.001149,
+      "latency_s": 5.703000000008615,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2612,
+      "output_tokens": 377,
+      "cost_usd": 0.0011229,
+      "latency_s": 3.25,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 4268,
+      "output_tokens": 1164,
+      "cost_usd": 0.00776,
+      "latency_s": 4.75,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1345,
+      "output_tokens": 126,
+      "cost_usd": 0.0005168999999999999,
+      "latency_s": 4.89100000000326,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 7953,
+      "output_tokens": 585,
+      "cost_usd": 0.009708,
+      "latency_s": 2.9060000000026776,
+      "cost_role": "script"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 371,
+      "output_tokens": 71,
+      "cost_usd": 3.93e-05,
+      "latency_s": 1.937999999994645,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 364,
+      "output_tokens": 55,
+      "cost_usd": 3.5039999999999997e-05,
+      "latency_s": 1.7039999999979045,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 362,
+      "output_tokens": 59,
+      "cost_usd": 3.5879999999999995e-05,
+      "latency_s": 1.7970000000059372,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 360,
+      "output_tokens": 57,
+      "cost_usd": 3.528e-05,
+      "latency_s": 2.0160000000032596,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 359,
+      "output_tokens": 47,
+      "cost_usd": 3.282e-05,
+      "latency_s": 1.75,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 365,
+      "output_tokens": 58,
+      "cost_usd": 3.582e-05,
+      "latency_s": 15.062000000005355,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 361,
+      "output_tokens": 55,
+      "cost_usd": 3.486e-05,
+      "latency_s": 1.5779999999940628,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3080,
+      "output_tokens": 278,
+      "cost_usd": 0.0011742,
+      "latency_s": 2.75,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3103,
+      "output_tokens": 234,
+      "cost_usd": 0.0011415,
+      "latency_s": 3.077999999994063,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2403,
+      "output_tokens": 143,
+      "cost_usd": 0.0008496,
+      "latency_s": 15.906000000002678,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1976,
+      "output_tokens": 95,
+      "cost_usd": 0.002261,
+      "latency_s": 7.780999999988126,
+      "cost_role": "repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 358,
+      "output_tokens": 46,
+      "cost_usd": 3.2519999999999994e-05,
+      "latency_s": 4.187999999994645,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1745,
+      "output_tokens": 104,
+      "cost_usd": 0.0006171,
+      "latency_s": 3.202999999994063,
+      "cost_role": "verify"
+    }
+  ],
+  "cost_by_role": {
+    "scene": 0.000894,
+    "timeline": 0.0116115,
+    "bible": 0.00776,
+    "script": 0.009708,
+    "tighten": 0.00028152,
+    "verify": 0.0037824,
+    "repair": 0.002261,
+    "hindi": 0
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.01816140341490774,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:gaps": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:relook": 1,
+      "stage:assign": 1,
+      "stage:script": 1,
+      "stage:tighten": 1,
+      "verify_claim": 13,
+      "stage:verify": 1,
+      "stage:repair_1": 1,
+      "stage:tighten_1": 1,
+      "stage:verify_1": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 12,
+      "contradicted": 1,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 3,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0162879,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.019729,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00028151999999999995
+    },
+    "total_latency_s": 348.8440000000119
+  },
+  "estimated_cost_usd": 0.03629842,
+  "would_be_token_factory_cost_usd": 0.03629842,
+  "reserved_spend_usd": 0.03629842,
+  "cost_per_minute": 0.01816140341490774,
+  "latency_s": 348.8440000000119
+}

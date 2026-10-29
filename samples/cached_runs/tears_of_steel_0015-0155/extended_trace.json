@@ -1,0 +1,1375 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null,
+    "mode": "director",
+    "ad_mode": "extended"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 11.171000000002095,
+      "role": "tool",
+      "note": "speech: 9 speech intervals; 27% speech; 3 between-sentence micro-silences",
+      "tool_name": "stage:speech",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 3.437,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 12.327999999994063,
+      "role": "tool",
+      "note": "shots: 18 scene cuts; 0 sensitive visual changes; 9 perception windows; est. Super VL timeline cost $0.0241",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 1.157,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 15.889999999999418,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Industrial platforms, outdoor bridge, foggy city skyline viewed through a round window.",
+        "people": [
+          {
+            "description": "Man in dark jacket and light shirt.",
+            "doing": "gesturing with both hands while standing on a bridge."
+          }
+        ],
+        "ingredients": [],
+        "tools": [],
+        "objects": [
+          "industrial towers",
+          "bridge railing",
+          "brain model in glass case",
+          "pink geometric machinery",
+          "city skyline with smoke",
+          "flying machine with lights",
+          "round porthole window"
+        ],
+        "activity": "Two people converse on a bridge while scenes of industrial machinery, a brain display, and a flying vehicle over a city are shown.",
+        "dish": "",
+        "visual_style": "Cinematic film clips with natural daylight and moody, foggy atmospheric lighting.",
+        "burned_in_subtitles": false,
+        "confidence": 0.9,
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.014999999999418,
+      "tokens_in": 2287,
+      "tokens_out": 253,
+      "cost_usd": 0.0009138000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 15.889999999999418,
+      "role": "tool",
+      "note": "scene: setting: Industrial platforms, outdoor bridge, foggy city skyline viewed through a round window. | people: Man in dark jacket and light shirt., gesturing with both hands while standing on a bridge.; P",
+      "tool_name": "stage:scene",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2287,
+        "tokens_out": 253,
+        "cost_usd": 0.0009138000000000001
+      },
+      "ok": true,
+      "latency_s": 3.562,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 20.73399999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 3,
+            "what": "A close-up view of large industrial pipes and machinery emits bright white light and steam from their openings, filling the frame with intense illumination.",
+            "change": "The scene opens with glowing industrial equipment before transitioning to a wider view.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.0939999999973224,
+      "tokens_in": 2175,
+      "tokens_out": 271,
+      "cost_usd": 0.0008964,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 24.85899999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10.0,
+            "t_end": 12.22,
+            "what": "A person in a blue jacket and striped pants stands on a bridge holding a mechanical arm device, gesturing with it toward a man in a dark jacket and light shirt who is leaning on the railing.",
+            "change": "The person in blue raises the mechanical arm and points it at the man, initiating a new interaction.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.327999999994063,
+      "tokens_in": 2602,
+      "tokens_out": 124,
+      "cost_usd": 0.0008922,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 30.031000000002678,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 22.22,
+            "t_end": 25.0,
+            "what": "A man in a dark jacket and light shirt stands on a bridge leaning on the railing while a person in a blue jacket and striped pants holds a mechanical arm device and gestures toward him.",
+            "change": "The conversation on the bridge continues with the mechanical arm device being held up.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 25.0,
+            "t_end": 28.0,
+            "what": "The scene cuts to a dark industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other.",
+            "change": "The setting shifts from the outdoor bridge to a dark industrial space with holographic figures.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.547000000005937,
+      "tokens_in": 2451,
+      "tokens_out": 422,
+      "cost_usd": 0.0011151,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 38.187000000005355,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 33.33,
+            "t_end": 35.0,
+            "what": "A hand presses buttons on a control panel with green digital displays and pink wiring.",
+            "change": "New scene shifts from wireframe figures to a close-up of a control panel.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 35.0,
+            "t_end": 37.0,
+            "what": "A person with glasses and curly hair looks forward while standing in a room filled with glowing green and pink equipment.",
+            "change": "The camera reveals the person operating the panel.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.422000000005937,
+      "tokens_in": 2440,
+      "tokens_out": 534,
+      "cost_usd": 0.0012125999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 40.60899999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 44.44,
+            "t_end": 48.0,
+            "what": "A man with a mechanical eye peers intensely at a realistic brain model surrounded by pink energy rings and electrodes, his face illuminated by the pink glow."
+          },
+          {
+            "t_start": 48.0,
+            "t_end": 51.0,
+            "what": "The screen cuts to black as the title \"TEARS OF STEEL\" fades in with a metallic, textured font."
+          },
+          {
+            "t_start": 51.0,
+            "t_end": 55.0,
+            "what": "The title \"TEARS OF STEEL\" remains centered on the black background, fully visible and static."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.077999999994063,
+      "tokens_in": 2408,
+      "tokens_out": 160,
+      "cost_usd": 0.0008664,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 88.45299999999406,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 55.0,
+            "t_end": 59.0,
+            "what": "A wide shot shows a foggy city skyline with a tall tower and a flying platform hovering above the rooftops.",
+            "change": "The scene transitions from the title card to an establishing shot of the city.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 59.0,
+            "t_end": 63.0,
+            "what": "The camera looks through a dark, cluttered interior space toward a balcony where two figures stand in the distance.",
+            "change": "The view shifts from the exterior cityscape to an interior perspective looking outward.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.8
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 47.01599999998871,
+      "tokens_in": 2580,
+      "tokens_out": 322,
+      "cost_usd": 0.0010638,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 156.125,
+      "role": "system",
+      "note": "retry after APITimeoutError (attempt 2/3, backoff 1s)",
+      "tool_name": null,
+      "args": {},
+      "result": null,
+      "ok": false,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 12,
+      "t_wall": 161.375,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 66.67,
+            "t_end": 70.0,
+            "what": "A man in a blue jacket aims a large sniper rifle with a scope from a balcony, looking through the sight.",
+            "change": "The scene cuts from the newspaper-wrapped head to the man with the rifle.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 70.0,
+            "t_end": 74.0,
+            "what": "The view shifts to a round window showing a massive, dark airship with multiple engines and platforms floating in fog.",
+            "change": "The camera moves from the sniper to the airship seen through the window.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 72.18799999999464,
+      "tokens_in": 2431,
+      "tokens_out": 292,
+      "cost_usd": 0.0009920999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 165.07799999999406,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 77.4,
+            "t_end": 80.0,
+            "what": "A close-up shows a person aiming a large, detailed rifle with a scope, their eye pressed against the sight while holding the weapon steady.",
+            "change": "The scene cuts from the airship to a first-person perspective of someone aiming a weapon.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 80.0,
+            "t_end": 83.0,
+            "what": "Through a round window, a massive airship hovers above a foggy city with red-roofed buildings, its engines glowing brightly.",
+            "change": "The view switches back to the airship seen through the circular window.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.125,
+      "tokens_in": 2580,
+      "tokens_out": 398,
+      "cost_usd": 0.0011322,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 169.0,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 88.89,
+            "t_end": 92.0,
+            "what": "A large, dark mechanical airship hovers above a foggy city skyline, viewed through a round window with a crosshair reticle, as bright lights glow from its underside and smaller mechanical figures cling to its sides.",
+            "change": "The scene shifts from the bridge conversation to a view of the airship through the window.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 92.0,
+            "t_end": 95.0,
+            "what": "The airship tilts and begins to descend toward the rooftops below, with smoke or steam billowing from its structure as it moves closer to the city.",
+            "change": "The airship changes orientation and lowers its altitude.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2189999999973224,
+      "tokens_in": 2440,
+      "tokens_out": 427,
+      "cost_usd": 0.0011163,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 169.0,
+      "role": "tool",
+      "note": "timeline: 31 events from 9 windows ({'video': 9, 'absolute': 9}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 9,
+        "tokens_in": 22107,
+        "tokens_out": 2950,
+        "cost_usd": 0.0092871
+      },
+      "ok": true,
+      "latency_s": 153.11,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 16,
+      "t_wall": 173.5460000000021,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 4.5,
+            "setting": "A hazy, industrial cityscape with tall towers and smokestacks under a bright sky.",
+            "present": [],
+            "objects": [
+              "towers",
+              "smokestacks",
+              "buildings",
+              "sky"
+            ],
+            "action": "The camera holds a static wide shot of the city skyline.",
+            "on_screen_text": [
+              "This film is supported by the Netherlands Film Fund"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 29.5,
+            "setting": "A dark, cluttered industrial interior with machinery and glowing elements.",
+            "present": [],
+            "objects": [
+              "machinery",
+              "pink glowing orb",
+              "house structure",
+              "blue light",
+              "cables"
+            ],
+            "action": "The scene remains still with ambient lighting effects.",
+            "on_screen_text": [
+              "40 YEARS LATER"
+            ],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.014999999999418,
+      "tokens_in": 1685,
+      "tokens_out": 433,
+      "cost_usd": 0.0008952000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "text_stills",
+      "cached_tokens": 0
+    },
+    {
+      "step": 17,
+      "t_wall": 173.5460000000021,
+      "role": "tool",
+      "note": "text_stills: 5 on-screen text readings re-read from stills; 2 corrected",
+      "tool_name": "stage:text_stills",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 1685,
+        "tokens_out": 433,
+        "cost_usd": 0.0008952000000000001
+      },
+      "ok": true,
+      "latency_s": 4.546,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 18,
+      "t_wall": 187.0460000000021,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Industrial cityscape, bridge, dark interior with holograms, control room, b",
+        "place": "futuristic city",
+        "cast": [],
+        "objects": [
+          "industrial pipes and machinery",
+          "smokestacks and buildings",
+          "bridge railing"
+        ],
+        "goal": "",
+        "story": "A conversation on a bridge leads into a time jump to a high-te",
+        "beats": [
+          {
+            "t": 0.0,
+            "beat": "Opening on glowing indus",
+            "why": "Establishes the industri",
+            "events": [
+              "e1"
+            ]
+          }
+        ],
+        "names": [
+          {
+            "name": "airship",
+            "aliases": [
+              "flying platform",
+              "flying machine"
+            ],
+            "from_t": 55.0
+          }
+        ],
+        "look_for": [
+          {
+            "t_start": 98.0,
+            "t_end": 100.0,
+            "what": "Impact or landing of the ai"
+          }
+        ],
+        "on_screen_text": [
+          {
+            "t": 3.0,
+            "text": "This film is supported by the Netherlands Film Fund",
+            "kind": "label"
+          }
+        ],
+        "subtitles_present": false,
+        "tone": "Gritty, atmospheric, tense; industrial sci-fi wi",
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 13.485000000000582,
+      "tokens_in": 3697,
+      "tokens_out": 3012,
+      "cost_usd": 0.012733,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "bible",
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 187.0460000000021,
+      "role": "tool",
+      "note": "bible: place: futuristic city | setting: Industrial cityscape, bridge, dark interior with holograms, control room, brain lab, title card, foggy city with airship, interior with sniper and bed | cast: person ",
+      "tool_name": "stage:bible",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 3697,
+        "tokens_out": 3012,
+        "cost_usd": 0.012733
+      },
+      "ok": true,
+      "latency_s": 13.5,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 20,
+      "t_wall": 187.0460000000021,
+      "role": "tool",
+      "note": "pause_plan: 7 pauses; largest source gap 19.60 s (hard max 25.0 s); final at 100.00 s",
+      "tool_name": "stage:pause_plan",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 21,
+      "t_wall": 190.73399999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 3.4,
+            "setting": "Industrial cityscape with tall metal towers and smokestacks under a bright, hazy sky.",
+            "present": [],
+            "objects": [
+              "metal towers",
+              "smokestacks",
+              "buildings",
+              "bridge structure"
+            ],
+            "action": "Static establishing shot of an industrial skyline with light glowing in the center.",
+            "on_screen_text": [],
+            "subtitle_text": []
+          },
+          {
+            "t": 19.56,
+            "setting": "Outdoor stone bridge with green railings, trees, and brick buildings in the background.",
+            "present": [
+              "man in dark jacket",
+              "woman in blue jacket with mechanical arm"
+            ],
+            "objects": [
+              "bridge railing",
+              "trees",
+              "buildings"
+            ],
+            "action": "A man and a woman stand facing each other on a bridge; the woman extends a mechanical hand toward the man.",
+            "on_screen_text": [],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2969999999913853,
+      "tokens_in": 2007,
+      "tokens_out": 505,
+      "cost_usd": 0.0010566,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 192.25,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 99.7,
+            "setting": "A city viewed through a circular opening, with rooftops in the foreground and a large vehicle in the distance amid smoke and bright lights.",
+            "present": [],
+            "objects": [
+              "rooftops",
+              "vehicle",
+              "smoke",
+              "lights",
+              "circular frame"
+            ],
+            "action": "A large vehicle moves through a smoky cityscape with bright lights, seen through a circular view.",
+            "on_screen_text": [],
+            "subtitle_text": []
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.4689999999973224,
+      "tokens_in": 482,
+      "tokens_out": 102,
+      "cost_usd": 0.00023639999999999997,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 192.25,
+      "role": "tool",
+      "note": "pause_frames: 7 current frames described by Super VL",
+      "tool_name": "stage:pause_frames",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 2489,
+        "tokens_out": 607,
+        "cost_usd": 0.0012929999999999999
+      },
+      "ok": true,
+      "latency_s": 5.204,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 24,
+      "t_wall": 195.96799999999348,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The view pulls back to reveal a sprawling industrial cityscape with tall smokestacks and buildings under a cloudy sky. White text at the bottom left reads: This film is supported by the Netherlands Film Fund.",
+            "evidence": [
+              "e1",
+              "e2"
+            ]
+          },
+          {
+            "pause_id": 2,
+            "text": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing. Brick buildings and trees sit behind them.",
+            "evidence": [
+              "e3",
+              "e4"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.7179999999934807,
+      "tokens_in": 6042,
+      "tokens_out": 888,
+      "cost_usd": 0.008706,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_write",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 195.96799999999348,
+      "role": "tool",
+      "note": "extended_write: 7 of 7 pauses written in one Ultra call",
+      "tool_name": "stage:extended_write",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 6042,
+        "tokens_out": 888,
+        "cost_usd": 0.008706
+      },
+      "ok": true,
+      "latency_s": 3.718,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 26,
+      "t_wall": 198.7960000000021,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame.",
+            "evidence": [
+              "e1"
+            ]
+          },
+          {
+            "pause_id": 2,
+            "text": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing.",
+            "evidence": [
+              "e3",
+              "e4"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.8280000000086147,
+      "tokens_in": 6996,
+      "tokens_out": 619,
+      "cost_usd": 0.008853,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 200.98399999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a dark industrial interior with an orange wireframe figure and a blue wireframe figure facing each other, white capital letters reading '40 YEARS LATER', and pink energy rings surrounding the holographic figures."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.937999999994645,
+      "tokens_in": 1925,
+      "tokens_out": 71,
+      "cost_usd": 0.0006414,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 203.23399999999674,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "Bright white light and steam pour from large industrial pipes and machinery, filling the frame. The glow reveals a sprawling cityscape of metal towers and smokestacks under a hazy sky.",
+            "evidence": [
+              "e1"
+            ]
+          },
+          {
+            "pause_id": 4,
+            "text": "A hand presses buttons on a control panel with green displays and pink wiring. A person with glasses and curly hair stands in a room filled with glowing equipment. Two people in white hoodies work at a console as text flashes: SIMULATION READY. A realistic brain model sits on a rotating platform surrounded by pink energy rings. A person in a purple jacket looks down at the brain. A man with a mechanical eye peers at it, his face lit by the pink glow.",
+            "evidence": [
+              "e9",
+              "e10",
+              "e11",
+              "e12",
+              "e13",
+              "e14",
+              "e15"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.2339999999967404,
+      "tokens_in": 6253,
+      "tokens_out": 549,
+      "cost_usd": 0.0079,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 29,
+      "t_wall": 205.81200000000536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 2,
+            "verdict": "contradicted",
+            "wrong": "The central light dims and the funding text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing.",
+            "reason": "The first frames show an industrial skyline with a bright central light and funding text, not a bridge; the bridge frames show a person in a blue jacket and striped pants holding a mechanical arm device and gesturing toward a man in a dark jacket and light shirt on a green railing, but the opening claims about the light and text are not present in the bridge frames."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.0780000000086147,
+      "tokens_in": 1919,
+      "tokens_out": 155,
+      "cost_usd": 0.0007151999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 30,
+      "t_wall": 208.09299999999348,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show bright white light and steam pouring from large industrial pipes and machinery, filling the frame, and a sprawling cityscape of metal towers and smokestacks under a hazy sky."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.8589999999967404,
+      "tokens_in": 1889,
+      "tokens_out": 72,
+      "cost_usd": 0.0006314999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 208.09299999999348,
+      "role": "tool",
+      "note": "extended_check_verify: 2 verified extended cues; 5 dropped; 2 repair rounds",
+      "tool_name": "stage:extended_check_verify",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 5,
+        "tokens_in": 18982,
+        "tokens_out": 1466,
+        "cost_usd": 0.0187411
+      },
+      "ok": true,
+      "latency_s": 12.125,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 32,
+      "t_wall": 212.03100000000268,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 2,
+            "text": "The camera pulls back to reveal a sprawling industrial cityscape of tall smokestacks and buildings under a cloudy sky, with funding text at the bottom left. The bright central light dims and the text disappears. A person in a blue jacket and striped pants stands on a stone bridge holding a mechanical arm device, gesturing toward a man in a dark jacket and light shirt who leans on the green railing.",
+            "evidence": [
+              "e2",
+              "e3",
+              "e4"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.922000000005937,
+      "tokens_in": 6145,
+      "tokens_out": 614,
+      "cost_usd": 0.007987,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 33,
+      "t_wall": 212.03100000000268,
+      "role": "tool",
+      "note": "extended_rescue: 0 of 5 missing planned pauses rescued with model-written text",
+      "tool_name": "stage:extended_rescue",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 6145,
+        "tokens_out": 614,
+        "cost_usd": 0.007987
+      },
+      "ok": true,
+      "latency_s": 3.938,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 34,
+      "t_wall": 246.45299999999406,
+      "role": "tool",
+      "note": "render: 2 freezes rendered; +28.23 seconds",
+      "tool_name": "stage:render",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 34.422,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 5,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0143772,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.046179000000000005
+    },
+    "total_latency_s": 246.45299999999406
+  },
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 3.437,
+      "input": "Silero VAD speech intervals",
+      "output": "9 speech intervals; 27% speech; 3 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.157,
+      "input": "ffmpeg scene cuts",
+      "output": "18 scene cuts; 0 sensitive visual changes; 9 perception windows; est. Super VL timeline cost $0.0241"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2287,
+      "tokens_out": 253,
+      "cost_usd": 0.0009138000000000001,
+      "latency_s": 3.562,
+      "input": "Super VL scene context",
+      "output": "setting: Industrial platforms, outdoor bridge, foggy city skyline viewed through a round window. | people: Man in dark jacket and light shirt., gesturing with both hands while standing on a bridge.; Person in blue jacket, dark vest, and striped pants., standing on the bridge holding a mechanical arm"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 9,
+      "ultra_calls": 0,
+      "tokens_in": 22107,
+      "tokens_out": 2950,
+      "cost_usd": 0.0092871,
+      "latency_s": 153.11,
+      "input": "Super VL whole-clip windows",
+      "output": "31 events from 9 windows ({'video': 9, 'absolute': 9}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1685,
+      "tokens_out": 433,
+      "cost_usd": 0.0008952000000000001,
+      "latency_s": 4.546,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "5 on-screen text readings re-read from stills; 2 corrected"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 3697,
+      "tokens_out": 3012,
+      "cost_usd": 0.012733,
+      "latency_s": 13.5,
+      "input": "Ultra scene/story bible",
+      "output": "place: futuristic city | setting: Industrial cityscape, bridge, dark interior with holograms, control room, brain lab, title card, foggy city with airship, interior with sniper and bed | cast: person in blue jacket with mechanical arm, man in dark jacket and light shirt, person with glasses and curly hair, person with long hair and purple jacket, man with mechanical eye, two people in white hoodie"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "7 pauses; largest source gap 19.60 s (hard max 25.0 s); final at 100.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 2489,
+      "tokens_out": 607,
+      "cost_usd": 0.0012929999999999999,
+      "latency_s": 5.204,
+      "input": "Super VL current frames at pauses",
+      "output": "7 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6042,
+      "tokens_out": 888,
+      "cost_usd": 0.008706,
+      "latency_s": 3.718,
+      "input": "one Ultra call for every pause",
+      "output": "7 of 7 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 5,
+      "ultra_calls": 2,
+      "tokens_in": 18982,
+      "tokens_out": 1466,
+      "cost_usd": 0.0187411,
+      "latency_s": 12.125,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "2 verified extended cues; 5 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 6145,
+      "tokens_out": 614,
+      "cost_usd": 0.007987,
+      "latency_s": 3.938,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 of 5 missing planned pauses rescued with model-written text"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 34.422,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "2 freezes rendered; +28.23 seconds"
+    }
+  ]
+}

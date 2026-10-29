@@ -30,157 +30,123 @@
       "scene_context": true,
       "scene_frames": 6
     },
-    "mock_notice": null
+    "mock_notice": null,
+    "mode": "director"
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 0.7724501769989729,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 9.875,
+      "role": "tool",
+      "note": "gaps: 8 narratable slots of 9, 8 long enough; detector silero-onnx; speech 27%; measured voice wps en 3.635 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds",
+      "tool_name": "stage:gaps",
       "args": {},
-      "result": null,
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
       "ok": true,
-      "latency_s": 0.7723100419971161,
-      "tokens_in": 3218,
-      "tokens_out": 37,
-      "cost_usd": 0.003329,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
+      "latency_s": 2.484,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 2,
-      "t_wall": 4.56374376398162,
+      "t_wall": 10.937000000005355,
+      "role": "tool",
+      "note": "shots: 18 shot cuts; 9 perception windows of ~12 s 0-10s, 10-22s, 22-33s, 33-44s, 44-55s, 55-67s, 67-77s, 77-89s, 89-100s; est. Super VL timeline cost $0.0241 (upper bound from config prices)",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 1.062,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 15.14100000000326,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "setting": "Outdoor industrial and urban environments, including a beam facility, canal bridge, and foggy city skyline.",
+        "setting": "Industrial outdoor area with smokestacks and a canal bridge lined with buildings.",
         "people": [
           {
-            "description": "Two people standing on a bridge, one in a dark jacket and one in a blue jacket.",
-            "doing": "Talking and gesturing to each other."
+            "description": "Man in black leather jacket standing on a bridge.",
+            "doing": "gesturing with both hands while talking."
           }
         ],
         "ingredients": [],
         "tools": [],
         "objects": [
-          "brain model",
-          "white platform",
-          "flying vehicle",
-          "spires",
-          "canal bridge"
+          "bridge railing",
+          "cake shaped like a brain",
+          "glass dome",
+          "large futuristic aircraft",
+          "city rooftops",
+          "trees"
         ],
-        "activity": "Showing an industrial beam event, two people conversing, a brain model, and a flying vehicle over a city.",
+        "activity": "Two people converse on a bridge while a brain-shaped cake is displayed, followed by scenes of a large aircraft hovering over a city.",
         "dish": "",
-        "visual_style": "Cinematic film stills with muted and atmospheric lighting.",
+        "visual_style": "Cinematic film footage with moody lighting and special effects.",
         "burned_in_subtitles": false,
-        "confidence": 0.8
+        "confidence": 0.9,
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 1.9778035870112944,
-      "tokens_in": 2534,
-      "tokens_out": 171,
-      "cost_usd": 0.0009140999999999999,
+      "latency_s": 3.6410000000032596,
+      "tokens_in": 2287,
+      "tokens_out": 243,
+      "cost_usd": 0.0009048000000000001,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "scene",
       "cached_tokens": 0
     },
     {
-      "step": 3,
-      "t_wall": 4.564032531983685,
+      "step": 4,
+      "t_wall": 15.14100000000326,
       "role": "tool",
-      "note": "Detect speech-free gaps for audio description",
-      "tool_name": "detect_speech_gaps",
+      "note": "scene: setting: Industrial outdoor area with smokestacks and a canal bridge lined with buildings. | people: Man in black leather jacket standing on a bridge., gesturing with both hands while talking.; Person",
+      "tool_name": "stage:scene",
       "args": {},
       "result": {
-        "scene_context": "setting: Outdoor industrial and urban environments, including a beam facility, canal bridge, and foggy city skyline. | people: Two people standing on a bridge, one in a dark jacket and one in a blue j",
-        "gaps": [
-          {
-            "id": 0,
-            "start": 0.08,
-            "end": 9.12,
-            "max_words_en": 17,
-            "max_words_hi": 19,
-            "narratable": true
-          },
-          {
-            "id": 1,
-            "start": 30.52,
-            "end": 31.65,
-            "max_words_en": 1,
-            "max_words_hi": 1,
-            "narratable": false,
-            "reason": "too short"
-          },
-          {
-            "id": 2,
-            "start": 32.54,
-            "end": 34.92,
-            "max_words_en": 3,
-            "max_words_hi": 4,
-            "narratable": true
-          }
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
         ],
-        "detector": "silero-onnx",
-        "speech_ratio": 0.27,
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 29,
-            "inspections": 12,
-            "verifications": 8
-          }
-        },
-        "truncated": true
+        "calls": 1,
+        "tokens_in": 2287,
+        "tokens_out": 243,
+        "cost_usd": 0.0009048000000000001
       },
       "ok": true,
-      "latency_s": 3.791570340981707,
+      "latency_s": 4.204,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 4,
-      "t_wall": 5.988626378995832,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.424327966000419,
-      "tokens_in": 3816,
-      "tokens_out": 316,
-      "cost_usd": 0.004764,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
+      "correction": false
     },
     {
       "step": 5,
-      "t_wall": 9.111291613982758,
+      "t_wall": 18.60899999999674,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -189,111 +155,40 @@
         "events": [
           {
             "t_start": 0.0,
-            "t_end": 3.6,
-            "what": "A camera tilts downward from a complex array of tall, beige industrial structures as intense white light bursts from between them, creating lens flare and haze.",
+            "t_end": 3.0,
+            "what": "A close-up view of large industrial pipes with bright light shining through them, creating a glowing effect.",
+            "change": "The scene opens with an abstract industrial shot before revealing the wider setting.",
             "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.0,
+            "t_end": 6.0,
+            "what": "The camera pulls back to reveal a sprawling industrial cityscape with smokestacks and a bridge under a bright sky.",
+            "change": "The view transitions from pipes to a wide establishing shot of the industrial environment.",
+            "on_screen_text": "This film is supported by the Netherlands Film Fund",
+            "subtitle_text": "",
             "importance": 4,
             "confidence": 0.9
-          },
-          {
-            "t_start": 3.6,
-            "t_end": 6.0,
-            "what": "A wide view shows an industrial facility with vertical metal towers and a central glowing beam rising into a cloudy sky.",
-            "on_screen_text": "This film is supported by the Netherlands Film Fund",
-            "importance": 3,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 6.0,
-            "t_end": 9.12,
-            "what": "The industrial beam facility continues to emit light and smoke from its central structure among surrounding towers.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.9
           }
-        ]
+        ],
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 2.4207316859974526,
-      "tokens_in": 1939,
-      "tokens_out": 254,
-      "cost_usd": 0.0008102999999999999,
+      "latency_s": 2.8589999999967404,
+      "tokens_in": 2176,
+      "tokens_out": 288,
+      "cost_usd": 0.000912,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 6,
-      "t_wall": 9.111409771983745,
-      "role": "tool",
-      "note": "Inspect gap 0 opening 0-9s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 0,
-        "end": 9.12,
-        "focus": "opening scene, industrial beam facility, people, text"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 0.0,
-            "t_end": 3.6,
-            "what": "A camera tilts downward from a complex array of tall, beige industrial structures as intense white light bursts from between them, creating lens flare and haze.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 3.6,
-            "t_end": 6.0,
-            "what": "A wide view shows an industrial facility with vertical metal towers and a central glowing beam rising into a cloudy sky.",
-            "on_screen_text": "This film is supported by the Netherlands Film Fund",
-            "importance": 3,
-            "confidence": 0.9
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          0
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 11,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 3.1227710230159573,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 7,
-      "t_wall": 12.453660183993634,
+      "t_wall": 21.672000000005937,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -301,120 +196,72 @@
       "result": {
         "events": [
           {
-            "t_start": 30.5,
-            "t_end": 31.5,
-            "what": "A neon outline figure glows yellow inside an industrial chamber while the text 40 YEARS LATER is centered on screen.",
-            "on_screen_text": "40 YEARS LATER",
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 31.5,
-            "t_end": 32.5,
-            "what": "Digital controls with green and purple bars slide across a computer display.",
+            "t_start": 10.0,
+            "t_end": 12.22,
+            "what": "A man in a black leather jacket and a woman in a blue jacket stand on a bridge railing, talking and gesturing with their hands as they face each other.",
+            "change": "The scene shifts from the industrial skyline to the two people conversing on the bridge.",
             "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 3,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 32.5,
-            "t_end": 34.5,
-            "what": "A hand adjusts a dial on a control panel as a vertical cylindrical readout glows teal and other meters show numbers.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 34.5,
-            "t_end": 34.92,
-            "what": "An electrical arc jumps between two metal terminals and flashes bright light.",
-            "on_screen_text": "",
-            "importance": 4,
             "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.773238425987074,
-      "tokens_in": 1171,
-      "tokens_out": 279,
-      "cost_usd": 0.0006024,
+      "latency_s": 2.5160000000032596,
+      "tokens_in": 2591,
+      "tokens_out": 114,
+      "cost_usd": 0.0008799,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 26.406000000002678,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 22.22,
+            "t_end": 24.22,
+            "what": "A man in a black leather jacket and a woman in a blue jacket stand on a bridge railing, talking and gesturing with their hands as they face each other.",
+            "change": "The scene returns to the two people on the bridge after the previous funding credit text.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 24.22,
+            "t_end": 26.22,
+            "what": "The camera cuts to a dark, industrial interior where two glowing wireframe figures, one orange and one blue, stand facing each other.",
+            "change": "The scene shifts from the outdoor bridge to a dark interior with holographic figures.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.9839999999967404,
+      "tokens_in": 2442,
+      "tokens_out": 591,
+      "cost_usd": 0.0012645,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 8,
-      "t_wall": 12.453812686988385,
-      "role": "tool",
-      "note": "Inspect gap 2 bridge 30-35s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 30.5,
-        "end": 34.92,
-        "focus": "bridge scene, two people, foggy city"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 30.5,
-            "t_end": 31.5,
-            "what": "A neon outline figure glows yellow inside an industrial chamber while the text 40 YEARS LATER is centered on screen.",
-            "on_screen_text": "40 YEARS LATER",
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 31.5,
-            "t_end": 32.5,
-            "what": "Digital controls with green and purple bars slide across a computer display.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.9
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          2
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 10,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 3.3423366580100264,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 9,
-      "t_wall": 15.884812931995839,
+      "t_wall": 30.375,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -422,113 +269,83 @@
       "result": {
         "events": [
           {
-            "t_start": 37.0,
-            "t_end": 41.0,
-            "what": "A person with glasses and curly hair works at a station with green bottles and laboratory equipment while another person stands nearby.",
+            "t_start": 33.33,
+            "t_end": 35.33,
+            "what": "A hand presses buttons on a control panel covered in green holographic overlays, causing the interface to shift and display new data.",
+            "change": "The holographic interface transitions from a play symbol to a complex grid of buttons and readouts.",
             "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 3,
-            "confidence": 0.8
+            "confidence": 0.9
           },
           {
-            "t_start": 41.0,
-            "t_end": 46.0,
-            "what": "A person with dreadlocks stands at a counter as the word SIMULATION appears above and READY illuminates in red neon.",
-            "on_screen_text": "SIMULATION\nREADY",
-            "importance": 4,
-            "confidence": 0.8
-          },
-          {
-            "t_start": 46.0,
-            "t_end": 49.0,
-            "what": "A realistic brain model with electrodes inserted sits on a rotating white platform under a glass dome with purple light effects.",
+            "t_start": 35.33,
+            "t_end": 38.33,
+            "what": "A person with curly hair and glasses looks forward with a focused expression while standing behind equipment emitting pink and green light.",
+            "change": "The camera cuts from the control panel to the person's face, revealing their reaction to the ongoing process.",
             "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 3,
-            "confidence": 0.8
+            "confidence": 0.9
           }
         ],
         "truncated": true
       },
       "ok": true,
-      "latency_s": 2.7252296119986568,
-      "tokens_in": 1940,
-      "tokens_out": 339,
-      "cost_usd": 0.0008871,
+      "latency_s": 3.3439999999973224,
+      "tokens_in": 2424,
+      "tokens_out": 435,
+      "cost_usd": 0.0011186999999999998,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 33.39100000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 44.44,
+            "t_end": 47.0,
+            "what": "A man with a mechanical eye leans over a brain-shaped object on a table, surrounded by purple energy rings and wires, while another person's hands are visible on either side.",
+            "change": "The scene shifts from the rotating platform to a close-up of the man examining the brain-shaped object.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 47.0,
+            "t_end": 50.0,
+            "what": "The screen fades to black and the title \"TEARS OF STEEL\" appears in metallic letters.",
+            "change": "The live-action scene ends and a title card is displayed.",
+            "on_screen_text": "TEARS OF STEEL",
+            "subtitle_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.7039999999979045,
+      "tokens_in": 2432,
+      "tokens_out": 307,
+      "cost_usd": 0.0010059000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 10,
-      "t_wall": 15.884932557004504,
-      "role": "tool",
-      "note": "Inspect gap 3 canal 39-46s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 37,
-        "end": 45.6,
-        "focus": "canal bridge, urban setting, text"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 37.0,
-            "t_end": 41.0,
-            "what": "A person with glasses and curly hair works at a station with green bottles and laboratory equipment while another person stands nearby.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.8
-          },
-          {
-            "t_start": 41.0,
-            "t_end": 46.0,
-            "what": "A person with dreadlocks stands at a counter as the word SIMULATION appears above and READY illuminates in red neon.",
-            "on_screen_text": "SIMULATION\nREADY",
-            "importance": 4,
-            "confidence": 0.8
-          }
-        ],
-        "modality": "video",
-        "time_base": "mixed",
-        "evidence_gaps": [
-          3
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 9,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 3.431032120017335,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 11,
-      "t_wall": 19.079561510996427,
+      "t_wall": 37.15600000000268,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -536,355 +353,285 @@
       "result": {
         "events": [
           {
-            "t_start": 45.6,
-            "t_end": 49.0,
-            "what": "A man with a mechanical eye peers closely at a brain model on a white platform, touching it with gloved hands.",
+            "t_start": 55.0,
+            "t_end": 58.0,
+            "what": "A wide shot shows an industrial city skyline with smokestacks emitting smoke and a large airship hovering above the buildings.",
+            "change": "The scene transitions from the title card to an establishing shot of the city.",
             "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 4,
-            "confidence": 0.95
+            "confidence": 0.9
           },
           {
-            "t_start": 49.0,
-            "t_end": 54.5,
-            "what": "The text TEARS OF STEEL appears on a black background as a title card.",
-            "on_screen_text": "TEARS OF STEEL",
-            "importance": 5,
-            "confidence": 1.0
-          },
-          {
-            "t_start": 54.5,
-            "t_end": 59.0,
-            "what": "A flying vehicle hovers over a foggy city skyline filled with smokestacks and towering structures.",
+            "t_start": 58.0,
+            "t_end": 62.0,
+            "what": "The camera moves inside a dark structure where two figures sit at a table with a candle between them, viewed through hanging cables.",
+            "change": "The view shifts from the exterior city to an interior space with people seated.",
             "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.8
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2810000000026776,
+      "tokens_in": 2571,
+      "tokens_out": 314,
+      "cost_usd": 0.0010539000000000002,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 41.125,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 66.67,
+            "t_end": 69.0,
+            "what": "A person in a blue jacket aims a large scoped rifle from behind a railing, looking through the scope at a distant target.",
+            "change": "The scene cuts from the newspaper close-up to the shooter taking aim.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 69.0,
+            "t_end": 72.0,
+            "what": "The view shifts to a circular scope showing a large, complex mechanical structure with multiple antennae and figures standing on it.",
+            "change": "The perspective changes from the shooter to the magnified target seen through the rifle scope.",
+            "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 4,
             "confidence": 0.9
           }
-        ]
+        ],
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 2.5731836009945255,
-      "tokens_in": 2598,
-      "tokens_out": 251,
-      "cost_usd": 0.0010053,
+      "latency_s": 3.5,
+      "tokens_in": 2432,
+      "tokens_out": 398,
+      "cost_usd": 0.0010877999999999999,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 12,
-      "t_wall": 19.07968288898701,
-      "role": "tool",
-      "note": "Inspect gap 4 industrial 48-59s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 45.6,
-        "end": 59,
-        "focus": "industrial beams, machinery, text"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 45.6,
-            "t_end": 49.0,
-            "what": "A man with a mechanical eye peers closely at a brain model on a white platform, touching it with gloved hands.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          },
-          {
-            "t_start": 49.0,
-            "t_end": 54.5,
-            "what": "The text TEARS OF STEEL appears on a black background as a title card.",
-            "on_screen_text": "TEARS OF STEEL",
-            "importance": 5,
-            "confidence": 1.0
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          4
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 8,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 3.1946850439999253,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 13,
-      "t_wall": 21.144281101995148,
-      "role": "orchestrator",
+      "t_wall": 45.578000000008615,
+      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "events": [
+          {
+            "t_start": 77.4,
+            "t_end": 79.0,
+            "what": "A close-up shows a person looking through the scope of a futuristic rifle, their eye visible beside the weapon as they aim.",
+            "change": "The scene cuts from the floating mechanical object to the shooter's perspective.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 79.0,
+            "t_end": 81.0,
+            "what": "Through the rifle scope, a large mechanical airship hovers above a cityscape with red-roofed buildings, its lights glowing.",
+            "change": "The view shifts from the shooter's face to the magnified target through the scope.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
       "ok": true,
-      "latency_s": 2.0641955219907686,
-      "tokens_in": 5281,
-      "tokens_out": 302,
-      "cost_usd": 0.006187,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "latency_s": 3.7810000000026776,
+      "tokens_in": 2580,
+      "tokens_out": 488,
+      "cost_usd": 0.0012132,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 49.48399999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 88.89,
+            "t_end": 92.0,
+            "what": "Through a rifle scope, a large airship hovers over a city as bright flashes erupt from its side, indicating it is firing weapons.",
+            "change": "The airship begins firing, with muzzle flashes visible along its hull.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 5,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 92.0,
+            "t_end": 95.0,
+            "what": "The airship continues to fire as it tilts and moves across the sky above the rooftops.",
+            "change": "The airship banks and shifts position while maintaining its attack.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.25,
+      "tokens_in": 2436,
+      "tokens_out": 364,
+      "cost_usd": 0.0010584000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 14,
-      "t_wall": 24.73058851598762,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 49.48399999999674,
+      "role": "tool",
+      "note": "timeline: 33 events from 9 windows ({'video': 9, 'absolute': 9}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
       "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 59.0,
-            "t_end": 65.0,
-            "what": "The camera pans across a dim industrial interior with tall windows, ropes, and beams visible in the mist.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 65.0,
-            "t_end": 68.0,
-            "what": "A person reads a newspaper with the headline \"ROBOTIST CREATES KILLER ROBOTS\" while the paper covers their head.",
-            "on_screen_text": "ROBOTIST CREATES KILLER ROBOTS",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 68.0,
-            "t_end": 72.0,
-            "what": "A person in a quilted jacket aims a scoped rifle from behind a pillar.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          }
-        ]
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 9,
+        "tokens_in": 22084,
+        "tokens_out": 3299,
+        "cost_usd": 0.0095943
       },
       "ok": true,
-      "latency_s": 2.7523339059844147,
-      "tokens_in": 2255,
-      "tokens_out": 262,
-      "cost_usd": 0.0009123,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
+      "latency_s": 34.343,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 15,
-      "t_wall": 24.730758697987767,
-      "role": "tool",
-      "note": "Inspect gap 5 59-70s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 59,
-        "end": 70,
-        "focus": "industrial setting, machinery, people"
-      },
+      "t_wall": 55.76600000000326,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
       "result": {
-        "events": [
+        "setting": "Industrial city with smokestacks, a canal bridge, and a hovering airship",
+        "place": "industrial city",
+        "cast": [],
+        "objects": [
+          "bridge railing",
+          "brain-shaped object",
+          "glass dome",
+          "large futuristic airship",
+          "city rooftops"
+        ],
+        "goal": "",
+        "story": "Two people converse on a bridge in an industrial city; forty yea",
+        "beats": [
           {
-            "t_start": 59.0,
-            "t_end": 65.0,
-            "what": "The camera pans across a dim industrial interior with tall windows, ropes, and beams visible in the mist.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 65.0,
-            "t_end": 68.0,
-            "what": "A person reads a newspaper with the headline \"ROBOTIST CREATES KILLER ROBOTS\" while the paper covers their head.",
-            "on_screen_text": "ROBOTIST CREATES KILLER ROBOTS",
-            "importance": 4,
-            "confidence": 0.9
+            "t": 0.0,
+            "beat": "The film opens on glowin",
+            "why": "establishes the industri",
+            "events": [
+              "e1",
+              "e2",
+              "e3"
+            ]
           }
         ],
-        "modality": "video",
-        "time_base": "mixed",
-        "evidence_gaps": [
-          5,
-          6
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 7,
-            "verifications": 8
+        "names": [
+          {
+            "name": "brain-shaped object",
+            "aliases": [
+              "brain-shaped cake",
+              "brain object"
+            ],
+            "from_t": 44.4
           }
-        },
+        ],
+        "look_for": [
+          {
+            "t_start": 10.0,
+            "t_end": 22.0,
+            "what": "the device with a long handle the wo"
+          }
+        ],
+        "on_screen_text": [
+          {
+            "t": 3.0,
+            "text": "This film is supported by the Netherlands Film Fund",
+            "kind": "title"
+          }
+        ],
+        "subtitles_present": false,
+        "tone": "moody, cinematic, tense",
         "truncated": true
       },
       "ok": true,
-      "latency_s": 3.5864640819781926,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
+      "latency_s": 6.26600000000326,
+      "tokens_in": 3888,
+      "tokens_out": 1729,
+      "cost_usd": 0.009075,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 16,
-      "t_wall": 28.053276252991054,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "events": [
-          {
-            "t_start": 70,
-            "t_end": 78,
-            "what": "A mechanical flying vessel hovers above a city while viewed through a circular portal.",
-            "on_screen_text": "",
-            "importance": 5,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 78,
-            "t_end": 81,
-            "what": "A person looks through the scope of a futuristic rifle.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 81,
-            "t_end": 82,
-            "what": "A bright lens flare appears behind the scope as the person aims.",
-            "on_screen_text": "",
-            "importance": 3,
-            "confidence": 0.85
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 2.5464933440089226,
-      "tokens_in": 2095,
-      "tokens_out": 208,
-      "cost_usd": 0.0008157,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "bible",
       "cached_tokens": 0
     },
     {
-      "step": 17,
-      "t_wall": 28.053390544984723,
+      "step": 16,
+      "t_wall": 55.76600000000326,
       "role": "tool",
-      "note": "Inspect gap 6 70-80s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 70,
-        "end": 80,
-        "focus": "industrial setting, machinery, people"
-      },
+      "note": "bible: place: industrial city | setting: Industrial city with smokestacks, a canal bridge, and a hovering airship | cast: a man in a black leather jacket, a woman in a blue jacket and dark vest, a person wit",
+      "tool_name": "stage:bible",
+      "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 70,
-            "t_end": 78,
-            "what": "A mechanical flying vessel hovers above a city while viewed through a circular portal.",
-            "on_screen_text": "",
-            "importance": 5,
-            "confidence": 0.9
-          },
-          {
-            "t_start": 78,
-            "t_end": 81,
-            "what": "A person looks through the scope of a futuristic rifle.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.9
-          }
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
         ],
-        "modality": "video",
-        "time_base": "mixed",
-        "evidence_gaps": [
-          6
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 6,
-            "verifications": 8
-          }
-        }
+        "calls": 1,
+        "tokens_in": 3888,
+        "tokens_out": 1729,
+        "cost_usd": 0.009075
       },
       "ok": true,
-      "latency_s": 3.3225234640121926,
+      "latency_s": 6.282,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 18,
-      "t_wall": 30.88599045999581,
+      "step": 17,
+      "t_wall": 60.26600000000326,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -892,2289 +639,900 @@
       "result": {
         "events": [
           {
-            "t_start": 80.0,
-            "t_end": 89.9,
-            "what": "A person aims a rifle at the flying vehicle seen through a scope, while another person lies on the ground nearby.",
+            "t_start": 10.0,
+            "t_end": 12.0,
+            "what": "The woman in the blue jacket and dark vest holds a device with a long handle in her right hand, extending it toward the man in the black leather jacket; the device has a claw-like end and no visible readout.",
+            "change": "The woman raises and extends the long-handled device toward the man while they converse on the bridge.",
             "on_screen_text": "",
+            "subtitle_text": "",
             "importance": 5,
             "confidence": 0.9
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.2110092880029697,
-      "tokens_in": 2095,
-      "tokens_out": 89,
-      "cost_usd": 0.0007086,
+      "latency_s": 4.032000000006519,
+      "tokens_in": 2623,
+      "tokens_out": 126,
+      "cost_usd": 0.0009002999999999999,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 65.35899999999674,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": []
+      },
+      "ok": true,
+      "latency_s": 4.875,
+      "tokens_in": 1359,
+      "tokens_out": 6,
+      "cost_usd": 0.00041309999999999996,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 19,
-      "t_wall": 30.88607750198571,
+      "t_wall": 65.35899999999674,
       "role": "tool",
-      "note": "Inspect gap 7 80-90s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 80,
-        "end": 90,
-        "focus": "industrial setting, machinery, people"
-      },
+      "note": "relook: 2 focused re-looks (10-22s the device with a long handle the woman holds — its shape an; 58-62s the two figures seated at the table with a candle — their fa): 1 new events ['e34']",
+      "tool_name": "stage:relook",
+      "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 80.0,
-            "t_end": 89.9,
-            "what": "A person aims a rifle at the flying vehicle seen through a scope, while another person lies on the ground nearby.",
-            "on_screen_text": "",
-            "importance": 5,
-            "confidence": 0.9
-          }
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
         ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          6,
-          7,
-          8
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 5,
-            "verifications": 8
-          }
-        }
+        "calls": 2,
+        "tokens_in": 3982,
+        "tokens_out": 132,
+        "cost_usd": 0.0013134
       },
       "ok": true,
-      "latency_s": 2.8326268939999864,
+      "latency_s": 9.593,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 20,
-      "t_wall": 33.72975678599323,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 65.35899999999674,
+      "role": "tool",
+      "note": "assign: 7 gaps carry a story beat; 25 of 34 events inside narratable gaps; 9 in speech (context only); per gap {0: 3, 2: 2, 3: 2, 4: 3, 5: 3, 6: 5, 7: 3, 8: 4}",
+      "tool_name": "stage:assign",
       "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 90.0,
-            "t_end": 100.0,
-            "what": "The flying vehicle hovers above a city with bright lights and thick smoke, viewed through a circular frame as it moves slowly forward over rooftops.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          }
-        ]
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
       "ok": true,
-      "latency_s": 2.1287366620090324,
-      "tokens_in": 2097,
-      "tokens_out": 98,
-      "cost_usd": 0.0007173,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 21,
-      "t_wall": 33.7298396389815,
-      "role": "tool",
-      "note": "Inspect gap 8 90-100s",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 90,
-        "end": 100,
-        "focus": "industrial setting, machinery, people, text"
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 90.0,
-            "t_end": 100.0,
-            "what": "The flying vehicle hovers above a city with bright lights and thick smoke, viewed through a circular frame as it moves slowly forward over rooftops.",
-            "on_screen_text": "",
-            "importance": 4,
-            "confidence": 0.95
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          8
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 2.8437257790064905,
+      "latency_s": 0.0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 22,
-      "t_wall": 35.46787940899958,
+      "step": 21,
+      "t_wall": 68.07800000000861,
       "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7375372060050722,
-      "tokens_in": 6549,
-      "tokens_out": 63,
-      "cost_usd": 0.006738,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 23,
-      "t_wall": 38.14705367499846,
-      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
         "cues": [
           {
-            "id": 0,
-            "text": "A camera tilts down from tall beige industrial structures as a bright beam of light rises into the sky, creating lens flare and haze."
+            "gap_id": 0,
+            "text": "Glowing industrial pipes fill the frame before pulling back to reveal a sprawling city of smokestacks and a canal bridge.",
+            "words": 19,
+            "evidence": [
+              "e1",
+              "e2",
+              "e3"
+            ]
           },
           {
-            "id": 2,
-            "text": "A neon figure glows yellow while the text 40 YEARS LATER appears centered on screen."
+            "gap_id": 2,
+            "text": "A hand shifts the holographic grid.",
+            "words": 4,
+            "evidence": [
+              "e10",
+              "e11"
+            ]
           },
           {
-            "id": 3,
-            "text": "A hand adjusts a dial on a control panel as a teal readout glows, then the words SIMULATION READY illuminate in red neon above."
+            "gap_id": 3,
+            "text": "The word SIMULATION appears behind two workers as a brain-shaped object rotates inside purple energy rings.",
+            "words": 14,
+            "evidence": [
+              "e13",
+              "e14"
+            ]
           },
           {
-            "id": 4,
-            "text": "A realistic brain model with electrodes sits on a rotating platform under purple lights, then a man with a mechanical eye touches it."
-          },
-          {
-            "id": 5,
-            "text": "The title card TEARS OF STEEL appears, then a camera pans a dim industrial space filled with ropes and beams."
+            "gap_id": 4,
+            "text": "The title TEARS OF STEEL fades in on black, then an airship hovers over the smoking industrial city.",
+            "words": 16,
+            "evidence": [
+              "e16",
+              "e17",
+              "e18"
+            ]
           }
         ],
         "truncated": true
       },
       "ok": true,
-      "latency_s": 2.6762304629955906,
-      "tokens_in": 4115,
-      "tokens_out": 357,
-      "cost_usd": 0.00033257999999999996,
+      "latency_s": 2.7030000000086147,
+      "tokens_in": 7323,
+      "tokens_out": 472,
+      "cost_usd": 0.008739,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "script",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 132.06200000000536,
+      "role": "tool",
+      "note": "script: 8 gaps scripted in one call: {'pending': 7, 'failed': 1}",
+      "tool_name": "stage:script",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 7323,
+        "tokens_out": 472,
+        "cost_usd": 0.008739
+      },
+      "ok": true,
+      "latency_s": 66.703,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 23,
+      "t_wall": 133.32800000000861,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "options": [
+          {
+            "text": "A hand shifts the holographic grid.",
+            "words": 6
+          },
+          {
+            "text": "A hand shifts the grid.",
+            "words": 4
+          },
+          {
+            "text": "The grid shifts.",
+            "words": 2
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.2660000000032596,
+      "tokens_in": 359,
+      "tokens_out": 48,
+      "cost_usd": 3.3060000000000005e-05,
       "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "tighten",
       "cached_tokens": 0
     },
     {
       "step": 24,
-      "t_wall": 40.07452480800566,
+      "t_wall": 148.48399999999674,
+      "role": "tool",
+      "note": "tighten: over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}",
+      "tool_name": "stage:tighten",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+        ],
+        "calls": 1,
+        "tokens_in": 359,
+        "tokens_out": 48,
+        "cost_usd": 3.3060000000000005e-05
+      },
+      "ok": true,
+      "latency_s": 16.422,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 25,
+      "t_wall": 166.31200000000536,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "cues": [
+        "verdicts": [
           {
-            "id": 0,
-            "text": "The bridge reveals a dark jacket wearer and a blue jacket wearer conversing, then the beam facility gleams under Dutch font."
+            "gap_id": 0,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The 1.5s frame shows glowing industrial pipes filling the frame, and the 4.5s frame shows the pulled-back view of a sprawling industrial city with smokestacks and a bridge over a canal."
           },
           {
-            "id": 2,
-            "text": "A yellow neon figure glows, then the text 40 YEARS LATER appears, followed by a hand adjusting a panel."
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The 39.83s frame shows two workers with the word SIMULATION behind them, and the 42.88s frame shows a brain-shaped object rotating inside purple energy rings."
           },
           {
-            "id": 3,
-            "text": "A person in glasses shapes a dial as a teal glow rises, then SIMULATION READY flashes red."
-          },
-          {
-            "id": 4,
-            "text": "The text TEARS OF STEEL appears, then the brain model rotates under purple light beside a gloved man."
-          },
-          {
-            "id": 5,
-            "text": "The headline ROBOTIST CREATES KILLER ROBOTS covers the man, finally flames erupt from rifles."
-          },
-          {
-            "id": 6,
-            "text": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape."
+            "gap_id": 4,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The 52.5s frame shows the title TEARS OF STEEL fading in on black; the airship claim is not visible in these frames, but the title claim is supported."
           }
         ],
         "truncated": true
       },
       "ok": true,
-      "latency_s": 1.9268781639984809,
-      "tokens_in": 4178,
-      "tokens_out": 332,
-      "cost_usd": 0.00033036,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "latency_s": 17.187000000005355,
+      "tokens_in": 3028,
+      "tokens_out": 290,
+      "cost_usd": 0.0011694000000000001,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "draft",
+      "cost_role": "verify",
       "cached_tokens": 0
-    },
-    {
-      "step": 25,
-      "t_wall": 40.07492437498877,
-      "role": "tool",
-      "note": "Draft descriptions for all remaining gaps",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          0,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "text": "Title: \"This film is supported by the Netherlands Film Fund\".",
-            "max_words": 17
-          },
-          {
-            "id": 2,
-            "text": "A yellow neon.",
-            "max_words": 3
-          },
-          {
-            "id": 3,
-            "text": "Title: \"SIMULATION READY\".",
-            "max_words": 12
-          },
-          {
-            "id": 4,
-            "text": "Title: \"TEARS OF STEEL\".",
-            "max_words": 17
-          },
-          {
-            "id": 5,
-            "text": "The headline ROBOTIST CREATES KILLER ROBOTS covers the man, finally flames erupt from rifles.",
-            "max_words": 17
-          },
-          {
-            "id": 6,
-            "text": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape.",
-            "max_words": 17
-          }
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 26,
-            "inspections": 4,
-            "verifications": 8
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 4.607031717983773,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
     },
     {
       "step": 26,
-      "t_wall": 42.148416388983605,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
+      "t_wall": 166.31200000000536,
+      "role": "tool",
+      "note": "gap 0: supported (The 1.5s frame shows glowing industrial pipes filling the frame, and the 4.5s frame shows the pulled-back view of a spra)",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 0,
+        "claim": "Glowing industrial pipes fill the frame before pulling back to reveal a sprawling city of smokestacks and a canal bridge."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The 1.5s frame shows glowing industrial pipes filling the frame, and the 4.5s frame shows the pulled-back view of a sprawling industrial city with smokestacks and a bridge over a canal.",
+        "wrong": ""
+      },
       "ok": true,
-      "latency_s": 2.0729020710277837,
-      "tokens_in": 7037,
-      "tokens_out": 237,
-      "cost_usd": 0.007748,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 27,
-      "t_wall": 42.21922284999164,
+      "t_wall": 166.31200000000536,
       "role": "tool",
-      "note": "Propose gap 0 title card",
-      "tool_name": "propose_cue",
+      "note": "gap 3: supported (The 39.83s frame shows two workers with the word SIMULATION behind them, and the 42.88s frame shows a brain-shaped objec)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 0,
-        "text": "Title: \"This film is supported by the Netherlands Film Fund\"."
+        "gap_id": 3,
+        "claim": "The word SIMULATION appears behind two workers as a brain-shaped object rotates inside purple energy rings."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 0,
-          "start": 0.08,
-          "end": 9.12,
-          "duration": 9.04,
-          "narratable": true,
-          "word_budget_en": 19,
-          "word_budget_hi": 22,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "Title: \"This film is supported by the Netherlands Film Fund\"."
-        },
-        "verify_required": [
-          "quoted text",
-          "named entity"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The 39.83s frame shows two workers with the word SIMULATION behind them, and the 42.88s frame shows a brain-shaped object rotating inside purple energy rings.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 0.07077975399442948,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 28,
-      "t_wall": 42.28366571600782,
+      "t_wall": 166.31200000000536,
       "role": "tool",
-      "note": "Propose gap 2 neon indicator",
-      "tool_name": "propose_cue",
+      "note": "gap 4: supported (The 52.5s frame shows the title TEARS OF STEEL fading in on black; the airship claim is not visible in these frames, but)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 2,
-        "text": "A yellow neon."
+        "gap_id": 4,
+        "claim": "The title TEARS OF STEEL fades in on black, then an airship hovers over the smoking industrial city."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 2,
-          "start": 32.54,
-          "end": 34.92,
-          "duration": 2.38,
-          "narratable": true,
-          "word_budget_en": 4,
-          "word_budget_hi": 5,
-          "max_words_en": 3,
-          "max_words_hi": 4,
-          "en": "A yellow neon."
-        },
-        "state": {
-          "committed": [
-            0,
-            2
-          ],
-          "remaining": [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The 52.5s frame shows the title TEARS OF STEEL fading in on black; the airship claim is not visible in these frames, but the title claim is supported.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 0.06440011100494303,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 29,
-      "t_wall": 42.35110743698897,
+      "t_wall": 166.31200000000536,
       "role": "tool",
-      "note": "Propose gap 3 title",
-      "tool_name": "propose_cue",
+      "note": "gap 5: contradicted (The 60.0s and 64.33s frames show a dark rooftop area with a person crouching, but no scoped rifle is visible and no airs)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 3,
-        "text": "Title: \"SIMULATION READY\"."
+        "gap_id": 5,
+        "claim": "A newspaper headline reads ROBOTICIST KILLER ROBOTS. A shooter on a rooftop aims a scoped rifle at the airship."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 3,
-          "start": 38.97,
-          "end": 45.57,
-          "duration": 6.6,
-          "narratable": true,
-          "word_budget_en": 14,
-          "word_budget_hi": 16,
-          "max_words_en": 12,
-          "max_words_hi": 14,
-          "en": "Title: \"SIMULATION READY\"."
-        },
-        "verify_required": [
-          "quoted text",
-          "named entity"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0,
-            2,
-            3
-          ],
-          "remaining": [
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "contradicted",
+        "evidence": "The 60.0s and 64.33s frames show a dark rooftop area with a person crouching, but no scoped rifle is visible and no airship is shown.",
+        "wrong": "A shooter on a rooftop aims a scoped rifle at the airship"
       },
-      "ok": true,
-      "latency_s": 0.06740452401572838,
+      "ok": false,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 30,
-      "t_wall": 42.43281895000837,
-      "role": "tool",
-      "note": "Propose gap 4 title",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 4,
-        "text": "Title: \"TEARS OF STEEL\"."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 4,
-          "start": 47.61,
-          "end": 59.0,
-          "duration": 11.39,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 25,
-          "word_budget_hi": 28,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "Title: \"TEARS OF STEEL\"."
-        },
-        "verify_required": [
-          "quoted text",
-          "named entity"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4
-          ],
-          "remaining": [
-            5,
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4
-          ],
-          "budget": {
-            "turns": 25,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.08165563500369899,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 31,
-      "t_wall": 44.34952253598021,
-      "role": "orchestrator",
+      "t_wall": 169.125,
+      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 6,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a large airship viewed through a circular scope, drifting above a city with red-roofed buildings visible below."
+          },
+          {
+            "gap_id": 7,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a shooter in a dark jacket lying prone on a roof with a rifle, and an older person with white hair resting nearby."
+          },
+          {
+            "gap_id": 8,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show bright muzzle flashes erupting along the airship hull as it banks lower over the city with red-roofed buildings."
+          },
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a digital grid interface with shifting elements, consistent with the grid shifting."
+          }
+        ]
+      },
       "ok": true,
-      "latency_s": 1.9163905080058612,
-      "tokens_in": 7714,
-      "tokens_out": 283,
-      "cost_usd": 0.008563,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "latency_s": 2.3439999999973224,
+      "tokens_in": 2985,
+      "tokens_out": 199,
+      "cost_usd": 0.0010746,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 32,
-      "t_wall": 44.41313792698202,
+      "step": 31,
+      "t_wall": 169.125,
       "role": "tool",
-      "note": "Propose gap 5 title",
-      "tool_name": "propose_cue",
+      "note": "gap 6: supported (The frames show a large airship viewed through a circular scope, drifting above a city with red-roofed buildings visible)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 5,
-        "text": "Newspaper: \"ROBOTIST CREATES KILLER ROBOTS\"."
+        "gap_id": 6,
+        "claim": "Through the scope the massive airship drifts over red-roofed buildings."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 5,
-          "start": 59.0,
-          "end": 69.8,
-          "duration": 10.8,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 23,
-          "word_budget_hi": 27,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "Newspaper: \"ROBOTIST CREATES KILLER ROBOTS\"."
-        },
-        "verify_required": [
-          "quoted text",
-          "named entity",
-          "orchestrator-authored text"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "orchestrator_authored": "text was not produced by draft_description for this gap: added to needs_verification (verify_claim required before finalize). Prefer the draft text; if it fails, call draft_description(gap_ids=[id], max_words=N).",
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5
-          ],
-          "remaining": [
-            6,
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The frames show a large airship viewed through a circular scope, drifting above a city with red-roofed buildings visible below.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 0.06360453998786397,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
+    },
+    {
+      "step": 32,
+      "t_wall": 169.125,
+      "role": "tool",
+      "note": "gap 7: supported (The frames show a shooter in a dark jacket lying prone on a roof with a rifle, and an older person with white hair resti)",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 7,
+        "claim": "The shooter in a dark jacket lies prone on the roof. An older person with white hair rests nearby."
+      },
+      "result": {
+        "verdict": "supported",
+        "evidence": "The frames show a shooter in a dark jacket lying prone on a roof with a rifle, and an older person with white hair resting nearby.",
+        "wrong": ""
+      },
+      "ok": true,
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 33,
-      "t_wall": 44.48198881899589,
+      "t_wall": 169.125,
       "role": "tool",
-      "note": "Propose gap 6 action",
-      "tool_name": "propose_cue",
+      "note": "gap 8: supported (The frames show bright muzzle flashes erupting along the airship hull as it banks lower over the city with red-roofed bu)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 6,
-        "text": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape."
+        "gap_id": 8,
+        "claim": "Bright muzzle flashes erupt along the airship hull as it banks lower over the city."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 6,
-          "start": 69.8,
-          "end": 80.4,
-          "duration": 10.6,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 23,
-          "word_budget_hi": 26,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape."
-        },
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6
-          ],
-          "remaining": [
-            7,
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The frames show bright muzzle flashes erupting along the airship hull as it banks lower over the city with red-roofed buildings.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 0.06880702401394956,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 34,
-      "t_wall": 44.550056136999046,
+      "t_wall": 169.125,
       "role": "tool",
-      "note": "Propose gap 7 action",
-      "tool_name": "propose_cue",
+      "note": "gap 2: supported (The frames show a digital grid interface with shifting elements, consistent with the grid shifting.)",
+      "tool_name": "verify_claim",
       "args": {
-        "gap_id": 7,
-        "text": "A marksman fires, then a dark jacket foe leans from behind while a swift vertical movement follows."
+        "gap_id": 2,
+        "claim": "The grid shifts."
       },
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 7,
-          "start": 80.4,
-          "end": 89.46,
-          "duration": 9.06,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 19,
-          "word_budget_hi": 22,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "A marksman fires, then a dark jacket foe leans from behind while a swift vertical movement follows."
-        },
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-          ],
-          "remaining": [
-            8
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The frames show a digital grid interface with shifting elements, consistent with the grid shifting.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 0.06799835900892504,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 35,
-      "t_wall": 44.61622246299521,
+      "t_wall": 169.125,
       "role": "tool",
-      "note": "Propose gap 8 scene",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 8,
-        "text": "The aircraft glides silently above, then a green pad pulses beside a sleepy watcher's cone."
-      },
+      "note": "verify: 8 cues checked on stills inside their gaps: {'supported': 7, 'contradicted': 1}",
+      "tool_name": "stage:verify",
+      "args": {},
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 8,
-          "start": 89.46,
-          "end": 99.92,
-          "duration": 10.46,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 23,
-          "word_budget_hi": 26,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "The aircraft glides silently above, then a green pad pulses beside a sleepy watcher's cone."
-        },
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 24,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 6013,
+        "tokens_out": 489,
+        "cost_usd": 0.0022440000000000003
       },
       "ok": true,
-      "latency_s": 0.06613207099144347,
+      "latency_s": 20.641,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 36,
-      "t_wall": 46.398822035989724,
+      "t_wall": 170.45300000000861,
       "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "cues": [
+          {
+            "gap_id": 5,
+            "text": "A newspaper headline reads ROBOTICIST KILLER ROBOTS. A shooter in a dark jacket aims a scoped rifle from a rooftop railing.",
+            "words": 19,
+            "evidence": [
+              "e20",
+              "e21"
+            ]
+          }
+        ]
+      },
       "ok": true,
-      "latency_s": 1.7824930200004019,
-      "tokens_in": 8539,
-      "tokens_out": 74,
-      "cost_usd": 0.008761,
+      "latency_s": 1.3280000000086147,
+      "tokens_in": 1879,
+      "tokens_out": 91,
+      "cost_usd": 0.002152,
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
+      "cost_role": "repair",
       "cached_tokens": 0
     },
     {
       "step": 37,
-      "t_wall": 46.47305923400563,
+      "t_wall": 178.31200000000536,
       "role": "tool",
-      "note": "Propose gap 7 refined",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 7,
-        "text": "A marksman fires, then a dark-jacketed foe leans from behind while a swift vertical movement follows."
-      },
+      "note": "repair_1: round 1: 1 failed cues sent to Ultra: {'pending': 1}",
+      "tool_name": "stage:repair_1",
+      "args": {},
       "result": {
-        "ok": true,
-        "cue": {
-          "id": 7,
-          "start": 80.4,
-          "end": 89.46,
-          "duration": 9.06,
-          "narratable": true,
-          "parent_gap": 4,
-          "word_budget_en": 19,
-          "word_budget_hi": 22,
-          "max_words_en": 17,
-          "max_words_hi": 19,
-          "en": "A marksman fires, then a dark-jacketed foe leans from behind while a swift vertical movement follows."
-        },
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            0,
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 23,
-            "inspections": 4,
-            "verifications": 8
-          }
-        }
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 1879,
+        "tokens_out": 91,
+        "cost_usd": 0.002152
       },
       "ok": true,
-      "latency_s": 0.07422560499981046,
+      "latency_s": 9.187,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 38,
-      "t_wall": 48.667923665983835,
-      "role": "orchestrator",
+      "t_wall": 179.98399999999674,
+      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 5,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a rooftop/balcony railing and a person in a dark jacket aiming a scoped rifle, matching the cue's visual claims. The newspaper headline is not visible in these frames, but the rifle and shooter are clearly present."
+          }
+        ]
+      },
       "ok": true,
-      "latency_s": 2.1947411229775753,
-      "tokens_in": 8570,
-      "tokens_out": 244,
-      "cost_usd": 0.009302,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "latency_s": 1.4839999999967404,
+      "tokens_in": 1108,
+      "tokens_out": 75,
+      "cost_usd": 0.00039989999999999996,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
+      "cost_role": "verify",
       "cached_tokens": 0
     },
     {
       "step": 39,
-      "t_wall": 50.19698336100555,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
+      "t_wall": 179.98399999999674,
+      "role": "tool",
+      "note": "gap 5: supported (The frames show a rooftop/balcony railing and a person in a dark jacket aiming a scoped rifle, matching the cue's visual)",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 5,
+        "claim": "A newspaper headline reads ROBOTICIST KILLER ROBOTS. A shooter in a dark jacket aims a scoped rifle from a rooftop railing."
+      },
       "result": {
         "verdict": "supported",
-        "evidence": "The frame at 4.6 seconds displays the white subtitle text 'This film is supported by the Netherlands Film Fund' in the lower-left portion of the screen."
+        "evidence": "The frames show a rooftop/balcony railing and a person in a dark jacket aiming a scoped rifle, matching the cue's visual claims. The newspaper headline is not visible in these frames, but the rifle an",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 1.2899137299973518,
-      "tokens_in": 1114,
-      "tokens_out": 48,
-      "cost_usd": 0.00037739999999999996,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 40,
-      "t_wall": 50.19742190200486,
+      "t_wall": 179.98399999999674,
       "role": "tool",
-      "note": "Verify gap 0 title card",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 0,
-        "claim": "Title: \"This film is supported by the Netherlands Film Fund\""
-      },
+      "note": "verify_1: 1 cues checked on stills inside their gaps: {'supported': 1}",
+      "tool_name": "stage:verify_1",
+      "args": {},
       "result": {
-        "verdict": "supported",
-        "evidence": "The frame at 4.6 seconds displays the white subtitle text 'This film is supported by the Netherlands Film Fund' in the lower-left portion of the screen.",
-        "modality": "frames",
-        "gap_ids": [
-          0
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
         ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            3,
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 22,
-            "inspections": 4,
-            "verifications": 7
-          }
-        }
+        "calls": 1,
+        "tokens_in": 1108,
+        "tokens_out": 75,
+        "cost_usd": 0.00039989999999999996
       },
       "ok": true,
-      "latency_s": 1.5294863019953482,
+      "latency_s": 1.672,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 41,
-      "t_wall": 51.57421735898242,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 182.75,
+      "role": "tool",
+      "note": "render: 8 cues rendered (en: 8); 0 gaps silent by choice",
+      "tool_name": "stage:render",
       "args": {},
       "result": {
-        "verdict": "contradicted",
-        "evidence": "The title \"SIMULATION READY\" does not appear in any of the provided frames; the visible images show a brain model with wires and a person wearing a mechanical eye device, but no such text."
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
       "ok": true,
-      "latency_s": 1.1441805039939936,
-      "tokens_in": 1116,
-      "tokens_out": 60,
-      "cost_usd": 0.0003888,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 42,
-      "t_wall": 51.574537973006954,
-      "role": "tool",
-      "note": "Verify gap 3 title",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 3,
-        "claim": "Title: \"SIMULATION READY\""
-      },
-      "result": {
-        "verdict": "contradicted",
-        "evidence": "The title \"SIMULATION READY\" does not appear in any of the provided frames; the visible images show a brain model with wires and a person wearing a mechanical eye device, but no such text.",
-        "modality": "frames",
-        "gap_ids": [
-          3
-        ],
-        "uncommitted": [
-          3
-        ],
-        "refuted_events": 1,
-        "next": "claim contradicted: cue uncommitted; redraft with draft_description, then propose_cue a corrected, supported description",
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            4,
-            5
-          ],
-          "budget": {
-            "turns": 22,
-            "inspections": 4,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 1.3770781580242328,
+      "latency_s": 2.766,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 43,
-      "t_wall": 53.161861722008325,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "The title card \"TEARS OF STEEL\" appears on a black screen at 00:53.306."
-      },
-      "ok": true,
-      "latency_s": 1.317558454000391,
-      "tokens_in": 1114,
-      "tokens_out": 43,
-      "cost_usd": 0.00037289999999999996,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 44,
-      "t_wall": 53.162108838005224,
-      "role": "tool",
-      "note": "Verify gap 4 title",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 4,
-        "claim": "Title: \"TEARS OF STEEL\""
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "The title card \"TEARS OF STEEL\" appears on a black screen at 00:53.306.",
-        "modality": "frames",
-        "gap_ids": [
-          4
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [
-            5
-          ],
-          "budget": {
-            "turns": 22,
-            "inspections": 4,
-            "verifications": 5
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.5875390709843487,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 45,
-      "t_wall": 54.63113223598339,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "The newspaper headline clearly reads 'ROBOTIST CREATES KILLER ROBOTS'."
-      },
-      "ok": true,
-      "latency_s": 1.2432621399930213,
-      "tokens_in": 1108,
-      "tokens_out": 37,
-      "cost_usd": 0.0003657,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 46,
-      "t_wall": 54.631450599001255,
-      "role": "tool",
-      "note": "Verify gap 5 headline",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 5,
-        "claim": "Newspaper: \"ROBOTIST CREATES KILLER ROBOTS\""
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "The newspaper headline clearly reads 'ROBOTIST CREATES KILLER ROBOTS'.",
-        "modality": "frames",
-        "gap_ids": [
-          5
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 22,
-            "inspections": 4,
-            "verifications": 4
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.4693121509917546,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 47,
-      "t_wall": 56.570799863984575,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.9389555790112354,
-      "tokens_in": 8442,
-      "tokens_out": 43,
-      "cost_usd": 0.008571,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 48,
-      "t_wall": 57.19290964098764,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 3,
-            "text": "The technician calibrates the sensor as bright light jumps from metal terminals."
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 0.6198018279974349,
-      "tokens_in": 1702,
-      "tokens_out": 28,
-      "cost_usd": 0.00010884,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 49,
-      "t_wall": 57.19318917198689,
-      "role": "tool",
-      "note": "Redraft gap 3 simulation title",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          3
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 3,
-            "text": "The technician calibrates the sensor as bright light jumps from metal terminals.",
-            "max_words": 12
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 21,
-            "inspections": 4,
-            "verifications": 4
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.6223776690021623,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 50,
-      "t_wall": 59.025707128981594,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.832195374998264,
-      "tokens_in": 7806,
-      "tokens_out": 66,
-      "cost_usd": 0.008004,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 51,
-      "t_wall": 59.09036243398441,
-      "role": "tool",
-      "note": "Propose gap 3 calibration scene",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 3,
-        "text": "The technician calibrates the sensor as bright light jumps from metal terminals."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 3,
-          "start": 38.97,
-          "end": 45.57,
-          "duration": 6.6,
-          "narratable": true,
-          "word_budget_en": 14,
-          "word_budget_hi": 16,
-          "max_words_en": 12,
-          "max_words_hi": 14,
-          "en": "The technician calibrates the sensor as bright light jumps from metal terminals."
-        },
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 20,
-            "inspections": 4,
-            "verifications": 4
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.06463907600846142,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 42
-    },
-    {
-      "step": 52,
-      "t_wall": 61.00598732798244,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.9154129119997378,
-      "tokens_in": 7732,
-      "tokens_out": 266,
-      "cost_usd": 0.00853,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 53,
-      "t_wall": 62.519627275003586,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "The title card at 53.3 seconds displays the text 'TEARS OF STEEL' in white letters on a black background."
-      },
-      "ok": true,
-      "latency_s": 1.2165604519832414,
-      "tokens_in": 1114,
-      "tokens_out": 43,
-      "cost_usd": 0.00037289999999999996,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 54,
-      "t_wall": 62.51988106200588,
-      "role": "tool",
-      "note": "Verify gap 4 title",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 4,
-        "claim": "Title: \"TEARS OF STEEL\""
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "The title card at 53.3 seconds displays the text 'TEARS OF STEEL' in white letters on a black background.",
-        "modality": "frames",
-        "gap_ids": [
-          4
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 3
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.5138776010135189,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 55,
-      "t_wall": 63.77046412299387,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "A newspaper in the frame displays the headline \"ROBOTIST CREATES KILLER ROBOTS\"."
-      },
-      "ok": true,
-      "latency_s": 1.0209906269737985,
-      "tokens_in": 1108,
-      "tokens_out": 40,
-      "cost_usd": 0.00036839999999999996,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 56,
-      "t_wall": 63.770724126981804,
-      "role": "tool",
-      "note": "Verify gap 5 headline",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 5,
-        "claim": "Newspaper: \"ROBOTIST CREATES KILLER ROBOTS\""
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "A newspaper in the frame displays the headline \"ROBOTIST CREATES KILLER ROBOTS\".",
-        "modality": "frames",
-        "gap_ids": [
-          5
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 2
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.2508073629869614,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 57,
-      "t_wall": 65.25697191298241,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "supported",
-        "evidence": "A figure in a jacket aims a rifle in one frame, and a futuristic vessel is shown in separate frames."
-      },
-      "ok": true,
-      "latency_s": 1.229615747986827,
-      "tokens_in": 1123,
-      "tokens_out": 37,
-      "cost_usd": 0.0003702,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 58,
-      "t_wall": 65.25723825898604,
-      "role": "tool",
-      "note": "Verify gap 6 action",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 6,
-        "claim": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape."
-      },
-      "result": {
-        "verdict": "supported",
-        "evidence": "A figure in a jacket aims a rifle in one frame, and a futuristic vessel is shown in separate frames.",
-        "modality": "frames",
-        "gap_ids": [
-          6
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 1
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.486477875005221,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 59,
-      "t_wall": 66.82946095298394,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "A dark-jacketed person holding a rifle is visible in one frame, but firing is not shown; no lean or swift vertical movement is depicted across the provided frames."
-      },
-      "ok": true,
-      "latency_s": 1.3179132160148583,
-      "tokens_in": 1125,
-      "tokens_out": 50,
-      "cost_usd": 0.0003825,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
-    },
-    {
-      "step": 60,
-      "t_wall": 66.82963022799231,
-      "role": "tool",
-      "note": "Verify gap 7 action",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 7,
-        "claim": "A marksman fires, then a dark-jacketed foe leans from behind while a swift vertical movement follows."
-      },
-      "result": {
-        "verdict": "uncertain",
-        "evidence": "A dark-jacketed person holding a rifle is visible in one frame, but firing is not shown; no lean or swift vertical movement is depicted across the provided frames.",
-        "modality": "frames",
-        "gap_ids": [
-          7
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 19,
-            "inspections": 4,
-            "verifications": 0
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.5723591090063564,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 61,
-      "t_wall": 68.55963766598143,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7297266270034015,
-      "tokens_in": 7776,
-      "tokens_out": 69,
-      "cost_usd": 0.007983,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 62,
-      "t_wall": 68.56129953899654,
-      "role": "tool",
-      "note": "Verify gap 5 headline",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 5,
-        "claim": "Newspaper: \"ROBOTIST CREATES KILLER ROBOTS\""
-      },
-      "result": {
-        "ok": false,
-        "error": "identical call repeated 3+ times; refused",
-        "next": "translate_hindi once, then finalize",
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 18,
-            "inspections": 4,
-            "verifications": 0
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.001649305981118232,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 63,
-      "t_wall": 70.34040968900081,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7788560259796213,
-      "tokens_in": 7164,
-      "tokens_out": 72,
-      "cost_usd": 0.00738,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 64,
-      "t_wall": 70.34203318299842,
-      "role": "tool",
-      "note": "Verify gap 6 action",
-      "tool_name": "verify_claim",
-      "args": {
-        "gap_id": 6,
-        "claim": "A jacketed figure aims a rifle, then a futuristic vessel hovers above the smoky cityscape."
-      },
-      "result": {
-        "ok": false,
-        "error": "Verification cap reached",
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 17,
-            "inspections": 4,
-            "verifications": 0
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0016115579928737134,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 65,
-      "t_wall": 71.88280743799987,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5405202440160792,
-      "tokens_in": 7149,
-      "tokens_out": 62,
-      "cost_usd": 0.007335,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 66,
-      "t_wall": 73.29635533198598,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "शीर्षक: \"यह फिल्म नीदरलैंड फिल्म फंड द्वारा समर्थित है।\""
-          },
-          {
-            "id": 2,
-            "hi": "एक पीला नीयन।"
-          },
-          {
-            "id": 4,
-            "hi": "शीर्षक: \"स्टील के आँसू\"।"
-          },
-          {
-            "id": 5,
-            "hi": "समाचार पत्र: \"रोबोटिस्ट ने घातक रोबोट बनाए\"।"
-          },
-          {
-            "id": 6,
-            "hi": "एक जैकेट पहना व्यक्ति राइफल साधता है, फिर एक भविष्य का यान धुएँ भरे शहर के ऊपर मँडराता है।"
-          },
-          {
-            "id": 7,
-            "hi": "एक निशानेबाज़ गोली चलाता है, फिर एक गहरे जैकेट वाला दुश्मन पीछे से झुकता है जब एक तेज़ ऊर्ध्व गति होती है।"
-          },
-          {
-            "id": 8,
-            "hi": "विमान चुपचाप ऊपर सरकता है, फिर एक हरा पैड एक ऊँघते द्रष्टा के शंकु के पास स्पंदित होता है।"
-          },
-          {
-            "id": 3,
-            "hi": "तकनीशियन सेंसर को जाँचता है जब चमकती रोशनी धातु टर्मिनलों से कूदती है।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.412024905992439,
-      "tokens_in": 1433,
-      "tokens_out": 289,
-      "cost_usd": 0.0023,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 67,
-      "t_wall": 73.81103985200753,
-      "role": "tool",
-      "note": "Translate all committed cues",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "शीर्षक: \"यह फिल्म नीदरलैंड फिल्म फंड द्वारा समर्थित है।\"",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 4.72,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 2,
-            "text": "एक पीला नीयन।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 4,
-            "seconds": 1.45,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 4,
-            "text": "शीर्षक: \"स्टील के आँसू\"।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 2.4,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 16,
-            "inspections": 4,
-            "verifications": 0
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.928219330002321,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 68,
-      "t_wall": 75.33578269099235,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5242969499959145,
-      "tokens_in": 6974,
-      "tokens_out": 62,
-      "cost_usd": 0.00716,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 69,
-      "t_wall": 76.89125893698656,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "शीर्षक: “यह फिल्म नीदरलैंड फिल्म फंड द्वारा समर्थित है।”"
-          },
-          {
-            "id": 2,
-            "hi": "एक पीला नीयन।"
-          },
-          {
-            "id": 4,
-            "hi": "शीर्षक: “स्टील के आँसू”।"
-          },
-          {
-            "id": 5,
-            "hi": "समाचार पत्र: “रोबोटिस्ट ने घातक रोबोट बनाए”।"
-          },
-          {
-            "id": 6,
-            "hi": "एक जैकेट पहना व्यक्ति राइफल साधता है, फिर एक भविष्य का यान धुएँ भरे शहर के ऊपर मँडराता है।"
-          },
-          {
-            "id": 7,
-            "hi": "एक निशानेबाज़ गोली चलाता है, फिर एक गहरे जैकेट वाला दुश्मन पीछे से झुकता है जब एक तेज़ ऊर्ध्व गति होती है।"
-          },
-          {
-            "id": 8,
-            "hi": "विमान चुपचाप ऊपर सरकता है, फिर एक हरा पैड एक ऊँघते द्रष्टा के शंकु के पास स्पंदित होता है।"
-          },
-          {
-            "id": 3,
-            "hi": "तकनीशियन सेंसर को जाँचता है जब चमकती रोशनी धातु टर्मिनलों से कूदती है।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.5539022860175464,
-      "tokens_in": 1687,
-      "tokens_out": 364,
-      "cost_usd": 0.002779,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 70,
-      "t_wall": 77.08768986398354,
-      "role": "tool",
-      "note": "Translate all committed cues",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "शीर्षक: “यह फिल्म नीदरलैंड फिल्म फंड द्वारा समर्थित है।”",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 4.72,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 2,
-            "text": "एक पीला नीयन।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 4,
-            "seconds": 1.45,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 4,
-            "text": "शीर्षक: “स्टील के आँसू”।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 19,
-            "seconds": 2.4,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 15,
-            "inspections": 4,
-            "verifications": 0
-          }
-        },
-        "truncated": true
-      },
-      "ok": true,
-      "latency_s": 1.7518905570032075,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 71,
-      "t_wall": 78.8826615139842,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.7944342539994977,
-      "tokens_in": 7197,
-      "tokens_out": 35,
-      "cost_usd": 0.007302,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 72,
-      "t_wall": 83.40180101199076,
-      "role": "tool",
-      "note": "All cues committed, Hindi translated, ready to finalize",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": true,
-        "warnings": [],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/tears_of_steel_0015-0155",
-        "state": {
-          "committed": [
-            0,
-            2,
-            4,
-            5,
-            6,
-            7,
-            8,
-            3
-          ],
-          "remaining": [],
-          "skipped_too_short": [
-            1
-          ],
-          "needs_verification": [],
-          "budget": {
-            "turns": 14,
-            "inspections": 4,
-            "verifications": 0
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 4.51912690399331,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     }
   ],
   "summary": {
     "tool_calls": {
-      "detect_speech_gaps": 1,
-      "inspect_video_segment": 8,
-      "draft_description": 2,
-      "propose_cue": 10,
-      "verify_claim": 10,
-      "translate_hindi": 2,
-      "finalize": 1
+      "stage:gaps": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:relook": 1,
+      "stage:assign": 1,
+      "stage:script": 1,
+      "stage:tighten": 1,
+      "verify_claim": 9,
+      "stage:verify": 1,
+      "stage:repair_1": 1,
+      "stage:verify_1": 1,
+      "stage:render": 1
     },
-    "corrections": 1,
+    "corrections": 0,
     "verifications": {
-      "verified": 4,
+      "verified": 8,
       "contradicted": 1,
       "unverified": 0
     },
-    "repeat_refusals": 1,
+    "repeat_refusals": 0,
     "auto_redrafts": 0,
-    "draft_overlimit": 8,
-    "orchestrator_authored_cues": 1,
-    "orchestrator_turns": 16,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 3,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.12273599999999998,
-      "nvidia/Nemotron-3.5-Super-VL": 0.0103719,
-      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.0007717799999999999
+      "nvidia/Nemotron-3.5-Super-VL": 0.014456400000000001,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.019966,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 3.3060000000000005e-05
     },
-    "total_latency_s": 83.40215245299623
-  }
+    "total_latency_s": 182.75
+  },
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.484,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "8 narratable slots of 9, 8 long enough; detector silero-onnx; speech 27%; measured voice wps en 3.635 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.062,
+      "input": "ffmpeg scene-change detection",
+      "output": "18 shot cuts; 9 perception windows of ~12 s 0-10s, 10-22s, 22-33s, 33-44s, 44-55s, 55-67s, 67-77s, 77-89s, 89-100s; est. Super VL timeline cost $0.0241 (upper bound from config prices)"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2287,
+      "tokens_out": 243,
+      "cost_usd": 0.0009048000000000001,
+      "latency_s": 4.204,
+      "input": "Super VL on 6 stills across the clip",
+      "output": "setting: Industrial outdoor area with smokestacks and a canal bridge lined with buildings. | people: Man in black leather jacket standing on a bridge., gesturing with both hands while talking.; Person with reddish-brown hair in blue jacket and dark vest on the bridge., leaning on a railing and holdi"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 9,
+      "ultra_calls": 0,
+      "tokens_in": 22084,
+      "tokens_out": 3299,
+      "cost_usd": 0.0095943,
+      "latency_s": 34.343,
+      "input": "Super VL video windows covering the whole clip",
+      "output": "33 events from 9 windows ({'video': 9, 'absolute': 9}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 3888,
+      "tokens_out": 1729,
+      "cost_usd": 0.009075,
+      "latency_s": 6.282,
+      "input": "scene + shots + timeline",
+      "output": "place: industrial city | setting: Industrial city with smokestacks, a canal bridge, and a hovering airship | cast: a man in a black leather jacket, a woman in a blue jacket and dark vest, a person with curly hair and glasses, a man with a mechanical eye, a shooter in a dark jacket, an older person with white hair | goal: ? | story: Two people converse on a bridge in an industrial city; forty years"
+    },
+    {
+      "stage": "relook",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3982,
+      "tokens_out": 132,
+      "cost_usd": 0.0013134,
+      "latency_s": 9.593,
+      "input": "Super VL on windows where the bible expects an unseen beat",
+      "output": "2 focused re-looks (10-22s the device with a long handle the woman holds — its shape an; 58-62s the two figures seated at the table with a candle — their fa): 1 new events ['e34']"
+    },
+    {
+      "stage": "assign",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "midpoint / >=50% overlap; refuted excluded",
+      "output": "7 gaps carry a story beat; 25 of 34 events inside narratable gaps; 9 in speech (context only); per gap {0: 3, 2: 2, 3: 2, 4: 3, 5: 3, 6: 5, 7: 3, 8: 4}"
+    },
+    {
+      "stage": "script",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 7323,
+      "tokens_out": 472,
+      "cost_usd": 0.008739,
+      "latency_s": 66.703,
+      "input": "bible + timeline + all gaps -> whole English track",
+      "output": "8 gaps scripted in one call: {'pending': 7, 'failed': 1}"
+    },
+    {
+      "stage": "tighten",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 359,
+      "tokens_out": 48,
+      "cost_usd": 3.3060000000000005e-05,
+      "latency_s": 16.422,
+      "input": "1 cues over budget only -> Nemotron Nano (no Ultra)",
+      "output": "over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}"
+    },
+    {
+      "stage": "verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 6013,
+      "tokens_out": 489,
+      "cost_usd": 0.0022440000000000003,
+      "latency_s": 20.641,
+      "input": "8 cues, 2 stills each",
+      "output": "8 cues checked on stills inside their gaps: {'supported': 7, 'contradicted': 1}"
+    },
+    {
+      "stage": "repair_1",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1879,
+      "tokens_out": 91,
+      "cost_usd": 0.002152,
+      "latency_s": 9.187,
+      "input": "1 failed cues",
+      "output": "round 1: 1 failed cues sent to Ultra: {'pending': 1}"
+    },
+    {
+      "stage": "verify_1",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1108,
+      "tokens_out": 75,
+      "cost_usd": 0.00039989999999999996,
+      "latency_s": 1.672,
+      "input": "1 cues, 2 stills each",
+      "output": "1 cues checked on stills inside their gaps: {'supported': 1}"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.766,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "8 cues rendered (en: 8); 0 gaps silent by choice"
+    }
+  ]
 }

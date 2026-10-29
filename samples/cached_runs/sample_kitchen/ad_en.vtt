@@ -1,13 +1,17 @@
 WEBVTT
 
 1
-00:00:04.668 --> 00:00:06.512
-A person enters a kitchen.
+00:00:04.668 --> 00:00:07.861
+A yellow rectangle moves across a dark teal screen.
 
 2
-00:00:11.868 --> 00:00:13.812
-STEP 1 - chop onions.
+00:00:11.868 --> 00:00:14.724
+The rectangle reaches the right edge and pauses.
 
 3
-00:00:19.932 --> 00:00:21.254
-Stir and serve.
+00:00:19.932 --> 00:00:22.951
+Text reads Stir and serve in the top left.
+
+4
+00:00:27.388 --> 00:00:29.222
+The rectangle moves leftward.

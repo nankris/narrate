@@ -1,0 +1,1008 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null,
+    "mode": "director",
+    "ad_mode": "extended"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 7.0310000000026776,
+      "role": "tool",
+      "note": "speech: 5 speech intervals; 100% speech; 4 between-sentence micro-silences",
+      "tool_name": "stage:speech",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.375,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 7.2189999999973224,
+      "role": "tool",
+      "note": "shots: 0 scene cuts; 1 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.188,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 10.125,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Plain teal digital background for presentation slides.",
+        "people": [],
+        "ingredients": [],
+        "tools": [],
+        "objects": [],
+        "activity": "Displaying presentation slides.",
+        "dish": "",
+        "visual_style": "Minimal slide deck with white text on solid teal background.",
+        "burned_in_subtitles": false,
+        "confidence": 1.0
+      },
+      "ok": true,
+      "latency_s": 2.639999999999418,
+      "tokens_in": 2343,
+      "tokens_out": 93,
+      "cost_usd": 0.0007866,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 10.125,
+      "role": "tool",
+      "note": "scene: setting: Plain teal digital background for presentation slides. | activity: Displaying presentation slides.",
+      "tool_name": "stage:scene",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2343,
+        "tokens_out": 93,
+        "cost_usd": 0.0007866
+      },
+      "ok": true,
+      "latency_s": 2.906,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 11.875,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0.0,
+            "t_end": 3.0,
+            "what": "A teal presentation slide displays the white text \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner against a solid background.",
+            "change": "The slide appears at the start of the window.",
+            "on_screen_text": "CONTINUOUS SPEECH - SLIDE 1",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 3.0,
+            "t_end": 6.0,
+            "what": "The text on the slide changes to \"CONTINUOUS - 1\" while the teal background remains unchanged.",
+            "change": "The slide text is updated to a shorter version.",
+            "on_screen_text": "CONTINUOUS - 1",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.6089999999967404,
+      "tokens_in": 2107,
+      "tokens_out": 320,
+      "cost_usd": 0.0009201,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 15.14100000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10.0,
+            "t_end": 12.0,
+            "what": "The slide changes to display \"SLIDE 2 - NO ROOM FOR AD\" on the teal background.",
+            "change": "New slide title appears, replacing the previous slide text.",
+            "on_screen_text": "SLIDE 2 - NO ROOM FOR AD",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 12.0,
+            "t_end": 14.0,
+            "what": "The slide continues to show \"SLIDE 2 - NO ROOM FOR AD\" with no further visual changes.",
+            "change": "No change; the slide remains static.",
+            "on_screen_text": "SLIDE 2 - NO ROOM FOR AD",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.172000000005937,
+      "tokens_in": 2204,
+      "tokens_out": 494,
+      "cost_usd": 0.0011057999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 17.687999999994645,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 20.0,
+            "t_end": 22.0,
+            "what": "The slide displays \"SLIDE 2 - NO ROOM FOR AD\" on a plain teal background.",
+            "change": "No change from the previous moment; the slide remains static.",
+            "on_screen_text": "SLIDE 2 - NO ROOM FOR AD",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 22.0,
+            "t_end": 25.0,
+            "what": "The text on the slide changes to \"SLIDE - NO ROOM ADOM\" while the teal background stays the same.",
+            "change": "The slide text is updated to a new phrase.",
+            "on_screen_text": "SLIDE - NO ROOM ADOM",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.452999999994063,
+      "tokens_in": 2200,
+      "tokens_out": 392,
+      "cost_usd": 0.0010128,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 17.702999999994063,
+      "role": "tool",
+      "note": "timeline: 8 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 3,
+        "tokens_in": 6511,
+        "tokens_out": 1206,
+        "cost_usd": 0.0030386999999999996
+      },
+      "ok": true,
+      "latency_s": 7.578,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 9,
+      "t_wall": 20.343999999997322,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 1.5,
+            "setting": "A solid teal background with white text in the upper left area.",
+            "present": [],
+            "objects": [],
+            "action": "A static title slide is displayed.",
+            "on_screen_text": [
+              "CONTINUOUS SPEECH - SLIDE 1"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 4.5,
+            "setting": "A solid teal background with white text in the upper left area.",
+            "present": [],
+            "objects": [],
+            "action": "A static title slide is displayed.",
+            "on_screen_text": [
+              "CONTINUOUS SPEECH - SLIDE 1"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 8.0,
+            "setting": "A solid teal background with white text in the upper left area.",
+            "present": [],
+            "objects": [],
+            "action": "A static title slide is displayed.",
+            "on_screen_text": [
+              "CONTINUOUS SPEECH - SLIDE 1"
+            ],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.375,
+      "tokens_in": 2036,
+      "tokens_out": 408,
+      "cost_usd": 0.000978,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "text_stills",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 22.062999999994645,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 23.5,
+            "setting": "A solid teal background with white text in the upper left corner.",
+            "present": [],
+            "objects": [],
+            "action": "No movement; a static title card is displayed.",
+            "on_screen_text": [
+              "SLIDE 2 - NO ROOM FOR AD"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 27.5,
+            "setting": "A solid teal background with white text in the upper left corner.",
+            "present": [],
+            "objects": [],
+            "action": "No movement; a static title card is displayed.",
+            "on_screen_text": [
+              "SLIDE 2 - NO ROOM FOR AD"
+            ],
+            "subtitle_text": []
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.610000000000582,
+      "tokens_in": 810,
+      "tokens_out": 141,
+      "cost_usd": 0.0003699,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "text_stills",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 22.062999999994645,
+      "role": "tool",
+      "note": "text_stills: 8 on-screen text readings re-read from stills; 5 corrected",
+      "tool_name": "stage:text_stills",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 2846,
+        "tokens_out": 549,
+        "cost_usd": 0.0013479
+      },
+      "ok": true,
+      "latency_s": 4.36,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 12,
+      "t_wall": 23.656000000002678,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "Plain teal digital background for presentation slides",
+        "place": "presentation screen",
+        "cast": [],
+        "objects": [],
+        "goal": "present two slides about continuous speech and ad space",
+        "story": "A presentation displays two consecutive slides on a teal background: first \"CONTINUOUS SPEECH - SLIDE 1\", then \"SLIDE 2 - NO ROOM FOR AD\".",
+        "beats": [
+          {
+            "t": 0.0,
+            "beat": "First slide appears: \"CONTINUOUS SPEECH - SLIDE 1\"",
+            "why": "introduces the continuous speech topic",
+            "events": [
+              "e1"
+            ]
+          }
+        ],
+        "names": [],
+        "look_for": [],
+        "on_screen_text": [
+          {
+            "t": 0.0,
+            "text": "CONTINUOUS SPEECH - SLIDE 1",
+            "kind": "title"
+          },
+          {
+            "t": 10.0,
+            "text": "SLIDE 2 - NO ROOM FOR AD",
+            "kind": "title"
+          }
+        ],
+        "subtitles_present": false,
+        "tone": "informational",
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.5930000000080327,
+      "tokens_in": 1715,
+      "tokens_out": 340,
+      "cost_usd": 0.002735,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "bible",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 23.656000000002678,
+      "role": "tool",
+      "note": "bible: place: presentation screen | setting: Plain teal digital background for presentation slides | cast: no recurring people | goal: present two slides about continuous speech and ad space | story: A prese",
+      "tool_name": "stage:bible",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 1715,
+        "tokens_out": 340,
+        "cost_usd": 0.002735
+      },
+      "ok": true,
+      "latency_s": 1.593,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 14,
+      "t_wall": 23.656000000002678,
+      "role": "tool",
+      "note": "pause_plan: 3 pauses; largest source gap 15.03 s (hard max 25.0 s); final at 30.00 s",
+      "tool_name": "stage:pause_plan",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 15,
+      "t_wall": 25.89100000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 3.1,
+            "setting": "A solid teal background with white text in the upper left corner.",
+            "present": [],
+            "objects": [],
+            "action": "No movement; a static title slide is displayed.",
+            "on_screen_text": [
+              "CONTINUOUS SPEECH - SLIDE 1"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 18.13,
+            "setting": "A solid teal background with white text in the upper left corner.",
+            "present": [],
+            "objects": [],
+            "action": "No movement; a static title slide is displayed.",
+            "on_screen_text": [
+              "SLIDE 2 - NO ROOM FOR AD"
+            ],
+            "subtitle_text": []
+          },
+          {
+            "t": 29.7,
+            "setting": "A solid teal background with white text in the upper left corner.",
+            "present": [],
+            "objects": [],
+            "action": "No movement; a static title slide is displayed.",
+            "on_screen_text": [
+              "SLIDE 2 - NO ROOM FOR AD"
+            ],
+            "subtitle_text": []
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.0939999999973224,
+      "tokens_in": 1134,
+      "tokens_out": 216,
+      "cost_usd": 0.0005346,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 16,
+      "t_wall": 25.89100000000326,
+      "role": "tool",
+      "note": "pause_frames: 3 current frames described by Super VL",
+      "tool_name": "stage:pause_frames",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 1134,
+        "tokens_out": 216,
+        "cost_usd": 0.0005346
+      },
+      "ok": true,
+      "latency_s": 2.235,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 17,
+      "t_wall": 27.437999999994645,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A teal presentation slide displays the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left corner on a solid background. The slide remains unchanged.",
+            "evidence": [
+              "e1"
+            ]
+          },
+          {
+            "pause_id": 2,
+            "text": "The slide continues showing \"CONTINUOUS SPEECH - SLIDE 1\" on the teal background. At ten seconds the slide changes to display \"SLIDE 2 - NO ROOM FOR AD\" in the upper left corner. The new slide is now frozen.",
+            "evidence": [
+              "e2",
+              "e3",
+              "e4"
+            ]
+          },
+          {
+            "pause_id": 3,
+            "text": "The slide continues to show \"SLIDE 2 - NO ROOM FOR AD\" on the plain teal background with no further visual changes. The presentation remains on this final slide.",
+            "evidence": [
+              "e5",
+              "e6",
+              "e7",
+              "e8"
+            ]
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.5469999999913853,
+      "tokens_in": 2181,
+      "tokens_out": 208,
+      "cost_usd": 0.002805,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_write",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 27.437999999994645,
+      "role": "tool",
+      "note": "extended_write: 3 of 3 pauses written in one Ultra call",
+      "tool_name": "stage:extended_write",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 2181,
+        "tokens_out": 208,
+        "cost_usd": 0.002805
+      },
+      "ok": true,
+      "latency_s": 1.547,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 19,
+      "t_wall": 29.51600000000326,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "All frames show a teal slide with the white title \"CONTINUOUS SPEECH - SLIDE 1\" in the upper left on a solid background, unchanged across the window."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.875,
+      "tokens_in": 1956,
+      "tokens_out": 65,
+      "cost_usd": 0.0006452999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 31.375,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "Frames at 4.608, 7.613, 10.618, and 13.623 seconds show the teal slide with \"CONTINUOUS SPEECH - SLIDE 1\"; the frame at 18.131 seconds shows the changed slide \"SLIDE 2 - NO ROOM FOR AD\" in the upper left, matching the cue's sequence and text."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.625,
+      "tokens_in": 1983,
+      "tokens_out": 120,
+      "cost_usd": 0.0007029,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 33.32799999999406,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "All frames from 19.288 to 29.7 seconds show the same plain teal background with the text \"SLIDE 2 - NO ROOM FOR AD\" and no further visual changes, matching the cue."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 1.7029999999940628,
+      "tokens_in": 1961,
+      "tokens_out": 73,
+      "cost_usd": 0.000654,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 33.32799999999406,
+      "role": "tool",
+      "note": "extended_check_verify: 3 verified extended cues; 0 dropped; 0 repair rounds",
+      "tool_name": "stage:extended_check_verify",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 3,
+        "tokens_in": 5900,
+        "tokens_out": 258,
+        "cost_usd": 0.0020022
+      },
+      "ok": true,
+      "latency_s": 5.89,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 23,
+      "t_wall": 33.32799999999406,
+      "role": "tool",
+      "note": "extended_rescue: 0 pauses still missing; rescue not needed or disabled",
+      "tool_name": "stage:extended_rescue",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 24,
+      "t_wall": 60.28100000000268,
+      "role": "tool",
+      "note": "render: 3 freezes rendered; +34.65 seconds",
+      "tool_name": "stage:render",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 26.953,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:bible": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 2,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.00771,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.00554
+    },
+    "total_latency_s": 60.28100000000268
+  },
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.375,
+      "input": "Silero VAD speech intervals",
+      "output": "5 speech intervals; 100% speech; 4 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.188,
+      "input": "ffmpeg scene cuts",
+      "output": "0 scene cuts; 1 sensitive visual changes; 3 perception windows; est. Super VL timeline cost $0.0074"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2343,
+      "tokens_out": 93,
+      "cost_usd": 0.0007866,
+      "latency_s": 2.906,
+      "input": "Super VL scene context",
+      "output": "setting: Plain teal digital background for presentation slides. | activity: Displaying presentation slides."
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 6511,
+      "tokens_out": 1206,
+      "cost_usd": 0.0030386999999999996,
+      "latency_s": 7.578,
+      "input": "Super VL whole-clip windows",
+      "output": "8 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 2846,
+      "tokens_out": 549,
+      "cost_usd": 0.0013479,
+      "latency_s": 4.36,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "8 on-screen text readings re-read from stills; 5 corrected"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1715,
+      "tokens_out": 340,
+      "cost_usd": 0.002735,
+      "latency_s": 1.593,
+      "input": "Ultra scene/story bible",
+      "output": "place: presentation screen | setting: Plain teal digital background for presentation slides | cast: no recurring people | goal: present two slides about continuous speech and ad space | story: A presentation displays two consecutive slides on a teal background: first \"CONTINUOUS SPEECH - SLIDE 1\", then \"SLIDE 2 - NO ROOM FOR AD\". | 2 beats"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "3 pauses; largest source gap 15.03 s (hard max 25.0 s); final at 30.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1134,
+      "tokens_out": 216,
+      "cost_usd": 0.0005346,
+      "latency_s": 2.235,
+      "input": "Super VL current frames at pauses",
+      "output": "3 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 2181,
+      "tokens_out": 208,
+      "cost_usd": 0.002805,
+      "latency_s": 1.547,
+      "input": "one Ultra call for every pause",
+      "output": "3 of 3 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 5900,
+      "tokens_out": 258,
+      "cost_usd": 0.0020022,
+      "latency_s": 5.89,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "3 verified extended cues; 0 dropped; 0 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "0 pauses still missing; rescue not needed or disabled"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 26.953,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "3 freezes rendered; +34.65 seconds"
+    }
+  ]
+}

@@ -1,0 +1,1949 @@
+{
+  "metadata": {
+    "provider": "nebius",
+    "mock": false,
+    "dev_only": false,
+    "models": {
+      "perceive": "nvidia/Nemotron-3.5-Super-VL",
+      "fit": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "fit_alt": "nvidia/Nemotron-3_5-Lightning",
+      "edit": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "orchestrate_alt": "nvidia/nemotron-3-super-120b-a12b"
+    },
+    "base_url_host": "api.tokenfactory.nebius.com",
+    "budgets": {
+      "max_steps": 30,
+      "budget_usd": 0.5,
+      "max_inspections": 12,
+      "max_verifications": 8,
+      "timeout_s": 600,
+      "max_atempo": 1.25,
+      "min_gap": 1.2,
+      "min_gap_s": 1.5,
+      "max_slot_s": 12,
+      "max_cue_s": 8.0,
+      "history_turns": 6,
+      "verify_below": 0.75,
+      "retry_attempts": 3,
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
+    },
+    "mock_notice": null,
+    "mode": "director",
+    "ad_mode": "extended"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "t_wall": 6.172000000005937,
+      "role": "tool",
+      "note": "speech: 1 speech intervals; 4% speech; 0 between-sentence micro-silences",
+      "tool_name": "stage:speech",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 1.157,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 6.718000000008033,
+      "role": "tool",
+      "note": "shots: 4 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0266",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.546,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 3,
+      "t_wall": 13.297000000005937,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "International Space Station module with equipment panels, wires, and microgravity environment.",
+        "people": [
+          {
+            "description": "astronaut with gray hair, glasses, black shirt, blue gloves",
+            "doing": "tending to plants in a growth chamber"
+          },
+          {
+            "description": "astronaut with short hair, black shirt, blue gloves",
+            "doing": "placing a sample on a black board"
+          }
+        ],
+        "ingredients": [],
+        "tools": [
+          "blue gloves",
+          "camera",
+          "black board",
+          "yellow sticky note",
+          "laptop"
+        ],
+        "objects": [
+          "plant growth chamber",
+          "green plants",
+          "wires",
+          "panels"
+        ],
+        "activity": "crew members tending plants and gathering together in the station module",
+        "dish": "",
+        "visual_style": "documentary footage from inside the International Space Station",
+        "burned_in_subtitles": false,
+        "confidence": 0.9,
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.125,
+      "tokens_in": 2355,
+      "tokens_out": 320,
+      "cost_usd": 0.0009945,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 4,
+      "t_wall": 13.297000000005937,
+      "role": "tool",
+      "note": "scene: setting: International Space Station module with equipment panels, wires, and microgravity environment. | people: astronaut with gray hair, glasses, black shirt, blue gloves, tending to plants in a gr",
+      "tool_name": "stage:scene",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2355,
+        "tokens_out": 320,
+        "cost_usd": 0.0009945
+      },
+      "ok": true,
+      "latency_s": 6.579,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 5,
+      "t_wall": 18.156000000002678,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 0,
+            "t_end": 2,
+            "what": "A gloved hand reaches toward a plant growth chamber filled with green plants inside a module with exposed wiring and panels.",
+            "change": "A hand enters the frame from the right side.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 2,
+            "t_end": 5,
+            "what": "An astronaut with gray hair, glasses, and a black shirt turns toward the chamber and reaches in with both gloved hands to tend to the plants.",
+            "change": "The astronaut becomes fully visible and begins interacting with the plants.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.5310000000026776,
+      "tokens_in": 2332,
+      "tokens_out": 310,
+      "cost_usd": 0.0009786,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 32.76499999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 11.0,
+            "t_end": 14.0,
+            "what": "The astronaut with gray hair and glasses continues to tend to the green plants inside the illuminated growth chamber, using both blue-gloved hands to adjust the foliage.",
+            "change": "No new person or object; the plant-tending action continues from the previous window.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 14.0,
+            "t_end": 17.0,
+            "what": "The astronaut reaches toward the right side of the growth chamber panel, appearing to manipulate a control or latch while still facing the plants.",
+            "change": "The astronaut shifts attention from the plants to the equipment panel on the right.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 14.23399999999674,
+      "tokens_in": 2415,
+      "tokens_out": 386,
+      "cost_usd": 0.0010719000000000002,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 7,
+      "t_wall": 40.578000000008615,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 22.0,
+            "t_end": 25.0,
+            "what": "An astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches into an illuminated plant growth chamber and tends to the green plants inside.",
+            "change": "The astronaut re-enters the frame and begins interacting with the plants after previously moving away.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 25.0,
+            "t_end": 29.0,
+            "what": "The astronaut continues to adjust and inspect the plants within the growth chamber, keeping both gloved hands inside the illuminated enclosure.",
+            "change": "The astronaut remains focused on the plants, making small adjustments to their position.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.438000000009197,
+      "tokens_in": 2424,
+      "tokens_out": 301,
+      "cost_usd": 0.0009980999999999998,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 8,
+      "t_wall": 50.35900000001129,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 33.0,
+            "t_end": 36.0,
+            "what": "The astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches into the illuminated plant growth chamber and adjusts the green leafy plants with both hands.",
+            "change": "The astronaut resumes tending to the plants after previously withdrawing his hands.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 36.0,
+            "t_end": 39.0,
+            "what": "The astronaut continues to manipulate the plants inside the chamber, using both gloved hands to position the foliage among the equipment panels and wires.",
+            "change": "Ongoing adjustment of the plants within the growth chamber.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 9.406000000002678,
+      "tokens_in": 2429,
+      "tokens_out": 392,
+      "cost_usd": 0.0010815,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 9,
+      "t_wall": 60.875,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 44.0,
+            "t_end": 47.0,
+            "what": "An astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches both hands into an illuminated plant growth chamber and adjusts the green leafy plants inside.",
+            "change": "The astronaut continues tending to the plants within the growth chamber.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 47.0,
+            "t_end": 50.0,
+            "what": "The astronaut uses both gloved hands to carefully arrange and touch the plants inside the growth chamber while surrounded by cables and paneling.",
+            "change": "The astronaut's hands move deeper into the chamber to tend to the plants.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 10.156999999991967,
+      "tokens_in": 2429,
+      "tokens_out": 389,
+      "cost_usd": 0.0010788,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 10,
+      "t_wall": 67.375,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 55.0,
+            "t_end": 58.0,
+            "what": "The astronaut with gray hair and glasses finishes tending to the green plants inside the illuminated growth chamber and moves away from the enclosure.",
+            "change": "The astronaut exits the frame, leaving the growth chamber empty of people.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 58.0,
+            "t_end": 61.0,
+            "what": "The camera shows the empty growth chamber with green plants visible inside, surrounded by cables and paneling.",
+            "change": "The scene transitions from the astronaut to the empty plant enclosure.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.156999999991967,
+      "tokens_in": 2429,
+      "tokens_out": 385,
+      "cost_usd": 0.0010752,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 11,
+      "t_wall": 72.35900000001129,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 66.0,
+            "t_end": 69.0,
+            "what": "An astronaut wearing blue gloves holds a black camera in both hands and points it at a red chili pepper taped to a black board next to a white label.",
+            "change": "The astronaut lifts the camera into the frame and aims it at the pepper.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 69.0,
+            "t_end": 72.0,
+            "what": "The astronaut continues to hold the camera steady, filming the red pepper and the white label on the black board.",
+            "change": "The camera remains focused on the pepper without significant movement.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.64100000000326,
+      "tokens_in": 2433,
+      "tokens_out": 375,
+      "cost_usd": 0.0010674,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 12,
+      "t_wall": 79.26499999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 77.0,
+            "t_end": 80.0,
+            "what": "Four astronauts in a space station module gather around a small object, passing it from hand to hand while smiling and laughing.",
+            "change": "A fourth astronaut with gray hair enters the frame from the bottom, joining the group interaction.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 80.0,
+            "t_end": 83.0,
+            "what": "The astronaut in the blue polo shirt holds the object and passes it toward the astronaut in the dark shirt on the right.",
+            "change": "The object moves from the center of the group toward the right side as the astronauts continue to share it.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 6.546999999991385,
+      "tokens_in": 2423,
+      "tokens_out": 389,
+      "cost_usd": 0.001077,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 13,
+      "t_wall": 84.51499999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 88.0,
+            "t_end": 91.0,
+            "what": "The astronaut in the black shirt holds a small object while the astronaut in the blue shirt reaches toward it and the astronaut in the green shirt watches, as the astronaut in the foreground films with a camera.",
+            "change": "The group shifts focus to the object being held, and the astronaut in the blue shirt leans in to examine it.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.875,
+      "tokens_in": 2417,
+      "tokens_out": 453,
+      "cost_usd": 0.0011328,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 14,
+      "t_wall": 92.06200000000536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 99.0,
+            "t_end": 101.0,
+            "what": "An astronaut in a blue shirt stands with his back to the camera while an astronaut in a black shirt and an astronaut in a green shirt pass a small object between them, and an astronaut in a dark shirt behind them raises both arms in celebration.",
+            "change": "The astronaut in the dark shirt raises both arms upward in a celebratory gesture.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 7.10899999999674,
+      "tokens_in": 2456,
+      "tokens_out": 651,
+      "cost_usd": 0.0013226999999999998,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 15,
+      "t_wall": 92.06200000000536,
+      "role": "tool",
+      "note": "timeline: 41 events from 10 windows ({'video': 10, 'absolute': 10}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 10,
+        "tokens_in": 24187,
+        "tokens_out": 4031,
+        "cost_usd": 0.010884
+      },
+      "ok": true,
+      "latency_s": 78.765,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 16,
+      "t_wall": 92.06200000000536,
+      "role": "tool",
+      "note": "text_stills: no on-screen text to re-read",
+      "tool_name": "stage:text_stills",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 17,
+      "t_wall": 94.65600000000268,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "box": [
+          280,
+          320,
+          420,
+          560
+        ],
+        "what": "plant inside illuminated chamber"
+      },
+      "ok": true,
+      "latency_s": 2.312999999994645,
+      "tokens_in": 1077,
+      "tokens_out": 28,
+      "cost_usd": 0.00034829999999999996,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 18,
+      "t_wall": 97.92200000000594,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "checks": {
+          "cut_or_sliced": "no",
+          "broken_peeled_opened_poured": "no",
+          "handed_bitten_eaten": "no"
+        },
+        "events": [
+          {
+            "t_start": 25.4,
+            "t_end": 28.6,
+            "what": "A person wearing a black sleeve reaches into a machine with hoses and wires and moves their hand around inside it, with no cutting, breaking, opening, pouring, handing over, biting, or eating visible.",
+            "change": "The hand moves within the machine and then withdraws slightly.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.8289999999979045,
+      "tokens_in": 1838,
+      "tokens_out": 135,
+      "cost_usd": 0.0006728999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 19,
+      "t_wall": 100.06200000000536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "box": [
+          466,
+          577,
+          625,
+          688
+        ],
+        "what": "handling a small object"
+      },
+      "ok": true,
+      "latency_s": 1.9220000000059372,
+      "tokens_in": 1077,
+      "tokens_out": 29,
+      "cost_usd": 0.0003492,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 20,
+      "t_wall": 102.84300000000803,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "checks": {
+          "cut_or_sliced": "no",
+          "broken_peeled_opened_poured": "no",
+          "handed_bitten_eaten": "yes, the person in the blue shirt hands a small green bottle to the person in the black shirt"
+        },
+        "events": [
+          {
+            "t_start": 78.1,
+            "t_end": 86.9,
+            "what": "The person in the blue shirt hands a small green bottle to the person in the black shirt, who takes it with both hands.",
+            "change": "The bottle moves from the blue-shirted person's hands to the black-shirted person's hands.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.437000000005355,
+      "tokens_in": 1838,
+      "tokens_out": 146,
+      "cost_usd": 0.0006828,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 21,
+      "t_wall": 105.06200000000536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "box": [
+          145,
+          586,
+          310,
+          733
+        ],
+        "what": "green folder on table"
+      },
+      "ok": true,
+      "latency_s": 1.937000000005355,
+      "tokens_in": 1083,
+      "tokens_out": 28,
+      "cost_usd": 0.00035009999999999994,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 22,
+      "t_wall": 111.06200000000536,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "checks": {
+          "cut_or_sliced": "no",
+          "broken_peeled_opened_poured": "no",
+          "handed_bitten_eaten": "no"
+        },
+        "events": [
+          {
+            "t_start": 100,
+            "t_end": 102,
+            "what": "A person in a black shirt holds a small object in both hands over a table with a green cutting board and a grey cloth, while another person in a blue shirt reaches toward the table.",
+            "change": "No cutting, breaking, peeling, opening, pouring, handing, biting, or eating occurs; the object is simply held.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 4,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 5.562000000005355,
+      "tokens_in": 1850,
+      "tokens_out": 572,
+      "cost_usd": 0.0010698,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 23,
+      "t_wall": 111.07800000000861,
+      "role": "tool",
+      "note": "zoom: 3 zoom looks (25-29s plant inside illuminated chamber; 77-88s handling a small object; 99-109s green folder on table): 6 new events ['e42', 'e43', 'e44', 'e45', 'e46', 'e47']",
+      "tool_name": "stage:zoom",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 6,
+        "tokens_in": 8763,
+        "tokens_out": 938,
+        "cost_usd": 0.0034731
+      },
+      "ok": true,
+      "latency_s": 19.016,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 24,
+      "t_wall": 115.40600000000268,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "setting": "International Space Station module with equipment pane",
+        "place": "space station",
+        "cast": [],
+        "objects": [
+          "plant growth chamber",
+          "green plants",
+          "red chili pepper",
+          "black board",
+          "white label"
+        ],
+        "goal": "harvest and celebrate first chile pepper crop",
+        "story": "A gray-haired astronaut tends plants in a stati",
+        "beats": [
+          {
+            "t": 0.0,
+            "beat": "gray-haired astronaut be",
+            "why": "routine plant care for t",
+            "events": [
+              "e1"
+            ]
+          }
+        ],
+        "names": [
+          {
+            "name": "red chili pepper",
+            "aliases": [
+              "small object",
+              "specimen",
+              "object"
+            ],
+            "from_t": 61.0
+          }
+        ],
+        "look_for": [
+          {
+            "t_start": 108.0,
+            "t_end": 110.0,
+            "what": "an astronaut actually eating the pepper o"
+          }
+        ],
+        "on_screen_text": [
+          {
+            "t": 61.0,
+            "text": "white label beside the pepper",
+            "kind": "label"
+          }
+        ],
+        "subtitles_present": false,
+        "tone": "documentary, celebratory, collaborative",
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.327999999994063,
+      "tokens_in": 5133,
+      "tokens_out": 1277,
+      "cost_usd": 0.008964,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "bible",
+      "cached_tokens": 0
+    },
+    {
+      "step": 25,
+      "t_wall": 115.40600000000268,
+      "role": "tool",
+      "note": "bible: place: space station | setting: International Space Station module with equipment panels, wiring, and a plant growth chamber in microgravity | cast: gray-haired astronaut with glasses, astronaut in bl",
+      "tool_name": "stage:bible",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 5133,
+        "tokens_out": 1277,
+        "cost_usd": 0.008964
+      },
+      "ok": true,
+      "latency_s": 4.328,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 26,
+      "t_wall": 119.10900000001129,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cast": [
+          {
+            "id": "c1",
+            "gender": "man",
+            "t": 11.9,
+            "evidence": "gray hair and side profile visible at plant chamber"
+          },
+          {
+            "id": "c2",
+            "gender": "man",
+            "t": 77.0,
+            "evidence": "short hair and face visible in blue polo"
+          },
+          {
+            "id": "c3",
+            "gender": "man",
+            "t": 77.0,
+            "evidence": "short dark hair and face visible in dark shirt"
+          },
+          {
+            "id": "c4",
+            "gender": "unclear",
+            "t": 0,
+            "evidence": "no clear face, hair, or body visible"
+          },
+          {
+            "id": "c5",
+            "gender": "unclear",
+            "t": 0,
+            "evidence": "no clear face, hair, or body visible"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.297000000005937,
+      "tokens_in": 2325,
+      "tokens_out": 151,
+      "cost_usd": 0.0008334,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 27,
+      "t_wall": 121.625,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cast": [
+          {
+            "id": "c1",
+            "gender": "man",
+            "t": 88.0,
+            "evidence": "gray hair, glasses, face visible in black shirt"
+          },
+          {
+            "id": "c2",
+            "gender": "unclear",
+            "t": 88.0,
+            "evidence": "face not clearly visible"
+          },
+          {
+            "id": "c3",
+            "gender": "man",
+            "t": 88.0,
+            "evidence": "face visible in dark shirt"
+          },
+          {
+            "id": "c4",
+            "gender": "man",
+            "t": 88.0,
+            "evidence": "face visible in black shirt"
+          },
+          {
+            "id": "c5",
+            "gender": "man",
+            "t": 88.0,
+            "evidence": "face visible in green shirt"
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.360000000000582,
+      "tokens_in": 1097,
+      "tokens_out": 141,
+      "cost_usd": 0.000456,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "scene",
+      "cached_tokens": 0
+    },
+    {
+      "step": 28,
+      "t_wall": 121.625,
+      "role": "tool",
+      "note": "cast_look: gray-haired astronaut with glasses: man; astronaut in blue polo shirt: man; astronaut in dark shirt: man; astronaut in black shirt: man; astronaut in green shirt: man",
+      "tool_name": "stage:cast_look",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 3422,
+        "tokens_out": 292,
+        "cost_usd": 0.0012894
+      },
+      "ok": true,
+      "latency_s": 6.219,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 29,
+      "t_wall": 121.625,
+      "role": "tool",
+      "note": "pause_plan: 9 pauses; largest source gap 25.00 s (hard max 25.0 s); final at 110.00 s",
+      "tool_name": "stage:pause_plan",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 30,
+      "t_wall": 131.78100000000268,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 0.5,
+            "setting": "Interior of a spacecraft or space station module with equipment panels and a plant growth chamber",
+            "present": [
+              "person's gloved hand",
+              "green plants",
+              "wires",
+              "cables",
+              "panels",
+              "blue vertical panel"
+            ],
+            "objects": [
+              "glove",
+              "plants",
+              "wires",
+              "cables",
+              "panel",
+              "door frame"
+            ],
+            "action": "A gloved hand reaches toward a blue panel beside a lit plant growth chamber filled with green plants.",
+            "on_screen_text": [],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 9.781000000002678,
+      "tokens_in": 2064,
+      "tokens_out": 643,
+      "cost_usd": 0.0011979,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 31,
+      "t_wall": 136.2340000000113,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "frames": [
+          {
+            "t": 86.9,
+            "setting": "Inside a cluttered spacecraft module with equipment panels, cables, and a laptop visible on the right",
+            "present": [
+              "person with gray hair in black shirt",
+              "person in blue polo shirt",
+              "person in dark t-shirt",
+              "person partially visible on right edge"
+            ],
+            "objects": [
+              "green folder",
+              "laptop",
+              "cables",
+              "panels",
+              "bottle",
+              "cup"
+            ],
+            "action": "Several people are gathered in a microgravity environment, holding small containers and appearing to toast or share drinks while floating",
+            "on_screen_text": [],
+            "subtitle_text": []
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 4.187000000005355,
+      "tokens_in": 1131,
+      "tokens_out": 368,
+      "cost_usd": 0.0006705,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "pause_frames",
+      "cached_tokens": 0
+    },
+    {
+      "step": 32,
+      "t_wall": 136.2340000000113,
+      "role": "tool",
+      "note": "pause_frames: 9 current frames described by Super VL",
+      "tool_name": "stage:pause_frames",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 2,
+        "tokens_in": 3195,
+        "tokens_out": 1011,
+        "cost_usd": 0.0018684
+      },
+      "ok": true,
+      "latency_s": 14.609,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 33,
+      "t_wall": 139.79700000000594,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "Inside a space station module, a blue-gloved hand reaches toward a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls.",
+            "evidence": [
+              "e1"
+            ]
+          },
+          {
+            "pause_id": 2,
+            "text": "The gray-haired astronaut in a black shirt and blue gloves turns to the chamber and tends the plants with both hands, adjusting foliage. He then steps back briefly. He returns and reaches in again to tend the plants.",
+            "evidence": [
+              "e2",
+              "e3",
+              "e4",
+              "e5",
+              "e6",
+              "e7",
+              "e8",
+              "e9"
+            ]
+          },
+          {
+            "pause_id": 3,
+            "text": "The astronaut continues working inside the growth chamber, his gloved hands moving among the green plants.",
+            "evidence": [
+              "e42"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.562999999994645,
+      "tokens_in": 7604,
+      "tokens_out": 686,
+      "cost_usd": 0.009662,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_write",
+      "cached_tokens": 0
+    },
+    {
+      "step": 34,
+      "t_wall": 139.79700000000594,
+      "role": "tool",
+      "note": "extended_write: 9 of 9 pauses written in one Ultra call",
+      "tool_name": "stage:extended_write",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
+        ],
+        "calls": 1,
+        "tokens_in": 7604,
+        "tokens_out": 686,
+        "cost_usd": 0.009662
+      },
+      "ok": true,
+      "latency_s": 3.563,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 35,
+      "t_wall": 143.09300000000803,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+            "evidence": []
+          },
+          {
+            "pause_id": 3,
+            "text": "The gray-haired astronaut in a black shirt and blue gloves reaches into the growth chamber, adjusting the green plants. He works carefully among the foliage and surrounding cables.",
+            "evidence": [
+              "e42"
+            ]
+          },
+          {
+            "pause_id": 5,
+            "text": "The astronaut keeps both hands inside the chamber, carefully arranging the green plants. He works steadily among the cables and paneling.",
+            "evidence": [
+              "e19"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 3.2960000000020955,
+      "tokens_in": 6680,
+      "tokens_out": 480,
+      "cost_usd": 0.00812,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 36,
+      "t_wall": 147.32800000000861,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a gray-haired man in a black shirt and blue gloves tending green plants inside a chamber with both hands across the timestamps, consistent with the cue. The stills do not show stepping back and returning, but this motion is not contradicted by the available frames."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.875,
+      "tokens_in": 1956,
+      "tokens_out": 80,
+      "cost_usd": 0.0006588,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 37,
+      "t_wall": 150.13999999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 4,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the man with both gloved hands inside the plant chamber, moving and adjusting the plants across the timestamps; the chamber and surrounding cables remain in view throughout."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.452999999994063,
+      "tokens_in": 1935,
+      "tokens_out": 58,
+      "cost_usd": 0.0006327,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 38,
+      "t_wall": 152.34300000000803,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+            "evidence": [
+              "e1",
+              "e2",
+              "e3",
+              "e4",
+              "e5"
+            ]
+          },
+          {
+            "pause_id": 6,
+            "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device.",
+            "evidence": [
+              "e20",
+              "e21",
+              "e22",
+              "e23",
+              "e24",
+              "e25",
+              "e26",
+              "e27"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.2030000000086147,
+      "tokens_in": 3750,
+      "tokens_out": 239,
+      "cost_usd": 0.004467,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 39,
+      "t_wall": 156.21800000000803,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a gray-haired man in a black shirt and blue gloves reaching into a growth chamber with green plants and surrounding cables, matching all concrete visual claims."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.437000000005355,
+      "tokens_in": 1947,
+      "tokens_out": 56,
+      "cost_usd": 0.0006345,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 40,
+      "t_wall": 159.13999999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 5,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a man with both gloved hands inside a chamber filled with cables and paneling, arranging green plants, matching the cue's claims."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.639999999999418,
+      "tokens_in": 1939,
+      "tokens_out": 54,
+      "cost_usd": 0.0006303,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 41,
+      "t_wall": 161.875,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 7,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show four people in a module with equipment racks and a laptop. The blue-shirted astronaut passes a small object to the dark-shirted astronaut, who holds it up; the group is smiling and laughing, consistent with the cue."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.3909999999887077,
+      "tokens_in": 1962,
+      "tokens_out": 73,
+      "cost_usd": 0.0006543,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 42,
+      "t_wall": 165.92200000000594,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 9,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a green cutting board on the table, a black-shirted astronaut holding a small object (the pepper), a green-shirted astronaut reaching across the table toward it, and a blue-shirted astronaut touching the board nearby."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.6410000000032596,
+      "tokens_in": 1966,
+      "tokens_out": 71,
+      "cost_usd": 0.0006536999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 43,
+      "t_wall": 165.92200000000594,
+      "role": "tool",
+      "note": "extended_check_verify: 6 verified extended cues; 3 dropped; 2 repair rounds",
+      "tool_name": "stage:extended_check_verify",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 8,
+        "tokens_in": 22135,
+        "tokens_out": 1111,
+        "cost_usd": 0.0164513
+      },
+      "ok": true,
+      "latency_s": 26.125,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 44,
+      "t_wall": 167.84300000000803,
+      "role": "orchestrator",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "cues": [
+          {
+            "pause_id": 1,
+            "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+            "evidence": [
+              "frame-p1"
+            ]
+          },
+          {
+            "pause_id": 6,
+            "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device.",
+            "evidence": [
+              "e20",
+              "e21",
+              "e22",
+              "e23",
+              "e24",
+              "e25",
+              "e26",
+              "e27"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 1.9210000000020955,
+      "tokens_in": 3701,
+      "tokens_out": 236,
+      "cost_usd": 0.004409,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "correction": false,
+      "cost_role": "extended_repair",
+      "cached_tokens": 0
+    },
+    {
+      "step": 45,
+      "t_wall": 170.17200000000594,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a blue-gloved hand reaching toward a panel beside a lit plant growth chamber filled with green plants, with equipment panels and cables lining the walls of the space station module."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.25,
+      "tokens_in": 1013,
+      "tokens_out": 61,
+      "cost_usd": 0.00035879999999999994,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 46,
+      "t_wall": 173.25,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 8,
+            "verdict": "contradicted",
+            "wrong": "raises both arms in celebration",
+            "reason": "The dark-shirted astronaut keeps his arms down and does not raise them; the group is gathered around a pepper, not celebrating with raised arms."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 2.7189999999973224,
+      "tokens_in": 1955,
+      "tokens_out": 70,
+      "cost_usd": 0.0006495,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 47,
+      "t_wall": 177.26499999999942,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "text": "The dark-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. A crewmate continues filming the group.",
+        "words": 13
+      },
+      "ok": true,
+      "latency_s": 4.014999999999418,
+      "tokens_in": 225,
+      "tokens_out": 36,
+      "cost_usd": 2.214e-05,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "correction": false,
+      "cost_role": "extended_strike",
+      "cached_tokens": 0
+    },
+    {
+      "step": 48,
+      "t_wall": 181.04700000000594,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "verdicts": [
+          {
+            "gap_id": 8,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a dark-shirted astronaut holding a green pepper while the green-shirted astronaut reaches for it, and another crewmate in a dark shirt is filming the group with a camera."
+          }
+        ]
+      },
+      "ok": true,
+      "latency_s": 3.422000000005937,
+      "tokens_in": 1944,
+      "tokens_out": 69,
+      "cost_usd": 0.0006452999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "verify",
+      "cached_tokens": 0
+    },
+    {
+      "step": 49,
+      "t_wall": 181.04700000000594,
+      "role": "tool",
+      "note": "extended_rescue: 2 of 3 missing planned pauses rescued with model-written text",
+      "tool_name": "stage:extended_rescue",
+      "args": {},
+      "result": {
+        "models": [
+          "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+          "nvidia/Nemotron-3-Ultra-550b-a55b",
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 5,
+        "tokens_in": 8838,
+        "tokens_out": 472,
+        "cost_usd": 0.00608474
+      },
+      "ok": true,
+      "latency_s": 15.125,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    },
+    {
+      "step": 50,
+      "t_wall": 251.07800000000861,
+      "role": "tool",
+      "note": "render: 8 freezes rendered; +88.63 seconds",
+      "tool_name": "stage:render",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 70.031,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
+    }
+  ],
+  "summary": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:zoom": 1,
+      "stage:bible": 1,
+      "stage:cast_look": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 5,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.02402730000000001,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.035622,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 2.214e-05
+    },
+    "total_latency_s": 251.07800000000861
+  },
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.157,
+      "input": "Silero VAD speech intervals",
+      "output": "1 speech intervals; 4% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.546,
+      "input": "ffmpeg scene cuts",
+      "output": "4 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0266"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2355,
+      "tokens_out": 320,
+      "cost_usd": 0.0009945,
+      "latency_s": 6.579,
+      "input": "Super VL scene context",
+      "output": "setting: International Space Station module with equipment panels, wires, and microgravity environment. | people: astronaut with gray hair, glasses, black shirt, blue gloves, tending to plants in a growth chamber; astronaut with short hair, black shirt, blue gloves, placing a sample on a black board"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 24187,
+      "tokens_out": 4031,
+      "cost_usd": 0.010884,
+      "latency_s": 78.765,
+      "input": "Super VL whole-clip windows",
+      "output": "41 events from 10 windows ({'video': 10, 'absolute': 10}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "no on-screen text to re-read"
+    },
+    {
+      "stage": "zoom",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 6,
+      "ultra_calls": 0,
+      "tokens_in": 8763,
+      "tokens_out": 938,
+      "cost_usd": 0.0034731,
+      "latency_s": 19.016,
+      "input": "Super VL crops to hand-and-object activity where the wide shot is vague",
+      "output": "3 zoom looks (25-29s plant inside illuminated chamber; 77-88s handling a small object; 99-109s green folder on table): 6 new events ['e42', 'e43', 'e44', 'e45', 'e46', 'e47']"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 5133,
+      "tokens_out": 1277,
+      "cost_usd": 0.008964,
+      "latency_s": 4.328,
+      "input": "Ultra scene/story bible",
+      "output": "place: space station | setting: International Space Station module with equipment panels, wiring, and a plant growth chamber in microgravity | cast: gray-haired astronaut with glasses, astronaut in blue polo shirt, astronaut in dark shirt, astronaut in black shirt, astronaut in green shirt | goal: harvest and celebrate first chile pepper crop | story: A gray-haired astronaut tends plants in a stat"
+    },
+    {
+      "stage": "cast_look",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3422,
+      "tokens_out": 292,
+      "cost_usd": 0.0012894,
+      "latency_s": 6.219,
+      "input": "Super VL apparent gender per cast member, only when clearly visible",
+      "output": "gray-haired astronaut with glasses: man; astronaut in blue polo shirt: man; astronaut in dark shirt: man; astronaut in black shirt: man; astronaut in green shirt: man"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "9 pauses; largest source gap 25.00 s (hard max 25.0 s); final at 110.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3195,
+      "tokens_out": 1011,
+      "cost_usd": 0.0018684,
+      "latency_s": 14.609,
+      "input": "Super VL current frames at pauses",
+      "output": "9 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 7604,
+      "tokens_out": 686,
+      "cost_usd": 0.009662,
+      "latency_s": 3.563,
+      "input": "one Ultra call for every pause",
+      "output": "9 of 9 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 8,
+      "ultra_calls": 2,
+      "tokens_in": 22135,
+      "tokens_out": 1111,
+      "cost_usd": 0.0164513,
+      "latency_s": 26.125,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "6 verified extended cues; 3 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 5,
+      "ultra_calls": 1,
+      "tokens_in": 8838,
+      "tokens_out": 472,
+      "cost_usd": 0.00608474,
+      "latency_s": 15.125,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "2 of 3 missing planned pauses rescued with model-written text"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 70.031,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "8 freezes rendered; +88.63 seconds"
+    }
+  ]
+}

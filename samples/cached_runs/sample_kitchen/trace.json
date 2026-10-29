@@ -26,199 +26,114 @@
       "history_turns": 6,
       "verify_below": 0.75,
       "retry_attempts": 3,
-      "hangover_s": 0.3
+      "hangover_s": 0.3,
+      "scene_context": true,
+      "scene_frames": 6
     },
-    "mock_notice": null
+    "mock_notice": null,
+    "mode": "director"
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 1.474110897994251,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.4739970420050668,
-      "tokens_in": 3206,
-      "tokens_out": 34,
-      "cost_usd": 0.003308,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 2,
-      "t_wall": 1.8329536279925378,
+      "t_wall": 7.077999999994063,
       "role": "tool",
-      "note": "Find narratable speech gaps",
-      "tool_name": "detect_speech_gaps",
+      "note": "gaps: 4 narratable slots of 4, 4 long enough; detector silero-onnx; speech 42%; measured voice wps en 3.51 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds",
+      "tool_name": "stage:gaps",
       "args": {},
       "result": {
-        "gaps": [
-          {
-            "id": 0,
-            "start": 4.67,
-            "end": 8.71,
-            "max_words_en": 7,
-            "max_words_hi": 8,
-            "narratable": true
-          },
-          {
-            "id": 1,
-            "start": 11.87,
-            "end": 16.61,
-            "max_words_en": 8,
-            "max_words_hi": 10,
-            "narratable": true
-          },
-          {
-            "id": 2,
-            "start": 19.93,
-            "end": 24.71,
-            "max_words_en": 8,
-            "max_words_hi": 10,
-            "narratable": true
-          },
-          {
-            "id": 3,
-            "start": 27.39,
-            "end": 29.92,
-            "max_words_en": 4,
-            "max_words_hi": 4,
-            "narratable": true
-          }
-        ],
-        "detector": "silero-onnx",
-        "speech_ratio": 0.42,
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 29,
-            "inspections": 12,
-            "verifications": 8
-          }
-        }
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
       "ok": true,
-      "latency_s": 0.35882416799722705,
+      "latency_s": 0.656,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
+    },
+    {
+      "step": 2,
+      "t_wall": 7.187999999994645,
+      "role": "tool",
+      "note": "shots: 0 shot cuts; 3 perception windows of ~12 s 0-10s, 10-20s, 20-30s; est. Super VL timeline cost $0.0074 (upper bound from config prices)",
+      "tool_name": "stage:shots",
+      "args": {},
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
+      "ok": true,
+      "latency_s": 0.11,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 3,
-      "t_wall": 3.329988918994786,
-      "role": "orchestrator",
+      "t_wall": 10.593999999997322,
+      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "setting": "dark teal screen with yellow outline",
+        "people": [],
+        "ingredients": [],
+        "tools": [],
+        "objects": [],
+        "activity": "title cards indicate cooking steps",
+        "dish": "",
+        "visual_style": "minimal text on solid background",
+        "burned_in_subtitles": false,
+        "confidence": 0.8
+      },
       "ok": true,
-      "latency_s": 1.4968736380105838,
-      "tokens_in": 3654,
-      "tokens_out": 239,
-      "cost_usd": 0.004371,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "latency_s": 3.0939999999973224,
+      "tokens_in": 2343,
+      "tokens_out": 87,
+      "cost_usd": 0.0007811999999999999,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
+      "cost_role": "scene",
       "cached_tokens": 0
     },
     {
       "step": 4,
-      "t_wall": 5.317188464003266,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 10.593999999997322,
+      "role": "tool",
+      "note": "scene: setting: dark teal screen with yellow outline | activity: title cards indicate cooking steps",
+      "tool_name": "stage:scene",
       "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 2.67,
-            "t_end": 6.04,
-            "what": "A yellow-outlined rectangle remains centered on a blue background.",
-            "on_screen_text": "A person enters a kitchen",
-            "importance": 3,
-            "confidence": 0.9
-          }
-        ]
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 1,
+        "tokens_in": 2343,
+        "tokens_out": 87,
+        "cost_usd": 0.0007811999999999999
       },
       "ok": true,
-      "latency_s": 1.8191630329965847,
-      "tokens_in": 1164,
-      "tokens_out": 84,
-      "cost_usd": 0.0004248,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
-    },
-    {
-      "step": 5,
-      "t_wall": 5.317288038000697,
-      "role": "tool",
-      "note": "Inspect gap 0 pre-roll",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 2.67,
-        "end": 8.71
-      },
-      "result": {
-        "events": [
-          {
-            "t_start": 2.67,
-            "t_end": 6.04,
-            "what": "A yellow-outlined rectangle remains centered on a blue background.",
-            "on_screen_text": "A person enters a kitchen",
-            "importance": 3,
-            "confidence": 0.9
-          }
-        ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          0
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 11,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.9872826079954393,
+      "latency_s": 3.406,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 6,
-      "t_wall": 8.163571216995479,
+      "step": 5,
+      "t_wall": 13.125,
       "role": "submodel",
       "note": "",
       "tool_name": null,
@@ -226,87 +141,140 @@
       "result": {
         "events": [
           {
-            "t_start": 9.87,
-            "t_end": 16.61,
-            "what": "A maroon title card displays the text \"STEP 1 - chop onions\" in white at the top left, while a small yellow rectangular border remains centered on the screen.",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 5,
-            "confidence": 1.0
+            "t_start": 0,
+            "t_end": 1,
+            "what": "A dark teal screen displays the white text 'A person enters a kitchen' in the upper left corner, with a small yellow rectangular outline in the lower left.",
+            "change": "The title card appears at the start of the window.",
+            "on_screen_text": "A person enters a kitchen",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 1,
+            "t_end": 3,
+            "what": "The white text disappears, leaving only the dark teal background and the yellow rectangular outline in the lower left.",
+            "change": "The title text is removed from the screen.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
           }
-        ]
+        ],
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 2.656938838001224,
-      "tokens_in": 1296,
-      "tokens_out": 111,
-      "cost_usd": 0.0004887,
+      "latency_s": 2.4060000000026776,
+      "tokens_in": 2105,
+      "tokens_out": 305,
+      "cost_usd": 0.000906,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "timeline",
+      "cached_tokens": 0
+    },
+    {
+      "step": 6,
+      "t_wall": 15.485000000000582,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
+      "result": {
+        "events": [
+          {
+            "t_start": 10.0,
+            "t_end": 12.0,
+            "what": "The yellow rectangular outline continues to move toward the right side of the dark teal screen.",
+            "change": "The outline shifts further right compared to the previous moment.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 12.0,
+            "t_end": 14.0,
+            "what": "The yellow rectangular outline reaches the right edge of the screen and stops moving.",
+            "change": "The outline arrives at the right boundary, ending its motion.",
+            "on_screen_text": "",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
+          }
+        ],
+        "truncated": true
+      },
+      "ok": true,
+      "latency_s": 2.25,
+      "tokens_in": 2185,
+      "tokens_out": 421,
+      "cost_usd": 0.0010344,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "correction": false,
+      "cost_role": "timeline",
       "cached_tokens": 0
     },
     {
       "step": 7,
-      "t_wall": 8.163646122993669,
-      "role": "tool",
-      "note": "Inspect gap 1 pre-roll",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 9.87,
-        "end": 16.61
-      },
+      "t_wall": 20.922000000005937,
+      "role": "submodel",
+      "note": "",
+      "tool_name": null,
+      "args": {},
       "result": {
         "events": [
           {
-            "t_start": 9.87,
-            "t_end": 16.61,
-            "what": "A maroon title card displays the text \"STEP 1 - chop onions\" in white at the top left, while a small yellow rectangular border remains centered on the screen.",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 5,
-            "confidence": 1.0
+            "t_start": 20.0,
+            "t_end": 21.0,
+            "what": "The text 'Stir and serve' appears in the top left corner while the yellow rectangular outline remains on the right side of the dark teal screen.",
+            "change": "New text appears on screen.",
+            "on_screen_text": "Stir and serve",
+            "subtitle_text": "",
+            "importance": 3,
+            "confidence": 0.9
+          },
+          {
+            "t_start": 21.0,
+            "t_end": 24.0,
+            "what": "The yellow rectangular outline stays stationary on the right side of the screen with the text 'Stir and serve' visible in the top left.",
+            "change": "No change in position or text.",
+            "on_screen_text": "Stir and serve",
+            "subtitle_text": "",
+            "importance": 2,
+            "confidence": 0.9
           }
         ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          1
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 10,
-            "verifications": 8
-          }
-        }
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 2.8462956769944867,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
+      "latency_s": 5.2810000000026776,
+      "tokens_in": 2185,
+      "tokens_out": 398,
+      "cost_usd": 0.0010137,
+      "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
-      "corrects_step": null
+      "cost_role": "timeline",
+      "cached_tokens": 0
     },
     {
       "step": 8,
-      "t_wall": 68.68272658099886,
-      "role": "system",
-      "note": "retry after APITimeoutError (attempt 2/3, backoff 1s)",
-      "tool_name": null,
+      "t_wall": 20.922000000005937,
+      "role": "tool",
+      "note": "timeline: 10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)",
+      "tool_name": "stage:timeline",
       "args": {},
-      "result": null,
-      "ok": false,
-      "latency_s": 0,
+      "result": {
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
+        ],
+        "calls": 3,
+        "tokens_in": 6475,
+        "tokens_out": 1124,
+        "cost_usd": 0.0029541
+      },
+      "ok": true,
+      "latency_s": 10.328,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
@@ -315,659 +283,301 @@
     },
     {
       "step": 9,
-      "t_wall": 71.69875182300166,
-      "role": "submodel",
+      "t_wall": 22.937999999994645,
+      "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "events": [
+        "setting": "dark teal screen with moving yellow rectangle and text cards",
+        "place": "title card screen",
+        "cast": [],
+        "objects": [
+          "yellow rectangular outline"
+        ],
+        "goal": "show cooking steps via title cards",
+        "story": "A title card announces a person entering a kitchen, then a yellow rectangle moves across a dark teal screen before a final card reads 'Stir and serve'.",
+        "beats": [
           {
-            "t_start": 17.93,
-            "t_end": 20.66,
-            "what": "Text card displaying 'STEP 1 - chop onions' on a maroon background.",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "confidence": 1.0
+            "t": 0.0,
+            "beat": "title card announces a person entering a kitchen",
+            "why": "sets up the cooking scenario",
+            "events": [
+              "e1"
+            ]
+          }
+        ],
+        "names": [],
+        "look_for": [],
+        "on_screen_text": [
+          {
+            "t": 0.0,
+            "text": "A person enters a kitchen",
+            "kind": "title"
           },
           {
-            "t_start": 20.66,
-            "t_end": 23.44,
-            "what": "Text card displaying 'Stir and serve' on a teal background.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 1.0
+            "t": 20.0,
+            "text": "Stir and serve",
+            "kind": "title"
           }
-        ]
+        ],
+        "subtitles_present": false,
+        "tone": "instructional, minimal",
+        "truncated": true
       },
       "ok": true,
-      "latency_s": 63.32709203498962,
-      "tokens_in": 1312,
-      "tokens_out": 148,
-      "cost_usd": 0.0005267999999999999,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "latency_s": 2.0159999999887077,
+      "tokens_in": 1726,
+      "tokens_out": 410,
+      "cost_usd": 0.002956,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "bible",
       "cached_tokens": 0
     },
     {
       "step": 10,
-      "t_wall": 71.69889197799785,
+      "t_wall": 22.937999999994645,
       "role": "tool",
-      "note": "Inspect gap 2 pre-roll",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 17.93,
-        "end": 24.71
-      },
+      "note": "bible: place: title card screen | setting: dark teal screen with moving yellow rectangle and text cards | cast: no recurring people | goal: show cooking steps via title cards | story: A title card announces ",
+      "tool_name": "stage:bible",
+      "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 17.93,
-            "t_end": 20.66,
-            "what": "Text card displaying 'STEP 1 - chop onions' on a maroon background.",
-            "on_screen_text": "STEP 1 - chop onions",
-            "importance": 4,
-            "confidence": 1.0
-          },
-          {
-            "t_start": 20.66,
-            "t_end": 23.44,
-            "what": "Text card displaying 'Stir and serve' on a teal background.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 1.0
-          }
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
         ],
-        "modality": "video",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          2
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 9,
-            "verifications": 8
-          }
-        }
+        "calls": 1,
+        "tokens_in": 1726,
+        "tokens_out": 410,
+        "cost_usd": 0.002956
       },
       "ok": true,
-      "latency_s": 63.535204291998525,
+      "latency_s": 2.016,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 11,
-      "t_wall": 73.60070712100423,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 22.937999999994645,
+      "role": "tool",
+      "note": "assign: 4 gaps carry a story beat; 6 of 10 events inside narratable gaps; 4 in speech (context only); per gap {0: 1, 1: 2, 2: 2, 3: 1}",
+      "tool_name": "stage:assign",
       "args": {},
       "result": {
-        "t_start": 25.39,
-        "t_end": 25.69,
-        "what": "A dark blue background with white text in the upper left reading \"Stir and serve\" and a thin yellow rectangular outline on the right side.",
-        "on_screen_text": "Stir and serve",
-        "importance": 3,
-        "confidence": 1.0
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
       "ok": true,
-      "latency_s": 1.6942715320037678,
-      "tokens_in": 996,
-      "tokens_out": 91,
-      "cost_usd": 0.00038070000000000004,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "perceive",
-      "cached_tokens": 0
+      "latency_s": 0.0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 12,
-      "t_wall": 75.91871290300332,
-      "role": "submodel",
+      "t_wall": 24.281000000002678,
+      "role": "orchestrator",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "events": [
+        "cues": [
           {
-            "t_start": 25.39,
-            "t_end": 29.92,
-            "what": "Teal background with white text 'Stir and serve' in the top-left corner. A yellow rectangular outline appears on the right side, then moves to the left side of the screen.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 0.98
+            "gap_id": 0,
+            "text": "A yellow rectangle moves across a dark teal screen.",
+            "words": 9,
+            "evidence": [
+              "e4"
+            ]
+          },
+          {
+            "gap_id": 1,
+            "text": "The rectangle reaches the right edge and pauses.",
+            "words": 8,
+            "evidence": [
+              "e5",
+              "e6"
+            ]
+          },
+          {
+            "gap_id": 2,
+            "text": "Text reads Stir and serve in the top left.",
+            "words": 8,
+            "evidence": [
+              "e7",
+              "e8"
+            ]
+          },
+          {
+            "gap_id": 3,
+            "text": "The rectangle shifts leftward toward the center.",
+            "words": 7,
+            "evidence": [
+              "e10"
+            ]
           }
         ]
       },
       "ok": true,
-      "latency_s": 2.074083352999878,
-      "tokens_in": 1139,
-      "tokens_out": 112,
-      "cost_usd": 0.0004425,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "latency_s": 1.3430000000080327,
+      "tokens_in": 3163,
+      "tokens_out": 159,
+      "cost_usd": 0.00364,
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "correction": false,
-      "cost_role": "perceive",
+      "cost_role": "script",
       "cached_tokens": 0
     },
     {
       "step": 13,
-      "t_wall": 75.91878797700338,
+      "t_wall": 47.375,
       "role": "tool",
-      "note": "Inspect gap 3 pre-roll",
-      "tool_name": "inspect_video_segment",
-      "args": {
-        "start": 25.39,
-        "end": 29.92
-      },
+      "note": "script: 4 gaps scripted in one call: {'pending': 3, 'failed': 1}",
+      "tool_name": "stage:script",
+      "args": {},
       "result": {
-        "events": [
-          {
-            "t_start": 25.39,
-            "t_end": 29.92,
-            "what": "Teal background with white text 'Stir and serve' in the top-left corner. A yellow rectangular outline appears on the right side, then moves to the left side of the screen.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 0.98
-          }
+        "models": [
+          "nvidia/Nemotron-3-Ultra-550b-a55b"
         ],
-        "modality": "frames-fallback",
-        "time_base": "absolute",
-        "evidence_gaps": [
-          3
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
+        "calls": 1,
+        "tokens_in": 3163,
+        "tokens_out": 159,
+        "cost_usd": 0.00364
       },
       "ok": true,
-      "latency_s": 4.219827169989003,
+      "latency_s": 24.437,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
       "step": 14,
-      "t_wall": 77.45155179699941,
-      "role": "orchestrator",
+      "t_wall": 48.64100000000326,
+      "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
-      "result": null,
+      "result": {
+        "options": [
+          {
+            "text": "The rectangle moves toward the center.",
+            "words": 5
+          },
+          {
+            "text": "The rectangle shifts toward the center.",
+            "words": 4
+          },
+          {
+            "text": "The rectangle moves leftward.",
+            "words": 3
+          }
+        ]
+      },
       "ok": true,
-      "latency_s": 1.5325281659897882,
-      "tokens_in": 4712,
+      "latency_s": 1.2660000000032596,
+      "tokens_in": 358,
       "tokens_out": 49,
-      "cost_usd": 0.004859,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "cost_usd": 3.324e-05,
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
       "correction": false,
+      "cost_role": "tighten",
       "cached_tokens": 0
     },
     {
       "step": 15,
-      "t_wall": 79.0762082220026,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 66.03100000000268,
+      "role": "tool",
+      "note": "tighten: over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}",
+      "tool_name": "stage:tighten",
       "args": {},
       "result": {
-        "cues": [
-          {
-            "id": 0,
-            "text": "A person enters a kitchen."
-          },
-          {
-            "id": 1,
-            "text": "STEP 1 - chop onions."
-          },
-          {
-            "id": 2,
-            "text": "Stir and serve."
-          },
-          {
-            "id": 3,
-            "text": "Stir and serve."
-          }
-        ]
+        "models": [
+          "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+        ],
+        "calls": 1,
+        "tokens_in": 358,
+        "tokens_out": 49,
+        "cost_usd": 3.324e-05
       },
       "ok": true,
-      "latency_s": 1.6220823170006042,
-      "tokens_in": 1283,
-      "tokens_out": 81,
-      "cost_usd": 9.642e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
+      "latency_s": 18.656,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 16,
-      "t_wall": 79.07628652200219,
-      "role": "tool",
-      "note": "Draft all four cues",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "text": "A person enters a kitchen.",
-            "max_words": 7
-          },
-          {
-            "id": 1,
-            "text": "STEP 1 - chop onions.",
-            "max_words": 8
-          },
-          {
-            "id": 2,
-            "text": "Stir and serve.",
-            "max_words": 8
-          },
-          {
-            "id": 3,
-            "text": "Stir and serve.",
-            "max_words": 4
-          }
-        ],
-        "state": {
-          "committed": [],
-          "remaining": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 27,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.6247213629976613,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 17,
-      "t_wall": 80.57776290200127,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.5013173969928175,
-      "tokens_in": 4961,
-      "tokens_out": 214,
-      "cost_usd": 0.005603,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 18,
-      "t_wall": 80.74017011199612,
-      "role": "tool",
-      "note": "Commit gap 0",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 0,
-        "text": "A person enters a kitchen."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 0,
-          "start": 4.67,
-          "end": 8.71,
-          "duration": 4.04,
-          "narratable": true,
-          "word_budget_en": 8,
-          "word_budget_hi": 9,
-          "max_words_en": 7,
-          "max_words_hi": 8,
-          "en": "A person enters a kitchen."
-        },
-        "state": {
-          "committed": [
-            0
-          ],
-          "remaining": [
-            1,
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 26,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.16238772599899676,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 19,
-      "t_wall": 80.82044400299492,
-      "role": "tool",
-      "note": "Commit gap 1",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 1,
-        "text": "STEP 1 - chop onions."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 1,
-          "start": 11.87,
-          "end": 16.61,
-          "duration": 4.74,
-          "narratable": true,
-          "word_budget_en": 9,
-          "word_budget_hi": 11,
-          "max_words_en": 8,
-          "max_words_hi": 10,
-          "en": "STEP 1 - chop onions."
-        },
-        "verify_required": [
-          "number"
-        ],
-        "next": "call verify_claim(gap_id, claim) before finalize",
-        "state": {
-          "committed": [
-            0,
-            1
-          ],
-          "remaining": [
-            2,
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            1
-          ],
-          "budget": {
-            "turns": 26,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.08023054299701471,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 20,
-      "t_wall": 80.88887711599818,
-      "role": "tool",
-      "note": "Commit gap 2",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 2,
-        "text": "Stir and serve."
-      },
-      "result": {
-        "ok": true,
-        "cue": {
-          "id": 2,
-          "start": 19.93,
-          "end": 24.71,
-          "duration": 4.78,
-          "narratable": true,
-          "word_budget_en": 9,
-          "word_budget_hi": 11,
-          "max_words_en": 8,
-          "max_words_hi": 10,
-          "en": "Stir and serve."
-        },
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            1
-          ],
-          "budget": {
-            "turns": 26,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.06839080699137412,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 21,
-      "t_wall": 80.89030035000178,
-      "role": "tool",
-      "note": "Commit gap 3",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 3,
-        "text": "Stir and serve."
-      },
-      "result": {
-        "ok": false,
-        "problems": [
-          "duplicate of gap 2"
-        ],
-        "suggested_max_words": 4,
-        "seconds": 1.32,
-        "overlap_seconds": 0,
-        "next": "call draft_description(gap_ids=[3], max_words=4) instead of hand-editing",
-        "problem": "duplicate of gap 2",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [
-            1
-          ],
-          "budget": {
-            "turns": 26,
-            "inspections": 8,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0013812940014759079,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 22,
-      "t_wall": 82.49442396400264,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.604030178001267,
-      "tokens_in": 5616,
-      "tokens_out": 55,
-      "cost_usd": 0.005781,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 23,
-      "t_wall": 84.16927027900238,
+      "t_wall": 69.07799999999406,
       "role": "submodel",
       "note": "",
       "tool_name": null,
       "args": {},
       "result": {
-        "verdict": "supported",
-        "evidence": "The text 'STEP 1 - chop onions' appears on screen at 11.868, 14.240, and 16.512 seconds."
+        "verdicts": [
+          {
+            "gap_id": 0,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show a yellow rectangle on a dark teal screen at 6.69 and 8.56 seconds, consistent with the rectangle moving across the screen."
+          },
+          {
+            "gap_id": 1,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the yellow rectangle at the right edge of the screen at 13.0 and 16.46 seconds, consistent with reaching the right edge and pausing."
+          },
+          {
+            "gap_id": 2,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the text \"Stir and serve\" in the top left at 20.5 and 22.5 seconds, matching the cue."
+          },
+          {
+            "gap_id": 3,
+            "verdict": "supported",
+            "wrong": "",
+            "reason": "The frames show the yellow rectangle moving from the right side at 28.5 seconds to the left side at 29.29 seconds, consistent with moving leftward."
+          }
+        ]
       },
       "ok": true,
-      "latency_s": 1.4277896190033061,
-      "tokens_in": 1146,
-      "tokens_out": 56,
-      "cost_usd": 0.0003942,
+      "latency_s": 2.5469999999913853,
+      "tokens_in": 2941,
+      "tokens_out": 243,
+      "cost_usd": 0.001101,
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "correction": false,
       "cost_role": "verify",
       "cached_tokens": 0
     },
     {
-      "step": 24,
-      "t_wall": 84.16939582399209,
+      "step": 17,
+      "t_wall": 69.07799999999406,
       "role": "tool",
-      "note": "Verify step text",
+      "note": "gap 0: supported (The frames show a yellow rectangle on a dark teal screen at 6.69 and 8.56 seconds, consistent with the rectangle moving )",
       "tool_name": "verify_claim",
       "args": {
-        "gap_id": 1,
-        "claim": "STEP 1 - chop onions."
+        "gap_id": 0,
+        "claim": "A yellow rectangle moves across a dark teal screen."
       },
       "result": {
         "verdict": "supported",
-        "evidence": "The text 'STEP 1 - chop onions' appears on screen at 11.868, 14.240, and 16.512 seconds.",
-        "modality": "frames",
-        "gap_ids": [
-          1
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 25,
-            "inspections": 8,
-            "verifications": 7
-          }
-        }
+        "evidence": "The frames show a yellow rectangle on a dark teal screen at 6.69 and 8.56 seconds, consistent with the rectangle moving across the screen.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 1.6749585939978715,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 25,
-      "t_wall": 85.16714831499849,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 0.9976381340093212,
-      "tokens_in": 5802,
-      "tokens_out": 52,
-      "cost_usd": 0.005958,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 26,
-      "t_wall": 145.79896279799868,
-      "role": "system",
-      "note": "retry after APITimeoutError (attempt 2/3, backoff 1s)",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": false,
       "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
@@ -976,1007 +586,295 @@
       "correction": false
     },
     {
-      "step": 27,
-      "t_wall": 148.03390507899167,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
+      "step": 18,
+      "t_wall": 69.07799999999406,
+      "role": "tool",
+      "note": "gap 1: supported (The frames show the yellow rectangle at the right edge of the screen at 13.0 and 16.46 seconds, consistent with reaching)",
+      "tool_name": "verify_claim",
+      "args": {
+        "gap_id": 1,
+        "claim": "The rectangle reaches the right edge and pauses."
+      },
       "result": {
         "verdict": "supported",
-        "evidence": "A frame shows the text 'Stir and serve' on a blue background, matching the claim."
+        "evidence": "The frames show the yellow rectangle at the right edge of the screen at 13.0 and 16.46 seconds, consistent with reaching the right edge and pausing.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 62.56387862798874,
-      "tokens_in": 1129,
-      "tokens_out": 35,
-      "cost_usd": 0.0003702,
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "correction": false,
-      "cost_role": "verify",
-      "cached_tokens": 0
+      "latency_s": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
-      "step": 28,
-      "t_wall": 148.03405793399725,
+      "step": 19,
+      "t_wall": 69.07799999999406,
       "role": "tool",
-      "note": "Verify step text",
+      "note": "gap 2: supported (The frames show the text \"Stir and serve\" in the top left at 20.5 and 22.5 seconds, matching the cue.)",
       "tool_name": "verify_claim",
       "args": {
         "gap_id": 2,
-        "claim": "Stir and serve."
+        "claim": "Text reads Stir and serve in the top left."
       },
       "result": {
         "verdict": "supported",
-        "evidence": "A frame shows the text 'Stir and serve' on a blue background, matching the claim.",
-        "modality": "frames",
-        "gap_ids": [
-          2
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 24,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
+        "evidence": "The frames show the text \"Stir and serve\" in the top left at 20.5 and 22.5 seconds, matching the cue.",
+        "wrong": ""
       },
       "ok": true,
-      "latency_s": 62.866897336993134,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 29,
-      "t_wall": 149.83046507400286,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.796236289999797,
-      "tokens_in": 5964,
-      "tokens_out": 54,
-      "cost_usd": 0.006126,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 30,
-      "t_wall": 150.59074356900237,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 3,
-            "text": "Stir and serve"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 0.7582826750003733,
-      "tokens_in": 877,
-      "tokens_out": 19,
-      "cost_usd": 5.718e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 31,
-      "t_wall": 150.66985259800276,
+      "step": 20,
+      "t_wall": 69.07799999999406,
       "role": "tool",
-      "note": "Commit gap 3",
-      "tool_name": "propose_cue",
+      "note": "gap 3: supported (The frames show the yellow rectangle moving from the right side at 28.5 seconds to the left side at 29.29 seconds, consi)",
+      "tool_name": "verify_claim",
       "args": {
         "gap_id": 3,
-        "text": "Stir and serve."
+        "claim": "The rectangle moves leftward."
       },
       "result": {
-        "ok": false,
-        "problems": [
-          "duplicate of gap 2"
-        ],
-        "suggested_max_words": 4,
-        "seconds": 1.32,
-        "overlap_seconds": 0,
-        "next": "call propose_cue/commit_cue to commit",
-        "problem": "duplicate of gap 2",
-        "auto_redraft": "tried \"Stir and serve\": duplicate of gap 2",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 23,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
+        "verdict": "supported",
+        "evidence": "The frames show the yellow rectangle moving from the right side at 28.5 seconds to the left side at 29.29 seconds, consistent with moving leftward.",
+        "wrong": ""
       },
-      "ok": false,
-      "latency_s": 0.8393731749965809,
+      "ok": true,
+      "latency_s": 0,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 32,
-      "t_wall": 151.8105972899939,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.140562628992484,
-      "tokens_in": 5970,
-      "tokens_out": 49,
-      "cost_usd": 0.006117,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 33,
-      "t_wall": 152.86219246400287,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "एक व्यक्ति रसोई में प्रवेश करता है।"
-          },
-          {
-            "id": 1,
-            "hi": "चरण 1 - प्याज काटें।"
-          },
-          {
-            "id": 2,
-            "hi": "हिलाएं और परोसें।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.0500647809967631,
-      "tokens_in": 552,
-      "tokens_out": 71,
-      "cost_usd": 0.000765,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 34,
-      "t_wall": 153.06324798399874,
+      "step": 21,
+      "t_wall": 69.07799999999406,
       "role": "tool",
-      "note": "Translate all cues",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
+      "note": "verify: 4 cues checked on stills inside their gaps: {'supported': 4}",
+      "tool_name": "stage:verify",
+      "args": {},
       "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "एक व्यक्ति रसोई में प्रवेश करता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 8,
-            "seconds": 2.9,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "चरण 1 - प्याज काटें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 2.06,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 2,
-            "text": "हिलाएं और परोसें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 1.73,
-            "overlap_seconds": 0,
-            "retried": false
-          }
+        "models": [
+          "nvidia/Nemotron-3.5-Super-VL"
         ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 22,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
+        "calls": 1,
+        "tokens_in": 2941,
+        "tokens_out": 243,
+        "cost_usd": 0.001101
       },
       "ok": true,
-      "latency_s": 1.252636855992023,
+      "latency_s": 3.047,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     },
     {
-      "step": 35,
-      "t_wall": 154.87777677399572,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.8142648979992373,
-      "tokens_in": 5612,
-      "tokens_out": 29,
-      "cost_usd": 0.005699,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 36,
-      "t_wall": 154.87877829799254,
+      "step": 22,
+      "t_wall": 69.82799999999406,
       "role": "tool",
-      "note": "All cues committed and verified",
-      "tool_name": "finalize",
+      "note": "render: 4 cues rendered (en: 4); 0 gaps silent by choice",
+      "tool_name": "stage:render",
       "args": {},
       "result": {
-        "ok": false,
-        "problems": [
-          "1 high-importance events lack an associated cue"
-        ],
-        "uncovered_events": [
-          {
-            "t_start": 25.39,
-            "t_end": 29.92,
-            "what": "Teal background with white text 'Stir and serve' in the top-left corner. A yellow rectangular outline appears on the right side, then moves to the left side of the screen.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 0.98
-          }
-        ],
-        "rejection": 1,
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 21,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
-      "ok": false,
-      "latency_s": 0.0009881020087050274,
+      "ok": true,
+      "latency_s": 0.75,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 37,
-      "t_wall": 156.05503464199137,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.1760625330061885,
-      "tokens_in": 5682,
-      "tokens_out": 54,
-      "cost_usd": 0.005844,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 38,
-      "t_wall": 156.05647686799057,
-      "role": "tool",
-      "note": "Commit gap 3",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 3,
-        "text": "Stir and serve."
-      },
-      "result": {
-        "ok": false,
-        "error": "identical call repeated 3+ times; refused",
-        "next": "propose_cue for gaps [3] using their drafts (if one fails: draft_description(gap_ids=[id], max_words=N), do not hand-edit)",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [
-            3
-          ],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 20,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0014287350059021264,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 39,
-      "t_wall": 157.97846191599092,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.9217473419994349,
-      "tokens_in": 5322,
-      "tokens_out": 75,
-      "cost_usd": 0.005547,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 40,
-      "t_wall": 157.97994721999567,
-      "role": "tool",
-      "note": "Drop duplicate gap",
-      "tool_name": "drop_gap",
-      "args": {
-        "gap_id": 3,
-        "reason": "Duplicate wording with gap 2; same on-screen text \"Stir and serve\" appears in both gaps. No unique visual description possible."
-      },
-      "result": {
-        "ok": true,
-        "reason": "Duplicate wording with gap 2; same on-screen text \"Stir and serve\" appears in both gaps. No unique visual description possible.",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 19,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.001470870993216522,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 21
-    },
-    {
-      "step": 41,
-      "t_wall": 159.75520253099967,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.775028222007677,
-      "tokens_in": 5339,
-      "tokens_out": 49,
-      "cost_usd": 0.005486,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 42,
-      "t_wall": 160.73215734699625,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "एक व्यक्ति रसोई में प्रवेश करता है।"
-          },
-          {
-            "id": 1,
-            "hi": "चरण 1 - प्याज काटें।"
-          },
-          {
-            "id": 2,
-            "hi": "हिलाएं और परोसें।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 0.9754629700037185,
-      "tokens_in": 595,
-      "tokens_out": 61,
-      "cost_usd": 0.000778,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 43,
-      "t_wall": 160.73232340300456,
-      "role": "tool",
-      "note": "Translate all cues",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "एक व्यक्ति रसोई में प्रवेश करता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 8,
-            "seconds": 2.9,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "चरण 1 - प्याज काटें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 2.06,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 2,
-            "text": "हिलाएं और परोसें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 1.73,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 18,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.9771089389978442,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 36
-    },
-    {
-      "step": 44,
-      "t_wall": 162.51102731800347,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.77848869501031,
-      "tokens_in": 5536,
-      "tokens_out": 32,
-      "cost_usd": 0.005632,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 45,
-      "t_wall": 162.51225157099543,
-      "role": "tool",
-      "note": "All cues committed, verified, and translated",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": false,
-        "problems": [
-          "1 high-importance events lack an associated cue"
-        ],
-        "uncovered_events": [
-          {
-            "t_start": 25.39,
-            "t_end": 29.92,
-            "what": "Teal background with white text 'Stir and serve' in the top-left corner. A yellow rectangular outline appears on the right side, then moves to the left side of the screen.",
-            "on_screen_text": "Stir and serve",
-            "importance": 4,
-            "confidence": 0.98
-          }
-        ],
-        "rejection": 2,
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 17,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.001207385997986421,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 46,
-      "t_wall": 163.52711739900406,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.014654172991868,
-      "tokens_in": 5626,
-      "tokens_out": 53,
-      "cost_usd": 0.005785,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 47,
-      "t_wall": 164.2119603750034,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 3,
-            "text": "Stir and serve"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 0.682709907006938,
-      "tokens_in": 858,
-      "tokens_out": 19,
-      "cost_usd": 5.604e-05,
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "correction": false,
-      "cost_role": "draft",
-      "cached_tokens": 0
-    },
-    {
-      "step": 48,
-      "t_wall": 164.2120475739939,
-      "role": "tool",
-      "note": "Redraft gap 3",
-      "tool_name": "draft_description",
-      "args": {
-        "gap_ids": [
-          3
-        ],
-        "max_words": 10
-      },
-      "result": {
-        "cues": [
-          {
-            "id": 3,
-            "text": "Stir and serve",
-            "max_words": 4
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 16,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 0.6849189850036055,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": true,
-      "corrects_step": 45
-    },
-    {
-      "step": 49,
-      "t_wall": 165.44040095899254,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.2280960409989348,
-      "tokens_in": 5543,
-      "tokens_out": 54,
-      "cost_usd": 0.005705,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 50,
-      "t_wall": 165.44202873799077,
-      "role": "tool",
-      "note": "Commit gap 3",
-      "tool_name": "propose_cue",
-      "args": {
-        "gap_id": 3,
-        "text": "Stir and serve"
-      },
-      "result": {
-        "ok": false,
-        "problems": [
-          "duplicate of gap 2"
-        ],
-        "suggested_max_words": 4,
-        "seconds": 1.32,
-        "overlap_seconds": 0,
-        "next": "drop_gap or move on",
-        "problem": "duplicate of gap 2",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 15,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": false,
-      "latency_s": 0.0016121480002766475,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 51,
-      "t_wall": 167.36388038599398,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.9216082820057636,
-      "tokens_in": 5558,
-      "tokens_out": 49,
-      "cost_usd": 0.005705,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 52,
-      "t_wall": 168.38453051800025,
-      "role": "submodel",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": {
-        "cues": [
-          {
-            "id": 0,
-            "hi": "एक व्यक्ति रसोई में प्रवेश करता है।"
-          },
-          {
-            "id": 1,
-            "hi": "चरण 1 - प्याज काटें।"
-          },
-          {
-            "id": 2,
-            "hi": "हिलाएं और परोसें।"
-          }
-        ]
-      },
-      "ok": true,
-      "latency_s": 1.0192564509925433,
-      "tokens_in": 595,
-      "tokens_out": 61,
-      "cost_usd": 0.000778,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cost_role": "translate",
-      "cached_tokens": 0
-    },
-    {
-      "step": 53,
-      "t_wall": 168.38472857499437,
-      "role": "tool",
-      "note": "Translate gaps 0-2",
-      "tool_name": "translate_hindi",
-      "args": {
-        "cue_ids": [
-          0,
-          1,
-          2
-        ]
-      },
-      "result": {
-        "ok": true,
-        "cues": [
-          {
-            "id": 0,
-            "text": "एक व्यक्ति रसोई में प्रवेश करता है।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 8,
-            "seconds": 2.9,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 1,
-            "text": "चरण 1 - प्याज काटें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 2.06,
-            "overlap_seconds": 0,
-            "retried": false
-          },
-          {
-            "id": 2,
-            "text": "हिलाएं और परोसें।",
-            "ok": true,
-            "problems": [],
-            "suggested_max_words": 10,
-            "seconds": 1.73,
-            "overlap_seconds": 0,
-            "retried": false
-          }
-        ],
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 14,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.0208373320056126,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 54,
-      "t_wall": 169.58403174599516,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 1.1990447910065996,
-      "tokens_in": 5748,
-      "tokens_out": 32,
-      "cost_usd": 0.005844,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 55,
-      "t_wall": 171.0993263979908,
-      "role": "tool",
-      "note": "All cues committed, verified, and translated",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": true,
-        "warnings": [
-          "1 high-importance events lack an associated cue"
-        ],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/sample_kitchen",
-        "state": {
-          "committed": [
-            0,
-            1,
-            2
-          ],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 13,
-            "inspections": 8,
-            "verifications": 6
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.515283147993614,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     }
   ],
   "summary": {
     "tool_calls": {
-      "detect_speech_gaps": 1,
-      "inspect_video_segment": 4,
-      "draft_description": 2,
-      "propose_cue": 7,
-      "verify_claim": 2,
-      "translate_hindi": 3,
-      "finalize": 3,
-      "drop_gap": 1
+      "stage:gaps": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:assign": 1,
+      "stage:script": 1,
+      "stage:tighten": 1,
+      "verify_claim": 4,
+      "stage:verify": 1,
+      "stage:render": 1
     },
-    "corrections": 3,
+    "corrections": 0,
     "verifications": {
-      "verified": 2,
+      "verified": 4,
       "contradicted": 0,
       "unverified": 0
     },
-    "repeat_refusals": 1,
+    "repeat_refusals": 0,
     "auto_redrafts": 0,
     "draft_overlimit": 0,
     "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 17,
+    "orchestrator_turns": 2,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.09569100000000001,
-      "nvidia/Nemotron-3.5-Super-VL": 0.0030279,
-      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.00020963999999999998
+      "nvidia/Nemotron-3.5-Super-VL": 0.0048363,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006595999999999999,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 3.324e-05
     },
-    "total_latency_s": 171.09977614699164
-  }
+    "total_latency_s": 69.82799999999406
+  },
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.656,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "4 narratable slots of 4, 4 long enough; detector silero-onnx; speech 42%; measured voice wps en 3.51 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.11,
+      "input": "ffmpeg scene-change detection",
+      "output": "0 shot cuts; 3 perception windows of ~12 s 0-10s, 10-20s, 20-30s; est. Super VL timeline cost $0.0074 (upper bound from config prices)"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2343,
+      "tokens_out": 87,
+      "cost_usd": 0.0007811999999999999,
+      "latency_s": 3.406,
+      "input": "Super VL on 6 stills across the clip",
+      "output": "setting: dark teal screen with yellow outline | activity: title cards indicate cooking steps"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 6475,
+      "tokens_out": 1124,
+      "cost_usd": 0.0029541,
+      "latency_s": 10.328,
+      "input": "Super VL video windows covering the whole clip",
+      "output": "10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1726,
+      "tokens_out": 410,
+      "cost_usd": 0.002956,
+      "latency_s": 2.016,
+      "input": "scene + shots + timeline",
+      "output": "place: title card screen | setting: dark teal screen with moving yellow rectangle and text cards | cast: no recurring people | goal: show cooking steps via title cards | story: A title card announces a person entering a kitchen, then a yellow rectangle moves across a dark teal screen before a final card reads 'Stir and serve'. | 4 beats"
+    },
+    {
+      "stage": "assign",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "midpoint / >=50% overlap; refuted excluded",
+      "output": "4 gaps carry a story beat; 6 of 10 events inside narratable gaps; 4 in speech (context only); per gap {0: 1, 1: 2, 2: 2, 3: 1}"
+    },
+    {
+      "stage": "script",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 3163,
+      "tokens_out": 159,
+      "cost_usd": 0.00364,
+      "latency_s": 24.437,
+      "input": "bible + timeline + all gaps -> whole English track",
+      "output": "4 gaps scripted in one call: {'pending': 3, 'failed': 1}"
+    },
+    {
+      "stage": "tighten",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 358,
+      "tokens_out": 49,
+      "cost_usd": 3.324e-05,
+      "latency_s": 18.656,
+      "input": "1 cues over budget only -> Nemotron Nano (no Ultra)",
+      "output": "over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}"
+    },
+    {
+      "stage": "verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2941,
+      "tokens_out": 243,
+      "cost_usd": 0.001101,
+      "latency_s": 3.047,
+      "input": "4 cues, 2 stills each",
+      "output": "4 cues checked on stills inside their gaps: {'supported': 4}"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.75,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "4 cues rendered (en: 4); 0 gaps silent by choice"
+    }
+  ]
 }

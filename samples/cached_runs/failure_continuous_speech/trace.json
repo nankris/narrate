@@ -30,112 +30,59 @@
       "scene_context": true,
       "scene_frames": 6
     },
-    "mock_notice": null
+    "mock_notice": null,
+    "mode": "director"
   },
   "steps": [
     {
       "step": 1,
-      "t_wall": 1.0001327610225417,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
+      "t_wall": 7.077999999994063,
+      "role": "tool",
+      "note": "gaps: 0 narratable slots of 0, 0 long enough; detector silero-onnx; speech 100%; measured voice wps en 3.695 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds",
+      "tool_name": "stage:gaps",
       "args": {},
-      "result": null,
+      "result": {
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
+      },
       "ok": true,
-      "latency_s": 1.0000394730013795,
-      "tokens_in": 3217,
-      "tokens_out": 39,
-      "cost_usd": 0.003334,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
+      "latency_s": 0.688,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "model": null,
+      "correction": false
     },
     {
       "step": 2,
-      "t_wall": 1.2188097280159127,
+      "t_wall": 7.702999999994063,
       "role": "tool",
-      "note": "Detect speech gaps for 30s video",
-      "tool_name": "detect_speech_gaps",
+      "note": "render: 0 cues rendered (en: 0); 0 gaps silent by choice",
+      "tool_name": "stage:render",
       "args": {},
       "result": {
-        "gaps": [],
-        "detector": "silero-onnx",
-        "speech_ratio": 1.0,
-        "state": {
-          "committed": [],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 29,
-            "inspections": 12,
-            "verifications": 8
-          }
-        }
+        "models": [],
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0
       },
       "ok": true,
-      "latency_s": 0.21866490200045519,
+      "latency_s": 0.625,
       "tokens_in": 0,
       "tokens_out": 0,
       "cost_usd": 0,
       "model": null,
-      "correction": false,
-      "corrects_step": null
-    },
-    {
-      "step": 3,
-      "t_wall": 2.2009047510218807,
-      "role": "orchestrator",
-      "note": "",
-      "tool_name": null,
-      "args": {},
-      "result": null,
-      "ok": true,
-      "latency_s": 0.982063758012373,
-      "tokens_in": 3342,
-      "tokens_out": 31,
-      "cost_usd": 0.003435,
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "correction": false,
-      "cached_tokens": 0
-    },
-    {
-      "step": 4,
-      "t_wall": 3.4983153920038603,
-      "role": "tool",
-      "note": "No speech gaps found; continuous dialogue",
-      "tool_name": "finalize",
-      "args": {},
-      "result": {
-        "ok": true,
-        "warnings": [],
-        "outputs": "/workspace/hackathons/nebius-nvidia/narrate/samples/cached_runs/failure_continuous_speech",
-        "state": {
-          "committed": [],
-          "remaining": [],
-          "skipped_too_short": [],
-          "needs_verification": [],
-          "budget": {
-            "turns": 28,
-            "inspections": 12,
-            "verifications": 8
-          }
-        }
-      },
-      "ok": true,
-      "latency_s": 1.2973983650153968,
-      "tokens_in": 0,
-      "tokens_out": 0,
-      "cost_usd": 0,
-      "model": null,
-      "correction": false,
-      "corrects_step": null
+      "correction": false
     }
   ],
   "summary": {
     "tool_calls": {
-      "detect_speech_gaps": 1,
-      "finalize": 1
+      "stage:gaps": 1,
+      "stage:render": 1
     },
     "corrections": 0,
     "verifications": {
@@ -147,10 +94,36 @@
     "auto_redrafts": 0,
     "draft_overlimit": 0,
     "orchestrator_authored_cues": 0,
-    "orchestrator_turns": 2,
-    "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006769000000000001
+    "orchestrator_turns": 0,
+    "cost_by_model": {},
+    "total_latency_s": 7.702999999994063
+  },
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.688,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "0 narratable slots of 0, 0 long enough; detector silero-onnx; speech 100%; measured voice wps en 3.695 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
     },
-    "total_latency_s": 3.498359014018206
-  }
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.625,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "0 cues rendered (en: 0); 0 gaps silent by choice"
+    }
+  ]
 }

@@ -1,0 +1,2355 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 110.0,
+  "fallback_finalize": false,
+  "issues": [
+    "extended coverage guarantee not met after model rescue: missing pauses [6]; largest source gap 31.90 s"
+  ],
+  "mode": "director",
+  "video_title": "Astronauts harvest, eat first chile pepper crop on space station",
+  "ad_mode": "extended",
+  "input_path": "C:\\Users\\Nandigam.Krishna\\narrate\\samples\\nasa_chile_harvest_0000-0150.mp4",
+  "detector": "silero-onnx",
+  "speech_ratio": 0.04356363636363625,
+  "detector_fallback_reason": null,
+  "micro_silences": [],
+  "scene_context": {
+    "setting": "International Space Station module with equipment panels, wires, and microgravity environment.",
+    "activity": "crew members tending plants and gathering together in the station module",
+    "dish": "",
+    "visual_style": "documentary footage from inside the International Space Station",
+    "people": [
+      "astronaut with gray hair, glasses, black shirt, blue gloves, tending to plants in a growth chamber",
+      "astronaut with short hair, black shirt, blue gloves, placing a sample on a black board",
+      "astronaut in blue polo shirt, standing and interacting with crew",
+      "astronaut in dark shirt, holding equipment and interacting with crew"
+    ],
+    "ingredients": [],
+    "tools": [
+      "blue gloves",
+      "camera",
+      "black board",
+      "yellow sticky note",
+      "laptop"
+    ],
+    "objects": [
+      "plant growth chamber",
+      "green plants",
+      "wires",
+      "panels"
+    ],
+    "burned_in_subtitles": false,
+    "confidence": 0.9
+  },
+  "extended_coverage": {
+    "planned": 9,
+    "described": 8,
+    "largest_source_gap_s": 31.9,
+    "max_source_gap_s": 25.0,
+    "missing_pause_ids": [
+      6
+    ],
+    "guarantee_met": false
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 1,
+      "source_t": 0.5,
+      "out_start": 0.8,
+      "out_end": 10.772971,
+      "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module."
+    },
+    {
+      "id": 2,
+      "source_t": 25.0,
+      "out_start": 35.972971,
+      "out_end": 49.637914,
+      "text": "The gray-haired astronaut in a black shirt and blue gloves turns to the chamber and tends the plants with both hands, adjusting foliage. He then steps back briefly. He returns and reaches in again to tend the plants."
+    },
+    {
+      "id": 3,
+      "source_t": 28.6,
+      "out_start": 53.937914,
+      "out_end": 64.897733,
+      "text": "The gray-haired astronaut in a black shirt and blue gloves reaches into the growth chamber, adjusting the green plants. He works carefully among the foliage and surrounding cables."
+    },
+    {
+      "id": 4,
+      "source_t": 53.6,
+      "out_start": 90.597733,
+      "out_end": 99.827665,
+      "text": "He repeatedly withdraws and reinserts both hands, carefully arranging the plants each time. The chamber and surrounding cables stay in view."
+    },
+    {
+      "id": 5,
+      "source_t": 55.0,
+      "out_start": 101.927665,
+      "out_end": 110.228799,
+      "text": "The astronaut keeps both hands inside the chamber, carefully arranging the green plants. He works steadily among the cables and paneling."
+    },
+    {
+      "id": 7,
+      "source_t": 86.9,
+      "out_start": 142.828799,
+      "out_end": 155.193425,
+      "text": "Four astronauts gather in a module with equipment racks and a laptop. They pass the pepper hand to hand, smiling and laughing. The blue-shirted astronaut hands it to the dark-shirted astronaut, who holds it up."
+    },
+    {
+      "id": 8,
+      "source_t": 101.0,
+      "out_start": 169.993425,
+      "out_end": 177.261271,
+      "text": "The dark-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. A crewmate continues filming the group."
+    },
+    {
+      "id": 9,
+      "source_t": 110.0,
+      "out_start": 186.961271,
+      "out_end": 198.234559,
+      "text": "At a table with a green cutting board, the black-shirted astronaut holds the pepper. The green-shirted astronaut reaches across the table toward it. The blue-shirted astronaut touches the board nearby."
+    }
+  ],
+  "pauses": [
+    {
+      "t": 0.5,
+      "snapped": false,
+      "from_t": 0.5,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 0.5,
+      "reason": "establishing pause near the start",
+      "source": "establishing",
+      "id": 1,
+      "cue_id": 1,
+      "cue_text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+      "evidence": [
+        "frame-p1"
+      ],
+      "evidence_times": [
+        {
+          "id": "frame-p1",
+          "t_end": 0.5
+        }
+      ],
+      "narration_seconds": 9.973,
+      "freeze_seconds": 10.673,
+      "out_start": 0.5,
+      "out_end": 11.172971,
+      "cue_out_start": 0.8,
+      "cue_out_end": 10.772971,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a blue-gloved hand reaching toward a panel beside a lit plant growth chamber filled with green plants, with equipment panels and cables lining the walls of the space station module."
+      }
+    },
+    {
+      "t": 25.0,
+      "snapped": false,
+      "from_t": 25.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 25.0,
+      "reason": "high-importance event e9",
+      "source": "timeline_event",
+      "detail": "An astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches into an illuminated plant growth chamber and tends to the green plants i",
+      "id": 2,
+      "cue_id": 2,
+      "cue_text": "The gray-haired astronaut in a black shirt and blue gloves turns to the chamber and tends the plants with both hands, adjusting foliage. He then steps back briefly. He returns and reaches in again to tend the plants.",
+      "evidence": [
+        "e2",
+        "e3",
+        "e4",
+        "e5",
+        "e6",
+        "e7",
+        "e8",
+        "e9"
+      ],
+      "evidence_times": [
+        {
+          "id": "e2",
+          "t_end": 5.0
+        },
+        {
+          "id": "e3",
+          "t_end": 8.0
+        },
+        {
+          "id": "e4",
+          "t_end": 11.0
+        },
+        {
+          "id": "e5",
+          "t_end": 14.0
+        },
+        {
+          "id": "e6",
+          "t_end": 17.0
+        },
+        {
+          "id": "e7",
+          "t_end": 20.0
+        },
+        {
+          "id": "e8",
+          "t_end": 22.0
+        },
+        {
+          "id": "e9",
+          "t_end": 25.0
+        }
+      ],
+      "narration_seconds": 13.665,
+      "freeze_seconds": 14.365,
+      "out_start": 35.672971,
+      "out_end": 50.037914,
+      "cue_out_start": 35.972971,
+      "cue_out_end": 49.637914,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a gray-haired man in a black shirt and blue gloves tending green plants inside a chamber with both hands across the timestamps, consistent with the cue. The stills do not show stepping back and returning, but this motion is "
+      }
+    },
+    {
+      "t": 28.6,
+      "snapped": false,
+      "from_t": 28.6,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 28.6,
+      "reason": "high-importance event e42",
+      "source": "timeline_event",
+      "detail": "A person wearing a black sleeve reaches into a machine with hoses and wires and moves their hand around inside it, with no cutting, breaking, opening, pouring, ",
+      "id": 3,
+      "cue_id": 3,
+      "cue_text": "The gray-haired astronaut in a black shirt and blue gloves reaches into the growth chamber, adjusting the green plants. He works carefully among the foliage and surrounding cables.",
+      "evidence": [
+        "e42"
+      ],
+      "evidence_times": [
+        {
+          "id": "e42",
+          "t_end": 28.6
+        }
+      ],
+      "narration_seconds": 10.96,
+      "freeze_seconds": 11.66,
+      "out_start": 53.637914,
+      "out_end": 65.297733,
+      "cue_out_start": 53.937914,
+      "cue_out_end": 64.897733,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a gray-haired man in a black shirt and blue gloves reaching into a growth chamber with green plants and surrounding cables, matching all concrete visual claims."
+      }
+    },
+    {
+      "t": 53.6,
+      "snapped": false,
+      "from_t": 53.6,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 53.6,
+      "reason": "coverage anchor (maximum 25 s source gap)",
+      "source": "coverage",
+      "id": 4,
+      "cue_id": 4,
+      "cue_text": "He repeatedly withdraws and reinserts both hands, carefully arranging the plants each time. The chamber and surrounding cables stay in view.",
+      "evidence": [
+        "e10",
+        "e11",
+        "e12",
+        "e13",
+        "e14",
+        "e15",
+        "e16",
+        "e17",
+        "e18"
+      ],
+      "evidence_times": [
+        {
+          "id": "e10",
+          "t_end": 29.0
+        },
+        {
+          "id": "e11",
+          "t_end": 33.0
+        },
+        {
+          "id": "e12",
+          "t_end": 36.0
+        },
+        {
+          "id": "e13",
+          "t_end": 39.0
+        },
+        {
+          "id": "e14",
+          "t_end": 42.0
+        },
+        {
+          "id": "e15",
+          "t_end": 44.0
+        },
+        {
+          "id": "e16",
+          "t_end": 47.0
+        },
+        {
+          "id": "e17",
+          "t_end": 50.0
+        },
+        {
+          "id": "e18",
+          "t_end": 53.0
+        }
+      ],
+      "narration_seconds": 9.23,
+      "freeze_seconds": 9.93,
+      "out_start": 90.297733,
+      "out_end": 100.227665,
+      "cue_out_start": 90.597733,
+      "cue_out_end": 99.827665,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the man with both gloved hands inside the plant chamber, moving and adjusting the plants across the timestamps; the chamber and surrounding cables remain in view throughout."
+      }
+    },
+    {
+      "t": 55.0,
+      "snapped": false,
+      "from_t": 55.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 55.0,
+      "reason": "story beat",
+      "source": "story_beat",
+      "detail": "astronaut finishes tending and moves away",
+      "id": 5,
+      "cue_id": 5,
+      "cue_text": "The astronaut keeps both hands inside the chamber, carefully arranging the green plants. He works steadily among the cables and paneling.",
+      "evidence": [
+        "e19"
+      ],
+      "evidence_times": [
+        {
+          "id": "e19",
+          "t_end": 55.0
+        }
+      ],
+      "narration_seconds": 8.301,
+      "freeze_seconds": 9.001,
+      "out_start": 101.627665,
+      "out_end": 110.628799,
+      "cue_out_start": 101.927665,
+      "cue_out_end": 110.228799,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a man with both gloved hands inside a chamber filled with cables and paneling, arranging green plants, matching the cue's claims."
+      }
+    },
+    {
+      "t": 86.9,
+      "snapped": false,
+      "from_t": 86.9,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 86.9,
+      "reason": "high-importance event e43",
+      "source": "timeline_event",
+      "detail": "The person in the blue shirt hands a small green bottle to the person in the black shirt, who takes it with both hands.",
+      "id": 7,
+      "cue_id": 7,
+      "cue_text": "Four astronauts gather in a module with equipment racks and a laptop. They pass the pepper hand to hand, smiling and laughing. The blue-shirted astronaut hands it to the dark-shirted astronaut, who holds it up.",
+      "evidence": [
+        "e28",
+        "e29",
+        "e30",
+        "e43"
+      ],
+      "evidence_times": [
+        {
+          "id": "e28",
+          "t_end": 80.0
+        },
+        {
+          "id": "e29",
+          "t_end": 83.0
+        },
+        {
+          "id": "e30",
+          "t_end": 86.0
+        },
+        {
+          "id": "e43",
+          "t_end": 86.9
+        }
+      ],
+      "narration_seconds": 12.365,
+      "freeze_seconds": 13.065,
+      "out_start": 142.528799,
+      "out_end": 155.593425,
+      "cue_out_start": 142.828799,
+      "cue_out_end": 155.193425,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show four people in a module with equipment racks and a laptop. The blue-shirted astronaut passes a small object to the dark-shirted astronaut, who holds it up; the group is smiling and laughing, consistent with the cue."
+      }
+    },
+    {
+      "t": 101.0,
+      "snapped": false,
+      "from_t": 101.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "already_speech_free",
+      "candidate_t": 101.0,
+      "reason": "high-importance event e36",
+      "source": "timeline_event",
+      "detail": "An astronaut in a blue shirt stands with his back to the camera while an astronaut in a black shirt and an astronaut in a green shirt pass a small object betwee",
+      "id": 8,
+      "cue_id": 8,
+      "cue_text": "The dark-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. A crewmate continues filming the group.",
+      "evidence": [
+        "e31",
+        "e32",
+        "e33",
+        "e34",
+        "e35",
+        "e36"
+      ],
+      "evidence_times": [
+        {
+          "id": "e31",
+          "t_end": 88.0
+        },
+        {
+          "id": "e32",
+          "t_end": 91.0
+        },
+        {
+          "id": "e33",
+          "t_end": 94.0
+        },
+        {
+          "id": "e34",
+          "t_end": 97.0
+        },
+        {
+          "id": "e35",
+          "t_end": 99.0
+        },
+        {
+          "id": "e36",
+          "t_end": 101.0
+        }
+      ],
+      "narration_seconds": 7.268,
+      "freeze_seconds": 7.968,
+      "out_start": 169.693425,
+      "out_end": 177.661271,
+      "cue_out_start": 169.993425,
+      "cue_out_end": 177.261271,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a dark-shirted astronaut holding a green pepper while the green-shirted astronaut reaches for it, and another crewmate in a dark shirt is filming the group with a camera."
+      }
+    },
+    {
+      "t": 110.0,
+      "snapped": false,
+      "from_t": 110.0,
+      "snap_seconds": 0.0,
+      "snap_reason": "source_end_closing_freeze",
+      "candidate_t": 110.0,
+      "reason": "closing pause on the final frame",
+      "source": "closing",
+      "id": 9,
+      "cue_id": 9,
+      "cue_text": "At a table with a green cutting board, the black-shirted astronaut holds the pepper. The green-shirted astronaut reaches across the table toward it. The blue-shirted astronaut touches the board nearby.",
+      "evidence": [
+        "e44",
+        "e37",
+        "e45",
+        "e38",
+        "e46",
+        "e40",
+        "e47",
+        "e41"
+      ],
+      "evidence_times": [
+        {
+          "id": "e44",
+          "t_end": 102.0
+        },
+        {
+          "id": "e37",
+          "t_end": 103.0
+        },
+        {
+          "id": "e45",
+          "t_end": 104.0
+        },
+        {
+          "id": "e38",
+          "t_end": 105.0
+        },
+        {
+          "id": "e46",
+          "t_end": 106.0
+        },
+        {
+          "id": "e40",
+          "t_end": 109.0
+        },
+        {
+          "id": "e47",
+          "t_end": 108.0
+        },
+        {
+          "id": "e41",
+          "t_end": 110.0
+        }
+      ],
+      "narration_seconds": 11.273,
+      "freeze_seconds": 11.973,
+      "out_start": 186.661271,
+      "out_end": 198.634559,
+      "cue_out_start": 186.961271,
+      "cue_out_end": 198.234559,
+      "verification": {
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a green cutting board on the table, a black-shirted astronaut holding a small object (the pepper), a green-shirted astronaut reaching across the table toward it, and a blue-shirted astronaut touching the board nearby."
+      }
+    }
+  ],
+  "speech": [
+    {
+      "start": 79.25200000000001,
+      "end": 84.044
+    }
+  ],
+  "cues_committed": 8,
+  "cues_dropped": 1,
+  "dropped_cues": {
+    "6": "Banned phrasing: camera direction. Fix: describe what is visible, not camera movement; a person holding a camera is fine, e.g. \"a crewmate films with a camera\"; camera direction: describe what is visible, never the camera or shot"
+  },
+  "overlaps_with_speech": 0,
+  "total_added_seconds": 88.635,
+  "output_duration_s": 198.634559,
+  "extended_stats": {
+    "pauses": 8,
+    "total_added_seconds": 88.635,
+    "overlaps_with_speech": 0
+  },
+  "bible": {
+    "setting": "International Space Station module with equipment panels, wiring, and a plant growth chamber in microgravity",
+    "place": "space station",
+    "cast": [
+      {
+        "id": "c1",
+        "descriptor": "gray-haired astronaut with glasses",
+        "first_seen": 2.0,
+        "notes": "black shirt, blue gloves; tends plants in the growth chamber; apparent gender: man (clearly visible at 12 s: gray hair and side profile visible at plant chamber)"
+      },
+      {
+        "id": "c2",
+        "descriptor": "astronaut in blue polo shirt",
+        "first_seen": 77.0,
+        "notes": "passes the harvested pepper among the crew; apparent gender: man (clearly visible at 77 s: short hair and face visible in blue polo)"
+      },
+      {
+        "id": "c3",
+        "descriptor": "astronaut in dark shirt",
+        "first_seen": 77.0,
+        "notes": "raises arms in celebration; apparent gender: man (clearly visible at 77 s: short dark hair and face visible in dark shirt)"
+      },
+      {
+        "id": "c4",
+        "descriptor": "astronaut in black shirt",
+        "first_seen": 77.0,
+        "notes": "holds and passes the pepper; apparent gender: man (clearly visible at 88 s: face visible in black shirt)"
+      },
+      {
+        "id": "c5",
+        "descriptor": "astronaut in green shirt",
+        "first_seen": 88.0,
+        "notes": "reaches for the pepper, laughs; apparent gender: man (clearly visible at 88 s: face visible in green shirt)"
+      }
+    ],
+    "objects": [
+      "plant growth chamber",
+      "green plants",
+      "red chili pepper",
+      "black board",
+      "white label",
+      "camera",
+      "blue gloves",
+      "yellow sticky note",
+      "laptop",
+      "green cutting board",
+      "grey cloth",
+      "white-handled tool"
+    ],
+    "goal": "harvest and celebrate first chile pepper crop",
+    "story": "A gray-haired astronaut tends plants in a station growth chamber, then the crew gathers to pass around and photograph a harvested red chili pepper, sharing laughs and celebratory gestures.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "gray-haired astronaut begins tending plants in the growth chamber",
+        "why": "routine plant care for the experiment",
+        "events": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5"
+        ]
+      },
+      {
+        "t": 14.0,
+        "beat": "astronaut adjusts the growth chamber controls",
+        "why": "checks or changes chamber settings",
+        "events": [
+          "e6"
+        ]
+      },
+      {
+        "t": 22.0,
+        "beat": "astronaut returns and resumes plant tending",
+        "why": "continues care after a brief pause",
+        "events": [
+          "e9",
+          "e10",
+          "e12",
+          "e13",
+          "e14",
+          "e15"
+        ]
+      },
+      {
+        "t": 55.0,
+        "beat": "astronaut finishes tending and moves away",
+        "why": "plant care session ends",
+        "events": [
+          "e20",
+          "e21"
+        ]
+      },
+      {
+        "t": 61.0,
+        "beat": "close-up reveals harvested red chili pepper on a black board with a label",
+        "why": "shows the first pepper crop ready for documentation",
+        "events": [
+          "e22"
+        ]
+      },
+      {
+        "t": 64.0,
+        "beat": "astronaut touches and then photographs the pepper",
+        "why": "documents the harvest visually",
+        "events": [
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27"
+        ]
+      },
+      {
+        "t": 77.0,
+        "beat": "four astronauts gather and pass the pepper hand to hand, smiling and laughing",
+        "why": "crew celebrates the first harvest together",
+        "events": [
+          "e28",
+          "e29",
+          "e30",
+          "e31",
+          "e32",
+          "e33"
+        ]
+      },
+      {
+        "t": 100.0,
+        "beat": "crew continues playful exchange of the pepper at a table with a cutting board and tool",
+        "why": "lighthearted handling of the historic specimen",
+        "events": [
+          "e44",
+          "e36",
+          "e45",
+          "e46",
+          "e47"
+        ]
+      }
+    ],
+    "names": [
+      {
+        "name": "red chili pepper",
+        "aliases": [
+          "small object",
+          "specimen",
+          "object"
+        ],
+        "from_t": 61.0
+      },
+      {
+        "name": "black board",
+        "aliases": [
+          "board",
+          "black cutting board"
+        ],
+        "from_t": 61.0
+      },
+      {
+        "name": "green cutting board",
+        "aliases": [
+          "cutting board",
+          "green board",
+          "table"
+        ],
+        "from_t": 100.0
+      }
+    ],
+    "look_for": [
+      {
+        "t_start": 108.0,
+        "t_end": 110.0,
+        "what": "an astronaut actually eating the pepper or a clear shot of the pepper being bitten"
+      }
+    ],
+    "on_screen_text": [
+      {
+        "t": 61.0,
+        "text": "white label beside the pepper",
+        "kind": "label"
+      }
+    ],
+    "subtitles_present": false,
+    "tone": "documentary, celebratory, collaborative",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 2.0,
+      "what": "A gloved hand reaches toward a plant growth chamber filled with green plants inside a module with exposed wiring and panels.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "A hand enters the frame from the right side."
+    },
+    {
+      "id": "e2",
+      "t_start": 2.0,
+      "t_end": 5.0,
+      "what": "An astronaut with gray hair, glasses, and a black shirt turns toward the chamber and reaches in with both gloved hands to tend to the plants.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The astronaut becomes fully visible and begins interacting with the plants."
+    },
+    {
+      "id": "e3",
+      "t_start": 5.0,
+      "t_end": 8.0,
+      "what": "The astronaut uses both gloved hands to adjust and touch the green plants inside the illuminated growth chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The astronaut's hands make contact with the foliage inside the chamber."
+    },
+    {
+      "id": "e4",
+      "t_start": 8.0,
+      "t_end": 11.0,
+      "what": "The astronaut continues to carefully handle the plants within the growth chamber while facing the equipment panel.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut maintains focus on the plants without any new action."
+    },
+    {
+      "id": "e5",
+      "t_start": 11.0,
+      "t_end": 14.0,
+      "what": "The astronaut with gray hair and glasses continues to tend to the green plants inside the illuminated growth chamber, using both blue-gloved hands to adjust the foliage.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "No new person or object; the plant-tending action continues from the previous window."
+    },
+    {
+      "id": "e6",
+      "t_start": 14.0,
+      "t_end": 17.0,
+      "what": "The astronaut reaches toward the right side of the growth chamber panel, appearing to manipulate a control or latch while still facing the plants.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut shifts attention from the plants to the equipment panel on the right."
+    },
+    {
+      "id": "e7",
+      "t_start": 17.0,
+      "t_end": 20.0,
+      "what": "The astronaut turns slightly and moves away from the growth chamber, stepping back into the module as the camera follows.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut leaves the immediate vicinity of the plant chamber."
+    },
+    {
+      "id": "e8",
+      "t_start": 20.0,
+      "t_end": 22.0,
+      "what": "The astronaut is now out of frame, leaving the illuminated growth chamber with green plants visible inside the equipment panel.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut has exited the scene; only the plant chamber remains in view."
+    },
+    {
+      "id": "e9",
+      "t_start": 22.0,
+      "t_end": 25.0,
+      "what": "An astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches into an illuminated plant growth chamber and tends to the green plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The astronaut re-enters the frame and begins interacting with the plants after previously moving away."
+    },
+    {
+      "id": "e10",
+      "t_start": 25.0,
+      "t_end": 29.0,
+      "what": "The astronaut continues to adjust and inspect the plants within the growth chamber, keeping both gloved hands inside the illuminated enclosure.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut remains focused on the plants, making small adjustments to their position."
+    },
+    {
+      "id": "e42",
+      "t_start": 25.4,
+      "t_end": 28.6,
+      "what": "A person wearing a black sleeve reaches into a machine with hoses and wires and moves their hand around inside it, with no cutting, breaking, opening, pouring, handing over, biting, or eating visible.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The hand moves within the machine and then withdraws slightly.",
+      "zoom": true
+    },
+    {
+      "id": "e11",
+      "t_start": 29.0,
+      "t_end": 33.0,
+      "what": "The astronaut finishes tending to the plants and withdraws both hands from the growth chamber, leaving the green plants visible inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut removes their hands from the chamber, ending the plant-tending activity."
+    },
+    {
+      "id": "e12",
+      "t_start": 33.0,
+      "t_end": 36.0,
+      "what": "The astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches into the illuminated plant growth chamber and adjusts the green leafy plants with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut resumes tending to the plants after previously withdrawing his hands."
+    },
+    {
+      "id": "e13",
+      "t_start": 36.0,
+      "t_end": 39.0,
+      "what": "The astronaut continues to manipulate the plants inside the chamber, using both gloved hands to position the foliage among the equipment panels and wires.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Ongoing adjustment of the plants within the growth chamber."
+    },
+    {
+      "id": "e14",
+      "t_start": 39.0,
+      "t_end": 42.0,
+      "what": "The astronaut keeps both hands inside the growth chamber, carefully arranging the green plants while surrounded by cables and paneling.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Continued plant maintenance with no new objects or people introduced."
+    },
+    {
+      "id": "e15",
+      "t_start": 42.0,
+      "t_end": 44.0,
+      "what": "The astronaut maintains both hands inside the illuminated enclosure, tending to the green plants as the scene remains focused on the growth chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "No significant change; the astronaut continues the same plant-tending activity."
+    },
+    {
+      "id": "e16",
+      "t_start": 44.0,
+      "t_end": 47.0,
+      "what": "An astronaut with gray hair and glasses, wearing a black shirt and blue gloves, reaches both hands into an illuminated plant growth chamber and adjusts the green leafy plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut continues tending to the plants within the growth chamber."
+    },
+    {
+      "id": "e17",
+      "t_start": 47.0,
+      "t_end": 50.0,
+      "what": "The astronaut uses both gloved hands to carefully arrange and touch the plants inside the growth chamber while surrounded by cables and paneling.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut's hands move deeper into the chamber to tend to the plants."
+    },
+    {
+      "id": "e18",
+      "t_start": 50.0,
+      "t_end": 53.0,
+      "what": "The astronaut maintains both hands inside the illuminated enclosure, tending to the green plants as the scene remains focused on the growth chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut continues to interact with the plants inside the chamber."
+    },
+    {
+      "id": "e19",
+      "t_start": 53.0,
+      "t_end": 55.0,
+      "what": "The astronaut keeps both hands inside the growth chamber, carefully arranging the green plants while surrounded by cables and paneling.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut continues to tend to the plants within the growth chamber."
+    },
+    {
+      "id": "e20",
+      "t_start": 55.0,
+      "t_end": 58.0,
+      "what": "The astronaut with gray hair and glasses finishes tending to the green plants inside the illuminated growth chamber and moves away from the enclosure.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut exits the frame, leaving the growth chamber empty of people."
+    },
+    {
+      "id": "e21",
+      "t_start": 58.0,
+      "t_end": 61.0,
+      "what": "The camera shows the empty growth chamber with green plants visible inside, surrounded by cables and paneling.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The scene transitions from the astronaut to the empty plant enclosure."
+    },
+    {
+      "id": "e22",
+      "t_start": 61.0,
+      "t_end": 64.0,
+      "what": "A close-up shows a red chili pepper taped to a black board next to a white label, with a camera lens visible at the top left.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The scene cuts to a new object, the pepper on the board, replacing the plant chamber view."
+    },
+    {
+      "id": "e23",
+      "t_start": 64.0,
+      "t_end": 66.0,
+      "what": "The astronaut with gray hair and blue gloves reaches into the frame and touches the red pepper on the black board.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut's hands enter the scene and make contact with the pepper."
+    },
+    {
+      "id": "e24",
+      "t_start": 66.0,
+      "t_end": 69.0,
+      "what": "An astronaut wearing blue gloves holds a black camera in both hands and points it at a red chili pepper taped to a black board next to a white label.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut lifts the camera into the frame and aims it at the pepper."
+    },
+    {
+      "id": "e25",
+      "t_start": 69.0,
+      "t_end": 72.0,
+      "what": "The astronaut continues to hold the camera steady, filming the red pepper and the white label on the black board.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The camera remains focused on the pepper without significant movement."
+    },
+    {
+      "id": "e26",
+      "t_start": 72.0,
+      "t_end": 75.0,
+      "what": "The astronaut keeps the camera trained on the red pepper, maintaining a close-up view of the specimen and label.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "No new action occurs; the filming of the pepper continues."
+    },
+    {
+      "id": "e27",
+      "t_start": 75.0,
+      "t_end": 77.0,
+      "what": "The astronaut lowers the camera away from the black board, ending the close-up recording of the red pepper.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The camera is moved out of the immediate view of the pepper."
+    },
+    {
+      "id": "e28",
+      "t_start": 77.0,
+      "t_end": 80.0,
+      "what": "Four astronauts in a space station module gather around a small object, passing it from hand to hand while smiling and laughing.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "A fourth astronaut with gray hair enters the frame from the bottom, joining the group interaction."
+    },
+    {
+      "id": "e43",
+      "t_start": 78.1,
+      "t_end": 86.9,
+      "what": "The person in the blue shirt hands a small green bottle to the person in the black shirt, who takes it with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The bottle moves from the blue-shirted person's hands to the black-shirted person's hands.",
+      "zoom": true
+    },
+    {
+      "id": "e29",
+      "t_start": 80.0,
+      "t_end": 83.0,
+      "what": "The astronaut in the blue polo shirt holds the object and passes it toward the astronaut in the dark shirt on the right.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The object moves from the center of the group toward the right side as the astronauts continue to share it."
+    },
+    {
+      "id": "e30",
+      "t_start": 83.0,
+      "t_end": 86.0,
+      "what": "The astronaut in the dark shirt takes the object and holds it while the others watch and smile.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The object is now held by the astronaut on the right, completing the pass around the group."
+    },
+    {
+      "id": "e31",
+      "t_start": 86.0,
+      "t_end": 88.0,
+      "what": "The astronaut in the dark shirt extends the object outward toward the camera while the group laughs.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The object is brought forward toward the lens, ending the shared moment with a direct presentation."
+    },
+    {
+      "id": "e32",
+      "t_start": 88.0,
+      "t_end": 91.0,
+      "what": "The astronaut in the black shirt holds a small object while the astronaut in the blue shirt reaches toward it and the astronaut in the green shirt watches, as the astronaut in the foreground films with a camera.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The group shifts focus to the object being held, and the astronaut in the blue shirt leans in to examine it."
+    },
+    {
+      "id": "e33",
+      "t_start": 91.0,
+      "t_end": 94.0,
+      "what": "The astronaut in the black shirt passes the object to the astronaut in the blue shirt, who takes it with both hands while the others smile and the camera operator continues filming.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The object changes hands from the black-shirted astronaut to the blue-shirted astronaut."
+    },
+    {
+      "id": "e34",
+      "t_start": 94.0,
+      "t_end": 97.0,
+      "what": "The astronaut in the blue shirt holds the object while the astronaut in the black shirt gestures with his hands and the astronaut in the green shirt laughs, as the camera operator keeps recording.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The blue-shirted astronaut now possesses the object and the group reacts with laughter."
+    },
+    {
+      "id": "e35",
+      "t_start": 97.0,
+      "t_end": 99.0,
+      "what": "The astronaut in the blue shirt continues to hold the object while the astronaut in the black shirt leans forward and the astronaut in the green shirt smiles broadly, as the camera operator maintains his position.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The scene stabilizes with the blue-shirted astronaut holding the object and the group sharing a lighthearted moment."
+    },
+    {
+      "id": "e36",
+      "t_start": 99.0,
+      "t_end": 101.0,
+      "what": "An astronaut in a blue shirt stands with his back to the camera while an astronaut in a black shirt and an astronaut in a green shirt pass a small object between them, and an astronaut in a dark shirt behind them raises both arms in celebra",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The astronaut in the dark shirt raises both arms upward in a celebratory gesture."
+    },
+    {
+      "id": "e44",
+      "t_start": 100.0,
+      "t_end": 102.0,
+      "what": "A person in a black shirt holds a small object in both hands over a table with a green cutting board and a grey cloth, while another person in a blue shirt reaches toward the table.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "No cutting, breaking, peeling, opening, pouring, handing, biting, or eating occurs; the object is simply held.",
+      "zoom": true
+    },
+    {
+      "id": "e37",
+      "t_start": 101.0,
+      "t_end": 103.0,
+      "what": "The astronaut in the dark shirt keeps both arms raised while the astronaut in the black shirt continues to hold the small object and the astronaut in the green shirt reaches toward it.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The celebratory arm raise is sustained as the object exchange continues."
+    },
+    {
+      "id": "e45",
+      "t_start": 102.0,
+      "t_end": 104.0,
+      "what": "The person in the green shirt extends an arm across the table toward the green cutting board while the person in the black shirt continues to hold the small object.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "No cutting, breaking, peeling, opening, pouring, handing, biting, or eating occurs; only reaching and holding are visible.",
+      "zoom": true
+    },
+    {
+      "id": "e38",
+      "t_start": 103.0,
+      "t_end": 105.0,
+      "what": "The astronaut in the dark shirt lowers his arms and turns slightly while the astronaut in the black shirt and the astronaut in the green shirt continue passing the small object back and forth.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The astronaut in the dark shirt stops raising his arms and lowers them."
+    },
+    {
+      "id": "e46",
+      "t_start": 104.0,
+      "t_end": 106.0,
+      "what": "The person in the blue shirt places a hand on the green cutting board and moves it slightly, while the person in the black shirt still holds the small object.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "No cutting, breaking, peeling, opening, pouring, handing, biting, or eating occurs; the board is touched but not used to cut anything.",
+      "zoom": true
+    },
+    {
+      "id": "e39",
+      "t_start": 105.0,
+      "t_end": 107.0,
+      "what": "The astronaut in the black shirt holds the small object while the astronaut in the green shirt reaches for it, and the astronaut in the dark shirt stands beside them watching.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The object remains in the black-shirted astronaut's hands as the green-shirted astronaut attempts to take it."
+    },
+    {
+      "id": "e47",
+      "t_start": 106.0,
+      "t_end": 108.0,
+      "what": "The person in the black shirt lifts a white-handled tool above the table while the person in the blue shirt keeps a hand on the green cutting board.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "No cutting, breaking, peeling, opening, pouring, handing, biting, or eating occurs; the tool is lifted but not used on any object.",
+      "zoom": true
+    },
+    {
+      "id": "e40",
+      "t_start": 107.0,
+      "t_end": 109.0,
+      "what": "The astronaut in the black shirt continues to hold the small object while the astronaut in the green shirt reaches toward it and the astronaut in the dark shirt watches from the side.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The scene remains consistent with the object exchange ongoing."
+    },
+    {
+      "id": "e41",
+      "t_start": 109.0,
+      "t_end": 110.0,
+      "what": "The astronaut in the black shirt still holds the small object while the astronaut in the green shirt reaches for it and the astronaut in the dark shirt stands nearby.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "No significant change; the object exchange continues as the window ends."
+    }
+  ],
+  "shots": [
+    23.8,
+    61.8,
+    77.0,
+    95.6
+  ],
+  "stages": [
+    {
+      "stage": "speech",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.157,
+      "input": "Silero VAD speech intervals",
+      "output": "1 speech intervals; 4% speech; 0 between-sentence micro-silences"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.546,
+      "input": "ffmpeg scene cuts",
+      "output": "4 scene cuts; 0 sensitive visual changes; 10 perception windows; est. Super VL timeline cost $0.0266"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2355,
+      "tokens_out": 320,
+      "cost_usd": 0.0009945,
+      "latency_s": 6.579,
+      "input": "Super VL scene context",
+      "output": "setting: International Space Station module with equipment panels, wires, and microgravity environment. | people: astronaut with gray hair, glasses, black shirt, blue gloves, tending to plants in a growth chamber; astronaut with short hair, black shirt, blue gloves, placing a sample on a black board"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 24187,
+      "tokens_out": 4031,
+      "cost_usd": 0.010884,
+      "latency_s": 78.765,
+      "input": "Super VL whole-clip windows",
+      "output": "41 events from 10 windows ({'video': 10, 'absolute': 10}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "text_stills",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "Super VL re-reads on-screen text from stills",
+      "output": "no on-screen text to re-read"
+    },
+    {
+      "stage": "zoom",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 6,
+      "ultra_calls": 0,
+      "tokens_in": 8763,
+      "tokens_out": 938,
+      "cost_usd": 0.0034731,
+      "latency_s": 19.016,
+      "input": "Super VL crops to hand-and-object activity where the wide shot is vague",
+      "output": "3 zoom looks (25-29s plant inside illuminated chamber; 77-88s handling a small object; 99-109s green folder on table): 6 new events ['e42', 'e43', 'e44', 'e45', 'e46', 'e47']"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 5133,
+      "tokens_out": 1277,
+      "cost_usd": 0.008964,
+      "latency_s": 4.328,
+      "input": "Ultra scene/story bible",
+      "output": "place: space station | setting: International Space Station module with equipment panels, wiring, and a plant growth chamber in microgravity | cast: gray-haired astronaut with glasses, astronaut in blue polo shirt, astronaut in dark shirt, astronaut in black shirt, astronaut in green shirt | goal: harvest and celebrate first chile pepper crop | story: A gray-haired astronaut tends plants in a stat"
+    },
+    {
+      "stage": "cast_look",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3422,
+      "tokens_out": 292,
+      "cost_usd": 0.0012894,
+      "latency_s": 6.219,
+      "input": "Super VL apparent gender per cast member, only when clearly visible",
+      "output": "gray-haired astronaut with glasses: man; astronaut in blue polo shirt: man; astronaut in dark shirt: man; astronaut in black shirt: man; astronaut in green shirt: man"
+    },
+    {
+      "stage": "pause_plan",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "cuts + speech ends + key events + story beats",
+      "output": "9 pauses; largest source gap 25.00 s (hard max 25.0 s); final at 110.00 s"
+    },
+    {
+      "stage": "pause_frames",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3195,
+      "tokens_out": 1011,
+      "cost_usd": 0.0018684,
+      "latency_s": 14.609,
+      "input": "Super VL current frames at pauses",
+      "output": "9 current frames described by Super VL"
+    },
+    {
+      "stage": "extended_write",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 7604,
+      "tokens_out": 686,
+      "cost_usd": 0.009662,
+      "latency_s": 3.563,
+      "input": "one Ultra call for every pause",
+      "output": "9 of 9 pauses written in one Ultra call"
+    },
+    {
+      "stage": "extended_check_verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 8,
+      "ultra_calls": 2,
+      "tokens_in": 22135,
+      "tokens_out": 1111,
+      "cost_usd": 0.0164513,
+      "latency_s": 26.125,
+      "input": "Round 7 hard/soft checks and still verification",
+      "output": "6 verified extended cues; 3 dropped; 2 repair rounds"
+    },
+    {
+      "stage": "extended_rescue",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+        "nvidia/Nemotron-3-Ultra-550b-a55b",
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 5,
+      "ultra_calls": 1,
+      "tokens_in": 8838,
+      "tokens_out": 472,
+      "cost_usd": 0.00608474,
+      "latency_s": 15.125,
+      "input": "retry every dropped planned pause before rendering",
+      "output": "2 of 3 missing planned pauses rescued with model-written text"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 70.031,
+      "input": "freeze video, silence programme audio, mix narration",
+      "output": "8 freezes rendered; +88.63 seconds"
+    }
+  ],
+  "cue_history": {
+    "1": [
+      {
+        "step": "check",
+        "text": "Inside a space station module, a blue-gloved hand reaches toward a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls.",
+        "evidence": [
+          "e1"
+        ],
+        "problems": [
+          "future event evidence outside this window: e1",
+          "no cited evidence in (previous pause, this pause]"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module."
+      },
+      {
+        "step": "check",
+        "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+        "evidence": [],
+        "problems": [
+          "no cited evidence in (previous pause, this pause]"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module."
+      },
+      {
+        "step": "check",
+        "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5"
+        ],
+        "problems": [
+          "future event evidence outside this window: e1, e2, e3, e4, e5",
+          "no cited evidence in (previous pause, this pause]"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "future event evidence outside this window: e1, e2, e3, e4, e5; no cited evidence in (previous pause, this pause]",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "A blue-gloved hand reaches toward a panel beside a lit plant growth chamber filled with green plants. Equipment panels and cables line the walls of the space station module.",
+        "problems": []
+      },
+      {
+        "step": "rescue_verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a blue-gloved hand reaching toward a panel beside a lit plant growth chamber filled with green plants, with equipment panels and cables lining the walls of the space station module."
+      }
+    ],
+    "2": [
+      {
+        "step": "check",
+        "text": "The gray-haired astronaut in a black shirt and blue gloves turns to the chamber and tends the plants with both hands, adjusting foliage. He then steps back briefly. He returns and reaches in again to tend the plants.",
+        "evidence": [
+          "e2",
+          "e3",
+          "e4",
+          "e5",
+          "e6",
+          "e7",
+          "e8",
+          "e9"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a gray-haired man in a black shirt and blue gloves tending green plants inside a chamber with both hands across the timestamps, consistent with the cue. The stills do not show stepping back and returning, but this motion is "
+      }
+    ],
+    "3": [
+      {
+        "step": "check",
+        "text": "The astronaut continues working inside the growth chamber, his gloved hands moving among the green plants.",
+        "evidence": [
+          "e42"
+        ],
+        "problems": [
+          "Style: only 16 words; aim for 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The gray-haired astronaut in a black shirt and blue gloves reaches into the growth chamber, adjusting the green plants. He works carefully among the foliage and surrounding cables."
+      },
+      {
+        "step": "check",
+        "text": "The gray-haired astronaut in a black shirt and blue gloves reaches into the growth chamber, adjusting the green plants. He works carefully among the foliage and surrounding cables.",
+        "evidence": [
+          "e42"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a gray-haired man in a black shirt and blue gloves reaching into a growth chamber with green plants and surrounding cables, matching all concrete visual claims."
+      }
+    ],
+    "4": [
+      {
+        "step": "check",
+        "text": "He repeatedly withdraws and reinserts both hands, carefully arranging the plants each time. The chamber and surrounding cables stay in view.",
+        "evidence": [
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14",
+          "e15",
+          "e16",
+          "e17",
+          "e18"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show the man with both gloved hands inside the plant chamber, moving and adjusting the plants across the timestamps; the chamber and surrounding cables remain in view throughout."
+      }
+    ],
+    "5": [
+      {
+        "step": "check",
+        "text": "The astronaut finishes arranging the plants and keeps his hands inside the chamber.",
+        "evidence": [
+          "e19"
+        ],
+        "problems": [
+          "Style: only 13 words; aim for 20-45",
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The astronaut keeps both hands inside the chamber, carefully arranging the green plants. He works steadily among the cables and paneling."
+      },
+      {
+        "step": "check",
+        "text": "The astronaut keeps both hands inside the chamber, carefully arranging the green plants. He works steadily among the cables and paneling.",
+        "evidence": [
+          "e19"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a man with both gloved hands inside a chamber filled with cables and paneling, arranging green plants, matching the cue's claims."
+      }
+    ],
+    "6": [
+      {
+        "step": "check",
+        "text": "The gray-haired astronaut moves away. The camera then shows the empty chamber. A close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera, holding the shot steady before lowering the camera.",
+        "evidence": [
+          "e20",
+          "e21",
+          "e22",
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27"
+        ],
+        "problems": [
+          "Style: 47 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device."
+      },
+      {
+        "step": "check",
+        "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device.",
+        "evidence": [
+          "e20",
+          "e21",
+          "e22",
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27"
+        ],
+        "problems": [
+          "Style: 48 words; tighten toward 20-45",
+          "Banned phrasing: camera direction. Fix: describe what is visible, not camera movement; a person holding a camera is fine, e.g. \"a crewmate films with a camera\"",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device."
+      },
+      {
+        "step": "check",
+        "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device.",
+        "evidence": [
+          "e20",
+          "e21",
+          "e22",
+          "e23",
+          "e24",
+          "e25",
+          "e26",
+          "e27"
+        ],
+        "problems": [
+          "Style: 48 words; tighten toward 20-45",
+          "Banned phrasing: camera direction. Fix: describe what is visible, not camera movement; a person holding a camera is fine, e.g. \"a crewmate films with a camera\"",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "Banned phrasing: camera direction. Fix: describe what is visible, not camera movement; a person holding a camera is fine, e.g. \"a crewmate films with a camera\"; camera direction: describe what is visible, never the camera or shot",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "The gray-haired astronaut finishes tending the plants and moves away. The camera shows the empty chamber, then a close-up reveals a red chili pepper taped to a black board beside a white label. The astronaut touches the pepper, then films it with a camera before lowering the device.",
+        "problems": [
+          "Style: 48 words; tighten toward 20-45",
+          "Banned phrasing: camera direction. Fix: describe what is visible, not camera movement; a person holding a camera is fine, e.g. \"a crewmate films with a camera\"",
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      }
+    ],
+    "7": [
+      {
+        "step": "check",
+        "text": "Four astronauts gather in a module with racks and a laptop. They pass the pepper hand to hand, smiling and laughing. The blue-shirted astronaut hands it to the dark-shirted astronaut, who holds it up. The black-shirted astronaut then passes it to the blue-shirted astronaut.",
+        "evidence": [
+          "e28",
+          "e29",
+          "e30",
+          "e33",
+          "e43"
+        ],
+        "problems": [
+          "cue must be 2-3 fluent sentences",
+          "future event evidence outside this window: e33"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "Four astronauts gather in a module with equipment racks and a laptop. They pass the pepper hand to hand, smiling and laughing. The blue-shirted astronaut hands it to the dark-shirted astronaut, who holds it up."
+      },
+      {
+        "step": "check",
+        "text": "Four astronauts gather in a module with equipment racks and a laptop. They pass the pepper hand to hand, smiling and laughing. The blue-shirted astronaut hands it to the dark-shirted astronaut, who holds it up.",
+        "evidence": [
+          "e28",
+          "e29",
+          "e30",
+          "e43"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show four people in a module with equipment racks and a laptop. The blue-shirted astronaut passes a small object to the dark-shirted astronaut, who holds it up; the group is smiling and laughing, consistent with the cue."
+      }
+    ],
+    "8": [
+      {
+        "step": "check",
+        "text": "The group clusters in zero gravity. The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. The blue-shirted astronaut rests a hand on a green cutting board. The black-shirted astronaut lifts a white-handled tool above the board.",
+        "evidence": [
+          "e36",
+          "e37",
+          "e45",
+          "e38",
+          "e46",
+          "e40",
+          "e47",
+          "e41"
+        ],
+        "problems": [
+          "Style: 48 words; tighten toward 20-45",
+          "cue must be 2-3 fluent sentences",
+          "future event evidence outside this window: e37, e45, e38, e46, e40, e47, e41"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. The camera operator continues filming the group."
+      },
+      {
+        "step": "check",
+        "text": "The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. The camera operator continues filming the group.",
+        "evidence": [
+          "e31",
+          "e32",
+          "e33",
+          "e36"
+        ],
+        "problems": [
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "repair_2",
+        "text": "The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. The camera operator continues filming the group."
+      },
+      {
+        "step": "check",
+        "text": "The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. The camera operator continues filming the group.",
+        "evidence": [
+          "e31",
+          "e32",
+          "e33",
+          "e36"
+        ],
+        "problems": [
+          "camera direction: describe what is visible, never the camera or shot"
+        ]
+      },
+      {
+        "step": "rescue_retry",
+        "reason": [
+          "camera direction: describe what is visible, never the camera or shot",
+          "Coverage rescue: write this planned pause; do not skip it"
+        ]
+      },
+      {
+        "step": "rescue_check",
+        "text": "The dark-shirted astronaut raises both arms in celebration. The black-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. A crewmate continues filming the group.",
+        "problems": []
+      },
+      {
+        "step": "rescue_verify",
+        "verdict": "contradicted",
+        "wrong": "raises both arms in celebration",
+        "reason": "The dark-shirted astronaut keeps his arms down and does not raise them; the group is gathered around a pepper, not celebrating with raised arms."
+      },
+      {
+        "step": "rescue_strike_check",
+        "text": "The dark-shirted astronaut holds the pepper while the green-shirted astronaut reaches for it. A crewmate continues filming the group.",
+        "problems": [
+          "Style: only 19 words; aim for 20-45"
+        ]
+      },
+      {
+        "step": "rescue_strike_verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a dark-shirted astronaut holding a green pepper while the green-shirted astronaut reaches for it, and another crewmate in a dark shirt is filming the group with a camera."
+      }
+    ],
+    "9": [
+      {
+        "step": "check",
+        "text": "At a table with a green cutting board and grey cloth, the black-shirted astronaut holds the pepper. The green-shirted astronaut reaches across the table toward it. The blue-shirted astronaut touches the board. The dark-shirted astronaut watches nearby.",
+        "evidence": [
+          "e44",
+          "e37",
+          "e45",
+          "e38",
+          "e46",
+          "e40",
+          "e47",
+          "e41"
+        ],
+        "problems": [
+          "cue must be 2-3 fluent sentences"
+        ]
+      },
+      {
+        "step": "repair_1",
+        "text": "At a table with a green cutting board, the black-shirted astronaut holds the pepper. The green-shirted astronaut reaches across the table toward it. The blue-shirted astronaut touches the board nearby."
+      },
+      {
+        "step": "check",
+        "text": "At a table with a green cutting board, the black-shirted astronaut holds the pepper. The green-shirted astronaut reaches across the table toward it. The blue-shirted astronaut touches the board nearby.",
+        "evidence": [
+          "e44",
+          "e37",
+          "e45",
+          "e38",
+          "e46",
+          "e40",
+          "e47",
+          "e41"
+        ],
+        "problems": []
+      },
+      {
+        "step": "verify",
+        "verdict": "supported",
+        "wrong": "",
+        "reason": "The frames show a green cutting board on the table, a black-shirted astronaut holding a small object (the pepper), a green-shirted astronaut reaching across the table toward it, and a blue-shirted astronaut touching the board nearby."
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 5,
+    "max_ultra_calls": 6
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2355,
+      "output_tokens": 320,
+      "cost_usd": 0.0009945,
+      "latency_s": 6.125,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2332,
+      "output_tokens": 310,
+      "cost_usd": 0.0009786,
+      "latency_s": 4.5310000000026776,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2415,
+      "output_tokens": 386,
+      "cost_usd": 0.0010719000000000002,
+      "latency_s": 14.23399999999674,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2424,
+      "output_tokens": 301,
+      "cost_usd": 0.0009980999999999998,
+      "latency_s": 7.438000000009197,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2429,
+      "output_tokens": 392,
+      "cost_usd": 0.0010815,
+      "latency_s": 9.406000000002678,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2429,
+      "output_tokens": 389,
+      "cost_usd": 0.0010788,
+      "latency_s": 10.140999999988708,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2429,
+      "output_tokens": 385,
+      "cost_usd": 0.0010752,
+      "latency_s": 6.156999999991967,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2433,
+      "output_tokens": 375,
+      "cost_usd": 0.0010674,
+      "latency_s": 4.64100000000326,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2423,
+      "output_tokens": 389,
+      "cost_usd": 0.001077,
+      "latency_s": 6.546999999991385,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2417,
+      "output_tokens": 453,
+      "cost_usd": 0.0011328,
+      "latency_s": 4.85899999999674,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2456,
+      "output_tokens": 651,
+      "cost_usd": 0.0013226999999999998,
+      "latency_s": 7.10899999999674,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1077,
+      "output_tokens": 28,
+      "cost_usd": 0.00034829999999999996,
+      "latency_s": 2.312999999994645,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1838,
+      "output_tokens": 135,
+      "cost_usd": 0.0006728999999999999,
+      "latency_s": 2.8289999999979045,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1077,
+      "output_tokens": 29,
+      "cost_usd": 0.0003492,
+      "latency_s": 1.9220000000059372,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1838,
+      "output_tokens": 146,
+      "cost_usd": 0.0006828,
+      "latency_s": 2.437000000005355,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1083,
+      "output_tokens": 28,
+      "cost_usd": 0.00035009999999999994,
+      "latency_s": 1.937000000005355,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1850,
+      "output_tokens": 572,
+      "cost_usd": 0.0010698,
+      "latency_s": 5.562000000005355,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 5133,
+      "output_tokens": 1277,
+      "cost_usd": 0.008964,
+      "latency_s": 4.327999999994063,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2325,
+      "output_tokens": 151,
+      "cost_usd": 0.0008334,
+      "latency_s": 3.297000000005937,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1097,
+      "output_tokens": 141,
+      "cost_usd": 0.000456,
+      "latency_s": 2.360000000000582,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2064,
+      "output_tokens": 643,
+      "cost_usd": 0.0011979,
+      "latency_s": 9.781000000002678,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1131,
+      "output_tokens": 368,
+      "cost_usd": 0.0006705,
+      "latency_s": 4.187000000005355,
+      "cost_role": "pause_frames"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 7604,
+      "output_tokens": 686,
+      "cost_usd": 0.009662,
+      "latency_s": 3.562999999994645,
+      "cost_role": "extended_write"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 6680,
+      "output_tokens": 480,
+      "cost_usd": 0.00812,
+      "latency_s": 3.2960000000020955,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1956,
+      "output_tokens": 80,
+      "cost_usd": 0.0006588,
+      "latency_s": 3.875,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1935,
+      "output_tokens": 58,
+      "cost_usd": 0.0006327,
+      "latency_s": 2.452999999994063,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3750,
+      "output_tokens": 239,
+      "cost_usd": 0.004467,
+      "latency_s": 2.187000000005355,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1947,
+      "output_tokens": 56,
+      "cost_usd": 0.0006345,
+      "latency_s": 3.437000000005355,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1939,
+      "output_tokens": 54,
+      "cost_usd": 0.0006303,
+      "latency_s": 2.639999999999418,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1962,
+      "output_tokens": 73,
+      "cost_usd": 0.0006543,
+      "latency_s": 2.3909999999887077,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1966,
+      "output_tokens": 71,
+      "cost_usd": 0.0006536999999999999,
+      "latency_s": 3.6410000000032596,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3701,
+      "output_tokens": 236,
+      "cost_usd": 0.004409,
+      "latency_s": 1.9210000000020955,
+      "cost_role": "extended_repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1013,
+      "output_tokens": 61,
+      "cost_usd": 0.00035879999999999994,
+      "latency_s": 2.25,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1955,
+      "output_tokens": 70,
+      "cost_usd": 0.0006495,
+      "latency_s": 2.7189999999973224,
+      "cost_role": "verify"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 225,
+      "output_tokens": 36,
+      "cost_usd": 2.214e-05,
+      "latency_s": 4.014999999999418,
+      "cost_role": "extended_strike"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1944,
+      "output_tokens": 69,
+      "cost_usd": 0.0006452999999999999,
+      "latency_s": 3.422000000005937,
+      "cost_role": "verify"
+    }
+  ],
+  "cost_by_role": {
+    "bible": 0.008964,
+    "extended_repair": 0.016996,
+    "extended_strike": 2.214e-05,
+    "extended_write": 0.009662,
+    "pause_frames": 0.0018684,
+    "scene": 0.0022839,
+    "timeline": 0.0143571,
+    "verify": 0.0055179
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.03254805818181818,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:speech": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:text_stills": 1,
+      "stage:zoom": 1,
+      "stage:bible": 1,
+      "stage:cast_look": 1,
+      "stage:pause_plan": 1,
+      "stage:pause_frames": 1,
+      "stage:extended_write": 1,
+      "stage:extended_check_verify": 1,
+      "stage:extended_rescue": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 0,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 5,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.02402730000000001,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.035622,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 2.214e-05
+    },
+    "total_latency_s": 251.07800000000861
+  },
+  "estimated_cost_usd": 0.05967144,
+  "would_be_token_factory_cost_usd": 0.05967144,
+  "reserved_spend_usd": 0.05967144000000001,
+  "cost_per_minute": 0.03254805818181818,
+  "latency_s": 251.07800000000861
+}

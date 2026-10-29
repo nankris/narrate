@@ -1,0 +1,4 @@
+[00:00:04.668] A yellow rectangle moves across a dark teal screen.
+[00:00:11.868] The rectangle reaches the right edge and pauses.
+[00:00:19.932] Text reads Stir and serve in the top left.
+[00:00:27.388] The rectangle moves leftward.

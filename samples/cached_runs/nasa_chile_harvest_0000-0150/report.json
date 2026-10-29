@@ -5,60 +5,60 @@
   "duration_s": 110.0,
   "fallback_finalize": false,
   "issues": [
-    "Cue 3: unverified"
+    "Establishing gap 0 has no verified cue",
+    "Coverage guard: 7 of 10 narratable gaps narrated (70 % excluding silent-by-choice; target 75 %)"
   ],
+  "mode": "director",
+  "video_title": "Astronauts harvest, eat first chile pepper crop on space station",
   "detector": "silero-onnx",
   "speech_ratio": 0.04356363636363625,
   "detector_fallback_reason": null,
+  "tts_wps_measured": {
+    "en": 3.708,
+    "hi": 5.2
+  },
   "scene_context": {
-    "setting": "International Space Station module with equipment panels, wiring, and bright lighting.",
-    "activity": "Astronauts tending to plants and examining a small item together inside a space station module.",
+    "setting": "Indoor spacecraft module with equipment panels, blue surfaces, artificial lighting.",
+    "activity": "",
     "dish": "",
-    "visual_style": "Handheld video footage inside a spacecraft, bright overhead lighting, confined modular environment.",
+    "visual_style": "",
     "people": [
-      "One person with gray hair wearing a black shirt and blue gloves., Tending to green plants inside a growth chamber.",
-      "Same person with gray hair wearing a black shirt and blue gloves., Handling a small plant or sample on a black surface.",
-      "Multiple people in blue, black, green, and dark shirts floating., Gathering around a small object in a microgravity environment."
+      "Person in black shirt and blue gloves, interacting with plants inside a lit growth chamber",
+      "Person in black shirt and blue gloves, transferring samples from vial onto black surface"
     ],
     "ingredients": [],
-    "tools": [
-      "blue nitrile gloves",
-      "black flat surface",
-      "yellow sticky note",
-      "growth chamber",
-      "camera"
-    ],
-    "objects": [
-      "green leafy plants",
-      "pink flowers",
-      "laptop",
-      "cables",
-      "storage bags",
-      "yellow lemon"
-    ],
+    "tools": [],
+    "objects": [],
     "burned_in_subtitles": false,
-    "confidence": 0.9
+    "confidence": 0.0
+  },
+  "coverage": {
+    "narratable": 10,
+    "narrated": 7,
+    "silent_by_choice": 0,
+    "dropped": 3,
+    "too_short": 0,
+    "percent_of_narratable": 70,
+    "percent_excluding_silent_by_choice": 70,
+    "target_percent": 75,
+    "meets_target": false,
+    "silent": {
+      "0": {
+        "why": "dropped",
+        "reason": "dropped after repair: Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title"
+      },
+      "8": {
+        "why": "dropped",
+        "reason": "dropped after repair: Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+      },
+      "9": {
+        "why": "dropped",
+        "reason": "dropped after repair: Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+      }
+    }
   },
   "status": "complete",
   "cues": [
-    {
-      "id": 0,
-      "start": 0.08,
-      "end": 11.378857142857145,
-      "duration": 11.298857142857145,
-      "narratable": true,
-      "parent_gap": 0,
-      "word_budget_en": 24,
-      "word_budget_hi": 28,
-      "max_words_en": 17,
-      "max_words_hi": 19,
-      "en": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module.",
-      "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने ISS मॉड्यूल में पौधों की देखभाल करता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
     {
       "id": 1,
       "start": 11.378857142857145,
@@ -70,11 +70,18 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber.",
-      "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने विकास कक्ष में हरे पौधों को समायोजित करता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "He checks the control panel, then leaves the chamber area.",
+      "evidence": [
+        "e5",
+        "e6",
+        "e7",
+        "e8"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -88,11 +95,19 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray.",
-      "hi": "स्लेटी बालों वाला तकनीशियन काली शर्ट और नीले दस्ताने पहने अंधेरी ट्रे से पौध उठाता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "The person in a black shirt and blue gloves handles a white cable and black object near the chamber window.",
+      "evidence": [
+        "e9",
+        "e10",
+        "e11",
+        "e41",
+        "e12"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -106,11 +121,18 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber.",
-      "hi": "अंतरिक्ष यात्री चमकदार लैंप के नीचे ISS विकास कक्ष में पत्ती समूह को समायोजित करता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "He reaches in again with both gloved hands to adjust the plants.",
+      "evidence": [
+        "e13",
+        "e14",
+        "e15",
+        "e16"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -124,11 +146,19 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside.",
-      "hi": "स्लेटी बालों और नीले दस्ताने वाला तकनीशियन अंदर चमकदार लैंप के पास हरी पत्तियों को समायोजित करता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "The person in a black shirt and blue gloves operates the control panel and steps back, exiting the frame.",
+      "evidence": [
+        "e17",
+        "e18",
+        "e19",
+        "e20",
+        "e21"
+      ],
+      "verdict": "uncertain-consistent",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -142,11 +172,18 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "The technician lifts a red chili pepper and places it beside a small white label.",
-      "hi": "तकनीशियन लाल मिर्च उठाता है और छोटे सफेद लेबल के बगल में रखता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "A harvested red chili pepper appears on a black board labeled WEST INDIAN.",
+      "evidence": [
+        "e22",
+        "e23",
+        "e24",
+        "e25"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -160,11 +197,19 @@
       "word_budget_hi": 28,
       "max_words_en": 17,
       "max_words_hi": 19,
-      "en": "The technician films the chili pepper attached to a black surface using a handheld camera.",
-      "hi": "तकनीशियन काली सतह पर लगी लाल मिर्च को हाथ में लिए कैमरे से फ़िल्माता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "The person presses the pepper flat, then photographs it with a black camera.",
+      "evidence": [
+        "e26",
+        "e27",
+        "e28",
+        "e29",
+        "e42"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     },
     {
@@ -178,74 +223,28 @@
       "word_budget_hi": 21,
       "max_words_en": 16,
       "max_words_hi": 19,
-      "en": "The crew member gathers a sample of green plants in the growth chamber and photographs them.",
-      "hi": "चालक दल सदस्य विकास कक्ष में हरे पौधों का नमूना एकत्र करता है और उनकी तस्वीर लेता है।",
+      "director_words_en": 19,
+      "director_words_hi": 19,
+      "en": "Crew members gather, passing the small green plant for close inspection.",
+      "evidence": [
+        "e31",
+        "e32",
+        "e33",
+        "e44",
+        "e34"
+      ],
+      "verdict": "supported",
       "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 8,
-      "start": 92.72266666666667,
-      "end": 101.32133333333333,
-      "duration": 8.59866666666666,
-      "narratable": true,
-      "parent_gap": 1,
-      "word_budget_en": 18,
-      "word_budget_hi": 21,
-      "max_words_en": 16,
-      "max_words_hi": 19,
-      "en": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films.",
-      "hi": "अंतरिक्ष यात्री ISS मॉड्यूल में एक साथ तैरते हुए केंद्रीय हरे पौधे की ओर बढ़ते हैं जबकि एक व्यक्ति फ़िल्माता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
-      }
-    },
-    {
-      "id": 9,
-      "start": 101.32133333333333,
-      "end": 109.92,
-      "duration": 8.598666666666674,
-      "narratable": true,
-      "parent_gap": 1,
-      "word_budget_en": 18,
-      "word_budget_hi": 21,
-      "max_words_en": 16,
-      "max_words_hi": 19,
-      "en": "The gray-haired astronaut tending plants offers a sample onto a cutting board.",
-      "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री पौधों की देखभाल करते हुए काटने के बोर्ड पर नमूना पेश करता है।",
-      "tts_backend": {
-        "en": "EspeakBackend",
-        "hi": "EspeakBackend"
+        "en": "PiperBackend"
       }
     }
   ],
   "tracks": {
     "en": [
       {
-        "id": 0,
-        "start": 0.08,
-        "end": 5.732109,
-        "duration": 11.298857142857145,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने ISS मॉड्यूल में पौधों की देखभाल करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
         "id": 1,
         "start": 11.378857142857145,
-        "end": 17.044843142857147,
+        "end": 14.977950142857145,
         "duration": 11.298857142857143,
         "narratable": true,
         "parent_gap": 0,
@@ -253,17 +252,24 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने विकास कक्ष में हरे पौधों को समायोजित करता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "He checks the control panel, then leaves the chamber area.",
+        "evidence": [
+          "e5",
+          "e6",
+          "e7",
+          "e8"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 2,
         "start": 22.677714285714288,
-        "end": 27.914131285714287,
+        "end": 28.366603285714287,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -271,17 +277,25 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray.",
-        "hi": "स्लेटी बालों वाला तकनीशियन काली शर्ट और नीले दस्ताने पहने अंधेरी ट्रे से पौध उठाता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "The person in a black shirt and blue gloves handles a white cable and black object near the chamber window.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e41",
+          "e12"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 3,
         "start": 33.97657142857143,
-        "end": 38.98999542857143,
+        "end": 38.02845342857143,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -289,17 +303,24 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber.",
-        "hi": "अंतरिक्ष यात्री चमकदार लैंप के नीचे ISS विकास कक्ष में पत्ती समूह को समायोजित करता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "He reaches in again with both gloved hands to adjust the plants.",
+        "evidence": [
+          "e13",
+          "e14",
+          "e15",
+          "e16"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 4,
         "start": 45.27542857142858,
-        "end": 51.086040571428576,
+        "end": 51.649306571428575,
         "duration": 11.298857142857138,
         "narratable": true,
         "parent_gap": 0,
@@ -307,17 +328,25 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside.",
-        "hi": "स्लेटी बालों और नीले दस्ताने वाला तकनीशियन अंदर चमकदार लैंप के पास हरी पत्तियों को समायोजित करता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "The person in a black shirt and blue gloves operates the control panel and steps back, exiting the frame.",
+        "evidence": [
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21"
+        ],
+        "verdict": "uncertain-consistent",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 5,
         "start": 56.574285714285715,
-        "end": 61.774739714285715,
+        "end": 61.113786714285716,
         "duration": 11.298857142857152,
         "narratable": true,
         "parent_gap": 0,
@@ -325,17 +354,24 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "The technician lifts a red chili pepper and places it beside a small white label.",
-        "hi": "तकनीशियन लाल मिर्च उठाता है और छोटे सफेद लेबल के बगल में रखता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "A harvested red chili pepper appears on a black board labeled WEST INDIAN.",
+        "evidence": [
+          "e22",
+          "e23",
+          "e24",
+          "e25"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 6,
         "start": 67.87314285714287,
-        "end": 73.30878885714287,
+        "end": 72.25010385714286,
         "duration": 11.298857142857145,
         "narratable": true,
         "parent_gap": 0,
@@ -343,17 +379,25 @@
         "word_budget_hi": 28,
         "max_words_en": 17,
         "max_words_hi": 19,
-        "en": "The technician films the chili pepper attached to a black surface using a handheld camera.",
-        "hi": "तकनीशियन काली सतह पर लगी लाल मिर्च को हाथ में लिए कैमरे से फ़िल्माता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "The person presses the pepper flat, then photographs it with a black camera.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e42"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       },
       {
         "id": 7,
         "start": 84.124,
-        "end": 89.74291199999999,
+        "end": 88.489351,
         "duration": 8.598666666666674,
         "narratable": true,
         "parent_gap": 1,
@@ -361,229 +405,19 @@
         "word_budget_hi": 21,
         "max_words_en": 16,
         "max_words_hi": 19,
-        "en": "The crew member gathers a sample of green plants in the growth chamber and photographs them.",
-        "hi": "चालक दल सदस्य विकास कक्ष में हरे पौधों का नमूना एकत्र करता है और उनकी तस्वीर लेता है।",
+        "director_words_en": 19,
+        "director_words_hi": 19,
+        "en": "Crew members gather, passing the small green plant for close inspection.",
+        "evidence": [
+          "e31",
+          "e32",
+          "e33",
+          "e44",
+          "e34"
+        ],
+        "verdict": "supported",
         "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 8,
-        "start": 92.72266666666667,
-        "end": 99.78928766666667,
-        "duration": 8.59866666666666,
-        "narratable": true,
-        "parent_gap": 1,
-        "word_budget_en": 18,
-        "word_budget_hi": 21,
-        "max_words_en": 16,
-        "max_words_hi": 19,
-        "en": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films.",
-        "hi": "अंतरिक्ष यात्री ISS मॉड्यूल में एक साथ तैरते हुए केंद्रीय हरे पौधे की ओर बढ़ते हैं जबकि एक व्यक्ति फ़िल्माता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 9,
-        "start": 101.32133333333333,
-        "end": 106.11643533333333,
-        "duration": 8.598666666666674,
-        "narratable": true,
-        "parent_gap": 1,
-        "word_budget_en": 18,
-        "word_budget_hi": 21,
-        "max_words_en": 16,
-        "max_words_hi": 19,
-        "en": "The gray-haired astronaut tending plants offers a sample onto a cutting board.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री पौधों की देखभाल करते हुए काटने के बोर्ड पर नमूना पेश करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      }
-    ],
-    "hi": [
-      {
-        "id": 0,
-        "start": 0.08,
-        "end": 7.934014,
-        "duration": 11.298857142857145,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "An astronaut with gray hair in black shirt and blue gloves tends plants in ISS module.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने ISS मॉड्यूल में पौधों की देखभाल करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 1,
-        "start": 11.378857142857145,
-        "end": 19.473007142857146,
-        "duration": 11.298857142857143,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "A gray-haired astronaut in black shirt and blue gloves adjusts green plants in growth chamber.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री काली शर्ट और नीले दस्ताने पहने विकास कक्ष में हरे पौधों को समायोजित करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 2,
-        "start": 22.677714285714288,
-        "end": 29.18592328571429,
-        "duration": 11.298857142857145,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "A gray-haired technician in black shirt and blue gloves lifts seedling from dark tray.",
-        "hi": "स्लेटी बालों वाला तकनीशियन काली शर्ट और नीले दस्ताने पहने अंधेरी ट्रे से पौध उठाता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 3,
-        "start": 33.97657142857143,
-        "end": 40.832399428571435,
-        "duration": 11.298857142857145,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "The astronaut adjusts leaf cluster under bright lamp inside ISS growth chamber.",
-        "hi": "अंतरिक्ष यात्री चमकदार लैंप के नीचे ISS विकास कक्ष में पत्ती समूह को समायोजित करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 4,
-        "start": 45.27542857142858,
-        "end": 52.82604057142858,
-        "duration": 11.298857142857138,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "The technician with gray hair and blue gloves adjusts the green foliage near a bright lamp inside.",
-        "hi": "स्लेटी बालों और नीले दस्ताने वाला तकनीशियन अंदर चमकदार लैंप के पास हरी पत्तियों को समायोजित करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 5,
-        "start": 56.574285714285715,
-        "end": 61.920725714285716,
-        "duration": 11.298857142857152,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "The technician lifts a red chili pepper and places it beside a small white label.",
-        "hi": "तकनीशियन लाल मिर्च उठाता है और छोटे सफेद लेबल के बगल में रखता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 6,
-        "start": 67.87314285714287,
-        "end": 73.54021785714286,
-        "duration": 11.298857142857145,
-        "narratable": true,
-        "parent_gap": 0,
-        "word_budget_en": 24,
-        "word_budget_hi": 28,
-        "max_words_en": 17,
-        "max_words_hi": 19,
-        "en": "The technician films the chili pepper attached to a black surface using a handheld camera.",
-        "hi": "तकनीशियन काली सतह पर लगी लाल मिर्च को हाथ में लिए कैमरे से फ़िल्माता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 7,
-        "start": 84.124,
-        "end": 90.767855,
-        "duration": 8.598666666666674,
-        "narratable": true,
-        "parent_gap": 1,
-        "word_budget_en": 18,
-        "word_budget_hi": 21,
-        "max_words_en": 16,
-        "max_words_hi": 19,
-        "en": "The crew member gathers a sample of green plants in the growth chamber and photographs them.",
-        "hi": "चालक दल सदस्य विकास कक्ष में हरे पौधों का नमूना एकत्र करता है और उनकी तस्वीर लेता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 8,
-        "start": 92.72266666666667,
-        "end": 101.05881166666667,
-        "duration": 8.59866666666666,
-        "narratable": true,
-        "parent_gap": 1,
-        "word_budget_en": 18,
-        "word_budget_hi": 21,
-        "max_words_en": 16,
-        "max_words_hi": 19,
-        "en": "Astronauts float together in an ISS module, reaching toward a central green plant while one person films.",
-        "hi": "अंतरिक्ष यात्री ISS मॉड्यूल में एक साथ तैरते हुए केंद्रीय हरे पौधे की ओर बढ़ते हैं जबकि एक व्यक्ति फ़िल्माता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
-        }
-      },
-      {
-        "id": 9,
-        "start": 101.32133333333333,
-        "end": 108.44419033333332,
-        "duration": 8.598666666666674,
-        "narratable": true,
-        "parent_gap": 1,
-        "word_budget_en": 18,
-        "word_budget_hi": 21,
-        "max_words_en": 16,
-        "max_words_hi": 19,
-        "en": "The gray-haired astronaut tending plants offers a sample onto a cutting board.",
-        "hi": "स्लेटी बालों वाला अंतरिक्ष यात्री पौधों की देखभाल करते हुए काटने के बोर्ड पर नमूना पेश करता है।",
-        "tts_backend": {
-          "en": "EspeakBackend",
-          "hi": "EspeakBackend"
+          "en": "PiperBackend"
         }
       }
     ]
@@ -599,7 +433,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 1,
@@ -611,7 +447,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 2,
@@ -623,7 +461,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 3,
@@ -635,7 +475,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 4,
@@ -647,7 +489,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 5,
@@ -659,7 +503,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 6,
@@ -671,7 +517,9 @@
       "word_budget_en": 24,
       "word_budget_hi": 28,
       "max_words_en": 17,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 7,
@@ -683,7 +531,9 @@
       "word_budget_en": 18,
       "word_budget_hi": 21,
       "max_words_en": 16,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 8,
@@ -695,7 +545,9 @@
       "word_budget_en": 18,
       "word_budget_hi": 21,
       "max_words_en": 16,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     },
     {
       "id": 9,
@@ -707,7 +559,9 @@
       "word_budget_en": 18,
       "word_budget_hi": 21,
       "max_words_en": 16,
-      "max_words_hi": 19
+      "max_words_hi": 19,
+      "director_words_en": 19,
+      "director_words_hi": 19
     }
   ],
   "speech": [
@@ -716,627 +570,2014 @@
       "end": 84.044
     }
   ],
-  "cues_committed": 10,
-  "cues_dropped": 0,
-  "dropped_gaps": {},
+  "cues_committed": 7,
+  "cues_dropped": 3,
+  "dropped_gaps": {
+    "0": "dropped after repair: Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title",
+    "8": "dropped after repair: Unverified title-only claim (astronaut). Fix: remove claims taken only from the title",
+    "9": "dropped after repair: Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+  },
   "gaps_skipped_no_new_info": [],
   "overlaps_with_speech": 0,
   "gap_coverage_percent": {
-    "en": 52.909086835481645,
-    "hi": 66.71800873312485
+    "en": 31.457893181298136
   },
-  "high_importance_covered_percent": 100.0,
+  "high_importance_covered_percent": 45.45454545454545,
   "events_in_speech_regions": {
-    "count": 0,
-    "events": [],
-    "note": "informational: high-importance events outside every narratable gap; may need extended AD"
+    "count": 1,
+    "events": [
+      {
+        "id": "e43",
+        "t_start": 80.0,
+        "t_end": 81.2,
+        "what": "The man in the blue polo shirt holds the small object while the person in the dark shirt reaches toward it, with no cutting, breaking, opening, pouring, handing over, biting, or eating visible.",
+        "on_screen_text": "",
+        "subtitle_text": "",
+        "importance": 4,
+        "confidence": 0.9,
+        "change": "The person in the dark shirt moves their hand closer to the object.",
+        "zoom": true,
+        "gap_ids": []
+      }
+    ],
+    "note": "informational: important events while someone speaks; known to the writer as story context, may need extended AD"
   },
-  "coverage_method": "temporal association proxy (events overlapping narratable gap windows); not semantic verification",
-  "uncovered_events": [],
-  "usage": [
+  "coverage_method": "event->gap assignment (midpoint / >=50% overlap); writer may skip gaps with nothing new",
+  "uncovered_events": [
     {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 3218,
-      "output_tokens": 41,
-      "cost_usd": 0.003341,
-      "latency_s": 1.063323645008495,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "id": "e3",
+      "t_start": 5.0,
+      "t_end": 8.0,
+      "what": "The person uses both gloved hands to touch and adjust the green leafy plants inside the illuminated growth chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person's hands make contact with the plants and begin manipulating them.",
+      "gap_ids": [
+        0
+      ]
     },
+    {
+      "id": "e4",
+      "t_start": 8.0,
+      "t_end": 11.0,
+      "what": "The person continues to tend to the plants inside the chamber, moving their gloved hands among the foliage while facing the equipment.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person's hands remain engaged with the plants, shifting position slightly within the chamber.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e36",
+      "t_start": 97.0,
+      "t_end": 99.0,
+      "what": "The person in the black shirt brings the plant back toward the center of the group, and the person in the blue shirt reaches out again to touch the leaves while the person in the green shirt smiles.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The plant is returned to the center for continued group examination, and the person in green reacts with a smile.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e45",
+      "t_start": 107.0,
+      "t_end": 108.0,
+      "what": "A person in a black shirt and blue gloves holds a small green chili pepper up to their mouth and takes a bite while others watch in the spacecraft module.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The crew member begins eating the harvested chili pepper.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e46",
+      "t_start": 108.0,
+      "t_end": 109.0,
+      "what": "The person chews the chili pepper and makes a facial reaction, grimacing slightly as they process the taste.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The crew member reacts to the flavor of the pepper.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e47",
+      "t_start": 109.0,
+      "t_end": 110.0,
+      "what": "The person continues to chew and swallow while looking toward the camera, finishing the bite of the chili pepper.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The tasting action concludes with the crew member swallowing.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    }
+  ],
+  "bible": {
+    "setting": "Space station module with plant growth chamber and work surfaces",
+    "place": "space station",
+    "cast": [
+      {
+        "id": "c1",
+        "descriptor": "astronaut in black shirt and blue gloves",
+        "first_seen": 0.0,
+        "notes": "tends plants in growth chamber, later handles pepper and camera; apparent gender: man (clearly visible at 12 s: short gray hair and side profile visible at plant chamber)"
+      },
+      {
+        "id": "c2",
+        "descriptor": "astronaut in blue polo shirt",
+        "first_seen": 77.0,
+        "notes": "holds and passes small objects, examines plant closely, smiles; apparent gender: man (clearly visible at 77 s: short hair and face clearly visible in blue polo)"
+      },
+      {
+        "id": "c3",
+        "descriptor": "astronaut in green shirt",
+        "first_seen": 88.0,
+        "notes": "receives green object, watches plant examination with hands clasped, smiles; apparent gender: man (clearly visible at 77 s: short dark hair and face clearly visible in dark shirt)"
+      },
+      {
+        "id": "c4",
+        "descriptor": "astronaut in dark shirt",
+        "first_seen": 77.0,
+        "notes": "stands beside blue-shirted astronaut, reaches toward objects; apparent gender: man (clearly visible at 86 s: short hair, masculine face, dark shirt)"
+      },
+      {
+        "id": "c5",
+        "descriptor": "astronaut in foreground",
+        "first_seen": 80.0,
+        "notes": "receives and passes objects, partially blocks view later; apparent gender: man (clearly visible at 86 s: short gray hair, masculine face, black shirt)"
+      }
+    ],
+    "objects": [
+      "plant growth chamber",
+      "green leafy plants",
+      "equipment panels",
+      "control panel",
+      "black work surface",
+      "yellow tape",
+      "white label",
+      "red chili pepper",
+      "black camera",
+      "small green plant",
+      "white cable",
+      "black object"
+    ],
+    "goal": "harvest and examine first chili pepper crop",
+    "story": "An astronaut tends plants in a space station growth chamber, then a red chili pepper is harvested and photographed on a labeled board, followed by the crew gathering to pass and closely examine a small green plant together.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "astronaut tends plants in illuminated growth chamber",
+        "why": "routine plant care in space station module",
+        "events": [
+          "e1",
+          "e2",
+          "e3",
+          "e4",
+          "e5"
+        ]
+      },
+      {
+        "t": 14.0,
+        "beat": "astronaut checks control panel then leaves chamber area",
+        "why": "adjusts equipment before stepping away",
+        "events": [
+          "e6",
+          "e7",
+          "e8"
+        ]
+      },
+      {
+        "t": 22.0,
+        "beat": "astronaut returns for repeated plant care sessions",
+        "why": "multiple rounds of tending the same plants",
+        "events": [
+          "e9",
+          "e10",
+          "e11",
+          "e12",
+          "e13",
+          "e14"
+        ]
+      },
+      {
+        "t": 55.0,
+        "beat": "astronaut operates control panel and exits",
+        "why": "final chamber interaction before harvest",
+        "events": [
+          "e21",
+          "e22"
+        ]
+      },
+      {
+        "t": 61.0,
+        "beat": "harvested red chili pepper displayed on labeled board",
+        "why": "first pepper crop presented for documentation",
+        "events": [
+          "e23"
+        ]
+      },
+      {
+        "t": 64.0,
+        "beat": "astronaut presses pepper flat and photographs it with camera",
+        "why": "documents the harvested pepper",
+        "events": [
+          "e24",
+          "e25",
+          "e26",
+          "e27",
+          "e28"
+        ]
+      },
+      {
+        "t": 77.0,
+        "beat": "crew gathers and passes small objects then examines green plant together",
+        "why": "shared inspection of another plant specimen",
+        "events": [
+          "e29",
+          "e30",
+          "e31",
+          "e32",
+          "e33",
+          "e34"
+        ]
+      }
+    ],
+    "names": [
+      {
+        "name": "red chili pepper",
+        "aliases": [
+          "pepper",
+          "chili pepper",
+          "red chili"
+        ],
+        "from_t": 61.0
+      },
+      {
+        "name": "small green plant",
+        "aliases": [
+          "plant",
+          "green plant",
+          "small object",
+          "green object"
+        ],
+        "from_t": 77.0
+      }
+    ],
+    "look_for": [
+      {
+        "t_start": 108.0,
+        "t_end": 110.0,
+        "what": "crew tasting or eating the harvested chili pepper"
+      }
+    ],
+    "on_screen_text": [
+      {
+        "t": 61.0,
+        "text": "WEST INDIAN",
+        "kind": "label"
+      }
+    ],
+    "subtitles_present": false,
+    "tone": "collaborative and scientific",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 2.0,
+      "what": "A person wearing a black shirt and blue gloves reaches toward a lit plant growth chamber inside a spacecraft module, with green plants visible through the window and equipment panels surrounding the area.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person's gloved hand enters the frame from the right and moves toward the chamber.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e2",
+      "t_start": 2.0,
+      "t_end": 5.0,
+      "what": "The person fully enters the frame, standing in front of the plant growth chamber and extending both gloved hands toward the plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person's body and face become visible as they position themselves in front of the chamber.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e3",
+      "t_start": 5.0,
+      "t_end": 8.0,
+      "what": "The person uses both gloved hands to touch and adjust the green leafy plants inside the illuminated growth chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person's hands make contact with the plants and begin manipulating them.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e4",
+      "t_start": 8.0,
+      "t_end": 11.0,
+      "what": "The person continues to tend to the plants inside the chamber, moving their gloved hands among the foliage while facing the equipment.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person's hands remain engaged with the plants, shifting position slightly within the chamber.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e5",
+      "t_start": 11.0,
+      "t_end": 14.0,
+      "what": "The person in the black shirt and blue gloves continues to tend to the green leafy plants inside the illuminated growth chamber, moving their gloved hands among the foliage.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person remains focused on the plants, adjusting them within the chamber.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e6",
+      "t_start": 14.0,
+      "t_end": 17.0,
+      "what": "The person reaches toward the right side of the growth chamber, appearing to interact with a control or latch on the equipment panel.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person shifts attention from the plants to the equipment panel on the right.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e7",
+      "t_start": 17.0,
+      "t_end": 20.0,
+      "what": "The person turns away from the growth chamber and begins walking toward the right side of the frame, leaving the plant area.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person exits the immediate area of the growth chamber and moves out of the central view.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e8",
+      "t_start": 20.0,
+      "t_end": 22.0,
+      "what": "The person is no longer visible in the frame, leaving only the illuminated growth chamber with green plants and surrounding equipment panels in view.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person has completely left the scene, resulting in an empty frame focused on the equipment.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e9",
+      "t_start": 22.0,
+      "t_end": 25.0,
+      "what": "The person in a black shirt and blue gloves reaches into the illuminated growth chamber and touches the green plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person re-enters the frame and interacts with the plants after previously leaving the area.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e10",
+      "t_start": 25.0,
+      "t_end": 28.0,
+      "what": "The person continues to handle the plants within the growth chamber, moving their gloved hands among the leaves.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Ongoing interaction with the plants inside the chamber.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e11",
+      "t_start": 28.0,
+      "t_end": 31.0,
+      "what": "The person keeps their hands inside the growth chamber, adjusting or inspecting the green plants.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Continued handling of the plants within the lit chamber.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e41",
+      "t_start": 28.0,
+      "t_end": 31.0,
+      "what": "A person wearing blue gloves and a black shirt handles a white cable and a black object near a window with plants visible outside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The hands adjust the cable and object slightly but no cutting, breaking, opening, pouring, handing, biting, or eating occurs.",
+      "zoom": true,
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e12",
+      "t_start": 31.0,
+      "t_end": 33.0,
+      "what": "The person withdraws their hands from the growth chamber and steps back, leaving the plants visible inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person ends the interaction and moves away from the chamber.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e13",
+      "t_start": 33.0,
+      "t_end": 36.0,
+      "what": "A person in a black shirt and blue gloves reaches into the lit growth chamber with both hands and adjusts the green leafy plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person re-enters the chamber after previously stepping back.",
+      "gap_ids": [
+        3
+      ]
+    },
+    {
+      "id": "e14",
+      "t_start": 36.0,
+      "t_end": 39.0,
+      "what": "The person continues to manipulate the plants with both gloved hands, moving leaves and stems within the chamber.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "Ongoing adjustment of the plants inside the chamber.",
+      "gap_ids": [
+        3
+      ]
+    },
+    {
+      "id": "e15",
+      "t_start": 39.0,
+      "t_end": 42.0,
+      "what": "The person keeps both hands inside the growth chamber, tending to the green plants under the bright light.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "Continued plant care inside the chamber.",
+      "gap_ids": [
+        3
+      ]
+    },
+    {
+      "id": "e16",
+      "t_start": 42.0,
+      "t_end": 44.0,
+      "what": "The person withdraws both hands from the growth chamber and steps back, leaving the plants visible inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person exits the chamber, ending the interaction with the plants.",
+      "gap_ids": [
+        3
+      ]
+    },
+    {
+      "id": "e17",
+      "t_start": 44.0,
+      "t_end": 47.0,
+      "what": "A person in a black shirt and blue gloves reaches into a lit growth chamber and adjusts the green plants inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person re-enters the chamber after previously stepping back.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e18",
+      "t_start": 47.0,
+      "t_end": 50.0,
+      "what": "The person continues to tend to the plants, moving their gloved hands among the leaves under the bright light.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Ongoing plant care inside the chamber.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e19",
+      "t_start": 50.0,
+      "t_end": 53.0,
+      "what": "The person keeps both hands inside the growth chamber, manipulating the foliage.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Sustained interaction with the plants.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e20",
+      "t_start": 53.0,
+      "t_end": 55.0,
+      "what": "The person withdraws both hands from the growth chamber and steps back, leaving the plants visible inside.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person exits the chamber again, ending the interaction.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e21",
+      "t_start": 55.0,
+      "t_end": 58.0,
+      "what": "The person in the black shirt and blue gloves reaches toward the control panel on the right side of the illuminated plant growth chamber and appears to press a button or toggle a switch.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person moves from the plant area to the side panel controls.",
+      "gap_ids": [
+        4
+      ]
+    },
+    {
+      "id": "e22",
+      "t_start": 58.0,
+      "t_end": 61.0,
+      "what": "The person steps back and exits the frame to the right, leaving the plant growth chamber with its green foliage visible and lit.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The person leaves the scene, leaving only the chamber in view.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e23",
+      "t_start": 61.0,
+      "t_end": 64.0,
+      "what": "The camera cuts to a top-down view of a black work surface where a red chili pepper lies on yellow tape next to a small white label reading 'WEST INDIAN'.",
+      "on_screen_text": "WEST INDIAN",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The scene changes from the plant chamber to a close-up of a work surface with a pepper.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e24",
+      "t_start": 64.0,
+      "t_end": 66.0,
+      "what": "The person's gloved hands enter the frame and press down on the red chili pepper, flattening it against the black surface.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The person interacts with the pepper, pressing it onto the tape.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e25",
+      "t_start": 66.0,
+      "t_end": 69.0,
+      "what": "A person wearing blue gloves holds a black camera above a black board where a red chili pepper is taped next to a white label reading 'WEST INDIAN'.",
+      "on_screen_text": "WEST INDIAN",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The camera is brought into the frame and positioned over the pepper.",
+      "gap_ids": [
+        5
+      ]
+    },
+    {
+      "id": "e26",
+      "t_start": 69.0,
+      "t_end": 72.0,
+      "what": "The person continues to hold the camera steady, pointing its lens directly at the red chili pepper on the black board.",
+      "on_screen_text": "WEST INDIAN",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The camera remains aimed at the pepper without moving away.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e27",
+      "t_start": 72.0,
+      "t_end": 75.0,
+      "what": "The person lifts the camera upward and away from the black board, leaving the red chili pepper and label visible.",
+      "on_screen_text": "WEST INDIAN",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The camera is removed from the immediate area above the pepper.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e28",
+      "t_start": 75.0,
+      "t_end": 77.0,
+      "what": "The black board with the taped red chili pepper and 'WEST INDIAN' label remains stationary in the frame.",
+      "on_screen_text": "WEST INDIAN",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "No new action occurs; the scene is static after the camera is removed.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e29",
+      "t_start": 77.0,
+      "t_end": 80.0,
+      "what": "A person in a blue shirt and a person in a black shirt stand in a spacecraft module, each holding a small object and passing it between them while a third person in black watches from the foreground.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The two standing people begin exchanging the object back and forth.",
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e42",
+      "t_start": 77.6,
+      "t_end": 78.8,
+      "what": "A man in a blue polo shirt holds a small object in both hands while another person in a dark shirt stands beside him, with no cutting, breaking, opening, pouring, handing over, biting, or eating visible.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The man in blue continues to hold and manipulate the small object.",
+      "zoom": true,
+      "gap_ids": [
+        6
+      ]
+    },
+    {
+      "id": "e43",
+      "t_start": 80.0,
+      "t_end": 81.2,
+      "what": "The man in the blue polo shirt holds the small object while the person in the dark shirt reaches toward it, with no cutting, breaking, opening, pouring, handing over, biting, or eating visible.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The person in the dark shirt moves their hand closer to the object.",
+      "zoom": true,
+      "gap_ids": []
+    },
+    {
+      "id": "e30",
+      "t_start": 80.0,
+      "t_end": 83.0,
+      "what": "The person in the black shirt extends their arm to hand the object to the person in the foreground, who reaches out to receive it.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The object is transferred from the standing person in black to the seated person in the foreground.",
+      "gap_ids": []
+    },
+    {
+      "id": "e31",
+      "t_start": 83.0,
+      "t_end": 86.0,
+      "what": "The person in the foreground holds the object while the two standing people continue to gesture and interact around them.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The object is now held by the foreground person, shifting the focus of the interaction.",
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e32",
+      "t_start": 86.0,
+      "t_end": 88.0,
+      "what": "The person in the foreground passes the object back toward the standing person in the blue shirt, who takes it.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The object returns to the standing person in blue, completing the exchange cycle.",
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e33",
+      "t_start": 88.0,
+      "t_end": 91.0,
+      "what": "A group of people in a spacecraft module gather around a small green plant, with one person in a black shirt holding it while others reach out to touch the leaves.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The group begins interacting with the plant together, shifting focus from passing an object to examining the plant.",
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e44",
+      "t_start": 88.6,
+      "t_end": 94.0,
+      "what": "A person in a blue shirt hands a small green object to a person in a green shirt, and the person in the green shirt takes it with both hands.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The green object moves from the blue-shirted person's hands to the green-shirted person's hands.",
+      "zoom": true,
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e34",
+      "t_start": 91.0,
+      "t_end": 94.0,
+      "what": "The person in the black shirt continues to hold the plant steady while the person in the blue shirt leans in closely to inspect it, and another person in a dark shirt reaches toward the foliage.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "Multiple people now lean in to examine the plant simultaneously, increasing the crowd around it.",
+      "gap_ids": [
+        7
+      ]
+    },
+    {
+      "id": "e35",
+      "t_start": 94.0,
+      "t_end": 97.0,
+      "what": "The person in the black shirt pulls the plant slightly away from the group while the person in the blue shirt maintains a close view, and the person in the green shirt watches with hands clasped.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The plant is moved slightly backward, creating a brief pause in the close inspection.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e36",
+      "t_start": 97.0,
+      "t_end": 99.0,
+      "what": "The person in the black shirt brings the plant back toward the center of the group, and the person in the blue shirt reaches out again to touch the leaves while the person in the green shirt smiles.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 4,
+      "confidence": 0.9,
+      "change": "The plant is returned to the center for continued group examination, and the person in green reacts with a smile.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e37",
+      "t_start": 99.0,
+      "t_end": 102.0,
+      "what": "A person in a black shirt and blue gloves holds a green plant while a person in a blue shirt reaches out to touch its leaves, and a person in a green shirt watches with hands clasped.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The plant is brought back toward the center of the group after being pulled slightly away.",
+      "gap_ids": [
+        8
+      ]
+    },
+    {
+      "id": "e38",
+      "t_start": 102.0,
+      "t_end": 105.0,
+      "what": "A person in a blue shirt enters the foreground with their back to the camera, partially blocking the view of the group examining the plant.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "A new person in a blue shirt moves into the foreground, changing the camera perspective.",
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e39",
+      "t_start": 105.0,
+      "t_end": 108.0,
+      "what": "The person in the black shirt continues to hold the plant while the person in the blue shirt in the background gestures with both hands raised.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The person in the blue shirt in the background raises both hands while the plant examination continues.",
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e45",
+      "t_start": 107.0,
+      "t_end": 108.0,
+      "what": "A person in a black shirt and blue gloves holds a small green chili pepper up to their mouth and takes a bite while others watch in the spacecraft module.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The crew member begins eating the harvested chili pepper.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e46",
+      "t_start": 108.0,
+      "t_end": 109.0,
+      "what": "The person chews the chili pepper and makes a facial reaction, grimacing slightly as they process the taste.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The crew member reacts to the flavor of the pepper.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e40",
+      "t_start": 108.0,
+      "t_end": 110.0,
+      "what": "The person in the blue shirt in the background points toward equipment on the wall while the person in the black shirt still holds the plant.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The person in the blue shirt shifts from gesturing to pointing at wall equipment.",
+      "gap_ids": [
+        9
+      ]
+    },
+    {
+      "id": "e47",
+      "t_start": 109.0,
+      "t_end": 110.0,
+      "what": "The person continues to chew and swallow while looking toward the camera, finishing the bite of the chili pepper.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 5,
+      "confidence": 0.9,
+      "change": "The tasting action concludes with the crew member swallowing.",
+      "relook": true,
+      "gap_ids": [
+        9
+      ]
+    }
+  ],
+  "shots": [
+    23.8,
+    61.8,
+    77.0,
+    95.6
+  ],
+  "windows": [
+    [
+      0.0,
+      11.0
+    ],
+    [
+      11.0,
+      22.0
+    ],
+    [
+      22.0,
+      33.0
+    ],
+    [
+      33.0,
+      44.0
+    ],
+    [
+      44.0,
+      55.0
+    ],
+    [
+      55.0,
+      66.0
+    ],
+    [
+      66.0,
+      77.0
+    ],
+    [
+      77.0,
+      88.0
+    ],
+    [
+      88.0,
+      99.0
+    ],
+    [
+      99.0,
+      110.0
+    ]
+  ],
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 1.344,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "10 narratable slots of 10, 10 long enough; detector silero-onnx; speech 4%; measured voice wps en 3.708 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.547,
+      "input": "ffmpeg scene-change detection",
+      "output": "4 shot cuts; 10 perception windows of ~12 s 0-11s, 11-22s, 22-33s, 33-44s, 44-55s, 55-66s, 66-77s, 77-88s, 88-99s, 99-110s; est. Super VL timeline cost $0.0266 (upper bound from config prices)"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2355,
+      "tokens_out": 215,
+      "cost_usd": 0.0009,
+      "latency_s": 5.125,
+      "input": "Super VL on 6 stills across the clip",
+      "output": "setting: Indoor spacecraft module with equipment panels, blue surfaces, artificial lighting. | people: Person in black shirt and blue gloves, interacting with plants inside a lit growth chamber; Person in black shirt and blue gloves, transferring samples from vial onto black surface"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 10,
+      "ultra_calls": 0,
+      "tokens_in": 23869,
+      "tokens_out": 3912,
+      "cost_usd": 0.0106815,
+      "latency_s": 74.594,
+      "input": "Super VL video windows covering the whole clip",
+      "output": "40 events from 10 windows ({'video': 10, 'absolute': 9, 'mixed': 1}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "zoom",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 6,
+      "ultra_calls": 0,
+      "tokens_in": 8745,
+      "tokens_out": 811,
+      "cost_usd": 0.0033534,
+      "latency_s": 23.812,
+      "input": "Super VL crops to hand-and-object activity where the wide shot is vague",
+      "output": "3 zoom looks (28-31s plant inside growth chamber; 77-83s astronauts handling a small object toget; 88-94s handling a small green plant): 4 new events ['e41', 'e42', 'e43', 'e44']"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 4744,
+      "tokens_out": 1187,
+      "cost_usd": 0.008305,
+      "latency_s": 4.578,
+      "input": "scene + shots + timeline",
+      "output": "place: space station | setting: Space station module with plant growth chamber and work surfaces | cast: astronaut in black shirt and blue gloves, astronaut in blue polo shirt, astronaut in green shirt, astronaut in dark shirt, astronaut in foreground | goal: harvest and examine first chili pepper crop | story: An astronaut tends plants in a space station growth chamber, then a red chili pepper is"
+    },
+    {
+      "stage": "cast_look",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 2,
+      "ultra_calls": 0,
+      "tokens_in": 3776,
+      "tokens_out": 299,
+      "cost_usd": 0.0014019,
+      "latency_s": 7.188,
+      "input": "Super VL apparent gender per cast member, only when clearly visible",
+      "output": "astronaut in black shirt and blue gloves: man; astronaut in blue polo shirt: man; astronaut in green shirt: man; astronaut in dark shirt: man; astronaut in foreground: man"
+    },
+    {
+      "stage": "relook",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 1154,
+      "tokens_out": 288,
+      "cost_usd": 0.0006054,
+      "latency_s": 4.172,
+      "input": "Super VL on windows where the bible expects an unseen beat",
+      "output": "1 focused re-looks (107-110s crew tasting or eating the harvested chili pepper): 3 new events ['e45', 'e46', 'e47']"
+    },
+    {
+      "stage": "assign",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "midpoint / >=50% overlap; refuted excluded",
+      "output": "8 gaps carry a story beat; 45 of 47 events inside narratable gaps; 2 in speech (context only); per gap {0: 4, 1: 4, 2: 5, 3: 4, 4: 5, 5: 4, 6: 5, 7: 5, 8: 3, 9: 6}"
+    },
+    {
+      "stage": "script",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 8296,
+      "tokens_out": 526,
+      "cost_usd": 0.009874,
+      "latency_s": 24.25,
+      "input": "bible + timeline + all gaps -> whole English track",
+      "output": "10 gaps scripted in one call: {'failed': 6, 'pending': 4}"
+    },
+    {
+      "stage": "verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 3038,
+      "tokens_out": 189,
+      "cost_usd": 0.0010815,
+      "latency_s": 18.984,
+      "input": "4 cues, 2 stills each",
+      "output": "4 cues checked on stills inside their gaps: {'supported': 4}"
+    },
+    {
+      "stage": "repair_1",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 5028,
+      "tokens_out": 427,
+      "cost_usd": 0.006309,
+      "latency_s": 8.656,
+      "input": "6 failed cues",
+      "output": "round 1: 6 failed cues sent to Ultra: {'failed': 6}"
+    },
+    {
+      "stage": "repair_2",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 5028,
+      "tokens_out": 439,
+      "cost_usd": 0.006345,
+      "latency_s": 17.25,
+      "input": "6 failed cues",
+      "output": "round 2: 6 failed cues sent to Ultra: {'failed': 6}"
+    },
+    {
+      "stage": "rescue",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2398,
+      "tokens_out": 153,
+      "cost_usd": 0.0008571000000000001,
+      "latency_s": 3.891,
+      "input": "6 gaps still failing -> best pooled candidate / Nano strike, Super VL verify",
+      "output": "final pass (no Ultra): 0 Nano strikes; {'verified': 3, 'committed': 3}; soft-kept 3, length fallback 0"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 2.156,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "7 cues rendered (en: 7); 0 gaps silent by choice"
+    }
+  ],
+  "cue_history": {
+    "0": [
+      {
+        "step": "script",
+        "text": "In the space station, the astronaut in a black shirt and blue gloves tends green plants inside the illuminated growth chamber.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title"
+        ],
+        "words": 21,
+        "words_claimed": 19
+      },
+      {
+        "step": "repair_1",
+        "text": "In the space station, the astronaut in a black shirt and blue gloves tends green plants inside the illuminated growth chamber.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title"
+        ],
+        "words": 21,
+        "words_claimed": 21
+      },
+      {
+        "step": "repair_2",
+        "text": "In the space station, the astronaut in a black shirt and blue gloves tends green plants inside the illuminated growth chamber.",
+        "evidence": [
+          "e1",
+          "e2",
+          "e3",
+          "e4"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title"
+        ],
+        "words": 21,
+        "words_claimed": 21
+      },
+      {
+        "step": "drop",
+        "reason": "Unverified title-only claim (astronaut, space). Fix: remove claims taken only from the title"
+      }
+    ],
+    "1": [
+      {
+        "step": "script",
+        "text": "He checks the control panel, then leaves the chamber area.",
+        "evidence": [
+          "e5",
+          "e6",
+          "e7",
+          "e8"
+        ],
+        "problems": [],
+        "words": 10,
+        "words_claimed": 10
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the man at the control panel and then leaving the chamber area, consistent with the cue."
+      }
+    ],
+    "2": [
+      {
+        "step": "script",
+        "text": "The astronaut returns, handling a white cable and black object near the chamber window.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e41",
+          "e12"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 14,
+        "words_claimed": 14
+      },
+      {
+        "step": "repair_1",
+        "text": "The astronaut returns, handling a white cable and black object near the chamber window.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e41",
+          "e12"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 14,
+        "words_claimed": 14
+      },
+      {
+        "step": "repair_2",
+        "text": "The person in a black shirt and blue gloves handles a white cable and black object near the chamber window.",
+        "evidence": [
+          "e9",
+          "e10",
+          "e11",
+          "e41",
+          "e12"
+        ],
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ],
+        "words": 20,
+        "words_claimed": 17
+      },
+      {
+        "step": "rescue",
+        "text": "The person in a black shirt and blue gloves handles a white cable and black object near the chamber window.",
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ]
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show a person in a black shirt and blue gloves handling a white cable and black object near the chamber window."
+      }
+    ],
+    "3": [
+      {
+        "step": "script",
+        "text": "He reaches in again with both gloved hands to adjust the plants.",
+        "evidence": [
+          "e13",
+          "e14",
+          "e15",
+          "e16"
+        ],
+        "problems": [],
+        "words": 12,
+        "words_claimed": 12
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the man reaching in with both gloved hands to adjust the plants, consistent with the cue."
+      }
+    ],
+    "4": [
+      {
+        "step": "script",
+        "text": "The astronaut operates the control panel and steps back, exiting the frame.",
+        "evidence": [
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 12,
+        "words_claimed": 13
+      },
+      {
+        "step": "repair_1",
+        "text": "The astronaut operates the control panel and steps back, exiting the frame.",
+        "evidence": [
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 12,
+        "words_claimed": 12
+      },
+      {
+        "step": "repair_2",
+        "text": "The person in a black shirt and blue gloves operates the control panel and steps back, exiting the frame.",
+        "evidence": [
+          "e17",
+          "e18",
+          "e19",
+          "e20",
+          "e21"
+        ],
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ],
+        "words": 19,
+        "words_claimed": 16
+      },
+      {
+        "step": "rescue",
+        "text": "The person in a black shirt and blue gloves operates the control panel and steps back, exiting the frame.",
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ]
+      },
+      {
+        "step": "commit",
+        "verdict": "uncertain-consistent",
+        "reason": "The frames show the person in a black shirt and blue gloves at the chamber, but do not show operating a control panel or exiting the frame."
+      }
+    ],
+    "5": [
+      {
+        "step": "script",
+        "text": "A harvested red chili pepper appears on a black board labeled WEST INDIAN.",
+        "evidence": [
+          "e22",
+          "e23",
+          "e24",
+          "e25"
+        ],
+        "problems": [],
+        "words": 13,
+        "words_claimed": 13
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show a harvested red chili pepper on a black board labeled WEST INDIAN, consistent with the cue."
+      }
+    ],
+    "6": [
+      {
+        "step": "script",
+        "text": "The astronaut presses the pepper flat, then photographs it with a black camera.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e42"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 13,
+        "words_claimed": 13
+      },
+      {
+        "step": "repair_1",
+        "text": "The astronaut presses the pepper flat, then photographs it with a black camera.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e42"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 13,
+        "words_claimed": 13
+      },
+      {
+        "step": "repair_2",
+        "text": "The person presses the pepper flat, then photographs it with a black camera.",
+        "evidence": [
+          "e26",
+          "e27",
+          "e28",
+          "e29",
+          "e42"
+        ],
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ],
+        "words": 13,
+        "words_claimed": 13
+      },
+      {
+        "step": "rescue",
+        "text": "The person presses the pepper flat, then photographs it with a black camera.",
+        "problems": [
+          "Banned phrasing: generic \"Person\" opener or subject. Fix: use the cast descriptor or a pronoun"
+        ]
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the person pressing the red chili pepper flat and photographing it with a black camera."
+      }
+    ],
+    "7": [
+      {
+        "step": "script",
+        "text": "Crew members gather, passing the small green plant for close inspection.",
+        "evidence": [
+          "e31",
+          "e32",
+          "e33",
+          "e44",
+          "e34"
+        ],
+        "problems": [],
+        "words": 11,
+        "words_claimed": 12
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show crew members gathering and passing the small green plant for close inspection, consistent with the cue."
+      }
+    ],
+    "8": [
+      {
+        "step": "script",
+        "text": "The blue-shirted astronaut leans in, touching the leaves while others watch.",
+        "evidence": [
+          "e35",
+          "e36",
+          "e37"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 13
+      },
+      {
+        "step": "repair_1",
+        "text": "The blue-shirted astronaut leans in, touching the leaves while others watch.",
+        "evidence": [
+          "e35",
+          "e36",
+          "e37"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "repair_2",
+        "text": "The blue-shirted astronaut leans in, touching the leaves while others watch.",
+        "evidence": [
+          "e35",
+          "e36",
+          "e37"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "drop",
+        "reason": "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+      }
+    ],
+    "9": [
+      {
+        "step": "script",
+        "text": "The black-gloved astronaut bites the chili pepper, grimacing as he chews.",
+        "evidence": [
+          "e38",
+          "e39",
+          "e45",
+          "e46",
+          "e40",
+          "e47"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 13
+      },
+      {
+        "step": "repair_1",
+        "text": "The black-gloved astronaut bites the chili pepper, grimacing as he chews.",
+        "evidence": [
+          "e38",
+          "e39",
+          "e45",
+          "e46",
+          "e40",
+          "e47"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "repair_2",
+        "text": "The black-gloved astronaut bites the chili pepper, grimacing as he chews.",
+        "evidence": [
+          "e38",
+          "e39",
+          "e45",
+          "e46",
+          "e40",
+          "e47"
+        ],
+        "problems": [
+          "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+        ],
+        "words": 11,
+        "words_claimed": 11
+      },
+      {
+        "step": "drop",
+        "reason": "Unverified title-only claim (astronaut). Fix: remove claims taken only from the title"
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 4,
+    "max_ultra_calls": 6,
+    "zoom_events": 4,
+    "relook_events": 3,
+    "self_count_mismatch": 7,
+    "postcheck_failures": 18,
+    "hard_failures": 15,
+    "repair_rounds": 2,
+    "soft_failures": 3,
+    "rescued": 3,
+    "soft_kept": 3,
+    "length_fallback": 0,
+    "dropped_after_repair": 3,
+    "budget_use_percent": 74,
+    "verdicts": {
+      "supported": 6,
+      "uncertain-consistent": 1
+    },
+    "contradicted": 0,
+    "events": 47,
+    "events_refuted": 0
+  },
+  "usage": [
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2602,
-      "output_tokens": 302,
-      "cost_usd": 0.0010524,
-      "latency_s": 2.0804175789817236,
+      "input_tokens": 2355,
+      "output_tokens": 215,
+      "cost_usd": 0.0009,
+      "latency_s": 3.827999999994063,
       "cost_role": "scene"
     },
     {
       "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 3899,
-      "output_tokens": 299,
-      "cost_usd": 0.004796,
-      "latency_s": 1.2883450419758447,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2299,
+      "output_tokens": 343,
+      "cost_usd": 0.0009983999999999998,
+      "latency_s": 4.89100000000326,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2246,
-      "output_tokens": 228,
-      "cost_usd": 0.000879,
-      "latency_s": 2.489663546002703,
-      "cost_role": "perceive"
+      "input_tokens": 2392,
+      "output_tokens": 400,
+      "cost_usd": 0.0010776,
+      "latency_s": 5.453000000008615,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2269,
-      "output_tokens": 95,
-      "cost_usd": 0.0007662,
-      "latency_s": 2.4130701170070097,
-      "cost_role": "perceive"
+      "input_tokens": 2397,
+      "output_tokens": 361,
+      "cost_usd": 0.001044,
+      "latency_s": 5.25,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2255,
-      "output_tokens": 107,
-      "cost_usd": 0.0007727999999999999,
-      "latency_s": 2.2132364690187387,
-      "cost_role": "perceive"
+      "input_tokens": 2385,
+      "output_tokens": 362,
+      "cost_usd": 0.0010413,
+      "latency_s": 5.796999999991385,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2263,
-      "output_tokens": 258,
-      "cost_usd": 0.0009111,
-      "latency_s": 2.3389651050092652,
-      "cost_role": "perceive"
+      "input_tokens": 2388,
+      "output_tokens": 348,
+      "cost_usd": 0.0010295999999999999,
+      "latency_s": 5.735000000000582,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1451,
-      "output_tokens": 93,
-      "cost_usd": 0.000519,
-      "latency_s": 1.5446727469970938,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 5046,
-      "output_tokens": 52,
-      "cost_usd": 0.005202,
-      "latency_s": 1.5267588300048374,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2042,
-      "output_tokens": 206,
-      "cost_usd": 0.00017195999999999997,
-      "latency_s": 3.7248343040118925,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2105,
-      "output_tokens": 39,
-      "cost_usd": 0.00013565999999999999,
-      "latency_s": 1.110670358990319,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 5423,
-      "output_tokens": 276,
-      "cost_usd": 0.006251,
-      "latency_s": 2.3201953459938522,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6500,
-      "output_tokens": 306,
-      "cost_usd": 0.007418,
-      "latency_s": 2.1303947909909766,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "input_tokens": 2382,
+      "output_tokens": 416,
+      "cost_usd": 0.001089,
+      "latency_s": 4.9539999999979045,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2269,
-      "output_tokens": 182,
-      "cost_usd": 0.0008445,
-      "latency_s": 2.2975234079931397,
-      "cost_role": "perceive"
+      "input_tokens": 2412,
+      "output_tokens": 410,
+      "cost_usd": 0.0010926,
+      "latency_s": 4.25,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2269,
-      "output_tokens": 212,
-      "cost_usd": 0.0008715,
-      "latency_s": 2.4259846030035987,
-      "cost_role": "perceive"
+      "input_tokens": 2396,
+      "output_tokens": 398,
+      "cost_usd": 0.001077,
+      "latency_s": 23.40700000000652,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2269,
-      "output_tokens": 86,
-      "cost_usd": 0.0007580999999999999,
-      "latency_s": 2.1157909689936787,
-      "cost_role": "perceive"
+      "input_tokens": 2390,
+      "output_tokens": 452,
+      "cost_usd": 0.0011237999999999999,
+      "latency_s": 6.186999999990803,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1936,
-      "output_tokens": 91,
-      "cost_usd": 0.0006626999999999999,
-      "latency_s": 2.3284735579800326,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7778,
-      "output_tokens": 53,
-      "cost_usd": 0.007937,
-      "latency_s": 1.7428803119983058,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2453,
-      "output_tokens": 178,
-      "cost_usd": 0.0001899,
-      "latency_s": 2.771563710004557,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2516,
-      "output_tokens": 120,
-      "cost_usd": 0.00017976,
-      "latency_s": 2.095543640985852,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 8152,
-      "output_tokens": 260,
-      "cost_usd": 0.008932,
-      "latency_s": 2.1748790299752727,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "input_tokens": 2428,
+      "output_tokens": 422,
+      "cost_usd": 0.0011082,
+      "latency_s": 4.937999999994645,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1164,
-      "output_tokens": 44,
-      "cost_usd": 0.0003888,
-      "latency_s": 1.2959207800158765,
-      "cost_role": "verify"
+      "input_tokens": 1077,
+      "output_tokens": 28,
+      "cost_usd": 0.00034829999999999996,
+      "latency_s": 2.375,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1180,
-      "output_tokens": 38,
-      "cost_usd": 0.0003882,
-      "latency_s": 1.423198714008322,
-      "cost_role": "verify"
+      "input_tokens": 1838,
+      "output_tokens": 132,
+      "cost_usd": 0.0006701999999999999,
+      "latency_s": 2.3589999999967404,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1177,
-      "output_tokens": 52,
-      "cost_usd": 0.00039989999999999996,
-      "latency_s": 1.512251254025614,
-      "cost_role": "verify"
+      "input_tokens": 1077,
+      "output_tokens": 32,
+      "cost_usd": 0.0003519,
+      "latency_s": 2.610000000000582,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1175,
-      "output_tokens": 59,
-      "cost_usd": 0.00040560000000000005,
-      "latency_s": 1.385653892008122,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 8672,
-      "output_tokens": 284,
-      "cost_usd": 0.009524,
-      "latency_s": 1.6352386609942187,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 8674,
-      "output_tokens": 151,
-      "cost_usd": 0.009127,
-      "latency_s": 2.354301415994996,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "input_tokens": 1838,
+      "output_tokens": 436,
+      "cost_usd": 0.0009438,
+      "latency_s": 4.375,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 2093,
-      "output_tokens": 184,
-      "cost_usd": 0.0007935,
-      "latency_s": 2.3915006079769228,
-      "cost_role": "perceive"
+      "input_tokens": 1077,
+      "output_tokens": 30,
+      "cost_usd": 0.00035009999999999994,
+      "latency_s": 7.5,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1633,
-      "output_tokens": 96,
-      "cost_usd": 0.0005763,
-      "latency_s": 1.9644984559854493,
-      "cost_role": "perceive"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 9128,
-      "output_tokens": 76,
-      "cost_usd": 0.009356,
-      "latency_s": 1.626200400001835,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 8451,
-      "output_tokens": 42,
-      "cost_usd": 0.008577,
-      "latency_s": 1.7960838169965427,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1753,
-      "output_tokens": 52,
-      "cost_usd": 0.00011766,
-      "latency_s": 1.4072233249899,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1816,
-      "output_tokens": 45,
-      "cost_usd": 0.00011975999999999999,
-      "latency_s": 1.4015533900237642,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7802,
-      "output_tokens": 70,
-      "cost_usd": 0.008012,
-      "latency_s": 1.1568722910014912,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1167,
-      "output_tokens": 58,
-      "cost_usd": 0.00040229999999999997,
-      "latency_s": 1.533419713989133,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7867,
-      "output_tokens": 43,
-      "cost_usd": 0.007996,
-      "latency_s": 1.7380091169907246,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1602,
-      "output_tokens": 41,
-      "cost_usd": 0.00010596,
-      "latency_s": 1.2832977710058913,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7535,
-      "output_tokens": 44,
-      "cost_usd": 0.007667,
-      "latency_s": 1.5597815299988724,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1750,
-      "output_tokens": 53,
-      "cost_usd": 0.00011772,
-      "latency_s": 1.6542582479887642,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1813,
-      "output_tokens": 42,
-      "cost_usd": 0.00011886,
-      "latency_s": 1.3604970760061406,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7008,
-      "output_tokens": 67,
-      "cost_usd": 0.007209,
-      "latency_s": 1.0295392420084681,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6839,
-      "output_tokens": 41,
-      "cost_usd": 0.006962,
-      "latency_s": 1.50308992198552,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1602,
-      "output_tokens": 55,
-      "cost_usd": 0.00010931999999999999,
-      "latency_s": 1.415324037981918,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "fit",
-      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1665,
-      "output_tokens": 39,
-      "cost_usd": 0.00010926,
-      "latency_s": 1.2478237579925917,
-      "cost_role": "draft"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6763,
-      "output_tokens": 71,
-      "cost_usd": 0.006976,
-      "latency_s": 1.2383390780014452,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6872,
-      "output_tokens": 72,
-      "cost_usd": 0.007088,
-      "latency_s": 1.7691111919994,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "perceive",
-      "model": "nvidia/Nemotron-3.5-Super-VL",
-      "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1180,
-      "output_tokens": 44,
-      "cost_usd": 0.0003936,
-      "latency_s": 1.507188783987658,
-      "cost_role": "verify"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6915,
-      "output_tokens": 67,
-      "cost_usd": 0.007116,
-      "latency_s": 1.7965478289988823,
-      "base_url_host": "api.tokenfactory.nebius.com"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 6970,
-      "output_tokens": 70,
-      "cost_usd": 0.00718,
-      "latency_s": 1.8242823340115137,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "input_tokens": 1838,
+      "output_tokens": 153,
+      "cost_usd": 0.0006891,
+      "latency_s": 2.9060000000026776,
+      "cost_role": "timeline"
     },
     {
       "cached_tokens": 0,
       "stage": "edit",
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1879,
-      "output_tokens": 453,
-      "cost_usd": 0.003238,
-      "latency_s": 1.8620476269861683,
-      "cost_role": "translate"
-    },
-    {
-      "cached_tokens": 0,
-      "stage": "orchestrate",
-      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7200,
-      "output_tokens": 71,
-      "cost_usd": 0.007413,
-      "latency_s": 1.882914752990473,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "input_tokens": 4744,
+      "output_tokens": 1187,
+      "cost_usd": 0.008305,
+      "latency_s": 4.577999999994063,
+      "cost_role": "bible"
     },
     {
       "cached_tokens": 0,
       "stage": "perceive",
       "model": "nvidia/Nemotron-3.5-Super-VL",
       "base_url_host": "api.tokenfactory.nebius.com",
-      "input_tokens": 1178,
-      "output_tokens": 51,
-      "cost_usd": 0.00039929999999999995,
-      "latency_s": 1.4188951080141123,
+      "input_tokens": 2348,
+      "output_tokens": 156,
+      "cost_usd": 0.0008447999999999999,
+      "latency_s": 3.5930000000080327,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1428,
+      "output_tokens": 143,
+      "cost_usd": 0.0005571,
+      "latency_s": 2.985000000000582,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1154,
+      "output_tokens": 288,
+      "cost_usd": 0.0006054,
+      "latency_s": 4.031999999991967,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 8296,
+      "output_tokens": 526,
+      "cost_usd": 0.009874,
+      "latency_s": 4.234000000011292,
+      "cost_role": "script"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3038,
+      "output_tokens": 189,
+      "cost_usd": 0.0010815,
+      "latency_s": 18.406000000002678,
       "cost_role": "verify"
     },
     {
       "cached_tokens": 0,
-      "stage": "orchestrate",
+      "stage": "edit",
       "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
-      "input_tokens": 7260,
-      "output_tokens": 32,
-      "cost_usd": 0.007356,
-      "latency_s": 1.6075647249817848,
-      "base_url_host": "api.tokenfactory.nebius.com"
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 5028,
+      "output_tokens": 427,
+      "cost_usd": 0.006309,
+      "latency_s": 8.655999999988126,
+      "cost_role": "repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 5028,
+      "output_tokens": 439,
+      "cost_usd": 0.006345,
+      "latency_s": 1.937000000005355,
+      "cost_role": "repair"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2398,
+      "output_tokens": 153,
+      "cost_usd": 0.0008571000000000001,
+      "latency_s": 3.375,
+      "cost_role": "verify"
     }
   ],
   "cost_by_role": {
-    "orchestrator": 0.161436,
-    "scene": 0.0010524,
-    "perceive": 0.0083547,
-    "verify": 0.0027777,
-    "draft": 0.0014758199999999999,
-    "translate": 0.003238
+    "scene": 0.0023019,
+    "timeline": 0.014640299999999998,
+    "bible": 0.008305,
+    "script": 0.009874,
+    "tighten": 0,
+    "verify": 0.0019386,
+    "repair": 0.012654,
+    "hindi": 0
   },
   "billed_to": "nebius token factory",
-  "cost_per_minute_usd": 0.0972734290909091,
+  "cost_per_minute_usd": 0.027116618181818184,
   "agent_stats": {
     "tool_calls": {
-      "detect_speech_gaps": 1,
-      "inspect_video_segment": 10,
-      "draft_description": 6,
-      "propose_cue": 12,
+      "stage:gaps": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:zoom": 1,
+      "stage:bible": 1,
+      "stage:cast_look": 1,
+      "stage:relook": 1,
+      "stage:assign": 1,
+      "stage:script": 1,
       "verify_claim": 7,
-      "translate_hindi": 1,
-      "finalize": 1
+      "stage:verify": 1,
+      "stage:repair_1": 1,
+      "stage:repair_2": 1,
+      "stage:rescue": 1,
+      "stage:render": 1
     },
-    "corrections": 1,
+    "corrections": 0,
     "verifications": {
-      "verified": 4,
-      "contradicted": 1,
-      "unverified": 1
+      "verified": 6,
+      "contradicted": 0,
+      "unverified": 0
     },
     "repeat_refusals": 0,
     "auto_redrafts": 0,
-    "draft_overlimit": 11,
-    "orchestrator_authored_cues": 4,
-    "orchestrator_turns": 22,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 4,
     "cost_by_model": {
-      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.16467400000000001,
-      "nvidia/Nemotron-3.5-Super-VL": 0.0121848,
-      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 0.0014758199999999999
+      "nvidia/Nemotron-3.5-Super-VL": 0.018880799999999996,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.030833000000000003
     },
-    "total_latency_s": 114.90141830497305
+    "total_latency_s": 202.36000000000058
   },
-  "estimated_cost_usd": 0.17833462,
-  "would_be_token_factory_cost_usd": 0.17833462,
-  "reserved_spend_usd": 0.17833461999999992,
-  "cost_per_minute": 0.0972734290909091,
-  "latency_s": 114.90141830497305
+  "estimated_cost_usd": 0.0497138,
+  "would_be_token_factory_cost_usd": 0.0497138,
+  "reserved_spend_usd": 0.0497138,
+  "cost_per_minute": 0.027116618181818184,
+  "latency_s": 202.36000000000058
 }

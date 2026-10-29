@@ -1,0 +1,905 @@
+{
+  "mock": false,
+  "provider": "nebius",
+  "dev_only": false,
+  "duration_s": 30.0,
+  "fallback_finalize": false,
+  "issues": [],
+  "mode": "director",
+  "video_title": null,
+  "detector": "silero-onnx",
+  "speech_ratio": 0.4192,
+  "detector_fallback_reason": null,
+  "tts_wps_measured": {
+    "en": 3.51,
+    "hi": 5.2
+  },
+  "scene_context": {
+    "setting": "dark teal screen with yellow outline",
+    "activity": "title cards indicate cooking steps",
+    "dish": "",
+    "visual_style": "minimal text on solid background",
+    "people": [],
+    "ingredients": [],
+    "tools": [],
+    "objects": [],
+    "burned_in_subtitles": false,
+    "confidence": 0.8
+  },
+  "coverage": {
+    "narratable": 4,
+    "narrated": 4,
+    "silent_by_choice": 0,
+    "dropped": 0,
+    "too_short": 0,
+    "percent_of_narratable": 100,
+    "percent_excluding_silent_by_choice": 100,
+    "target_percent": 75,
+    "meets_target": true,
+    "silent": {}
+  },
+  "status": "complete",
+  "cues": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "director_words_en": 8,
+      "director_words_hi": 8,
+      "en": "A yellow rectangle moves across a dark teal screen.",
+      "evidence": [
+        "e4"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "director_words_en": 10,
+      "director_words_hi": 10,
+      "en": "The rectangle reaches the right edge and pauses.",
+      "evidence": [
+        "e5",
+        "e6"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "director_words_en": 10,
+      "director_words_hi": 10,
+      "en": "Text reads Stir and serve in the top left.",
+      "evidence": [
+        "e7",
+        "e8"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4,
+      "director_words_en": 4,
+      "director_words_hi": 4,
+      "en": "The rectangle moves leftward.",
+      "evidence": [
+        "e10"
+      ],
+      "verdict": "supported",
+      "tts_backend": {
+        "en": "PiperBackend"
+      }
+    }
+  ],
+  "tracks": {
+    "en": [
+      {
+        "id": 0,
+        "start": 4.668,
+        "end": 7.860744,
+        "duration": 4.039999999999998,
+        "narratable": true,
+        "word_budget_en": 8,
+        "word_budget_hi": 9,
+        "max_words_en": 7,
+        "max_words_hi": 8,
+        "director_words_en": 8,
+        "director_words_hi": 8,
+        "en": "A yellow rectangle moves across a dark teal screen.",
+        "evidence": [
+          "e4"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 1,
+        "start": 11.868,
+        "end": 14.724054,
+        "duration": 4.7440000000000015,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "director_words_en": 10,
+        "director_words_hi": 10,
+        "en": "The rectangle reaches the right edge and pauses.",
+        "evidence": [
+          "e5",
+          "e6"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 2,
+        "start": 19.932,
+        "end": 22.950594,
+        "duration": 4.776000000000003,
+        "narratable": true,
+        "word_budget_en": 9,
+        "word_budget_hi": 11,
+        "max_words_en": 8,
+        "max_words_hi": 10,
+        "director_words_en": 10,
+        "director_words_hi": 10,
+        "en": "Text reads Stir and serve in the top left.",
+        "evidence": [
+          "e7",
+          "e8"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      },
+      {
+        "id": 3,
+        "start": 27.387999999999998,
+        "end": 29.222375999999997,
+        "duration": 2.5320000000000036,
+        "narratable": true,
+        "word_budget_en": 4,
+        "word_budget_hi": 5,
+        "max_words_en": 4,
+        "max_words_hi": 4,
+        "director_words_en": 4,
+        "director_words_hi": 4,
+        "en": "The rectangle moves leftward.",
+        "evidence": [
+          "e10"
+        ],
+        "verdict": "supported",
+        "tts_backend": {
+          "en": "PiperBackend"
+        }
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": 0,
+      "start": 4.668,
+      "end": 8.707999999999998,
+      "duration": 4.039999999999998,
+      "narratable": true,
+      "word_budget_en": 8,
+      "word_budget_hi": 9,
+      "max_words_en": 7,
+      "max_words_hi": 8,
+      "director_words_en": 8,
+      "director_words_hi": 8
+    },
+    {
+      "id": 1,
+      "start": 11.868,
+      "end": 16.612000000000002,
+      "duration": 4.7440000000000015,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "director_words_en": 10,
+      "director_words_hi": 10
+    },
+    {
+      "id": 2,
+      "start": 19.932,
+      "end": 24.708000000000002,
+      "duration": 4.776000000000003,
+      "narratable": true,
+      "word_budget_en": 9,
+      "word_budget_hi": 11,
+      "max_words_en": 8,
+      "max_words_hi": 10,
+      "director_words_en": 10,
+      "director_words_hi": 10
+    },
+    {
+      "id": 3,
+      "start": 27.387999999999998,
+      "end": 29.92,
+      "duration": 2.5320000000000036,
+      "narratable": true,
+      "word_budget_en": 4,
+      "word_budget_hi": 5,
+      "max_words_en": 4,
+      "max_words_hi": 4,
+      "director_words_en": 4,
+      "director_words_hi": 4
+    }
+  ],
+  "speech": [
+    {
+      "start": 0.692,
+      "end": 4.588
+    },
+    {
+      "start": 8.787999999999998,
+      "end": 11.788
+    },
+    {
+      "start": 16.692,
+      "end": 19.852
+    },
+    {
+      "start": 24.788,
+      "end": 27.308
+    }
+  ],
+  "cues_committed": 4,
+  "cues_dropped": 0,
+  "dropped_gaps": {},
+  "gaps_skipped_no_new_info": [],
+  "overlaps_with_speech": 0,
+  "gap_coverage_percent": {
+    "en": 67.74650758140689
+  },
+  "high_importance_covered_percent": 100,
+  "events_in_speech_regions": {
+    "count": 0,
+    "events": [],
+    "note": "informational: important events while someone speaks; known to the writer as story context, may need extended AD"
+  },
+  "coverage_method": "event->gap assignment (midpoint / >=50% overlap); writer may skip gaps with nothing new",
+  "uncovered_events": [],
+  "bible": {
+    "setting": "dark teal screen with moving yellow rectangle and text cards",
+    "place": "title card screen",
+    "cast": [],
+    "objects": [
+      "yellow rectangular outline"
+    ],
+    "goal": "show cooking steps via title cards",
+    "story": "A title card announces a person entering a kitchen, then a yellow rectangle moves across a dark teal screen before a final card reads 'Stir and serve'.",
+    "beats": [
+      {
+        "t": 0.0,
+        "beat": "title card announces a person entering a kitchen",
+        "why": "sets up the cooking scenario",
+        "events": [
+          "e1"
+        ]
+      },
+      {
+        "t": 3.0,
+        "beat": "yellow rectangle begins moving across the screen",
+        "why": "visual progression between steps",
+        "events": [
+          "e3",
+          "e4",
+          "e5"
+        ]
+      },
+      {
+        "t": 14.0,
+        "beat": "rectangle pauses at right edge",
+        "why": "holds before next instruction",
+        "events": [
+          "e6"
+        ]
+      },
+      {
+        "t": 20.0,
+        "beat": "final instruction 'Stir and serve' appears",
+        "why": "completes the cooking step sequence",
+        "events": [
+          "e7",
+          "e8",
+          "e9",
+          "e10"
+        ]
+      }
+    ],
+    "names": [],
+    "look_for": [],
+    "on_screen_text": [
+      {
+        "t": 0.0,
+        "text": "A person enters a kitchen",
+        "kind": "title"
+      },
+      {
+        "t": 20.0,
+        "text": "Stir and serve",
+        "kind": "title"
+      }
+    ],
+    "subtitles_present": false,
+    "tone": "instructional, minimal",
+    "source": "model"
+  },
+  "timeline": [
+    {
+      "id": "e1",
+      "t_start": 0.0,
+      "t_end": 1.0,
+      "what": "A dark teal screen displays the white text 'A person enters a kitchen' in the upper left corner, with a small yellow rectangular outline in the lower left.",
+      "on_screen_text": "A person enters a kitchen",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "The title card appears at the start of the window.",
+      "gap_ids": []
+    },
+    {
+      "id": "e2",
+      "t_start": 1.0,
+      "t_end": 3.0,
+      "what": "The white text disappears, leaving only the dark teal background and the yellow rectangular outline in the lower left.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The title text is removed from the screen.",
+      "gap_ids": []
+    },
+    {
+      "id": "e3",
+      "t_start": 3.0,
+      "t_end": 6.0,
+      "what": "The yellow rectangular outline shifts slightly upward and to the right on the dark teal background.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 1,
+      "confidence": 0.9,
+      "change": "The yellow outline moves position on the screen.",
+      "gap_ids": []
+    },
+    {
+      "id": "e4",
+      "t_start": 6.0,
+      "t_end": 12.0,
+      "what": "The yellow rectangular outline continues to move toward the center of the dark teal screen.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The yellow outline continues its movement toward the center.",
+      "gap_ids": [
+        0
+      ]
+    },
+    {
+      "id": "e5",
+      "t_start": 12.0,
+      "t_end": 14.0,
+      "what": "The yellow rectangular outline reaches the right edge of the screen and stops moving.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The outline arrives at the right boundary, ending its motion.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e6",
+      "t_start": 14.0,
+      "t_end": 20.0,
+      "what": "The yellow rectangular outline remains stationary at the right edge of the dark teal screen.",
+      "on_screen_text": "",
+      "subtitle_text": "",
+      "importance": 1,
+      "confidence": 0.9,
+      "change": "No movement occurs; the outline stays fixed in place.",
+      "gap_ids": [
+        1
+      ]
+    },
+    {
+      "id": "e7",
+      "t_start": 20.0,
+      "t_end": 21.0,
+      "what": "The text 'Stir and serve' appears in the top left corner while the yellow rectangular outline remains on the right side of the dark teal screen.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 3,
+      "confidence": 0.9,
+      "change": "New text appears on screen.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e8",
+      "t_start": 21.0,
+      "t_end": 24.0,
+      "what": "The yellow rectangular outline stays stationary on the right side of the screen with the text 'Stir and serve' visible in the top left.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "No change in position or text.",
+      "gap_ids": [
+        2
+      ]
+    },
+    {
+      "id": "e9",
+      "t_start": 24.0,
+      "t_end": 27.0,
+      "what": "The yellow rectangular outline moves from the right side toward the center of the screen while the text 'Stir and serve' remains in the top left.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The yellow outline shifts leftward toward the center.",
+      "gap_ids": []
+    },
+    {
+      "id": "e10",
+      "t_start": 27.0,
+      "t_end": 30.0,
+      "what": "The yellow rectangular outline continues moving leftward across the screen, now positioned near the center-left, with the text 'Stir and serve' still visible.",
+      "on_screen_text": "Stir and serve",
+      "subtitle_text": "",
+      "importance": 2,
+      "confidence": 0.9,
+      "change": "The yellow outline continues its leftward movement.",
+      "gap_ids": [
+        3
+      ]
+    }
+  ],
+  "shots": [],
+  "windows": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      10.0,
+      20.0
+    ],
+    [
+      20.0,
+      30.0
+    ]
+  ],
+  "stages": [
+    {
+      "stage": "gaps",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.656,
+      "input": "Silero VAD speech intervals; slots <= max_slot_s; budgets from measured TTS",
+      "output": "4 narratable slots of 4, 4 long enough; detector silero-onnx; speech 42%; measured voice wps en 3.51 hi 5.2; English budgets at 2.6 words/s (natural narrator), fit judged by measured seconds"
+    },
+    {
+      "stage": "shots",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.11,
+      "input": "ffmpeg scene-change detection",
+      "output": "0 shot cuts; 3 perception windows of ~12 s 0-10s, 10-20s, 20-30s; est. Super VL timeline cost $0.0074 (upper bound from config prices)"
+    },
+    {
+      "stage": "scene",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2343,
+      "tokens_out": 87,
+      "cost_usd": 0.0007811999999999999,
+      "latency_s": 3.406,
+      "input": "Super VL on 6 stills across the clip",
+      "output": "setting: dark teal screen with yellow outline | activity: title cards indicate cooking steps"
+    },
+    {
+      "stage": "timeline",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 3,
+      "ultra_calls": 0,
+      "tokens_in": 6475,
+      "tokens_out": 1124,
+      "cost_usd": 0.0029541,
+      "latency_s": 10.328,
+      "input": "Super VL video windows covering the whole clip",
+      "output": "10 events from 3 windows ({'video': 3, 'absolute': 3}); 0 with subtitles (speech, never read)"
+    },
+    {
+      "stage": "bible",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 1726,
+      "tokens_out": 410,
+      "cost_usd": 0.002956,
+      "latency_s": 2.016,
+      "input": "scene + shots + timeline",
+      "output": "place: title card screen | setting: dark teal screen with moving yellow rectangle and text cards | cast: no recurring people | goal: show cooking steps via title cards | story: A title card announces a person entering a kitchen, then a yellow rectangle moves across a dark teal screen before a final card reads 'Stir and serve'. | 4 beats"
+    },
+    {
+      "stage": "assign",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.0,
+      "input": "midpoint / >=50% overlap; refuted excluded",
+      "output": "4 gaps carry a story beat; 6 of 10 events inside narratable gaps; 4 in speech (context only); per gap {0: 1, 1: 2, 2: 2, 3: 1}"
+    },
+    {
+      "stage": "script",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3-Ultra-550b-a55b"
+      ],
+      "calls": 1,
+      "ultra_calls": 1,
+      "tokens_in": 3163,
+      "tokens_out": 159,
+      "cost_usd": 0.00364,
+      "latency_s": 24.437,
+      "input": "bible + timeline + all gaps -> whole English track",
+      "output": "4 gaps scripted in one call: {'pending': 3, 'failed': 1}"
+    },
+    {
+      "stage": "tighten",
+      "ok": true,
+      "models": [
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 358,
+      "tokens_out": 49,
+      "cost_usd": 3.324e-05,
+      "latency_s": 18.656,
+      "input": "1 cues over budget only -> Nemotron Nano (no Ultra)",
+      "output": "over-budget cues shortened by Nano (one cue per call, up to 3 options, <= 2 attempts): {'pending': 1}"
+    },
+    {
+      "stage": "verify",
+      "ok": true,
+      "models": [
+        "nvidia/Nemotron-3.5-Super-VL"
+      ],
+      "calls": 1,
+      "ultra_calls": 0,
+      "tokens_in": 2941,
+      "tokens_out": 243,
+      "cost_usd": 0.001101,
+      "latency_s": 3.047,
+      "input": "4 cues, 2 stills each",
+      "output": "4 cues checked on stills inside their gaps: {'supported': 4}"
+    },
+    {
+      "stage": "render",
+      "ok": true,
+      "models": [],
+      "calls": 0,
+      "ultra_calls": 0,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cost_usd": 0,
+      "latency_s": 0.75,
+      "input": "TTS, ducking mix, VTT, transcripts",
+      "output": "4 cues rendered (en: 4); 0 gaps silent by choice"
+    }
+  ],
+  "cue_history": {
+    "0": [
+      {
+        "step": "script",
+        "text": "A yellow rectangle moves across a dark teal screen.",
+        "evidence": [
+          "e4"
+        ],
+        "problems": [],
+        "words": 9,
+        "words_claimed": 9
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show a yellow rectangle on a dark teal screen at 6.69 and 8.56 seconds, consistent with the rectangle moving across the screen."
+      }
+    ],
+    "1": [
+      {
+        "step": "script",
+        "text": "The rectangle reaches the right edge and pauses.",
+        "evidence": [
+          "e5",
+          "e6"
+        ],
+        "problems": [],
+        "words": 8,
+        "words_claimed": 8
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the yellow rectangle at the right edge of the screen at 13.0 and 16.46 seconds, consistent with reaching the right edge and pausing."
+      }
+    ],
+    "2": [
+      {
+        "step": "script",
+        "text": "Text reads Stir and serve in the top left.",
+        "evidence": [
+          "e7",
+          "e8"
+        ],
+        "problems": [],
+        "words": 9,
+        "words_claimed": 8
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the text \"Stir and serve\" in the top left at 20.5 and 22.5 seconds, matching the cue."
+      }
+    ],
+    "3": [
+      {
+        "step": "script",
+        "text": "The rectangle shifts leftward toward the center.",
+        "evidence": [
+          "e10"
+        ],
+        "problems": [
+          "over budget: 7 words, max 4. Fix: cut at least 3 words (keep the subject and the main action; drop a secondary action, colours or positions)"
+        ],
+        "words": 7,
+        "words_claimed": 7
+      },
+      {
+        "step": "tighten",
+        "text": "The rectangle moves leftward.",
+        "evidence": [
+          "e10"
+        ],
+        "problems": [],
+        "words": 4
+      },
+      {
+        "step": "commit",
+        "verdict": "supported",
+        "reason": "The frames show the yellow rectangle moving from the right side at 28.5 seconds to the left side at 29.29 seconds, consistent with moving leftward."
+      }
+    ]
+  },
+  "director_stats": {
+    "ultra_calls": 2,
+    "max_ultra_calls": 6,
+    "accepted_within_tolerance": 1,
+    "self_count_mismatch": 1,
+    "postcheck_failures": 1,
+    "length_failures": 1,
+    "tightened": 1,
+    "budget_use_percent": 96,
+    "verdicts": {
+      "supported": 4
+    },
+    "contradicted": 0,
+    "events": 10,
+    "events_refuted": 0
+  },
+  "usage": [
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2343,
+      "output_tokens": 87,
+      "cost_usd": 0.0007811999999999999,
+      "latency_s": 2.077999999994063,
+      "cost_role": "scene"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2105,
+      "output_tokens": 305,
+      "cost_usd": 0.000906,
+      "latency_s": 2.4060000000026776,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2185,
+      "output_tokens": 421,
+      "cost_usd": 0.0010344,
+      "latency_s": 2.25,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2185,
+      "output_tokens": 398,
+      "cost_usd": 0.0010137,
+      "latency_s": 5.2810000000026776,
+      "cost_role": "timeline"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 1726,
+      "output_tokens": 410,
+      "cost_usd": 0.002956,
+      "latency_s": 2.0159999999887077,
+      "cost_role": "bible"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "edit",
+      "model": "nvidia/Nemotron-3-Ultra-550b-a55b",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 3163,
+      "output_tokens": 159,
+      "cost_usd": 0.00364,
+      "latency_s": 1.3430000000080327,
+      "cost_role": "script"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "fit",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 358,
+      "output_tokens": 49,
+      "cost_usd": 3.324e-05,
+      "latency_s": 1.2660000000032596,
+      "cost_role": "tighten"
+    },
+    {
+      "cached_tokens": 0,
+      "stage": "perceive",
+      "model": "nvidia/Nemotron-3.5-Super-VL",
+      "base_url_host": "api.tokenfactory.nebius.com",
+      "input_tokens": 2941,
+      "output_tokens": 243,
+      "cost_usd": 0.001101,
+      "latency_s": 2.5469999999913853,
+      "cost_role": "verify"
+    }
+  ],
+  "cost_by_role": {
+    "scene": 0.0007811999999999999,
+    "timeline": 0.0029541,
+    "bible": 0.002956,
+    "script": 0.00364,
+    "tighten": 3.324e-05,
+    "verify": 0.001101,
+    "repair": 0,
+    "hindi": 0
+  },
+  "billed_to": "nebius token factory",
+  "cost_per_minute_usd": 0.02293108,
+  "agent_stats": {
+    "tool_calls": {
+      "stage:gaps": 1,
+      "stage:shots": 1,
+      "stage:scene": 1,
+      "stage:timeline": 1,
+      "stage:bible": 1,
+      "stage:assign": 1,
+      "stage:script": 1,
+      "stage:tighten": 1,
+      "verify_claim": 4,
+      "stage:verify": 1,
+      "stage:render": 1
+    },
+    "corrections": 0,
+    "verifications": {
+      "verified": 4,
+      "contradicted": 0,
+      "unverified": 0
+    },
+    "repeat_refusals": 0,
+    "auto_redrafts": 0,
+    "draft_overlimit": 0,
+    "orchestrator_authored_cues": 0,
+    "orchestrator_turns": 2,
+    "cost_by_model": {
+      "nvidia/Nemotron-3.5-Super-VL": 0.0048363,
+      "nvidia/Nemotron-3-Ultra-550b-a55b": 0.006595999999999999,
+      "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": 3.324e-05
+    },
+    "total_latency_s": 69.82799999999406
+  },
+  "estimated_cost_usd": 0.01146554,
+  "would_be_token_factory_cost_usd": 0.01146554,
+  "reserved_spend_usd": 0.011465540000000003,
+  "cost_per_minute": 0.02293108,
+  "latency_s": 69.82799999999406
+}

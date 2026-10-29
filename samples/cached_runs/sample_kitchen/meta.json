@@ -1,11 +1,17 @@
 {
   "title": "Sample kitchen",
-  "input_path": "samples/sample_kitchen.mp4",
+  "input_path": "samples\\sample_kitchen.mp4",
   "source": "Self-generated with scripts/make_sample.py",
   "license": "Apache-2.0",
   "attribution": "Narrate contributors",
   "notes": "Synthetic shapes, captions, espeak; no filmed kitchen",
   "provider": "nebius",
   "dev_only": false,
-  "date": "2026-10-28"
+  "date": "2026-10-29",
+  "language": "en",
+  "voice": "Piper en_US-ljspeech-medium (public domain)",
+  "modes": [
+    "ingap",
+    "extended"
+  ]
 }
